@@ -33,6 +33,7 @@ model TwoUTube "Double U-tube borehole heat exchanger"
          then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
     each final m4_flow_small=if borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
          then borFieDat.conDat.mBor_flow_small/2 else borFieDat.conDat.mBor_flow_small,
+    each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     each final allowFlowReversal1=allowFlowReversal,
     each final allowFlowReversal2=allowFlowReversal,
@@ -173,11 +174,11 @@ equation
           textString="")}),
     Documentation(info="<html>
 <p>
-Model of a double U-tube borehole heat exchanger.
+Model of a double U-tube borehole heat exchanger. 
 The borehole heat exchanger is vertically discretized into
 <i>n<sub>seg</sub></i> elements of height
 <i>h=h<sub>Bor</sub>&frasl;n<sub>seg</sub></i>.
-Each segment contains a model for the heat transfer in the borehole,
+Each segment contains a model for the heat transfer in the borehole, 
 with a uniform borehole wall boundary temperature given by the
 <code>port_wall</code> port.
 </p>
@@ -186,16 +187,10 @@ The heat transfer in the borehole is computed using a convective heat transfer
 coefficient that depends on the fluid velocity, a heat resistance between each
 pair of pipes, and a heat resistance between the pipes and the borehole wall.
 The heat capacity of the fluid and the heat capacity of the grout are taken
-into account. The vertical heat flow is assumed to be zero.
+into account. The vertical heat flow is assumed to be zero. 
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 17, 2024, by Michael Wetter:<br/>
-Updated model due to removal of parameter <code>dynFil</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
-</li>
 <li>
 July 2018, by Alex Laferri&egrave;re:<br/>
 Following major changes to the structure of the Buildings.Fluid.HeatExchangers.Ground package,

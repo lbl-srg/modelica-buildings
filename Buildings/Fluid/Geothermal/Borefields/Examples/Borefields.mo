@@ -13,6 +13,7 @@ model Borefields
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
+    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
@@ -45,8 +46,6 @@ model Borefields
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
-    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
-    steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
@@ -55,6 +54,7 @@ model Borefields
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubSerDat,
     tLoaAgg=tLoaAgg,
+    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
@@ -88,8 +88,6 @@ model Borefields
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubParDat(
-    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
-    steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
@@ -98,6 +96,7 @@ model Borefields
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
     tLoaAgg=tLoaAgg,
+    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
@@ -130,8 +129,6 @@ model Borefields
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubSerDat(
-      filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
-        steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"
@@ -173,12 +170,6 @@ the thermal behaviour of the circulating fluid in each case.
 </html>",
 revisions="<html>
 <ul>
-<li>
-May 17, 2024, by Michael Wetter:<br/>
-Updated model due to removal of parameter <code>dynFil</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
-</li>
 <li>
 April 8, 2021, by Michael Wetter:<br/>
 Added missing <code>parameter</code> keyword.<br/>

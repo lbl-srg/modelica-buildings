@@ -37,6 +37,9 @@ partial model PartialBorehole
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
 
+  parameter Boolean dynFil=true
+      "Set to false to remove the dynamics of the filling material"
+      annotation (Dialog(tab="Dynamics"));
   parameter Data.Borefield.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -51,12 +54,6 @@ as several borehole segments, with a uniform borehole wall boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 17, 2024, by Michael Wetter:<br/>
-Updated model due to removal of parameter <code>dynFil</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
-</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.

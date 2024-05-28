@@ -14,6 +14,9 @@ partial model PartialInternalResistances
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+  parameter Boolean dynFil=true
+      "Set to false to remove the dynamics of the filling material."
+      annotation (Dialog(tab="Dynamics"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_1
     "Thermal connection for pipe 1"
@@ -24,7 +27,6 @@ partial model PartialInternalResistances
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_2
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -61,12 +63,6 @@ segment).
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-May 17, 2024, by Michael Wetter:<br/>
-Updated model due to removal of parameter <code>dynFil</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
-</li>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation of partial class.

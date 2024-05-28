@@ -12,11 +12,3 @@ convertClass("Buildings.Templates.Plants.Controls.Utilities.SortWithIndices",
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3604
 convertClass("Buildings.Fluid.SolarCollectors",
              "Buildings.Obsolete.Fluid.SolarCollectors");
-
-// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1885
-convertModifiers("Buildings.Fluid.Geothermal.Borefields.BaseClasses.PartialBorefield",
-                {"dynFil"}, fill("",0), true);
-convertModifiers("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube",
-                {"dynFil"}, fill("",0), true);
-convertModifiers("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube",
-                {"dynFil"}, fill("",0), true);
