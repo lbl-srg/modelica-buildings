@@ -798,11 +798,7 @@ This is to avoid the initial edge.")}),
         Text(
           extent={{50,-182},{98,-196}},
           textColor={255,0,255},
-          textString="yEndStaTri"),
-        Text(
-          extent={{-100,146},{-60,134}},
-          textColor={255,0,255},
-          textString="endPro")}),
+          textString="yEndStaTri")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-up command. This sequence is for

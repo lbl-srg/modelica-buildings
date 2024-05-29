@@ -38,7 +38,7 @@ block ResetMinBypass
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yMinBypRes
     "True: minimum chilled water flow bypass valve has been resetted successfully"
-    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
+    annotation (Placement(transformation(extent={{160,-120},{200,-80}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -82,16 +82,16 @@ protected
     "Not in the setpoint changing process"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 "Logical and"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not notChaSet1
     "Not in the setpoint changing process"
-    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Minimum flow valve should not be changed"
-    annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Check if the valve is being changed"
-    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Edge when the valve has been resetted successfully"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -103,6 +103,9 @@ protected
     final h=0.5*relFloDif)
     "Check if chiller water flow rate achieves the minimum flow setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg4
+    "Not in the setpoint changing process"
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 equation
   connect(uUpsDevSta, and2.u1)
@@ -147,27 +150,22 @@ equation
     annotation (Line(points={{62,-8},{78,-8}}, color={255,0,255}));
   connect(uSetChaPro, notChaSet.u)
     annotation (Line(points={{-180,-110},{-122,-110}}, color={255,0,255}));
-  connect(and2.y, and6.u1) annotation (Line(points={{-58,120},{-10,120},{-10,-80},
-          {-2,-80}}, color={255,0,255}));
+  connect(and2.y, and6.u1) annotation (Line(points={{-58,120},{-10,120},{-10,-40},
+          {-2,-40}}, color={255,0,255}));
   connect(notChaSet.y, and6.u2) annotation (Line(points={{-98,-110},{-10,-110},{
-          -10,-88},{-2,-88}}, color={255,0,255}));
+          -10,-48},{-2,-48}}, color={255,0,255}));
   connect(and6.y, notChaSet1.u)
-    annotation (Line(points={{22,-80},{38,-80}}, color={255,0,255}));
-  connect(notChaSet1.y, or2.u1)
-    annotation (Line(points={{62,-80},{78,-80}}, color={255,0,255}));
+    annotation (Line(points={{22,-40},{38,-40}}, color={255,0,255}));
   connect(and1.y, and4.u1) annotation (Line(points={{142,120},{150,120},{150,40},
           {70,40},{70,0},{78,0}}, color={255,0,255}));
   connect(and4.y, edg.u)
     annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
-  connect(edg.y, or2.u2) annotation (Line(points={{142,0},{150,0},{150,-40},{70,
-          -40},{70,-88},{78,-88}}, color={255,0,255}));
   connect(or2.y, lat1.u)
-    annotation (Line(points={{102,-80},{118,-80}}, color={255,0,255}));
-  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-130},{110,-130},{110,
-          -86},{118,-86}},
-                      color={255,0,255}));
+    annotation (Line(points={{102,-100},{118,-100}}, color={255,0,255}));
+  connect(edg3.y, lat1.clr) annotation (Line(points={{62,-130},{110,-130},{110,-106},
+          {118,-106}},color={255,0,255}));
   connect(lat1.y, yMinBypRes)
-    annotation (Line(points={{142,-80},{180,-80}}, color={255,0,255}));
+    annotation (Line(points={{142,-100},{180,-100}}, color={255,0,255}));
   connect(abs.y, div.u1) annotation (Line(points={{-58,0},{-50,0},{-50,-20},{-110,
           -20},{-110,-44},{-102,-44}}, color={0,0,127}));
   connect(div.y, lesThr.u)
@@ -176,6 +174,12 @@ equation
           {-2,-8}}, color={255,0,255}));
   connect(uStaPro, edg3.u) annotation (Line(points={{-180,80},{-30,80},{-30,
           -130},{38,-130}}, color={255,0,255}));
+  connect(notChaSet1.y, edg4.u)
+    annotation (Line(points={{62,-40},{78,-40}}, color={255,0,255}));
+  connect(edg4.y, or2.u2) annotation (Line(points={{102,-40},{110,-40},{110,-60},
+          {60,-60},{60,-108},{78,-108}}, color={255,0,255}));
+  connect(edg.y, or2.u1) annotation (Line(points={{142,0},{150,0},{150,-70},{70,
+          -70},{70,-100},{78,-100}}, color={255,0,255}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

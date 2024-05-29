@@ -847,11 +847,7 @@ annotation (
         Text(
           extent={{50,-180},{98,-194}},
           textColor={255,0,255},
-          textString="yEndStaTri"),
-        Text(
-          extent={{-100,158},{-60,146}},
-          textColor={255,0,255},
-          textString="endPro")}),
+          textString="yEndStaTri")}),
 Documentation(info="<html>
 <p>
 Block that controls devices when there is a stage-down command. This sequence is for
