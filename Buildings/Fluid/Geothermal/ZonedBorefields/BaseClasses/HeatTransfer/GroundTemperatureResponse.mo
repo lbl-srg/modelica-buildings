@@ -29,6 +29,26 @@ protected
   // Adjust the timFin parameter for simulation that span more than 50 years
   constant Modelica.Units.SI.Time timFin=50.*8760.*3600.
     "Final time for g-function calculation";
+  constant Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+
+
+  parameter String SHAgfun=
+    Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.shaKappa(
+      nBor=borFieDat.conDat.nBor,
+      cooBor=borFieDat.conDat.cooBor,
+      hBor=borFieDat.conDat.hBor,
+      dBor=borFieDat.conDat.dBor,
+      rBor=borFieDat.conDat.rBor,
+      aSoi=borFieDat.soiDat.aSoi,
+      kSoi=borFieDat.soiDat.kSoi,
+      nSeg=nSeg,
+      nZon=borFieDat.conDat.nZon,
+      iZon=borFieDat.conDat.iZon,
+      nBorPerZon=borFieDat.conDat.nBorPerZon,
+      nu=nu,
+      nTim=i,
+      relTol=relTol) "String with encrypted g-function arguments";
+
   final parameter Integer nSegTot = nZon * nSeg
     "Total number of segments";
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
@@ -102,7 +122,9 @@ initial equation
       iZon=borFieDat.conDat.iZon,
       nBorPerZon=borFieDat.conDat.nBorPerZon,
       nu=nu,
-      nTim=i);
+      nTim=i,
+      relTol=relTol,
+      sha="fixme");
 
   dTStepdt = {kappa[i,i,1]/tLoaAgg for i in 1:nSegTot};
 

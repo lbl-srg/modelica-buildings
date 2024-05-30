@@ -17,7 +17,8 @@ model TemperatureResponseMatrix
       iZon={1, 2, 1},
       nBorPerZon={2, 1},
       nu={300, 3600, 86400, 604800, 2592000, 31536000, 315360000},
-      nTim=7) "Resulting temperature response matrix";
+      nTim=7,
+      sha="TemperatureResponseMatrix_zonedBorefield_validation") "Resulting temperature response matrix";
 
 annotation (experiment(StopTime=1,Tolerance=1e-6),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/BaseClasses/HeatTransfer/Validation/TemperatureResponseMatrix.mos"

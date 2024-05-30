@@ -19,10 +19,12 @@ function temperatureResponseMatrix
   input Modelica.Units.SI.Time nu[nTim] "Time vector for the calculation of thermal response factors";
   input Integer nTim "Length of the time vector";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
+  input String sha "SHA-1 encryption of the arguments of this function";
 
   output Modelica.Units.SI.ThermalResistance kappa[nZon*nSeg,nZon*nSeg,nTim] "Thermal response factor matrix";
 
 protected
+  String pathSave "Path of the folder used to save the temperature response matrix";
   Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
   Integer n_max = max(nBorPerZon.*nBorPerZon);
   Modelica.Units.SI.Distance dis[nZon,nZon,n_max] "Separation distance between boreholes";
@@ -40,127 +42,153 @@ protected
   Boolean found "Flag, true if a cluster has been found";
 
 algorithm
-  // ---------------------------------------------
-  // Distances between borehole in different zones
-  // ---------------------------------------------
-  n_dis := zeros(nZon,nZon);
-  wDis := zeros(nZon,nZon,n_max);
-  for i in 1:nBor loop
-    for j in i:nBor loop
-      // Distance between boreholes
-      if i <> j then
-        dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
-      else
-        dis_ij := rLin;
-      end if;
-      found := false;
-      for n in 1:n_dis[iZon[i],iZon[j]] loop
-        if abs(dis_ij - dis[iZon[i],iZon[j],n]) / dis[iZon[i],iZon[j],n] < relTol then
-          wDis[iZon[i],iZon[j],n] := wDis[iZon[i],iZon[j],n] + 1;
-          found := true;
-          if i <> j then
-            wDis[iZon[j],iZon[i],n] := wDis[iZon[j],iZon[i],n] + 1;
+  pathSave := "tmp/temperatureResponseMatrix/" + sha + "kappa.mat";
+
+  if not Modelica.Utilities.Files.exist(pathSave) then
+    // ---------------------------------------------
+    // Distances between borehole in different zones
+    // ---------------------------------------------
+    n_dis := zeros(nZon,nZon);
+    wDis := zeros(nZon,nZon,n_max);
+    for i in 1:nBor loop
+      for j in i:nBor loop
+        // Distance between boreholes
+        if i <> j then
+          dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
+        else
+          dis_ij := rLin;
+        end if;
+        found := false;
+        for n in 1:n_dis[iZon[i],iZon[j]] loop
+          if abs(dis_ij - dis[iZon[i],iZon[j],n]) / dis[iZon[i],iZon[j],n] < relTol then
+            wDis[iZon[i],iZon[j],n] := wDis[iZon[i],iZon[j],n] + 1;
+            found := true;
+            if i <> j then
+              wDis[iZon[j],iZon[i],n] := wDis[iZon[j],iZon[i],n] + 1;
+            end if;
+            break;
           end if;
-          break;
+        end for;
+        if not found then
+          n_dis[iZon[i],iZon[j]] := n_dis[iZon[i],iZon[j]] + 1;
+          wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] + 1;
+          dis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := dis_ij;
+          if i <> j then
+            n_dis[iZon[j],iZon[i]] := n_dis[iZon[j],iZon[i]] + 1;
+            wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] + 1;
+            dis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := dis_ij;
+          end if;
         end if;
       end for;
-      if not found then
-        n_dis[iZon[i],iZon[j]] := n_dis[iZon[i],iZon[j]] + 1;
-        wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := wDis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] + 1;
-        dis[iZon[i],iZon[j],n_dis[iZon[i],iZon[j]]] := dis_ij;
-        if i <> j then
-          n_dis[iZon[j],iZon[i]] := n_dis[iZon[j],iZon[i]] + 1;
-          wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := wDis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] + 1;
-          dis[iZon[j],iZon[i],n_dis[iZon[j],iZon[i]]] := dis_ij;
-        end if;
-      end if;
     end for;
-  end for;
 
-  // ----------------------------------
-  // Matrix of thermal response factors
-  // ----------------------------------
-  // Evaluate thermal response matrix at all times
-  for k in 1:nTim loop
-    for i in 1:nZon loop
-      for j in i:nZon loop
-        // Evaluate Real and Mirror parts of FLS solution
-        // Real part
-        for m in 1:nSeg loop
-          hSegRea[m] :=
-            Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
-              nu[k],
-              aSoi,
-              dis[i,j,1:n_dis[i,j]],
-              wDis[i,j,1:n_dis[i,j]],
-              hBor/nSeg,
-              dBor,
-              hBor/nSeg,
-              dBor + (m - 1)*hBor/nSeg,
-              nBorPerZon[i],
-              n_dis[i,j],
-              includeMirrorSource=false);
-        end for;
-        // Mirror part
-        for m in 1:(2*nSeg-1) loop
-          hSegMir[m] :=
-            Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
-              nu[k],
-              aSoi,
-              dis[i,j,1:n_dis[i,j]],
-              wDis[i,j,1:n_dis[i,j]],
-              hBor/nSeg,
-              dBor,
-              hBor/nSeg,
-              dBor + (m - 1)*hBor/nSeg,
-              nBorPerZon[i],
-              n_dis[i,j],
-              includeRealSource=false);
-        end for;
-        // Add thermal response factor to coefficient matrix A
-        for u in 1:nSeg loop
-          for v in 1:nSeg loop
-            kappa[(i-1)*nSeg+u,(j-1)*nSeg+v,k] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
-            kappa[(j-1)*nSeg+v,(i-1)*nSeg+u,k] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * nBorPerZon[i] / nBorPerZon[j];
+    // ----------------------------------
+    // Matrix of thermal response factors
+    // ----------------------------------
+    // Evaluate thermal response matrix at all times
+    for k in 1:nTim loop
+      for i in 1:nZon loop
+        for j in i:nZon loop
+          // Evaluate Real and Mirror parts of FLS solution
+          // Real part
+          for m in 1:nSeg loop
+            hSegRea[m] :=
+              Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
+                nu[k],
+                aSoi,
+                dis[i,j,1:n_dis[i,j]],
+                wDis[i,j,1:n_dis[i,j]],
+                hBor/nSeg,
+                dBor,
+                hBor/nSeg,
+                dBor + (m - 1)*hBor/nSeg,
+                nBorPerZon[i],
+                n_dis[i,j],
+                includeMirrorSource=false);
+          end for;
+          // Mirror part
+          for m in 1:(2*nSeg-1) loop
+            hSegMir[m] :=
+              Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
+                nu[k],
+                aSoi,
+                dis[i,j,1:n_dis[i,j]],
+                wDis[i,j,1:n_dis[i,j]],
+                hBor/nSeg,
+                dBor,
+                hBor/nSeg,
+                dBor + (m - 1)*hBor/nSeg,
+                nBorPerZon[i],
+                n_dis[i,j],
+                includeRealSource=false);
+          end for;
+          // Add thermal response factor to coefficient matrix A
+          for u in 1:nSeg loop
+            for v in 1:nSeg loop
+              kappa[(i-1)*nSeg+u,(j-1)*nSeg+v,k] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
+              kappa[(j-1)*nSeg+v,(i-1)*nSeg+u,k] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * nBorPerZon[i] / nBorPerZon[j];
+            end for;
           end for;
         end for;
       end for;
     end for;
-  end for;
 
-  // -----------------------------------
-  // Correction for cylindrical geometry
-  // -----------------------------------
-  for k in 1:nTim loop
-    // Infinite line source
-    ILS := 0.5*
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource(
-      nu[k],
-      aSoi,
-      rLin);
-    // Cylindrical heat source
-    CHS := 2*Modelica.Constants.pi*
-      Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
-      nu[k],
-      aSoi,
-      rBor,
-      rBor);
-    // Apply to all terms along the diagonal (i.e. the impact on the segments
-    // on themselves)
-    for i in 1:nZon loop
-      for u in 1:nSeg loop
-        kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] := kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] + (CHS - ILS);
+    // -----------------------------------
+    // Correction for cylindrical geometry
+    // -----------------------------------
+    for k in 1:nTim loop
+      // Infinite line source
+      ILS := 0.5*
+        Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource(
+          nu[k],
+          aSoi,
+          rLin);
+      // Cylindrical heat source
+      CHS := 2*Modelica.Constants.pi*
+        Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.cylindricalHeatSource(
+          nu[k],
+          aSoi,
+          rBor,
+          rBor);
+      // Apply to all terms along the diagonal (i.e. the impact on the segments
+      // on themselves)
+      for i in 1:nZon loop
+        for u in 1:nSeg loop
+          kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] := kappa[(i-1)*nSeg+u,(i-1)*nSeg+u,k] + (CHS - ILS);
+        end for;
       end for;
     end for;
-  end for;
 
-  // -----------------------------------------------------
-  // Incremental (dimensional) temperature response factor
-  // -----------------------------------------------------
-  for k in 1:nTim-1 loop
-    kappa[:,:,nTim-k+1] := (kappa[:,:,nTim-k+1] - kappa[:,:,nTim-k]) / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
+    // -----------------------------------------------------
+    // Incremental (dimensional) temperature response factor
+    // -----------------------------------------------------
+    for k in 1:nTim-1 loop
+      kappa[:,:,nTim-k+1] := (kappa[:,:,nTim-k+1] - kappa[:,:,nTim-k]) / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
+    end for;
+    kappa[:,:,1] := kappa[:,:,1] / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
+
+    //creation of a temporary folder in the simulation folder
+    Modelica.Utilities.Files.createDirectory("tmp");
+    Modelica.Utilities.Files.createDirectory("tmp/temperatureResponseMatrix");
+
+    for i in 1:nZon*nSeg loop
+      assert(Modelica.Utilities.Streams.writeRealMatrix(
+        fileName=pathSave,
+        matrixName="kappa_" + String(i),
+        matrix=kappa[i, :, :],
+        append=true),
+        "In " + getInstanceName() +": Writing kappa.mat failed.");
+    end for;
+  end if;
+
+  for i in 1:nZon*nSeg loop
+    kappa[i,:,:] := Modelica.Utilities.Streams.readRealMatrix(
+      fileName=pathSave,
+      matrixName="kappa_" + String(i),
+      nrow=nZon*nSeg,
+      ncol=nTim,
+      verboseRead=false);
   end for;
-  kappa[:,:,1] := kappa[:,:,1] / (2*Modelica.Constants.pi*hBor/nSeg*kSoi);
 
 annotation (
 Documentation(info="<html>
