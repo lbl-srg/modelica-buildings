@@ -19,7 +19,7 @@ Buildings.Fluid.Geothermal.ZonedBorefields.Validation</a>,
 respectively.
 </p>
 <p>
-The major features and configurations currently supported are:
+The major features and configurations are as follows:
 <ul>
 <li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.),
 including single U-tube, double U-tube in parallel and double U-tube in series configurations.
@@ -207,10 +207,7 @@ Further information on the
 ground heat transfer model and the thermal temperature response calculations can
 be found in
 <a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse\">
-Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>
-and
-<a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction\">
-Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction</a>.
+Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</a>.
 </p>
 <h4>Calculation times</h4>
 <p>
