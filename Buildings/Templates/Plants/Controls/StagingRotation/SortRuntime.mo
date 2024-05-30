@@ -43,7 +43,7 @@ block SortRuntime
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1Res[nEquAlt](
     each k=false) "Signal for staging runtime reset"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Utilities.SortWithIndices sor(
+  Buildings.Controls.OBC.CDL.Reals.Sort sor(
     final ascending=true,
     nin=nEquAlt)
     "Sort equipment by increasing weighted runtime"
@@ -291,8 +291,8 @@ Note that the staging runtime and the time elapsed since an equipment became una
 are both computed from Boolean signals (<code>u1Run</code> and <code>u1Ava</code>).
 These are discrete-time, piecewise constant variables,
 which is why the caveat in the documentation of
-<a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.SortWithIndices\">
-Buildings.Templates.Plants.Controls.Utilities.SortWithIndices</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sort\">
+Buildings.Controls.OBC.CDL.Reals.Sort</a>
 for purely continuous time-varying variables does not apply here.
 Therefore, no sampling is performed before sorting the equipment runtimes.
 </p>
