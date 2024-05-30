@@ -21,27 +21,15 @@ model ComparePower
       T=Medium.T_default,
       X=Medium.X_default) "Default medium density";
 
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y mov1(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
-    use_inputFilter=false)
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine mov1
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     "Mover (fan or pump)"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y mov2(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
-    use_inputFilter=false)
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine mov2
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     "Mover (fan or pump)"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  replaceable Buildings.Fluid.Movers.SpeedControlled_y mov3(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    addPowerToMedium=false,
-    use_inputFilter=false)
+  replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine mov3
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     "Mover (fan or pump)"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
@@ -96,8 +84,6 @@ equation
   connect(sou.ports[1], mov1.port_a)
     annotation (Line(points={{-80,-1.33333},{-80,40},{-40,40}},
                                                          color={0,127,255}));
-  connect(ramSpe.y, mov1.y)
-    annotation (Line(points={{-59,80},{-30,80},{-30,52}}, color={0,0,127}));
   connect(sou.ports[2], mov2.port_a)
     annotation (Line(points={{-80,0},{-80,-20},{-40,-20}}, color={0,127,255}));
   connect(sou.ports[3], mov3.port_a) annotation (Line(points={{-80,1.33333},{-78,

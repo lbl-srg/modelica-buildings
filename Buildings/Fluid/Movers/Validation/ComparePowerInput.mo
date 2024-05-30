@@ -6,7 +6,12 @@ model ComparePowerInput
     redeclare Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15 per(
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
       motorEfficiency(V_flow={0}, eta={0.7})),
-    mov1(per=per),
+    redeclare Buildings.Fluid.Movers.SpeedControlled_y mov1(
+      redeclare final package Medium = Medium,
+      per=per,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      addPowerToMedium=false,
+      use_inputFilter=false),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp mov2(
       redeclare final package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -35,6 +40,8 @@ equation
     annotation (Line(points={{-39,0},{-30,0},{-30,-8}}, color={0,0,127}));
   connect(exp_m_flow.y, mov3.m_flow_in)
     annotation (Line(points={{-37,-50},{-30,-50},{-30,-58}}, color={0,0,127}));
+  connect(ramSpe.y, mov1.y)
+    annotation (Line(points={{-59,80},{-30,80},{-30,52}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ComparePowerInput.mos"
         "Simulate and plot"),
