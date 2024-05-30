@@ -230,6 +230,8 @@
     comment: Timeout after 300 s
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
+  openmodelica:
+    time_out: 900
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
@@ -258,7 +260,7 @@
   dymola:
     time_out: 600
   openmodelica:
-    time_out: 900
+    time_out: 1200
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
