@@ -27,8 +27,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=2) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.075,
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(final width=0.05,
     final period=1500) "Boolean pulse"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow "Stage down command"
@@ -116,7 +115,7 @@ equation
   connect(booPul.y,staDow. u)
     annotation (Line(points={{-118,130},{-102,130}}, color={255,0,255}));
   connect(yOpeParLoaRatMin.y, dowProCon.yOpeParLoaRatMin)
-    annotation (Line(points={{-118,20},{-58,20},{-58,84},{38,84}},
+    annotation (Line(points={{-118,20},{-58,20},{-58,83},{38,83}},
       color={0,0,127}));
   connect(dowProCon.yChi, pre2.u)
     annotation (Line(points={{62,82},{94,82},{94,40},{98,40}},
@@ -131,7 +130,7 @@ equation
     annotation (Line(points={{-118,-60},{-100,-60},{-100,-48},{-62,-48}},
       color={0,0,127}));
   connect(swi1.y, dowProCon.uChiLoa)
-    annotation (Line(points={{-38,-40},{-30,-40},{-30,82},{38,82}},
+    annotation (Line(points={{-38,-40},{-30,-40},{-30,81},{38,81}},
       color={0,0,127}));
   connect(pre2.y, dowProCon.uChi)
     annotation (Line(points={{122,40},{140,40},{140,0},{-28,0},{-28,79},{38,79}},
@@ -232,6 +231,43 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down</a>.
 </p>
+<p>
+It shows a process of staging down from stage 2 which requires chiller 1 and chiller 2
+being enabled to stage 1 which requires only chiller 1 being enabled.
+</p>
+<ul>
+<li>
+In stage 2, the design condenser water pump speed is 0.6 and it requires 2
+condenser water pumps. The maximum and minimum chilled water flow for chiller 1
+and 2 are 1.5 m3/s and 1.0 m3/s.
+</li>
+<li>
+In stage 1, the design condenser water pump speed is 0.75 and it requires 1 condenser
+water pump. The maximum and minimum chilled water flow for chiller 1 are 1.0 m3/s
+and 0.5 m3/s.
+</li>
+</ul>
+<p>
+It demonstrates process as below:
+</p>
+<ul>
+<li>
+Before 75 seconds, the plant is not in the staging process.
+</li>
+<li>
+At 75 seconds, the plant starts staging down from stage 2 to stage 1. The chiller
+2 becomes disabled (<code>uChiLoa[2]=0</code>). Its head pressure control becomes
+disabled (<code>yChiHeaCon[2]=false</code>).
+It then slowly close chilled water isolation valve of chiller 1. This takes 300
+seconds (<code>chaChiWatIsoTim</code>) and finish the process at 375 seconds.
+</li>
+<li>
+After the isolation being closed at 375 seconds, it slowly changes the minimum
+chilled water flow setpoint from 2 m3/s (for both chiller 1 and 2 operation) to
+1 m3/s (for only chiller 1 operation). It takes 300 seconds (<code>byPasSetTim</code>)
+to finish the change at 675 seconds. The staging process is done.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

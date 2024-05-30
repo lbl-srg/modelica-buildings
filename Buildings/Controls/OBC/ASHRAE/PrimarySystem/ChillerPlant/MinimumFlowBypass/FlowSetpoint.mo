@@ -304,7 +304,7 @@ protected
     annotation (Placement(transformation(extent={{22,-490},{42,-470}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Setpoint being set"
-    annotation (Placement(transformation(extent={{160,-450},{180,-430}})));
+    annotation (Placement(transformation(extent={{120,-450},{140,-430}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Check if the setpoint is being changed"
     annotation (Placement(transformation(extent={{240,-450},{260,-430}})));
@@ -327,6 +327,9 @@ protected
     "End staging change"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
 
+  CDL.Logical.Edge                        staChaSet1
+    "Start changing the setpoint"
+    annotation (Placement(transformation(extent={{180,-450},{200,-430}})));
 equation
   connect(uStaDow, not2.u)
     annotation (Line(points={{-460,-290},{-410,-290},{-410,-320},{-222,-320}},
@@ -724,15 +727,14 @@ equation
   connect(or5.y, edg.u)
     annotation (Line(points={{42,-370},{58,-370}}, color={255,0,255}));
   connect(or3.y, logSwi.u2)
-    annotation (Line(points={{-38,-440},{158,-440}}, color={255,0,255}));
-  connect(edg.y, logSwi.u1) annotation (Line(points={{82,-370},{140,-370},{140,-432},
-          {158,-432}}, color={255,0,255}));
+    annotation (Line(points={{-38,-440},{118,-440}}, color={255,0,255}));
+  connect(edg.y, logSwi.u1) annotation (Line(points={{82,-370},{100,-370},{100,
+          -432},{118,-432}},
+                       color={255,0,255}));
   connect(or3.y, notChaSet.u) annotation (Line(points={{-38,-440},{-20,-440},{-20,
           -480},{20,-480}}, color={255,0,255}));
-  connect(notChaSet.y, logSwi.u3) annotation (Line(points={{44,-480},{140,-480},
-          {140,-448},{158,-448}}, color={255,0,255}));
-  connect(logSwi.y, lat.u)
-    annotation (Line(points={{182,-440},{238,-440}}, color={255,0,255}));
+  connect(notChaSet.y, logSwi.u3) annotation (Line(points={{44,-480},{100,-480},
+          {100,-448},{118,-448}}, color={255,0,255}));
   connect(or3.y, staChaSet.u) annotation (Line(points={{-38,-440},{-20,-440},{-20,
           -500},{158,-500}}, color={255,0,255}));
   connect(staChaSet.y, lat.clr) annotation (Line(points={{182,-500},{220,-500},{
@@ -759,6 +761,10 @@ equation
           112},{398,112}}, color={0,0,127}));
   connect(byPasSet3.y, yChiWatMinFloSet)
     annotation (Line(points={{422,120},{460,120}}, color={0,0,127}));
+  connect(logSwi.y, staChaSet1.u)
+    annotation (Line(points={{142,-440},{178,-440}}, color={255,0,255}));
+  connect(staChaSet1.y, lat.u)
+    annotation (Line(points={{202,-440},{238,-440}}, color={255,0,255}));
 annotation (
   defaultComponentName="minChiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -987,7 +993,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Rectangle(
-          extent={{-398,-300},{278,-518}},
+          extent={{-438,-320},{238,-538}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

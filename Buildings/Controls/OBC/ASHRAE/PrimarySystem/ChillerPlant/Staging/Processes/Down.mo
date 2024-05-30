@@ -286,12 +286,6 @@ protected
     final byPasSetTim=byPasSetTim,
     final minFloSet=minFloSet) "Minimum chilled water flow setpoint"
     annotation (Placement(transformation(extent={{100,-330},{120,-310}})));
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass
-    minBypSet(
-    final aftByPasSetTim=aftByPasSetTim,
-    final relFloDif=relFloDif)
-    "Check if minium bypass has been reset"
-    annotation (Placement(transformation(extent={{100,-380},{120,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false)
     "False constant"
@@ -351,10 +345,10 @@ protected
     annotation (Placement(transformation(extent={{200,-250},{220,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge, output true at the moment when input turns from false to true"
-    annotation (Placement(transformation(extent={{200,-380},{220,-360}})));
+    annotation (Placement(transformation(extent={{220,-380},{240,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Break algebraic loop"
-    annotation (Placement(transformation(extent={{160,-380},{180,-360}})));
+    annotation (Placement(transformation(extent={{180,-380},{200,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Maintain ON signal when condenser water pump has been disabled"
     annotation (Placement(transformation(extent={{240,-270},{260,-250}})));
@@ -373,11 +367,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Logical and"
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
-
-  CDL.Logical.And                        and6 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and6 "Logical and"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  CDL.Logical.And                        and7 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and7 "Logical and"
     annotation (Placement(transformation(extent={{-26,-130},{-6,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notInPro
+    "True: it is not in the setpoint changing process"
+    annotation (Placement(transformation(extent={{140,-380},{160,-360}})));
 equation
   connect(nexChi.yEnaSmaChi,dowSta. nexEnaChi)
     annotation (Line(points={{-18,331},{30,331},{30,226},{58,226}},
@@ -493,11 +489,6 @@ equation
   connect(disChiIsoVal.yChiWatIsoVal, yChiWatIsoVal)
     annotation (Line(points={{222,54},{250,54},{250,40},{300,40}},
       color={0,0,127}));
-  connect(lat.y, minBypSet.uStaPro) annotation (Line(points={{-158,360},{-140,
-          360},{-140,328},{-260,328},{-260,-366},{98,-366}}, color={255,0,255}));
-  connect(VChiWat_flow, minBypSet.VChiWat_flow)
-    annotation (Line(points={{-300,190},{-170,190},{-170,-370},{98,-370}},
-      color={0,0,127}));
   connect(VChiWat_flow, dowSta.VChiWat_flow)
     annotation (Line(points={{-300,190},{-170,190},{-170,232},{58,232}},
       color={0,0,127}));
@@ -556,7 +547,7 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-324},{98,-324}},
       color={255,0,255}));
   connect(edg1.y, lat.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},{-190,
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
           354},{-182,354}},     color={255,0,255}));
   connect(conWatPumCon.yConWatPumNum, yConWatPumNum)
     annotation (Line(points={{162,-185},{220,-185},{220,-220},{300,-220}},
@@ -567,10 +558,8 @@ equation
   connect(disHeaCon.yChiHeaCon, yChiHeaCon)
     annotation (Line(points={{222,-106},{260,-106},{260,-100},{300,-100}},
       color={255,0,255}));
-  connect(minBypSet.yMinBypRes, pre.u)
-    annotation (Line(points={{122,-370},{158,-370}}, color={255,0,255}));
   connect(pre.y, edg1.u)
-    annotation (Line(points={{182,-370},{198,-370}}, color={255,0,255}));
+    annotation (Line(points={{202,-370},{218,-370}}, color={255,0,255}));
   connect(dowSta.yReaDemLim, yReaDemLim)
     annotation (Line(points={{82,221},{92,221},{92,180},{300,180}},
       color={255,0,255}));
@@ -578,8 +567,8 @@ equation
     annotation (Line(points={{82,221},{92,221},{92,160},{118,160}},
       color={255,0,255}));
   connect(edg1.y, lat2.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
-      {-190,154},{118,154}}, color={255,0,255}));
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
+          154},{118,154}},   color={255,0,255}));
   connect(lat2.y, and4.u1)
     annotation (Line(points={{142,160},{160,160},{160,140},{-80,140},{-80,30},
       {-42,30}}, color={255,0,255}));
@@ -590,14 +579,11 @@ equation
     annotation (Line(points={{222,-240},{230,-240},{230,-260},{238,-260}},
       color={255,0,255}));
   connect(edg1.y, lat1.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
-      {-190,-266},{238,-266}}, color={255,0,255}));
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
+          -266},{238,-266}},   color={255,0,255}));
   connect(lat1.y, minChiWatFlo.uUpsDevSta)
     annotation (Line(points={{262,-260},{270,-260},{270,-290},{-40,-290},
       {-40,-313},{98,-313}}, color={255,0,255}));
-  connect(lat1.y, minBypSet.uUpsDevSta)
-    annotation (Line(points={{262,-260},{270,-260},{270,-290},{-40,-290},
-      {-40,-362},{98,-362}}, color={255,0,255}));
   connect(dowSta.yChiWatMinFloSet, chiWatMinSet.u3)
     annotation (Line(points={{82,236},{170,236},{170,-338},{198,-338}},
       color={0,0,127}));
@@ -609,21 +595,18 @@ equation
       {160,-330},{198,-330}}, color={255,0,255}));
   connect(chiWatMinSet.y, yChiWatMinFloSet)
     annotation (Line(points={{222,-330},{300,-330}}, color={0,0,127}));
-  connect(chiWatMinSet.y, minBypSet.VMinChiWat_setpoint)
-    annotation (Line(points={{222,-330},{240,-330},{240,-350},{60,-350},{60,
-          -374},{98,-374}}, color={0,0,127}));
   connect(nexChi.yOnOff, dowSta.uOnOff)
     annotation (Line(points={{-18,337},{0,337},{0,228},{58,228}},
       color={255,0,255}));
   connect(edg1.y, dowSta.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
-      {-190,230},{58,230}}, color={255,0,255}));
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
+          230},{58,230}},   color={255,0,255}));
   connect(disChiIsoVal.yEnaChiWatIsoVal, lat3.u)
     annotation (Line(points={{222,66},{240,66},{240,0},{180,0},{180,-30},
       {198,-30}}, color={255,0,255}));
   connect(edg1.y, lat3.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
-      {-190,-36},{198,-36}}, color={255,0,255}));
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
+          -36},{198,-36}},   color={255,0,255}));
   connect(disHeaCon.yEnaHeaCon, lat4.u)
     annotation (Line(points={{222,-94},{240,-94},{240,-114},{180,-114},{180,
           -130},{198,-130}},  color={255,0,255}));
@@ -637,8 +620,8 @@ equation
     annotation (Line(points={{222,-130},{250,-130},{250,-142},{80,-142},{80,-248},
       {198,-248}}, color={255,0,255}));
   connect(edg1.y, lat4.clr)
-    annotation (Line(points={{222,-370},{260,-370},{260,-390},{-190,-390},
-      {-190,-136},{198,-136}}, color={255,0,255}));
+    annotation (Line(points={{242,-370},{260,-370},{260,-390},{-190,-390},{-190,
+          -136},{198,-136}},   color={255,0,255}));
   connect(uStaSet, nexChi.uStaSet)
     annotation (Line(points={{-300,380},{-60,380},{-60,347},{-42,347}},
       color={255,127,0}));
@@ -675,8 +658,8 @@ equation
   connect(lat3.y, and3.u2) annotation (Line(points={{222,-30},{240,-30},{240,
           -50},{110,-50},{110,-128},{118,-128}}, color={255,0,255}));
   connect(edg1.y, yEndStaTri)
-    annotation (Line(points={{222,-370},{300,-370}}, color={255,0,255}));
-  connect(edg1.y, nexChi.endPro) annotation (Line(points={{222,-370},{260,-370},
+    annotation (Line(points={{242,-370},{300,-370}}, color={255,0,255}));
+  connect(edg1.y, nexChi.endPro) annotation (Line(points={{242,-370},{260,-370},
           {260,-390},{-190,-390},{-190,333},{-42,333}}, color={255,0,255}));
   connect(lesEquThr.y, and6.u1)
     annotation (Line(points={{-38,-10},{58,-10}}, color={255,0,255}));
@@ -690,9 +673,10 @@ equation
     annotation (Line(points={{-38,-120},{-28,-120}}, color={255,0,255}));
   connect(nexChi.yDow, and7.u2) annotation (Line(points={{-18,347},{10,347},{10,
           -18},{-32,-18},{-32,-128},{-28,-128}}, color={255,0,255}));
-  connect(minChiWatFlo.yChaSet, minBypSet.uSetChaPro) annotation (Line(points={
-          {122,-328},{140,-328},{140,-340},{80,-340},{80,-378},{98,-378}},
-        color={255,0,255}));
+  connect(minChiWatFlo.yChaSet, notInPro.u) annotation (Line(points={{122,-328},
+          {130,-328},{130,-370},{138,-370}}, color={255,0,255}));
+  connect(notInPro.y, pre.u)
+    annotation (Line(points={{162,-370},{178,-370}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
