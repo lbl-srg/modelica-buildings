@@ -3,9 +3,10 @@ model ComparePowerHydraulic
   "Compare power estimation with hydraulic power curve"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Movers.Validation.BaseClasses.ComparePower(
-    redeclare Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15 per(
+    redeclare replaceable Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15 per(
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      motorEfficiency(V_flow={0}, eta={0.7})),
+      motorEfficiency(V_flow={0}, eta={0.7}))
+      constrainedby Buildings.Fluid.Movers.Data.Generic,
     mov1(per=per),
     mov2(per(
       powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
