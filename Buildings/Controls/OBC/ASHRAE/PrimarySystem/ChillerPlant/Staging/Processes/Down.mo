@@ -838,9 +838,8 @@ Block that controls devices when there is a stage-down command. This sequence is
 water-cooled primary-only parallel chiller plants with headered chilled water pumps
 and headered condenser water pumps, or air-cooled primary-only parallel chiller
 plants with headered chilled water pumps.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.4.17, which specifies the step-by-step control of
+This development is based on ASHRAE Guideline 36-2021,
+section 5.20.4.17, which specifies the step-by-step control of
 devices during chiller staging down process.
 </p>
 <ol>

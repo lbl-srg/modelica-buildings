@@ -4,13 +4,14 @@ compareVars :=
     "upProCon.uChi[1]",
     "upProCon.uChi[2]",
     "upProCon.yStaPro",
-    "upProCon.uChiLoa[1]",
-    "upProCon.uChiLoa[2]",
+    "upProCon.yChiDem[1]",
+    "upProCon.yChiDem[2]",
     "upProCon.yChiWatIsoVal[1]",
     "upProCon.yChiWatIsoVal[2]",
     "upProCon.yChiHeaCon[1]",
     "upProCon.yChiHeaCon[2]",
     "upProCon.yChiWatMinFloSet",
+    "upProCon.VChiWat_flow",
     "upProCon.yDesConWatPumSpe",
     "upProCon.yConWatPumNum"
   };
