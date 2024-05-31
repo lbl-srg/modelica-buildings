@@ -32,7 +32,7 @@ protected
   constant Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
 
-  parameter String SHAgfun=
+  parameter String sha=
     Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.shaKappa(
       nBor=borFieDat.conDat.nBor,
       cooBor=borFieDat.conDat.cooBor,
@@ -47,7 +47,7 @@ protected
       nBorPerZon=borFieDat.conDat.nBorPerZon,
       nu=nu,
       nTim=i,
-      relTol=relTol) "String with encrypted g-function arguments";
+      relTol=relTol) "String with encrypted thermal response factor arguments";
 
   final parameter Integer nSegTot = nZon * nSeg
     "Total number of segments";
@@ -124,7 +124,7 @@ initial equation
       nu=nu,
       nTim=i,
       relTol=relTol,
-      sha="fixme");
+      sha=sha);
 
   dTStepdt = {kappa[i,i,1]/tLoaAgg for i in 1:nSegTot};
 
