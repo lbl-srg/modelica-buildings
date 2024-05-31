@@ -23,7 +23,9 @@ partial model PartialSource
     each m_flow(max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
                     then 0 else +Modelica.Constants.inf,
                 min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
-                    then 0 else -Modelica.Constants.inf))
+                    then 0 else -Modelica.Constants.inf),
+    each h_outflow(nominal=Medium.h_default),
+    each Xi_outflow(each nominal=0.01))
     "Fluid ports"
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 

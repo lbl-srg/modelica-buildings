@@ -35,7 +35,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Outputs that are needed in models that use this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=hStart)
+                                             start=hStart,
+                                             nominal=Medium.h_default)
     "Leaving specific enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -70,7 +71,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         origin={110,-60})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each final package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01)) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 

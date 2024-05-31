@@ -25,7 +25,7 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
-    start=Medium.T_default-2,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"

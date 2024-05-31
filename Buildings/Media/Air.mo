@@ -84,7 +84,9 @@ package Air
   Modelica.Media.Interfaces.Types.Temperature T(
    stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
    "Temperature of medium";
-  Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
+  Modelica.Media.Interfaces.Types.MassFraction[2] X(
+    start=reference_X,
+    nominal={0.01, 1})
     "Mass fractions (= (component mass)/total mass  m_i/m)";
   Modelica.Media.Interfaces.Types.SpecificInternalEnergy u
     "Specific internal energy of medium";
@@ -92,7 +94,9 @@ package Air
     "Gas constant (of mixture if applicable)";
   Modelica.Media.Interfaces.Types.MolarMass MM
     "Molar mass (of mixture or single fluid)";
-  ThermodynamicState state
+  ThermodynamicState state(
+    X(nominal={0.01, 1})
+    )
     "Thermodynamic state record for optional functions";
 
     Modelica.Units.NonSI.Temperature_degC T_degC=

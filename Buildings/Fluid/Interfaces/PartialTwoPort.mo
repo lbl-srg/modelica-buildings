@@ -18,13 +18,15 @@ partial model PartialTwoPort "Partial component with two ports"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+     h_outflow(start = Medium.h_default, nominal = Medium.h_default),
+     Xi_outflow(each nominal=0.01))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+     h_outflow(start = Medium.h_default, nominal = Medium.h_default),
+     Xi_outflow(each nominal=0.01))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 

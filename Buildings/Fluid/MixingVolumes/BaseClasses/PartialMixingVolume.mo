@@ -30,7 +30,10 @@ model PartialMixingVolume
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.Units.SI.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01)
+      ) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 

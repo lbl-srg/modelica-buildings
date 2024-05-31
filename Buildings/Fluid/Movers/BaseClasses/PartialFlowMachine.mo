@@ -84,7 +84,8 @@ partial model PartialFlowMachine
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
+    T(start=293.15))
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
@@ -260,7 +261,8 @@ protected
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
-    final alpha=0)
+    final alpha=0,
+    port(T(start=293.15)))
  if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
