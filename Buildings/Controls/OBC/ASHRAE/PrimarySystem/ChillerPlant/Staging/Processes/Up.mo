@@ -654,6 +654,8 @@ equation
           -32,116},{-32,152},{158,152}}, color={255,0,255}));
   connect(and4.y, lat1.u) annotation (Line(points={{182,160},{190,160},{190,140},
           {-28,140},{-28,100},{-22,100}}, color={255,0,255}));
+  connect(or2.y, and4.u2) annotation (Line(points={{2,170},{6,170},{6,152},{158,
+          152}}, color={255,0,255}));
 annotation (
   defaultComponentName="upProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,

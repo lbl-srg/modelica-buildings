@@ -269,9 +269,7 @@ Documentation(info="<html>
 <p>
 Block that output cooling tower fan speed <code>yTowSpe</code> when only waterside 
 economizer is running. This is implemented 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 
-item 4.b.
+according to ASHRAE Guideline36-2021, section 5.20.12.2, item c.2.
 </p>
 <ol>
 <li>
