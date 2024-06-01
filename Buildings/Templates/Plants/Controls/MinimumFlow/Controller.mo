@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.MinimumFlow;
-block Controller "Minimum flow bypass valve controller"
+block Controller
+  "Minimum flow bypass valve controller"
   parameter Boolean have_valInlIso
     "Set to true to enable control loop based on inlet isolation valve command"
     annotation (Evaluate=true);
@@ -49,7 +50,8 @@ block Controller "Minimum flow bypass valve controller"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit="1") "Valve command"
+    final unit="1")
+    "Valve command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Utilities.PIDWithEnable ctl(
@@ -95,52 +97,53 @@ block Controller "Minimum flow bypass valve controller"
     "True if any enable condition met"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ[nEqu]
-    "Equipment enable command" annotation (Placement(transformation(extent={{-140,
-            60},{-100,100}}), iconTransformation(extent={{-140,60},{-100,100}})));
+    "Equipment enable command"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Setpoint setFloMin(
     final V_flow_nominal=V_flow_nominal,
     final V_flow_min=V_flow_min,
-    nEqu=nEqu) "Calculate minimum flow setpoint"
+    nEqu=nEqu)
+    "Calculate minimum flow setpoint"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPriSet_flow(final unit="m3/s")
-    "Primary flow setpoint" annotation (Placement(transformation(extent={{100,60},
-            {140,100}}), iconTransformation(extent={{100,40},{140,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VPriSet_flow(
+    final unit="m3/s")
+    "Primary flow setpoint"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,40},{140,80}})));
 equation
   connect(anyValInlIso.u, u1ValInlIso)
     annotation (Line(points={{-92,40},{-120,40}},color={255,0,255}));
   connect(anyValOutIso.u, u1ValOutIso)
-    annotation (Line(points={{-92,0},{-120,0}},  color={255,0,255}));
+    annotation (Line(points={{-92,0},{-120,0}},color={255,0,255}));
   connect(anyPumPri.u, u1PumPri_actual)
-    annotation (Line(points={{-92,-40},{-120,-40}},
-                                               color={255,0,255}));
+    annotation (Line(points={{-92,-40},{-120,-40}},color={255,0,255}));
   connect(VPri_flow, ctl.u_m)
     annotation (Line(points={{-120,-80},{40,-80},{40,-12}},color={0,0,127}));
   connect(anyValInlIso.y, phValInlIso.u)
     annotation (Line(points={{-68,40},{-52,40}},color={255,0,255}));
   connect(anyValOutIso.y, phValOutIso.u)
-    annotation (Line(points={{-68,0},{-52,0}},  color={255,0,255}));
+    annotation (Line(points={{-68,0},{-52,0}},color={255,0,255}));
   connect(anyPumPri.y, phPrumPri.u)
-    annotation (Line(points={{-68,-40},{-52,-40}},
-                                              color={255,0,255}));
+    annotation (Line(points={{-68,-40},{-52,-40}},color={255,0,255}));
   connect(phValInlIso.y, any.u[1])
     annotation (Line(points={{-28,40},{-18,40},{-18,-22.3333},{-12,-22.3333}},
       color={255,0,255}));
   connect(phValOutIso.y, any.u[2])
-    annotation (Line(points={{-28,0},{-20,0},{-20,-20},{-12,-20}},
-                                                                color={255,0,255}));
+    annotation (Line(points={{-28,0},{-20,0},{-20,-20},{-12,-20}},color={255,0,255}));
   connect(phPrumPri.y, any.u[3])
     annotation (Line(points={{-28,-40},{-16,-40},{-16,-17.6667},{-12,-17.6667}},
-                                                                          color={255,0,255}));
+      color={255,0,255}));
   connect(any.y, ctl.uEna)
-    annotation (Line(points={{12,-20},{36,-20},{36,-12}},              color={255,0,255}));
+    annotation (Line(points={{12,-20},{36,-20},{36,-12}},color={255,0,255}));
   connect(ctl.y, y)
-    annotation (Line(points={{52,0},{120,0}},    color={0,0,127}));
+    annotation (Line(points={{52,0},{120,0}},color={0,0,127}));
   connect(u1Equ, setFloMin.u1)
-    annotation (Line(points={{-120,80},{-12,80}}, color={255,0,255}));
+    annotation (Line(points={{-120,80},{-12,80}},color={255,0,255}));
   connect(setFloMin.VPriSet_flow, ctl.u_s)
-    annotation (Line(points={{12,80},{20,80},{20,0},{28,0}}, color={0,0,127}));
+    annotation (Line(points={{12,80},{20,80},{20,0},{28,0}},color={0,0,127}));
   connect(setFloMin.VPriSet_flow, VPriSet_flow)
-    annotation (Line(points={{12,80},{120,80}}, color={0,0,127}));
+    annotation (Line(points={{12,80},{120,80}},color={0,0,127}));
   annotation (
     defaultComponentName="ctlFloMin",
     Icon(

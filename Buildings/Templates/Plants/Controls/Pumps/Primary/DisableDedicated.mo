@@ -1,26 +1,30 @@
 within Buildings.Templates.Plants.Controls.Pumps.Primary;
-block DisableDedicated "Pump disable for plants with dedicated primary pumps"
+block DisableDedicated
+  "Pump disable for plants with dedicated primary pumps"
   parameter Boolean have_reqFlo=false
     "Set to true if plant equipment provides flow request point via network interface"
     annotation (Evaluate=true);
   parameter Real dtOff(
     min=0,
-    unit="s") = if not have_reqFlo then 3*60 else 10*60
+    unit="s")=if not have_reqFlo then 3 * 60 else 10 * 60
     "Runtime with lead equipment proven off before disabling";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFlo if have_reqFlo
-    "Flow request from equipment" annotation (Placement(transformation(extent={{
-            -140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
-            -20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1ReqFlo
+    if have_reqFlo
+    "Flow request from equipment"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Enable signal from system enable logic"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ
-    "Equipment enable signal" annotation (Placement(transformation(extent={{-140,
-            20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
+    "Equipment enable signal"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Equ_actual
-    "Equipment status" annotation (Placement(transformation(extent={{-140,-20},{
-            -100,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+    "Equipment status"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
     "Lead pump enable signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -66,9 +70,9 @@ equation
   connect(u1, lat.u)
     annotation (Line(points={{-120,80},{40,80},{40,0},{70,0}},color={255,0,255}));
   connect(u1Equ, dis.u)
-    annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
+    annotation (Line(points={{-120,40},{-82,40}},color={255,0,255}));
   connect(u1Equ_actual, off.u)
-    annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-82,0}},color={255,0,255}));
   connect(fal.y, offOrNotReq.u2)
     annotation (Line(points={{-58,-80},{-40,-80},{-40,-68},{-12,-68}},color={255,0,255}));
   connect(off.y, timOff.u)
@@ -76,7 +80,7 @@ equation
   connect(timOff.passed, offOrNotReq.u1)
     annotation (Line(points={{-28,-8},{-20,-8},{-20,-60},{-12,-60}},color={255,0,255}));
   connect(u1ReqFlo, noReq.u)
-    annotation (Line(points={{-120,-40},{-82,-40}}, color={255,0,255}));
+    annotation (Line(points={{-120,-40},{-82,-40}},color={255,0,255}));
   connect(noReq.y, offOrNotReq.u2)
     annotation (Line(points={{-58,-40},{-40,-40},{-40,-68},{-12,-68}},color={255,0,255}));
   connect(dis.y, disAndOffOrNotReq.u1)
@@ -86,8 +90,7 @@ equation
   connect(disAndOffOrNotReq.y, edg.u)
     annotation (Line(points={{52,-60},{58,-60}},color={255,0,255}));
   connect(edg.y, ini.u)
-    annotation (Line(points={{82,-60},{88,-60},{88,-40},{30,-40},{30,-20},{38,
-          -20}},
+    annotation (Line(points={{82,-60},{88,-60},{88,-40},{30,-40},{30,-20},{38,-20}},
       color={255,0,255}));
   connect(ini.y, lat.clr)
     annotation (Line(points={{62,-20},{66,-20},{66,-6},{70,-6}},color={255,0,255}));

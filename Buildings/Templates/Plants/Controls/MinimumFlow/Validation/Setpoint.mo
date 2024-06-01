@@ -50,7 +50,8 @@ This model validates
 Buildings.Templates.Plants.Controls.MinimumFlow.Setpoint</a>
 in a configuration with two equipment with different minimum flow ratios.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>

@@ -112,7 +112,8 @@ The condition \"prior to enabling the HRC\" is evaluated in the block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>

@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.Controls.MinimumFlow;
-block Setpoint "Minimum flow setpoint calculation"
+block Setpoint
+  "Minimum flow setpoint calculation"
   parameter Integer nEqu(
     final min=1)=0
     "Number of plant equipment"

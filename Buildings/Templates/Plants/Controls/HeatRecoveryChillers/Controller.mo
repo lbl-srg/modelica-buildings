@@ -74,7 +74,8 @@ block Controller
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWatLoa_flow(
-    final unit="m3/s") "CHW volume flow rate distributed to the loads"
+    final unit="m3/s")
+    "CHW volume flow rate distributed to the loads"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatRetUpsHrc(
@@ -90,7 +91,8 @@ block Controller
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHeaWatLoa_flow(
-    final unit="m3/s") "HW volume flow rate distributed to the loads"
+    final unit="m3/s")
+    "HW volume flow rate distributed to the loads"
     annotation (Placement(transformation(extent={{-160,-220},{-120,-180}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
   StagingRotation.LoadAverage loaChiWat(
@@ -178,10 +180,12 @@ block Controller
     final COPHea_nominal=COPHea_nominal)
     "Set mode"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Pumps.Primary.DisableDedicated pumChiWat(final have_reqFlo=have_reqFlo)
+  Pumps.Primary.DisableDedicated pumChiWat(
+    final have_reqFlo=have_reqFlo)
     "CHW pump control"
     annotation (Placement(transformation(extent={{30,110},{50,130}})));
-  Pumps.Primary.DisableDedicated pumHeaWat(final have_reqFlo=have_reqFlo)
+  Pumps.Primary.DisableDedicated pumHeaWat(
+    final have_reqFlo=have_reqFlo)
     "HW pump control"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preMod
@@ -274,7 +278,8 @@ equation
           extent={{-150,210},{150,170}},
           textString="%name",
           textColor={0,0,255})}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 The control sequence consists of the following parts.
 </p>
@@ -297,7 +302,8 @@ Buildings.Templates.Plants.Controls.Pumps.Primary.DisableDedicated</a>.
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl</a>.
 </li>
 </ul>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>

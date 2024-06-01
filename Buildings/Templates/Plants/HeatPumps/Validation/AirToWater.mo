@@ -75,7 +75,9 @@ model AirToWater
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
-    ctl(nAirHan=1, nEquZon=0),
+    ctl(
+      nAirHan=1,
+      nEquZon=0),
     is_dpBalYPumSetCal=true)
     "Heat pump plant"
     annotation (Placement(transformation(extent={{-80,-120},{-40,-80}})));
@@ -85,19 +87,17 @@ model AirToWater
       displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
-  Fluid.Sensors.RelativePressure dpHeaWatRem[1](redeclare each final package Medium
-      = Medium) "HW differential pressure at one remote location" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-140})));
-  Fluid.Sensors.RelativePressure dpChiWatRem[1](redeclare each final package Medium
-      = Medium) if have_chiWat
-    "CHW differential pressure at one remote location" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-80})));
+  Fluid.Sensors.RelativePressure dpHeaWatRem[1](
+    redeclare each final package Medium=Medium)
+    "HW differential pressure at one remote location"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
+      origin={40,-140})));
+  Fluid.Sensors.RelativePressure dpChiWatRem[1](
+    redeclare each final package Medium=Medium)
+    if have_chiWat
+    "CHW differential pressure at one remote location"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
+      origin={40,-80})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.PlantRequests reqPlaRes(
     final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final cooCoi=if have_chiWat then Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
@@ -174,8 +174,7 @@ model AirToWater
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(
-         datAll.pla.ctl.dpHeaWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{10,-170},{-10,-150}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
@@ -212,9 +211,9 @@ equation
   connect(pla.port_bHeaWat, loaHeaWat.port_a)
     annotation (Line(points={{-40,-110},{-20,-110},{-20,-120},{70,-120}},color={0,127,255}));
   connect(loaChiWat.port_a, dpChiWatRem[1].port_a)
-    annotation (Line(points={{70,-60},{40,-60},{40,-70}}, color={0,127,255}));
-  connect(dpHeaWatRem[1].port_a, loaHeaWat.port_a) annotation (Line(points={{40,-130},
-          {40,-120},{70,-120}}, color={0,127,255}));
+    annotation (Line(points={{70,-60},{40,-60},{40,-70}},color={0,127,255}));
+  connect(dpHeaWatRem[1].port_a, loaHeaWat.port_a)
+    annotation (Line(points={{40,-130},{40,-120},{70,-120}},color={0,127,255}));
   connect(TDum.y, reqPlaRes.TAirSup)
     annotation (Line(points={{-158,160},{100,160},{100,140},{92,140}},color={0,0,127}));
   connect(TDum.y, reqPlaRes.TAirSupSet)
@@ -229,12 +228,12 @@ equation
     annotation (Line(points={{125,-113},{136,-113},{136,124},{92,124}},color={0,0,127}));
   connect(valDisChiWat.port_b, mChiWat_flow.port_a)
     annotation (Line(points={{130,-60},{160,-60},{160,-70}},color={0,127,255}));
-  connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b) annotation (Line(points={{160,
-          -90},{160,-100},{40,-100},{40,-90}}, color={0,127,255}));
+  connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b)
+    annotation (Line(points={{160,-90},{160,-100},{40,-100},{40,-90}},color={0,127,255}));
   connect(valDisHeaWat.port_b, mHeaWat_flow.port_a)
     annotation (Line(points={{130,-120},{160,-120},{160,-130}},color={0,127,255}));
-  connect(mHeaWat_flow.port_b, dpHeaWatRem[1].port_b) annotation (Line(points={{160,
-          -150},{160,-160},{40,-160},{40,-150}}, color={0,127,255}));
+  connect(mHeaWat_flow.port_b, dpHeaWatRem[1].port_b)
+    annotation (Line(points={{160,-150},{160,-160},{40,-160},{40,-150}},color={0,127,255}));
   connect(mHeaWat_flow.m_flow, norFlo[1].u)
     annotation (Line(points={{171,-140},{180,-140},{180,-12}},color={0,0,127}));
   connect(mChiWat_flow.m_flow, norFlo[2].u)
@@ -291,17 +290,12 @@ equation
     annotation (Line(points={{18,144},{12,144},{12,134},{2,134}},color={255,127,0}));
   connect(ph[2].y, mulInt[4].u2)
     annotation (Line(points={{18,144},{12,144},{12,134},{2,134}},color={255,127,0}));
-  connect(dpChiWatRem.p_rel, busPla.dpChiWatRem) annotation (Line(points={{31,-80},
-          {20.5,-80},{20.5,-40},{-80,-40}},        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem) annotation (Line(points={{31,-140},
-          {18,-140},{18,-42},{-80,-42},{-80,-40}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
+  connect(dpChiWatRem.p_rel, busPla.dpChiWatRem)
+    annotation (Line(points={{31,-80},{20.5,-80},{20.5,-40},{-80,-40}},color={0,0,127}),
+      Text(string="%second",index=1,extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
+  connect(dpHeaWatRem.p_rel, busPla.dpHeaWatRem)
+    annotation (Line(points={{31,-140},{18,-140},{18,-42},{-80,-42},{-80,-40}},
+      color={0,0,127}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   annotation (
     __Dymola_Commands(
@@ -370,6 +364,12 @@ various plant configurations.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 31, 2024, by Antoine Gautier:<br/>
+Added sidestream HRC and refactored the model after updating the HP plant template.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
