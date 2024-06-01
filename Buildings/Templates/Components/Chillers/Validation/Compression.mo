@@ -44,8 +44,7 @@ model Compression
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datChiAirCoo.TChiWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHWST setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
@@ -82,8 +81,7 @@ model Compression
     amplitude=(datChiAirCoo.TChiWatRet_nominal - datChiAirCoo.TChiWatSup_nominal) /
       2,
     freqHz=2 / 3000,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     offset=datChiAirCoo.TChiWatSup_nominal +(datChiAirCoo.TChiWatRet_nominal -
       datChiAirCoo.TChiWatSup_nominal) / 2,
@@ -164,8 +162,7 @@ model Compression
     amplitude=(datChiWatCoo.TChiWatRet_nominal - datChiWatCoo.TChiWatSup_nominal) /
       2,
     freqHz=2 / 3000,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"),
     offset=datChiWatCoo.TChiWatSup_nominal +(datChiAirCoo.TChiWatRet_nominal -
       datChiWatCoo.TChiWatSup_nominal) / 2,
@@ -181,8 +178,7 @@ model Compression
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet1(
     k=datChiWatCoo.TChiWatSup_nominal,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "CHWST setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
