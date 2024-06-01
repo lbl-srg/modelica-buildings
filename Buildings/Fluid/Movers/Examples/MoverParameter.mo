@@ -9,6 +9,7 @@ model MoverParameter
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
     use_inputFilter=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
@@ -87,6 +88,13 @@ set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Deleted the mover with <code>Nrpm</code> signal.

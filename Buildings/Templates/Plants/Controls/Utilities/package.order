@@ -9,7 +9,6 @@ PIDWithEnable
 PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
-SortWithIndices
 StageIndex
 TimerWithReset
 TrueArrayConditional
