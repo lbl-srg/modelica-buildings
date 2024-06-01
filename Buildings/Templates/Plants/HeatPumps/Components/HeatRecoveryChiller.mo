@@ -11,7 +11,7 @@ model HeatRecoveryChiller
   https://github.com/ibpsa/modelica-ibpsa/issues/1781
   Note that the extent annotation results in flipping the icon vertically (port_*2 at the top),
   which allows better integration into the HP plant diagram.
-  Ideally, with PR#1781, port_a1 and port_b1 should be moved to be vertically 
+  Ideally, with PR#1781, port_a1 and port_b1 should be moved to be vertically
   aligned with port_a2 and port_b2, respectively.
   */replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -181,7 +181,7 @@ equation
 <p>
 Model of a heat recovery chiller with constant speed CHW and HW pumps.
 The model is intended to represent the sidestream integration of a HRC
-into a heating and cooling plant. 
+into a heating and cooling plant.
 In such a configuration, the condenser is connected to the HW
 return and the evaporator is connected to the CHW return.
 </p>
@@ -190,16 +190,17 @@ return and the evaporator is connected to the CHW return.
 The following input and output points are available.
 </p>
 <ul>
-<li>Chiller: Refer to the documentation of 
+<li>Chiller: Refer to the documentation of
 <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
 Buildings.Templates.Components.Chillers.Compression</a>
-considering <code>have_switchover=true</code> and 
+considering <code>have_switchover=true</code> and
 <code>typ=Buildings.Templates.Components.Types.Chiller.WaterCooled</code>.
 </li>
-<li>CHW pump or HW pump: Refer to the documentation of 
+<li>CHW pump or HW pump: Refer to the documentation of
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Single\">
 Buildings.Templates.Components.Pumps.Single</a>.
 </li>
+</ul>
 </html>",
       revisions="<html>
 <ul>

@@ -1092,9 +1092,9 @@ With sidestream heat recovery chiller
 </td>
 <td>
 This option is only available for heating and cooling plants.
-When selected, the template includes a chiller and its associated dedicated 
-primary CHW and CW pumps. 
-The chiller is considered connected in a sidestream configuration to both 
+When selected, the template includes a chiller and its associated dedicated
+primary CHW and CW pumps.
+The chiller is considered connected in a sidestream configuration to both
 the CHW return and the HW return.
 </td>
 </tr>
@@ -1174,9 +1174,9 @@ No HW buffer tank
 <td>By default, the HW buffer tank is considered integrated into the primary supply
 to mitigate the impact of defrost cycles on the temperature of the HW supplied to the loads.
 This assumes that the buffer tank is well-mixed.</br>
-The default sizing of the tank corresponds to <i>4</i>&nbps;min of the design primary flow rate.
+The default sizing of the tank corresponds to <i>4</i>&nbsp;min of the design primary flow rate.
 This is based on manufacturer recommendations, which account for the fact that defrost cycles
-can take <i>3</i> to <i>5</i>&nbps;min to complete. 
+can take <i>3</i> to <i>5</i>&nbsp;min to complete.
 </td>
 </tr>
 <tr><td>CHW buffer tank</td>
@@ -1188,8 +1188,8 @@ No CHW buffer tank
 <td>By default, the CHW buffer tank is considered integrated into the primary return
 to mitigate the impact of rapid load variations on the plant controls.
 This assumes that the buffer tank is well-mixed.</br>
-The default sizing of the tank corresponds to <i>2</i>&nbps;min of the design primary flow rate,
-based on manufacturer recommendations. 
+The default sizing of the tank corresponds to <i>2</i>&nbsp;min of the design primary flow rate,
+based on manufacturer recommendations.
 </td>
 </tr>
 <tr><td>Controller</td>
@@ -1229,8 +1229,8 @@ for HVAC Systems. Atlanta, GA.
 <ul>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
-Added sidestream heat recovery chiller, primary-only pumping, 
-buffer tanks, failsafe staging conditions and internal computation 
+Added sidestream heat recovery chiller, primary-only pumping,
+buffer tanks, failsafe staging conditions and internal computation
 of pump speed or balancing valve ∆p to meet design flow.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.

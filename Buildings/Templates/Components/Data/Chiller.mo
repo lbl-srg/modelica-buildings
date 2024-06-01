@@ -199,12 +199,12 @@ record Chiller
     Documentation(
       info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Chillers\">
 Buildings.Templates.Components.Chillers</a>.
 It is composed of a set of parameters corresponding to the design
-(selection) conditions and a sub-record <code>per</code> corresponding 
+(selection) conditions and a sub-record <code>per</code> corresponding
 to the rating conditions at which the performance curves are calculated.
 </p>
 <p>
@@ -218,27 +218,27 @@ for an illustration of these two logics.)
 <ul>
 <li>
 If <code>use_datDes=true</code> &ndash; default setting that should be
-used in most cases: The performance data specified in the sub-record 
-<code>per</code> are \"translated\" so that the capacity and <i>COP</i> 
-calculated at design conditions match the design values 
+used in most cases: The performance data specified in the sub-record
+<code>per</code> are \"translated\" so that the capacity and <i>COP</i>
+calculated at design conditions match the design values
 <code>cap_nominal</code> and <code>COP_nominal</code>.
 The performance data that result from this translation are stored in
 the sub-record <code>perSca</code> which is ultimately used by the chiller models within
 <a href=\"modelica://Buildings.Templates.Components.Chillers\">
 Buildings.Templates.Components.Chillers</a>.<br/>
-Note that the performance data can be specified either by redeclaring  
-the sub-record <code>per</code>, or by simply assigning the performance 
+Note that the performance data can be specified either by redeclaring
+the sub-record <code>per</code>, or by simply assigning the performance
 curves <code>per.capFunT</code>, <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>
 in case these curves were calculated based on the design conditions.
-To support the latter, the design conditions are propagated \"down\" to 
+To support the latter, the design conditions are propagated \"down\" to
 the sub-record <code>per</code> but these bindings do not persist
 after redeclaration so that a record at different rating conditions can
 also be used.
 </li>
 <li>
 If <code>use_datDes=false</code> &ndash; non-default setting that should only be
-used if the rating conditions match the design conditions: 
-The rating conditions specified in the sub-record 
+used if the rating conditions match the design conditions:
+The rating conditions specified in the sub-record
 <code>per</code> are propagated \"up\" (via the <code>start</code> attribute)
 and used as design conditions.
 The sub-record <code>perSca</code> which is ultimately used by the chiller models within
@@ -260,14 +260,14 @@ reassigning the performance record <code>per</code>.
 Models that use this record will issue a warning if these placeholders values
 are not overwritten in case of reversible heat pumps.
 </p>
+<p>
 Note that placeholders values are assigned to the chiller performance curves
-(<code>per.capFunT</code> , <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>) 
+(<code>per.capFunT</code> , <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>)
 to avoid assigning these parameters if
 <code>typ=Buildings.Templates.Components.Types.Chiller.None</code>.
-If the chiller type is not <code>None</code> these values are unrealistic 
+If the chiller type is not <code>None</code> these values are unrealistic
 and must be overwritten, which is always the case when redeclaring or
 reassigning the performance record <code>per</code>.
-</p>
 </p>
 </html>"));
 end Chiller;

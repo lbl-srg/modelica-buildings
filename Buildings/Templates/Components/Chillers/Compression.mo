@@ -101,15 +101,17 @@ DO signal, true for cooling, false for heating
 </li>
 <li>
 Supply temperature setpoint <code>TSupSet</code>:
-AO signal corresponding to the
+AO signal corresponding to
 <ul>
 <li>CHW supply temperature setpoint if
 <code>have_switchover=false</code> or if 
 <code>have_switchover=true</code> and <code>y1Coo=true</code>, or
+</li>
 <li>HW supply temperature setpoint if
 <code>have_switchover=true</code> and <code>y1Coo=false</code>.
 </li>
 </ul>
+</li>
 <li>
 Chiller status <code>y1_actual</code>: DI signal
 </li>
