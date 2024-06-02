@@ -174,7 +174,7 @@ test-optimica:
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 
 test-templates-dymola:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola --coverage 0.5)
 
 test-templates-optimica:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica --coverage 0.5)
