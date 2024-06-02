@@ -22,7 +22,7 @@ createPlot(
     id=2,
     position={310, 5, 300, 600},
     subPlot=1,
-    y={"TRet.T", "TSup.T", "chiAirCoo.bus.TChiWatSupSet", "chiAirCoo.TChiWatSup_nominal", "chiAirCoo.TChiWatRet_nominal"},
+    y={"TRet.T", "TSup.T", "chiAirCoo.bus.TSupSet", "chiAirCoo.TChiWatSup_nominal", "chiAirCoo.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
@@ -44,7 +44,7 @@ createPlot(
     id=3,
     position={615, 5, 300, 600},
     subPlot=1,
-    y={"TRet2.T", "TSup2.T", "chiWatCoo.bus.TChiWatSupSet", "chiWatCoo.TChiWatSup_nominal", "chiWatCoo.TChiWatRet_nominal"},
+    y={"TRet2.T", "TSup2.T", "chiWatCoo.bus.TSupSet", "chiWatCoo.TChiWatSup_nominal", "chiWatCoo.TChiWatRet_nominal"},
     autoscale=true,
     grid=true
 );
