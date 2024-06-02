@@ -52,10 +52,10 @@ MODIF_GRID = {
         ],
         # Primary headered pumps cause a translation error with Dymola 2024x but not with 2024xRefresh1.
         # This configuration is temporarily removed from tests until CI testing is updated to use Dymola 2024xRefresh1.
-        'pla__typArrPumPri': [
-            'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
-            # 'Buildings.Templates.Components.Types.PumpArrangement.Headered',
-        ],
+        # 'pla__typArrPumPri': [
+        #     'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
+        #     'Buildings.Templates.Components.Types.PumpArrangement.Headered',
+        # ],
         'pla__typPumHeaWatPri_select1': [  # typPumChiWatPri_select1=typPumHeaWatPri_select1 by default in the template.
             'Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant',
             'Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable',

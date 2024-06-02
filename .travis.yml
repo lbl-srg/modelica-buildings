@@ -179,7 +179,7 @@ script:
   - |
     TRAVIS_WAIT=90
     if [[ "$TEST_ARG" == *test-templates* ]]; then
-      TRAVIS_WAIT=180
+      TRAVIS_WAIT=300
     fi
     (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
 
