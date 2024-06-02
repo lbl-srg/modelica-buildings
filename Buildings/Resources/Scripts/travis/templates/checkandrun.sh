@@ -48,7 +48,7 @@ while [[ "$1" != "" ]]; do
         SIMULATOR="$1"
       else
         echo "$0: $1 is not a valid Modelica tool, only Dymola and Optimica are allowed." >&2
-        exit
+        exit 1
       fi
       ;;
     --cover )
@@ -57,7 +57,7 @@ while [[ "$1" != "" ]]; do
         FRACTION_TEST_COVERAGE=$1
       else
         echo "$0: $1 is not a valid fraction of test coverage, it must be within ]0, 1]." >&2
-        exit
+        exit 1
       fi
       ;;
     * )
@@ -68,7 +68,7 @@ while [[ "$1" != "" ]]; do
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
-        exit
+        exit 1
        ;;
   esac
   shift
