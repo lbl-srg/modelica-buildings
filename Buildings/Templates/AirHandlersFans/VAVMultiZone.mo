@@ -10,6 +10,11 @@ model VAVMultiZone "Multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
     redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
+      final nFanSup=if fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+        fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+        then fanSupBlo.nFan else 0,
+      final nFanRet=secOutRel.nFanRet,
+      final nFanRel=secOutRel.nFanRel,
       final typCoiHeaPre=coiHeaPre.typ,
       final typCoiCoo=coiCoo.typ,
       final typCoiHeaReh=coiHeaReh.typ,
@@ -35,6 +40,12 @@ model VAVMultiZone "Multiple-zone VAV"
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
     final typFanRel=secOutRel.typFanRel,
     final typFanRet=secOutRel.typFanRet,
+    final nFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.nFan else 0,
+    final nFanRel=secOutRel.nFanRel,
+    final nFanRet=secOutRel.nFanRet,
     final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
     final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
       (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
@@ -330,7 +341,13 @@ model VAVMultiZone "Multiple-zone VAV"
     constrainedby
     Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final dat=dat.ctl,
-      final nZon=nZon)
+      final nZon=nZon,
+      final typFanSup=typFanSup,
+      final typFanRel=typFanRel,
+      final typFanRet=typFanRet,
+      final nFanSup=nFanSup,
+      final nFanRel=nFanRel,
+      final nFanRet=nFanRet)
     "Control selections"
     annotation (
       Dialog(group="Controls"),

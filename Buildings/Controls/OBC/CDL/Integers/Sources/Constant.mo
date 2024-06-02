@@ -3,7 +3,7 @@ block Constant
   "Output constant signal of type Integer"
   parameter Integer k
     "Constant output value";
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

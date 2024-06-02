@@ -161,6 +161,7 @@ block Setpoints
     annotation (Placement(transformation(extent={{340,-410},{380,-370}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if there is cooling/heating demand limit being imposed"
     annotation (Placement(transformation(extent={{-280,-40},{-260,-20}})));
@@ -174,9 +175,9 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Logical.Or or5
     "Check if demand limit should be ignored or if there is no demand limit"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if cooling demand limit level is imposed"
-    annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
+    annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar3(
@@ -206,8 +207,9 @@ block Setpoints
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
     "Freeze current heating setpoint when demand limit is imposed"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or4 "Check if heating demand limit level is imposed"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Check if heating demand limit level is imposed"
+    annotation (Placement(transformation(extent={{-60,-74},{-40,-54}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro7
@@ -238,7 +240,7 @@ block Setpoints
     final t=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
     final duration=60)
     "When the zone is unpopulated by more than threshold time and then becomes populated, hold the change by short period"
     annotation (Placement(transformation(extent={{-100,-280},{-80,-260}})));
@@ -277,8 +279,15 @@ block Setpoints
     final p=-0.5)
     "Cooling setpoint minus the minimum difference between cooling and heating setpoints"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
-
-protected
+  Buildings.Controls.OBC.CDL.Logical.Or or6
+    "Current operation mode is occupied, warm-up, or cooldown mode"
+    annotation (Placement(transformation(extent={{-80,610},{-60,630}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or7
+    "Check if cooling demand limit level is imposed"
+    annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or8
+    "Check if heating demand limit level is imposed"
+    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if current operation mode is warm-up mode"
     annotation (Placement(transformation(extent={{-300,600},{-280,620}})));
@@ -287,8 +296,8 @@ protected
     annotation (Placement(transformation(extent={{-200,600},{-180,620}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2
     "Check if current operation mode is occupied mode"
-    annotation (Placement(transformation(extent={{-98,600},{-78,620}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+    annotation (Placement(transformation(extent={{-120,580},{-100,600}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or9
     "Current operation mode is occupied, warm-up, or cooldown mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -302,7 +311,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode"
-    annotation (Placement(transformation(extent={{-140,570},{-120,590}})));
+    annotation (Placement(transformation(extent={{-180,570},{-160,590}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant cooSetAdjCon(
     final k=have_locAdj)
     "Cooling setpoint adjustable"
@@ -543,7 +552,7 @@ equation
     annotation (Line(points={{-440,630},{-220,630},{-220,610},{-202,610}},
       color={255,127,0}));
   connect(uOpeMod, intEqu2.u1)
-    annotation (Line(points={{-440,630},{-120,630},{-120,610},{-100,610}},
+    annotation (Line(points={{-440,630},{-140,630},{-140,590},{-122,590}},
       color={255,127,0}));
   connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-318,580},{-310,580},{-310,602},{-302,602}},
@@ -552,17 +561,8 @@ equation
     annotation (Line(points={{-218,580},{-210,580},{-210,602},{-202,602}},
       color={255,127,0}));
   connect(conInt2.y, intEqu2.u2)
-    annotation (Line(points={{-118,580},{-110,580},{-110,602},{-100,602}},
+    annotation (Line(points={{-158,580},{-140,580},{-140,582},{-122,582}},
       color={255,127,0}));
-  connect(intEqu.y, or3.u1)
-    annotation (Line(points={{-278,610},{-260,610},{-260,640},{-34,640},
-      {-34,618},{-22,618}}, color={255,0,255}));
-  connect(intEqu1.y, or3.u2)
-    annotation (Line(points={{-178,610},{-160,610},{-160,634},{-40,634},
-      {-40,610},{-22,610}}, color={255,0,255}));
-  connect(intEqu2.y, or3.u3)
-    annotation (Line(points={{-76,610},{-60,610},{-60,602},{-22,602}},
-      color={255,0,255}));
   connect(TOccCooSet, swi.u1) annotation (Line(points={{-440,530},{-360,530},{-360,
           538},{-302,538}}, color={0,0,127}));
   connect(TUnoCooSet, swi.u3) annotation (Line(points={{-440,490},{-360,490},{-360,
@@ -571,10 +571,10 @@ equation
           458},{-302,458}}, color={0,0,127}));
   connect(TUnoHeaSet, swi1.u3) annotation (Line(points={{-440,410},{-360,410},{-360,
           442},{-302,442}}, color={0,0,127}));
-  connect(or3.y, swi.u2)
+  connect(or9.y, swi.u2)
     annotation (Line(points={{2,610},{20,610},{20,560},{-320,560},{-320,530},
       {-302,530}},   color={255,0,255}));
-  connect(or3.y, swi1.u2)
+  connect(or9.y, swi1.u2)
     annotation (Line(points={{2,610},{20,610},{20,560},{-320,560},{-320,450},
       {-302,450}},   color={255,0,255}));
   connect(cooSetAdjCon.y, swi4.u2)
@@ -613,7 +613,7 @@ equation
     annotation (Line(points={{-278,450},{120,450},{120,280},{180,280},{180,258},
           {218,258}}, color={0,0,127}));
   connect(intEqu2.y, swi3.u2)
-    annotation (Line(points={{-76,610},{-60,610},{-60,380},{200,380},{200,250},{
+    annotation (Line(points={{-98,590},{-60,590},{-60,380},{200,380},{200,250},{
           218,250}}, color={255,0,255}));
   connect(uCooDemLimLev, intGreThr.u)
     annotation (Line(points={{-440,130},{-360,130},{-360,-10},{-342,-10}},
@@ -655,16 +655,11 @@ equation
     annotation (Line(points={{-138,30},{-128,30},{-128,22},{-102,22}},
       color={255,127,0}));
   connect(intEqu3.y, or1.u1)
-    annotation (Line(points={{-78,110},{-66,110},{-66,158},{-42,158}},
+    annotation (Line(points={{-78,110},{-70,110},{-70,160},{-62,160}},
       color={255,0,255}));
   connect(intEqu4.y, or1.u2)
-    annotation (Line(points={{-78,70},{-60,70},{-60,150},{-42,150}},
+    annotation (Line(points={{-78,70},{-70,70},{-70,152},{-62,152}},
       color={255,0,255}));
-  connect(intEqu5.y, or1.u3)
-    annotation (Line(points={{-78,30},{-54,30},{-54,142},{-42,142}},
-      color={255,0,255}));
-  connect(or1.y, not1.u)
-    annotation (Line(points={{-18,150},{-2,150}}, color={255,0,255}));
   connect(not1.y, booToRea6.u)
     annotation (Line(points={{22,150},{38,150}}, color={255,0,255}));
   connect(booToRea.y, pro.u2)
@@ -732,16 +727,11 @@ equation
   connect(intEqu8.y, booToRea5.u)
     annotation (Line(points={{-78,-190},{-42,-190}}, color={255,0,255}));
   connect(intEqu6.y, or4.u1)
-    annotation (Line(points={{-78,-110},{-66,-110},{-66,-62},{-42,-62}},
+    annotation (Line(points={{-78,-110},{-70,-110},{-70,-64},{-62,-64}},
       color={255,0,255}));
   connect(intEqu7.y, or4.u2)
-    annotation (Line(points={{-78,-150},{-60,-150},{-60,-70},{-42,-70}},
+    annotation (Line(points={{-78,-150},{-70,-150},{-70,-72},{-62,-72}},
       color={255,0,255}));
-  connect(intEqu8.y, or4.u3)
-    annotation (Line(points={{-78,-190},{-54,-190},{-54,-78},{-42,-78}},
-      color={255,0,255}));
-  connect(or4.y, not2.u)
-    annotation (Line(points={{-18,-70},{-2,-70}}, color={255,0,255}));
   connect(not2.y, booToRea7.u)
     annotation (Line(points={{22,-70},{38,-70}}, color={255,0,255}));
   connect(booToRea7.y, pro7.u1)
@@ -839,7 +829,7 @@ equation
     annotation (Line(points={{242,90},{264,90},{264,-244},{148,-244},{148,-278},
           {158,-278}}, color={0,0,127}));
   connect(intEqu2.y, and10.u1)
-    annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
+    annotation (Line(points={{-98,590},{-60,590},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-270},{-282,-270}}, color={255,0,255}));
   connect(not4.y, and10.u2)
     annotation (Line(points={{-318,-270},{-308,-270},{-308,-278},{-282,-278}},
@@ -869,7 +859,7 @@ equation
     annotation (Line(points={{242,-130},{260,-130},{260,-240},{204,-240},{204,-318},
           {218,-318}}, color={0,0,127}));
   connect(intEqu2.y, not5.u)
-    annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
+    annotation (Line(points={{-98,590},{-60,590},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-390},{-282,-390}}, color={255,0,255}));
   connect(not5.y, and11.u1)
     annotation (Line(points={{-258,-390},{-240,-390},{-240,-410},{-222,-410}},
@@ -919,7 +909,7 @@ equation
           -418},{-222,-418}}, color={255,0,255}));
   connect(conFal.y, swi14.u2)
     annotation (Line(points={{-358,-470},{-340,-470},{-340,-410},{-260,-410},{-260,
-          -450},{-182,-450}},                         color={255,0,255}));
+          -450},{-182,-450}}, color={255,0,255}));
   connect(conFal.y, swi15.u2)
     annotation (Line(points={{-358,-470},{-340,-470},{-340,-410},{-260,-410},{-260,
           -432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
@@ -942,10 +932,10 @@ equation
     annotation (Line(points={{182,-470},{200,-470},{200,-496},{-204,-496},{-204,
           -608},{-182,-608}}, color={0,0,127}));
   connect(intEqu2.y, swi17.u2)
-    annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
+    annotation (Line(points={{-98,590},{-60,590},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-540},{-182,-540}}, color={255,0,255}));
   connect(intEqu2.y, swi18.u2)
-    annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
+    annotation (Line(points={{-98,590},{-60,590},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-600},{-182,-600}}, color={255,0,255}));
   connect(swi17.y, les.u1)
     annotation (Line(points={{-158,-540},{18,-540}}, color={0,0,127}));
@@ -1018,7 +1008,7 @@ equation
           -136},{158,-136}}, color={0,0,127}));
   connect(add8.y, swi11.u3) annotation (Line(points={{182,-130},{190,-130},{190,
           -138},{218,-138}}, color={0,0,127}));
-  connect(or3.y, swi2.u2) annotation (Line(points={{2,610},{20,610},{20,400},{-140,
+  connect(or9.y, swi2.u2) annotation (Line(points={{2,610},{20,610},{20,400},{-140,
           400},{-140,350},{-122,350}}, color={255,0,255}));
   connect(tim.passed, truHol.u) annotation (Line(points={{-198,-278},{-160,-278},
           {-160,-270},{-102,-270}}, color={255,0,255}));
@@ -1042,6 +1032,26 @@ equation
           -260,-450},{-182,-450}}, color={255,0,255}));
   connect(winOpe.y, swi15.u2) annotation (Line(points={{-358,-410},{-260,-410},{
           -260,-432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
+  connect(intEqu.y, or6.u1) annotation (Line(points={{-278,610},{-260,610},{-260,
+          640},{-90,640},{-90,620},{-82,620}}, color={255,0,255}));
+  connect(intEqu1.y, or6.u2) annotation (Line(points={{-178,610},{-160,610},{-160,
+          612},{-82,612}}, color={255,0,255}));
+  connect(or6.y,or9. u1) annotation (Line(points={{-58,620},{-40,620},{-40,610},
+          {-22,610}}, color={255,0,255}));
+  connect(intEqu2.y,or9. u2) annotation (Line(points={{-98,590},{-40,590},{-40,602},
+          {-22,602}}, color={255,0,255}));
+  connect(intEqu5.y, or7.u2) annotation (Line(points={{-78,30},{-70,30},{-70,142},
+          {-32,142}}, color={255,0,255}));
+  connect(or1.y, or7.u1) annotation (Line(points={{-38,160},{-36,160},{-36,150},
+          {-32,150}}, color={255,0,255}));
+  connect(not2.u, or8.y)
+    annotation (Line(points={{-2,-70},{-8,-70}}, color={255,0,255}));
+  connect(or7.y, not1.u)
+    annotation (Line(points={{-8,150},{-2,150}}, color={255,0,255}));
+  connect(or4.y, or8.u1) annotation (Line(points={{-38,-64},{-34,-64},{-34,-70},
+          {-32,-70}}, color={255,0,255}));
+  connect(intEqu8.y, or8.u2) annotation (Line(points={{-78,-190},{-70,-190},{-70,
+          -78},{-32,-78}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -1139,7 +1149,7 @@ annotation (
         preserveAspectRatio=false,
         extent={{-420,-620},{340,640}}), graphics={
         Rectangle(
-          extent={{-412,636},{330,558}},
+          extent={{-412,638},{330,560}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
@@ -1157,7 +1167,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,174},{332,-212}},
+          extent={{-412,178},{332,-208}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

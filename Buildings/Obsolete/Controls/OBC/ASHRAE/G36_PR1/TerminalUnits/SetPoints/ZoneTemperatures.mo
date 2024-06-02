@@ -169,7 +169,7 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Logical.Or or5
     "Check if demand limit should be ignored or if there is no demand limit"
     annotation (Placement(transformation(extent={{160,-20},{180,0}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or1
     "Check if cooling demand limit level is imposed"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logic not"
@@ -201,7 +201,7 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler heaSetFre
     "Freeze current heating setpoint when demand limit is imposed"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or4 "Check if heating demand limit level is imposed"
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or4 "Check if heating demand limit level is imposed"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
@@ -232,7 +232,7 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=60)
+  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(duration=60)
     "When the zone is unpopulated by more than 5 minute and then becomes populated, hold the change by 1 minute"
     annotation (Placement(transformation(extent={{-100,-280},{-80,-260}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
@@ -279,7 +279,7 @@ protected
     annotation (Placement(transformation(extent={{-200,600},{-180,620}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu2 "Check if current operation mode is occupied mode"
     annotation (Placement(transformation(extent={{-98,600},{-78,620}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.Or3 or3
     "Current operation mode is occupied, warm-up, or cool-down mode"
     annotation (Placement(transformation(extent={{-20,600},{0,620}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -799,10 +799,10 @@ equation
           78,-196}},
                   color={0,0,127}));
   connect(edg.y, cooSetFre.trigger)
-    annotation (Line(points={{-198,0},{-180,0},{-180,134},{-150,134},{-150,138.2}},
+    annotation (Line(points={{-198,0},{-180,0},{-180,134},{-150,134},{-150,138}},
       color={255,0,255}));
   connect(edg.y, heaSetFre.trigger)
-    annotation (Line(points={{-198,0},{-180,0},{-180,-86},{-150,-86},{-150,-81.8}},
+    annotation (Line(points={{-198,0},{-180,0},{-180,-86},{-150,-86},{-150,-82}},
       color={255,0,255}));
   connect(or5.y, swi10.u2)
     annotation (Line(points={{182,-10},{200,-10},{200,90},{218,90}},
@@ -836,10 +836,10 @@ equation
   connect(truHol.y, edg1.u)
     annotation (Line(points={{-78,-270},{-42,-270}}, color={255,0,255}));
   connect(edg1.y, cooSetSam.trigger)
-    annotation (Line(points={{-18,-270},{0,-270},{0,-288},{50,-288},{50,-281.8}},
+    annotation (Line(points={{-18,-270},{0,-270},{0,-288},{50,-288},{50,-282}},
       color={255,0,255}));
   connect(edg1.y, heaSetSam.trigger)
-    annotation (Line(points={{-18,-270},{0,-270},{0,-330},{50,-330},{50,-321.8}},
+    annotation (Line(points={{-18,-270},{0,-270},{0,-330},{50,-330},{50,-322}},
       color={255,0,255}));
   connect(cooSetSam.y, cooSetInc.u)
     annotation (Line(points={{62,-270},{98,-270}}, color={0,0,127}));

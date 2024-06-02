@@ -1,0 +1,13 @@
+
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.PlaceholderInteger",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="PlaceholderInteger");
+createPlot(
+    id=1,
+    position={5, 5, 400, 300},
+    y={"phNo.y", "phPar.y", "phInp.y"},
+    autoscale=true,
+    grid=true
+);

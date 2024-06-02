@@ -29,12 +29,14 @@ record Generic "Generic data record for movers"
 
   // Efficiency computation choices
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    if havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    else Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    if powerOrEfficiencyIsHydraulic
-      then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    if powerOrEfficiencyIsHydraulic and havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
     else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
@@ -98,7 +100,7 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power WMot_nominal=
     if max(power.P)>Modelica.Constants.eps
     then
       if powerOrEfficiencyIsHydraulic
@@ -158,6 +160,12 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Default efficiency methods now depend on whether a pressure curve is available.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Deleted angular speed parameters with the unit rpm.

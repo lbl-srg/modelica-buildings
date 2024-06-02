@@ -299,6 +299,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,-860},{480,-820}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
+protected
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr(
     final t=273.15 + 4.4,
     final h=Thys) if have_frePro
@@ -400,7 +401,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
     final t=900) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
+    annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr2(
     final t=273.15 + 1,
     final h=Thys) if have_frePro
@@ -409,15 +410,15 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
     final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
-    annotation (Placement(transformation(extent={{-300,200},{-280,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 if have_frePro
+    annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or8 if have_frePro
     "Check if it should be in stage 3 mode"
-    annotation (Placement(transformation(extent={{-220,192},{-200,212}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Constant false"
-    annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
+    annotation (Placement(transformation(extent={{-320,50},{-300,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_frePro
     "Stay in stage 3 freeze protection mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
@@ -732,6 +733,9 @@ block FreezeProtection
     if (not have_frePro) and heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Dummy constant"
     annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or7 if have_frePro
+    "Check if it should be in stage 3 mode"
+    annotation (Placement(transformation(extent={{-280,232},{-260,252}})));
 
 equation
   connect(lesThr.y, tim.u)
@@ -778,18 +782,12 @@ equation
           410},{118,410}},      color={0,0,127}));
   connect(conInt1.y, intSwi1.u1) annotation (Line(points={{62,350},{100,350},{
           100,328},{118,328}}, color={255,127,0}));
-  connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,470},{-350,470},{
-          -350,250},{-302,250}}, color={255,0,255}));
+  connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,470},{-350,470},{-350,
+          250},{-322,250}},      color={255,0,255}));
   connect(lesThr2.y, tim4.u)
-    annotation (Line(points={{-338,210},{-302,210}}, color={255,0,255}));
+    annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
   connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,330},{-420,330},{
           -420,210},{-362,210}}, color={0,0,127}));
-  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,242},{-240,242},{
-          -240,210},{-222,210}}, color={255,0,255}));
-  connect(tim4.passed, or3.u2)
-    annotation (Line(points={{-278,202},{-222,202}}, color={255,0,255}));
-  connect(con2.y, or3.u3) annotation (Line(points={{-278,60},{-240,60},{-240,
-          194},{-222,194}},      color={255,0,255}));
   connect(u1SofSwiRes, lat1.clr) annotation (Line(points={{-460,20},{-160,20},{
           -160,154},{-142,154}},        color={255,0,255}));
   connect(lat1.y, supFan.u2) annotation (Line(points={{-118,160},{20,160},{20,
@@ -960,8 +958,8 @@ equation
           {318,-62}}, color={255,0,255}));
   connect(u1FreSta,norFal. u) annotation (Line(points={{-460,130},{-362,130}},
                                  color={255,0,255}));
-  connect(or3.y, lat1.u) annotation (Line(points={{-198,202},{-160,202},{-160,
-          160},{-142,160}}, color={255,0,255}));
+  connect(or8.y, lat1.u) annotation (Line(points={{-198,200},{-160,200},{-160,160},
+          {-142,160}},      color={255,0,255}));
   connect(falEdg.y, lat1.clr) annotation (Line(points={{-198,130},{-180,130},{
           -180,154},{-142,154}}, color={255,0,255}));
   connect(u1RetFan, and1.u1) annotation (Line(points={{-460,-320},{-80,-320},{-80,
@@ -1046,8 +1044,6 @@ equation
           {460,-220}}, color={0,0,127}));
   connect(norFal.y, falEdg.u)
     annotation (Line(points={{-338,130},{-222,130}}, color={255,0,255}));
-  connect(norFal.y, or3.u3) annotation (Line(points={{-338,130},{-260,130},{-260,
-          194},{-222,194}}, color={255,0,255}));
   connect(conInt9.y, yFreProSta) annotation (Line(points={{402,370},{420,370},{420,
           320},{460,320}}, color={255,127,0}));
   connect(gai8.y, yRetDam) annotation (Line(points={{-218,-50},{366,-50},{366,160},
@@ -1088,6 +1084,16 @@ equation
     annotation (Line(points={{342,-460},{460,-460}}, color={255,0,255}));
   connect(and3.y, y1RelDam) annotation (Line(points={{342,-420},{360,-420},{360,
           -460},{460,-460}}, color={255,0,255}));
+  connect(tim3.passed, or7.u1)
+    annotation (Line(points={{-298,242},{-282,242}}, color={255,0,255}));
+  connect(tim4.passed, or7.u2) annotation (Line(points={{-298,202},{-290,202},{-290,
+          234},{-282,234}}, color={255,0,255}));
+  connect(or7.y, or8.u1) annotation (Line(points={{-258,242},{-240,242},{-240,200},
+          {-222,200}}, color={255,0,255}));
+  connect(norFal.y, or8.u2) annotation (Line(points={{-338,130},{-240,130},{-240,
+          192},{-222,192}}, color={255,0,255}));
+  connect(con2.y, or8.u2) annotation (Line(points={{-298,60},{-240,60},{-240,192},
+          {-222,192}}, color={255,0,255}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -1123,7 +1129,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,120},{-20,102}},
           textColor={0,0,127},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
           textString="uMinOutDam"),
         Text(
           extent={{-98,78},{-46,62}},
@@ -1172,7 +1178,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{20,122},{98,104}},
           textColor={0,0,127},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
           textString="yMinOutDam"),
         Text(
           extent={{50,50},{96,34}},
@@ -1231,11 +1237,11 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-96,104},{-14,80}},
           textColor={255,0,255},
           textString="u1MinOutDamPos",
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
         Text(
           extent={{16,102},{96,82}},
           textColor={255,0,255},
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure,
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
           textString="y1MinOutDam"),
         Text(
           extent={{-96,-16},{-46,-40}},
@@ -1347,6 +1353,10 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 September 18, 2023, by Jianjun Hu:<br/>
 Added 2-position relief damper position output.<br/>
