@@ -284,6 +284,10 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit
   openmodelica:
     comment: Translation failed.
@@ -304,7 +308,23 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerDualMode
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeadered
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeed
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatRecoveryChiller
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -320,6 +340,9 @@
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
     simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+  optimica:
+    comment: False positive warning "missing each", but the model can be simulated successfully.
+    translate: false
   openmodelica:
     comment: Translation failed.
     translate: false

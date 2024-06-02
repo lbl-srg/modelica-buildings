@@ -32,22 +32,22 @@ block ControllerDualMode
     Dialog(connectorSizing=true),HideResult=true);
   parameter Real VHeaWat_flow_nominal[nEqu](
     start=fill(0, nEqu),
-    unit="m3/s")
+    unit=fill("m3/s", nEqu))
     "Design HW flow rate – Each unit"
     annotation (Dialog(enable=have_heaWat));
   parameter Real VHeaWat_flow_min[nEqu](
     start=fill(0, nEqu),
-    unit="m3/s")
+    unit=fill("m3/s", nEqu))
     "Minimum HW flow rate – Each unit"
     annotation (Dialog(enable=have_heaWat));
   parameter Real VChiWat_flow_nominal[nEqu](
     start=fill(0, nEqu),
-    unit="m3/s")
+    unit=fill("m3/s", nEqu))
     "Design CHW flow rate – Each unit"
     annotation (Dialog(enable=have_chiWat));
   parameter Real VChiWat_flow_min[nEqu](
     start=fill(0, nEqu),
-    unit="m3/s")
+    unit=fill("m3/s", nEqu))
     "Minimum CHW flow rate – Each unit"
     annotation (Dialog(enable=have_chiWat));
   parameter Real k(
@@ -69,7 +69,8 @@ block ControllerDualMode
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1PumHeaWatPri_actual[nEnaHeaWat]
-    if have_heaWat and not(have_valInlIso or have_valOutIso)
+    if have_heaWat and not
+                          (have_valInlIso or have_valOutIso)
     "Primary HW pump status"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
@@ -175,23 +176,27 @@ block ControllerDualMode
   Utilities.PlaceholderLogical phPumChiWatPri[nEnaChiWat](
     each final have_inp=have_heaWat and have_chiWat and not have_pumChiWatPri,
     each final have_inpPh=true)
-    if have_chiWat and not(have_valInlIso or have_valOutIso)
+    if have_chiWat and not
+                          (have_valInlIso or have_valOutIso)
     "Use CHW pump signal in case the plant does not have common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And pumOnAndCoo[nEqu]
-    if have_heaWat and have_chiWat and not have_pumChiWatPri and not(have_valInlIso
+    if have_heaWat and have_chiWat and not have_pumChiWatPri and not
+                                                                    (have_valInlIso
       or have_valOutIso)
     "True if pump proven on and equipment in cooling mode – Case with common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And pumOnAndHea[nEqu]
-    if have_heaWat and have_chiWat and not have_pumChiWatPri and not(have_valInlIso
+    if have_heaWat and have_chiWat and not have_pumChiWatPri and not
+                                                                    (have_valInlIso
       or have_valOutIso)
     "True if pump proven on and equipment in heating mode – Case with common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Utilities.PlaceholderLogical phPumHeaWatPri[nEnaHeaWat](
     each final have_inp=have_heaWat and have_chiWat and not have_pumChiWatPri,
     each final have_inpPh=true)
-    if have_heaWat and not(have_valInlIso or have_valOutIso)
+    if have_heaWat and not
+                          (have_valInlIso or have_valOutIso)
     "Use HW pump signal in case the plant does not have common CHW and HW dedicated pumps"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
 equation
