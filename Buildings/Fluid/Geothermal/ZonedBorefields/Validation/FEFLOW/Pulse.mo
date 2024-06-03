@@ -49,6 +49,11 @@ model Pulse "Comparative model validation with FEFLOW for a pulse response"
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
 
+  Modelica.Units.SI.TemperatureDifference dTOut[2] = TOut.y[:] - TBorFieOut[:].T
+    "Temperature difference FEFLOW minus Modelica outlet temperature";
+  Real dQNor_flow[2] = {if m_flow[i].y > 1E-5 then (TOut.y[i] - sou[i].T) / (TBorFieOut[i].T - sou[i].T) else 0 for i in 1:2}
+    "Difference in heat extraction FEFLOW divided by Modelica";
+
   Buildings.Fluid.Geothermal.ZonedBorefields.TwoUTubes borFie(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
