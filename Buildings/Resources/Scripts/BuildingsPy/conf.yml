@@ -336,9 +336,6 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
-    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
     comment: False positive warning "missing each", but the model can be simulated successfully.
