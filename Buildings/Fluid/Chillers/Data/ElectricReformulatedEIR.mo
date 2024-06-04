@@ -12,7 +12,7 @@ package ElectricReformulatedEIR "Performance data for chiller ElectricReformulat
     parameter Modelica.Units.SI.Temperature TConLvgMin
       "Minimum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
-    Modelica.Units.SI.Temperature TConLvgMax
+    parameter Modelica.Units.SI.Temperature TConLvgMax
       "Maximum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
