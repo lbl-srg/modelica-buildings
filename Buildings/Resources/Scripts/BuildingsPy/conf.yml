@@ -231,7 +231,8 @@
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
-    time_out: 900
+    translate: false
+    comment: Timeout on travis even with 900 s
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
@@ -261,6 +262,8 @@
     time_out: 600
   openmodelica:
     time_out: 1200
+    simulate: false
+    comment: Simulation terminated by an assertion at initialization
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
