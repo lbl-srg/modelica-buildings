@@ -135,11 +135,6 @@ model Controller "Validation head pressure controller"
     final offset={20,25})
     "Current chiller cooling load"
     annotation (Placement(transformation(extent={{-300,-130},{-280,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiWatFlo(
-    final height=0.002,
-    final duration=10800,
-    final offset=0.0075) "Chilled water flow"
-    annotation (Placement(transformation(extent={{-300,-210},{-280,-190}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if the WSE pump should be enabled"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
@@ -153,6 +148,14 @@ model Controller "Validation head pressure controller"
     final samplePeriod=5)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{148,-150},{168,-130}})));
+  CDL.Reals.Sources.TimeTable chiWatFlo(
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
+
+    final table=[0,0; 6500,0; 7000,0.005; 7500,0.008; 9200,0.02; 10000,0.020;
+        10800,0.024],
+    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-300,-210},{-280,-190}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -219,8 +222,6 @@ equation
           {-220,-134},{-202,-134}}, color={0,0,127}));
   connect(pro1.y, chiPlaCon.uChiCooLoa) annotation (Line(points={{-178,-128},{-70,
           -128},{-70,-110},{-30,-110}},  color={0,0,127}));
-  connect(chiWatFlo.y, chiPlaCon.VChiWat_flow) annotation (Line(points={{-278,-200},
-          {-160,-200},{-160,130},{-30,130}},     color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,50},
           {198,50}},                     color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
@@ -278,6 +279,8 @@ equation
           255,0,255}));
   connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{222,50},{252,50},{252,
           6},{258,6}}, color={0,0,127}));
+  connect(chiWatFlo.y[1], chiPlaCon.VChiWat_flow) annotation (Line(points={{
+          -278,-200},{-160,-200},{-160,130},{-30,130}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/Controller.mos"
