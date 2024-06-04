@@ -452,6 +452,12 @@ EnergyPlus v22.1.0 Engineering Reference</a>
 revisions="<html>
 <ul>
 <li>
+June 4, 2024, by Antoine Gautier:<br/>
+Added load limit in heating mode.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
+</li>
+<li>
 January 11, 2023, by Antoine Gautier:<br/>
 Added optional switchover mode for heat recovery chillers.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.

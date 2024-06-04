@@ -373,6 +373,12 @@ Master Thesis. Oklahoma State University, Oklahoma, USA. 2005.
 </html>", revisions="<html>
 <ul>
 <li>
+June 4, 2024, by Antoine Gautier:<br/>
+Added load limit depending on operating mode.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
+</li>
+<li>
 April 1, 2024, by Michael Wetter:<br/>
 Corrected wrong assertion.<br/>
 This is for
