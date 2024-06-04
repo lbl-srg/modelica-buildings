@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer;
-function temperatureResponseMatrix
+impure function temperatureResponseMatrix
   "Evaluate the thermal response factors of a zoned thermal storage"
   extends Modelica.Icons.Function;
 
