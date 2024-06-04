@@ -28,17 +28,17 @@ model HeatPumpWaterHeaterWrapped "Wrapped heat pump water heater model"
     from_dp=true,
     dp_nominal=dpAir_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
 
 equation
   connect(port_a1, sinSpeDXCoo.port_a)
-    annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-58,60}}, color={0,127,255}));
   connect(sinSpeDXCoo.port_b, fan.port_a)
-    annotation (Line(points={{-40,60},{24,60}}, color={0,127,255}));
+    annotation (Line(points={{-38,60},{24,60}}, color={0,127,255}));
   connect(on, sinSpeDXCoo.on) annotation (Line(points={{-120,0},{-80,0},{-80,68},
-          {-61,68}}, color={255,0,255}));
+          {-59,68}}, color={255,0,255}));
   connect(TConWatAve.y, sinSpeDXCoo.TOut) annotation (Line(points={{-67.02,-70},
-          {-78,-70},{-78,63},{-61,63}}, color={0,0,127}));
+          {-78,-70},{-78,63},{-59,63}}, color={0,0,127}));
   connect(hea.port, tan.heaPorVol[datWT.segTop:datWT.segBot])
     annotation (Line(points={{-6,-26},{36,-26}}, color={191,0,0}));
   connect(QCon.y, hea.Q_flow)
@@ -51,8 +51,9 @@ equation
     annotation (Line(points={{87,-40},{110,-40}}, color={0,0,127}));
   connect(add.u1, fan.P) annotation (Line(points={{64,-34},{48,-34},{48,69},{45,
           69}}, color={0,0,127}));
-  connect(add.u2, sinSpeDXCoo.P) annotation (Line(points={{64,-46},{8,-46},{8,69},
-          {-39,69}}, color={0,0,127}));
+  connect(add.u2, sinSpeDXCoo.P) annotation (Line(points={{64,-46},{8,-46},{8,
+          69},{-37,69}},
+                     color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-80},
             {100,80}}),                                         graphics={
         Rectangle(

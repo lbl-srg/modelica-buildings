@@ -7,7 +7,7 @@
 
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
-! WaterHeaterHeatPumpWrappedCondenser.idf
+! WaterHeaterHeatPumpStratifiedTank.idf
 !
 ! Basic file description:
 ! This input file illustrates WATER USE EQUIPMENT objects connected to a WATER HEATER:STRATIFIED object in a simple
@@ -349,27 +349,36 @@ Fan:SystemModel,
     0.1722;                  !- Fan Total Efficiency
 
 
-!-   ===========  ALL OBJECTS IN CLASS: COIL:WATERHEATING:AIRTOWATERHEATPUMP:WRAPPED ===========
+!-   ===========  ALL OBJECTS IN CLASS: COIL:WATERHEATING:AIRTOWATERHEATPUMP:PUMPED ===========
 
-Coil:WaterHeating:AirToWaterHeatPump:Wrapped,
+Coil:WaterHeating:AirToWaterHeatPump:Pumped,
     HPWHPlantDXCoil,         !- Name
     4500,                  !- Rated Heating Capacity {W}
     2.4,                     !- Rated COP {W/W}
     0.981,                   !- Rated Sensible Heat Ratio
     19.72,                   !- Rated Evaporator Inlet Air Dry-Bulb Temperature {C}
     13.5,                    !- Rated Evaporator Inlet Air Wet-Bulb Temperature {C}
-    48.89,                   !- Rated Condenser Water Temperature {C}
+    48.89,                   !- Rated Condenser Inlet Water Temperature {C}
     0.189,                   !- Rated Evaporator Air Flow Rate {m3/s}
+    0.00033,                 !- Rated Condenser Water Flow Rate {m3/s}
     Yes,                     !- Evaporator Fan Power Included in Rated COP
+    No,                      !- Condenser Pump Power Included in Rated COP
+    No,                      !- Condenser Pump Heat Included in Rated Heating Capacity and Rated COP
+    150.0,                   !- Condenser Water Pump Power {W}
+    0.1,                     !- Fraction of Condenser Pump Heat to Water
     HPPlantAirInletNode,     !- Evaporator Air Inlet Node Name
     HPPlantAirOutletNode,    !- Evaporator Air Outlet Node Name
+    HPPlantWaterInletNode,   !- Condenser Water Inlet Node Name
+    HPPlantWaterOutletNode,  !- Condenser Water Outlet Node Name
     0,                       !- Crankcase Heater Capacity {W}
     10,                      !- Maximum Ambient Temperature for Crankcase Heater Operation {C}
     WetBulbTemperature,      !- Evaporator Air Temperature Type for Curve Objects
     HPWH-Htg-Cap-fT,         !- Heating Capacity Function of Temperature Curve Name
     ,                        !- Heating Capacity Function of Air Flow Fraction Curve Name
-    HPWH-Htg-COP-fT,         !- Heating COP Function of Temperature Curve Name
+    ,                        !- Heating Capacity Function of Water Flow Fraction Curve Name
+    HPWH-Htg-COP-fT,     !- Heating COP Function of Temperature Curve Name
     ,                        !- Heating COP Function of Air Flow Fraction Curve Name
+    ,                        !- Heating COP Function of Water Flow Fraction Curve Name
     HPWH-COP-fPLR;           !- Part Load Fraction Correlation Curve Name
 
 
@@ -386,7 +395,7 @@ Branch,
 Branch,
     Water Heater Use Branch, !- Name
     ,                        !- Pressure Drop Curve Name
-    WaterHeater:HeatPump:WrappedCondenser,  !- Component 1 Object Type
+    WaterHeater:HeatPump:PumpedCondenser,  !- Component 1 Object Type
     PlantHeatPumpWaterHeater,!- Component 1 Name
     Water Heater Use Inlet Node,  !- Component 1 Inlet Node Name
     Water Heater Use Outlet Node;  !- Component 1 Outlet Node Name
@@ -508,7 +517,24 @@ Pipe:Adiabatic,
     Demand Outlet Node;      !- Outlet Node Name
 
 
+!-   ===========  ALL OBJECTS IN CLASS: PUMP:VARIABLESPEED ===========
 
+! No pumping energy; water mains pressure only
+Pump:VariableSpeed,
+    DHW Pump,                !- Name
+    Water Heater Use Loop Inlet Node,  !- Inlet Node Name
+    DHW Pump Outlet Node,    !- Outlet Node Name
+    AUTOSIZE,                !- Design Maximum Flow Rate {m3/s}
+    179352,                  !- Design Pump Head {Pa}
+    AUTOSIZE,                !- Design Power Consumption {W}
+    0.9,                     !- Motor Efficiency
+    0.0,                     !- Fraction of Motor Inefficiencies to Fluid Stream
+    0,                       !- Coefficient 1 of the Part Load Performance Curve
+    1,                       !- Coefficient 2 of the Part Load Performance Curve
+    0,                       !- Coefficient 3 of the Part Load Performance Curve
+    0,                       !- Coefficient 4 of the Part Load Performance Curve
+    0,                       !- Design Minimum Flow Rate {m3/s}
+    INTERMITTENT;            !- Pump Control Type
 
 
 !-   ===========  ALL OBJECTS IN CLASS: WATERHEATER:STRATIFIED ===========
@@ -556,27 +582,28 @@ WaterHeater:Stratified,
     1,                       !- Use Side Effectiveness
     0,                       !- Use Side Inlet Height {m}
     autocalculate,           !- Use Side Outlet Height {m}
-    ,                        !- Source Side Inlet Node Name
-    ,                        !- Source Side Outlet Node Name
+    HPPlantWaterOutletNode,  !- Source Side Inlet Node Name
+    HPPlantWaterInletNode,   !- Source Side Outlet Node Name
     ,                        !- Source Side Effectiveness
     ,                        !- Source Side Inlet Height {m}
     ,                        !- Source Side Outlet Height {m}
     Fixed,                   !- Inlet Mode
     autosize,                !- Use Side Design Flow Rate {m3/s}
-    autosize,                !- Source Side Design Flow Rate {m3/s}
+    0.00033,                 !- Source Side Design Flow Rate {m3/s}
     1.5,                     !- Indirect Water Heating Recovery Time {hr}
     12;                      !- Number of Nodes
 
 
-!-   ===========  ALL OBJECTS IN CLASS: WATERHEATER:HEATPUMP:WRAPPEDCONDENSER ===========
+!-   ===========  ALL OBJECTS IN CLASS: WATERHEATER:HEATPUMP:PUMPEDCONDENSER ===========
 
-WaterHeater:HeatPump:WrappedCondenser,
+WaterHeater:HeatPump:PumpedCondenser,
     PlantHeatPumpWaterHeater,!- Name
     PlantHPWHSch,            !- Availability Schedule Name
     PlantHPWHTempSch,        !- Compressor Setpoint Temperature Schedule Name
     3.89,                    !- Dead Band Temperature Difference {deltaC}
-    0.0664166667,            !- Condenser Bottom Location {m}
-    0.8634166667,            !- Condenser Top Location {m}
+    HPPlantWaterInletNode,   !- Condenser Water Inlet Node Name
+    HPPlantWaterOutletNode,  !- Condenser Water Outlet Node Name
+    0.00033,                 !- Condenser Water Flow Rate {m3/s}
     0.2279,                  !- Evaporator Air Flow Rate {m3/s}
     OutdoorAirOnly,          !- Inlet Air Configuration
     ,                        !- Air Inlet Node Name
@@ -590,7 +617,7 @@ WaterHeater:HeatPump:WrappedCondenser,
     Water Heater Tank,       !- Tank Name
     Water Heater Use Inlet Node,  !- Tank Use Side Inlet Node Name
     Water Heater Use Outlet Node,  !- Tank Use Side Outlet Node Name
-    Coil:WaterHeating:AirToWaterHeatPump:Wrapped,  !- DX Coil Object Type
+    Coil:WaterHeating:AirToWaterHeatPump:Pumped,  !- DX Coil Object Type
     HPWHPlantDXCoil,         !- DX Coil Name
     7.2,                     !- Minimum Inlet Air Temperature for Compressor Operation {C}
     48.89,                   !- Maximum Inlet Air Temperature for Compressor Operation {C}
@@ -639,7 +666,7 @@ PlantLoop,
 
 PlantEquipmentList,
     DHW Plant Equipment,     !- Name
-    WaterHeater:HeatPump:WrappedCondenser,  !- Equipment 1 Object Type
+    WaterHeater:HeatPump:PumpedCondenser,  !- Equipment 1 Object Type
     PlantHeatPumpWaterHeater;!- Equipment 1 Name
 
 

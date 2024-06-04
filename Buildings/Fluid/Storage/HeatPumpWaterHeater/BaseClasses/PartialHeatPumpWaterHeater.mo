@@ -33,7 +33,7 @@ partial model PartialHeatPumpWaterHeater
       Dialog(group="Fan parameters"));
 
   Modelica.Blocks.Math.BooleanToReal yMov "Boolean to real for fan signal"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
     "Heat port tank bottom (outside insulation)" annotation (Placement(
         transformation(extent={{-10,-90},{10,-70}}), iconTransformation(extent={
@@ -49,9 +49,9 @@ partial model PartialHeatPumpWaterHeater
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
     "Temperature tank sensor"
     annotation (Placement(transformation(extent={{-30,-56},{-50,-36}})));
-  Modelica.Blocks.Math.Gain gai_m_flow(k=mAir_flow_nominal)
+  Modelica.Blocks.Math.Gain gai_mAir_flow(k=mAir_flow_nominal)
     "Nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+    annotation (Placement(transformation(extent={{-34,26},{-26,34}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Heat pump water heater on/off signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -103,16 +103,15 @@ equation
           {70,0},{60,0}}, color={191,0,0}));
   connect(tan.heaPorTop, heaPorTop) annotation (Line(points={{38,-18.6},{38,14},
           {0,14},{0,80}}, color={191,0,0}));
-  connect(yMov.y, gai_m_flow.u)
-    annotation (Line(points={{-39,20},{-32,20}},
-                                              color={0,0,127}));
-  connect(gai_m_flow.y, fan.m_flow_in) annotation (Line(points={{-9,20},{14,20},
-          {14,76},{34,76},{34,72}}, color={0,0,127}));
+  connect(yMov.y, gai_mAir_flow.u)
+    annotation (Line(points={{-49,30},{-34.8,30}}, color={0,0,127}));
+  connect(gai_mAir_flow.y, fan.m_flow_in) annotation (Line(points={{-25.6,30},{
+          14,30},{14,76},{34,76},{34,72}}, color={0,0,127}));
   connect(TSen.T, TWat) annotation (Line(points={{-51,-46},{-70,-46},{-70,-10},
           {110,-10}},
                color={0,0,127}));
-  connect(on, yMov.u) annotation (Line(points={{-120,0},{-76,0},{-76,20},{-62,
-          20}},
+  connect(on, yMov.u) annotation (Line(points={{-120,0},{-86,0},{-86,30},{-72,
+          30}},
         color={255,0,255}));
   connect(port_b2, port_b2) annotation (Line(points={{-100,-60},{-92,-60},{-92,
           -60},{-100,-60}}, color={0,127,255}));
