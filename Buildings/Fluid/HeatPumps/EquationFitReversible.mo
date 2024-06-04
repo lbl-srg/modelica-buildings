@@ -99,17 +99,23 @@ protected
    "Load side entering fluid temperature"
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_set(
-    final y= if (uMod == 0)
-      then
-        0
-      else
-        m1_flow*(hSet - inStream(port_a1.h_outflow)))
+    final y=if uMod == 1 then Buildings.Utilities.Math.Functions.smoothMax(
+              x1=m1_flow * (hSet - inStream(port_a1.h_outflow)),
+              x2=Q_flow_small,
+              deltaX=Q_flow_small/100)
+            elseif uMod == -1 then Buildings.Utilities.Math.Functions.smoothMin(
+              x1=m1_flow * (hSet - inStream(port_a1.h_outflow)),
+              x2=-Q_flow_small,
+              deltaX=Q_flow_small/100)
+            else 0)
     "Required heat flow rate to meet set point"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  BaseClasses.EquationFitReversible equFit(final per=per,
-                                         final scaling_factor=scaling_factor)
-   "Performance model"
+  BaseClasses.EquationFitReversible equFit(
+    final per=per,
+    final scaling_factor=scaling_factor,
+    final Q_flow_small=Q_flow_small)
+    "Performance model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloLoa

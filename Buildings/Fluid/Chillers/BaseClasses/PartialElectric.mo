@@ -160,8 +160,11 @@ equation
       x2=Q_flow_small,
       deltaX=-Q_flow_small/100);
     // Heating capacity required to heat up condenser water to setpoint
-    QCon_flow_set = if coo_internal then QCon_flow
-                    else m1_flow * (hSet - inStream(port_a1.h_outflow));
+    // (Q_flow_small is a negative number.)
+    QCon_flow_set = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=if coo_internal then QCon_flow else m1_flow * (hSet - inStream(port_a1.h_outflow)),
+      x2=-Q_flow_small,
+      deltaX=-Q_flow_small/100);
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
       x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
