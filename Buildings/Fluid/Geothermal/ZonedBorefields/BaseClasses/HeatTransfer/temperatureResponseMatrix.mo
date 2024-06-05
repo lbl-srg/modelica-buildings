@@ -24,7 +24,9 @@ impure function temperatureResponseMatrix
   output Modelica.Units.SI.ThermalResistance kappa[nZon*nSeg,nZon*nSeg,nTim] "Thermal response factor matrix";
 
 protected
-  String pathSave "Path of the folder used to save the temperature response matrix";
+  String fileName[nZon*nSeg] = {
+     "tmp/temperatureResponseMatrix/kappa_" + String(i) + "_" + sha + ".mat"  for i in 1:nZon*nSeg}
+    "File name used to save the temperature response matrix";
   Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
   Integer n_max = max(nBorPerZon.*nBorPerZon);
   Modelica.Units.SI.Distance dis[nZon,nZon,n_max] "Separation distance between boreholes";
@@ -42,9 +44,9 @@ protected
   Boolean found "Flag, true if a cluster has been found";
 
 algorithm
-  pathSave := "tmp/temperatureResponseMatrix/" + sha + "kappa.mat";
-
-  if not Modelica.Utilities.Files.exist(pathSave) then
+  if not Modelica.Math.BooleanVectors.allTrue(
+    {Modelica.Utilities.Files.exist(fileName[i]) for i in 1:nZon*nSeg}
+    ) then
     // ---------------------------------------------
     // Distances between borehole in different zones
     // ---------------------------------------------
@@ -173,18 +175,18 @@ algorithm
 
     for i in 1:nZon*nSeg loop
       assert(Modelica.Utilities.Streams.writeRealMatrix(
-        fileName=pathSave,
-        matrixName="kappa_" + String(i),
+        fileName=fileName[i],
+        matrixName="kappa",
         matrix=kappa[i, :, :],
-        append=true),
+        append=false),
         "In " + getInstanceName() +": Writing kappa.mat failed.");
     end for;
   end if;
 
   for i in 1:nZon*nSeg loop
     kappa[i,:,:] := Modelica.Utilities.Streams.readRealMatrix(
-      fileName=pathSave,
-      matrixName="kappa_" + String(i),
+      fileName=fileName[i],
+      matrixName="kappa",
       nrow=nZon*nSeg,
       ncol=nTim,
       verboseRead=false);
