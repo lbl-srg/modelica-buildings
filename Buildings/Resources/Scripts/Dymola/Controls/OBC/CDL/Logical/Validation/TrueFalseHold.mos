@@ -1,5 +1,9 @@
 simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.TrueFalseHold", stopTime=7200.0, method="Cvode", tolerance=1e-06, resultFile="TrueFalseHold1");
-createPlot(id=1, position={15, 10, 817, 263}, y={"truFalHol.u", "truFalHol.y"}, range={0.0, 7500.0, -0.2, 1.2}, grid=true, colors={{238,46,47}, {28,108,200}});
+createPlot(id=1,
+  position={15, 10, 817, 263},
+  y={"truFalHol.u", "truFalHol.y", "tru0FalHol.y", "truHolFal0.y", "tru0Fal0.y"},
+  range={0.0, 7500.0, -0.2, 1.2},
+  grid=true);
 createPlot(id=2, position={18, 310, 810, 253}, y={"truFalHol1.u", "truFalHol1.y"}, range={0.0, 7500.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=3, position={20, 599, 815, 247}, y={"truFalHol2.u", "truFalHol2.y"}, range={0.0, 7500.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=4, position={25, 903, 810, 299}, y={"truFalHol3.u", "truFalHol3.y"}, range={0.0, 7500.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {238,46,47}});
