@@ -25,7 +25,7 @@ impure function temperatureResponseMatrix
 
 protected
   String fileName[nZon*nSeg] = {
-     "tmp/temperatureResponseMatrix/kappa_" + String(i) + "_" + sha + ".mat"  for i in 1:nZon*nSeg}
+    "tmp/temperatureResponseMatrix/kappa_" + String(i) + "_" + sha + ".mat" for i in 1:nZon*nSeg}
     "File name used to save the temperature response matrix";
   Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
   Integer n_max = max(nBorPerZon.*nBorPerZon);
@@ -44,9 +44,8 @@ protected
   Boolean found "Flag, true if a cluster has been found";
 
 algorithm
-  if not Modelica.Math.BooleanVectors.allTrue(
-    {Modelica.Utilities.Files.exist(fileName[i]) for i in 1:nZon*nSeg}
-    ) then
+  if not Modelica.Math.BooleanVectors.allTrue(Modelica.Utilities.Files.exist(fileName[:]))
+      then
     // ---------------------------------------------
     // Distances between borehole in different zones
     // ---------------------------------------------
