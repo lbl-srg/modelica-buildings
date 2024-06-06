@@ -32,7 +32,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHol if have_hol
     "Hold signal"
     annotation (Placement(
-        transformation(extent={{-260,20},{-220,60}}), iconTransformation(extent={{-140,
+        transformation(extent={{-260,0},{-220,40}}),  iconTransformation(extent={{-140,
             -20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Setpoint that have been reset"
@@ -63,7 +63,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final samplePeriod=samplePeriod,
     final y_start=iniSet)
     "Output the input signal with a unit delay"
-    annotation (Placement(transformation(extent={{-112,136},{-92,156}})));
+    annotation (Placement(transformation(extent={{-90,136},{-70,156}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,220},{180,200}})));
@@ -93,30 +93,24 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
   CDL.Logical.Sources.Constant                fal(final k=false) if not
     have_hol "Constant – Placeholder value in there is no hold signal"
-    annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
   CDL.Reals.Switch swiHol
-    "Switch to zero reset until hold is released and request sampler ticks"
-    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  CDL.Conversions.RealToInteger reaToInt "Cast real to integer"
-    annotation (Placement(transformation(extent={{-194,88},{-174,108}})));
-  CDL.Integers.Change cha
-    "Return true when the clock of the request sampler ticks"
-    annotation (Placement(transformation(extent={{-162,88},{-142,108}})));
+    "Switch to zero reset until hold is released and sampler clock ticks"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   CDL.Logical.Not notHol "Return true if hold is released"
-    annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
+    annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
   CDL.Logical.Latch lat
-    "True when reset changes and uHol is true: enables applying the last calculated reset before holding"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    "True when hold is active and sampler clock ticks: enables applying the last calculated reset before freezing output"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   CDL.Logical.TrueHold truHol(final duration=dtHol) if have_hol
-    annotation (Placement(transformation(extent={{-212,30},{-192,50}})));
-  CDL.Reals.MultiplyByParameter gai1(k=1E3)
-    annotation (Placement(transformation(extent={{-234,82},{-214,102}})));
-  CDL.Logical.Pre pre
-    annotation (Placement(transformation(extent={{-130,88},{-110,108}})));
+    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+  CDL.Logical.And notHolAndTic
+    "Return true if hold is released and sampler clock ticks"
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(k=iniSet)
     "Initial setpoint"
-    annotation (Placement(transformation(extent={{-112,220},{-92,240}})));
+    annotation (Placement(transformation(extent={{-90,220},{-70,240}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-160,-98},{-140,-78}})));
@@ -153,7 +147,7 @@ protected
     "After (device ON + delTim + timSta), when request number becomes more than ignored requests number"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
-    annotation (Placement(transformation(extent={{-112,170},{-92,190}})));
+    annotation (Placement(transformation(extent={{-90,170},{-70,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{12,100},{32,120}})));
@@ -174,7 +168,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 protected
   CDL.Reals.Sources.Constant zer(final k=0) "Constant"
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 equation
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-78,-70},{-40,-70},{-40,-90},{18,-90}},
@@ -189,7 +183,7 @@ equation
     annotation (Line(points={{142,-126},{150,-126},{150,-78},{158,-78}},
       color={0,0,127}));
   connect(iniSetCon.y, swi.u3)
-    annotation (Line(points={{-90,230},{80,230},{80,218},{158,218}},
+    annotation (Line(points={{-68,230},{80,230},{80,218},{158,218}},
       color={0,0,127}));
   connect(swi.y, y)
     annotation (Line(points={{182,210},{240,210}},
@@ -213,16 +207,16 @@ equation
     annotation (Line(points={{142,-70},{158,-70}},
       color={255,0,255}));
   connect(iniSetCon.y, swi2.u1)
-    annotation (Line(points={{-90,230},{80,230},{80,188},{98,188}},
+    annotation (Line(points={{-68,230},{80,230},{80,188},{98,188}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
     annotation (Line(points={{122,180},{140,180},{140,202},{158,202}},
       color={0,0,127}));
   connect(uDevSta, not1.u)
-    annotation (Line(points={{-240,210},{-210,210},{-210,180},{-114,180}},
+    annotation (Line(points={{-240,210},{-210,210},{-210,180},{-92,180}},
       color={255,0,255}));
   connect(not1.y, swi2.u2)
-    annotation (Line(points={{-90,180},{98,180}},
+    annotation (Line(points={{-68,180},{98,180}},
       color={255,0,255}));
   connect(min1.y, maxInp.u1)
     annotation (Line(points={{34,140},{42,140},{42,146},{50,146}},
@@ -305,35 +299,32 @@ equation
   connect(numIgnReqCon.y, difReqIgnReq.u2) annotation (Line(points={{-138,-88},
           {-110,-88},{-110,-76},{-102,-76}}, color={0,0,127}));
   connect(netRes.y, swiHol.u3) annotation (Line(points={{182,-70},{190,-70},{
-          190,4},{-40,4},{-40,12},{-32,12}},   color={0,0,127}));
-  connect(swiHol.y, add1.u2) annotation (Line(points={{-8,20},{-4,20},{-4,60},{
-          -34,60},{-34,134},{-30,134}}, color={0,0,127}));
+          190,20},{-56,20},{-56,32},{-52,32}}, color={0,0,127}));
+  connect(swiHol.y, add1.u2) annotation (Line(points={{-28,40},{-20,40},{-20,60},
+          {-40,60},{-40,134},{-30,134}},color={0,0,127}));
   connect(uniDel.y, add1.u1)
-    annotation (Line(points={{-90,146},{-30,146}}, color={0,0,127}));
-  connect(reaToInt.y, cha.u)
-    annotation (Line(points={{-172,98},{-164,98}},   color={255,127,0}));
-  connect(zer.y, swiHol.u1) annotation (Line(points={{-48,60},{-40,60},{-40,28},
-          {-32,28}}, color={0,0,127}));
-  connect(fal.y, notHol.u) annotation (Line(points={{-168,60},{-152,60}},
-                          color={255,0,255}));
-  connect(lat.y, swiHol.u2) annotation (Line(points={{-48,20},{-32,20}},
-                     color={255,0,255}));
+    annotation (Line(points={{-68,146},{-30,146}}, color={0,0,127}));
+  connect(zer.y, swiHol.u1) annotation (Line(points={{-68,60},{-60,60},{-60,48},
+          {-52,48}}, color={0,0,127}));
+  connect(fal.y, notHol.u) annotation (Line(points={{-188,60},{-180,60},{-180,
+          40},{-172,40}}, color={255,0,255}));
+  connect(lat.y, swiHol.u2) annotation (Line(points={{-68,20},{-60,20},{-60,40},
+          {-52,40}}, color={255,0,255}));
   connect(swi2.y, uniDel.u) annotation (Line(points={{122,180},{140,180},{140,
-          202.273},{-122,202.273},{-122,146},{-114,146}}, color={0,0,127}));
+          202.273},{-102,202.273},{-102,146},{-92,146}},  color={0,0,127}));
   connect(uHol, truHol.u)
-    annotation (Line(points={{-240,40},{-214,40}}, color={255,0,255}));
-  connect(truHol.y, notHol.u) annotation (Line(points={{-190,40},{-160,40},{
-          -160,60},{-152,60}}, color={255,0,255}));
-  connect(gai1.y, reaToInt.u) annotation (Line(points={{-212,92},{-204,92},{
-          -204,98},{-196,98}}, color={0,0,127}));
-  connect(notHol.y, lat.clr) annotation (Line(points={{-128,60},{-100,60},{-100,
-          14},{-72,14}}, color={255,0,255}));
-  connect(swi2.y, gai1.u) annotation (Line(points={{122,180},{-260,180},{-260,
-          92},{-236,92}}, color={0,0,127}));
-  connect(cha.y, pre.u)
-    annotation (Line(points={{-140,98},{-132,98}}, color={255,0,255}));
-  connect(pre.y, lat.u) annotation (Line(points={{-108,98},{-88,98},{-88,20},{
-          -72,20}}, color={255,0,255}));
+    annotation (Line(points={{-240,20},{-212,20}}, color={255,0,255}));
+  connect(truHol.y, notHol.u) annotation (Line(points={{-188,20},{-180,20},{
+          -180,40},{-172,40}}, color={255,0,255}));
+  connect(notHol.y, notHolAndTic.u1)
+    annotation (Line(points={{-148,40},{-132,40}}, color={255,0,255}));
+  connect(notHolAndTic.y, lat.clr) annotation (Line(points={{-108,40},{-100,40},
+          {-100,14},{-92,14}}, color={255,0,255}));
+  connect(sampler.sampleTrigger, lat.u) annotation (Line(points={{-138,-44},{
+          -120,-44},{-120,20},{-92,20}}, color={255,0,255}));
+  connect(sampler.sampleTrigger, notHolAndTic.u2) annotation (Line(points={{
+          -138,-44},{-120,-44},{-120,20},{-140,20},{-140,32},{-132,32}}, color=
+          {255,0,255}));
 annotation (
   defaultComponentName = "triRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

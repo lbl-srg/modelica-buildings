@@ -12,15 +12,16 @@ block Sampler
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sampleTrigger
+    "True, if sample time instant"
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+        iconTransformation(extent={{100,40},{140,80}})));
 protected
   parameter Real t0(
     final quantity="Time",
     final unit="s",
     fixed=false)
     "First sample time instant";
-  output Boolean sampleTrigger
-    "True, if sample time instant";
   output Boolean firstTrigger(
     start=false,
     fixed=true)

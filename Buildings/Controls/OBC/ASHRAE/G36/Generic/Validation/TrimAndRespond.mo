@@ -78,7 +78,7 @@ model TrimAndRespond "Model validates the trim and respond block"
 
   CDL.Logical.Sources.TimeTable
                             hol(
-    table=[0,0; 5,1; 10,0; 15,1; 17,0],
+    table=[0,0; 5,1; 10,0; 15,1; 16,0],
     timeScale=100,
     final period=2000)
                "Source for hold signal"
@@ -94,7 +94,7 @@ model TrimAndRespond "Model validates the trim and respond block"
     final triAmo=-10,
     final resAmo=15,
     final maxRes=37,
-    dtHol=500)
+    dtHol=300)
     "Block implementing trim and respond logic  – Case with hold signal"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
 equation
