@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "ySet",
+    "yOut",
+    "safCtr.minFlowErr",
+    "safCtr.opeEnvErr",
+    "safCtr.antFreErr"
+  };

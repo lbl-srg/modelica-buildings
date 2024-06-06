@@ -30,6 +30,82 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
+- model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
+  openmodelica:
+    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
+    simulate: false
+- model_name: Buildings.DHC.ETS.Cooling.Examples.Indirect
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
+- model_name: Buildings.DHC.Examples.Combined.SeriesConstantFlow
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.DHC.Examples.Combined.SeriesVariableFlow
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.DHC.Examples.Combined.SeriesVariableFlowAgentControl
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+  optimica:
+    comment: FMUException Failed to update the events at time 0.000000E+00.
+    simulate: false
+- model_name: Buildings.DHC.Examples.Cooling.ElectricChillersDirectETS
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+  optimica:
+    comment: 'The system is structurally singular. Modelon #2023012739000252'
+    translate: false
+- model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
+  openmodelica:
+    comment: 'simulation terminated by an assertion at initialization, Invalid root: (0)^(-1.5), corrected in OMC 1.23.0~dev-206-g00d3636'
+    simulate: false
+- model_name: Buildings.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
+    simulate: false
+- model_name: Buildings.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.DHC.Plants.Combined.Controls.BaseClasses.Validation.StagingPlant
+  openmodelica:
+    comment: Internal error BackendDAETransform.analyseStrongComponentBlock failed (Purely discrete algebraic loops cannot be solved by iterative processes. Try to break them open using the delay() operator.)
+    translate: false
+- model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
+  dymola:
+    time_out: 600
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
+    translate: false
+  optimica:
+    time_out: 600
+- model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
+    translate: false
+  optimica:
+    time_out: 600
+- model_name: Buildings.DHC.Plants.Cooling.Examples.StoragePlantDualSource
+  openmodelica:
+    comment: 'Could not evaluate structural parameter (or constant): mChi_flow_nominal'
+    translate: false
+- model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
 - model_name: Buildings.Electrical.AC.ThreePhasesUnbalanced.Validation.IEEETests.Test4NodesFeeder.BalancedStepDown.DD
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -95,82 +171,6 @@
   optimica:
     comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
     time_out: 600
-- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
-  openmodelica:
-    comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
-    simulate: false
-- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples.Indirect
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization.
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlow
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesVariableFlowAgentControl
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-  optimica:
-    comment: FMUException Failed to update the events at time 0.000000E+00.
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-  optimica:
-    comment: 'The system is structurally singular. Modelon #2023012739000252'
-    translate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
-  openmodelica:
-    comment: 'simulation terminated by an assertion at initialization, Invalid root: (0)^(-1.5), corrected in OMC 1.23.0~dev-206-g00d3636'
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeriesSingleLoop
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Validation.StagingPlant
-  openmodelica:
-    comment: Internal error BackendDAETransform.analyseStrongComponentBlock failed (Purely discrete algebraic loops cannot be solved by iterative processes. Try to break them open using the delay() operator.)
-    translate: false
-- model_name: Buildings.Experimental.DHC.Plants.Combined.Examples.AllElectricCWStorage
-  dymola:
-    time_out: 600
-  openmodelica:
-    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
-    translate: false
-  optimica:
-    time_out: 600
-- model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
-  openmodelica:
-    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
-    translate: false
-  optimica:
-    time_out: 600
-- model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource
-  openmodelica:
-    comment: 'Could not evaluate structural parameter (or constant): mChi_flow_nominal'
-    translate: false
-- model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -229,6 +229,14 @@
   optimica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
+  openmodelica:
+    comment: returned non-zero exit status 2. Works with April 30 2024 OMC nightly build.
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization. Works with April 30 2024 OMC nightly build.
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
