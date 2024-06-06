@@ -32,7 +32,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHol if have_hol
     "Hold signal"
     annotation (Placement(
-        transformation(extent={{-260,40},{-220,80}}), iconTransformation(extent={{-140,
+        transformation(extent={{-260,20},{-220,60}}), iconTransformation(extent={{-140,
             -20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Setpoint that have been reset"
@@ -49,8 +49,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch netRes "Net setpoint reset value"
     annotation (Placement(transformation(extent={{160,-60},{180,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant resAmoCon(
-    final k=resAmo)
+  CDL.Reals.Sources.Constant                        resAmoCon(final k=resAmo)
     "Respond amount constant"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro
@@ -64,7 +63,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final samplePeriod=samplePeriod,
     final y_start=iniSet)
     "Output the input signal with a unit delay"
-    annotation (Placement(transformation(extent={{-100,136},{-80,156}})));
+    annotation (Placement(transformation(extent={{-112,136},{-92,156}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,220},{180,200}})));
@@ -93,29 +92,35 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
   CDL.Logical.Sources.Constant                fal(final k=false) if not
-    have_hol "Constant"
-    annotation (Placement(transformation(extent={{-200,10},{-180,30}})));
-  CDL.Reals.Switch                        swiHol1
-                                                 "Switch to fixed value during hold period"
-    annotation (Placement(transformation(extent={{-28,26},{-8,46}})));
-  CDL.Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{-128,98},{-108,118}})));
+    have_hol "Constant – Placeholder value in there is no hold signal"
+    annotation (Placement(transformation(extent={{-190,50},{-170,70}})));
+  CDL.Reals.Switch swiHol
+    "Switch to zero reset until hold is released and request sampler ticks"
+    annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+  CDL.Conversions.RealToInteger reaToInt "Cast real to integer"
+    annotation (Placement(transformation(extent={{-194,88},{-174,108}})));
   CDL.Integers.Change cha
-    annotation (Placement(transformation(extent={{-100,98},{-80,118}})));
-  CDL.Logical.Not not2
-    annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
+    "Return true when the clock of the request sampler ticks"
+    annotation (Placement(transformation(extent={{-162,88},{-142,108}})));
+  CDL.Logical.Not notHol "Return true if hold is released"
+    annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   CDL.Logical.Latch lat
-    annotation (Placement(transformation(extent={{-70,56},{-50,76}})));
-  CDL.Logical.TrueHold holCha(duration=10)
-    annotation (Placement(transformation(extent={{-66,100},{-46,120}})));
+    "True when reset changes and uHol is true: enables applying the last calculated reset before holding"
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+  CDL.Logical.TrueHold truHol(final duration=dtHol) if have_hol
+    annotation (Placement(transformation(extent={{-212,30},{-192,50}})));
+  CDL.Reals.MultiplyByParameter gai1(k=1E3)
+    annotation (Placement(transformation(extent={{-234,82},{-214,102}})));
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{-130,88},{-110,108}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(k=iniSet)
     "Initial setpoint"
-    annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
+    annotation (Placement(transformation(extent={{-112,220},{-92,240}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-160,-98},{-140,-78}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant triAmoCon(k=triAmo)
+  CDL.Reals.Sources.Constant                        triAmoCon(final k=triAmo)
     "Trim amount constant"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxResCon(k=maxRes)
@@ -148,7 +153,7 @@ protected
     "After (device ON + delTim + timSta), when request number becomes more than ignored requests number"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
-    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+    annotation (Placement(transformation(extent={{-112,170},{-92,190}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{12,100},{32,120}})));
@@ -169,7 +174,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 protected
   CDL.Reals.Sources.Constant zer(final k=0) "Constant"
-    annotation (Placement(transformation(extent={{-200,94},{-180,114}})));
+    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
 equation
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-78,-70},{-40,-70},{-40,-90},{18,-90}},
@@ -184,7 +189,7 @@ equation
     annotation (Line(points={{142,-126},{150,-126},{150,-78},{158,-78}},
       color={0,0,127}));
   connect(iniSetCon.y, swi.u3)
-    annotation (Line(points={{-78,230},{80,230},{80,218},{158,218}},
+    annotation (Line(points={{-90,230},{80,230},{80,218},{158,218}},
       color={0,0,127}));
   connect(swi.y, y)
     annotation (Line(points={{182,210},{240,210}},
@@ -208,16 +213,16 @@ equation
     annotation (Line(points={{142,-70},{158,-70}},
       color={255,0,255}));
   connect(iniSetCon.y, swi2.u1)
-    annotation (Line(points={{-78,230},{80,230},{80,188},{98,188}},
+    annotation (Line(points={{-90,230},{80,230},{80,188},{98,188}},
       color={0,0,127}));
   connect(swi2.y, swi.u1)
     annotation (Line(points={{122,180},{140,180},{140,202},{158,202}},
       color={0,0,127}));
   connect(uDevSta, not1.u)
-    annotation (Line(points={{-240,210},{-210,210},{-210,180},{-102,180}},
+    annotation (Line(points={{-240,210},{-210,210},{-210,180},{-114,180}},
       color={255,0,255}));
   connect(not1.y, swi2.u2)
-    annotation (Line(points={{-78,180},{98,180}},
+    annotation (Line(points={{-90,180},{98,180}},
       color={255,0,255}));
   connect(min1.y, maxInp.u1)
     annotation (Line(points={{34,140},{42,140},{42,146},{50,146}},
@@ -294,37 +299,41 @@ equation
     annotation (Line(points={{142,-190},{160,-190},{160,-160},{100,-160},{100,-132},
           {118,-132}},      color={0,0,127}));
   connect(sampler.y, difReqIgnReq.u1)
-    annotation (Line(points={{-138,-50},{-120,-50},{-120,-64},{-102,-64}},
+    annotation (Line(points={{-138,-50},{-110,-50},{-110,-64},{-102,-64}},
       color={0,0,127}));
 
   connect(numIgnReqCon.y, difReqIgnReq.u2) annotation (Line(points={{-138,-88},
-          {-120,-88},{-120,-76},{-102,-76}}, color={0,0,127}));
-  connect(netRes.y, swiHol1.u3) annotation (Line(points={{182,-70},{190,-70},{
-          190,20},{-100,20},{-100,28},{-30,28}}, color={0,0,127}));
-  connect(swiHol1.y, add1.u2) annotation (Line(points={{-6,36},{4,36},{4,34},{
-          12,34},{12,134},{-30,134}}, color={0,0,127}));
-  connect(swi2.y, uniDel.u) annotation (Line(points={{122,180},{140,180},{140,
-          202},{-120,202},{-120,146},{-102,146}}, color={0,0,127}));
+          {-110,-88},{-110,-76},{-102,-76}}, color={0,0,127}));
+  connect(netRes.y, swiHol.u3) annotation (Line(points={{182,-70},{190,-70},{
+          190,4},{-40,4},{-40,12},{-32,12}},   color={0,0,127}));
+  connect(swiHol.y, add1.u2) annotation (Line(points={{-8,20},{-4,20},{-4,60},{
+          -34,60},{-34,134},{-30,134}}, color={0,0,127}));
   connect(uniDel.y, add1.u1)
-    annotation (Line(points={{-78,146},{-30,146}}, color={0,0,127}));
-  connect(uniDel.u, reaToInt.u) annotation (Line(points={{-102,146},{-140,146},
-          {-140,108},{-130,108}}, color={0,0,127}));
+    annotation (Line(points={{-90,146},{-30,146}}, color={0,0,127}));
   connect(reaToInt.y, cha.u)
-    annotation (Line(points={{-106,108},{-102,108}}, color={255,127,0}));
-  connect(zer.y, swiHol1.u1) annotation (Line(points={{-178,104},{-130,104},{
-          -130,44},{-30,44}}, color={0,0,127}));
-  connect(fal.y, not2.u) annotation (Line(points={{-178,20},{-170,20},{-170,40},
-          {-162,40}}, color={255,0,255}));
-  connect(cha.y, lat.u) annotation (Line(points={{-78,108},{-76,108},{-76,66},{
-          -72,66}}, color={255,0,255}));
-  connect(not2.y, lat.clr) annotation (Line(points={{-138,40},{-104,40},{-104,
-          60},{-72,60}}, color={255,0,255}));
-  connect(lat.y, swiHol1.u2) annotation (Line(points={{-48,66},{-40,66},{-40,36},
-          {-30,36}}, color={255,0,255}));
-  connect(cha.y, holCha.u) annotation (Line(points={{-78,108},{-74,108},{-74,
-          110},{-68,110}}, color={255,0,255}));
-  connect(uHol, not2.u) annotation (Line(points={{-240,60},{-180,60},{-180,40},
-          {-162,40}}, color={255,0,255}));
+    annotation (Line(points={{-172,98},{-164,98}},   color={255,127,0}));
+  connect(zer.y, swiHol.u1) annotation (Line(points={{-48,60},{-40,60},{-40,28},
+          {-32,28}}, color={0,0,127}));
+  connect(fal.y, notHol.u) annotation (Line(points={{-168,60},{-152,60}},
+                          color={255,0,255}));
+  connect(lat.y, swiHol.u2) annotation (Line(points={{-48,20},{-32,20}},
+                     color={255,0,255}));
+  connect(swi2.y, uniDel.u) annotation (Line(points={{122,180},{140,180},{140,
+          202.273},{-122,202.273},{-122,146},{-114,146}}, color={0,0,127}));
+  connect(uHol, truHol.u)
+    annotation (Line(points={{-240,40},{-214,40}}, color={255,0,255}));
+  connect(truHol.y, notHol.u) annotation (Line(points={{-190,40},{-160,40},{
+          -160,60},{-152,60}}, color={255,0,255}));
+  connect(gai1.y, reaToInt.u) annotation (Line(points={{-212,92},{-204,92},{
+          -204,98},{-196,98}}, color={0,0,127}));
+  connect(notHol.y, lat.clr) annotation (Line(points={{-128,60},{-100,60},{-100,
+          14},{-72,14}}, color={255,0,255}));
+  connect(swi2.y, gai1.u) annotation (Line(points={{122,180},{-260,180},{-260,
+          92},{-236,92}}, color={0,0,127}));
+  connect(cha.y, pre.u)
+    annotation (Line(points={{-140,98},{-132,98}}, color={255,0,255}));
+  connect(pre.y, lat.u) annotation (Line(points={{-108,98},{-88,98},{-88,20},{
+          -72,20}}, color={255,0,255}));
 annotation (
   defaultComponentName = "triRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -359,7 +368,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-214,162},{-124,138}},
+          extent={{-214,260},{-118,230}},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Check device status,
@@ -368,7 +377,18 @@ Count time"), Text(
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Reset setpoint based
-on request number")}),
+on request number"),
+        Rectangle(
+          extent={{-218,80},{218,2}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{22,68},{174,20}},
+          textColor={0,0,255},
+          horizontalAlignment=TextAlignment.Left,
+          textString="Optional hold of the input signal")}),
    Documentation(info="<html>
 <p>
 This block implements the trim and respond logic according to ASHRAE guideline G36,
@@ -420,8 +440,23 @@ In other words, every time step <code>samplePeriod</code>:
 <img alt=\"Image of set point reset\"
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimRespond.png\"/>
 </p>
+<h4>Hold and release loop output</h4>
+<p>
+Optionally, if the parameter <code>have_hol</code> is set to true, an additional
+input signal <code>uHol</code> allows for holding the trim and respond loop output
+at a fixed value until the longer of the time the input <code>uHol</code> remains true 
+and the duration specified by the parameter <code>dtHol</code>.
+When <code>uHol</code> switches back to false, the hold is released and resetting
+continues from the previously held value (without reinitializing to <code>iniSet</code>
+or going through a delay time of <code>delTim</code>). 
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 6, 2024, by Antoine Gautier:<br/>
+Added logic to hold trim and respond loop output.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
+</li>
 <li>
 June 3, 2020, by Jianjun Hu:<br/>
 Upgraded according to G36 official release.

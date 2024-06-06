@@ -9,8 +9,9 @@ model TrimAndRespond "Model validates the trim and respond block"
     final numIgnReq=2,
     final triAmo=-10,
     final resAmo=15,
-    final maxRes=37) "Block implementing trim and respond logic"
-    annotation (Placement(transformation(extent={{70,60},{90,80}})));
+    final maxRes=37)
+    "Block implementing trim and respond logic – Case with negative trim amount"
+    annotation (Placement(transformation(extent={{70,40},{90,60}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic1(
     final iniSet=120,
     final minSet=37,
@@ -20,8 +21,9 @@ model TrimAndRespond "Model validates the trim and respond block"
     final numIgnReq=2,
     final triAmo=10,
     final resAmo=-15,
-    final maxRes=-37) "Block implementing trim and respond logic"
-    annotation (Placement(transformation(extent={{70,10},{90,30}})));
+    final maxRes=-37)
+    "Block implementing trim and respond logic – Case with positive trim amount"
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogic2(
     final iniSet=120,
     final minSet=37,
@@ -32,53 +34,55 @@ model TrimAndRespond "Model validates the trim and respond block"
     final triAmo=-10,
     final resAmo=15,
     final maxRes=37) "Block implementing trim and respond logic"
-    annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
+    annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Logic true indicating device ON"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final amplitude=6,
     final freqHz=1/5400) "Block generates sine signal"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-82,20},{-62,40}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs
     "Block generates absolute value of input"
-    annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
+    annotation (Placement(transformation(extent={{-54,20},{-34,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine1(
     final amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
-    annotation (Placement(transformation(extent={{-88,-90},{-68,-70}})));
+    annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Block generates absolute value of input"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final period=3600,
     final width=0.18333333) "Generate pulse signal of type Boolean"
-    annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch between two Real signals"
-    annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
+    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero request when device is OFF"
-    annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Round round2(final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Round round1(final n=0)
     "Round real number to given digits"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  CDL.Logical.Sources.Pulse hol(
-    final period=1000,
-    final width=0.5,
-    shift=500) "Source for hold signal"
-    annotation (Placement(transformation(extent={{-88,90},{-68,110}})));
+  CDL.Logical.Sources.TimeTable
+                            hol(
+    table=[0,0; 5,1; 10,0; 15,1; 17,0],
+    timeScale=100,
+    final period=2000)
+               "Source for hold signal"
+    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond trimRespondLogicHold(
     have_hol=true,
     final iniSet=120,
@@ -90,57 +94,59 @@ model TrimAndRespond "Model validates the trim and respond block"
     final triAmo=-10,
     final resAmo=15,
     final maxRes=37,
-    dtHol=20) "Block implementing trim and respond logic with hold signal"
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+    dtHol=500)
+    "Block implementing trim and respond logic  – Case with hold signal"
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
 equation
   connect(con.y, trimRespondLogic.uDevSta)
-    annotation (Line(points={{42,90},{50,90},{50,78},{68,78}},
+    annotation (Line(points={{42,70},{50,70},{50,58},{68,58}},
       color={255,0,255}));
   connect(sine.y, abs.u)
-    annotation (Line(points={{-58,50},{-54,50}}, color={0,0,127}));
+    annotation (Line(points={{-60,30},{-56,30}}, color={0,0,127}));
   connect(not1.y,trimRespondLogic2. uDevSta)
-    annotation (Line(points={{42,-10},{60,-10},{60,-22},{68,-22}},
+    annotation (Line(points={{42,-30},{60,-30},{60,-42},{68,-42}},
       color={255,0,255}));
   connect(con1.y, swi.u1)
-    annotation (Line(points={{-66,-40},{-62,-40},{-62,-32},{-50,-32}},
+    annotation (Line(points={{-68,-60},{-64,-60},{-64,-52},{-52,-52}},
       color={0,0,127}));
   connect(sine1.y, swi.u3)
-    annotation (Line(points={{-66,-80},{-58,-80},{-58,-48},{-50,-48}},
+    annotation (Line(points={{-68,-100},{-60,-100},{-60,-68},{-52,-68}},
       color={0,0,127}));
   connect(swi.y, abs1.u)
-    annotation (Line(points={{-26,-40},{-20,-40},{-20,-80},{-12,-80}},
+    annotation (Line(points={{-28,-60},{-20,-60},{-20,-100},{-12,-100}},
       color={0,0,127}));
   connect(booPul.y, swi.u2)
-    annotation (Line(points={{-66,-10},{-58,-10},{-58,-40},{-50,-40}},
+    annotation (Line(points={{-68,-30},{-60,-30},{-60,-60},{-52,-60}},
       color={255,0,255}));
   connect(booPul.y, not1.u)
-    annotation (Line(points={{-66,-10},{18,-10}}, color={255,0,255}));
+    annotation (Line(points={{-68,-30},{18,-30}}, color={255,0,255}));
   connect(abs.y, round2.u)
-    annotation (Line(points={{-30,50},{-22,50}}, color={0,0,127}));
+    annotation (Line(points={{-32,30},{-22,30}}, color={0,0,127}));
   connect(round2.y, reaToInt1.u)
-    annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
+    annotation (Line(points={{2,30},{18,30}}, color={0,0,127}));
   connect(reaToInt1.y, trimRespondLogic.numOfReq)
-    annotation (Line(points={{42,50},{60,50},{60,62},{68,62}},
+    annotation (Line(points={{42,30},{60,30},{60,42},{68,42}},
       color={255,127,0}));
   connect(abs1.y, round1.u)
-    annotation (Line(points={{12,-80},{18,-80}},color={0,0,127}));
+    annotation (Line(points={{12,-100},{18,-100}},
+                                                color={0,0,127}));
   connect(round1.y, reaToInt2.u)
-    annotation (Line(points={{42,-80},{50,-80},{50,-60},{8,-60},{8,-40},
-      {18,-40}}, color={0,0,127}));
+    annotation (Line(points={{42,-100},{50,-100},{50,-80},{8,-80},{8,-60},{18,
+          -60}}, color={0,0,127}));
   connect(reaToInt2.y,trimRespondLogic2. numOfReq)
-    annotation (Line(points={{42,-40},{60,-40},{60,-38},{68,-38}},
+    annotation (Line(points={{42,-60},{60,-60},{60,-58},{68,-58}},
       color={255,127,0}));
   connect(con.y,trimRespondLogic1. uDevSta)
-    annotation (Line(points={{42,90},{50,90},{50,28},{68,28}}, color={255,0,255}));
+    annotation (Line(points={{42,70},{50,70},{50,8},{68,8}},   color={255,0,255}));
   connect(reaToInt1.y,trimRespondLogic1. numOfReq)
-    annotation (Line(points={{42,50},{60,50},{60,12},{68,12}}, color={255,127,0}));
+    annotation (Line(points={{42,30},{60,30},{60,-8},{68,-8}}, color={255,127,0}));
 
-  connect(con.y, trimRespondLogicHold.uDevSta) annotation (Line(points={{42,90},
-          {110,90},{110,78},{118,78}}, color={255,0,255}));
-  connect(hol.y, trimRespondLogicHold.uHol) annotation (Line(points={{-66,100},
-          {100,100},{100,70},{118,70}}, color={255,0,255}));
-  connect(reaToInt1.y, trimRespondLogicHold.numOfReq) annotation (Line(points={
-          {42,50},{100,50},{100,62},{118,62}}, color={255,127,0}));
+  connect(con.y, trimRespondLogicHold.uDevSta) annotation (Line(points={{42,70},
+          {50,70},{50,108},{68,108}},  color={255,0,255}));
+  connect(reaToInt1.y, trimRespondLogicHold.numOfReq) annotation (Line(points={{42,30},
+          {60,30},{60,92},{68,92}},            color={255,127,0}));
+  connect(hol.y[1], trimRespondLogicHold.uHol)
+    annotation (Line(points={{-68,100},{68,100}}, color={255,0,255}));
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/Generic/Validation/TrimAndRespond.mos"
     "Simulate and plot"),
