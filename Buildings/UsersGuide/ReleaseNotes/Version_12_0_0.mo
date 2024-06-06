@@ -43,6 +43,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold<br/>
+                       Buildings.Controls.OBC.CDL.Logical.TrueHold
+    </td>
+    <td valign=\"top\">Improved the implementation to conditionally remove the state graph component when
+                       the duraton is zero.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>
+                       and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3841\">issue 3841</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
     </td>
     <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>

@@ -13,25 +13,40 @@ block TrueHold
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+  parameter Boolean holdTrue = duration > 0
+    "True if the duration is greater than zero";
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot if holdTrue
     "Root of state graph"
     annotation (Placement(transformation(extent={{70,68},{90,88}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDelay(
-    final delayTime=duration)
+    final delayTime=duration) if holdTrue
     "Delay for the on signal"
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
-  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1)
+  Modelica.StateGraph.InitialStep initialStep(nIn=1, nOut=1) if holdTrue
     "Initial step"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1)
+  Modelica.StateGraph.StepWithSignal outputTrue(nIn=1, nOut=1) if holdTrue
     "Holds the output at true"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-  Modelica.StateGraph.TransitionWithSignal toOutputTrue
+  Modelica.StateGraph.TransitionWithSignal toOutputTrue if holdTrue
     "Transition that activates sending a true output signal"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-  Modelica.StateGraph.TransitionWithSignal toInitial
+  Modelica.StateGraph.TransitionWithSignal toInitial if holdTrue
     "Transition that activates the initial state"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if not holdTrue
+    "Logial or"
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false) if not holdTrue
+    "Constant false"
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notU if holdTrue
+    "Negation of input"
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 if holdTrue
+    "Check for input and elapsed timer"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
   connect(initialStep.outPort[1],toOutputTrue.inPort)
@@ -48,8 +63,20 @@ equation
     annotation (Line(points={{-38.5,60},{-11,60}},color={0,0,0}));
   connect(outputTrue.outPort[1],toInitial.inPort)
     annotation (Line(points={{10.5,60},{36,60}},color={0,0,0}));
-  connect(onDelay.y,toInitial.condition)
-    annotation (Line(points={{32,20},{40,20},{40,48}},color={255,0,255}));
+  connect(u, or2.u1) annotation (Line(points={{-120,0},{-40,0},{-40,-60},{38,-60}},
+        color={255,0,255}));
+  connect(con.y, or2.u2) annotation (Line(points={{-18,-80},{0,-80},{0,-68},{38,
+          -68}}, color={255,0,255}));
+  connect(or2.y, y) annotation (Line(points={{62,-60},{80,-60},{80,0},{120,0}},
+        color={255,0,255}));
+  connect(u, notU.u) annotation (Line(points={{-120,0},{-40,0},{-40,-20},{8,-20}},
+        color={255,0,255}));
+  connect(notU.y, and2.u2) annotation (Line(points={{32,-20},{40,-20},{40,12},{58,
+          12}}, color={255,0,255}));
+  connect(onDelay.y, and2.u1)
+    annotation (Line(points={{32,20},{58,20}}, color={255,0,255}));
+  connect(and2.y, toInitial.condition) annotation (Line(points={{82,20},{90,20},
+          {90,40},{40,40},{40,48}}, color={255,0,255}));
   annotation (
     defaultComponentName="truHol",
     Icon(
@@ -163,6 +190,13 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 5, 2024, by Jianjun Hu:<br/>
+Improved the implementation to conditionally remove the state graph component when
+the duraton is zero.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+</li>
 <li>
 March 27, 2024, by Michael Wetter:<br/>
 Renamed block from <code>TrueHoldWithReset</code> to <code>TrueHold</code>.<br/>

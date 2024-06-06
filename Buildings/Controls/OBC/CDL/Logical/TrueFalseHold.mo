@@ -14,64 +14,86 @@ block TrueFalseHold
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
-    annotation (Placement(transformation(extent={{160,-20},{200,20}}),iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{160,-30},{200,10}}),iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
+  parameter Boolean holdTrue = trueHoldDuration > 0;
+  parameter Boolean holdFalse = falseHoldDuration > 0;
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDel1(
-    delayTime=falseHoldDuration)
+    delayTime=falseHoldDuration) if holdFalse
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay onDel2(
-    delayTime=trueHoldDuration)
+    delayTime=trueHoldDuration) if holdTrue
     "Output true when timer elapsed the required time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     "Root of state graph"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Modelica.StateGraph.StepWithSignal outputFalse(
-    nIn=2, nOut=1)
+    nIn=if (holdTrue and holdFalse) then 2 else 1,
+    nOut=1) if holdFalse
     "State for which the block outputs false"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.StateGraph.TransitionWithSignal toTrue
+  Modelica.StateGraph.TransitionWithSignal toTrue if holdFalse
     "Transition to true"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  CDL.Logical.Not notU
+  Buildings.Controls.OBC.CDL.Logical.Not notU
     "Negation of input"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Modelica.StateGraph.StepWithSignal outputTrue(
-    nIn=2, nOut=1)
+    nIn=if (holdTrue and holdFalse) then 2 else 1,
+    nOut=1) if holdTrue
     "State with true output signal"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse
+  Modelica.StateGraph.TransitionWithSignal toFalse if holdTrue
     "Transition to false"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And and2 if holdTrue
     "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  CDL.Logical.And and1
+  Buildings.Controls.OBC.CDL.Logical.And and1 if holdFalse
     "Check for input and elapsed timer"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
   Modelica.StateGraph.InitialStep initialStep(
-    nIn=0,
-    nOut=2)
+    nIn=if ((not holdTrue and not holdFalse) or not (holdTrue and holdFalse)) then 1 else 0,
+    nOut=if (holdTrue and holdFalse) then 2 else if ((not holdTrue) and not holdFalse) then 0 else 1)
+    if not ((not holdTrue) and not holdFalse)
     "Initial state"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Modelica.StateGraph.TransitionWithSignal toTrue1
+  Modelica.StateGraph.TransitionWithSignal toTrue1 if holdTrue
     "Transition to true"
     annotation (Placement(transformation(extent={{-70,102},{-50,122}})));
-  Modelica.StateGraph.TransitionWithSignal toFalse1
+  Modelica.StateGraph.TransitionWithSignal toFalse1 if holdFalse
     "Transition to false"
     annotation (Placement(transformation(extent={{-90,80},{-70,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notU1 if holdFalse and (not holdTrue)
+    "Negation of input"
+    annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
 equation
   connect(outputTrue.outPort[1],toFalse.inPort)
     annotation (Line(points={{20.5,20},{28,20},{36,20}},color={0,0,0}));
-  connect(outputTrue.active,y)
-    annotation (Line(points={{10,9},{10,0},{180,0}},color={255,0,255}));
+
+  if holdTrue then
+    connect(outputTrue.active,y)
+      annotation (Line(points={{10,9},{10,-10},{180,-10}}, color={255,0,255}));
+  end if;
+
   connect(outputFalse.outPort[1],toTrue.inPort)
     annotation (Line(points={{-39.5,20},{-32,20},{-24,20}},color={0,0,0}));
-  connect(toFalse.outPort,outputFalse.inPort[1])
-    annotation (Line(points={{41.5,20},{60,20},{60,40},{-70,40},{-70,20.5},{-61,20.5}},color={0,0,0}));
+
+  if (holdTrue and holdFalse) then
+    connect(toFalse.outPort,outputFalse.inPort[1])
+      annotation (Line(points={{41.5,20},{60,20},{60,40},{-70,40},{-70,20},{-61,
+            20}},  color={0,0,0}));
+  end if;
+  if (holdFalse and not holdTrue) then
+    connect(toFalse1.outPort,outputFalse.inPort[1])
+      annotation (Line(points={{-78.5,90},{-72,90},{-72,44},{-72,20},{-61,20},{-61,
+          20}},    color={0,0,0}));
+  end if;
+
   connect(outputTrue.active,onDel2.u)
     annotation (Line(points={{10,9},{10,0},{10,-60},{18,-60}},color={255,0,255}));
   connect(notU.y,and2.u2)
@@ -85,17 +107,38 @@ equation
   connect(and1.y,toTrue.condition)
     annotation (Line(points={{-28,-30},{-20,-30},{-20,8}},color={255,0,255}));
   connect(u,toTrue1.condition)
-    annotation (Line(points={{-200,0},{-160,0},{-160,52},{-60,52},{-60,100}},color={255,0,255}));
+    annotation (Line(points={{-200,0},{-160,0},{-160,52},{-60,52},{-60,100}}, color={255,0,255}));
+
   connect(toTrue1.outPort,outputTrue.inPort[1])
-    annotation (Line(points={{-58.5,112},{-10,112},{-10,20.5},{-1,20.5}},color={0,0,0}));
-  connect(toTrue.outPort,outputTrue.inPort[2])
-    annotation (Line(points={{-18.5,20},{-1,20},{-1,19.5}},color={0,0,0}));
-  connect(toFalse1.outPort,outputFalse.inPort[2])
-    annotation (Line(points={{-78.5,90},{-72,90},{-72,44},{-72,20},{-61,20},{-61,19.5}},color={0,0,0}));
-  connect(initialStep.outPort[1],toTrue1.inPort)
-    annotation (Line(points={{-99.5,110.25},{-90,110.25},{-90,110},{-90,112},{-64,112}},color={0,0,0}));
-  connect(initialStep.outPort[2],toFalse1.inPort)
-    annotation (Line(points={{-99.5,109.75},{-94,109.75},{-94,110},{-90,110},{-90,90},{-84,90}},color={0,0,0}));
+    annotation (Line(points={{-58.5,112},{-10,112},{-10,20},{-1,20}},       color={0,0,0}));
+  if (holdTrue and holdFalse) then
+    connect(toTrue.outPort,outputTrue.inPort[2])
+      annotation (Line(points={{-18.5,20},{-1,20},{-1,20}},    color={0,0,0}));
+    connect(toFalse1.outPort,outputFalse.inPort[2])
+      annotation (Line(points={{-78.5,90},{-72,90},{-72,44},{-72,20},{-61,20},{-61,
+          20}},    color={0,0,0}));
+  end if;
+
+  if (holdTrue and holdFalse) then
+    connect(initialStep.outPort[1],toTrue1.inPort)
+      annotation (Line(points={{-99.5,110},{-90,110},{-90,110},{-90,112},{-64,112}},
+                     color={0,0,0}));
+    connect(initialStep.outPort[2],toFalse1.inPort)
+      annotation (Line(points={{-99.5,110},{-94,110},{-94,110},{-90,110},{-90,90},
+            {-84,90}},       color={0,0,0}));
+  end if;
+
+  if (holdTrue and not holdFalse) then
+    connect(initialStep.outPort[1],toTrue1.inPort)
+      annotation (Line(points={{-99.5,110},{-90,110},{-90,110},{-90,112},{-64,112}},
+                     color={0,0,0}));
+  end if;
+  if (holdFalse and not holdTrue) then
+    connect(initialStep.outPort[1],toFalse1.inPort)
+      annotation (Line(points={{-99.5,110},{-94,110},{-94,110},{-90,110},{-90,90},
+            {-84,90}},  color={0,0,0}));
+  end if;
+
   connect(notU.u,u)
     annotation (Line(points={{-142,70},{-160,70},{-160,0},{-200,0}},color={255,0,255}));
   connect(notU.y,toFalse1.condition)
@@ -104,6 +147,28 @@ equation
     annotation (Line(points={{-78,-30},{-52,-30}},color={255,0,255}));
   connect(onDel2.y,and2.u1)
     annotation (Line(points={{42,-60},{42,-60},{58,-60}},color={255,0,255}));
+
+  if ((not holdTrue) and  (not holdFalse)) then
+    connect(u, y) annotation (Line(points={{-200,0},{-160,0},{-160,-10},{180,-10}},
+        color={255,0,255}));
+  end if;
+
+  if (holdTrue and not holdFalse) then
+    connect(toFalse.outPort, initialStep.inPort[1])
+      annotation (Line(points={{41.5,20},{60,20},{60,130},{-130,130},{-130,110},
+        {-121,110}}, color={0,0,0}));
+  end if;
+
+  if (holdFalse and not holdTrue) then
+    connect(toTrue.outPort, initialStep.inPort[1])
+      annotation (Line(points={{-18.5,20},{-10,20},{-10,130},{-130,130},{-130,110},
+        {-121,110}}, color={0,0,0}));
+  end if;
+
+  connect(outputFalse.active, notU1.u) annotation (Line(points={{-50,9},{-50,0},
+          {70,0},{70,10},{78,10}}, color={255,0,255}));
+  connect(notU1.y, y) annotation (Line(points={{102,10},{120,10},{120,-10},{180,
+          -10}}, color={255,0,255}));
   annotation (
     defaultComponentName="truFalHol",
     Icon(
@@ -208,6 +273,13 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 5, 2024, by Jianjun Hu:<br/>
+Improved the implementation to conditionally remove the state graph component when
+the duraton is zero.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3841\">issue 3841</a>.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
