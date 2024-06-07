@@ -1,26 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-<<<<<<< HEAD
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
 class Version_12_0_0 "Version 12.0.0"
-========
-class Version_11_1_0 "Version 11.1.0"
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
-=======
-class Version_12_0_0 "Version 12.0.0"
->>>>>>> master
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-<<<<<<< HEAD
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
 Version 12.0.0 is ... xxx
-========
-Version 11.1.0 is ... xxx
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
-=======
-Version 12.0.0 is ... xxx
->>>>>>> master
 </p>
 </div>
 <!-- New libraries -->
@@ -28,20 +12,9 @@ Version 12.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<<<<<<< HEAD
-<tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible<br/>
-                       Buildings.Fluid.HeatPumps.ModularReversible
-    </td>
-    <td valign=\"top\">Models for both reversible and non-reversible refrigerant machines (heat pumps and chillers) based on grey-box approaches.
-                       Either tabulated data or physical equations can be used to model the performance of the refrigerant cycle without
-                       modeling of the refrigerant properties.
-                       The models can be configured to enable built-in safety control such as minimum on- or off-time,
-                       operation within specified envelope, antifreeze protection and minimum flow rate.
-=======
 <tr><td valign=\"top\">xxx
     </td>
     <td valign=\"top\">xxx.
->>>>>>> master
     </td>
     </tr>
 </table>
@@ -98,9 +71,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<<<<<<< HEAD
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
-=======
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
@@ -131,7 +101,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
->>>>>>> master
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
     </td>
 </tr>
@@ -142,11 +111,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
     </td>
 </tr>
-<<<<<<< HEAD
-========
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
-=======
->>>>>>> master
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -196,12 +160,4 @@ xxx
 </li>
 </ul>
 </html>"));
-<<<<<<< HEAD
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
 end Version_12_0_0;
-========
-end Version_11_1_0;
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
-=======
-end Version_12_0_0;
->>>>>>> master
