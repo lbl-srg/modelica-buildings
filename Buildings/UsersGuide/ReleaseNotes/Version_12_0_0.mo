@@ -40,19 +40,33 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond
+    </td>
+    <td valign=\"top\">Added logic to hold trim and respond loop output.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Sampler
     </td>
-    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
+    <td valign=\"top\">Added output connector for the sample time instant.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+    </td>
+    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

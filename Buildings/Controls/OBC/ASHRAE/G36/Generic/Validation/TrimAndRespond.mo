@@ -159,6 +159,11 @@ Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 6, 2024, by Antoine Gautier:<br/>
+Added test with hold of trim and respond loop output.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
+</li>
+<li>
 August 28, 2019, by Jianjun Hu:<br/>
 Added more validation of negative response amount.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1530\">#1503</a>.

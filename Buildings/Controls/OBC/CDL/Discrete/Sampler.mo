@@ -102,6 +102,10 @@ via parameter <code>samplePeriod</code>.
       revisions="<html>
 <ul>
 <li>
+June 6, 2024, by Antoine Gautier:<br/>
+Added output connector for the sample time instant.
+</li>
+<li>
 March 30, 2022, by Michael Wetter:<br/>
 Removed graphic from diagram view.
 </li>

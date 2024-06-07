@@ -435,12 +435,28 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/Trim
 <p>
 Optionally, if the parameter <code>have_hol</code> is set to true, an additional
 input signal <code>uHol</code> allows for holding the trim and respond loop output
-at a fixed value until the longer of the time the input <code>uHol</code> remains true 
+at a fixed value for the longer of the time the input <code>uHol</code> remains true 
 and the duration specified by the parameter <code>dtHol</code>.
 When <code>uHol</code> switches back to false, the hold is released and resetting
 continues from the previously held value (without reinitializing to <code>iniSet</code>
 or going through a delay time of <code>delTim</code>). 
 </p>
+<p>
+This is typically used in control sequences to freeze the reset logic during the plant
+staging process.
+Consider for example the following specification: 
+When a plant stage change is initiated, the reset logic shall be disabled and value
+fixed at its last value for the longer of <i>15</i> minutes and the time it takes 
+for the plant to successfully stage.
+Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code> 
+yields the following sequence of events.
+</p>
+<ul>
+<li>0:00 - Stage change is initiated. T&amp;R loop output is at <i>50&nbsp;%</i>.</li>
+<li>0:12 - Stage change is completed. T&amp;R loop output remains at <i>50&nbsp;%</i> 
+since <i>&lt;&nbsp;15&nbsp;</i>minutes have elapsed.</li>
+<li>0:15 - T&amp;R is released and continues resetting from <i>50&nbsp;%</i>.</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
