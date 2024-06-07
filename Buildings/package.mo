@@ -11,7 +11,7 @@ dateModified="2024-04-09",
 uses(Modelica(version="4.0.0")),
 conversion(
   from(
-    version={"11.0.0"},
+    version={"11.0.0", "11.1.0"},
     script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_11_to_12.0.0.mos"),
   from(
     version={"10.0.0", "10.1.0"},
