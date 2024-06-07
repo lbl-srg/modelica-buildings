@@ -262,7 +262,7 @@ src=\"modelica://Buildings/Resources/Images/Templates/Plants/Controls/Setpoints/
 From <i>0&nbsp;%</i> loop output to <code>resDp_max</code> loop output, reset 
 differential pressure setpoint from <code>dpSet_min</code> to <code>dpSet_max</code>.
 </p>
-<li>
+<p>
 From <code>resTSup_min</code> loop output to <i>100&nbsp;%</i> loop output, reset supply
 temperature setpoint from <code>TSupSetLim</code> to <code>TSup_nominal</code>.
 </p>
