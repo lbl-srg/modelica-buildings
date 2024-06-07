@@ -2,9 +2,6 @@ compareVars :=
   {
     "truFalHol.u",
     "truFalHol.y",
-    "tru0FalHol.y",
-    "truHolFal0.y",
-    "tru0Fal0.y",
     "truFalHol1.u",
     "truFalHol1.y",
     "truFalHol2.u",

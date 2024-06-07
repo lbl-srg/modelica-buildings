@@ -30,7 +30,7 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatHp_flow_nominal(
     start=0.1,
-    displayUnit="L/s",
+    displayUnit="l/s",
     final min=0)
     "Design HW volume flow rate - Each heat pump"
     annotation (Evaluate=true,
@@ -44,7 +44,7 @@ record Controller
       enable=cfg.have_heaWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatSec_flow_nominal(
     start=0.01,
-    displayUnit="L/s",
+    displayUnit="l/s",
     final min=0)
     "Design secondary HW volume flow rate"
     annotation (Evaluate=true,
@@ -115,7 +115,7 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatHp_flow_nominal(
     start=0.1,
-    displayUnit="L/s",
+    displayUnit="l/s",
     final min=0)
     "Design CHW volume flow rate - Each heat pump"
     annotation (Evaluate=true,
@@ -129,7 +129,7 @@ record Controller
       enable=cfg.have_chiWat and cfg.typCtl==Buildings.Templates.Plants.HeatPumps.Types.Controller.AirToWater));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatSec_flow_nominal(
     start=0.01,
-    displayUnit="L/s",
+    displayUnit="l/s",
     final min=0)
     "Design secondary CHW volume flow rate"
     annotation (Evaluate=true,
@@ -225,5 +225,12 @@ heat pump plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls\">
 Buildings.Templates.Plants.HeatPumps.Components.Controls</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 4, 2024, by Michael Wetter:<br/>
+Corrected display unit for Dymola 2024x Refresh1.
+</li>
+</ul>
 </html>"));
 end Controller;
