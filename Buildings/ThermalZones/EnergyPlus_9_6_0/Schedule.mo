@@ -43,6 +43,7 @@ protected
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=name,
+    hvacZone="n/a",
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.buildingsRootFileLocation,

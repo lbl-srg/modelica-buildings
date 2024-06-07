@@ -22,6 +22,7 @@ LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_9_6_0(
   const char* epwName,
   double relativeSurfaceTolerance,
   const char* epName,
+  const char* hvacZone,
   int usePrecompiledFMU,
   const char* fmuName,
   const char* buildingsRootFileLocation,

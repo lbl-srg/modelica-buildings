@@ -25,6 +25,9 @@ model ThermalZoneAdapter
     "Relative tolerance of surface temperature calculations";
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacZone
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(tab="Auto-sizing"));
   parameter Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -113,6 +116,7 @@ protected
     epwName=epwName,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
+    hvacZone=hvacZone,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.buildingsRootFileLocation,
@@ -120,8 +124,8 @@ protected
     printUnit=false,
     jsonName="zones",
     jsonKeysValues="        \"name\": \""+zoneName+"\"",
-    parOutNames={"AFlo","V","mSenFac"},
-    parOutUnits={"m2","m3","1"},
+    parOutNames={"AFlo","V","mSenFac", "fixme_add_pars"},
+    parOutUnits={"m2","m3","1", "V"},
     nParOut=nParOut,
     inpNames={"T","X","mInlets_flow","TAveInlet","QGaiRad_flow"},
     inpUnits={"K","1","kg/s","K","W"},

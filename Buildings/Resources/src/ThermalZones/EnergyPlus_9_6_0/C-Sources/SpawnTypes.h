@@ -126,7 +126,7 @@ typedef struct SpawnObject
   int objectType; /* Type of the EnergyPlus object */
   FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaName; /* Name of the Modelica instance of this zone */
-
+  char* hvacZone;     /* Name of the HVAC zone that this room belongs to. For other objects, this will be "n/a". */
   char* jsonName;        /* Name of the json keyword */
   char* jsonKeysValues;  /* Keys and values string to be written to the json configuration file */
   char** parOutNames;

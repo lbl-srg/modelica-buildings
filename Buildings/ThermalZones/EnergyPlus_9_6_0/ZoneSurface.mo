@@ -48,6 +48,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    hvacZone="n/a",
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
