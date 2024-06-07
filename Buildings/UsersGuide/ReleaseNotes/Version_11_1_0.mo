@@ -1,18 +1,10 @@
 within Buildings.UsersGuide.ReleaseNotes;
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
-class Version_12_0_0 "Version 12.0.0"
-========
 class Version_11_1_0 "Version 11.1.0"
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
-Version 12.0.0 is ... xxx
-========
 Version 11.1.0 is ... xxx
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
 </p>
 </div>
 <!-- New libraries -->
@@ -84,19 +76,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
-<tr><td colspan=\"2\"><b>Buildings.Templates</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices
-    </td>
-    <td valign=\"top\">Moved to the <code>Obsolete</code> package.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
-    </td>
-</tr>
-========
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -146,8 +125,4 @@ xxx
 </li>
 </ul>
 </html>"));
-<<<<<<<< HEAD:Buildings/UsersGuide/ReleaseNotes/Version_12_0_0.mo
-end Version_12_0_0;
-========
 end Version_11_1_0;
->>>>>>>> master:Buildings/UsersGuide/ReleaseNotes/Version_11_1_0.mo
