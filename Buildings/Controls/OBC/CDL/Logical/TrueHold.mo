@@ -149,7 +149,7 @@ alt=\"Input and output of the block\"/>
 </p>
 <p>
 The figure below shows an example with a hold time of <i>3600</i> seconds
-and a pulse width period <i>9000</i> seconds that starts at <i>t=300</i> seconds.
+and a pulse width period of <i>9000</i> seconds that starts at <i>t=300</i> seconds.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold.png\"
@@ -158,7 +158,7 @@ alt=\"Input and output of the block\"/>
 <p>
 The next figure shows the same experiment, except that the input <code>u</code>
 has been negated. The figure below has again a hold time of <i>3600</i> seconds
-and a pulse width period <i>9000</i> seconds that starts at <i>t=300</i> seconds.
+and a pulse width period of <i>9000</i> seconds that starts at <i>t=300</i> seconds.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold2.png\"

@@ -43,16 +43,23 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
-    </td>
-    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHold
+    </td>
+    <td valign=\"top\">Refactored with direct pass-through if the duration is zero,
+and conditioned the exit of <code>outputTrue</code> on a false input signal.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+    </td>
+    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
