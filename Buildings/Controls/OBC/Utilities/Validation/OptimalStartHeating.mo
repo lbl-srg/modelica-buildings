@@ -98,7 +98,7 @@ equation
     experiment(
       StartTime=-172800,
       StopTime=604800,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartHeating.mos" "Simulate and plot"),
     Documentation(
