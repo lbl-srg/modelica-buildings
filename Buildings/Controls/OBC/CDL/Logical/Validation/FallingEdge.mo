@@ -9,7 +9,7 @@ model FallingEdge
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Output true when input changes from true to false"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20)

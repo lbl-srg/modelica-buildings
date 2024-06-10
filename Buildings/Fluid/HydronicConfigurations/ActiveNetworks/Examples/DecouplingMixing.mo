@@ -25,21 +25,21 @@ model DecouplingMixing
     reverseActing=false,
     y_reset=1) "PI controller for consumer circuit temperature reset"
     annotation (Placement(transformation(extent={{-104,180},{-84,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line T2SetVar(
+  Buildings.Controls.OBC.CDL.Reals.Line T2SetVar(
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point (reset)"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,190})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValSet(k=0.9, y(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValSet(k=0.9, y(
         final unit="1"))
     "Valve opening set point"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,230})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1.0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1.0,
                                                                         y(
         final unit="1"))
     "One"
@@ -47,7 +47,7 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,230})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0.0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0.0,
                                                                          y(
         final unit="1"))
     "Zero"
@@ -55,7 +55,7 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,230})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim0(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2SetLim0(k=
     TLiqEnt_nominal + 5,
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature limiting set point "
@@ -64,7 +64,7 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,190})));
-  Buildings.Controls.OBC.CDL.Continuous.Max yValMax(
+  Buildings.Controls.OBC.CDL.Reals.Max yValMax(
     y(final unit="1"))
     "Maximum valve opening"
     annotation (Placement(
@@ -72,7 +72,7 @@ model DecouplingMixing
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={10,170})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetLim1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T2SetLim1(
     final k=TLiqEnt_nominal,
     y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature design set point "
@@ -172,8 +172,8 @@ followed by a large overshoot, and the control loop is hard to tune.
 The fact that the load seems unmet at partial load (see plot #4) is due to the
 load model that does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
-Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -333,14 +333,14 @@ The model has three tests on the part load ratio and the cycling ratio:
 <li>
 The test
 <pre>
-  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
+  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax)
 </pre>
 ensures that the chiller capacity does not exceed the chiller capacity specified
 by the parameter <code>PLRMax</code>.
 </li>
 <li>
 The test <pre>
-  CR = min(PLR1/per.PRLMin, 1.0);
+  CR = min(PLR1/per.PRLMin, 1.0)
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
 that a chiller would run if it were to cycle because its load is smaller than
@@ -351,7 +351,7 @@ average temperature between the modes where the compressor is off and on.
 </li>
 <li>
 The test <pre>
-  PLR2 = max(PLRMinUnl, PLR1);
+  PLR2 = max(PLRMinUnl, PLR1)
 </pre>
 computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
@@ -372,27 +372,77 @@ outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
 Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
 a hot water supply temperature setpoint at the outlet of the condenser barrel.
 See
-<a href=\"Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
 for an example with a chiller operating in heating mode.
 </p>
 <h4>Implementation</h4>
 <p>
-Models that extend from this base class need to provide
-three functions to predict capacity and power consumption:
+This implementation computes the chiller capacity and power consumption
+the same way as documented in
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a> section 14.3.9.2.
+Especially see equations 14.234 and 14.240 in the referenced document.
 </p>
+<p>
+The available chiller capacity <code>QEva_flow_ava</code> is adjusted from
+its nominal capacity <code>QEva_flow_nominal</code>
+by factor <code>capFunT</code> as
+</p>
+<pre>  QEva_flow_ava = QEva_flow_nominal*capFunT</pre>
+<p>
+and the compressor power consumption is computed as
+</p>
+<pre>  P = -QEva_flow_ava*(1/COP_nominal)*EIRFunT*EIRFunPLR*CR.</pre>
+<p>
+The models that extend from this base class implement the functions used above
+in ways that are shown in the table below.
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
+<p>
+where
+<code>TConEnt</code> is the condenser entering temperature,
+<code>TEvaLvg</code> is the evaporator leaving temperature,
+<code>TConLvg</code> is the condenser leaving temperatore, and
+PLR is the part load ratio.
+</p>
+<h4>References</h4>
 <ul>
 <li>
-A function to predict cooling capacity. The function value needs
-to be assigned to <code>capFunT</code>.
-</li>
-<li>
-A function to predict the power input as a function of temperature.
-The function value needs to be assigned to <code>EIRFunT</code>.
-</li>
-<li>
-A function to predict the power input as a function of the part load ratio.
-The function value needs to be assigned to <code>EIRFunPLR</code>.
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
 </li>
 </ul>
 </html>",

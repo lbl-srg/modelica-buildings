@@ -8,14 +8,14 @@ model SupplyReturnTemperatureResetExponent
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with varying outdoor temperature and m=1"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TOut(
     height=30,
     duration=1,
     offset=258.15,
     y(unit="K"))
     "Outdoor temperature varying from -10 degC to 30 degC"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRoo(
     k=273.15+20,
     y(unit="K"))
     "Room temperature 20 degC"

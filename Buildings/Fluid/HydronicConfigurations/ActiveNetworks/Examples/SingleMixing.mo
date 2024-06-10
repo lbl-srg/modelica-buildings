@@ -7,7 +7,7 @@ model SingleMixing
     dpPum_nominal=10e4,
     del1(nPorts=2),
     pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
-        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional));
+        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed));
 
   parameter Boolean is_bal=true
     "Set to true for balanced primary branch"
@@ -37,7 +37,7 @@ model SingleMixing
     final TLiqLvg_nominal=TLiqLvg_nominal)
     "Load"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable fraLoa(table=[0,0,0; 6,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable fraLoa(table=[0,0,0; 6,
         0,0; 6.1,1,1; 8,1,1; 9,1,0; 14,0.5,0; 14.5,0,0; 16,0,0; 17,0,1; 21,0,1;
         22,0,0; 24,0,0],
       timeScale=3600)
@@ -68,11 +68,11 @@ model SingleMixing
     timeScale=3600,
     period=86400) "Operating mode (time schedule)"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable setOff(table=[0,0; 9,0;
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable setOff(table=[0,0; 9,0;
         15,-10; 16,-10; 17,0; 24,0],   timeScale=3600)
     "Offset applied to design supply temperature to compute set point"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter T2Set(final p=
+  Buildings.Controls.OBC.CDL.Reals.AddParameter T2Set(final p=
         TLiqEnt_nominal, y(final unit="K", displayUnit="degC"))
     "Consumer circuit temperature set point" annotation (Placement(
         transformation(

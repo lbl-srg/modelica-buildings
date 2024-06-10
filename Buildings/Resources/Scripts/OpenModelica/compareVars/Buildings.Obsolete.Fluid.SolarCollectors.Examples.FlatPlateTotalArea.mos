@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "solCol.vol[3].T",
+    "solCol.vol[6].T",
+    "solCol.vol[9].T",
+    "solCol1.vol[9].T",
+    "solCol1.vol[18].T",
+    "solCol1.vol[27].T",
+    "solCol.m_flow",
+    "solCol.m_flow_nominal",
+    "solCol1.m_flow",
+    "solCol1.m_flow_nominal"
+  };

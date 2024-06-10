@@ -2,27 +2,41 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx;
 model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF(
     redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResults staRes(
-    annualHea(Min=3.993*3.6e9, Max=4.504*3.6e9, Mean=4.213*3.6e9),
-    annualCoo(Min=-5.432*3.6e9, Max=-6.162*3.6e9, Mean=-5.856*3.6e9),
+      annualHea(
+        Min=3.993*3.6e9,
+        Max=4.504*3.6e9,
+        Mean=4.213*3.6e9),
+      annualCoo(
+        Min=-5.432*3.6e9,
+        Max=-6.162*3.6e9,
+        Mean=-5.856*3.6e9),
     peakHea(Min=3.020*1000, Max=3.359*1000, Mean=3.184*1000),
     peakCoo(Min=-5.422*1000, Max=-6.481*1000, Mean=-6.024*1000)));
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
+      heaCri(lowerLimit=3.75*3.6e9, upperLimit=4.98*3.6e9)
+    "Annual heating load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    annotation (Placement(transformation(extent={{-96,82},{-82,96}})));
+  replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
+      cooCri(lowerLimit=-5*3.6e9, upperLimit=-6.83*3.6e9)
+    "Annual cooling load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    annotation (Placement(transformation(extent={{-96,62},{-82,76}})));
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     k=0.1,
     Ti=300,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for heating"
     annotation (Placement(transformation(extent={{-72,30},{-64,38}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     k=0.1,
     Ti=300,
     reverseActing=false,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for cooling"
     annotation (Placement(transformation(extent={{-72,8},{-64,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHea(k=1E6)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiHea(k=1E6)
     "Gain for heating"
     annotation (Placement(transformation(extent={{-58,30},{-50,38}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiCoo(k=-1E6)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiCoo(k=-1E6)
     "Gain for cooling"
     annotation (Placement(transformation(extent={{-58,8},{-50,16}})));
   Modelica.Blocks.Math.Sum sumHeaCoo(nin=2)
@@ -53,10 +67,10 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   replaceable BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27])
     "Cooling setpoint"
     annotation (Placement(transformation(extent={{-92,8},{-84,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage PHea(delta=3600)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage PHea(delta=3600)
     "Hourly averaged heating power"
     annotation (Placement(transformation(extent={{-20,48},{-12,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage PCoo(delta=3600)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage PCoo(delta=3600)
     "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
@@ -129,14 +143,20 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li>    
+<li>
 April 8, 2020, by Michael Wetter:<br/>
 Removed <code>initType</code> in PID controller.
 </li>
 <li>
 January 21, 2020, by Michael Wetter:<br/>
 Changed calculation of time averaged values to use
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.MovingMean\">
-Buildings.Controls.OBC.CDL.Continuous.MovingMean</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.MovingMean\">
+Buildings.Controls.OBC.CDL.Reals.MovingMean</a>
 because this does not trigger a time event every hour.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1714\">issue 1714</a>.

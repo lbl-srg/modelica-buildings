@@ -3,7 +3,7 @@ partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
   extends Modelica.Blocks.Icons.Block;
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
 
   parameter Modelica.Units.SI.Pressure p=101325 "Fixed value of pressure"
     annotation (Dialog(enable=not use_p_in));
@@ -35,6 +35,12 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

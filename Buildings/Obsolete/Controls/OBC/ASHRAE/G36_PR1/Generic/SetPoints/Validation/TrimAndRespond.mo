@@ -39,18 +39,18 @@ model TrimAndRespond "Model validates the trim and respond block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Logic true indicating device ON"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final amplitude=6,
     final freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
+  Buildings.Controls.OBC.CDL.Reals.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine1(
     final amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-88,-90},{-68,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
@@ -59,18 +59,18 @@ model TrimAndRespond "Model validates the trim and respond block"
     annotation (Placement(transformation(extent={{-88,-20},{-68,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch between two Real signals"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch between two Real signals"
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero request when device is OFF"
     annotation (Placement(transformation(extent={{-88,-50},{-68,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round2(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(final n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2

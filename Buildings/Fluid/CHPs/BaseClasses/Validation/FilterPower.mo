@@ -6,7 +6,7 @@ model FilterPower "Validate model FilterPower"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable PEleDem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable PEleDem(
     table=[0,0; 300,500; 600,2000; 900,3000;
            1200,0; 1500,6000; 1800,6000],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)

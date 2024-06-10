@@ -15,7 +15,19 @@ ROOT = $(TRAVIS_BUILD_DIR)
 # The target below excludes run.sh in ThermalZones as they are using a more recent
 # version of EnergyPlus that has not yet been released.
 test-energyplus-validations:
-	@find $(ROOT)/Buildings/Resources/Data -name run.sh | xargs -I {} sh -c \
+	@echo "*********************************************************"
+	@echo "*********************************************************"
+	@echo "*** Testing idf files for $(ENERGYPLUS_23_1_0)"
+	@export PATH=$(ROOT)/$(ENERGYPLUS_23_1_0):$(PATH); \
+	 find $(ROOT)/Buildings/Resources/Data/Fluid -name run.sh | xargs -I {} sh -c \
+	  'cd `dirname {}` && \
+	   echo "*********************************************************" && \
+	   echo "*** Testing `pwd`/run.sh" && \
+	   ./run.sh'
+	@echo "*********************************************************"
+	@echo "*** Testing idf files for $(ENERGYPLUS_9_6_0)"
+	@export PATH=$(ROOT)/$(ENERGYPLUS_9_6_0):$(PATH); \
+	 find $(ROOT)/Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0 -name run.sh | xargs -I {} sh -c \
 	  'cd `dirname {}` && \
 	   echo "*********************************************************" && \
 	   echo "*** Testing `pwd`/run.sh" && \
@@ -149,14 +161,20 @@ test-dymola:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola -n $(NPROC))
 
 test-openmodelica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification -n $(NPROC))
 
 test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
+
+test-templates-dymola:
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola)
+
+test-templates-optimica:
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica)

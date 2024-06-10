@@ -9,7 +9,7 @@ record Generic "Generic data record for movers"
     dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
     if havePressureCurve
       then (pressure.V_flow[end]
                 -(pressure.V_flow[end] - pressure.V_flow[end - 1])
@@ -17,7 +17,8 @@ record Generic "Generic data record for movers"
                 * pressure.dp[end])
     else 0
       "Volume flow rate on the curve when pressure rise is zero";
-  parameter Modelica.Units.SI.PressureDifference dpMax=
+  final parameter Modelica.Units.SI.PressureDifference dpMax(
+    displayUnit="Pa")=
     if havePressureCurve
       then (pressure.dp[1]
                 -(pressure.dp[1] - pressure.dp[2])
@@ -28,12 +29,14 @@ record Generic "Generic data record for movers"
 
   // Efficiency computation choices
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    if havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    else Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    if powerOrEfficiencyIsHydraulic
-      then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    if powerOrEfficiencyIsHydraulic and havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
     else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
@@ -97,7 +100,7 @@ record Generic "Generic data record for movers"
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
-  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
+  parameter Modelica.Units.SI.Power WMot_nominal=
     if max(power.P)>Modelica.Constants.eps
     then
       if powerOrEfficiencyIsHydraulic
@@ -132,34 +135,20 @@ record Generic "Generic data record for movers"
   parameter Real speed_nominal(
     final min=0,
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
+    annotation (Dialog(group="Normalized speeds"));
 
-  parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
+  parameter Real constantSpeed(final min=0, final unit="1") = 1
     "Normalized speed set point, used if inputType = Buildings.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
+    annotation (Dialog(group="Normalized speeds"));
 
-  parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm/speed_rpm_nominal
+  parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
     "Vector of normalized speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm)"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal=1500
-    "Nominal rotational speed for flow characteristic"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm constantSpeed_rpm=
-      speed_rpm_nominal
-    "Speed set point, used if inputType = Buildings.Fluid.Types.InputType.Constant"
-    annotation (Dialog(group="Speeds in RPM"));
-
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm[:] speeds_rpm={
-      speed_rpm_nominal}
-    "Vector of speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages"
-    annotation (Dialog(group="Speeds in RPM"));
+    annotation (Dialog(group="Normalized speeds"));
 
   // Set a parameter in order for
-  // (a) FlowControlled_m_flow and FlowControlled_dp being able to set a reasonable
+  // (a) FlowControlled_m_flow and FlowControlled_dp to be able to set a reasonable
   //     default pressure curve if it is not specified here, and
-  // (b) SpeedControlled_y and SpeedControlled_Nrpm being able to issue an assert
+  // (b) SpeedControlled_y to be able to issue an assert
   //     if no pressure curve is specified.
   final parameter Boolean havePressureCurve=
     sum(pressure.V_flow) > Modelica.Constants.eps and
@@ -171,6 +160,18 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Default efficiency methods now depend on whether a pressure curve is available.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 March 1, 2022, by Hongxiang Fu:<br/>
 <ul>
@@ -248,8 +249,6 @@ declaration such as
 </pre>
 <p>
 This data record can be used with
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>,
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
 Buildings.Fluid.Movers.SpeedControlled_y</a>,
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
@@ -259,8 +258,8 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 <p>
 An example that uses manufacturer data can be found in
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
-Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.Pump_y_stratos\">
+Buildings.Fluid.Movers.Validation.Pump_y_stratos</a>.
 </p>
 <h4>Declaration of the peak condition</h4>
 <p>
@@ -277,23 +276,6 @@ default values. By passing them to <code>peak</code> one by one, the model can
 both have default values and also allow the user to override them easily.
 See <a href=\"https://github.com/modelica/ModelicaSpecification/issues/791\">
 Modelica Specification issue #791</a>.
-</p>
-<h4>Parameters in RPM</h4>
-<p>
-The parameters <code>speed_rpm_nominal</code>,
-<code>constantSpeed_rpm</code> and
-<code>speeds_rpm</code> are used to assign the non-dimensional speeds
-</p>
-<pre>
-  parameter Real constantSpeed(final min=0, final unit=\"1\") = constantSpeed_rpm/speed_rpm_nominal;
-  parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
-</pre>
-<p>
-In addition, <code>speed_rpm_nominal</code> is used in
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
-to normalize the control input signal.
-Otherwise, these speed parameters in RPM are not used in the models.
 </p>
 </html>"));
 end Generic;

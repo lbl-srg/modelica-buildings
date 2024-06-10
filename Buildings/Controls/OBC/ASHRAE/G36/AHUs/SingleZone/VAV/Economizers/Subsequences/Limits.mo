@@ -5,36 +5,42 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMinSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMaxSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamDesFloMinSpe(
     final min=outDamMinFloMinSpe,
     final max=outDamPhy_max,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamDesFloMaxSpe(
     final min=outDamMinFloMaxSpe,
     final max=outDamPhy_max,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Calculated minimum outdoor airflow rate"
@@ -49,18 +55,21 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real floHys(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=0.01
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Commissioning", group="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
@@ -103,63 +112,63 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
         iconTransformation(extent={{100,40},{140,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanMinSig(
     final k=supFanSpe_min) "Minimum supply fan speed"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMinSig(
     final k=outDamPhy_min)
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhy_max)
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFanMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFanMaxSig(
     final k=supFanSpe_max) "Maximum supply fan speed"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_minSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutMin_minSpeSig(
     final k=outDamMinFloMinSpe)
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_minSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutDes_minSpeSig(
     final k=outDamDesFloMinSpe)
     "OA damper position to supply design outdoor airflow at minimum fan speed"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutMin_maxSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutMin_maxSpeSig(
     final k=outDamMinFloMaxSpe)
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDam_VOutDes_maxSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yDam_VOutDes_maxSpeSig(
     final k=outDamDesFloMaxSpe)
     "OA damper position to supply design outdoor airflow at maximum fan speed"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minVOutSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minVOutSig(
     final k=VOutMin_flow) "Minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desVOutSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desVOutSig(
     final k=VOutDes_flow) "Design outdoor airflow rate"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line yDam_VOutMin_curSpe(
+  Buildings.Controls.OBC.CDL.Reals.Line yDam_VOutMin_curSpe(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line yDam_VOutDes_curSpe(
+  Buildings.Controls.OBC.CDL.Reals.Line yDam_VOutDes_curSpe(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply design outdoor airflow at current fan speed"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line minVOutSetCurFanSpePos(
+  Buildings.Controls.OBC.CDL.Reals.Line minVOutSetCurFanSpePos(
     final limitBelow=true,
     final limitAbove=true)
     "Calculates OA damper position required to supply minimum outdoor airflow setpoint at current fan speed"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis
     "Logical switch to enable damper position limit calculation or disable it (set min limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not block"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis1
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis1
     "Logical switch to enable damper position limit calculation or disable it (set max limit to physical minimum)"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
@@ -175,16 +184,18 @@ protected
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1 "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.And3 and3 "Logical and"
+  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
+    annotation (Placement(transformation(extent={{-70,-120},{-50,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis2
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis2
     "Zero minimum damper position when the min OA is near zero"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Zero minimum damper position"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold noZerMin(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold noZerMin(
     final t=floHys,
     final h=0.5*floHys) "Check if the min OA is greater than zero"
     annotation (Placement(transformation(extent={{20,-170},{40,-150}})));
@@ -244,13 +255,7 @@ equation
     annotation (Line(points={{-102,-98},{-110,-98},{-110,-110},{-118,-110}}, color={255,127,0}));
   connect(uFreProSta, intLesEqu.u1)
     annotation (Line(points={{-180,-90},{-102,-90}},   color={255,127,0}));
-  connect(u1SupFan, and3.u1) annotation (Line(points={{-180,-40},{-80,-40},{-80,
-          -62},{-62,-62}}, color={255,0,255}));
-  connect(intLesEqu.y, and3.u2) annotation (Line(points={{-78,-90},{-74,-90},{-74,
-          -70},{-62,-70}},      color={255,0,255}));
-  connect(intEqu1.y, and3.u3) annotation (Line(points={{-78,-130},{-68,-130},{-68,
-          -78},{-62,-78}},     color={255,0,255}));
-  connect(and3.y, not1.u)
+  connect(and2.y, not1.u)
     annotation (Line(points={{-38,-70},{-22,-70}}, color={255,0,255}));
   connect(VOutMinSet_flow, noZerMin.u) annotation (Line(points={{-180,180},{-30,
           180},{-30,-160},{18,-160}}, color={0,0,127}));
@@ -263,6 +268,14 @@ equation
   connect(zer.y, enaDis2.u3) annotation (Line(points={{102,-190},{110,-190},{110,
           -168},{118,-168}}, color={0,0,127}));
 
+  connect(intLesEqu.y, and1.u1) annotation (Line(points={{-78,-90},{-74,-90},{-74,
+          -110},{-72,-110}}, color={255,0,255}));
+  connect(and1.u2, intEqu1.y) annotation (Line(points={{-72,-118},{-74,-118},{-74,
+          -130},{-78,-130}}, color={255,0,255}));
+  connect(and1.y, and2.u2) annotation (Line(points={{-48,-110},{-40,-110},{-40,-86},
+          {-66,-86},{-66,-78},{-62,-78}}, color={255,0,255}));
+  connect(u1SupFan, and2.u1) annotation (Line(points={{-180,-40},{-66,-40},{-66,
+          -70},{-62,-70}}, color={255,0,255}));
 annotation (
     defaultComponentName = "damLim",
     Icon(graphics={
@@ -434,6 +447,13 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/SingleZ
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 29, 2023, by Hongxiang Fu:<br/>
+Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
+replaced it with a stack of two <code>Logical.And</code> blocks.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2465\">#2465</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 Updated according to ASHRAE G36, May 2020.

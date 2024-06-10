@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.Validation;
 model PumpCurveDerivatives
-  "Check for monotoneously increasing pump curve relations between Nrpm, dp and m_flow"
+  "Check for monotoneously increasing pump curve relations between y, dp and m_flow"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
@@ -24,14 +24,14 @@ model PumpCurveDerivatives
     startTime=0) "Ramp signal for forced mass flow rate"
     annotation (Placement(transformation(extent={{-36,60},{-24,72}})));
 
-  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump1(
+  Buildings.Fluid.Movers.SpeedControlled_y pump1(
     y_start=1,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
     use_inputFilter=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Fluid.Movers.SpeedControlled_Nrpm pump2(
+  Buildings.Fluid.Movers.SpeedControlled_y pump2(
     y_start=1,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -41,12 +41,13 @@ model PumpCurveDerivatives
 
   Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false) "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
 
-  Modelica.Blocks.Sources.Constant rpm1(k=1000) "Pump speed control signal"
+  Modelica.Blocks.Sources.Constant y1(k=1000/2610) "Pump speed control signal"
     annotation (Placement(transformation(extent={{-90,54},{-78,66}})));
 
   Modelica.Blocks.Math.Min min1
@@ -56,7 +57,7 @@ model PumpCurveDerivatives
         origin={35,63})));
 
   Modelica.Blocks.Sources.Constant mMax_flow(k=40/3.6)
-    "Maximum flow rate of the pump at given rpm"
+    "Maximum flow rate of the pump at given speed"
     annotation (Placement(transformation(extent={{0,46},{12,58}})));
 
   FixedResistances.PressureDrop res(
@@ -64,10 +65,10 @@ model PumpCurveDerivatives
     m_flow_nominal=40/3.6,
     dp_nominal=7e4) "Pressure drop component"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Modelica.Blocks.Sources.Ramp m_flow1(
+  Modelica.Blocks.Sources.Ramp y2(
     duration=1,
     startTime=0,
-    height=100,
+    height=100/2610,
     offset=0) "Ramp signal for speed"
     annotation (Placement(transformation(extent={{-100,-32},{-88,-20}})));
   Sensors.RelativePressure relPre(redeclare package Medium =
@@ -83,29 +84,26 @@ model PumpCurveDerivatives
     redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={-50,-70})));
-  Modelica.Blocks.Continuous.Derivative ddp_dNrpm(
-    initType=Modelica.Blocks.Types.Init.InitialState)
-    "Derivative of dp for changing rpm"
+  Modelica.Blocks.Continuous.Derivative ddp_dy(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Derivative of dp for changing speed"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-50}})));
-  Modelica.Blocks.Continuous.Derivative dm_flow_dNrpm(
-    initType=Modelica.Blocks.Types.Init.InitialState)
-    "Derivative of m_flow for changing rpm"
+  Modelica.Blocks.Continuous.Derivative dm_flow_dy(initType=Modelica.Blocks.Types.Init.InitialState)
+    "Derivative of m_flow for changing speed"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
   connect(sou.ports[1], pump1.port_a) annotation (Line(
-      points={{-100,2},{-70,2},{-70,40},{-60,40}},
+      points={{-100,-1},{-70,-1},{-70,40},{-60,40}},
       color={0,127,255}));
   connect(forcedPump1.port_a, pump1.port_b) annotation (Line(
       points={{38,40},{-40,40}},
       color={0,127,255}));
-  connect(pump1.Nrpm, rpm1.y) annotation (Line(
-      points={{-50,52},{-50,60},{-77.4,60}},
-      color={0,0,127}));
+  connect(pump1.y, y1.y)
+    annotation (Line(points={{-50,52},{-50,60},{-77.4,60}}, color={0,0,127}));
   connect(pump2.port_a, sou.ports[2]) annotation (Line(
-      points={{-60,-40},{-70,-40},{-70,-2},{-100,-2}},
+      points={{-60,-40},{-70,-40},{-70,1},{-100,1}},
       color={0,127,255}));
 
   connect(forcedPump1.m_flow_in, min1.y) annotation (Line(
@@ -117,26 +115,26 @@ equation
   connect(mMax_flow.y, min1.u2) annotation (Line(points={{12.6,52},{18,52},{18,60},
           {29,60}}, color={0,0,127}));
   connect(forcedPump1.port_b, sin.ports[1]) annotation (Line(
-      points={{58,40},{94,40},{94,2},{110,2}},
+      points={{58,40},{94,40},{94,-1},{110,-1}},
       color={0,127,255}));
 
   connect(res.port_b, sin.ports[2]) annotation (Line(points={{60,-40},{94,-40},{
-          94,-2},{110,-2}},  color={0,127,255}));
-  connect(m_flow1.y, pump2.Nrpm) annotation (Line(points={{-87.4,-26},{-87.4,-26},
-          {-50,-26},{-50,-28}},      color={0,0,127}));
+          94,1},{110,1}},    color={0,127,255}));
+  connect(y2.y, pump2.y) annotation (Line(points={{-87.4,-26},{-87.4,-26},{-50,-26},
+          {-50,-28}}, color={0,0,127}));
   connect(ddp_dm_flow.u, relPre.p_rel) annotation (Line(points={{-2,-10},{-50,
           -10},{-50,1}},           color={0,0,127}));
   connect(relPre1.port_b, pump2.port_a) annotation (Line(points={{-60,-70},{-60,
           -70},{-60,-40}}, color={0,127,255}));
   connect(relPre1.port_a, pump2.port_b) annotation (Line(points={{-40,-70},{-40,
           -70},{-40,-40}}, color={0,127,255}));
-  connect(ddp_dNrpm.u, relPre1.p_rel) annotation (Line(points={{-2,-110},{-2,-110},
-          {-50,-110},{-50,-79}},       color={0,0,127}));
+  connect(ddp_dy.u, relPre1.p_rel) annotation (Line(points={{-2,-110},{-2,-110},
+          {-50,-110},{-50,-79}}, color={0,0,127}));
   connect(senMasFlo.port_a, pump2.port_b) annotation (Line(points={{-30,-40},{-36,
           -40},{-40,-40}},     color={0,127,255}));
   connect(senMasFlo.port_b, res.port_a)
     annotation (Line(points={{-10,-40},{14,-40},{40,-40}}, color={0,127,255}));
-  connect(senMasFlo.m_flow, dm_flow_dNrpm.u)
+  connect(senMasFlo.m_flow, dm_flow_dy.u)
     annotation (Line(points={{-20,-51},{-20,-70},{-2,-70}}, color={0,0,127}));
   connect(relPre.port_b, pump1.port_b) annotation (Line(points={{-40,10},{-40,10},
           {-40,40}},              color={0,127,255}));
@@ -151,11 +149,25 @@ __Dymola_Commands(file=
 <p>
 This example checks if the pump similarity law implementation results in
 monotoneously increasing or decreasing relations between <code>dp</code>,
-<code>m_flow</code> and <code>Nrpm</code>.
+<code>m_flow</code> and <code>y</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Replaced the pump with <code>Nrpm</code> signal with one with <code>y</code>
+signal.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 July 5, 2017, by Michael Wetter:<br/>
 Replaced exact derivative with derivative approximation, and removed the assertions.<br/>

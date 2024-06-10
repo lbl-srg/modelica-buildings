@@ -19,10 +19,10 @@ model Guideline36Spring
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOn(k=20 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHeaOn(k=20 + 273.15)
     "Zone heating setpoint during occupied period"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOn(k=24 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOn(k=24 + 273.15)
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.Utilities.OptimalStart optStaCoo(
@@ -32,7 +32,7 @@ model Guideline36Spring
     thrOptOn(displayUnit="s"))
     "Optimal start for cooling"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=0)
     "No optimal start"
     annotation (Placement(transformation(extent={{-20,-78},{0,-58}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUG36 zonAHUG36Opt

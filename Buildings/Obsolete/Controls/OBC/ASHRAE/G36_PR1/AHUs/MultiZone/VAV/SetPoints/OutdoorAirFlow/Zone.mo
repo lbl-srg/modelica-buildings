@@ -161,45 +161,45 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
+  Buildings.Controls.OBC.CDL.Reals.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=VOutPerPer_flow) if have_occSen "Outdoor air per person"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "If there is occupancy sensor, then using the real time occupancy; otherwise, using the default occupancy"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide zonOutAirRate
+  Buildings.Controls.OBC.CDL.Reals.Divide zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide priOutAirFra
+  Buildings.Controls.OBC.CDL.Reals.Divide priOutAirFra
     "Primary outdoor air fraction"
     annotation (Placement(transformation(extent={{120,-170},{140,-150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add desBreZon "Breathing zone design airflow"
+  Buildings.Controls.OBC.CDL.Reals.Add desBreZon "Breathing zone design airflow"
     annotation (Placement(transformation(extent={{20,190},{40,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide desZonOutAirRate
+  Buildings.Controls.OBC.CDL.Reals.Divide desZonOutAirRate
     "Required design zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{80,170},{100,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide desZonPriOutAirRate
+  Buildings.Controls.OBC.CDL.Reals.Divide desZonPriOutAirRate
     "Design zone primary outdoor air fraction"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=uLow,
     final uHigh=uHig,
     final pre_y_start=true)
@@ -211,32 +211,32 @@ protected
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desDisEff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desDisEff(
     final k = desZonDisEff)
     "Design zone air distribution effectiveness"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minZonFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minZonFlo(
     final k = minZonPriFlo)
     "Minimum expected zone primary flow rate"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant disEffHea(
     final k = zonDisEffHea)
     "Zone distribution effectiveness for heating"
     annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant disEffCoo(
     final k = zonDisEffCoo)
     "Zone distribution effectiveness fo cooling"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOutAir(
     final k=0)
     "Zero required outdoor airflow rate when window is open or when zone is not in occupied mode"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOcc(
     final k=0) if not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
@@ -246,55 +246,55 @@ protected
     "Closed window status when there is no window sensor"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "If window is open, the required outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "If supply fan is off or it is not in occupied mode, then outdoor airflow rate should be zero"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "If supply fan is off, giving a small primary airflow rate to avoid division by zero"
     annotation (Placement(transformation(extent={{-20,-230},{0,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply breZonAre
+  Buildings.Controls.OBC.CDL.Reals.Multiply breZonAre
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Product of flow rate per person and floor area"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floPerAre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floPerAre(
     final k=VOutPerAre_flow)
     "Flow rate per unit area"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floAre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floAre(
     final k=AFlo) "Floor area"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floPerPer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant floPerPer(
     final k=VOutPerPer_flow) "Flow rate per person"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter breZonPop(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter breZonPop(
     final k=occDen)
     "Default population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiDivZer(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiDivZer(
     final k=1E-3)
     "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desPeaOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desPeaOcc(
     final k=desZonPop)
     "Design zone population during peak occupancy"
     annotation (Placement(transformation(extent={{-140,230},{-120,250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply desBreZonPer
+  Buildings.Controls.OBC.CDL.Reals.Multiply desBreZonPer
     "Population component of the breathing zone design outdoor airflow"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
 
