@@ -28,6 +28,8 @@ model SpaceCooling "Space cooling system"
     "Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity";
   parameter Modelica.Units.SI.Temperature TRooSet=297.15
     "Nominal room air temperature";
+  parameter Modelica.Units.SI.Temperature TMixSet=297.15
+    "Nominal mixed air temperature";
   parameter Modelica.Units.SI.Temperature TOut_nominal=303.15
     "Design outlet air temperature";
   parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - eps*(
@@ -70,12 +72,12 @@ model SpaceCooling "Space cooling system"
     redeclare package Medium = MediumA,
     per(etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
         etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
-
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
+
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers whe(
     redeclare package Medium = MediumA,
     mSup_flow_nominal=mA_flow_nominal,
@@ -160,13 +162,16 @@ model SpaceCooling "Space cooling system"
     shift=0.25*86400)
     "Operating signal"
     annotation (Placement(transformation(extent={{-172,10},{-152,30}})));
-  Modelica.Blocks.Sources.Ramp bypDamPos(
-    height=0.5,
-    duration=86400/4,
-    offset=0,
-    startTime=15552000 + 12*3600)
-    "Bypass damper position"
-    annotation (Placement(transformation(extent={{-170,-60},{-150,-40}})));
+  Buildings.Controls.Continuous.LimPID conPID(k=0.1, Ti=60)
+    annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(k=TMixSet)
+    "Mixed air temperature set point"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
+      redeclare package Medium = MediumA,
+      m_flow_nominal=mA_flow_nominal)
+      "Temperature sensor for return air"
+    annotation (Placement(transformation(extent={{54,-52},{42,-40}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -177,11 +182,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fan.port_b, vol.ports[1]) annotation (Line(
-      points={{62,-20},{69,-20},{69,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2],whe. port_a2) annotation (Line(
-      points={{71,20},{71,-46},{-90,-46},{-90,-32}},
+      points={{60,-20},{69,-20},{69,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(out.ports[2],whe. port_a1) annotation (Line(
@@ -267,9 +268,16 @@ equation
   connect(opeSig.y, whe.uRot) annotation (Line(
       points={{-150,20},{-116,20},{-116,-18},{-112,-18}},
       color={255,0,255}));
-  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(
-      points={{-149,-50},{-118,-50},{-118,-26},{-112,-26}},
-      color={0,0,127}));
+  connect(TMixSetPoi.y, conPID.u_s)
+    annotation (Line(points={{-78,20},{-60,20}}, color={0,0,127}));
+  connect(senTemHXOut.T, conPID.u_m) annotation (Line(points={{-70,-13.4},{-70,0},
+          {-48,0},{-48,8}}, color={0,0,127}));
+  connect(conPID.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-18,20},{
+          -18,-80},{-116,-80},{-116,-26},{-112,-26}}, color={0,0,127}));
+  connect(vol.ports[2], senTemRetAir.port_a)
+    annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
+  connect(senTemRetAir.port_b, whe.port_a2) annotation (Line(points={{42,-46},{-90,
+          -46},{-90,-32}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
@@ -287,8 +295,8 @@ The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</
 and from <code>false</code> to <code>true</code> at 18:00 (15552000+18*3600 seconds).
 </li>
 <li>
-The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.5</i> 
-during the period from 12:00 to 18:00.
+The bypass damper positions are controlled to maintain the temperature of the air leaving the thermal wheel, 
+<code>senTemHXOut.T</code>, at 297.15 K.
 </li>
 </ul>
 <p>
@@ -296,11 +304,11 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The outdoor temperature, <code>TOut.T</code>, and the temperature of the air leaving the exchanger, <code>senTemHXOut.T</code>,
-becomes different at 6:00.
+The outdoor temperature, <code>TOut.T</code>, and <code>senTemHXOut.T</code>
+are different during the period from 6:00 to 18:00.
 </li>
 <li>
-Their difference equals <i>0</i> after 18:00.
+During the same period, <code>senTemHXOut.T</code> is close to 297.15 K.
 </li>
 </ul>
 </html>", revisions="<html>

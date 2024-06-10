@@ -42,29 +42,28 @@ model SpeedControlled
     nPorts=2)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled wheUseDefCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled
+    wheUseDefCur(
     redeclare package Medium = Medium,
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    P_nominal=100,
+    per=perLatWheDefMotCur,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6,
-    defaultMotorEfficiencyCurve=false,
-    table=[0.8,1])
+    epsLatHeaPL=0.6)
     "Wheel with a user-defined curve"
     annotation (Placement(transformation(extent={{2,14},{22,34}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled wheDefCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled
+    wheDefCur(
     redeclare package Medium = Medium,
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    P_nominal=100,
+    per=perLatWhe,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
     epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6,
-    defaultMotorEfficiencyCurve=true)
+    epsLatHeaPL=0.6)
     "Wheel with a default curve"
     annotation (Placement(transformation(extent={{2,-18},{22,2}})));
   Modelica.Blocks.Sources.Ramp wheSpe(
@@ -85,6 +84,18 @@ model SpeedControlled
       "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
+  Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data.ASHRAE
+                          perLatWhe(
+    motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.4,0.6,1}),
+    haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=false)
+    "Performance record for the enthalpy wheet"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data.ASHRAE
+                          perLatWheDefMotCur(haveLatentHeatExchange=true,
+      useDefaultMotorEfficiencyCurve=true)
+    "Performance record for the enthalpy wheet with default motor curve"
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));

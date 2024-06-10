@@ -31,11 +31,6 @@ model Effectiveness
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
     "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
-    final unit="1",
-    final max=1)
-    "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -70,7 +65,7 @@ equation
   epsPL = if equPL then epsCooPL else fraCoo*epsCooPL + (1-fraCoo) * epsHeaPL;
   eps_nominal = if equ_nominal then epsCoo_nominal else fraCoo*epsCoo_nominal + (1-fraCoo) * epsHea_nominal;
   // Calculate effectiveness
-  eps =uSpe*(epsPL + (eps_nominal - epsPL)*(
+  eps = (epsPL + (eps_nominal - epsPL)*(
     Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01) - 0.75)/0.25);
 
   assert(eps >= 0 and eps < 1,
@@ -106,7 +101,7 @@ where <code>VSup_flow</code> is the flow rate of the supply air,
 It then calculates the sensible heat exchanger effectiveness as
 </p>
 <pre>
-  eps = uSpe * (epsPL + (eps_nominal - epsPL) * (rat - 0.75)/0.25),
+  eps = (epsPL + (eps_nominal - epsPL) * (rat - 0.75)/0.25),
 </pre>
 <p>
 where <code>eps</code> is the effectiveness

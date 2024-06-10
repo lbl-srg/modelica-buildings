@@ -13,5 +13,5 @@ createPlot(id = 1,position = {15, 10, 751, 680}, y = {"vol.T_start", "vol.T", "T
 LinePattern.Dash},
  thicknesses = {0.25, 0.5, 0.25, 0.25, 0.25});
 createPlot(id=1, position={15, 10, 751, 680}, y={"opeSig.y"}, range={15550000.0, 15640000.0, 10.0, 30.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 10, 751, 680}, y={"TOut.T", "senTemHXOut.T"}, range={15550000.0, 15640000.0, 10.0, 30.0}, grid=true, subPlot=103, colors={{0,128,0}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC"});
-
+createPlot(id=1, position={17, -11, 751, 680}, y={"TOut.T", "senTemHXOut.T", "TMixSetPoi.y"}, range={15550000.0, 15640000.0, 280.0, 305.0}, grid=true, subPlot=103, colors={{0,128,0}, {28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"K", "K", ""});
+createPlot(id=1, position={35, 0, 751, 680}, y={"whe.senSupMasFlo.m_flow"}, range={15550000.0, 15640000.0, -0.5, 1.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});

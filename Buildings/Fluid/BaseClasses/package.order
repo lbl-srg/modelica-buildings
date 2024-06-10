@@ -4,4 +4,5 @@ MassFlowRateMultiplier
 PartialResistance
 PartialThreeWayResistance
 FlowModels
+VariableSpeedWheel
 Validation

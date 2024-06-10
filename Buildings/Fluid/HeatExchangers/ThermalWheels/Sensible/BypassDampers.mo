@@ -6,6 +6,9 @@ model BypassDampers
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers"
     annotation (Dialog(group="Nominal condition"));
+  parameter Real P_nominal(final unit="W")
+    "Power consumption at the design condition"
+    annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(
     final unit="1",
     final min=0,
@@ -43,6 +46,10 @@ model BypassDampers
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swiepsSen
+    "Switch the heat exchanger effectiveness 
+    based the wheel operation status"
+    annotation (Placement(transformation(extent={{-52,-22},{-32,-2}})));
 protected
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Unity signal"
@@ -50,14 +57,14 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal
-    "Convert boolean input to real output"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Modelica.Blocks.Math.BooleanToReal PEle(
     final realTrue=P_nominal,
     final realFalse=0)
     "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+protected
+  Modelica.Blocks.Sources.Constant zero(final k=0) "Zero signal"
+    annotation (Placement(transformation(extent={{-160,22},{-140,42}})));
 equation
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-60,80},{-180,80}}, color={0,127,255}));
@@ -88,11 +95,6 @@ equation
   connect(uni.y, sub.u1)
     annotation (Line(points={{-119,120},{-110,120},{-110,106},{-102,106}},
     color={0,0,127}));
-  connect(uRot, booleanToReal.u)
-    annotation (Line(points={{-200,0},{-162,0}}, color={255,0,255}));
-  connect(booleanToReal.y, effCal.uSpe)
-    annotation (Line(points={{-139,0},{-120,0},{-120,0},{-102,0}},
-    color={0,0,127}));
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
     color={0,127,255}));
@@ -102,6 +104,16 @@ equation
     color={0,0,127}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
+  connect(swiepsSen.u2, uRot) annotation (Line(points={{-54,-12},{-60,-12},{-60,
+          -54},{-132,-54},{-132,0},{-200,0}}, color={255,0,255}));
+  connect(zero.y, swiepsSen.u3) annotation (Line(points={{-139,32},{-124,32},{-124,
+          -20},{-54,-20}}, color={0,0,127}));
+  connect(effCal.eps, swiepsSen.u1) annotation (Line(points={{-78,0},{-60,0},{-60,
+          -4},{-54,-4}}, color={0,0,127}));
+  connect(swiepsSen.y, hex.eps) annotation (Line(points={{-30,-12},{-20,-12},{-20,
+          0},{-12,0}}, color={0,0,127}));
+  connect(swiepsSen.y, eps) annotation (Line(points={{-30,-12},{-20,-12},{-20,-20},
+          {80,-20},{80,0},{120,0}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

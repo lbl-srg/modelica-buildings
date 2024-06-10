@@ -17,9 +17,6 @@ partial model PartialWheel
   parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
     "Nominal exhaust air pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real P_nominal(final unit="W")
-    "Power consumption at the design condition"
-    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsCoo_nominal(
     final max=1) = 0.8
     "Nominal sensible heat exchanger effectiveness at the cooling mode"
@@ -104,7 +101,7 @@ protected
         h=inStream(port_a1.h_outflow),
         X=inStream(port_a1.Xi_outflow))))
     "Supply air temperature"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Modelica.Blocks.Sources.RealExpression TExh(
     final y(final unit="K")=Medium.temperature(
       Medium.setState_phX(
@@ -116,28 +113,23 @@ protected
 
 equation
   connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,20},{-110,20},{-110,-4},{-102,-4}},
+    annotation (Line(points={{-139,60},{-110,60},{-110,-4},{-102,-4}},
     color={0,0,127}));
   connect(TExh.y, effCal.TExh)
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
     color={0,0,127}));
-  connect(effCal.eps, hex.eps)
-    annotation (Line(points={{-78,0},{-12,0}}, color={0,0,127}));
-  connect(effCal.eps, eps) 
-    annotation (Line(points={{-78,0},{-40,0},{-40,32},{80,32},{80,0},{120,0}},
-    color={0,0,127}));
-  connect(senExhMasFlo.port_b, port_b2) 
+  connect(senExhMasFlo.port_b, port_b2)
     annotation (Line(points={{-90,-34},{-100,-34},{-100,-60},{-180,-60}},
     color={0,127,255}));
-  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{-16,-34},{-16,-6},{-10,-6}}, 
+  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{-16,-34},{-16,-6},{-10,-6}},
     color={0,127,255}));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{10,6},{32,6}}, color={0,127,255}));
   connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{52,6},{60,6},{60,80},{100,80}},
     color={0,127,255}));
-  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-23},{-80,-16},{-106,-16},{-106,4},{-102,4}}, 
+  connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-23},{-80,-16},{-106,-16},{-106,4},{-102,4}},
     color={0,0,127}));
-  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{42,17},{42,26},{-106,26},{-106,8},{-102,8}}, 
+  connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{42,17},{42,26},{-106,26},{-106,8},{-102,8}},
     color={0,0,127}));
 annotation (
         defaultComponentName="whe",
