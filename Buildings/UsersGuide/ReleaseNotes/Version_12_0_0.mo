@@ -55,12 +55,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added assertion that stops the simulation with an error if the zone air pressure
+                       exceeds reasonable bounds.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
     </td>
 </tr>
 </table>
