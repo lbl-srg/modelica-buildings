@@ -21,6 +21,8 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String epwName
     "Name of the Energyplus weather file including the epw extension";
+  parameter Boolean autosizeHVAC
+    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
   parameter String zoneName
@@ -114,6 +116,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    autosizeHVAC=autosizeHVAC,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
     hvacZone=hvacZone,

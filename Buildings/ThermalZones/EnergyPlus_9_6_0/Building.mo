@@ -31,6 +31,9 @@ model Building
     "Name of the weather file, in .mos format and with .mos extension"
     annotation(Evaluate=false);
 
+  parameter Boolean autosizeHVAC=false
+    "Set to true to enable EnergyPlus HVAC autosizing";
+
   parameter Buildings.ThermalZones.EnergyPlus_9_6_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.LogLevels.Warning
     "Log level of EnergyPlus output"
     annotation (Dialog(tab="Debug"));

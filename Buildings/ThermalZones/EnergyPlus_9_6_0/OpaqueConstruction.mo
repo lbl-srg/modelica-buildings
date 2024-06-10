@@ -42,6 +42,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    autosizeHVAC=autosizeHVAC,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=surfaceName,
     hvacZone="n/a",

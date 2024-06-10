@@ -53,9 +53,9 @@ equation
   connect(freshAir.ports[1],duc.port_b)
     annotation (Line(points={{-20,-40},{-10,-40}},color={0,127,255}));
   connect(duc.port_a,zon.ports[1])
-    annotation (Line(points={{10,-40},{18,-40},{18,-19.1}},color={0,127,255}));
+    annotation (Line(points={{10,-40},{19,-40},{19,-19.1}},color={0,127,255}));
   connect(bou.ports[1],zon.ports[2])
-    annotation (Line(points={{-20,-80},{22,-80},{22,-19.1}},color={0,127,255}));
+    annotation (Line(points={{-20,-80},{21,-80},{21,-19.1}},color={0,127,255}));
   connect(zon.qGai_flow,qIntGai.y)
     annotation (Line(points={{-2,10},{-19,10}},color={0,0,127}));
   connect(building.weaBus,bou.weaBus)

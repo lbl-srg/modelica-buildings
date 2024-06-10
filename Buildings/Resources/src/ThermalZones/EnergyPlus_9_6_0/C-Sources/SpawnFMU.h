@@ -27,6 +27,7 @@ size_t AllocateBuildingDataStructure(
   const char* epwName,
   const char* spawnExe,
   const char* idfVersion,
+  const int autosizeHVAC,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,

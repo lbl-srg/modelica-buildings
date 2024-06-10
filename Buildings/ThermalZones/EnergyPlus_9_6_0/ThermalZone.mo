@@ -7,7 +7,7 @@ model ThermalZone
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter String hvacZone = "default"
     "Name of the HVAC system that this zone belongs to for auto-sizing"
-    annotation(Dialog(tab="Auto-sizing"));
+    annotation(Dialog(group="Autosizing"));
 
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
@@ -105,6 +105,7 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final autosizeHVAC=autosizeHVAC,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
     final zoneName=zoneName,
