@@ -2,8 +2,7 @@ within Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses;
 model ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
-  extends
-    Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"

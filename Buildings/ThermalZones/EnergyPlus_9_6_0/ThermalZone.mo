@@ -327,7 +327,7 @@ equation
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
           {24,104},{24,50},{0,50},{0,49}},  color={0,0,127}));
-    annotation (Line(points={{101,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}),
+    annotation (
     defaultComponentName="zon",
     Icon(
       coordinateSystem(
