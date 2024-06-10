@@ -79,6 +79,7 @@ class SpawnExternalObject
     autosizeHVAC,
     relativeSurfaceTolerance,
     epName,
+    hvacZone,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,

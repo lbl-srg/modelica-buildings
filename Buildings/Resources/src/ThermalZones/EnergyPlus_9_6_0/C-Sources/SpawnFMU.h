@@ -23,10 +23,10 @@ size_t getBuildings_nFMU();
 size_t AllocateBuildingDataStructure(
   double startTime,
   const char* modelicaNameBuilding,
-  const char* idfName,
-  const char* epwName,
   const char* spawnExe,
   const char* idfVersion,
+  const char* idfName,
+  const char* epwName,
   const int autosizeHVAC,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
