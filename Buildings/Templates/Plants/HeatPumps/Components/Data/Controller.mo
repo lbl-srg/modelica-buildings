@@ -342,5 +342,12 @@ heat pump plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Controls\">
 Buildings.Templates.Plants.HeatPumps.Components.Controls</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 4, 2024, by Michael Wetter:<br/>
+Corrected display unit for Dymola 2024x Refresh1.
+</li>
+</ul>
 </html>"));
 end Controller;
