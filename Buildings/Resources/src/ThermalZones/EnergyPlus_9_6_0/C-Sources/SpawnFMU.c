@@ -29,6 +29,7 @@ size_t AllocateBuildingDataStructure(
   const char* idfName,
   const char* epwName,
   const int autosizeHVAC,
+  const int use_sizingPeriods,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -142,6 +143,7 @@ size_t AllocateBuildingDataStructure(
 
   /* Set flag for autosizing HVAC */
   Buildings_FMUS[nFMU]->autosizeHVAC = autosizeHVAC;
+  Buildings_FMUS[nFMU]->use_sizingPeriods = use_sizingPeriods;
   /* Set relative surface tolerance */
   Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
   /* Set the model hash to null */

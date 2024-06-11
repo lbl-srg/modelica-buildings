@@ -106,6 +106,7 @@ protected
     final idfName=idfName,
     final epwName=epwName,
     final autosizeHVAC=autosizeHVAC,
+    final use_sizingPeriods=use_sizingPeriods,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
     final zoneName=zoneName,

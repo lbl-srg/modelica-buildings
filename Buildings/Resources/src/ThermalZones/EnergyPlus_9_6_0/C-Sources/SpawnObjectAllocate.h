@@ -21,6 +21,7 @@ LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_9_6_0(
   const char* idfName,
   const char* epwName,
   const int autosizeHVAC,
+  const int use_sizingPeriods,
   double relativeSurfaceTolerance,
   const char* epName,
   const char* hvacZone,

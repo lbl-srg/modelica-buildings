@@ -22,6 +22,8 @@ class SpawnExternalObject
       "Name of the weather file";
     input Boolean autosizeHVAC
       "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
+    input Boolean use_sizingPeriods
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
     input String epName
@@ -77,6 +79,7 @@ class SpawnExternalObject
     idfName,
     epwName,
     autosizeHVAC,
+    use_sizingPeriods,
     relativeSurfaceTolerance,
     epName,
     hvacZone,

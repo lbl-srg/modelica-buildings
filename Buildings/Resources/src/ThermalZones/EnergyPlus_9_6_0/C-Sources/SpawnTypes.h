@@ -79,6 +79,7 @@ typedef struct FMUBuilding
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
   bool autosizeHVAC; /* If true, EnergyPlus is requested to run the HVAC sizing calculations */
+  bool use_sizingPeriods; /* If true, run HVAC sizing calculations on all the included SizingPeriod objects in the idf file */
   double relativeSurfaceTolerance; /* Relative surface tolerance for heat balance calculations */
   size_t nExcObj; /* Number of exc that use this FMU */
   void** exchange; /* Pointers to all exchange objects*/
@@ -127,6 +128,7 @@ typedef struct SpawnObject
   int objectType; /* Type of the EnergyPlus object */
   FMUBuilding* bui; /* Pointer to building with this zone */
   char* modelicaName; /* Name of the Modelica instance of this zone */
+  char* epName; /* Name of the EnergyPlus instance in the idf file */
   char* hvacZone;     /* Name of the HVAC zone that this room belongs to. For other objects, this will be "n/a". */
   char* jsonName;        /* Name of the json keyword */
   char* jsonKeysValues;  /* Keys and values string to be written to the json configuration file */
