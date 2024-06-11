@@ -493,6 +493,11 @@ block AirToWater
     unit="s")=900
     "Off time required before equipment is deemed available again"
     annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
+  parameter Real dtOffHp(
+    min=0,
+    unit="s")=180
+    "Heat pump internal shutdown cycle timing (before closing isolation valves or disabling primary pumps)"
+    annotation (Dialog(tab="Advanced",group="Equipment staging and rotation"));
   parameter Real dtPri(
     min=0,
     unit="s")=900
@@ -1169,7 +1174,7 @@ block AirToWater
     each final have_pumHeaWatSec=have_pumHeaWatSec,
     each final have_pumChiWatSec=have_pumChiWatSec,
     each final dtVal=dtVal,
-    each final dtOff=dtOff)
+    each final dtOff=dtOffHp)
     "Event sequencing"
     annotation (Placement(transformation(extent={{140,284},{160,312}})));
   StagingRotation.StageAvailability avaStaCoo(
