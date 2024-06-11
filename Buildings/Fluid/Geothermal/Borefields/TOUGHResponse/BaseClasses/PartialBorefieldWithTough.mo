@@ -64,9 +64,9 @@ partial model PartialBorefieldWithTough
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
   // Dynamics of filling material
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
+//   parameter Boolean dynFil=true
+//     "Set to false to remove the dynamics of the filling material."
+//     annotation (Dialog(tab="Dynamics"));
 
   Modelica.Blocks.Interfaces.RealOutput TBorAve(
     final quantity="ThermodynamicTemperature",
@@ -94,7 +94,6 @@ partial model PartialBorefieldWithTough
     final energyDynamics=energyDynamics,
     final p_start=p_start,
     final mSenFac=mSenFac,
-    final dynFil=dynFil,
     final TFlu_start=TFlu_start,
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

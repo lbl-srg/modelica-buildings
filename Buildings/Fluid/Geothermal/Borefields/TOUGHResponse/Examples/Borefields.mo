@@ -50,7 +50,6 @@ model Borefields
     nCel=5,
     borFieDat=borFieUTubDat,
     tLoaAgg=300,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
@@ -78,7 +77,6 @@ model Borefields
     redeclare package Medium = Medium,
     show_T=true,
     borFieDat=borFieUTubDat,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro,
     samplePeriod=60)
@@ -115,7 +113,6 @@ model Borefields
     nCel=10,
     borFieDat=borFieUTubDat,
     tLoaAgg=300,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
