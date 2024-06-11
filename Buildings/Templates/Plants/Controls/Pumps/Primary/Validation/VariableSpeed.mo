@@ -130,15 +130,7 @@ model VariableSpeed
     "Common dedicated primary pumps with Δp control – Heating and cooling plant"
     annotation (Placement(transformation(extent={{70,-60},{90,-32}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1Hea(
-    table=[
-      0, 0, 0;
-      0.1, 1, 0;
-      0.5, 1, 0;
-      1, 0, 0;
-      1.5, 0, 1;
-      2, 0, 1;
-      2.5, 0, 0;
-      3, 0, 0],
+    table=[0,0,0; 0.1,1,0; 0.5,1,0; 1,0,0; 1.5,0,1; 2,0,1; 2.5,0,0; 3,0,0],
     timeScale=600,
     period=5000)
     "Heating mode command signal"
@@ -169,12 +161,8 @@ equation
     annotation (Line(points={{-78,-20},{-60,-20},{-60,18},{-2,18}},color={255,0,255}));
   connect(u1.y, ctlPumPriDedCom.u1PumHeaWatPri)
     annotation (Line(points={{-78,-20},{-60,-20},{-60,-34},{-2,-34}},color={255,0,255}));
-  connect(u1Coo.y, ctlPumPriDedCom.u1Hea)
-    annotation (Line(points={{-28,-20},{-20,-20},{-20,-46},{-2,-46}},color={255,0,255}));
   connect(u1.y, ctlPumPriDedSep.u1PumHeaWatPri)
     annotation (Line(points={{-78,-20},{-60,-20},{-60,-82},{-2,-82}},color={255,0,255}));
-  connect(u1Coo.y, ctlPumPriDedSep.u1PumChiWatPri)
-    annotation (Line(points={{-28,-20},{-20,-20},{-20,-96},{-2,-96}},color={255,0,255}));
   connect(u1.y, ctlPumPriHdrHea.u1PumHeaWatPri)
     annotation (Line(points={{-78,-20},{-60,-20},{-60,58},{-2,58}},color={255,0,255}));
   connect(u1.y, ctlPumPriHdrHeaDp.u1PumHeaWatPri)
@@ -248,6 +236,10 @@ equation
   connect(u1Coo.y, ctlPumPriDedSepDp.u1PumChiWatPri_actual)
     annotation (Line(points={{-28,-20},{-20,-20},{-20,-72},{38,-72},{38,-98},{68,-98}},
       color={255,0,255}));
+  connect(u1Hea.y, ctlPumPriDedCom.u1Hea) annotation (Line(points={{-78,-120},{
+          -10,-120},{-10,-46},{-2,-46}}, color={255,0,255}));
+  connect(u1Coo.y, ctlPumPriDedSep.u1PumChiWatPri) annotation (Line(points={{
+          -28,-20},{-20,-20},{-20,-96},{-2,-96}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
