@@ -12,15 +12,15 @@ package ElectricReformulatedEIR "Performance data for chiller ElectricReformulat
     parameter Modelica.Units.SI.Temperature TConLvgMin
       "Minimum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
-    Modelica.Units.SI.Temperature TConLvgMax
+    parameter Modelica.Units.SI.Temperature TConLvgMax
       "Maximum value for leaving condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
     annotation (
       defaultComponentName="datChi",
       defaultComponentPrefixes="parameter",
-      Documentation(info=
-                   "<html>
+      Documentation(info="<html>
+<p>
 This record is used as a template for performance data
 for the chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
@@ -30,12 +30,20 @@ To provide performance data for
 Buildings.Fluid.Chillers.ElectricEIR</a>, use
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.Generic\">
 Buildings.Fluid.Chillers.Data.ElectricEIR.Generic</a> instead.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
+June 4, 2024, by Antoine Gautier:<br/>
+Added parameter keyword.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3811\">#3811</a>.
+</li>
+<li>
 December 19, 2014 by Michael Wetter:<br/>
 Added <code>defaultComponentName</code> and <code>defaultComponentPrefixes</code>.
-</li><li>
+</li>
+<li>
 September 17, 2010 by Michael Wetter:<br/>
 First implementation.
 </li>
