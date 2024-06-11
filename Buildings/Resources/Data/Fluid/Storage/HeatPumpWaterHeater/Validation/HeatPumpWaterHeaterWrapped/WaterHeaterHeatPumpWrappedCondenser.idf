@@ -508,7 +508,24 @@ Pipe:Adiabatic,
     Demand Outlet Node;      !- Outlet Node Name
 
 
+!-   ===========  ALL OBJECTS IN CLASS: PUMP:VARIABLESPEED ===========
 
+! No pumping energy; water mains pressure only
+Pump:VariableSpeed,
+    DHW Pump,                !- Name
+    Water Heater Use Loop Inlet Node,  !- Inlet Node Name
+    DHW Pump Outlet Node,    !- Outlet Node Name
+    AUTOSIZE,                !- Design Maximum Flow Rate {m3/s}
+    179352,                  !- Design Pump Head {Pa}
+    AUTOSIZE,                !- Design Power Consumption {W}
+    0.9,                     !- Motor Efficiency
+    0.0,                     !- Fraction of Motor Inefficiencies to Fluid Stream
+    0,                       !- Coefficient 1 of the Part Load Performance Curve
+    1,                       !- Coefficient 2 of the Part Load Performance Curve
+    0,                       !- Coefficient 3 of the Part Load Performance Curve
+    0,                       !- Coefficient 4 of the Part Load Performance Curve
+    0,                       !- Design Minimum Flow Rate {m3/s}
+    INTERMITTENT;            !- Pump Control Type
 
 
 !-   ===========  ALL OBJECTS IN CLASS: WATERHEATER:STRATIFIED ===========

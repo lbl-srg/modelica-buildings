@@ -106,12 +106,10 @@ model HeatPumpWaterHeaterPumped
     final p(displayUnit="Pa") = 101325,
     final nPorts=1) "Sink of air"
     annotation (Placement(transformation(extent={{50,50},{30,70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
-      =                                                                           MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{14,-14},{34,6}})));
 

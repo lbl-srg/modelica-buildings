@@ -365,7 +365,7 @@ Coil:WaterHeating:AirToWaterHeatPump:Pumped,
     No,                      !- Condenser Pump Power Included in Rated COP
     No,                      !- Condenser Pump Heat Included in Rated Heating Capacity and Rated COP
     150.0,                   !- Condenser Water Pump Power {W}
-    0.1,                     !- Fraction of Condenser Pump Heat to Water
+    0.01,                     !- Fraction of Condenser Pump Heat to Water
     HPPlantAirInletNode,     !- Evaporator Air Inlet Node Name
     HPPlantAirOutletNode,    !- Evaporator Air Outlet Node Name
     HPPlantWaterInletNode,   !- Condenser Water Inlet Node Name
