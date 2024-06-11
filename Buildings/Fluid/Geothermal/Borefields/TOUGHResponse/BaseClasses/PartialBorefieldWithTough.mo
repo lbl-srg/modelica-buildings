@@ -63,11 +63,6 @@ partial model PartialBorefieldWithTough
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
-  // Dynamics of filling material
-//   parameter Boolean dynFil=true
-//     "Set to false to remove the dynamics of the filling material."
-//     annotation (Dialog(tab="Dynamics"));
-
   Modelica.Blocks.Interfaces.RealOutput TBorAve(
     final quantity="ThermodynamicTemperature",
     final unit="K",
