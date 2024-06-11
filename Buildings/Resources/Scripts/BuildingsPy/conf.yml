@@ -246,6 +246,13 @@
     comment: python incompatible with docker image
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
+  openmodelica:
+    comment: returned non-zero exit status 2. Works with April 30 2024 OMC nightly build.
+    translate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.LargeScaleWaterToWater_OneRoomRadiator
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization. Works with April 30 2024 OMC nightly build.
     translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
