@@ -39,7 +39,7 @@ model MixedConvection "Tutorial for the mixed convection case"
     linearizeRadiation = false,
     useCFD = true,
     nSou=0,
-    sensorName = {"OccupiedZoneAirTemperature", "Velocity"},
+    sensorName = {"Occupied zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/input.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,

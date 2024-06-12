@@ -43,14 +43,14 @@ model NaturalConvection "Tutorial for the natural convection case"
    linearizeRadiation = false,
    useCFD = true,
    nSou=0,
-   sensorName = {"Zone air temperature", "Velocity"},
+   sensorName = {"Occupied zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd",
    nConExt = nConExt,
    nConExtWin = nConExtWin,
    nConPar = nConPar,
    nConBou = nConBou,
    nSurBou = nSurBou,
-    samplePeriod=180,
+   samplePeriod=7200,
    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
@@ -97,7 +97,7 @@ annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
           __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=7200),
+        experiment(Tolerance=1e-06, StopTime=72000),
 Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a
