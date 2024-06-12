@@ -338,7 +338,7 @@
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
-    comment: False positive warning "missing each", but the model can be simulated successfully.
+    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
     translate: false
   openmodelica:
     comment: Translation failed.
