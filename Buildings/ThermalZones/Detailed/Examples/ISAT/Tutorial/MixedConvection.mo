@@ -39,7 +39,7 @@ model MixedConvection "Tutorial for the mixed convection case"
     linearizeRadiation = false,
     useCFD = true,
     nSou=0,
-    sensorName = {"Zone air temperature", "Velocity"},
+    sensorName = {"OccupiedZoneAirTemperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/input.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
@@ -48,7 +48,7 @@ model MixedConvection "Tutorial for the mixed convection case"
     nSurBou = nSurBou,
     nPorts=2,
     portName={"Inlet","Outlet"},
-    samplePeriod=180) "Room model"
+    samplePeriod=200) "Room model"
   annotation (Placement(transformation(extent={{80,-38},{120,2}})));
   HeatTransfer.Sources.FixedTemperature TOthWal[nSurBou-1](each T=283.15)
     "Temperature for other walls"
