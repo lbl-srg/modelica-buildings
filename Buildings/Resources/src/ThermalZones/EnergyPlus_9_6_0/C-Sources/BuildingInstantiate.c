@@ -103,57 +103,99 @@ void closeJSONModelArrayBracket(
 void buildJSONModelStructureForEnergyPlusHVACZones(
   const FMUBuilding* bui, char* *buffer, size_t* size){
   size_t i;
+  size_t iWri;
   size_t k;
-  size_t kWri;
-  size_t kMax;
-  int iCurZon = -1;
+  size_t iHVACZones;
+  size_t nTheZon = 0;  /* Number of thermal zones */
+  size_t nHVACZones = 0; /* Number of HVACZones */
+  bool recorded;
+  char **arrHVACZones = NULL;
+  size_t *couTheZon = NULL;
+
   SpawnObject** ptrSpaObj = (SpawnObject**)bui->exchange;
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  /* Count how many thermal zones there are in each HVACZone */
+  /* Number of HVAC zones */
+  for(i = 0; i < bui->nExcObj; i++){
+    if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+      nTheZon++;
+    }
+  }
+  /* Array of names of HVACZone, or NULL if there are no more HVAC zones */
+  arrHVACZones = malloc(nTheZon * sizeof(char*));
+  if (arrHVACZones == NULL){
+    SpawnFormatError("%s", "Failed to allocate array for arrHVACZones.");
+  }
+  for(i = 0; i < nTheZon; i++)
+    arrHVACZones[i] = NULL;
+  /* Build set of names of all HVACZones */
+
+  for(i=0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        /* Check if we already have this HVACZone */
+        recorded = false;
+        for(k = 0; k < i; k++){
+          if ( ptrSpaObj[k]->objectType == THERMALZONE ){
+            if (strcmp(ptrSpaObj[i]->hvacZone, ptrSpaObj[k]->hvacZone) == 0){
+              /* Had the zone already */
+              recorded = true;
+            }
+          }
+        }
+        if (!recorded){
+          arrHVACZones[nHVACZones] = ptrSpaObj[i]->hvacZone;
+          nHVACZones++;
+        }
+    }
+  }
+  /* Create a size_t array with the number of thermal zones in each HVACZone.
+     This is used to avoid the comma after the last thermal zone. */
+  couTheZon = malloc(nHVACZones * sizeof(size_t));
+  if (couTheZon == NULL){
+    SpawnFormatError("%s", "Failed to allocate array for couTheZon.");
+  }
+
+  for(iHVACZones = 0; iHVACZones < nHVACZones; iHVACZones++){
+    couTheZon[iHVACZones] = 0;
+    for(i = 0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        if (strcmp(ptrSpaObj[i]->hvacZone, arrHVACZones[iHVACZones]) == 0){
+          couTheZon[iHVACZones]++;
+        }
+      }
+    }
+  }
+
 
   // Write the "hvacZones" objects.
   saveAppend(buffer, "    \"", size, SpawnFormatError);
   saveAppend(buffer, "hvacZones", size, SpawnFormatError);
   saveAppend(buffer, "\": [\n", size, SpawnFormatError);
   // Write all thermalZones that belong to the hvacZone
-  for(i = 0; i < bui->nExcObj; i++){
-    if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
-      // Check if we have a new hvacZone
-      if (iCurZon < 0 || strcmp(ptrSpaObj[i]->hvacZone, ptrSpaObj[iCurZon]->hvacZone) != 0){
-        // Found a new hvacZone
-        iCurZon = (int)i;
-        // Write zone to json file
-        openJSONModelBracket(buffer, 3, size, SpawnFormatError);
-        buildJSONKeyStringValue(buffer, 4, "name", ptrSpaObj[i]->hvacZone, true, size, SpawnFormatError);
-        saveAppend(buffer, "        \"zones\": [\n", size, SpawnFormatError);
-        // Write all thermal zones names that belong to this HVAC zone
-        // Loop over all thermal zones and write those that belong to hvacZone to json file.
-        // The loop starts at i so that we don't double-count already processed thermal zones
-        // First count how many zones we need to write for this hvacZone (which is needed to put the commas)
-        kMax = 0;
-        for(k = i; k < bui->nExcObj; k++){
-          if (strcmp(ptrSpaObj[k]->hvacZone, ptrSpaObj[iCurZon]->hvacZone) == 0){
-            kMax++; // Found a match
-          }
+  for(iHVACZones = 0; iHVACZones < nHVACZones; iHVACZones++){
+    openJSONModelBracket(buffer, 3, size, SpawnFormatError);
+    buildJSONKeyStringValue(buffer, 4, "name", arrHVACZones[iHVACZones], true, size, SpawnFormatError);
+    saveAppend(buffer, "          \"zones\": [\n", size, SpawnFormatError);
+
+    for(i = 0, iWri = 0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        /* Check if this thermal zone belongs to the HVACZone */
+        if (strcmp(ptrSpaObj[i]->hvacZone, arrHVACZones[iHVACZones]) == 0){
+          /* Found a match */
+          openJSONModelBracket(buffer, 6, size, SpawnFormatError);
+          buildJSONKeyStringValue(buffer, 6, "name", ptrSpaObj[i]->epName, false, size, SpawnFormatError);
+          closeJSONModelBracket(buffer, 6, iWri, couTheZon[iHVACZones], size, SpawnFormatError);
+          iWri++;
         }
-        // Now, do the writing
-        for(k = i, kWri=0; k < bui->nExcObj; k++){
-          if (strcmp(ptrSpaObj[k]->hvacZone, ptrSpaObj[iCurZon]->hvacZone) == 0){
-          // Found a match
-            openJSONModelBracket(buffer, 5, size, SpawnFormatError);
-            buildJSONKeyStringValue(buffer, 5, "name", ptrSpaObj[k]->epName, false, size, SpawnFormatError);
-            closeJSONModelBracket(buffer, 5, kWri, kMax, size, SpawnFormatError);
-            kWri++;
-          }
-        }
-        // Close ']' bracket
-        closeJSONModelArrayBracket(buffer, 4, kWri, kMax, size, SpawnFormatError);
       }
-      // Close '}' bracket which terminates this HVAC zone. Don't put a comma behind (yet)
-      closeJSONModelBracket(buffer, 3, 0, 1, size, SpawnFormatError);
     }
+    /* We are done iterating over all objects, close the array */
+    closeJSONModelArrayBracket(buffer, 5, 0, 0, size, SpawnFormatError);
+    closeJSONModelBracket(buffer, 4, iHVACZones, nHVACZones, size, SpawnFormatError);
   }
-  closeJSONModelArrayBracket(buffer, 2, 0, 0, size, SpawnFormatError);
+    closeJSONModelArrayBracket(buffer, 2, 0, 0, size, SpawnFormatError);
 }
 
 void buildJSONModelStructureForEnergyPlus(
