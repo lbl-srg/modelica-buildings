@@ -168,7 +168,6 @@ model AirToWater
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypSup(
     redeclare final package Medium=MediumChiWat,
-    final tau=tau,
     final m_flow_nominal=mChiWatPri_flow_nominal * {1, - 1, - 1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -194,7 +193,6 @@ model AirToWater
         origin={60,80})));
   Buildings.Templates.Components.Routing.Junction junChiWatBypRet(
     redeclare final package Medium = MediumChiWat,
-    final tau=tau,
     final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -386,7 +384,6 @@ model AirToWater
     annotation (Placement(transformation(extent={{20,-290},{40,-270}})));
   Buildings.Templates.Components.Routing.Junction junHeaWatBypSup(
     redeclare final package Medium=MediumHeaWat,
-    final tau=tau,
     final m_flow_nominal=mHeaWatPri_flow_nominal * {1, - 1, - 1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -423,7 +420,6 @@ model AirToWater
         origin={60,-360})));
   Buildings.Templates.Components.Routing.Junction junHeaWatBypRet(
     redeclare final package Medium = MediumHeaWat,
-    final tau=tau,
     final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -568,7 +564,6 @@ model AirToWater
     annotation (Placement(transformation(extent={{380,-184},{500,-64}})));
   Buildings.Templates.Components.Routing.Junction junHeaWatHrcEnt(
     redeclare final package Medium = MediumHeaWat,
-    final tau=tau,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -579,14 +574,14 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Return)
+    icon_pipe3=if have_hrc then Buildings.Templates.Components.Types.IntegrationPoint.Return
+    else Buildings.Templates.Components.Types.IntegrationPoint.None)
     if have_heaWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={500,-360})));
   Buildings.Templates.Components.Routing.Junction junHeaWatHrcLvg(
     redeclare final package Medium = MediumHeaWat,
-    final tau=tau,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -597,14 +592,14 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    icon_pipe3=if have_hrc then Buildings.Templates.Components.Types.IntegrationPoint.Supply
+    else Buildings.Templates.Components.Types.IntegrationPoint.None)
     if have_heaWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={380,-360})));
   Buildings.Templates.Components.Routing.Junction junChiWatHrcEnt(
     redeclare final package Medium = MediumChiWat,
-    final tau=tau,
     final m_flow_nominal=mChiWat_flow_nominal*{1,-1,-1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -615,14 +610,14 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Return)
+    icon_pipe3=if have_hrc then Buildings.Templates.Components.Types.IntegrationPoint.Return
+    else Buildings.Templates.Components.Types.IntegrationPoint.None)
     if have_chiWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={500,0})));
   Buildings.Templates.Components.Routing.Junction junChiWatHrcLvg(
     redeclare final package Medium = MediumChiWat,
-    final tau=tau,
     final m_flow_nominal=mChiWat_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
@@ -633,7 +628,8 @@ model AirToWater
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     icon_pipe1=Buildings.Templates.Components.Types.IntegrationPoint.Return,
-    icon_pipe3=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
+    icon_pipe3=if have_hrc then Buildings.Templates.Components.Types.IntegrationPoint.Supply
+    else Buildings.Templates.Components.Types.IntegrationPoint.None)
     if have_chiWat "Fluid junction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -927,17 +923,24 @@ equation
     annotation (Line(points={{370,-360},{330,-360}}, color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(junHeaWatHrcEnt.port_3, hrc.port_a1) annotation (Line(points={{500,-350},
-          {500,-180},{380,-180},{380,-160}}, color={0,0,0},
+  connect(junHeaWatHrcEnt.port_3, hrc.port_a1) annotation (Line(
+      points={{500,-350},{500,-180},{380,-180},{380,-160}},
+      color={0,0,0},
       thickness=0.5,
-      pattern=LinePattern.Dash));
-  connect(hrc.port_b1, junHeaWatHrcLvg.port_3) annotation (Line(points={{500,-160},
-          {440,-160},{440,-200},{380,-200},{380,-350}}, color={0,0,0},
-      thickness=0.5));
+      pattern=LinePattern.Dash,
+      visible=have_hrc));
+  connect(hrc.port_b1, junHeaWatHrcLvg.port_3) annotation (Line(
+      points={{500,-160},{440,-160},{440,-200},{380,-200},{380,-350}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_hrc));
   connect(junChiWatHrcEnt.port_3, hrc.port_a2)
-    annotation (Line(points={{500,-10},{500,-88}}, color={0,0,0},
+    annotation (Line(
+      points={{500,-10},{500,-88}},
+      color={0,0,0},
       thickness=0.5,
-      pattern=LinePattern.Dash));
+      pattern=LinePattern.Dash,
+      visible=have_hrc));
   connect(junChiWatHrcEnt.port_2, junChiWatHrcLvg.port_1)
     annotation (Line(
       points={{490,0},{390,0}},
@@ -953,8 +956,11 @@ equation
       pattern=LinePattern.Dash,
       visible=have_chiWat));
   connect(hrc.port_b2, junChiWatHrcLvg.port_3)
-    annotation (Line(points={{380,-88},{380,-10}}, color={0,0,0},
-      thickness=0.5));
+    annotation (Line(
+      points={{380,-88},{380,-10}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_hrc));
   connect(port_aChiWat, TChiWatRetUpsHrc.port_a) annotation (Line(
       points={{600,0},{550,0}},
       color={0,0,0},

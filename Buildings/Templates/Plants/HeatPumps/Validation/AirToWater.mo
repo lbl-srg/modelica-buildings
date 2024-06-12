@@ -71,7 +71,6 @@ model AirToWater
     final have_chiWat=have_chiWat,
     nHp=3,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
-    final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
     linearized=true,
     show_T=true,
