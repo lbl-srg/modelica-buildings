@@ -168,12 +168,11 @@ void buildJSONModelStructureForEnergyPlusHVACZones(
     }
   }
 
-
-  // Write the "hvacZones" objects.
+  /* Write the "hvacZones" objects */
   saveAppend(buffer, "    \"", size, SpawnFormatError);
   saveAppend(buffer, "hvacZones", size, SpawnFormatError);
   saveAppend(buffer, "\": [\n", size, SpawnFormatError);
-  // Write all thermalZones that belong to the hvacZone
+  /* Write all thermalZones that belong to the hvacZone */
   for(iHVACZones = 0; iHVACZones < nHVACZones; iHVACZones++){
     openJSONModelBracket(buffer, 3, size, SpawnFormatError);
     buildJSONKeyStringValue(buffer, 4, "name", arrHVACZones[iHVACZones], true, size, SpawnFormatError);
@@ -196,6 +195,7 @@ void buildJSONModelStructureForEnergyPlusHVACZones(
     closeJSONModelBracket(buffer, 4, iHVACZones, nHVACZones, size, SpawnFormatError);
   }
     closeJSONModelArrayBracket(buffer, 2, 0, 0, size, SpawnFormatError);
+    free(arrHVACZones);
 }
 
 void buildJSONModelStructureForEnergyPlus(
@@ -286,8 +286,6 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* Close json object for model */
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
-
-// Wrote all entries for this object type.
 
   /* Create the model hash */
   *modelHash = (char*)( cryptographicsHash(*buffer, bui->SpawnError) );
