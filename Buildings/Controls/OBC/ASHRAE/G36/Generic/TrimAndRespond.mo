@@ -91,18 +91,20 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  CDL.Logical.Sources.Constant                fal(final k=false) if not
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if not
     have_hol "Constant – Placeholder value in there is no hold signal"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
-  CDL.Reals.Switch swiHol
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHol
     "Switch to zero reset until hold is released and sampler clock ticks"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  CDL.Logical.Not notHol "Return true if hold is released"
+  Buildings.Controls.OBC.CDL.Logical.Not notHol "Return true if hold is released"
     annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
-  CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     "True when hold is active and sampler clock ticks: enables applying the last calculated reset before freezing output"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  CDL.Logical.TrueHold truHol(final duration=dtHol) if have_hol
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final trueHoldDuration=dtHol,
+    final falseHoldDuration=0) if have_hol
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
   CDL.Logical.And notHolAndTic
     "Return true if hold is released and sampler clock ticks"
