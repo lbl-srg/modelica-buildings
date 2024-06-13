@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Logical;
+within Buildings.Obsolete.Controls.OBC.CDL.Logical;
 block TrueHold
   "Block that holds a true signal for at least a requested duration"
   parameter Real duration(

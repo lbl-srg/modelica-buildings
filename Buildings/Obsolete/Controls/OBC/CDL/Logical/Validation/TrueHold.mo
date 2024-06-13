@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.CDL.Logical.Validation;
+within Buildings.Obsolete.Controls.OBC.CDL.Logical.Validation;
 model TrueHold
   "Validation model for the TrueHold block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
