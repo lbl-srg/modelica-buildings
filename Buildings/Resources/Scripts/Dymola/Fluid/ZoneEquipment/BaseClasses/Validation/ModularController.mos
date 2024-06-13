@@ -1,0 +1,11 @@
+simulateModel("Buildings.Fluid.ZoneEquipment.BaseClasses.Validation.ModularController", startTime=0, stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="ModularController");
+createPlot(id=1, position={0, 0, 1380, 400}, y={"conMod.TZon", "conMod.THeaSet", "conMod.TCooSet"}, range={0.0, 86400.0, 20.0, 26.0}, autoscale=false, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1380, 400}, y={"conMod.yCooEna", "conMod.yHeaEna", "conMod.yFan"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1380, 400}, y={"conMod.uAva"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1380, 400}, y={"conMod.ySupHea"}, range={0.0, 86400.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, displayUnits={""});
+createPlot(id=2, position={0, 0, 1380, 500}, y={"conMod1.TZon", "conMod1.TCooSet"}, range={0.0, 86400.0, 20.0, 26.0}, autoscale=false, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={0, 0, 1380, 500}, y={"conMod1.yCooEna", "conMod1.yFan"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
+createPlot(id=2, position={0, 0, 1380, 500}, y={"conMod1.uAva"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1380, 600}, y={"conMod2.TZon", "conMod2.THeaSet", "conMod2.TCooSet"}, range={0.0, 86400.0, 20.0, 26.0}, autoscale=false, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=3, position={0, 0, 1380, 600}, y={"conMod2.yCooEna", "conMod2.yHeaEna", "conMod2.yFan"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=3, position={0, 0, 1380, 600}, y={"conMod2.uAva"}, range={0.0, 86400.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}});

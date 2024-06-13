@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "ptac.heaCoiEle.Q_flow",
+    "ptac.CooCoi.QSen_flow",
+    "ptac.TAirMix.T",
+    "ptac.TAirLvg.T"
+  };
