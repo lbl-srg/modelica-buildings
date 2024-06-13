@@ -13,11 +13,11 @@ block TrueFalseHold
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
   discrete Real entryTimeTrue(
@@ -31,8 +31,8 @@ protected
 initial equation
   pre(entryTimeTrue)=time;
   pre(entryTimeFalse)=time;
-  pre(y)=y;
   pre(u)=u;
+  pre(y)=u;
 equation
   when {change(u),
         time >= pre(entryTimeFalse) + falseHoldDuration and
@@ -95,8 +95,7 @@ equation
           textString="%trueHoldDuration")}),
     Diagram(
       coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-180,-120},{180,140}})),
+        preserveAspectRatio=false)),
     Documentation(
       info="<html>
 <p>
