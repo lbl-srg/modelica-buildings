@@ -17,7 +17,8 @@ model StageCompletion "Validation model for the evaluation of stage completion"
     period=1800)
     "Source for Boolean signals"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold      y1ComSta(duration=1)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1ComSta(
+    final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage completion signal for plotting"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable idxSta(
@@ -61,15 +62,15 @@ equation
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion</a>
-in a configuration with one small unit and two large equally sized 
+in a configuration with one small unit and two large equally sized
 units (component <code>avaStaOneTwo</code>).
 In response to a varying flow rate, the variation of the
 required capacity <code>chaSta.capReq.y</code> triggers stage change
 events.
-The block 
+The block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
 is used to illustrate how these events translate into

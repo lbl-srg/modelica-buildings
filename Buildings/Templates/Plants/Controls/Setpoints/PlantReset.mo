@@ -234,12 +234,12 @@ equation
         extent={{-120,-140},{120,140}})),
     Documentation(info="<html>
 <p>
-This logic is used in primary-only and primary-secondary systems 
+This logic is used in primary-only and primary-secondary systems
 serving differential pressure controlled pumps.
 </p>
 <h5>CHW loops with differential pressure control</h5>
 <p>
-The CHW supply temperature setpoint and pump differential pressure setpoint 
+The CHW supply temperature setpoint and pump differential pressure setpoint
 are reset based on the current value of the logic variable called \"CHW Plant Reset\"
 as shown below and described subsequently.
 </p>
@@ -249,7 +249,7 @@ src=\"modelica://Buildings/Resources/Images/Templates/Plants/Controls/Setpoints/
 </p>
 <h5>HW loops with differential pressure control</h5>
 <p>
-The HW supply temperature setpoint and pump differential pressure setpoint 
+The HW supply temperature setpoint and pump differential pressure setpoint
 are reset based on the current value of the logic variable called \"HW Plant Reset\"
 as shown below and described subsequently.
 </p>
@@ -259,7 +259,7 @@ src=\"modelica://Buildings/Resources/Images/Templates/Plants/Controls/Setpoints/
 </p>
 <h5>Generic reset logic applicable to all plants</h5>
 <p>
-From <i>0&nbsp;%</i> loop output to <code>resDp_max</code> loop output, reset 
+From <i>0&nbsp;%</i> loop output to <code>resDp_max</code> loop output, reset
 differential pressure setpoint from <code>dpSet_min</code> to <code>dpSet_max</code>.
 </p>
 <p>
@@ -287,13 +287,13 @@ CHW/HW Plant Reset variable is reset using trim and respond logic with the follo
 The plant reset loop is enabled when the plant is enabled and disabled when the plant is disabled.
 </p>
 <p>
-When a plant stage change is initiated, the plant reset logic is disabled and 
-value fixed at its last value for the longer of <code>dtHol</code> and the time it 
+When a plant stage change is initiated, the plant reset logic is disabled and
+value fixed at its last value for the longer of <code>dtHol</code> and the time it
 takes for the plant to successfully stage.
 </p>
 <h5>Plants serving more than one set of differential pressure controlled pumps</h5>
 <p>
-A unique instance of the above reset is used for each set of differential pressure 
+A unique instance of the above reset is used for each set of differential pressure
 controlled pumps.
 </p>
 <ul>
@@ -301,16 +301,16 @@ controlled pumps.
 Reset requests from all loads served by a set of pumps are directed to those pumps’ reset loop only.
 </li>
 <li>
-The differential pressure setpoint output from each reset is used in the ∆p control loop 
-for the associated set of pumps only, i.e., the ∆p setpoint will not change 
+The differential pressure setpoint output from each reset is used in the ∆p control loop
+for the associated set of pumps only, i.e., the ∆p setpoint will not change
 for any other ∆p control loops.
 </li>
 </ul>
-<h5>Plants where more than one remote ∆p sensor serves a given set of primary or secondary pumps ∆p</h5>                        
+<h5>Plants where more than one remote ∆p sensor serves a given set of primary or secondary pumps ∆p</h5>
 <p>
-Where more than one remote ∆p sensor serves a given set of primary or secondary pumps, 
-remote ∆p setpoints for all remote sensors serving those pumps shall increase in unison. 
-Note: if remote sensors have different <code>dpSet_max</code> values, then the amount 
+Where more than one remote ∆p sensor serves a given set of primary or secondary pumps,
+remote ∆p setpoints for all remote sensors serving those pumps shall increase in unison.
+Note: if remote sensors have different <code>dpSet_max</code> values, then the amount
 each ∆p setpoint changes per percent loop output will differ.
 </p>
 </html>", revisions="<html>

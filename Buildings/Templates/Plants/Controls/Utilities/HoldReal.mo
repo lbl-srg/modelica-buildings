@@ -21,8 +21,8 @@ block HoldReal "Hold value of real signal based on timer and Boolean signal"
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between actual and fixed value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
-    final duration=dtHol) if dtHol > 0
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final falseHoldDuration=0, final trueHoldDuration=dtHol) if dtHol > 0
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   PlaceholderLogical ph(have_inp=dtHol > 0, final have_inpPh=true)
@@ -67,7 +67,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Holds input value fixed at its last value while the Boolean signal 
+Holds input value fixed at its last value while the Boolean signal
 <code>u1</code> is true, and for at least the hold time <code>dtHol</code>.
 </p>
 </html>", revisions="<html>
