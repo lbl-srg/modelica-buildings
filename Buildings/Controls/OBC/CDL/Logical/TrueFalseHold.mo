@@ -31,19 +31,15 @@ protected
 initial equation
   pre(entryTimeTrue)=time;
   pre(entryTimeFalse)=time;
-  pre(y)=u;
+  pre(y)=y;
+  pre(u)=u;
 equation
-  when u and time >= pre(entryTimeFalse) + falseHoldDuration then
-    y=true;
-    entryTimeTrue=if change(y) then time else pre(entryTimeTrue);
-    entryTimeFalse=pre(entryTimeFalse);
-  elsewhen not u and time >= pre(entryTimeTrue) + trueHoldDuration then
-    y=false;
-    entryTimeTrue=pre(entryTimeTrue);
-    entryTimeFalse=if change(y) then time else pre(entryTimeFalse);
-  elsewhen time >= pre(entryTimeFalse) + falseHoldDuration and
-           time >= pre(entryTimeTrue) + trueHoldDuration then
-    y=u;
+  when {change(u),
+        time >= pre(entryTimeFalse) + falseHoldDuration and
+        time >= pre(entryTimeTrue) + trueHoldDuration} then
+    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
+         time >= pre(entryTimeTrue) + trueHoldDuration then u
+      else pre(y);
     entryTimeTrue=if change(y) and y then time else pre(entryTimeTrue);
     entryTimeFalse=if change(y) and not y then time else pre(entryTimeFalse);
   end when;
@@ -77,13 +73,21 @@ equation
           textString="%falseHoldDuration"),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-83,7},{-69,-7}},
-          lineColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,96},{96,68}},
