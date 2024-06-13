@@ -120,7 +120,7 @@ alt=\"Input and output of the block\"/>
       revisions="<html>
 <ul>
 <li>
-June 5, 2024, by Antoine Gautier:<br/>
+June 13, 2024, by Antoine Gautier:<br/>
 Refactored with synchronous language elements.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.

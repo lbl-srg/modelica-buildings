@@ -164,6 +164,12 @@ alt=\"Input and output of the block\"/>
       revisions="<html>
 <ul>
 <li>
+June 13, 2024, by Antoine Gautier:<br/>
+Moved this model to the <code>Obsolete</code> package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+</li>
+<li>
 March 27, 2024, by Michael Wetter:<br/>
 Renamed block from <code>TrueHoldWithReset</code> to <code>TrueHold</code>.<br/>
 This is for

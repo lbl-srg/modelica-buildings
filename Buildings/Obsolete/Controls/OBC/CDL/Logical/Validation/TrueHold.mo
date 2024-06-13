@@ -76,6 +76,12 @@ of the input pulse, and different initial values for the input signal.
       revisions="<html>
 <ul>
 <li>
+June 13, 2024, by Antoine Gautier:<br/>
+Moved this model to the <code>Obsolete</code> package.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+</li>
+<li>
 June 14, 2017, by Michael Wetter:<br/>
 Added more tests for different initial signals and different hold values.
 </li>
