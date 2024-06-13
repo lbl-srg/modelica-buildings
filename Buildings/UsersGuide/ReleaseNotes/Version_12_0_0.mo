@@ -49,11 +49,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHold
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
     </td>
-    <td valign=\"top\">Refactored with direct pass-through if the duration is zero,
-and conditioned the exit of <code>outputTrue</code> on a false input signal.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    <td valign=\"top\">Refactored with direct pass-through if the duration is zero.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort

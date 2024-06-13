@@ -6,7 +6,7 @@ model TrueHold
     shift=300)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold truHol(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
@@ -14,7 +14,7 @@ model TrueHold
     period=3600)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol1(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold truHol1(
     duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -23,7 +23,7 @@ model TrueHold
     shift=300)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol2(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold truHol2(
     duration=3600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -31,7 +31,7 @@ model TrueHold
     period=3600)
     "Boolean pulse input signal"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol3(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold truHol3(
     duration=600)
     "Block that holds a signal on for a requested time period"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
@@ -60,13 +60,13 @@ equation
       StopTime=15000.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/TrueHold.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Logical/Validation/TrueHold.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.TrueHold\">
-Buildings.Controls.OBC.CDL.Logical.TrueHold</a>.
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold\">
+Buildings.Obsolete.Controls.OBC.CDL.Logical.TrueHold</a>.
 </p>
 <p>
 The validation uses different instances to validate different hold durations, different lengths
