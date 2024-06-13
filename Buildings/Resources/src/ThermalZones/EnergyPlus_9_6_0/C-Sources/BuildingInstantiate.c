@@ -101,7 +101,7 @@ void closeJSONModelArrayBracket(
 }
 
 void buildJSONModelStructureForEnergyPlusHVACZones(
-  const FMUBuilding* bui, char* *buffer, size_t* size){
+  const FMUBuilding* bui, char* *buffer, size_t iMod, size_t nMod, size_t* size){
   size_t i;
   size_t iWri;
   size_t k;
@@ -192,10 +192,10 @@ void buildJSONModelStructureForEnergyPlusHVACZones(
     }
     /* We are done iterating over all objects, close the array */
     closeJSONModelArrayBracket(buffer, 5, 0, 0, size, SpawnFormatError);
-    closeJSONModelBracket(buffer, 4, iHVACZones, nHVACZones, size, SpawnFormatError);
+    closeJSONModelBracket(buffer, 3, iHVACZones, nHVACZones, size, SpawnFormatError);
   }
-    closeJSONModelArrayBracket(buffer, 2, 0, 0, size, SpawnFormatError);
-    free(arrHVACZones);
+  closeJSONModelArrayBracket(buffer, 2, iMod, nMod, size, SpawnFormatError);
+  free(arrHVACZones);
 }
 
 void buildJSONModelStructureForEnergyPlus(
@@ -275,12 +275,13 @@ void buildJSONModelStructureForEnergyPlus(
     }
 
     iMod += iWri;
-    if (iWri > 0)
+    if (iWri > 0){
       closeJSONModelArrayBracket(buffer, 2, iMod, (objectType == 0) ? 0 : nMod, size, SpawnFormatError);
+    }
 
     /* After the first object type, which is "zones", we also write the "hvacZones". */
     if (objectType == 0){
-      buildJSONModelStructureForEnergyPlusHVACZones(bui, buffer, size);
+      buildJSONModelStructureForEnergyPlusHVACZones(bui, buffer, iWri, bui->nExcObj, size);
     }
   }
 
