@@ -34,9 +34,12 @@ block TimeConstantDelay
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay"
-    annotation (Placement(transformation(extent={{180,-80},{220,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
-
+    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triFai
+    "True when an error occurs in the autotuning process"
+    annotation (Placement(transformation(extent={{180,-140},{220,-100}}),
+    iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Abs absk
     "Absoulte value of the gain"
@@ -84,8 +87,19 @@ protected
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Log log
     "Natural logarithm of the input"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1
+    "Check if the input is less than 0"
+    annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Max max1
+    "Avoid a negative input for the log function"
+    annotation (Placement(transformation(extent={{-82,-110},{-62,-90}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "True only when an error occurs"
+    annotation (Placement(transformation(extent={{102,-130},{122,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=1e-6)
+    "Constant"
+    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 equation
   connect(absk.u, k)
     annotation (Line(points={{-162,0},{-200,0}},color={0,0,127}));
@@ -121,18 +135,30 @@ equation
           color={0,0,127}));
   connect(mul2.u1, exp.u) annotation (Line(points={{98,126},{-170,126},{-170,-70},
           {-162,-70}}, color={0,0,127}));
-  connect(mul2.y, L) annotation (Line(points={{122,120},{160,120},{160,-60},{200,
-          -60}}, color={0,0,127}));
+  connect(mul2.y, L) annotation (Line(points={{122,120},{130,120},{130,0},{200,
+          0}},   color={0,0,127}));
   connect(sub1.u2, div1.y) annotation (Line(points={{38,-96},{10,-96},{10,-20},{
           2,-20}}, color={0,0,127}));
   connect(absk.y, div1.u2) annotation (Line(points={{-138,0},{-110,0},{-110,-26},
           {-22,-26}},color={0,0,127}));
   connect(yHigSig.y, sub1.u1) annotation (Line(points={{-138,60},{-130,60},{-130,
           -84},{38,-84}}, color={0,0,127}));
-  connect(log.y, div3.u2) annotation (Line(points={{-18,-110},{20,-110},{20,94},
+  connect(log.y, div3.u2) annotation (Line(points={{-18,-100},{20,-100},{20,94},
           {38,94}}, color={0,0,127}));
-  connect(div2.y, log.u) annotation (Line(points={{142,-70},{160,-70},{160,-130},
-          {-60,-130},{-60,-110},{-42,-110}}, color={0,0,127}));
+  connect(div2.y, max1.u1) annotation (Line(points={{142,-70},{146,-70},{146,
+          -50},{-90,-50},{-90,-94},{-84,-94}}, color={0,0,127}));
+  connect(log.u, max1.y)
+    annotation (Line(points={{-42,-100},{-60,-100}}, color={0,0,127}));
+  connect(gre1.u2, div2.y) annotation (Line(points={{36,-128},{-90,-128},{-90,
+          -50},{146,-50},{146,-70},{142,-70}}, color={0,0,127}));
+  connect(con1.y, max1.u2) annotation (Line(points={{-138,-120},{-114,-120},{
+          -114,-106},{-84,-106}}, color={0,0,127}));
+  connect(gre1.y, edg.u)
+    annotation (Line(points={{60,-120},{100,-120}}, color={255,0,255}));
+  connect(edg.y, triFai)
+    annotation (Line(points={{124,-120},{200,-120}}, color={255,0,255}));
+  connect(gre1.u1, con1.y)
+    annotation (Line(points={{36,-120},{-138,-120}}, color={0,0,127}));
   annotation (
         defaultComponentName = "timConDel",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
