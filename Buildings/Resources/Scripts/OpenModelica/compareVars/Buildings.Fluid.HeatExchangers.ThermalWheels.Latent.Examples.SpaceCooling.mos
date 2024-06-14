@@ -8,6 +8,8 @@ compareVars :=
     "opeSig.y",
     "TOut.T",
     "senTemHXOut.T",
+    "TMixSetPoi.y",
     "whe.port_a1.Xi_outflow[1]",
-    "whe.port_b1.Xi_outflow[1]"
+    "whe.port_b1.Xi_outflow[1]",
+    "whe.senSupMasFlo.m_flow"
   };
