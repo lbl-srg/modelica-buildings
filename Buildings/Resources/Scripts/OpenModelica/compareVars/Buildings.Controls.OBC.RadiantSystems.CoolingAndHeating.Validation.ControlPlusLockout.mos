@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "conPluLoc.yHea",
+    "conPluLoc.yCoo",
+    "conPluLoc.allLoc.yHea",
+    "conPluLoc.allLoc.yCoo",
+    "conPluLoc.deaCon.uCoo",
+    "conPluLoc.deaCon.uHea",
+    "conPluLoc.err.slaTemErr",
+    "conPluLoc.deaCon.TDeaRel",
+    "conPluLoc.deaCon.TDeaNor"
+  };
