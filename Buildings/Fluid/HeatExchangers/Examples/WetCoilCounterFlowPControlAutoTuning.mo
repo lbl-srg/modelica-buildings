@@ -92,6 +92,7 @@ model WetCoilCounterFlowPControlAutoTuning
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+    u_s_start=288.15,
     r=10,
     yLow=0.2,
     deaBan=0.2,
@@ -109,9 +110,9 @@ model WetCoilCounterFlowPControlAutoTuning
     "Reset signal"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
-    width=0.1,
-    period=4000,
-    shift=400)
+    width=0.2,
+    period=2000,
+    shift=100)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 equation
