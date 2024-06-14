@@ -1,7 +1,7 @@
-within Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data;
+within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data;
 record Generic "Generic data record for wheels"
   extends Modelica.Icons.Record;
-  import cha = Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
   parameter
@@ -20,13 +20,13 @@ record Generic "Generic data record for wheels"
     annotation (Dialog(group="Heat exchange effectiveness computation",
                 enable=haveLatentHeatExchange));
   parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+    cha.efficiencyParameters_yMot
     motorEfficiency_uSpe(y={0}, eta={0.7})
     "Motor efficiency vs. wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       false));
   final parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+    cha.efficiencyParameters_yMot
     motorEfficiency_default=
     Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
          P_nominal=P_nominal,
@@ -53,8 +53,8 @@ Record containing power and heat exchange parameters for wheels.
 <p>
 It is used as a template for performance data
 for the variable-speed wheel models in
-<a href=\"modelica://Buildings.Fluid.BaseClasses.VariableSpeedWheel\">
-Buildings.Fluid.BaseClasses.VariableSpeedWheel</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels</a>.
 </p>
 <p>
 The record contains four curves:
@@ -66,7 +66,7 @@ efficiency
 </li>
 <li>
 wheel speed ratio versus default motor percent full-load 
-efficiency (see <a href=
+efficiency (see the definition in <a href=
 \"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.)
 </li>

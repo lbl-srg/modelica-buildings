@@ -1,4 +1,4 @@
-within Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses;
+within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses;
 package Data "Performance data for desiccant dehumidifier"
 extends Modelica.Icons.MaterialPropertiesPackage;
 

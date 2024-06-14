@@ -1,7 +1,7 @@
-within Buildings.Fluid.BaseClasses.VariableSpeedWheel;
+within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
 model Sensible "Sensible heat wheels"
   extends Modelica.Blocks.Icons.Block;
-  import whe = Buildings.Fluid.BaseClasses.VariableSpeedWheel;
+  import whe = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
   final parameter Real xSpe[:] = if per.useDefaultMotorEfficiencyCurve
     then per.motorEfficiency_default.y else per.motorEfficiency_uSpe.y
     "x-axis support points of the power efficiency curve"
@@ -30,19 +30,16 @@ model Sensible "Sensible heat wheels"
 
 initial equation
   for i in 1:size(yeta,1)-1 loop
-         assert(xSpe[i]/yeta[i]<1 + 1E-4,
+         assert(xSpe[i]/yeta[i] < 1 + 1E-4,
                   "In " + getInstanceName() + ": motor efficiency curve is wrong. 
-                  The ratio of the speed ratio of the motor efficiency
-                  to the motor percent full-load efficiency should be less than
-                  1",
+                  The ratio of the speed ratio to the motor percent 
+                  full-load efficiency should be less than 1",
                   level=AssertionLevel.error)
                   "Check if the motor efficiency curve is correct";
   end for;
-  assert(abs(yeta[size(yeta,1)]-1) < 1E-4 and abs(yeta[size(yeta,1)]-1) < 1E-4,
+  assert(abs(yeta[size(yeta,1)]-1) < 1E-4,
           "In " + getInstanceName() + ": motor efficiency curve is wrong. 
-          The ratio of the speed ratio of the motor efficiency
-          to the motor percent full-load efficiency should be less than
-          1",
+          The  motor percent full-load efficiency at the full seepd should be 1",
           level=AssertionLevel.error)
           "Check if the motor efficiency curve is correct";
 equation

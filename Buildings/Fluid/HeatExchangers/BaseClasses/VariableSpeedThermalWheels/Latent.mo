@@ -1,4 +1,4 @@
-within Buildings.Fluid.BaseClasses.VariableSpeedWheel;
+within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
 model Latent "Enthalpy wheels"
   extends Sensible;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
@@ -22,14 +22,14 @@ heat exchange effectiveness correction of an enthalpy wheel.
 </p>
 <p>
 The calculation of the power consumption and the sensible 
-heat exchange effectiveness correction can be refered to
-<a href=\"modelica://Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible\">
-Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible</a>.
+heat exchange effectiveness correction can be referred to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 <p>
 The latent heat exchange effectiveness correction is calculated based 
-on the cubic hermite spline of the latent heat exchange effectiveness 
-correction curve in the performance dataset.
+on the cubic hermite spline interpolation of the latent heat exchange 
+effectiveness correction curve in the performance dataset.
 </p>
 </html>", revisions="<html>
 <ul>
