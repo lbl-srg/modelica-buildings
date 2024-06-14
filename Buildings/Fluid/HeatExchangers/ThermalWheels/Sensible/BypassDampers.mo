@@ -15,11 +15,11 @@ model BypassDampers
     final max=1)
     "Bypass damper position"
     annotation (Placement(transformation(extent={{-222,120},{-182,160}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRot
     "True when the wheel is operating"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+        iconTransformation(extent={{-140,-62},{-100,-22}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
@@ -61,7 +61,7 @@ protected
     final realTrue=P_nominal,
     final realFalse=0)
     "Electric power consumption for motor"
-    annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
+    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
 protected
   Modelica.Blocks.Sources.Constant zero(final k=0) "Zero signal"
     annotation (Placement(transformation(extent={{-160,22},{-140,42}})));
@@ -71,9 +71,10 @@ equation
   connect(bypDamSup.port_b, port_b1)
     annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
-    annotation (Line(points={{0,-60},{100,-60}},  color={0,127,255}));
+    annotation (Line(points={{0,-60},{50,-60},{50,-80},{100,-80}},
+                                                  color={0,127,255}));
   connect(damExh.port_a, port_a2)
-    annotation (Line(points={{50,-50},{50,-60},{100,-60}}, color={0,127,255}));
+    annotation (Line(points={{50,-50},{50,-80},{100,-80}}, color={0,127,255}));
   connect(sub.y, damSup.y)
     annotation (Line(points={{-78,100},{20,100},{20,60},{-50,60},{-50,52}}, color={0,0,127}));
   connect(damExh.y,sub. y)
@@ -84,10 +85,10 @@ equation
     annotation (Line(points={{-40,40},{-20,40},{-20,6},{-10,6}},
     color={0,127,255}));
   connect(bypDamExh.y, uBypDamPos)
-    annotation (Line(points={{-10,-48},{-10,-30},{30,-30},{30,140},{-202,140}},
+    annotation (Line(points={{-10,-48},{-10,-30},{12,-30},{12,140},{-202,140}},
     color={0,0,127}));
   connect(hex.port_a2, damExh.port_b)
-    annotation (Line(points={{10,-6},{50,-6},{50,-30}},
+    annotation (Line(points={{10,-6},{16,-6},{16,-16},{50,-16},{50,-30}},
     color={0,127,255}));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-102,94},{-160,94},{-160,140},{-202,140}},
@@ -98,12 +99,15 @@ equation
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,40},{-100,40},{-100,80},{-180,80}},
     color={0,127,255}));
-  connect(uRot, PEle.u) annotation (Line(points={{-200,0},{-170,0},{-170,-80},{-162,-80}},
+  connect(uRot, PEle.u) annotation (Line(points={{-200,0},{-132,0},{-132,-84},{-164,
+          -84},{-164,-94},{-168,-94},{-168,-100},{-162,-100}},
     color={255,0,255}));
-  connect(PEle.y, P) annotation (Line(points={{-139,-80},{80,-80},{80,-90},{120,-90}},
+  connect(PEle.y, P) annotation (Line(points={{-139,-100},{82,-100},{82,-40},{120,
+          -40}},
     color={0,0,127}));
   connect(bypDamExh.port_b, port_b2)
-    annotation (Line(points={{-20,-60},{-180,-60}}, color={0,127,255}));
+    annotation (Line(points={{-20,-60},{-100,-60},{-100,-80},{-180,-80}},
+                                                    color={0,127,255}));
   connect(swiepsSen.u2, uRot) annotation (Line(points={{-54,-12},{-60,-12},{-60,
           -54},{-132,-54},{-132,0},{-200,0}}, color={255,0,255}));
   connect(zero.y, swiepsSen.u3) annotation (Line(points={{-139,32},{-124,32},{-124,
@@ -113,7 +117,8 @@ equation
   connect(swiepsSen.y, hex.eps) annotation (Line(points={{-30,-12},{-20,-12},{-20,
           0},{-12,0}}, color={0,0,127}));
   connect(swiepsSen.y, eps) annotation (Line(points={{-30,-12},{-20,-12},{-20,-20},
-          {80,-20},{80,0},{120,0}}, color={0,0,127}));
+          {80,-20},{80,40},{120,40}},
+                                    color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -124,51 +129,51 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.None),
         Rectangle(
-          extent={{-64,94},{58,86}},
+          extent={{-64,96},{58,92}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-18.5,3.5},{18.5,-3.5}},
+          extent={{-10.5,3.5},{10.5,-3.5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-60.5,74.5},
+          origin={-60.5,84.5},
           rotation=90),
         Rectangle(
-          extent={{-18,4},{18,-4}},
+          extent={{-9,3},{9,-3}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={54,76},
+          origin={55,85},
           rotation=90),
         Rectangle(
-          extent={{-18,4},{18,-4}},
+          extent={{-8,3},{8,-3}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={54,-74},
+          origin={55,-84},
           rotation=90),
         Rectangle(
-          extent={{-64,-84},{58,-92}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-16.5,3.5},{16.5,-3.5}},
+          extent={{-9,3},{9,-3}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          origin={-60.5,-73.5},
-          rotation=90)}),
+          origin={-61,-83},
+          rotation=90),
+        Rectangle(
+          extent={{-64,-92},{58,-96}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,180}})),
+        coordinateSystem(preserveAspectRatio=true, extent={{-180,-120},{100,180}})),
 Documentation(info="<html>
 <p>
 Model of a sensible heat recovery wheel, which consists of

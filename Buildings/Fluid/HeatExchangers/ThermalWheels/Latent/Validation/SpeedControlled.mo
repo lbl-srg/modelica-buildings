@@ -83,27 +83,26 @@ model SpeedControlled
       m_flow_nominal=5)
       "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-
-  Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data.ASHRAE
-                          perLatWhe(
-    motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.4,0.6,1}),
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
+    perLatWhe(
+    motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheet"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data.ASHRAE
-                          perLatWheDefMotCur(haveLatentHeatExchange=true,
-      useDefaultMotorEfficiencyCurve=true)
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
+    perLatWheDefMotCur(haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheet with default motor curve"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
   connect(sou_1.ports[2], wheUseDefCur.port_a1)
-    annotation (Line(points={{-20,31},{-10,31},{-10,30},{2,30}},
+    annotation (Line(points={{-20,31},{-10,31},{-10,31.8},{2,31.8}},
     color={0,127,255}));
   connect(wheUseDefCur.port_a2, sou_2.ports[1])
-    annotation (Line(points={{22,18},{36,18},{36,-41},{70,-41}},
+    annotation (Line(points={{22,16},{36,16},{36,-41},{70,-41}},
     color={0,127,255}));
   connect(wheSpe.y, wheUseDefCur.uSpe)
     annotation (Line(points={{-59,0},{-10,0},{-10,24},{0,24}},
@@ -112,21 +111,23 @@ equation
     annotation (Line(points={{-40,-40},{-50,-40},{-50,-41},{-58,-41}},
     color={0,127,255}));
   connect(senExhTem.port_a, wheUseDefCur.port_b2)
-    annotation (Line(points={{-20,-40},{-4,-40},{-4,18},{2,18}},
+    annotation (Line(points={{-20,-40},{-4,-40},{-4,16},{2,16}},
     color={0,127,255}));
   connect(senSupTem.port_b, sin_1.ports[2])
     annotation (Line(points={{60,30},{66,30},{66,31},{70,31}},
     color={0,127,255}));
   connect(senSupTem.port_a, wheUseDefCur.port_b1)
-    annotation (Line(points={{40,30},{22,30}}, color={0,127,255}));
+    annotation (Line(points={{40,30},{32,30},{32,32},{22,32}},
+                                               color={0,127,255}));
   connect(wheDefCur.port_a1, sou_1.ports[1])
-    annotation (Line(points={{2,-2},{-16,-2},{-16,29},{-20,29}}, color={0,127,255}));
+    annotation (Line(points={{2,-0.2},{-16,-0.2},{-16,29},{-20,29}},
+                                                                 color={0,127,255}));
   connect(wheDefCur.port_b2, sin_2.ports[2])
-    annotation (Line(points={{2,-14},{-50,-14},{-50,-39},{-58,-39}}, color={0,127,255}));
+    annotation (Line(points={{2,-16},{-50,-16},{-50,-39},{-58,-39}}, color={0,127,255}));
   connect(wheDefCur.port_a2, sou_2.ports[2])
-    annotation (Line(points={{22,-14},{60,-14},{60,-39},{70,-39}}, color={0,127,255}));
+    annotation (Line(points={{22,-16},{60,-16},{60,-39},{70,-39}}, color={0,127,255}));
   connect(wheDefCur.port_b1, sin_1.ports[1])
-    annotation (Line(points={{22,-2},{62,-2},{62,29},{70,29}}, color={0,127,255}));
+    annotation (Line(points={{22,0},{62,0},{62,29},{70,29}},   color={0,127,255}));
   connect(wheDefCur.uSpe, wheSpe.y)
     annotation (Line(points={{0,-8},{-50,-8},{-50,0},{-59,0}}, color={0,0,127}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),

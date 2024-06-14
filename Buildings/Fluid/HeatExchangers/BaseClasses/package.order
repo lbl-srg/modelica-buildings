@@ -20,6 +20,7 @@ PipeManifoldFixedResistance
 PipeManifoldFlowDistributor
 PipeManifoldNoResistance
 RayleighNumber
+VariableSpeedThermalWheels
 WetCoilDryRegime
 WetCoilDryWetRegime
 WetCoilUARated

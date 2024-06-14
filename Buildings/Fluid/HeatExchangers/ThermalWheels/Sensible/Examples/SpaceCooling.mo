@@ -85,7 +85,7 @@ model SpaceCooling "Space cooling system"
     dpSup_nominal=200,
     epsCoo_nominal=eps,
     epsHea_nominal=eps) "Heat recovery"
-    annotation (Placement(transformation(extent={{-110,-36},{-90,-16}})));
+    annotation (Placement(transformation(extent={{-100,-38},{-80,-18}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -125,45 +125,51 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
-    "Fan air flow rate"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package
       Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-76,-26},{-64,-14}})));
+    annotation (Placement(transformation(extent={{-64,-26},{-52,-14}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
       Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-170,-104},{-150,-84}})));
+    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
     "Room temperature sensor"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mWat_flow(realTrue=0, realFalse=
-        mW_flow_nominal) "Conversion from boolean to real for water flow rate"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    "Inputs different"
-    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis con(
-    final uLow=-0.5,
-    final uHigh=0.5)
-    "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse opeSig(
     width=0.5,
     period=86400,
     shift=0.25*86400)
-              "Operating signal"
-    annotation (Placement(transformation(extent={{-172,10},{-152,30}})));
+    "Operating signal"
+    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.Continuous.LimPID conPID(k=0.1, Ti=60)
     annotation (Placement(transformation(extent={{-46,10},{-26,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(k=TMixSet)
     "Mixed air temperature set point"
     annotation (Placement(transformation(extent={{-88,10},{-68,30}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for return air"
+    annotation (Placement(transformation(extent={{58,-66},{46,-54}})));
+  Buildings.Controls.Continuous.LimPID conRoo(
+    k=0.1,
+    Ti=60,
+    yMax=mW_flow_nominal,
+    reverseActing=false)
+    "Room controller"
+    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse mAir_flow(
+    amplitude=-mA_flow_nominal,
+    width=0.5,
+    period=87600,
+    shift=0.24*87600,
+    offset=mA_flow_nominal)
+    "Fan air flow rate"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -177,12 +183,8 @@ equation
       points={{60,-20},{69,-20},{69,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol.ports[2],whe. port_a2) annotation (Line(
-      points={{71,20},{71,-46},{-90,-46},{-90,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(out.ports[2],whe. port_a1) annotation (Line(
-      points={{-120,-21},{-116,-21},{-116,-20},{-110,-20}},
+      points={{-120,-21},{-110,-21},{-110,-20},{-100,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souWat.ports[1], cooCoi.port_a1)   annotation (Line(
@@ -214,16 +216,12 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(fan.m_flow_in, mAir_flow.y) annotation (Line(
-      points={{50,-8},{50,10},{22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(whe.port_b1, senTemHXOut.port_a) annotation (Line(
-      points={{-90,-20},{-76,-20}},
+      points={{-80,-20.2},{-80,-20},{-64,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHXOut.port_b, cooCoi.port_a2) annotation (Line(
-      points={{-64,-20},{-40,-20}},
+      points={{-52,-20},{-40,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2, senTemSupAir.port_a) annotation (Line(
@@ -242,33 +240,30 @@ equation
       points={{60,30},{50,30},{50,80},{70,80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(mWat_flow.y, souWat.m_flow_in) annotation (Line(
-      points={{-38,-100},{-30,-100},{-30,-92},{-22,-92}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(sub.y, con.u) annotation (Line(
-      points={{-108,-100},{-102,-100}},
-      color={0,0,127}));
-  connect(con.y, mWat_flow.u) annotation (Line(        points={{-78,-100},{-62,-100}},
-      color={255,0,255}));
-  connect(TRooSetPoi.y, sub.u1) annotation (Line(
-      points={{-148,-94},{-132,-94}},
-      color={0,0,127}));
-  connect(senTemRoo.T, sub.u2) annotation (Line(
-      points={{91,80},{100,80},{100,-140},{-140,-140},{-140,-106},{-132,-106}},
-      color={0,0,127}));
   connect(whe.port_b2, out.ports[1]) annotation (Line(
-      points={{-110,-32},{-116,-32},{-116,-23},{-120,-23}},
+      points={{-100,-35.8},{-112,-35.8},{-112,-23},{-120,-23}},
       color={0,127,255}));
   connect(opeSig.y, whe.uRot) annotation (Line(
-      points={{-150,20},{-116,20},{-116,-18},{-112,-18}},
+      points={{-138,-60},{-106,-60},{-106,-32.2},{-102,-32.2}},
       color={255,0,255}));
   connect(TMixSetPoi.y,conPID. u_s)
     annotation (Line(points={{-66,20},{-48,20}}, color={0,0,127}));
-  connect(senTemHXOut.T,conPID. u_m) annotation (Line(points={{-70,-13.4},{-70,0},
-          {-36,0},{-36,8}}, color={0,0,127}));
-  connect(conPID.y, whe.uBypDamPos) annotation (Line(points={{-25,20},{-16,20},{
-          -16,-80},{-114,-80},{-114,-26},{-112,-26}}, color={0,0,127}));
+  connect(senTemHXOut.T,conPID. u_m) annotation (Line(points={{-58,-13.4},{-58,2},
+          {-36,2},{-36,8}}, color={0,0,127}));
+  connect(senTemRetAir.port_a, vol.ports[2])
+    annotation (Line(points={{58,-60},{71,-60},{71,20}}, color={0,127,255}));
+  connect(senTemRetAir.port_b, whe.port_a2) annotation (Line(points={{46,-60},{-40,
+          -60},{-40,-36},{-80,-36}}, color={0,127,255}));
+  connect(conRoo.y, souWat.m_flow_in) annotation (Line(points={{-59,-100},{-32,-100},
+          {-32,-92},{-22,-92}}, color={0,0,127}));
+  connect(TRooSetPoi.y, conRoo.u_s)
+    annotation (Line(points={{-138,-100},{-82,-100}}, color={0,0,127}));
+  connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-70,-112},{-70,-140},
+          {100,-140},{100,80},{91,80}}, color={0,0,127}));
+  connect(mAir_flow.y, fan.m_flow_in)
+    annotation (Line(points={{22,10},{50,10},{50,-8}}, color={0,0,127}));
+  connect(conPID.y, whe.uBypDamPos) annotation (Line(points={{-25,20},{-10,20},{
+          -10,-54},{-110,-54},{-110,-24},{-102,-24}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to

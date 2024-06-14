@@ -49,20 +49,16 @@ partial model PartialWheel
     final max=1) = 0.75
     "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness at the heating mode"
     annotation (Dialog(group="Part load effectiveness"));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
-        iconTransformation(extent={{100,-110},{140,-70}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,10},{140,50}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
-        iconTransformation(extent={{100,-50},{140,-10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(redeclare package Medium = Medium)
     "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{50,-4},{70,16}})));
@@ -73,21 +69,20 @@ partial model PartialWheel
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}}),
-        iconTransformation(extent={{-110,50},{-90,70}})));
+        iconTransformation(extent={{-110,68},{-90,88}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-170,-70},{-190,-50}}),
-        iconTransformation(extent={{-90,-70},{-110,-50}})));
+    annotation (Placement(transformation(extent={{-170,-90},{-190,-70}}),
+        iconTransformation(extent={{-90,-90},{-110,-70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{110,70},{90,90}}),
-        iconTransformation(extent={{110,50},{90,70}})));
+    annotation (Placement(transformation(extent={{110,70},{90,90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
 
 protected
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness effCal(
@@ -145,37 +140,37 @@ equation
           {80,80},{100,80}}, color={0,127,255}));
   connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-44},
           {-30,-44},{-30,-6},{10,-6}},  color={0,127,255}));
-  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{-160,
-          -44},{-160,-60},{-180,-60}},      color={0,127,255}));
+  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{-166,
+          -44},{-166,-80},{-180,-80}},      color={0,127,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
-          extent={{26,-56},{94,-64}},
+          extent={{24,-76},{94,-84}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{32,64},{94,56}},
+          extent={{26,84},{92,76}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-92,-55},{-30,-64}},
+          extent={{-92,-75},{-24,-84}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-94,65},{-28,56}},
+          extent={{-94,85},{-22,76}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{8,78},{38,-74}},
+        Ellipse(extent={{6,94},{34,-90}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -185,29 +180,17 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.None),
         Rectangle(
-          extent={{-6,78},{22,-74}},
+          extent={{-8,96},{22,-94}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
-          extent={{-38,78},{-6,-74}},
+          extent={{-40,94},{0,-88}},
           lineColor={28,108,200},
           fillColor={0,140,72},
           fillPattern=FillPattern.Solid),
-        Line(points={{-22,-74},{22,-74}}, color={0,0,0}),
-        Line(points={{-22,78},{22,78}}, color={0,0,0}),
-        Text(
-          extent={{46,46},{96,22}},
-          textColor={0,0,127},
-          textString="epsSen"),
-        Text(
-          extent={{46,-16},{96,-40}},
-          textColor={0,0,127},
-          textString="epsLat"),
-        Text(
-          extent={{52,-76},{102,-100}},
-          textColor={0,0,127},
-          textString="P")}),
+        Line(points={{-22,-88},{22,-88}}, color={0,0,0}),
+        Line(points={{-22,94},{22,94}}, color={0,0,0})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>

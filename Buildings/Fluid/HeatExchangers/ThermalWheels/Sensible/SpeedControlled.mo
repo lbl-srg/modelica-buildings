@@ -4,9 +4,8 @@ model SpeedControlled
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
   parameter
-    Buildings.Fluid.BaseClasses.VariableSpeedWheel.BaseClasses.Data.Generic
-    per
-    "Record with performance data"
+    Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
+    per "Record with performance data"
     annotation (Placement(transformation(extent={{28,78},{48,98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
@@ -14,7 +13,7 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
     senWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
@@ -26,8 +25,9 @@ model SpeedControlled
 equation
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
     {-10,6}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
-    {100,-60}}, color={0,127,255}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
+          -80},{100,-80}},
+                color={0,127,255}));
   connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-118,-80},{-64,-80},
           {-64,-20},{-56,-20}}, color={0,0,127}));
   connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-64,0},{-64,-8},
@@ -36,9 +36,10 @@ equation
           -12,0}}, color={0,0,127}));
   connect(uSpe, senWhe.uSpe) annotation (Line(points={{-200,0},{-170,0},{-170,-80},
           {-142,-80}}, color={0,0,127}));
-  connect(senWhe.P, P) annotation (Line(points={{-118,-72},{40,-72},{40,-90},{
-          120,-90}}, color={0,0,127}));
-  connect(eps, mul.y) annotation (Line(points={{120,0},{80,0},{80,-14},{-32,-14}},
+  connect(senWhe.P, P) annotation (Line(points={{-118,-72},{40,-72},{40,-40},{
+          120,-40}}, color={0,0,127}));
+  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-14},{-32,
+          -14}},
         color={0,0,127}));
 annotation (
         defaultComponentName="whe",
@@ -64,8 +65,8 @@ exchanger effectiveness in both heating and cooling conditions.
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in 
-<a href=\"modelica://Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible\">
-Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -36,12 +36,10 @@ partial model PartialWheel
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
-    annotation (Placement(transformation(extent={{100,-110},{140,-70}}),
-    iconTransformation(extent={{100,-110},{140,-70}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-    iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
     hex(
     redeclare package Medium1 = Medium,
@@ -55,21 +53,22 @@ partial model PartialWheel
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}}),
-    iconTransformation(extent={{-110,50},{-90,70}})));
+    iconTransformation(extent={{-110,70},{-90,90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
     redeclare final package Medium = Medium)
     "Fluid connector b2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{-170,-70},{-190,-50}}),
-    iconTransformation(extent={{-90,-70},{-110,-50}})));
+    annotation (Placement(transformation(extent={{-170,-90},{-190,-70}}),
+    iconTransformation(extent={{-90,-88},{-110,-68}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
     redeclare final package Medium = Medium)
     "Fluid connector b1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,70},{90,90}}),
-    iconTransformation(extent={{110,50},{90,70}})));
+    iconTransformation(extent={{110,68},{90,88}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium)
     "Fluid connector a2 of the exhaust air (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{90,-90},{110,-70}}),
+        iconTransformation(extent={{90,-90},{110,-70}})));
 
   Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(
     redeclare package Medium = Medium)
@@ -119,7 +118,7 @@ equation
     annotation (Line(points={{-139,-40},{-110,-40},{-110,-8},{-102,-8}},
     color={0,0,127}));
   connect(senExhMasFlo.port_b, port_b2)
-    annotation (Line(points={{-90,-34},{-100,-34},{-100,-60},{-180,-60}},
+    annotation (Line(points={{-90,-34},{-108,-34},{-108,-80},{-180,-80}},
     color={0,127,255}));
   connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-34},{-16,-34},{-16,-6},{-10,-6}},
     color={0,127,255}));
@@ -140,54 +139,46 @@ annotation (
           lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.None),
-        Text(
-          extent={{44,14},{94,-10}},
-          textColor={0,0,127},
-          textString="epsSen"),
-        Text(
-          extent={{46,-74},{96,-98}},
-          textColor={0,0,127},
-          textString="P"),
         Rectangle(
-          extent={{26,-56},{94,-64}},
+          extent={{24,-74},{92,-82}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{32,64},{94,56}},
+          extent={{24,82},{92,74}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-92,-55},{-30,-64}},
+          extent={{-92,-73},{-30,-82}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-94,65},{-28,56}},
+          extent={{-94,83},{-28,74}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Ellipse(extent={{8,78},{38,-74}},
+        Ellipse(extent={{8,90},{34,-90}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-6,78},{22,-74}},
+          extent={{-6,90},{20,-90}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Ellipse(
-          extent={{-38,78},{-6,-74}},
+          extent={{-38,90},{-8,-90}},
           lineColor={28,108,200},
           fillColor={28,108,200},
           fillPattern=FillPattern.Solid),
-        Line(points={{-22,-74},{22,-74}}, color={0,0,0}),
-        Line(points={{-22,78},{22,78}}, color={0,0,0})}),
+        Line(points={{-24,-90},{20,-90}}, color={0,0,0}),
+        Line(points={{-22,90},{22,90}}, color={0,0,0})}),
           Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
