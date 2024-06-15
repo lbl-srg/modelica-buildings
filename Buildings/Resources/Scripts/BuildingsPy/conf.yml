@@ -229,6 +229,44 @@
   optimica:
     comment: Timeout after 300 s
     time_out: 600
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
+  openmodelica:
+    translate: false
+    comment: Timeout on travis even with 900 s
+  optimica:
+    translate: false
+    comment: Singularity, Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Pulse
+  openmodelica:
+    comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+    translate: false
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Step
+  openmodelica:
+    comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+    translate: false
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
+  openmodelica:
+    translate: false
+    comment: Translation hangs.
+  optimica:
+    translate: false
+    comment: Compilation seems to hang, may be related to Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
+  dymola:
+    time_out: 600
+  openmodelica:
+    time_out: 1200
+    simulate: false
+    comment: Simulation terminated by an assertion at initialization
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.HeatPumps.ModularReversible.Examples.AirToWater2D_OneRoomRadiator
   openmodelica:
     comment: returned non-zero exit status 2. Works with April 30 2024 OMC nightly build.
