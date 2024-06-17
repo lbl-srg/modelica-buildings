@@ -12,9 +12,15 @@ Version 12.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.ZonedBorefields
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package with models for borefields in which individual groups of boreholes can be operated
+                       independently from each other. In contrast to Buildings.Fluid.Geothermal.Borefields,
+                       in which all boreholes are connected in parallel,
+                       this package allows to form groups of parallel connected boreholes. Each of these groups
+                       has its own fluid ports, allowing them for example to be connected in series,
+                       or to operate groups at the center of the borefield with a warmer temperature than
+                       groups at the perimeter.
     </td>
     </tr>
 </table>
