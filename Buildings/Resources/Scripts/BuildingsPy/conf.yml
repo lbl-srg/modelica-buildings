@@ -79,7 +79,7 @@
 - model_name: Buildings.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
   openmodelica:
     comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
-    simulate: false
+    translate: false
 - model_name: Buildings.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
