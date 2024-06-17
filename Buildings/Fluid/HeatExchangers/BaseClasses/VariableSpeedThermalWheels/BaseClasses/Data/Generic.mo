@@ -51,13 +51,13 @@ First implementation.
 Record containing power and heat exchange parameters for wheels.
 </p>
 <p>
-It is used as a template for performance data
+It is used as a template of performance data
 for the variable-speed wheel models in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels\">
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels</a>.
 </p>
 <p>
-The record contains four curves:
+The record contains four datasets:
 </p>
 <ul>
 <li>
@@ -85,7 +85,7 @@ Note that
 <ul>
 <li>
 When <code>haveLatentHeatExchange</code> is false,
-the curve of wheel speed ratio versus latent heat exchange effectiveness 
+the dataset of wheel speed ratio versus latent heat exchange effectiveness 
 corrections is disabled.
 </li>
 <li>

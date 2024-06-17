@@ -17,27 +17,31 @@ model VariableSpeedThermalWheels
     duration=1,
     startTime=0,
     offset=0,
-    height=1) "Speed ratio"
+    height=1)
+    "Speed ratio"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWhe(per=
-        perLatWhe) "Enthalpy wheel"
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWhe(
+    per=perLatWhe)
+    "Enthalpy wheel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWheDefMotCur(per=
-        perLatWheDefMotCur) "enthalpy wheel with default motor curve"
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWheDefMotCur(
+    per=perLatWheDefMotCur)
+    "Enthalpy wheel with default motor curve"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  BaseClasses.Data.ASHRAE perLatWhe(
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWhe(
     motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
-      haveLatentHeatExchange=true,
-      useDefaultMotorEfficiencyCurve=false)
+    haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheet"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  BaseClasses.Data.ASHRAE perLatWheDefMotCur(haveLatentHeatExchange=true,
-      useDefaultMotorEfficiencyCurve=true)
-    "Performance record for the enthalpy wheet with default motor curve"
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
+    haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=true)
+    "Performance record for the enthalpy wheet with default motor dataset"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
 equation
   connect(uSpe.y, senWhe.uSpe)
-     annotation (Line(points={{-39,0},{-28,0},{-28,50},
+    annotation (Line(points={{-39,0},{-28,0},{-28,50},
           {-12,50}}, color={0,0,127}));
   connect(latWhe.uSpe, uSpe.y)
     annotation (Line(points={{-12,0},{-39,0}}, color={0,0,127}));
@@ -46,7 +50,7 @@ equation
           -50},{-28,0},{-39,0}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/VariableSpeedThermalWheels/Validation/VariableSpeedThermalWheels.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/VariableSpeedThermalWheels/Validation/VariableSpeedThermalWheels.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1,
@@ -54,10 +58,10 @@ equation
     Documentation(info="<html>
 <p>
 Example for the model
-<a href=\"modelica://Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible\">
-Buildings.Fluid.BaseClasses.VariableSpeedWheel.Sensible</a> and the model
-<a href=\"modelica://Buildings.Fluid.BaseClasses.VariableSpeedWheel.Latent\">
-Buildings.Fluid.BaseClasses.VariableSpeedWheel.latent</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a> and the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.latent</a>.
 </p>
 <p>
 The input signals are configured as follows:
@@ -79,6 +83,13 @@ and equals the nominal value when <code>uSpe=1</code>.
 <li>
 The heat exchange effectiveness corrections increase by time
 and equal 1 when <code>uSpe=1</code>.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+May 28, 2024, by Sen Huang:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

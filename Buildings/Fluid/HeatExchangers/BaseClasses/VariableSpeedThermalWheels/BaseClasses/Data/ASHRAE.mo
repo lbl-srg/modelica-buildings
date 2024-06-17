@@ -21,8 +21,10 @@ Performance dataset for the variable-speed wheel model.
 </p>
 <p>
 It is developed based on Figure 7 in ASHRAE (2024).
-Note that nearest-neighbor extrapolations are used to make sure the dataset covers lower values 
-of speed ratio, i.e. <code> &lt;= 0.2</code>.
+However, the original data set was extrapolated to cover lower values 
+of speed ratio, i.e. <code> &lt;= 0.2</code>, by setting the heat exchange effectiveness 
+corrections to 0 when the speed ratio is 0.
+exchanger 
 </p>
 <h4>References</h4>
 <p>

@@ -73,14 +73,17 @@ where <code>P_nominal</code> is the nominal wheel power consumption,
 The <code>eta</code> is the motor percent full-load efficiency, i.e.,
 the ratio of the motor efficiency to that when the <code>uSpe</code> is <i>1</i>.
 The <code>eta</code> is obtained based on the cubic hermite spline interpolation of
-the motor percent full-load efficiency dataset.
+the motor percent full-load efficiency dataset (see  
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.efficiencyParameters_yMot\">
+Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.efficiencyParameters_yMot</a>.).
 Please note that <code>uSpe/eta</code> should be less or equal to 1.
 </p>
 </li>
 <li>
 The sensible heat exchanger effectiveness correction is calculated based 
 on the cubic hermite spline interpolation of the sensible heat exchanger effectiveness 
-dataset.
+dataset (see  <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
+Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.effectivenessParameters</a>).
 </li>
 </ul>
 </html>", revisions="<html>

@@ -8,7 +8,7 @@ record effectivenessParameters
     "correction of the heat exchange effectiveness under a geiven speed ratio";
   annotation (Documentation(info="<html>
 <p>
-Data record for performance data that describe wheel speed ratio versus
+Data record that describes wheel speed ratio versus
 heat exchange effectiveness corrections.
 The wheel speed ratio <code>uSpe</code> must be increasing, 
 i.e.,<code>uSpe[i] &lt; uSpe[i+1]</code>.

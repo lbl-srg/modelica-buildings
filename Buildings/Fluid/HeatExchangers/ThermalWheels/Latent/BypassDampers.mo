@@ -48,15 +48,14 @@ model BypassDampers
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiepsSen
-    "Switch the sensible heat exchanger effectiveness 
-    based the wheel operation status"
+    "Switch the sensible heat exchanger effectiveness based the wheel operation status"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiLat
-    "Switch the latent heat exchanger effectiveness 
-    based the wheel operation status"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiepsLat
+    "Switch the latent heat exchanger effectiveness based the wheel operation status"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 protected
-  Modelica.Blocks.Sources.Constant uni(final k=1)
+  Modelica.Blocks.Sources.Constant uni(
+    final k=1)
     "Unity signal"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
@@ -64,10 +63,12 @@ protected
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Modelica.Blocks.Math.BooleanToReal PEle(
     final realTrue=P_nominal,
-    final realFalse=0) "Electric power consumption for motor"
+    final realFalse=0)
+    "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-122,-110},{-102,-90}})));
 protected
-  Modelica.Blocks.Sources.Constant zero(final k=0) "Zero signal"
+  Modelica.Blocks.Sources.Constant zero(final k=0)
+    "Zero signal"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 equation
   connect(sub.y, damSup.y)
@@ -112,25 +113,25 @@ equation
     annotation (Line(points={{-48,80},{-180,80}}, color={0,127,255}));
   connect(zero.y, swiepsSen.u3) annotation (Line(points={{-119,160},{-60,160},{-60,
           152},{-42,152}}, color={0,0,127}));
-  connect(swiLat.u3, zero.y) annotation (Line(points={{-42,122},{-60,122},{-60,160},
-          {-119,160}}, color={0,0,127}));
+  connect(swiepsLat.u3, zero.y) annotation (Line(points={{-42,122},{-60,122},{-60,
+          160},{-119,160}}, color={0,0,127}));
   connect(effCal.epsSen, swiepsSen.u1) annotation (Line(points={{-78,5},{-68,5},
           {-68,168},{-42,168}}, color={0,0,127}));
-  connect(effCal.epsLat, swiLat.u1) annotation (Line(points={{-78,-5},{-64,-5},{
-          -64,138},{-42,138}}, color={0,0,127}));
+  connect(effCal.epsLat, swiepsLat.u1) annotation (Line(points={{-78,-5},{-64,-5},
+          {-64,138},{-42,138}}, color={0,0,127}));
   connect(swiepsSen.u2, uRot) annotation (Line(points={{-42,160},{-52,160},{-52,
           176},{-168,176},{-168,0},{-200,0}}, color={255,0,255}));
-  connect(swiLat.u2, uRot) annotation (Line(points={{-42,130},{-52,130},{-52,176},
-          {-168,176},{-168,0},{-200,0}}, color={255,0,255}));
+  connect(swiepsLat.u2, uRot) annotation (Line(points={{-42,130},{-52,130},{-52,
+          176},{-168,176},{-168,0},{-200,0}}, color={255,0,255}));
   connect(swiepsSen.y, hex.epsSen) annotation (Line(points={{-18,160},{-6,160},{
           -6,3},{8,3}}, color={0,0,127}));
-  connect(swiLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},{-10,
-          -3},{8,-3}}, color={0,0,127}));
+  connect(swiepsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
+          {-10,-3},{8,-3}}, color={0,0,127}));
   connect(swiepsSen.y, epsSen) annotation (Line(points={{-18,160},{38,160},{38,
           40},{120,40}},
                      color={0,0,127}));
-  connect(swiLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
-          {120,0}},   color={0,0,127}));
+  connect(swiepsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
+          {120,0}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-124,-100},{-172,-100},{-172,0},
           {-200,0}}, color={255,0,255}));
 annotation (

@@ -5,7 +5,8 @@ model SpeedControlled
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter
     Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
-    per "Record with performance data"
+    per
+    "Record with performance data"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
@@ -45,8 +46,8 @@ equation
   connect(mul.y, epsSen) annotation (Line(points={{-38,140},{20,140},{20,40},{
           120,40}},
                 color={0,0,127}));
-  connect(mul1.y, epsLat) annotation (Line(points={{-38,100},{-10,100},{-10,0},
-          {120,0}},   color={0,0,127}));
+  connect(mul1.y, epsLat) annotation (Line(points={{-38,100},{90,100},{90,0},{
+          120,0}},    color={0,0,127}));
   connect(latWhe.P, P) annotation (Line(points={{-98,128},{-88,128},{-88,40},{
           -46,40},{-46,-40},{120,-40}},
                                     color={0,0,127}));
