@@ -1,19 +1,25 @@
-/*
-	*
-	* @file ffd.h
-	*
-	* @brief Main routine of Fast Fluid Dynamics
-	*
-	* @author Wangda Zuo
-	*         University of Miami
-	*         W.Zuo@miami.edu
-	*         Mingang Jin, Qingyan Chen
-	*         Purdue University
-	*         Jin55@purdue.edu, YanChen@purdue.edu
-	*
-	* @date   8/3/2013
-	*
-	*/
+/****************************************************************************
+|
+|  \file ffd.h
+|
+|  \brief Main routine of Fast Fluid Dynamics
+|
+|  \author Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|          Mingang Jin, Qingyan Chen
+|          Purdue University
+|          Jin55@purdue.edu, YanChen@purdue.edu
+|          Wei Tian
+|          University of Miami, Schneider Electric
+|          w.tian@umiami.edu, Wei.Tian@Schneider-Electric.com
+|          Xu Han
+|          University of Colorado Boulder
+|          xuha3556@colorado.edu
+|
+|  \date   4/5/2020
+|
+****************************************************************************/
 #ifndef _FFD_H
 #define _FFD_H
 #endif
@@ -23,9 +29,11 @@
 #include "data_structure.h"
 #endif
 
+#ifndef FFD_ISAT
 #ifndef _FFD_DLL_H
 #define FFD_DLL_H
 #include "ffd_dll.h"
+#endif
 #endif
 
 #ifndef _TIMING_H
@@ -54,37 +62,39 @@
 #endif
 
 /*
-	* Assign the parameter for coupled simulation
-	*
-	* @para cosim Pointer to the coupled simulation parameters
-	*
-	* @return 0 if no error occurred
-	*/
-int ffd_cosimulation(CosimulationData *cosim);
+* Assign the parameter for coupled simulation
+*
+* @para cosim Pointer to the coupled simulation parameters
+*
+* @return 0 if no error occurred
+*/
+int ffd_cosimulation(CosimulationData * cosim);
 
-/*
-	* Main routine of FFD
-	*
-	* @para coupled simulation Integer to identify the simulation type
-	*
-	* @return 0 if no error occurred
-	*/
+/****************************************************************************
+|  Main routine of FFD
+|
+| \para coupled simulation Integer to identify the simulation type
+|
+| \return 0 if no error occurred
+****************************************************************************/
 int ffd(int cosimulation);
 
-/*
-	* Allocate memory for variables
-	*
-	* @param para Pointer to FFD parameters
-	*
-	* @return No return needed
-	*/
-int allocate_memory (PARA_DATA *para);
+/****************************************************************************
+|  Allocate memory for variables
+|
+| \param para Pointer to FFD parameters
+|
+| \return No return needed
+****************************************************************************/
+int allocate_memory(PARA_DATA* para);
 
-/*
-	* Write error message to Modelica
-	*
-	* @para msg Pointer to message to be written.
-	*
-	* @return no return
-	*/
+/****************************************************************************
+|  Write error message to Modelica
+|
+| \para msg Pointer to message to be written.
+|
+| \return no return
+****************************************************************************/
 void modelicaError(char *msg);
+
+
