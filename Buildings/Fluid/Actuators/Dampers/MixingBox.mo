@@ -123,7 +123,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final allowFlowReversal=allowFlowReversal,
     final use_inputFilter=false)
     "Outdoor air damper"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
@@ -145,7 +145,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final allowFlowReversal=allowFlowReversal,
     final use_inputFilter=false)
     "Exhaust air damper"
-    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRec(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mRec_flow_nominal,
@@ -179,6 +179,24 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Adder"
     annotation (Placement(transformation(extent={{-40,-10},
             {-20,10}})));
+  Delays.DelayFirstOrder mixRet(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mExh_flow_nominal,
+    final allowFlowReversal=true,
+    tau=5,
+    nPorts=3)
+    "Mixing volume for return air, used to avoid nonlinear system of equations that involves mixing properties"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+  Delays.DelayFirstOrder mixSup(
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mOut_flow_nominal,
+    final allowFlowReversal=true,
+    tau=5,
+    nPorts=3)
+    "Mixing volume for supply air, used to avoid nonlinear system of equations that involves mixing properties"
+    annotation (Placement(transformation(extent={{20,-70},{40,-90}})));
 protected
   parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
@@ -188,37 +206,39 @@ protected
 equation
   connect(uni.y, add.u1) annotation (Line(points={{-69,6},{-42,6},{-42,6}},
         color={0,0,127}));
-  connect(add.y, damRec.y) annotation (Line(points={{-19,6.10623e-16},{-19,0},{
-          18,0},{18,1.4009e-15}},
+  connect(add.y, damRec.y) annotation (Line(points={{-19,0},{18,0},{18,1.4009e-15}},
                              color={0,0,127}));
   connect(damOA.port_a, port_Out) annotation (Line(
-      points={{-40,30},{-70,30},{-70,60},{-100,60}},
+      points={{-20,20},{-70,20},{-70,60},{-100,60}},
       color={0,127,255}));
   connect(damExh.port_b, port_Exh) annotation (Line(
-      points={{-40,-60},{-100,-60}},
-      color={0,127,255}));
-  connect(port_Sup, damOA.port_b) annotation (Line(
-      points={{100,60},{80,60},{80,30},{-20,30}},
-      color={0,127,255}));
-  connect(damRec.port_b, port_Sup) annotation (Line(
-      points={{30,10},{30,30},{80,30},{80,60},{100,60}},
-      color={0,127,255}));
-  connect(port_Ret, damExh.port_a) annotation (Line(
-      points={{100,-60},{-20,-60}},
-      color={0,127,255}));
-  connect(port_Ret, damRec.port_a) annotation (Line(
-      points={{100,-60},{30,-60},{30,-10}},
+      points={{-20,-60},{-100,-60}},
       color={0,127,255}));
   connect(y_actual, add.u2) annotation (Line(
       points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-60,-20},{-60,-6},{-42,-6}},
       color={0,0,127}));
 
   connect(y_actual, damOA.y) annotation (Line(
-      points={{50,70},{60,70},{60,60},{-30,60},{-30,42}},
+      points={{50,70},{60,70},{60,60},{-10,60},{-10,32}},
       color={0,0,127}));
   connect(y_actual, damExh.y) annotation (Line(
-      points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-30,-20},{-30,-48}},
+      points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-10,-20},{-10,-48}},
       color={0,0,127}));
+  connect(damOA.port_b, mixRet.ports[1]) annotation (Line(points={{0,20},{
+          28.6667,20},{28.6667,30}},
+                             color={0,127,255}));
+  connect(damRec.port_b, mixRet.ports[2])
+    annotation (Line(points={{30,10},{30,30}}, color={0,127,255}));
+  connect(port_Sup, mixRet.ports[3]) annotation (Line(points={{100,60},{74,60},
+          {74,20},{31.3333,20},{31.3333,30}},color={0,127,255}));
+  connect(damExh.port_a, mixSup.ports[1]) annotation (Line(points={{0,-60},{28,
+          -60},{28,-70},{28.6667,-70}},
+                                   color={0,127,255}));
+  connect(damRec.port_a, mixSup.ports[2])
+    annotation (Line(points={{30,-10},{30,-70}}, color={0,127,255}));
+  connect(port_Ret, mixSup.ports[3]) annotation (Line(points={{100,-60},{
+          31.3333,-60},{31.3333,-70}},
+                               color={0,127,255}));
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -297,6 +317,13 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added mixing volume at fluid junctions to avoid a nonlinear system of equations whose solution, e.g.,
+the mixing equation, is sensitive to zero flow rate.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3894\">Buildings, #3894</a>.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Corrected typo in comments.<br/>

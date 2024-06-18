@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBoxMinimumFlow
   "Outside air mixing box with parallel damper for minimum outside air flow rate"
- extends Buildings.Fluid.Actuators.Dampers.MixingBox;
+ extends Buildings.Fluid.Actuators.Dampers.MixingBox(mixRet(nPorts=4));
   import Modelica.Constants;
 
   parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal
@@ -56,7 +56,7 @@ model MixingBoxMinimumFlow
     final dpDamper_nominal=dpDamOutMin_nominal,
     final dpFixed_nominal=dpFixOutMin_nominal,
     final use_inputFilter=false) "Damper for minimum outside air intake"
-    annotation (Placement(transformation(extent={{48,32},{68,52}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 protected
   Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_inputFilter
     "Filtered damper position in the range 0..1"
@@ -94,17 +94,17 @@ equation
   end if;
   //////
   connect(port_OutMin, damOAMin.port_a) annotation (Line(
-      points={{-100,100},{-80,100},{-80,72},{-68,72},{-68,42},{48,42}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(damOAMin.port_b, port_Sup) annotation (Line(
-      points={{68,42},{80,42},{80,60},{100,60}},
+      points={{-100,100},{-80,100},{-80,40},{-40,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(yOutMin_actual, damOAMin.y) annotation (Line(
-      points={{-42,68},{-12,68},{-12,58},{58,58},{58,54}},
+      points={{-42,68},{-30,68},{-30,52}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(yOutMin_actual, damOAMin.y_actual) annotation (Line(points={{-42,68},{
+          -20,68},{-20,47},{-25,47}}, color={0,0,127}));
+  connect(damOAMin.port_b, mixRet.ports[4]) annotation (Line(points={{-20,40},{10,
+          40},{10,24},{30,24},{30,30}}, color={0,127,255}));
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -136,6 +136,13 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added mixing volume at fluid junctions to avoid a nonlinear system of equations whose solution, e.g.,
+the mixing equation, is sensitive to zero flow rate.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3894\">Buildings, #3894</a>.
+</li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>
