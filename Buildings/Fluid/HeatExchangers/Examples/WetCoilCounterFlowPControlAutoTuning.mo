@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControlAutoTuning
-  "Model that demonstrates use of a heat exchanger with condensation and with autotuning feedback control"
+  "Model that demonstrates the use of a heat exchanger with condensation and autotuning feedback control"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
@@ -188,12 +188,18 @@ This example is identical to
 Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a> except that the PI controller
 is replaced by an autotuning PI controller.
 </p>
-<p>
-The autotuning is triggered at <i>400</i>s and stops automatically.
-When it stops, the tuned PI parameters are put into effect to replace the default parameter values.
-For details of the autotuning, refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
-</p>
+The autotuning is triggered twice.
+<ul>
+<li>
+The first one occurs at <i>100</i>s and it completes successfully.
+The tuned PI parameters are put into effect at <i>215</i>s.
+</li>
+<li>
+The second one occurs at <i>2100</i>s and it fails because the setpoint
+changes at <i>2400</i>s.
+The PI parameters are kept unchanged.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
