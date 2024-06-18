@@ -11,6 +11,10 @@ block TrueFalseHold
     final unit="s")=trueHoldDuration
     "false hold duration"
     annotation (Evaluate=true);
+  /* The following parameter is needed for OCT [Modelon - 1263], whereas
+  Dymola and OMC can handle the initial equation pre(u)=u. */
+  parameter Boolean pre_u_start=false
+    "Value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -29,9 +33,14 @@ protected
     final unit="s")
     "Time instant when false hold started";
 initial equation
-  pre(entryTimeTrue)=time;
-  pre(entryTimeFalse)=time;
-  pre(u)=u;
+  /* To ensure that no true hold is active at the start of the simulation
+  if u is initially false, we set pre(entryTimeTrue) to -Modelica.Constants.inf.
+  This guarantees that the condition time >= pre(entryTimeTrue) + trueHoldDuration
+  is met at the start of the simulation.
+  Similarly, we set pre(entryTimeFalse) to -Modelica.Constants.inf if u is true. */
+  pre(entryTimeTrue)=if u then time else -Modelica.Constants.inf;
+  pre(entryTimeFalse)=if u then -Modelica.Constants.inf else time;
+  pre(u)=pre_u_start;
   pre(y)=u;
 equation
   when {change(u),
