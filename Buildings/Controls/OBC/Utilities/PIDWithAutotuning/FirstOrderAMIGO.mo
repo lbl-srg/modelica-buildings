@@ -148,9 +148,7 @@ protected
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-     message="*** Warning: the relay output needs to be asymmetric. 
-     Check the value of yHig, yLow and yRef.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(message="*** Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{62,140},{82,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
@@ -186,9 +184,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    message="*** Warning: An autotuning is ongoing and 
-    the new autotuning request is ignored.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(message="*** Warning: An autotuning is ongoing and the new autotuning request is ignored.")
     "Warning message when an autotuning tuning 
     is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
@@ -210,17 +206,19 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand1
     "Check if an autotuning is ongoing while the setpoint changes"
     annotation (Placement(transformation(extent={{100,220},{120,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub3 "Change of the setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
+    "Change of the setpoint"
     annotation (Placement(transformation(extent={{-38,220},{-18,240}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Absolute value of the setpoint change"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre1 "Check if the setpoint changes"
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1
+    "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{50,220},{70,240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
     "In " + getInstanceName()
     + ": the setpoint must not change when an autotuning tuning is ongoing.")
-    "Warning message when the relay output is symmetric"
+    "Warning message when the setpoint changes during the autotuning"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-40},{-60,-40},{-60,0},{-200,
@@ -361,7 +359,7 @@ This block implements a rule-based PID tuning method.
 The PID tuning method approximates the control process with a
 first-order time delayed (FOTD) model.
 It then determines the gain and delay of this FOTD model based on the responses of
-the control process to an asymmetric relay feedback.
+the control process to asymmetric relay feedback.
 After that, taking the gain and delay of this FOTD mode as inputs, this PID tuning
 method calculates the PID gains with an Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
 </p>
@@ -376,7 +374,7 @@ PID controller.
 
 <h4>Autotuning Process</h4>
 <p>
-To use this block, place it in an control loop as any other PID controller.
+To use this block, place it in a control loop as any other PID controller.
 Before the PID tuning process starts, this block is equivalent to
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
@@ -397,7 +395,7 @@ at which point this block turns back to a PID controller but with tuned PID para
 <b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
 a request for performing autotuning will be ignored.
 </p>
-<h4>Guidance for settings the parameters</h4>
+<h4>Guidance for setting the parameters</h4>
 <p>
 The performance of the autotuning is affected by the parameters, including the
 typical range of control error, <code>r</code>, 

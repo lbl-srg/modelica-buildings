@@ -121,10 +121,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the autotuning completes successfully"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    message="In " + getInstanceName() + ": autotuning fails, see earlier warnings 
-    for possible reasons")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(message="In " +
+        getInstanceName() + ": autotuning fails, see earlier warnings for possible reasons, the controller gains are unchanged.")
     "Warning message when an autotuning fails"
+    annotation (Placement(transformation(extent={{134,50},{154,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if an error occurs"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
@@ -136,7 +137,7 @@ equation
   connect(gain.triSta, triSta) annotation (Line(points={{-110,8},{-110,-120}},
          color={255,0,255}));
   connect(timConDel.T, samT.u)
-    annotation (Line(points={{82,26},{100,26},{100,20},{118,20}}, color={0,0,127}));
+    annotation (Line(points={{82,28},{100,28},{100,20},{118,20}}, color={0,0,127}));
   connect(samT.y, T)
     annotation (Line(points={{142,20},{148,20},{148,40},{180,40}},
                                                  color={0,0,127}));
@@ -188,8 +189,10 @@ equation
           130,-90},{130,-120}}, color={255,0,255}));
   connect(timConDel.triFai, not1.u) annotation (Line(points={{82,12},{86,12},{86,
           0},{8,0},{8,-50},{38,-50}},    color={255,0,255}));
-  connect(assMes4.u, timConDel.triFai) annotation (Line(points={{98,60},{86,60},
-          {86,12},{82,12}}, color={255,0,255}));
+  connect(not2.y, assMes4.u)
+    annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
+  connect(not2.u, timConDel.triFai) annotation (Line(points={{98,60},{96,60},{96,
+          12},{82,12}}, color={255,0,255}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
