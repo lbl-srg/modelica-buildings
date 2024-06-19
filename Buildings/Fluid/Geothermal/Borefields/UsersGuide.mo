@@ -17,7 +17,7 @@ Buildings.Fluid.Geothermal.Borefields.Validation</a>,
 respectively.
 </p>
 <p>
-The following major features and configurations are supported:
+The major features and configurations currently supported are:
 <ul>
 <li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.),
 including single U-tube, double U-tube in parallel and double U-tube in series configurations.

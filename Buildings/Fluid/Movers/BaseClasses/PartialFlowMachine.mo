@@ -641,6 +641,12 @@ See discussions in
 revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Removed the gain block that normalised the speed input
 because it is no longer needed. This is for

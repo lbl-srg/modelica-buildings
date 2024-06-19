@@ -89,6 +89,12 @@ Buildings.Fluid.Sources.BaseClasses.PartialAirSource</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 April 1, 2021, by Michael Wetter:<br/>
 Corrected misplaced <code>each</code> and added missing instance comment.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1462\">IBPSA, #1462</a>.

@@ -311,6 +311,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 October 24, 2022, by Michael Wetter:<br/>
 Improved conversion from <code>Xi</code> to <code>X</code> so that it also works
 with media that have <code>reducedX=true</code>.<br/>

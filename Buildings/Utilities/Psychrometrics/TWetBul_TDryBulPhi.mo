@@ -177,6 +177,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 March 6, 2023, by Michael Wetter:<br/>
 Added a constant in order for unit check to pass.<br/>
 See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>

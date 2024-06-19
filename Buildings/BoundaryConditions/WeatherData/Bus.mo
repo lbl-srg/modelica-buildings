@@ -50,6 +50,12 @@ This component is an expandable connector that is used to implement a bus that c
 </html>", revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 September 22, 2023, by Michael Wetter:<br/>
 Declared the variables that are on the bus.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1798\">IBPSA, #1798</a>.
