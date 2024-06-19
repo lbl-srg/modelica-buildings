@@ -128,6 +128,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
+    </td>
+    <td valign=\"top\">Changed syntax for inclusion of C source code to comply
+                       with the Modelica Language Specification.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1891\">IBPSA, #1891</a>.
+
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
