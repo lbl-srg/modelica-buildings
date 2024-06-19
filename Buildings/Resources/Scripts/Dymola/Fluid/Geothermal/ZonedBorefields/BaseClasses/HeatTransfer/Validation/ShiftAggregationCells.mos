@@ -1,0 +1,28 @@
+simulateModel("Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.Validation.ShiftAggregationCells", startTime=3.5, stopTime=5.5, method="Cvode", tolerance=1e-06, resultFile="TemperatureResponseMatrix");
+
+createPlot(
+  id=1,
+  position={15, 10, 592, 689},
+  y={"QAggShi_flow[1, 1]", "QAggShi_flow[1, 2]", "QAggShi_flow[1, 3]", "QAggShi_flow[1, 4]", "QAggShi_flow[1, 5]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="ShiftAggregationCells.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
+createPlot(
+  id=2,
+  position={15, 10, 592, 689},
+  y={"QAggShi_flow[2, 1]", "QAggShi_flow[2, 2]", "QAggShi_flow[2, 3]", "QAggShi_flow[2, 4]", "QAggShi_flow[2, 5]"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  grid=true,
+  color=true,
+  filename="ShiftAggregationCells.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+
