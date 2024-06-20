@@ -31,7 +31,7 @@ model Sensible "Sensible heat wheels"
 initial equation
   for i in 1:size(yeta,1)-1 loop
          assert(xSpe[i]/yeta[i] < 1 + 1E-4,
-                  "In " + getInstanceName() + ": motor efficiency curve is wrong. 
+                  "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
                   The ratio of the speed ratio to the motor percent 
                   full-load efficiency should be less than 1",
                   level=AssertionLevel.error)
@@ -39,9 +39,9 @@ initial equation
   end for;
   assert(abs(yeta[size(yeta,1)]-1) < 1E-4,
           "In " + getInstanceName() + ": motor efficiency curve is wrong. 
-          The  motor percent full-load efficiency at the full seepd should be 1",
+          The motor percent full-load efficiency at the full seepd should be 1",
           level=AssertionLevel.error)
-          "Check if the motor efficiency curve is correct";
+          "Check if the motor efficiency curve is consistent with the nominal condition";
 equation
   P = per.P_nominal*uSpe/Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=uSpe,
