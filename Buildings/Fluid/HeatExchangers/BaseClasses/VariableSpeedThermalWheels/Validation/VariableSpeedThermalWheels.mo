@@ -11,7 +11,7 @@ model VariableSpeedThermalWheels
     motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
-    "Performance record for the sensible heat wheet"
+    "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   Modelica.Blocks.Sources.Ramp uSpe(
     duration=1,
@@ -32,12 +32,12 @@ model VariableSpeedThermalWheels
     motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
-    "Performance record for the enthalpy wheet"
+    "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
-    "Performance record for the enthalpy wheet with default motor dataset"
+    "Performance record for the enthalpy wheel with default motor dataset"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
 equation
   connect(uSpe.y, senWhe.uSpe)

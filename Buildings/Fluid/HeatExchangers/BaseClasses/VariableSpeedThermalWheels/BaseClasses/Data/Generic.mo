@@ -66,7 +66,7 @@ efficiency
 </li>
 <li>
 wheel speed ratio versus default motor percent full-load 
-efficiency (see the definition in <a href=
+efficiency (see <a href=
 \"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.)
 </li>

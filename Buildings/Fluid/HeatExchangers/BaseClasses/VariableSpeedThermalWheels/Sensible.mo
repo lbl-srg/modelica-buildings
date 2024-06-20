@@ -82,7 +82,7 @@ Please note that <code>uSpe/eta</code> should be less or equal to 1.
 <li>
 The sensible heat exchanger effectiveness correction is calculated based 
 on the cubic hermite spline interpolation of the sensible heat exchanger effectiveness 
-dataset (see  <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
+dataset (see <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
 Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.effectivenessParameters</a>).
 </li>
 </ul>

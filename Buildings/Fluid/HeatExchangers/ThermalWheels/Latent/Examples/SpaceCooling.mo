@@ -28,7 +28,7 @@ model SpaceCooling "Space cooling system"
     "Nominal air humidity ratio supplied to room [kg/kg] assuming 90% relative humidity";
   parameter Modelica.Units.SI.Temperature TRooSet=297.15
     "Nominal room air temperature";
-  parameter Modelica.Units.SI.Temperature TMixSet=297.15
+  parameter Modelica.Units.SI.Temperature TMixSet=298.15
     "Nominal mixed air temperature";
   parameter Modelica.Units.SI.Temperature TOut_nominal=303.15
     "Design outlet air temperature";
@@ -282,11 +282,15 @@ The major input signals for the heat recovery device are configured as follows:
 <ul>
 <li>
 The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00 (15552000+6*3600 seconds)
-and from <code>false</code> to <code>true</code> at 18:00 (15552000+18*3600 seconds).
+and from <code>true</code> to <code>false</code> at 18:00 (15552000+18*3600 seconds).
+</li>
+<li>
+The supply air flow rate <i>mAir_flow</i> changes from <i>0</i> to <i>0.646</i> at around 5:00
+and from <i>0.646</i> to <i>0</i> at around 17:00.
 </li>
 <li>
 The bypass damper positions are controlled to maintain the temperature of the air leaving the thermal wheel, 
-<code>senTemHXOut.T</code>, at 297.15 K.
+<code>senTemHXOut.T</code>, at 298.15 K.
 </li>
 </ul>
 <p>
@@ -294,11 +298,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The outdoor temperature, <code>TOut.T</code>, and <code>senTemHXOut.T</code>
-are different during the period from 6:00 to 18:00.
-</li>
-<li>
-During the same period, <code>senTemHXOut.T</code> is close to 297.15 K.
+<code>senTemHXOut.T</code> is less or equal to 298.15 K.
 </li>
 </ul>
 </html>", revisions="<html>

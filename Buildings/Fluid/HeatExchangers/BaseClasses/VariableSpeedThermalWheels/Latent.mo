@@ -30,15 +30,10 @@ Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</
 The latent heat exchange effectiveness correction is calculated based 
 on the cubic hermite spline interpolation of the latent heat exchange 
 effectiveness dataset (see 
-<a href="modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
 Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.effectivenessParameters</a>).
 </p>
-</html>", revisions="<html>
-<ul>
-<li>
-May 28, 2024, by Sen Huang:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
+</html>")
+       ", revisions=",
+    Error);
 end Latent;

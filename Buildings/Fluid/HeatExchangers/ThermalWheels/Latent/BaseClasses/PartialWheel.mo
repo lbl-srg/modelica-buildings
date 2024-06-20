@@ -95,7 +95,7 @@ protected
     final epsSenHeaPL=epsSenHeaPL,
     final epsLatHeaPL=epsLatHeaPL,
     final mSup_flow_nominal=mSup_flow_nominal)
-    "Calculates the effectiveness of heat exchange"
+    "Calculate the effectiveness of heat exchanger"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium,

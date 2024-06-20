@@ -5,7 +5,7 @@ record effectivenessParameters
   parameter Real uSpe[:](each min=0)
     "Wheel speed ratio";
   parameter Real epsCor[:]
-    "correction of the heat exchange effectiveness under a geiven speed ratio";
+    "correction of the heat exchange effectiveness under a given speed ratio";
   annotation (Documentation(info="<html>
 <p>
 Data record that describes wheel speed ratio versus

@@ -48,10 +48,10 @@ model BypassDampers
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiepsSen
-    "Switch the sensible heat exchanger effectiveness based the wheel operation status"
+    "Switch the sensible heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiepsLat
-    "Switch the latent heat exchanger effectiveness based the wheel operation status"
+    "Switch the latent heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 protected
   Modelica.Blocks.Sources.Constant uni(

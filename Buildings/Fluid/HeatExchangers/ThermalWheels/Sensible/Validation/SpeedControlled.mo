@@ -78,11 +78,11 @@ model SpeedControlled
     motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
-    "Performance record for the sensible heat wheet"
+    "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perDefMotCur(
       haveLatentHeatExchange=true, useDefaultMotorEfficiencyCurve=true)
-    "Performance record for the sensible heat wheet with default motor curve"
+    "Performance record for the sensible heat wheel with default motor curve"
     annotation (Placement(transformation(extent={{6,60},{26,80}})));
 equation
   connect(TSup.y, sou_1.T_in)

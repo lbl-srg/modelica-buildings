@@ -16,10 +16,10 @@ model SpeedControlled
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
     senWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
-    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Correct the heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-54,-24},{-34,-4}})));
+    annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
 
 
 equation
@@ -28,18 +28,19 @@ equation
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
           -80},{100,-80}},
                 color={0,127,255}));
-  connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-118,-80},{-64,-80},
-          {-64,-20},{-56,-20}}, color={0,0,127}));
-  connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-64,0},{-64,-8},
-          {-56,-8}}, color={0,0,127}));
-  connect(mul.y, hex.eps) annotation (Line(points={{-32,-14},{-20,-14},{-20,0},{
-          -12,0}}, color={0,0,127}));
-  connect(uSpe, senWhe.uSpe) annotation (Line(points={{-200,0},{-170,0},{-170,-80},
-          {-142,-80}}, color={0,0,127}));
-  connect(senWhe.P, P) annotation (Line(points={{-118,-72},{40,-72},{40,-40},{
-          120,-40}}, color={0,0,127}));
-  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-14},{-32,
-          -14}},
+  connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-138,0},{-114,0},
+          {-114,-16},{-54,-16}},color={0,0,127}));
+  connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-62,0},{-62,-4},
+          {-54,-4}}, color={0,0,127}));
+  connect(mul.y, hex.eps) annotation (Line(points={{-30,-10},{-26,-10},{-26,0},
+          {-12,0}},color={0,0,127}));
+  connect(uSpe, senWhe.uSpe) annotation (Line(points={{-200,0},{-162,0}},
+                       color={0,0,127}));
+  connect(senWhe.P, P) annotation (Line(points={{-138,8},{-134,8},{-134,68},{88,
+          68},{88,-40},{120,-40}},
+                     color={0,0,127}));
+  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-20},{-26,
+          -20},{-26,-10},{-30,-10}},
         color={0,0,127}));
 annotation (
         defaultComponentName="whe",

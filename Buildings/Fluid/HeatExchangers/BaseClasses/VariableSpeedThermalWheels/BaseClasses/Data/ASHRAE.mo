@@ -24,7 +24,6 @@ It is developed based on Figure 7 in ASHRAE (2024).
 However, the original data set was extrapolated to cover lower values 
 of speed ratio, i.e. <code> &lt;= 0.2</code>, by setting the heat exchange effectiveness 
 corrections to 0 when the speed ratio is 0.
-exchanger 
 </p>
 <h4>References</h4>
 <p>
