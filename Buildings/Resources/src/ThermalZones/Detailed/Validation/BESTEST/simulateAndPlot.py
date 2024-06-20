@@ -14,9 +14,11 @@ import shutil
 # If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = True
+CLEAN_MAT = False
 # If true, temporary directories will be deleted.
-DelTemDir = True
+DelTemDir = False
+# If true, export MBL results to results file
+ExportData = True
 
 CWD = os.getcwd()
 
@@ -25,7 +27,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
-TOOL = 'optimica'
+TOOL = 'dymola'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
@@ -276,6 +278,8 @@ def get_time_series_result():
     if CLEAN_MAT:
         shutil.rmtree('mat')
     return results
+
+
 # --------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------
@@ -1127,19 +1131,26 @@ if __name__=="__main__":
         # move the mat files to current working directory
         _move_results(resultDirs)
 
-    # get time series data from the mat file
-    time_series_data = get_time_series_result()
+    if ExportData:
+        # get time series data from the mat file
+        export_data_series = get_export_data()
 
-    # from the time series data, get the datas used for comparison
-    moData = get_mo_data(time_series_data)
+    else:
+        # get time series data from the mat file
+        time_series_data = get_time_series_result()
 
-    # parse standard data
-    standard_data = parse_standard_data()
+        # from the time series data, get the datas used for comparison
+        moData = get_mo_data(time_series_data)
 
-    # add data simulated with modelica buildings library, to the standard data
-    comDat = combine_data(standard_data, moData)
+        # parse standard data
+        standard_data = parse_standard_data()
 
-    plot_figures(comDat)
+        # add data simulated with modelica buildings library, to the standard data
+        comDat = combine_data(standard_data, moData)
 
-    # write html tables to mo file
-    update_html_tables(comDat)
+        plot_figures(comDat)
+
+        # write html tables to mo file
+        update_html_tables(comDat)
+
+    

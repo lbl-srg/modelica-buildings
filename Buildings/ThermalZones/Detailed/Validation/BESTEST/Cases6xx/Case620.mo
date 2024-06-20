@@ -63,5 +63,13 @@ October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(graphics={Text(
+          extent={{-74,104},{8,96}},
+          textColor={28,108,200},
+          textString="For the case, it is the transmitted through west window."),
+          Text(
+          extent={{26,24},{108,16}},
+          textColor={28,108,200},
+          textString="For the case, it is the incident on west window.")}));
 end Case620;
