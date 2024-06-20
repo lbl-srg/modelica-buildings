@@ -11,19 +11,19 @@ block TrueFalseHold
     final unit="s")=trueHoldDuration
     "false hold duration"
     annotation (Evaluate=true);
-  /* The following parameter is needed for OCT [Modelon - 1263], whereas
-  Dymola and OMC can handle the initial equation pre(u)=u. */
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Boolean output signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+protected
+  /* The following parameter is required solely as a warkaround for a bug in OCT [Modelon - 1263].
+  Both Dymola and OMC can handle the initial equation pre(u)=u, which complies with MLS. */
   parameter Boolean pre_u_start=false
     "Value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Boolean output signal"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
-protected
   discrete Real entryTimeTrue(
     final quantity="Time",
     final unit="s")
