@@ -25,7 +25,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -39,7 +40,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
