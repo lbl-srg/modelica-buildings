@@ -2110,6 +2110,8 @@ Buildings/Media/package.mo
 Buildings/Media/package.order
 Buildings/Resources/C-Sources/WeeklySchedule.c
 Buildings/Resources/C-Sources/WeeklySchedule.h
+Buildings/Resources/C-Sources/WeeklyScheduleFree.c
+Buildings/Resources/C-Sources/WeeklyScheduleGetValue.c
 Buildings/Resources/C-Sources/cryptographicsHash.c
 Buildings/Resources/C-Sources/cryptographicsHash.h
 Buildings/Resources/C-Sources/fileWriterFree.c
