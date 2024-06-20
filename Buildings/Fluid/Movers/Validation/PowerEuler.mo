@@ -52,12 +52,6 @@ the nominal speed <i>y<sub>nominal</sub></i>.
 revisions="<html>
 <ul>
 <li>
-June 20, 2024, by Hongxiang Fu:<br/>
-Corrected efficiency assignment.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
-</li>
-<li>
 November 22, 2021, by Hongxiang Fu:<br/>
 First implementation.
 </li>

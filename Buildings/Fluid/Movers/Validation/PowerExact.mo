@@ -35,12 +35,6 @@ that is identical to the one from the speed controlled pump <code>pump_y</code>.
 revisions="<html>
 <ul>
 <li>
-June 20, 2024, by Hongxiang Fu:<br/>
-Corrected efficiency assignment.
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
-</li>
-<li>
 October 15, 2021, by Hongxiang Fu:<br/>
 Fixed the image in the documentation which was cut off
 at the <i>y</i>-axis. This is for
