@@ -505,28 +505,28 @@
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter
   openmodelica:
     comment: python incompatible with docker image
-    translation: false
+    translate: false
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Examples.SimpleRoom
   openmodelica:
     comment: python incompatible with docker image
-    translation: false
+    translate: false
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.Exchange
   openmodelica:
     comment: python incompatible with docker image
-    translation: false
+    translate: false
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
 - model_name: Buildings.Utilities.IO.Python_3_8.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: python incompatible with docker image
-    translation: false
+    translate: false
   optimica:
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
     translate: false
