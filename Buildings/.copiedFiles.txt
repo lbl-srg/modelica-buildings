@@ -2358,12 +2358,6 @@ Buildings/Resources/Images/Fluid/Movers/Examples/Supply.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerEuler.png
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerEuler.svg
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerExact.png
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerExact.svg
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png
-Buildings/Resources/Images/Fluid/Movers/Validation/PowerSimplified.svg
 Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationHead.png
 Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationPower.png
 Buildings/Resources/Images/Fluid/Sensors/onePortHex.png
