@@ -103,6 +103,8 @@
 - model_name: Buildings.DHC.Plants.Combined.Examples.AllElectricCWStorage
   dymola:
     time_out: 600
+  openmodelica:
+    time_out: 600
   optimica:
     time_out: 600
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
