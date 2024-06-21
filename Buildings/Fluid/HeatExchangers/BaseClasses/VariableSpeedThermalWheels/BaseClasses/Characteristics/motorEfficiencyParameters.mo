@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
-record efficiencyParameters_yMot
-  "Record for efficiency parameters vs. motor part load ratio"
+record motorEfficiencyParameters
+  "Record for motor efficiency parameters vs. wheel speed ratio"
   extends Modelica.Icons.Record;
-  parameter Real y[:](each min=0)
-    "Part load ratio, y = PEle/PEle_nominal";
-  parameter Modelica.Units.SI.Efficiency eta[size(y, 1)](each max=1)
-    "Wheel motor efficiency at these part load ratios";
+  parameter Real uSpe[:](each min=0)
+    "Wheel speed ratio";
+  parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](each max=1)
+    "Wheel motor efficiency at wheel speed ratios";
   annotation (Documentation(info="<html>
 <p>
 This function is identical to
@@ -23,4 +23,4 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>
 </li>
 </ul>
 </html>"));
-end efficiencyParameters_yMot;
+end motorEfficiencyParameters;

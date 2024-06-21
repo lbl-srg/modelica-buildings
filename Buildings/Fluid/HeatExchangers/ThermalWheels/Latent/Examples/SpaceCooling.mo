@@ -294,7 +294,7 @@ The bypass damper positions are controlled to maintain the temperature of the ai
 </li>
 </ul>
 <p>
-The expected outputs are:
+The expected output is:
 </p>
 <ul>
 <li>

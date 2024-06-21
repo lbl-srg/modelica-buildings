@@ -10,7 +10,8 @@ equation
   epsLatCor = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=uSpe,
                 xSup=per.latHeatExchangeEffectiveness.uSpe,
-                ySup=per.latHeatExchangeEffectiveness.epsCor);
+                ySup=per.latHeatExchangeEffectiveness.epsCor)
+                "Calculate the latent heat exchanger effectiveness correction";
 
   annotation (
   defaultComponentName="latWhe",
@@ -23,17 +24,22 @@ heat exchange effectiveness correction of an enthalpy wheel.
 <p>
 The calculation of the power consumption and the sensible 
 heat exchange effectiveness correction can be referred to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\"> 
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 <p>
 The latent heat exchange effectiveness correction is calculated based 
 on the cubic hermite spline interpolation of the latent heat exchange 
 effectiveness dataset (see 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.effectivenessParameters\">
-Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.effectivenessParameters</a>).
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.heatExchangerEffectivenessParameters\">
+Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.heatExchangerEffectivenessParameters</a>).
 </p>
-</html>")
-       ", revisions=",
-    Error);
+</html>", revisions="<html>
+<ul>
+<li>
+May 28, 2024, by Sen Huang:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Latent;

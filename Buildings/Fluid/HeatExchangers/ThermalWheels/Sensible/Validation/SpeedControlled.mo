@@ -75,7 +75,7 @@ model SpeedControlled
     per=perDefMotCur)    "Wheel with a default curve"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE per(
-    motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
+    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"

@@ -1,32 +1,26 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data;
-record Generic "Generic data record for wheels"
+record Generic "Generic data record for variable-speed wheels"
   extends Modelica.Icons.Record;
   import cha = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
-  parameter
-    cha.effectivenessParameters
-    senHeatExchangeEffectiveness(
-      uSpe={0},
-      epsCor={0.7})
+  parameter cha.heatExchangerEffectivenessParameters
+    senHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
     "Sensible heat exchange effectiveness vs. wheel speed ratio"
     annotation (Dialog(group="Heat exchange effectiveness computation"));
+  parameter cha.heatExchangerEffectivenessParameters
+    latHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
+    "Latent heat exchange effectiveness vs. wheel speed ratio" annotation (
+      Dialog(group="Heat exchange effectiveness computation", enable=
+          haveLatentHeatExchange));
   parameter
-    cha.effectivenessParameters
-    latHeatExchangeEffectiveness(
-      uSpe={0},
-      epsCor={0.7})
-    "Latent heat exchange effectiveness vs. wheel speed ratio"
-    annotation (Dialog(group="Heat exchange effectiveness computation",
-                enable=haveLatentHeatExchange));
-  parameter
-    cha.efficiencyParameters_yMot
-    motorEfficiency_uSpe(y={0}, eta={0.7})
+    cha.motorEfficiencyParameters
+    motorEfficiency(uSpe={0}, eta={0.7})
     "Motor efficiency vs. wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       false));
   final parameter
-    cha.efficiencyParameters_yMot
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_default=
     Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
          P_nominal=P_nominal,
@@ -48,7 +42,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Record containing power and heat exchange parameters for wheels.
+Record containing power and heat exchange parameters for variable-speed thermal wheels.
 </p>
 <p>
 It is used as a template of performance data
@@ -61,22 +55,22 @@ The record contains four datasets:
 </p>
 <ul>
 <li>
-wheel speed ratio versus motor percent full-load 
-efficiency
+wheel speed ratio versus motor percent full-load
+efficiency,
 </li>
 <li>
 wheel speed ratio versus default motor percent full-load 
 efficiency (see <a href=
 \"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>.)
+Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>),
 </li>
 <li>
-wheel speed ratio versus sensible heat exchange effectiveness 
-corrections
+wheel speed ratio versus sensible heat exchange effectiveness
+corrections,
 </li>
 <li>
-wheel speed ratio versus latent heat exchange effectiveness 
-corrections
+wheel speed ratio versus latent heat exchange effectiveness
+corrections.
 </li>
 </ul>
 <p>
@@ -86,13 +80,13 @@ Note that
 <li>
 When <code>haveLatentHeatExchange</code> is false,
 the dataset of wheel speed ratio versus latent heat exchange effectiveness 
-corrections is disabled.
+corrections is disabled,
 </li>
 <li>
 When <code>useDefaultMotorEfficiencyCurve</code> is true,
 the curve of wheel speed ratio versus motor percent full-load 
 efficiency is disabled while the curve of wheel speed ratio 
-versus default motor percent full-load efficiency is enabled 
+versus default motor percent full-load efficiency is enabled. 
 </li>
 </ul>
 </html>"));

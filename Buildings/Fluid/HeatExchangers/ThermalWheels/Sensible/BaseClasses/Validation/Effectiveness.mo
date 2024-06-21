@@ -8,7 +8,8 @@ model Effectiveness
     epsCooPL=0.75,
     epsHea_nominal=0.7,
     epsHeaPL=0.6,
-    mSup_flow_nominal=1) "Effectiveness calculator"
+    mSup_flow_nominal=1)
+    "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=5,

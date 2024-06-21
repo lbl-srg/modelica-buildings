@@ -128,7 +128,7 @@ model SpaceCooling "Space cooling system"
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package
       Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-64,-26},{-52,-14}})));
+    annotation (Placement(transformation(extent={{-66,-26},{-54,-14}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
       Medium = MediumA, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
@@ -146,10 +146,11 @@ model SpaceCooling "Space cooling system"
     "Operating signal"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   Buildings.Controls.Continuous.LimPID conPID(k=0.1, Ti=60)
-    annotation (Placement(transformation(extent={{-46,10},{-26,30}})));
+    "Heat recovery controller"
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(k=TMixSet)
     "Mixed air temperature set point"
-    annotation (Placement(transformation(extent={{-88,10},{-68,30}})));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
     redeclare package Medium = MediumA,
     m_flow_nominal=mA_flow_nominal)
@@ -217,11 +218,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(whe.port_b1, senTemHXOut.port_a) annotation (Line(
-      points={{-80,-20.2},{-80,-20},{-64,-20}},
+      points={{-80,-20.2},{-80,-20},{-66,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHXOut.port_b, cooCoi.port_a2) annotation (Line(
-      points={{-52,-20},{-40,-20}},
+      points={{-54,-20},{-40,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cooCoi.port_b2, senTemSupAir.port_a) annotation (Line(
@@ -247,9 +248,10 @@ equation
       points={{-138,-60},{-106,-60},{-106,-32.2},{-102,-32.2}},
       color={255,0,255}));
   connect(TMixSetPoi.y,conPID. u_s)
-    annotation (Line(points={{-66,20},{-48,20}}, color={0,0,127}));
-  connect(senTemHXOut.T,conPID. u_m) annotation (Line(points={{-58,-13.4},{-58,2},
-          {-36,2},{-36,8}}, color={0,0,127}));
+    annotation (Line(points={{-78,20},{-52,20}}, color={0,0,127}));
+  connect(senTemHXOut.T,conPID. u_m) annotation (Line(points={{-60,-13.4},{-60,
+          0},{-40,0},{-40,8}},
+                            color={0,0,127}));
   connect(senTemRetAir.port_a, vol.ports[2])
     annotation (Line(points={{58,-60},{71,-60},{71,20}}, color={0,127,255}));
   connect(senTemRetAir.port_b, whe.port_a2) annotation (Line(points={{46,-60},{-40,
@@ -262,8 +264,8 @@ equation
           {100,-140},{100,80},{91,80}}, color={0,0,127}));
   connect(mAir_flow.y, fan.m_flow_in)
     annotation (Line(points={{22,10},{50,10},{50,-8}}, color={0,0,127}));
-  connect(conPID.y, whe.uBypDamPos) annotation (Line(points={{-25,20},{-10,20},{
-          -10,-54},{-110,-54},{-110,-24},{-102,-24}}, color={0,0,127}));
+  connect(conPID.y, whe.uBypDamPos) annotation (Line(points={{-29,20},{-10,20},
+          {-10,-54},{-110,-54},{-110,-24},{-102,-24}},color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block is identical to
@@ -290,7 +292,7 @@ The bypass damper positions are controlled to maintain the temperature of the ai
 </li>
 </ul>
 <p>
-The expected outputs are:
+The expected output is:
 </p>
 <ul>
 <li>

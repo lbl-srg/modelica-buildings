@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
-package BaseClasses "Package with base classes for the wheel model"
+package BaseClasses "Package with base classes for the variable-speed thermal wheel model"
 extends Modelica.Icons.BasesPackage;
 
 annotation (Documentation(revisions="<html>

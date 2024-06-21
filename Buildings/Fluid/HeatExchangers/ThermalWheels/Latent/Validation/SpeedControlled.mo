@@ -85,7 +85,7 @@ model SpeedControlled
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
     perLatWhe(
-    motorEfficiency_uSpe(y={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
+    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
