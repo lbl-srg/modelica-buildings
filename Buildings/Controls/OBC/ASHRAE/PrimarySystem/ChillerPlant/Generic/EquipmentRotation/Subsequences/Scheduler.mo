@@ -217,7 +217,7 @@ equation
 <p>
 This block outputs generates a rotation trigger at
 chosen time intervals for lead/standby configurations where a lead device runs continuously.
-The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a.
+The implementation is based on Guideline36-2021 5.1.15.4.b, except 5.1.15.4.b 1.
 </p>
 <p>
 The user may chose to start counting time from simulation start to generate the

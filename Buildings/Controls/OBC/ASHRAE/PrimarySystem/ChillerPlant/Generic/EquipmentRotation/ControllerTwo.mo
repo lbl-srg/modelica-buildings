@@ -263,7 +263,7 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
 This controller block rotates equipment, such as chillers, pumps or valves, in order
 to ensure equal wear and tear. It is intended to be used for lead/lag and
 lead/standby operation of two devices or groups of devices. The implementation is
-based on the specification from ASHRAE RP-1711, March 2020 Draft, section 5.1.2.1.-4.
+based on the specification from ASHRAE Guideline36-2021, section 5.1.15.1.-4.
 </p>
 <p>
 The controller takes as inputs the current device proven ON/OFF status vector <code>uDevSta</code>,
@@ -279,7 +279,7 @@ not operate continuously, the controller can use:
 <li>
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.LeastRuntime</a> subsequence.
-In this subsequence the rotation signal is generated based on RP-1711 5.1.2.3 and 5.1.2.4.1. as applied to two devices/groups of devices.
+In this subsequence the rotation signal is generated based on Guideline36 5.1.15.3 and 5.1.15.4.a. as applied to two devices/groups of devices.
 </li>
 <li>
 the <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.MinimumLeadRuntime\">
@@ -296,7 +296,7 @@ In this subsequence the rotation signal is generated in regular time intervals, 
 Before a device is put to stand-by, the new lead device must be proven on, as implemented by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.ContinuousLeadSwapTwo</a> subsequence.
-The implementations are based on section 5.1.2.4.2.
+The implementations are based on section 5.1.15.4.b.
 </li>
 </ul>
 <p>
@@ -312,7 +312,7 @@ represents a lead role and false represents a lag or a standby role.
 The indices of both output vectors and the <code>uDevSta</code> input vector represent physical devices.
 </p>
 <p>
-In addition to the specification in RP-1711, this model allows the user to:
+In addition to the specification in Guideline36, this model allows the user to:
 </p>
 <ul>
 <li>

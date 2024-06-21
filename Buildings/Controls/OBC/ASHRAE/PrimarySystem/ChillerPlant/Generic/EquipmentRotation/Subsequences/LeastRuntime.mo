@@ -161,7 +161,7 @@ for lead/standby operation when a device/a group of devices is disbled that has 
 </li>
 </ul>
 <p>
-The implementation corresponts sections 5.1.2.3. and 5.1.2.4.1. of RP1711 March 2020 draft when applied to
+The implementation corresponts sections 5.1.15.3. and 5.1.15.4.a. of Guideline36-2021 when applied to
 two devices or groups of devices.
 </p>
 </html>", revisions="<html>

@@ -251,9 +251,8 @@ Block that resets maximum cooling tower speed setpoint <code>yMaxTowSpeSet</code
 controls condenser water pump speed <code>yConWatPumSpeSet</code> and 
 head pressure control valve position <code>yHeaPreConVal</code>
 for plants with water side economizers and headered condenser water pumps. 
-The development follows ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems 
-Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.10 Head pressure control, part 5.2.10.5, 5.2.10.6 and 5.2.10.7.
+The development follows ASHRAE Guideline36-2021, 
+section 5.20.10 Head pressure control, part 5.20.10.5, 5.20.10.6 and 5.20.10.7.
 </p>
 <p>
 1. For each chiller, when the waterside economizer is disabled (<code>uWSE</code> = false), 

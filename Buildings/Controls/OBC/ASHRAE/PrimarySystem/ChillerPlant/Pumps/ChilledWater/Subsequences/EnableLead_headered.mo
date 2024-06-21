@@ -70,9 +70,8 @@ annotation (
 <p>
 Block that enable and disable leading primary chilled water pump, for plants
 with headered primary chilled water pumps and parallel chillers, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March, 2020), 
-section 5.2.6 Primary chilled water pumps, part 1 and 2.
+according to ASHRAE Guideline36-2021, 
+section 5.20.6 Primary chilled water pumps, part 1 and 2.
 </p>
 <ol>
 <li>

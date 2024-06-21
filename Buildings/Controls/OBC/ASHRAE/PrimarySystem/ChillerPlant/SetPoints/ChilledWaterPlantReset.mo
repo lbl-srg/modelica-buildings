@@ -5,8 +5,7 @@ block ChilledWaterPlantReset
   parameter Integer nPum = 2 "Total number of chilled water pumps";
   parameter Real holTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=900
+    final quantity="Time")=900
       "Time to fix plant reset value";
   parameter Real iniSet = 0 "Initial setpoint"
     annotation (Dialog(group="Trim and respond parameters"));
@@ -16,14 +15,13 @@ block ChilledWaterPlantReset
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real delTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=900
-      "Delay time after which trim and respond is activated"
+    final quantity="Time")=900
+    "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time")=300
-      "Sample period time"
+    "Sample period time"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
@@ -185,8 +183,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that output chilled water plant reset <code>yChiWatPlaRes</code> according
-to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft March 23, 2020), section 5.2.5.2.
+to ASHRAE Guideline36-2021, section 5.20.5.2.
 </p>
 <p>
 Following implementation is for plants with primary-only and primary-secondary

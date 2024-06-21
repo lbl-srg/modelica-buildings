@@ -201,10 +201,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs number of operating condenser water pumps and design pump speed 
-for current stage, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.9 Condenser water pumps, part 5.2.9.5 and 5.2.9.6.
+for current stage, according to ASHRAE Guideline36-2021, 
+section 5.20.9 Condenser water pumps, part 5.20.9.5 and 5.20.9.6.
 </p>
 <p>If the plant has fixed speed condenser water pump (<code>fixSpe=true</code>) and
 does not have wateside economizer (<code>have_WSE=false</code>):</p>

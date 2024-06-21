@@ -135,9 +135,9 @@ equation
       color={255,0,255}));
   connect(uChiWatPum, mulOr.u)
     annotation (Line(points={{-140,0},{-102,0}}, color={255,0,255}));
-
   connect(dpChiWatSet_remote, div.u2) annotation (Line(points={{-140,-100},{-40,
           -100},{-40,-86},{-22,-86}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="chiPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -176,9 +176,8 @@ annotation (
 <p>
 Block that output chilled water pump speed setpoint for primary-only plants where
 the remote pressure differential sensor is hardwired to the plant controller, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.6 Primary chilled water pumps, part 5.2.6.7 and 5.2.6.8.
+according to ASHRAE Guideline36-2021, 
+section 5.20.6 Primary chilled water pumps, part 5.20.6.7 and 5.20.6.8.
 </p>
 <ol>
 <li>

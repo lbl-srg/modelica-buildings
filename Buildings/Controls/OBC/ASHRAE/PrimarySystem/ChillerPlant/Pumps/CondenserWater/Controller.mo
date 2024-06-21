@@ -274,9 +274,8 @@ annotation (Dialog(tab="Advanced"),
   Documentation(info="<html>
 <p>
 Block that generates control signals for condenser water pumps control, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.9 Condenser water pumps. 
+according to ASHRAE Guideline36-2021, 
+section 5.20.9 Condenser water pumps. 
 </p>
 <p>
 This sequence contains three subsequences:

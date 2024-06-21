@@ -125,9 +125,8 @@ annotation (
 <p>
 Block that generates chiller head pressure control loop signal when the signal
 is not available from chiller controller,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.10 Head pressure control, part 5.2.10.1 and 5.2.10.2.
+according to ASHRAE Guideline36-2021,
+section 5.20.10 Head pressure control, part 5.20.10.1 and 5.20.10.2.
 </p>
 <p>
 1. When head pressure control loop is enabled, a reverse acting PID loop shall

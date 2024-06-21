@@ -237,9 +237,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates control signals for chiller head pressure control,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020),
-section 5.2.10 Head pressure control.
+according to ASHRAE Guideline36-2021, section 5.20.10 Head pressure control.
 </p>
 <p>
 Note that if a plant has waterside economizer, the condenser water pump must be

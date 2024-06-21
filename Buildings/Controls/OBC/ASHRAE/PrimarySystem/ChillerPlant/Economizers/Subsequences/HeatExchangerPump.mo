@@ -150,7 +150,7 @@ annotation (defaultComponentName = "wsePum",
 <p>
 It implements the control of the waterside economizer valves when the chilled water
 flow through the economizer is controlled by variable speed heat exchanger pump.
-It is implemented according to ASHRAE RP-1711, March 2020, section 5.2.3.7-10. 
+It is implemented according to ASHRAE Guideline36-2021, section 5.20.3.7-10. 
 </p>
 <p>
 When economizer is enabled (<code>uWSE=true</code>), start next condenser water

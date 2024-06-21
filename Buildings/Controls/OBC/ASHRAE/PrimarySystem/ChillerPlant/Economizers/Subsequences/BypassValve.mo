@@ -119,7 +119,7 @@ annotation (defaultComponentName = "wseVal",
 <p>
 Waterside economizer valves control when the chilled water flow through the economizer
 is controlled using a modulating heat exchanger bypass valve. It is implemented
-according to ASHRAE RP-1711, March 2020, section 5.2.3.4-6. 
+according to ASHRAE Guideline36-2021, section 5.20.3.4-6. 
 </p>
 <p>
 When economizer is enabled, start next condenser pump and (or) adjust the pump

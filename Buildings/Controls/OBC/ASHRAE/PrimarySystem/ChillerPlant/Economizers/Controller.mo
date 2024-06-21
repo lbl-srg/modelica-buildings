@@ -496,8 +496,8 @@ equation
           textString="Plant enabled in water side economizer mode")}),
 Documentation(info="<html>
 <p>
-Waterside economizer (WSE) control sequence per ASHRAE RP-1711, March 2020, section 5.2.3.
-It implements the enable/disable conditions as provided in sections 5.2.3.1. and 5.2.3.2.
+Waterside economizer (WSE) control sequence per ASHRAE Guideline36-2021, section 5.20.3.
+It implements the enable/disable conditions as provided in sections 5.20.3.1. and 5.20.3.2.
 </p>
 <p>
 The sequence controls the WSE status as follows:

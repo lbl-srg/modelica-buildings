@@ -259,8 +259,8 @@ annotation (
 Block that control speed of enabled chilled water pumps for primary-only plants where
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
 but a local DP sensor is hardwired to the plant controller,
-according to ASHRAE RP-1711 (Draft on March 23, 2020),
-section 5.2.6 Primary chilled water pumps, part 5.2.6.9, 5.2.6.10 and 5.2.6.11.
+according to ASHRAE Guideline36-2021,
+section 5.20.6 Primary chilled water pumps, part 5.20.6.9, 5.20.6.10 and 5.20.6.11.
 </p>
 <ol>
 <li>

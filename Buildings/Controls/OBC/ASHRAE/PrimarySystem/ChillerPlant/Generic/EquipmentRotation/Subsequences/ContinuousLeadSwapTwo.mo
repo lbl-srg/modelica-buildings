@@ -55,7 +55,7 @@ equation
 <p>
 This block ensures that the new lead device is started and proven on before the old 
 lead device is switched to standby and shut off. The implementation is 
-according to March 2020 Draft RP-1711, section 5.1.2.4.2.
+according to ASHRAE Guideline36-2021, section 5.1.15.4.b.
 </p>
 </html>", revisions="<html>
 <ul>

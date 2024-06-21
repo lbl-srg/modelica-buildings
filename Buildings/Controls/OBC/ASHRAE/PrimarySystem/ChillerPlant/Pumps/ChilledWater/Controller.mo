@@ -606,8 +606,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE RP-1711, (Draft on March 23, 2020), 
-section 5.2.6.1 to section 5.2.6.11, except section 3 and 4. It includes:
+Primary chilled water pump control sequence per ASHRAE Guideline36-2021, 
+section 5.20.6.1 to section 5.20.6.11, except section 3 and 4. It includes:
 </p>
 <ul>
 <li>

@@ -2359,10 +2359,8 @@ annotation (
           textString="might need a pre block")}),
 Documentation(info="<html>
 <p>
-This is chiller plant control sequence implemented according to ASHRAE RP-1711 Advanced
-Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020). It is
-assembled by following subsequences:
+This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.
+It is composed by following subsequences:
 </p>
 <h4>1. Plant reset</h4>
 <p>

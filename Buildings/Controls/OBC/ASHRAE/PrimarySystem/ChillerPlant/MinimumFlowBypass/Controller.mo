@@ -166,9 +166,8 @@ annotation (
 <p>
 Block that controls chilled water minimum flow for primary-only
 plants with a minimum flow bypass valve,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.8 Chilled water minimum flow bypass valve.
+according to ASHRAE Guideline36-2021,
+section 5.20.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
 The minimum chilled water flow setpoint <code>VChiWatSet_flow</code> is specified by block

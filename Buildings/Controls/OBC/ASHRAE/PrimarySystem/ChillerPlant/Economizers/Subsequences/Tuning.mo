@@ -275,14 +275,15 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer outlet temperature prediction tuning parameter subsequence 
-per ASHRAE RP-1711, March 2020, section 5.2.3.3. 
+per ASHRAE Guideline36-2021, section 5.20.3.3. 
 </p>
 <p>
 The subsequence calculates the tuning parameter <code>y</code> as follows:
 </p>
 <ul>
 <li>
-Decrease <code>y</code> in <code>step</code> when the WSE is disabled if the WSE remained enabled for greater than <code>wseOnTimDec</code> time period.
+Decrease <code>y</code> in <code>step</code> when the WSE is disabled if the WSE remained
+enabled for greater than <code>wseOnTimDec</code> time period.
 </li>
 <li>
 Increase <code>y</code> in <code>step</code> when the WSE is disabled if the WSE 
