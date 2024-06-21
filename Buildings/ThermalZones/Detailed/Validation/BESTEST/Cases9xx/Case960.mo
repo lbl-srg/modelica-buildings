@@ -1,6 +1,8 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx;
 model Case960 "Case 900, but with an unconditioned sun-space"
   extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600(
+    redeclare replaceable Modelica.Blocks.Sources.RealExpression hGloSou(y=0),
+    redeclare replaceable Modelica.Blocks.Sources.RealExpression hTra(y=0),
     roo(
     nConExt=4,
     datConExt(

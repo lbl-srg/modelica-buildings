@@ -73,7 +73,8 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   Buildings.Controls.OBC.CDL.Reals.MovingAverage PCoo(delta=3600)
     "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
-  Modelica.Blocks.Sources.RealExpression hGloHor(y=weaDat.weaBus.HGloHor)
+  Modelica.Blocks.Sources.RealExpression hGloHor(
+    y=weaDat.weaBus.HGloHor)
     "Global horizontal solar irradiance"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Continuous.Integrator gloHor(
@@ -81,25 +82,38 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Annual global horizontal solar irradiance"
     annotation (Placement(transformation(extent={{74,26},{82,34}})));
-  Modelica.Blocks.Sources.RealExpression hGloSou(
+  replaceable Modelica.Blocks.Sources.RealExpression hGloSou(
     y=roo.conExtWinRad[1].HDir + roo.conExtWinRad[1].HDif)
     "South total solar irradiance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator gloSou(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
-    "Annual south total solar irradiance"
+    y_start=0) "Annual south total solar irradiance"
     annotation (Placement(transformation(extent={{74,6},{82,14}})));
   Modelica.Blocks.Continuous.Integrator traSol(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Annual transmitted solar irradiance"
     annotation (Placement(transformation(extent={{-40,86},{-32,94}})));
-  Modelica.Blocks.Sources.RealExpression hTra(y=(roo.conExtWinRad[1].QTraDif_flow
-         + roo.conExtWinRad[1].QTraDir_flow)/(roo.conExtWinRad[1].AWin))
+  replaceable Modelica.Blocks.Sources.RealExpression hTra(
+    y=(roo.conExtWinRad[1].QTraDif_flow + roo.conExtWinRad[1].QTraDir_flow)/(roo.conExtWinRad[1].AWin))
     "Transmistted solar radiation"
     annotation (Placement(transformation(extent={{-74,80},{-54,100}})));
+  Modelica.Blocks.Sources.RealExpression TSkyTem(
+    y=weaDat.weaBus.TBlaSky)
+    "Black body sky temperature"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemHou(
+    delta=3600,
+    y(final unit="K", displayUnit="degC"))
+    "Hourly averaged sky temperature"
+    annotation (Placement(transformation(extent={{88,-48},{96,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemAnn(
+    delta=86400*365,
+    y(final unit="K", displayUnit="degC"))
+    "Annual averaged sky temperature"
+    annotation (Placement(transformation(extent={{88,-60},{96,-52}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
       points={{1.5,-15},{-80,-15},{-80,24},{-68,24},{-68,29.2}},
@@ -167,6 +181,10 @@ equation
     annotation (Line(points={{61,10},{73.2,10}}, color={0,0,127}));
   connect(hTra.y, traSol.u)
     annotation (Line(points={{-53,90},{-40.8,90}}, color={0,0,127}));
+  connect(TSkyTem.y, TSkyTemHou.u) annotation (Line(points={{61,-50},{70,-50},{70,
+          -44},{87.2,-44}}, color={0,0,127}));
+  connect(TSkyTem.y, TSkyTemAnn.u) annotation (Line(points={{61,-50},{70,-50},{70,
+          -56},{87.2,-56}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600.mos"
         "Simulate and plot"),
         experiment(
