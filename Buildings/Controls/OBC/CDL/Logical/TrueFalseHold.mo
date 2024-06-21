@@ -23,7 +23,8 @@ protected
   /* The following parameter is required solely as a warkaround for a bug in OCT [Modelon - 1263].
   Both Dymola and OMC can handle the initial equation pre(u)=u, which complies with MLS. */
   parameter Boolean pre_u_start=false
-    "Value of pre(u) at initial time";
+    "Value of pre(u) at initial time"
+    annotation (Evaluate=true);
   discrete Real entryTimeTrue(
     final quantity="Time",
     final unit="s")
