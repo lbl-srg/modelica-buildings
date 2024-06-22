@@ -23,8 +23,8 @@ model Effectiveness
     final min=0,
     final unit="K",
     displayUnit="degC")
-    "Exhaust air temperature
-    " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+    "Exhaust air temperature" 
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
     "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));

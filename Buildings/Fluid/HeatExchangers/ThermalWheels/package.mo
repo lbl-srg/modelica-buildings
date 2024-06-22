@@ -4,7 +4,7 @@ package ThermalWheels "Package with thermal wheels (both enthalpy and sensible h
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains component models for thermal recovery wheels. 
+This package contains component models for thermal recovery wheels.
 </p>
 </html>"),
     Icon(graphics={

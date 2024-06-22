@@ -8,7 +8,7 @@ record motorEfficiencyParameters
     "Wheel motor efficiency at wheel speed ratios";
   annotation (Documentation(info="<html>
 <p>
-This function is identical to
+This model is identical to
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>,
 with the original definition expanded to cover wheels.
