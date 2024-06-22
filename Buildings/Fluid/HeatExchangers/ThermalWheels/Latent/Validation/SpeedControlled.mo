@@ -118,10 +118,10 @@ equation
     color={0,127,255}));
   connect(senSupTem.port_a, wheUseDefCur.port_b1)
     annotation (Line(points={{40,30},{32,30},{32,32},{22,32}},
-                                               color={0,127,255}));
+    color={0,127,255}));
   connect(wheDefCur.port_a1, sou_1.ports[1])
     annotation (Line(points={{2,-0.2},{-16,-0.2},{-16,29},{-20,29}},
-                                                                 color={0,127,255}));
+    color={0,127,255}));
   connect(wheDefCur.port_b2, sin_2.ports[2])
     annotation (Line(points={{2,-16},{-50,-16},{-50,-39},{-58,-39}}, color={0,127,255}));
   connect(wheDefCur.port_a2, sou_2.ports[2])
@@ -179,7 +179,7 @@ and the leaving exhaust air temperature increases.
 <li>
 The power consumption of the instance <code>wheUseDefCur</code> is higher than that of the instance <code>wheDefCur</code>
 when <i>uSpe</i> is less than 1.
-The power consumption of those two instances are identical when <i>uSpe</i> equals to <i>1</i>.
+The power consumption of those two instances are identical when <i>uSpe</i> equals <i>1</i>.
 </li>
 </ul>
 </html>", revisions="<html>

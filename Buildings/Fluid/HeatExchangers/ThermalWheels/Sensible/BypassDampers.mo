@@ -61,8 +61,8 @@ protected
     final realFalse=0)
     "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-protected
-  Modelica.Blocks.Sources.Constant zero(final k=0) "Zero signal"
+  Modelica.Blocks.Sources.Constant zero(final k=0) 
+    "Zero signal"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 equation
   connect(bypDamSup.port_a, port_a1)
@@ -70,7 +70,7 @@ equation
   connect(bypDamSup.port_b, port_b1)
     annotation (Line(points={{-40,80},{100,80}}, color={0,127,255}));
   connect(bypDamExh.port_a, port_a2)
-    annotation (Line(points={{0,-80},{100,-80}},  color={0,127,255}));
+    annotation (Line(points={{0,-80},{100,-80}}, color={0,127,255}));
   connect(damExh.port_a, port_a2)
     annotation (Line(points={{50,-50},{50,-80},{100,-80}}, color={0,127,255}));
   connect(sub.y, damSup.y)
@@ -102,15 +102,13 @@ equation
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-80},{-180,-80}}, color={0,127,255}));
   connect(zero.y, swiepsSen.u3) annotation (Line(points={{-139,-30},{-116,-30},{
-          -116,82},{-68,82},{-68,182},{-62,182}},
-                           color={0,0,127}));
+          -116,82},{-68,82},{-68,182},{-62,182}}, color={0,0,127}));
   connect(effCal.eps, swiepsSen.u1) annotation (Line(points={{-78,0},{-74,0},{-74,
-          198},{-62,198}},
-                         color={0,0,127}));
+          198},{-62,198}}, color={0,0,127}));
   connect(swiepsSen.y, hex.eps) annotation (Line(points={{-38,190},{-32,190},{-32,
           0},{-12,0}}, color={0,0,127}));
   connect(swiepsSen.y, eps) annotation (Line(points={{-38,190},{80,190},{80,40},
-          {120,40}},                color={0,0,127}));
+          {120,40}}, color={0,0,127}));
   connect(uRot, swiepsSen.u2) annotation (Line(points={{-200,0},{-170,0},{-170,190},
           {-62,190}}, color={255,0,255}));
   connect(PEle.u, uRot) annotation (Line(points={{-62,160},{-120,160},{-120,190},
@@ -173,7 +171,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Model of a sensible heat recovery wheel, which consists of
-a heat exchanger and two dampers to bypass the supply and exhaust airflow.
+a heat exchanger and two dampers to bypass the supply and exhaust airflow, respectively.
 </p>
 <p>
 This model does not require geometric data. The performance is defined by specifying the

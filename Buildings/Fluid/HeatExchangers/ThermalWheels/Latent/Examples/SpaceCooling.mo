@@ -255,7 +255,7 @@ equation
           {-48,2},{-48,8}}, color={0,0,127}));
   connect(conHX.y, whe.uBypDamPos) annotation (Line(points={{-37,20},{-14,20},{
           -14,-80},{-112,-80},{-112,-24.6},{-104.2,-24.6}},
-                                                  color={0,0,127}));
+          color={0,0,127}));
   connect(vol.ports[2], senTemRetAir.port_a)
     annotation (Line(points={{71,20},{71,-46},{54,-46}}, color={0,127,255}));
   connect(conRoo.u_m, senTemRoo.T) annotation (Line(points={{-80,-112},{-80,-140},

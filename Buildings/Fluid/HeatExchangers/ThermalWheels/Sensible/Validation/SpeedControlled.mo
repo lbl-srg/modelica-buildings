@@ -72,7 +72,8 @@ model SpeedControlled
     redeclare package Medium = Medium,
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    per=perDefMotCur)    "Wheel with a default curve"
+    per=perDefMotCur)    
+    "Wheel with a default curve"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE per(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
@@ -81,7 +82,8 @@ model SpeedControlled
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perDefMotCur(
-      haveLatentHeatExchange=true, useDefaultMotorEfficiencyCurve=true)
+      haveLatentHeatExchange=true, 
+      useDefaultMotorEfficiencyCurve=true)
     "Performance record for the sensible heat wheel with default motor curve"
     annotation (Placement(transformation(extent={{6,60},{26,80}})));
 equation
@@ -89,7 +91,7 @@ equation
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
   connect(sou_1.ports[1], wheUseDefCur.port_a1)
     annotation (Line(points={{-20,29},{-10,29},{-10,18},{0,18}},
-                               color={0,127,255}));
+    color={0,127,255}));
   connect(wheUseDefCur.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,2},{40,2},{40,-31},{70,-31}},
     color={0,127,255}));
@@ -98,24 +100,22 @@ equation
     color={0,0,127}));
   connect(wheUseDefCur.port_b2, senExhTem.port_a)
     annotation (Line(points={{0,2.2},{-6,2.2},{-6,-42},{-20,-42}},
-                                                                color={0,127,255}));
+    color={0,127,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-42},{-48,-42},{-48,-41},{-58,-41}},
     color={0,127,255}));
   connect(senSupTem.port_b, wheUseDefCur.port_b1)
     annotation (Line(points={{40,30},{28,30},{28,17.8},{20,17.8}},
-                                                               color={0,127,255}));
+    color={0,127,255}));
   connect(wheDefCur.port_a1, sou_1.ports[2])
     annotation (Line(points={{0,-12},{-14,-12},{-14,31},{-20,31}}, color={0,127,255}));
-  connect(wheDefCur.port_b1, sin_1.ports[1])       annotation (Line(points={{20,
-          -12.2},{36,-12.2},{36,22},{64,22},{64,29},{72,29}},
+  connect(wheDefCur.port_b1, sin_1.ports[1])
+    annotation (Line(points={{20,-12.2},{36,-12.2},{36,22},{64,22},{64,29},{72,29}},
     color={0,127,255}));
   connect(wheDefCur.port_b2, sin_2.ports[2]) annotation (Line(points={{0,-27.8},
-          {-48,-27.8},{-48,-39},{-58,-39}},
-    color={0,127,255}));
+    {-48,-27.8},{-48,-39},{-58,-39}},color={0,127,255}));
   connect(wheDefCur.port_a2, sou_2.ports[2]) annotation (Line(points={{20,-28},{
-          52,-28},{52,-29},{70,-29}},
-    color={0,127,255}));
+    52,-28},{52,-29},{70,-29}}, color={0,127,255}));
   connect(wheDefCur.uSpe, wheSpe.y) annotation (Line(points={{-2,-20},{-30,-20},{-30,0},{-59,0}},
     color={0,0,127}));
   connect(senSupTem.port_a, sin_1.ports[2]) annotation (Line(points={{60,30},{66,30},{66,31},{72,31}},
@@ -168,7 +168,7 @@ and the leaving exhaust air temperature increases.
 <li>
 The power consumption of the instance <code>wheUseDefCur</code> is higher than that of the instance <code>wheDefCur</code>
 when <i>uSpe</i> is less than 1.
-The power consumption of those two instances are identical when <i>uSpe</i> equals to <i>1</i>.
+The power consumption of those two instances are identical when <i>uSpe</i> equals <i>1</i>.
 </li>
 </ul>
 </html>", revisions="<html>

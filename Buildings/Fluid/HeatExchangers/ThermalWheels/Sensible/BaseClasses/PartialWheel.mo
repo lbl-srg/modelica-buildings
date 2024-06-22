@@ -125,16 +125,13 @@ equation
     color={0,127,255}));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{10,6},{20,6},{20,20},{30,20}},
-                                             color={0,127,255}));
-  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{50,20},{60,20},
-          {60,80},{100,80}},
     color={0,127,255}));
+  connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{50,20},{60,20},
+    {60,80},{100,80}}, color={0,127,255}));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-29},
-          {-80,-20},{-130,-20},{-130,4},{-102,4}},
-    color={0,0,127}));
+    {-80,-20},{-130,-20},{-130,4},{-102,4}}, color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{40,31},
-          {40,40},{-130,40},{-130,8},{-102,8}},
-    color={0,0,127}));
+    {40,40},{-130,40},{-130,8},{-102,8}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

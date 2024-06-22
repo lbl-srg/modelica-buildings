@@ -13,7 +13,7 @@ model SpeedControlled
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent
     latWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
@@ -44,13 +44,11 @@ equation
   connect(hex.epsLat, mul1.y) annotation (Line(points={{8,-3},{-20,-3},{-20,100},
           {-38,100}}, color={0,0,127}));
   connect(mul.y, epsSen) annotation (Line(points={{-38,140},{20,140},{20,40},{
-          120,40}},
-                color={0,0,127}));
+          120,40}},color={0,0,127}));
   connect(mul1.y, epsLat) annotation (Line(points={{-38,100},{90,100},{90,0},{
-          120,0}},    color={0,0,127}));
+          120,0}},color={0,0,127}));
   connect(latWhe.P, P) annotation (Line(points={{-98,128},{-88,128},{-88,40},{
-          -46,40},{-46,-40},{120,-40}},
-                                    color={0,0,127}));
+          -46,40},{-46,-40},{120,-40}},color={0,0,127}));
   connect(latWhe.uSpe, uSpe) annotation (Line(points={{-122,120},{-168,120},{-168,
           0},{-200,0}}, color={0,0,127}));
 annotation (

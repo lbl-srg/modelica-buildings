@@ -113,8 +113,10 @@ model SpaceCooling "Space cooling system"
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
-        MediumW) "Sink for water circuit"
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    nPorts=1, 
+    redeclare package Medium =MediumW) 
+    "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -250,8 +252,7 @@ equation
   connect(TMixSetPoi.y,conPID. u_s)
     annotation (Line(points={{-78,20},{-52,20}}, color={0,0,127}));
   connect(senTemHXOut.T,conPID. u_m) annotation (Line(points={{-60,-13.4},{-60,
-          0},{-40,0},{-40,8}},
-                            color={0,0,127}));
+          0},{-40,0},{-40,8}}, color={0,0,127}));
   connect(senTemRetAir.port_a, vol.ports[2])
     annotation (Line(points={{58,-60},{71,-60},{71,20}}, color={0,127,255}));
   connect(senTemRetAir.port_b, whe.port_a2) annotation (Line(points={{46,-60},{-40,
