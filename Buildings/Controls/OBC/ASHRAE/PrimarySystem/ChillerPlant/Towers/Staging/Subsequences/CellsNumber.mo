@@ -270,16 +270,13 @@ annotation (
 <p>
 This block outputs total number of enabling tower cells according to current plant
 stage and generates boolean output to enable or disable lead tower cell(s).
-It is implemented according to 
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.12.1,
+It is implemented according to ASHRAE Guideline36-2021, section 5.20.12.1,
 </p>
 <ul>
-<li>item 2 which specifies number of enabled cooling tower cells according to
+<li>item b which specifies number of enabled cooling tower cells according to
 plant stage.
 </li>
-<li>item 3 and 4, which specifies when the cooling tower cells should be enabled 
+<li>item c and d, which specifies when the cooling tower cells should be enabled 
 and disabled.
 </li>
 </ul>

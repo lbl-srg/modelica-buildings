@@ -237,8 +237,7 @@ Documentation(info="<html>
 Block that ouputs condenser water return temperature setpoint <code>TConWatRetSet</code>
 for the tower fan speed control to maintain the return temperature at setpoint. This
 implementation is for plants with parallel chiller plants only. It is based on
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – Central
-Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item 2.d and m.
+ASHRAE Guideline36-2021, section 5.20.12.2, item a.5 and a.14.
 </p>
 <p>
 The return water temperature setpoint <code>TConWatRetSet</code> shall be the output

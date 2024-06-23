@@ -404,9 +404,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code>. This is implemented
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, item
-1, 2, and 4.
+according to ASHRAE Guideline36-2021, section 5.20.12.2, itema and c.
 These sections specifies sequences to control tower fan speed in the mode
 when waterside economizer (if the plant does have it) is enabled or disabled, for
 maintaining condenser water return temperature at its setpoint. This control is

@@ -188,8 +188,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.1, 
+ASHRAE Guideline36-2021, section 5.20.12.1, 
 which specifies tower fan staging process. It includes two subsequences:
 </p>
 <ul>

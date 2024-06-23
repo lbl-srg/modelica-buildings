@@ -614,9 +614,8 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> for maintaining
 condenser water return temperature at setpoint. This is implemented
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2,
-item 2. It includes four subsequences:
+according to ASHRAE Guideline36-2021, section 5.20.12.2,
+item a. It includes four subsequences:
 </p>
 <ul>
 <li>

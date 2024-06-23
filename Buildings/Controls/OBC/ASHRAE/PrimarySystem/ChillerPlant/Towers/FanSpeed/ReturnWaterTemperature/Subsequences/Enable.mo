@@ -361,9 +361,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs signal <code>yTowSta</code> for enabling and disabling cooling tower 
-fan. This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for 
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 
-2020), section 5.2.12.2, item 2.j-l.
+fan. This is implemented according to ASHRAE Guideline36-2021,
+section 5.20.12.2, item a.11-l2.
 </p>
 <ol>
 <li>

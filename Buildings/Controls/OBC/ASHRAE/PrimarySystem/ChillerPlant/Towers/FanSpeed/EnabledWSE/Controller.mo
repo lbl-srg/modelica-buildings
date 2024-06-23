@@ -220,10 +220,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when waterside 
-economizer is enabled. This is implemented 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 
-item 4. It includes two subsequences:
+economizer is enabled. This is implemented according to ASHRAE Guideline36-2021,
+section 5.20.12.2, item c. It includes two subsequences:
 </p>
 <ul>
 <li>
