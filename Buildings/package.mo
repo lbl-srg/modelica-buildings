@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_10_1_1 "Version 10.1.1"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_10_1_1 "Version 10.1.1"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 10.1.1 is ... xxx
@@ -255,12 +255,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1897\">IBPSA, #1897</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed syntax for inclusion of C source code to comply
+                       with the Modelica Language Specification.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1891\">IBPSA, #1891</a>.
+
     </td>
 </tr>
 </table>
@@ -316,7 +319,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_10_1_1;
+    end Version_10_1_1;
 
 
     class Version_10_1_0 "Version 10.1.0"
