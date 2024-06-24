@@ -27,13 +27,16 @@ model Case620 "Case 600, but with windows on East and West side walls"
    cooCri(lowerLimit=-2.76*3.6e9, upperLimit=-5.19*3.6e9));
 
   Modelica.Blocks.Sources.RealExpression hGloEas(
-    y=roo.conExtWinRad[2].HDir + roo.conExtWinRad[2].HDif)
-    "East total solar irradiance"
+    y(final unit="W/m2")=roo.conExtWinRad[2].HDir + roo.conExtWinRad[2].HDif)
+    "East global solar irradiance"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Continuous.Integrator gloEas(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Annual east total solar irradiance"
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual east global solar irradiance"
     annotation (Placement(transformation(extent={{74,66},{82,74}})));
 equation
   connect(hGloEas.y, gloEas.u)
@@ -76,12 +79,15 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics={Text(
-          extent={{-74,104},{8,96}},
-          textColor={28,108,200},
-          textString="For the case, it is the transmitted through west window."),
+    Diagram(graphics={
           Text(
-          extent={{26,24},{108,16}},
+          extent={{24,26},{108,16}},
           textColor={28,108,200},
-          textString="For the case, it is the incident on west window.")}));
+          textString=
+              "For the case, it is global solar irradiancethe on west window."),
+                      Text(
+          extent={{-96,110},{8,102}},
+          textColor={28,108,200},
+          textString=
+              "For the case, it is the transmitted solar radiation through west window.")}));
 end Case620;

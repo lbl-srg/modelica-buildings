@@ -455,7 +455,7 @@ def _find_data_bin(dataSet):
     return results
 
 def export_data(data_set):
-    KWh = 3600*1e3
+    kWh = 3600*1e3
     results = list()
     for k in range(len(data_set)):
         data = data_set[k]
@@ -524,7 +524,7 @@ def export_data(data_set):
                      'Annual_TSky': '{:.2f}'.format(TSkyTemAnn-273.15),
                      'Max_TSky': peaMax['value'] + ', ' + peaMax['hour'],
                      'Min_TSky': peaMin['value'] + ', ' + peaMin['hour'],
-                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/KWh),
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
                      'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Feb1_hTra],
                      'May4_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in May4_hTra],
                      'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hTra],
@@ -535,8 +535,8 @@ def export_data(data_set):
                      'Jul14_Global_Horizontal_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloHor],
                      'May4_Global_South_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloSou],
                      'Jul14_Global_South_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloSou],
-                     'Annual_Global_South_Solar': '{:.2f}'.format(gloSou/KWh),
-                     'Annual_Global_Horizontal_Solar': '{:.2f}'.format(gloHor/KWh)}
+                     'Annual_Global_South_Solar': '{:.2f}'.format(gloSou/kWh),
+                     'Annual_Global_Horizontal_Solar': '{:.2f}'.format(gloHor/kWh)}
         elif ('Case640' in data['case']) or ('Case940' in data['case']):
             temp = {'case': data['case']}
             for varVal in data['result']:
@@ -578,7 +578,7 @@ def export_data(data_set):
                 Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
             temp1 = {'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
                      'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
-                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/KWh),
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
                      'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Feb1_hTra],
                      'May4_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in May4_hTra],
                      'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hTra]}
@@ -613,7 +613,7 @@ def export_data(data_set):
             for varVal in data['result']:
                 if varVal['variable'] == 'traSol.y':
                     traSol = varVal['value'][-1]
-            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/KWh)}
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh)}
         elif ('Case960' in data['case']):
             temp = {'case': data['case']}
             for varVal in data['result']:
@@ -632,9 +632,9 @@ def export_data(data_set):
                 elif varVal['variable'] == 'hGloSou.y':
                     May4_hGloWes = varVal['value'][2953:2977]
                     Jul14_hGloWes = varVal['value'][4657:4681]
-            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/KWh),
-                     'Annual_Global_West_Solar': '{:.2f}'.format(gloWes/KWh),
-                     'Annual_Global_East_Solar': '{:.2f}'.format(gloEas/KWh),
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
+                     'Annual_Global_West_Solar': '{:.2f}'.format(gloWes/kWh),
+                     'Annual_Global_East_Solar': '{:.2f}'.format(gloEas/kWh),
                      'May4_Global_West_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloWes],
                      'Jul14_Global_West_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloWes]}
         temp['extData'] = temp1

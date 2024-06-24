@@ -74,43 +74,54 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
   Modelica.Blocks.Sources.RealExpression hGloHor(
-    y=weaDat.weaBus.HGloHor)
+    y(final unit="W/m2")=weaDat.weaBus.HGloHor)
     "Global horizontal solar irradiance"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Continuous.Integrator gloHor(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Annual global horizontal solar irradiance"
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual global horizontal solar irradiance"
     annotation (Placement(transformation(extent={{74,26},{82,34}})));
   replaceable Modelica.Blocks.Sources.RealExpression hGloSou(
-    y=roo.conExtWinRad[1].HDir + roo.conExtWinRad[1].HDif)
-    "South total solar irradiance"
+    y(final unit="W/m2")=roo.conExtWinRad[1].HDir + roo.conExtWinRad[1].HDif)
+    "South global solar irradiance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator gloSou(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Annual south total solar irradiance"
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual south global solar irradiance"
     annotation (Placement(transformation(extent={{74,6},{82,14}})));
   Modelica.Blocks.Continuous.Integrator traSol(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Annual transmitted solar irradiance"
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual transmitted solar irradiance"
     annotation (Placement(transformation(extent={{-40,86},{-32,94}})));
   replaceable Modelica.Blocks.Sources.RealExpression hTra(
-    y=(roo.conExtWinRad[1].QTraDif_flow + roo.conExtWinRad[1].QTraDir_flow)/(roo.conExtWinRad[1].AWin))
-    "Transmistted solar radiation"
+    y(final unit="W/m2")=(roo.conExtWinRad[1].QTraDif_flow + roo.conExtWinRad[1].QTraDir_flow)/(roo.conExtWinRad[1].AWin))
+    "Transmitted solar radiation"
     annotation (Placement(transformation(extent={{-74,80},{-54,100}})));
   Modelica.Blocks.Sources.RealExpression TSkyTem(
-    y=weaDat.weaBus.TBlaSky)
+    y(final unit="K", displayUnit="degC")=weaDat.weaBus.TBlaSky)
     "Black body sky temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemHou(
     delta=3600,
+    u(final unit="K", displayUnit="degC"),
     y(final unit="K", displayUnit="degC"))
     "Hourly averaged sky temperature"
     annotation (Placement(transformation(extent={{88,-48},{96,-40}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemAnn(
     delta=86400*365,
+    u(final unit="K", displayUnit="degC"),
     y(final unit="K", displayUnit="degC"))
     "Annual averaged sky temperature"
     annotation (Placement(transformation(extent={{88,-60},{96,-52}})));
