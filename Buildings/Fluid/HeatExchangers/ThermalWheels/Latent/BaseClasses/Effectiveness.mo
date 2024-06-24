@@ -18,32 +18,23 @@ model Effectiveness
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1)
     "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
-    "Nominal supply air flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
+    "Nominal supply air mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
-    "Supply air volumetric flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
+    "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow(final unit="m3/s")
-    "Exhaust air volumetric flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
+    "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
-    final unit="1",
-    final max=1)
-    "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
@@ -82,11 +73,11 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
+  assert(mSup_flow - 2*mExh_flow <= 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
+  rat = (mSup_flow +mExh_flow) /2/mSup_flow_nominal;
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
 
@@ -98,8 +89,8 @@ equation
 
   // Calculate effectiveness
   ratRes = Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
-  epsSen =uSpe*(epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);
-  epsLat =uSpe*(epsLatPL + (epsLat_nominal - epsLatPL)*(ratRes - 0.75)/0.25);
+  epsSen = (epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);
+  epsLat = (epsLatPL + (epsLat_nominal - epsLatPL)*(ratRes - 0.75)/0.25);
   assert(epsSen >= 0 and epsSen < 1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
     Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
@@ -137,8 +128,8 @@ where <code>VSup_flow</code> is the flow rate of the supply air,
 It then calculates the sensible and latent heat exchanger effectiveness by:
 </p>
 <pre>
-  epsSen = uSpe * (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
-  epsLat = uSpe * (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
+  epsSen = (epsSenPL + (epsSen_nominal - epsSenPL) * (rat - 0.75)/0.25),
+  epsLat = (epsLatPL + (epsLat_nominal - epsLatPL) * (rat - 0.75)/0.25),
 </pre>
 <p>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
@@ -146,8 +137,7 @@ for the sensible and latent heat transfer, respectively,
 <code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness 
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively,
 <code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
-for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively, and
-<code>uSpe</code> is the speed ratio of a rotary wheel.
+for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively.
 </p>
 <p>
 The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and

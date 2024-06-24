@@ -3,41 +3,56 @@ model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
-  parameter Real a[:] = {1}
-    "Coefficients for power consumption curve for rotor. The sum of the elements must be equal to 1"
-    annotation (Dialog(group="Efficiency"));
-
+  parameter
+    Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
+    per
+    "Record with performance data"
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
-protected
-  Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
-    "Electric power consumption"
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-
-initial equation
-  assert(abs(sum(a)-1) < Modelica.Constants.eps,
-         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve must be 1.",
-         level=AssertionLevel.error);
+    iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent
+    latWhe(final per=per)
+    "Correct the wheel performance based on the wheel speed"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
+    "Correct the sensible heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
+    "Correct the latent heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
 equation
-  connect(P, PEle.y)
-    annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-40,80},{
-          -40,6},{-10,6}},
-                       color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
-          {100,-60}}, color={0,127,255}));
-  connect(effCal.uSpe, uSpe)
-    annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
+  connect(hex.port_a2, port_a2)
+    annotation (Line(points={{30,-6},{40,-6},{40,-80},{100,-80}},
+    color={0,127,255}));
+  connect(hex.port_a1, port_a1)
+    annotation (Line(points={{10,6},{-32,6},{-32,80},{-180,80}},  color={0,127,255}));
+  connect(latWhe.epsSenCor, mul.u1) annotation (Line(points={{-98,120},{-80,120},
+          {-80,146},{-62,146}}, color={0,0,127}));
+  connect(latWhe.epsLatCor, mul1.u1) annotation (Line(points={{-98,112},{-80,112},
+          {-80,106},{-62,106}}, color={0,0,127}));
+  connect(effCal.epsSen, mul.u2) annotation (Line(points={{-78,5},{-70,5},{-70,134},
+          {-62,134}}, color={0,0,127}));
+  connect(effCal.epsLat, mul1.u2) annotation (Line(points={{-78,-5},{-64,-5},{-64,
+          94},{-62,94}}, color={0,0,127}));
+  connect(mul.y, hex.epsSen)
+    annotation (Line(points={{-38,140},{0,140},{0,3},{8,3}}, color={0,0,127}));
+  connect(hex.epsLat, mul1.y) annotation (Line(points={{8,-3},{-20,-3},{-20,100},
+          {-38,100}}, color={0,0,127}));
+  connect(mul.y, epsSen) annotation (Line(points={{-38,140},{20,140},{20,40},{
+          120,40}},color={0,0,127}));
+  connect(mul1.y, epsLat) annotation (Line(points={{-38,100},{90,100},{90,0},{
+          120,0}},color={0,0,127}));
+  connect(latWhe.P, P) annotation (Line(points={{-98,128},{-88,128},{-88,40},{
+          -46,40},{-46,-40},{120,-40}},color={0,0,127}));
+  connect(latWhe.uSpe, uSpe) annotation (Line(points={{-122,120},{-168,120},{-168,
+          0},{-200,0}}, color={0,0,127}));
 annotation (
-   defaultComponentName="whe",
-        Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+   defaultComponentName="whe",Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
    graphics={
         Polygon(
           points={{0,100},{0,100}},
@@ -45,7 +60,7 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.None)}),
           Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,160}})),
 Documentation(info="<html>
 <p>
 Model of an enthalpy recovery wheel, which has the 
@@ -58,25 +73,9 @@ heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
-</p>
-<p>
-Accordingly, the power consumption of this wheel is calculated by
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
-</p>
-<p>
-where <code>P_nominal</code> is the nominal wheel power consumption,
-<code>uSpe</code> is the wheel speed ratio, 
-and the <code>a[:]</code> are the coefficients for power efficiency curve.
-The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
-Thus, when the speed ratio <code>uSpe=1</code>, the power consumption is equal to
-nominal consumption <code>P=P_nominal</code>.
-</p>
-<p>
-The sensible and latent effectiveness is calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness</a>.
+See details about the impacts of the wheel speed in 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent</a>.
 </p>
 </html>", revisions="<html>
 <ul>
