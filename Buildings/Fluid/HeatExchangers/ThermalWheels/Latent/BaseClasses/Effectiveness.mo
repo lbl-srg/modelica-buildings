@@ -22,12 +22,10 @@ model Effectiveness
     "Nominal supply air mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final min=0,
     final unit="K")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
-    final min=0,
     final unit="K")
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
