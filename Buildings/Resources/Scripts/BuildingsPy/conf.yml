@@ -104,7 +104,8 @@
   dymola:
     time_out: 600
   openmodelica:
-    time_out: 600
+    comment: 'Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910'
+    translate: false
   optimica:
     time_out: 600
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
