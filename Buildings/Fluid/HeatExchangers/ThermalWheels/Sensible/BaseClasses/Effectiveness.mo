@@ -15,14 +15,12 @@ model Effectiveness
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Exhaust air temperature" 
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
@@ -55,7 +53,7 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(mSup_flow - 2*mExh_flow <= 0 and mExh_flow - 2*mSup_flow <= 0,
+  assert(mSup_flow - 2*mExh_flow < 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
@@ -107,8 +105,7 @@ It then calculates the sensible heat exchanger effectiveness as
 where <code>eps</code> is the effectiveness
 for the sensible heat transfer, respectively,
 <code>eps_nominal</code> and <code>epsPL</code> are the effectiveness 
-for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively, and
-<code>uSpe</code> is the speed ratio of a rotary wheel.
+for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively.
 </p>
 <p>
 The parameters <code>eps_nominal</code> and <code>epsPL</code>

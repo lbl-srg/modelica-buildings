@@ -23,14 +23,12 @@ model Effectiveness
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
@@ -77,7 +75,7 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(mSup_flow - 2*mExh_flow <= 0 and mExh_flow - 2*mSup_flow <= 0,
+  assert(mSup_flow - 2*mExh_flow <= 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
