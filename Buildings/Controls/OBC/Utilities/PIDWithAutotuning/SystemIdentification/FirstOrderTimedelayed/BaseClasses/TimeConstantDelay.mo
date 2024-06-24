@@ -66,7 +66,7 @@ protected
     "Sum of the higher value for the output and the lower value for the output"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1
-    "Quotient of dead band divided by the absolute value of the gain"
+    "Quotient of deadband divided by the absolute value of the gain"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div2
     "Blocks that calculates input 1 by input 2"
@@ -102,7 +102,7 @@ protected
     "Constant"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-1)
-    "Opposite  of the input"
+    "Opposite of the input"
     annotation (Placement(transformation(extent={{2,-120},{14,-108}})));
 equation
   connect(absk.u, k)

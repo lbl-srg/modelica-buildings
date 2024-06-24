@@ -46,7 +46,7 @@ block FirstOrderAMIGO
     annotation (Dialog(tab="Advanced",group="Integrator anti-windup"));
   parameter Real Nd(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
-    "The higher Nd, the more ideal the derivative block"
+    "The higher the Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType ==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   parameter Real xi_start=0
     "Initial value of integrator state"
@@ -139,7 +139,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
     "Outputs true if the controller is conducting the autotuning process"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-protected
+//protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
@@ -341,8 +341,6 @@ equation
     annotation (Line(points={{72,230},{98,230}}, color={255,0,255}));
   connect(nand1.u2, tunStaDel.y) annotation (Line(points={{98,222},{86,222},{86,
           182},{118,182},{118,-30},{102,-30}}, color={255,0,255}));
-  connect(sam_u_s.trigger, resPro.triSta) annotation (Line(points={{-90,242},{-90,
-          248},{-160,248},{-160,16},{44,16},{44,36},{22,36}}, color={255,0,255}));
   connect(conProMod.triEnd, resPro.triEnd)
     annotation (Line(points={{56,58},{56,32},{22,32}}, color={255,0,255}));
   connect(conProMod.tunSta, samk.trigger) annotation (Line(points={{62,62},{62,
@@ -351,6 +349,8 @@ equation
           {-108,-38},{-108,6},{62,6},{62,62}}, color={255,0,255}));
   connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-130,-68},
           {-130,6},{62,6},{62,62}}, color={255,0,255}));
+  connect(sam_u_s.trigger, triTun) annotation (Line(points={{-90,242},{-90,252},
+          {-154,252},{-154,-96},{60,-96},{60,-120}}, color={255,0,255}));
 annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -374,7 +374,7 @@ PID controller.
 
 <h4>Autotuning Process</h4>
 <p>
-To use this block, place it in a control loop as any other PID controller.
+To use this block, place it in a control loop as any other PID controllers.
 Before the PID tuning process starts, this block is equivalent to
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
@@ -401,7 +401,7 @@ The performance of the autotuning is affected by the parameters, including the
 typical range of control error, <code>r</code>, 
 the reference output for the tuning process, <code>yRef</code>, the lower value for
 the relay output, <code>yLow</code>, and the deadband, <code>deaBan</code>.
-The following procedure can be used for determining the values of those parameters. 
+The following procedure can be used to determine the values of those parameters. 
 </p>
 <ol>
 <li>
@@ -425,8 +425,8 @@ When determining the <code>deaBan</code>, we first divide the maximum and the
 minimum deviations of measurement
 from the setpoint by the <code>r</code>, respectively.
 We then calculate the absolute values of the two deviations.
-After, we set the <code>deaBan</code> to be half of the smaller one among those
-absolute values.
+After, we set the <code>deaBan</code> to be half of the smaller one between those
+two absolute values.
 </li>
 </ol>
 <h4>References</h4>

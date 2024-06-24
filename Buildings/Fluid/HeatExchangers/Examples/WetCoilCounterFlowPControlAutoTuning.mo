@@ -104,7 +104,7 @@ model WetCoilCounterFlowPControlAutoTuning
     height=5,
     offset=T_a1_nominal,
     startTime=300,
-    duration=2000) "Water temperature, raised to high value at t=3000 s"
+    duration=2000) "Water temperature, raised to a high value at t=3000 s"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
@@ -184,29 +184,25 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 This example is identical to 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a> except that the PI controller
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl\">
+Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl</a> except that the PI controller
 is replaced by an autotuning PI controller.
 </p>
 The autotuning is triggered twice.
 <ul>
 <li>
-The first one occurs at <i>100</i>s and it completes successfully.
-The tuned PI parameters are put into effect at <i>215</i>s.
+The first one occurs at <i>100</i> seconds and it completes successfully.
+The tuned PI parameters are put into effect at <i>215</i> seconds.
 </li>
 <li>
-The second one occurs at <i>2100</i>s and it fails because the setpoint
-changes at <i>2400</i>s.
+The second one occurs at <i>2100</i> seconds and it fails because the setpoint
+changes at <i>2400</i> seconds.
 The PI parameters are kept unchanged.
 </li>
 </ul>
 </html>",
 revisions="<html>
 <ul>
-<li>
-April 3, 2024, by Sen Huang:<br/>
-Added parameter values.
-</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Removed wrong normalization.

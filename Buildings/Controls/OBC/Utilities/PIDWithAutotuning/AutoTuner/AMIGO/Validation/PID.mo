@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
 model PID "Test model for calculating parameters of a PID controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PID
-    "Blocks that calculates the control gain, the integral time, and the derivative time"
+    "Block that calculates the control gain, the integral time, and the derivative time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp kp(
     duration=1,

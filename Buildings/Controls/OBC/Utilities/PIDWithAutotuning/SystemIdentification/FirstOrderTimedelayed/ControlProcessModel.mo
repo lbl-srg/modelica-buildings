@@ -236,7 +236,7 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block calculates the model parameters of a first-order time delayed model.
+This block that calculates the model parameters of a first-order time delayed model.
 Specifically, it employs
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain</a>
