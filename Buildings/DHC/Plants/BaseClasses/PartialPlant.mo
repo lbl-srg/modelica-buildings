@@ -8,8 +8,8 @@ partial model PartialPlant
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating supply"
     annotation(Dialog(enable=
-      typ == TypDisSys.CombinedGeneration1 or
-      typ == TypDisSys.HeatingGeneration1));
+      typ == Buildings.DHC.Types.DistrictSystemType.CombinedGeneration1 or
+      typ == Buildings.DHC.Types.DistrictSystemType.HeatingGeneration1));
   parameter Buildings.DHC.Types.DistrictSystemType
   typ=Buildings.DHC.Types.DistrictSystemType.CombinedGeneration2to4
     "Type of district system"
@@ -152,6 +152,12 @@ return.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 20, 2024, by Michael Wetter:<br/>
+Corrected annotation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3900\">issue 3900</a>.
+</li>
 <li>
 September 20, 2021, by Mingzhe Liu:<br/>
 Refactored <code>if</code> statement to correctly enable and
