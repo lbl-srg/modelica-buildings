@@ -25,26 +25,6 @@ This validation cases compares the outlet temperature of a borefield with two
 zones against the temperatures that were calculated with the FEFLOW software.
 The inlet temperature in both zones is a pulse function.
 </p>
-<p>
-fixme: revise
-The temperatures <code>TOut</code> are the leaving water temperatures from FEFLOW,
-computed with FEFLOW's analytical solution for the borehole heat transfer.
-Comparing <code>TOut</code> with the temperatures <code>TBorFieOut</code>
-shows good agreement except at the initial transient at the start of the
-simulation when the mass flow rate changes from zero to the design flow rate.
-The leaving water temperatures at this initial transient
-show similar discrepancies as the comparison of FEFLOW's analytical and
-numerical solutions that is presented in the FEFLOW white paper (DHI-WASY 2010).
-In the FEFLOW white paper, it is explained that the reason for this difference is
-due to the FEFLOW's analytical solution not being valid for such short-time dynamics.
-Therefore, the validation of the Modelica implementation is satisfactory.
-</p>
-<h5>References</h5>
-<p>
-DHI-WASY Software FEFLOW. Finite Element Subsurface Flow &amp; Transport Simulation System.
-White Paper Vol. V.
-DHI-WASY GmbH. Berlin 2010.
-</p>
 </html>",
 revisions="<html>
 <ul>
