@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Validation.WithWSE", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="towCon");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Validation.WithWSE", method="Cvode", stopTime=3500, tolerance=1e-06, resultFile="towCon");
 createPlot(id=1, position={10, 10, 1000, 1183}, y={"towCon.uChi[1]", "towCon.uWse", "towCon.yLeaCel"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
 createPlot(id=1, position={10, 10, 1000, 1183}, y={"towCon.TChiWatSup", "towCon.TChiWatSupSet"}, range={0.0, 4000.0, 6.0, 9.0}, grid=true, subPlot=102, colors={{0,140,72}, {28,108,200}}, timeUnit="s", displayUnits={"degC", "degC"});
 createPlot(id=1, position={10, 10, 1000, 1183}, y={"towCon.yMakUp"}, range={0.0, 4000.0, -1.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");

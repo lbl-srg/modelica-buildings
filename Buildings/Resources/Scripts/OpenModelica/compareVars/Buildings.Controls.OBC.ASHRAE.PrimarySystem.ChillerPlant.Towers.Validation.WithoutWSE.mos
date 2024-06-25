@@ -1,10 +1,7 @@
 compareVars :=
   {
     "towCon.uChi[1]",
-    "towCon.uWse",
     "towCon.yLeaCel",
-    "towCon.TChiWatSup",
-    "towCon.TChiWatSupSet",
     "towCon.yMakUp",
     "towCon.watLev",
     "towCon.watLevMin",
@@ -16,7 +13,5 @@ compareVars :=
     "towCon.uTowSta[1]",
     "towCon.uTowSta[2]",
     "towCon.ySpeSet[1]",
-    "towCon.ySpeSet[2]",
-    "towCon.chiLoa[1]",
-    "towCon.chiMinCap[1]"
+    "towCon.ySpeSet[2]"
   };

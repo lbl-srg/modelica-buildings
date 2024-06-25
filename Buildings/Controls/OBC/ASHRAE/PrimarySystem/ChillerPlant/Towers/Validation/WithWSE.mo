@@ -225,7 +225,7 @@ equation
           -78},{-82,-78}}, color={255,0,255}));
   connect(or4.y, or3.u1) annotation (Line(points={{-138,-20},{-120,-20},{-120,-70},
           {-82,-70}}, color={255,0,255}));
-annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
+annotation (experiment(StopTime=3500.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Validation/WithWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
@@ -233,7 +233,7 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller</a>.
-It demonstates the cooling tower control of a close coupled chiller plant that has
+It demonstates the cooling tower control of a less coupled chiller plant that has
 two chillers with waterside economizer.
 </p>
 <ul>
@@ -247,8 +247,8 @@ The plant is enabled to waterside economizer mode at 540 seconds. The lead tower
 cell becomes enabled when there is any condenser water pump enabled.
 </li>
 <li>
-After 300 seconds (<code>chaTowCelIsoTim</code>) at 840 seconds, the leading cell
-turns on.
+After 300 seconds (<code>chaTowCelIsoTim</code>) at 840 seconds, it turns on the
+leading cell.
 </li>
 <li>
 The tower fan speed is controlled under the waterside economizer only mode. The
@@ -257,7 +257,7 @@ direct-acting PID controls the chilled water supply temperature at setpoint.
 <li>
 At 1440 seconds, the chiller 1 becomes enabled. Thus, the tower fan speed is then
 controlled under the integrated operation mode. However, before switching to the
-integrated operation mode, the fan hold speed at the maximum speed. According to
+integrated operation mode, the fan hold its speed at the maximum. According to
 the vector <code>towCelOnSet</code>, which specifies number of cells at each plant
 stage (<code>staVec</code>), two tower cell should be enabled. Thus, after chiller
 1 being enabled at 1440 seconds, when the 300 seconds is passed
