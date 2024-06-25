@@ -42,9 +42,10 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
-                                              "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
+    final unit=fill("W", nChi),
+    final quantity=fill("HeatFlowRate", nChi))
+    "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]

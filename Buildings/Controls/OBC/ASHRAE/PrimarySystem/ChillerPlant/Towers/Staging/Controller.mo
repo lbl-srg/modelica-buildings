@@ -37,6 +37,10 @@ block Controller "Sequence of staging cooling tower cells"
     "True: plant is just enabled"
     annotation(Placement(transformation(extent={{-140,-10},{-100,30}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enabling status"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
       final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
@@ -122,6 +126,8 @@ equation
           -130},{-50,56},{18,56}}, color={255,0,255}));
   connect(ideChaCel.yChaCel, staPro.uChaCel) annotation (Line(points={{42,56},{
           60,56},{60,20},{-20,20},{-20,8},{-2,8}}, color={255,0,255}));
+  connect(uPla, enaCel.uPla) annotation (Line(points={{-120,-20},{-62,-20},{-62,
+          83},{-42,83}}, color={255,0,255}));
 annotation (
   defaultComponentName="towSta",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -184,7 +190,12 @@ annotation (
         Text(
           extent={{-96,16},{-58,2}},
           textColor={255,0,255},
-          textString="uEnaPla")}),
+          textString="uEnaPla"),
+        Text(
+          extent={{-100,-4},{-70,-16}},
+          textColor={255,0,255},
+          visible=have_WSE,
+          textString="uPla")}),
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 

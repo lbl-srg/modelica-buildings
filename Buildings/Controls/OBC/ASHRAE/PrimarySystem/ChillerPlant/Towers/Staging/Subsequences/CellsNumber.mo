@@ -37,6 +37,10 @@ block CellsNumber
     "True: plant is just enabled"
     annotation(Placement(transformation(extent={{-300,-110},{-260,-70}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enabling status"
+    annotation (Placement(transformation(extent={{-300,-150},{-260,-110}}),
+      iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
       final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
@@ -50,16 +54,6 @@ block CellsNumber
     annotation (Placement(transformation(extent={{260,-110},{300,-70}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  CDL.Integers.Switch intSwi
-    annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  CDL.Integers.GreaterThreshold intGreThr
-    annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
-  CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  CDL.Reals.Multiply mul
-    annotation (Placement(transformation(extent={{180,100},{200,120}})));
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
@@ -127,7 +121,23 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[totSta]
     "Break algebric loop"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
+    "Ensure extraction index is within the range"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=1)
+    "Constant one"
+    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
+    "Check if it is greater than 0"
+    annotation (Placement(transformation(extent={{200,-50},{220,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert boolean to real"
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Product of the inputs"
+    annotation (Placement(transformation(extent={{180,100},{200,120}})));
+  Buildings.Controls.OBC.CDL.Logical.And anyPumOn
+    "Check if there is any condenser water pump is proven on"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(uWse, booToRea1.u)
     annotation (Line(points={{-280,-40},{-162,-40}}, color={255,0,255}));
@@ -148,8 +158,7 @@ equation
   connect(sub4.y, greEquThr.u)
     annotation (Line(points={{22,-40},{38,-40}}, color={0,0,127}));
   connect(con5.y, celOnNum.u)
-    annotation (Line(points={{102,150},{118,150}},
-                                               color={0,0,127}));
+    annotation (Line(points={{102,150},{118,150}}, color={0,0,127}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{142,-40},{158,-40}}, color={255,127,0}));
   connect(uConWatPumSpe, proOn.u)
@@ -176,8 +185,7 @@ equation
   connect(swi.y, add3.u1) annotation (Line(points={{-98,100},{-90,100},{-90,-14},
           {-82,-14}}, color={0,0,127}));
   connect(reaToInt.y, yNumCel)
-    annotation (Line(points={{242,110},{280,110}},
-                                               color={255,127,0}));
+    annotation (Line(points={{242,110},{280,110}}, color={255,127,0}));
   connect(proOn.y, mulOr.u) annotation (Line(points={{-198,-160},{-170,-160},{-170,
           -160},{-142,-160}}, color={255,0,255}));
   connect(uEnaPla, or2.u1)
@@ -190,8 +198,6 @@ equation
     annotation (Line(points={{102,-40},{118,-40}}, color={255,0,255}));
   connect(norOpe.y, swi.u2)
     annotation (Line(points={{-198,100},{-122,100}}, color={255,0,255}));
-  connect(mulOr.y, or2.u2) annotation (Line(points={{-118,-160},{-80,-160},{-80,
-          -98},{198,-98}}, color={255,0,255}));
   connect(mulSumInt.y, intGreThr.u)
     annotation (Line(points={{182,-40},{198,-40}}, color={255,127,0}));
   connect(intGreThr.y, intSwi.u2) annotation (Line(points={{222,-40},{230,-40},
@@ -210,6 +216,12 @@ equation
           104},{178,104}}, color={0,0,127}));
   connect(mul.y, reaToInt.u)
     annotation (Line(points={{202,110},{218,110}}, color={0,0,127}));
+  connect(mulOr.y, anyPumOn.u2) annotation (Line(points={{-118,-160},{-80,-160},
+          {-80,-138},{-62,-138}}, color={255,0,255}));
+  connect(uPla, anyPumOn.u1)
+    annotation (Line(points={{-280,-130},{-62,-130}}, color={255,0,255}));
+  connect(anyPumOn.y, or2.u2) annotation (Line(points={{-38,-130},{180,-130},{
+          180,-98},{198,-98}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -255,7 +267,12 @@ annotation (
         Text(
           extent={{-98,-22},{-60,-36}},
           textColor={255,0,255},
-          textString="uEnaPla")}),
+          textString="uEnaPla"),
+        Text(
+          extent={{-98,-62},{-72,-76}},
+          textColor={255,0,255},
+          visible=have_WSE,
+          textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-260,-180},{260,180}}),
         graphics={
           Text(

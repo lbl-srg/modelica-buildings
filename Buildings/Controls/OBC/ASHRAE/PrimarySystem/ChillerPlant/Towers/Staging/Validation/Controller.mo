@@ -19,7 +19,7 @@ model Controller "Validation sequence of tower cell controller"
     final width=0.15,
     final period=3600,
     final shift=300) "Water side economizer status"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp chiStaGen(
     final height=1.2,
     final duration=3600,
@@ -45,6 +45,9 @@ model Controller "Validation sequence of tower cell controller"
     final k=1)
     "Chiller stage setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(k=true)
+    "Constant false"
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
   connect(pre1.y, towSta.uTowSta)
     annotation (Line(points={{102,-14},{120,-14},{120,10},{-14,10},{-14,-19},{38,
@@ -62,7 +65,7 @@ equation
           40},{20,-3},{38,-3}},   color={255,127,0}));
   connect(StaTow.y, towSta.uTowStaCha) annotation (Line(points={{-58,0},{-40,0},
           {-40,-5},{38,-5}}, color={255,0,255}));
-  connect(wseSta.y, towSta.uWse) annotation (Line(points={{-58,-40},{-34,-40},{-34,
+  connect(wseSta.y, towSta.uWse) annotation (Line(points={{-98,-40},{-34,-40},{-34,
           -7},{38,-7}},   color={255,0,255}));
   connect(conWatPumSpe.y, towSta.uConWatPumSpe) annotation (Line(points={{-58,-100},
           {-26,-100},{-26,-13},{38,-13}}, color={0,0,127}));
@@ -72,6 +75,8 @@ equation
           -9},{38,-9}},   color={255,0,255}));
   connect(chiStaSet2.y, towSta.uChiSta) annotation (Line(points={{-58,80},{30,80},
           {30,-1},{38,-1}}, color={255,127,0}));
+  connect(con2.y, towSta.uPla) annotation (Line(points={{-58,-60},{-30,-60},{-30,
+          -11},{38,-11}}, color={255,0,255}));
 annotation (experiment(
       StopTime=3600,
       Tolerance=1e-06),

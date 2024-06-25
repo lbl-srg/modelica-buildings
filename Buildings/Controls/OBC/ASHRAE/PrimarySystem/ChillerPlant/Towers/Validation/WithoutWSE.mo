@@ -1,12 +1,18 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Validation;
-model Controller "Validation sequence of controlling tower"
+model WithoutWSE
+  "Validation sequence of controlling tower of a plant without waterside economizer"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller
     towCon(
     nChi=2,
+    totSta=3,
     nTowCel=2,
     nConWatPum=2,
-    have_WSE=true)
+    have_WSE=false,
+    kWSE=0.5,
+    TiWSE=10,
+    staVec={0,1,2},
+    towCelOnSet={0,1,2})
     "Cooling tower controller"
     annotation (Placement(transformation(extent={{200,340},{220,380}})));
 
@@ -83,30 +89,6 @@ protected
     annotation (Placement(transformation(extent={{-320,10},{-300,30}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch chiOneLoa "Chiller one load"
-    annotation (Placement(transformation(extent={{-260,320},{-240,340}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiTwoLoa(final k=0)
-    "Chiller two load"
-    annotation (Placement(transformation(extent={{-360,300},{-340,320}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
-    final amplitude=0.2*1e4,
-    final freqHz=1/1200,
-    final offset=1.1*1e4,
-    final startTime=180) "Chiller load"
-    annotation (Placement(transformation(extent={{-360,340},{-340,360}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
-    final amplitude=0.5,
-    final freqHz=1/1800,
-    final offset=273.15 + 7.1) "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-360,140},{-340,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
-    final height=3,
-    final duration=3600,
-    final startTime=1500) "Ramp"
-    annotation (Placement(transformation(extent={{-360,100},{-340,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Add chiWatSupTem
-    "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-260,120},{-240,140}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta "Chiller stage "
     annotation (Placement(transformation(extent={{-140,-240},{-120,-220}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay towStaUp(
@@ -150,28 +132,12 @@ equation
   connect(zer.y, swi1.u3)
     annotation (Line(points={{-298,20},{-260,20},{-260,32},{-242,32}},
       color={0,0,127}));
-  connect(chiTwoLoa.y, chiOneLoa.u3) annotation (Line(points={{-338,310},{-320,310},
-          {-320,322},{-262,322}}, color={0,0,127}));
-  connect(sin.y, chiOneLoa.u1) annotation (Line(points={{-338,350},{-320,350},{-320,
-          338},{-262,338}}, color={0,0,127}));
-  connect(chiOneSta.y, chiOneLoa.u2) annotation (Line(points={{-298,270},{-280,270},
-          {-280,330},{-262,330}}, color={255,0,255}));
-  connect(chiSup.y, chiWatSupTem.u1) annotation (Line(points={{-338,150},{-320,150},
-          {-320,136},{-262,136}}, color={0,0,127}));
-  connect(ram1.y, chiWatSupTem.u2) annotation (Line(points={{-338,110},{-320,110},
-          {-320,124},{-262,124}}, color={0,0,127}));
-  connect(chiOneLoa.y, towCon.chiLoa[1]) annotation (Line(points={{-238,330},{
-          -40,330},{-40,378.5},{198,378.5}}, color={0,0,127}));
-  connect(chiTwoLoa.y, towCon.chiLoa[2]) annotation (Line(points={{-338,310},{
-          -40,310},{-40,379.5},{198,379.5}}, color={0,0,127}));
   connect(chiOneSta.y, towCon.uChi[1]) annotation (Line(points={{-298,270},{-30,
           270},{-30,376.5},{198,376.5}}, color={255,0,255}));
   connect(chiTwoSta.y, towCon.uChi[2]) annotation (Line(points={{-338,240},{-30,
           240},{-30,377.5},{198,377.5}}, color={255,0,255}));
   connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,180},{
           -10,180},{-10,373},{198,373}}, color={0,0,127}));
-  connect(chiWatSupTem.y, towCon.TChiWatSup) annotation (Line(points={{-238,130},
-          {0,130},{0,371},{198,371}}, color={0,0,127}));
   connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
           -40},{10,-40},{10,369},{198,369}}, color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,80},{20,80},
@@ -210,8 +176,6 @@ equation
           {108,-260},{108,349},{198,349}},color={255,127,0}));
   connect(wseSta.y, wseSta1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
-  connect(wseSta1.y, towCon.uWse) annotation (Line(points={{-298,210},{-200,210},
-          {-200,375},{198,375}}, color={255,0,255}));
   connect(con3.y, towCon.uEnaPla) annotation (Line(points={{-58,-140},{94,-140},
           {94,353},{198,353}}, color={255,0,255}));
   connect(chiOneSta.y, or4.u1) annotation (Line(points={{-298,270},{-188,270},{-188,
@@ -223,14 +187,48 @@ equation
   connect(or4.y, or3.u1) annotation (Line(points={{-138,-20},{-120,-20},{-120,-70},
           {-82,-70}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Validation/WithoutWSE.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller</a>.
+It demonstates the cooling tower control of a close coupled chiller plant that has
+two chillers with waterside economizer.
 </p>
+<ul>
+<li>
+At begining, the water level is lower than the minimum thus the tower starts to
+adding water (<code>yMakUp</code>). When the water level becomes greater than the
+maximum, it stops adding water at 1500 seconds.
+</li>
+<li>
+The plant is enabled to waterside economizer mode at 540 seconds. The lead tower
+cell becomes enabled when there is any condenser water pump enabled.
+</li>
+<li>
+After 300 seconds (<code>chaTowCelIsoTim</code>) at 840 seconds, the leading cell
+turns on.
+</li>
+<li>
+The tower fan speed is controlled under the waterside economizer only mode. The
+direct-acting PID controls the chilled water supply temperature at setpoint. 
+</li>
+<li>
+At 1440 seconds, the chiller 1 becomes enabled. Thus, the tower fan speed is then
+controlled under the integrated operation mode. However, before switching to the
+integrated operation mode, the fan hold speed at the maximum speed. According to
+the vector <code>towCelOnSet</code>, which specifies number of cells at each plant
+stage (<code>staVec</code>), two tower cell should be enabled. Thus, after chiller
+1 being enabled at 1440 seconds, when the 300 seconds is passed
+(<code>chaTowCelIsoTim</code>), the cell 2 become enabled at 1740 seconds.
+</li>
+<li>
+Both cells run at the maximum speed till 2040 seconds, the fan speed is then
+controlled under integrated mode.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -251,4 +249,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-420},{400,420}})));
-end Controller;
+end WithoutWSE;

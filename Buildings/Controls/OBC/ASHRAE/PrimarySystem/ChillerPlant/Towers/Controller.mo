@@ -7,7 +7,7 @@ block Controller "Cooling tower controller"
   parameter Integer nTowCel=2 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Boolean closeCoupledPlant=false
-    "Flag to indicate if the plant is close coupled";
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(unit="W")=1e6  "Plant design capacity"
@@ -154,7 +154,7 @@ block Controller "Cooling tower controller"
 
   // Tower staging
   parameter Real staVec[totSta]={0,0.5,1,1.5,2}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
   parameter Real towCelOnSet[totSta]={0,1,1,2,2}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
@@ -352,7 +352,7 @@ protected
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final speChe=speChe) "Cooling tower staging"
-    annotation (Placement(transformation(extent={{-20,-52},{0,-32}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
@@ -369,11 +369,11 @@ protected
 
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{2,-46},{20,-46},{20,-110},{120,-110}}, color={255,0,255}));
+    annotation (Line(points={{2,-54},{20,-54},{20,-110},{120,-110}}, color={255,0,255}));
   connect(towSta.yIsoVal, yIsoVal)
-    annotation (Line(points={{2,-42},{40,-42},{40,-70},{120,-70}}, color={0,0,127}));
+    annotation (Line(points={{2,-50},{40,-50},{40,-70},{120,-70}}, color={0,0,127}));
   connect(towSta.yTowSta, swi.u2)
-    annotation (Line(points={{2,-46},{20,-46},{20,-150},{58,-150}}, color={255,0,255}));
+    annotation (Line(points={{2,-54},{20,-54},{20,-150},{58,-150}}, color={255,0,255}));
   connect(towFanSpe.ySpeSet, reaRep.u)
     annotation (Line(points={{2,40},{18,40}}, color={0,0,127}));
   connect(reaRep.y, swi.u1)
@@ -408,29 +408,31 @@ equation
   connect(towFanSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{-22,21},{-68,21},{-68,-40},{-120,-40}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
-    annotation (Line(points={{-22,-33},{-64,-33},{-64,-100},{-120,-100}}, color={255,127,0}));
+    annotation (Line(points={{-22,-41},{-64,-41},{-64,-100},{-120,-100}}, color={255,127,0}));
   connect(towSta.uIsoVal, uIsoVal)
-    annotation (Line(points={{-22,-49},{-40,-49},{-40,-220},{-120,-220}}, color={0,0,127}));
+    annotation (Line(points={{-22,-57},{-40,-57},{-40,-220},{-120,-220}}, color={0,0,127}));
   connect(makUpWat.watLev, watLev)
     annotation (Line(points={{-22,-240},{-120,-240}}, color={0,0,127}));
   connect(makUpWat.yMakUp, yMakUp)
     annotation (Line(points={{2,-240},{120,-240}}, color={255,0,255}));
   connect(uTowSta, towSta.uTowSta)
-    annotation (Line(points={{-120,40},{-76,40},{-76,-51},{-22,-51}}, color={255,0,255}));
-  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-22,-35},{-60,
-          -35},{-60,-120},{-120,-120}}, color={255,127,0}));
-  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-22,-37},{-56,
-          -37},{-56,-150},{-120,-150}}, color={255,0,255}));
+    annotation (Line(points={{-120,40},{-76,40},{-76,-59},{-22,-59}}, color={255,0,255}));
+  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-22,-43},{-60,
+          -43},{-60,-120},{-120,-120}}, color={255,127,0}));
+  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-22,-45},{-56,
+          -45},{-56,-150},{-120,-150}}, color={255,0,255}));
   connect(uWse, towSta.uWse) annotation (Line(points={{-120,180},{-48,180},{-48,
-          -39},{-22,-39}}, color={255,0,255}));
+          -47},{-22,-47}}, color={255,0,255}));
   connect(uConWatPumSpe, towSta.uConWatPumSpe) annotation (Line(points={{-120,-20},
-          {-72,-20},{-72,-45},{-22,-45}}, color={0,0,127}));
-  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-38},{40,-38},{40,
+          {-72,-20},{-72,-53},{-22,-53}}, color={0,0,127}));
+  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-46},{40,-46},{40,
           -30},{120,-30}}, color={255,0,255}));
   connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-34,-70},
-          {-34,-41},{-22,-41}}, color={255,0,255}));
+          {-34,-49},{-22,-49}}, color={255,0,255}));
   connect(swi.y, ySpeSet)
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
+  connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
+          {-22,-51}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={

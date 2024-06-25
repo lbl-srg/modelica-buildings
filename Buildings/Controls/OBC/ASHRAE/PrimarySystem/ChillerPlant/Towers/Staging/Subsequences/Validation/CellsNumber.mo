@@ -35,6 +35,9 @@ model CellsNumber
     k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
+    "Constant false"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(chiStaGen.y, chiStaSet.u)
     annotation (Line(points={{-78,50},{-62,50}}, color={0,0,127}));
@@ -52,6 +55,8 @@ equation
     annotation (Line(points={{-38,-100},{8,-100},{8,-9},{58,-9}}, color={0,0,127}));
   connect(con.y, enaTowCel.uEnaPla) annotation (Line(points={{42,-100},{50,-100},
           {50,-3},{58,-3}}, color={255,0,255}));
+  connect(con1.y, enaTowCel.uPla) annotation (Line(points={{-58,-70},{40,-70},{40,
+          -7},{58,-7}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Staging/Subsequences/Validation/CellsNumber.mos"
     "Simulate and plot"),

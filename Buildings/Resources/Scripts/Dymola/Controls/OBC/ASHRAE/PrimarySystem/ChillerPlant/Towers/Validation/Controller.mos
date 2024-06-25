@@ -1,7 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Validation.Controller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="towCon");
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"towCon.uChi[1]","towCon.uWse", "towCon.yLeaCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72},{238,46,47}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"towCon.TChiWatSup","towCon.TChiWatSupSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{0,140,72},{28,108,200}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"towCon.yMakUp"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towCon.uChiSta","towCon.uChiStaSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{0,140,72},{28,108,200}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towCon.uTowSta[1]","towCon.uTowSta[2]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
-createPlot(id=2, position={1020, 10, 1000, 1200}, y={"towCon.ySpeSet[1]","towCon.ySpeSet[2]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200},{0,140,72}});
