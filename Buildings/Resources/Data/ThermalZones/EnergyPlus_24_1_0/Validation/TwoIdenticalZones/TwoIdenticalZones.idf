@@ -1,0 +1,1176 @@
+!-Generator IDFEditor 1.50
+!-Option SortedOrder
+!-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
+!-      Use '!' comments if they need to be retained when using the IDFEditor.
+!-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
+
+  Version,24.1;
+
+!-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
+
+  SimulationControl,
+    No,                      !- Do Zone Sizing Calculation
+    No,                      !- Do System Sizing Calculation
+    No,                      !- Do Plant Sizing Calculation
+    No,                      !- Run Simulation for Sizing Periods
+    Yes,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
+
+  Building,
+    Building 1,              !- Name
+    0.0,                     !- North Axis {deg}
+    Suburbs,                 !- Terrain
+    .04,                     !- Loads Convergence Tolerance Value {W}
+    .4,                      !- Temperature Convergence Tolerance Value {deltaC}
+    FullExterior,            !- Solar Distribution
+    25,                      !- Maximum Number of Warmup Days
+    1;                       !- Minimum Number of Warmup Days
+
+!-   ===========  ALL OBJECTS IN CLASS: SHADOWCALCULATION ===========
+!ShadowCalculation,
+!    AverageOverDaysInFrequency,  !- Calculation Method
+!    20,                      !- Calculation Frequency
+!    15000;                   !- Maximum Figures in Shadow Overlap Calculations
+!-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:INSIDE ===========
+
+  SurfaceConvectionAlgorithm:Inside,TARP;
+
+!-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:OUTSIDE ===========
+
+  SurfaceConvectionAlgorithm:Outside,DOE-2;
+
+!-   ===========  ALL OBJECTS IN CLASS: HEATBALANCEALGORITHM ===========
+
+  HeatBalanceAlgorithm,ConductionTransferFunction,200;
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONEAIRHEATBALANCEALGORITHM ===========
+
+  ZoneAirHeatBalanceAlgorithm,
+    ThirdOrderBackwardDifference,  !- Algorithm
+    No;                      !- Do Space Heat Balance for Sizing
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONEAIRCONTAMINANTBALANCE ===========
+
+  ZoneAirContaminantBalance,
+    No;                      !- Carbon Dioxide Concentration
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONECAPACITANCEMULTIPLIER:RESEARCHSPECIAL ===========
+
+  ZoneCapacitanceMultiplier:ResearchSpecial,
+    Zone Capacitance Multiplier Research Special,  !- Name
+    ,                        !- Zone or ZoneList Name
+    1.0,                     !- Temperature Capacity Multiplier
+    1.0,                     !- Humidity Capacity Multiplier
+    1.0,                     !- Carbon Dioxide Capacity Multiplier
+    1.0;                     !- Generic Contaminant Capacity Multiplier
+
+!-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
+
+  Timestep,6;
+
+!-   ===========  ALL OBJECTS IN CLASS: CONVERGENCELIMITS ===========
+
+  ConvergenceLimits,
+    1;                       !- Minimum System Timestep {minutes}
+
+!-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
+
+  Site:Location,
+    Chicago Ohare Intl Ap,   !- Name
+    41.98,                   !- Latitude {deg}
+    -87.92,                  !- Longitude {deg}
+    -6,                      !- Time Zone {hr}
+    201;                     !- Elevation {m}
+
+!-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
+
+  RunPeriod,
+    Run Period 1,            !- Name
+    1,                       !- Begin Month
+    1,                       !- Begin Day of Month
+    2006,                    !- Begin Year
+    12,                      !- End Month
+    31,                      !- End Day of Month
+    2006,                    !- End Year
+    Sunday,                  !- Day of Week for Start Day
+    No,                      !- Use Weather File Holidays and Special Days
+    No,                      !- Use Weather File Daylight Saving Period
+    No,                      !- Apply Weekend Holiday Rule
+    Yes,                     !- Use Weather File Rain Indicators
+    Yes;                     !- Use Weather File Snow Indicators
+
+!-   ===========  ALL OBJECTS IN CLASS: SITE:GROUNDTEMPERATURE:BUILDINGSURFACE ===========
+
+  Site:GroundTemperature:BuildingSurface,18,18,18,18,18,18,18,18,18,18,18,18;
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULETYPELIMITS ===========
+
+  ScheduleTypeLimits,
+    ActivityLevel 13,        !- Name
+    0,                       !- Lower Limit Value
+    ,                        !- Upper Limit Value
+    Continuous,              !- Numeric Type
+    activitylevel;           !- Unit Type
+
+  ScheduleTypeLimits,
+    Fraction,                !- Name
+    0,                       !- Lower Limit Value
+    1,                       !- Upper Limit Value
+    CONTINUOUS;              !- Numeric Type
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:DAY:INTERVAL ===========
+
+  Schedule:Day:Interval,
+    Medium Office Activity Default Schedule,  !- Name
+    ActivityLevel 13,        !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    120;                     !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Activity Summer Design Day,  !- Name
+    ActivityLevel 13,        !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    120;                     !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Activity Winter Design Day,  !- Name
+    ActivityLevel 13,        !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    120;                     !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Equip Default Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    08:00,                   !- Time 1
+    0.4,                     !- Value Until Time 1
+    12:00,                   !- Time 2
+    0.9,                     !- Value Until Time 2
+    13:00,                   !- Time 3
+    0.8,                     !- Value Until Time 3
+    17:00,                   !- Time 4
+    0.9,                     !- Value Until Time 4
+    18:00,                   !- Time 5
+    0.8,                     !- Value Until Time 5
+    20:00,                   !- Time 6
+    0.6,                     !- Value Until Time 6
+    22:00,                   !- Time 7
+    0.5,                     !- Value Until Time 7
+    24:00,                   !- Time 8
+    0.4;                     !- Value Until Time 8
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Equip Rule 1 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0.3;                     !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Equip Rule 2 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    06:00,                   !- Time 1
+    0.3,                     !- Value Until Time 1
+    08:00,                   !- Time 2
+    0.4,                     !- Value Until Time 2
+    14:00,                   !- Time 3
+    0.5,                     !- Value Until Time 3
+    17:00,                   !- Time 4
+    0.35,                    !- Value Until Time 4
+    24:00,                   !- Time 5
+    0.3;                     !- Value Until Time 5
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Equip Summer Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    1;                       !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Equip Winter Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0;                       !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Occ Default Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    06:00,                   !- Time 1
+    0,                       !- Value Until Time 1
+    07:00,                   !- Time 2
+    0.1,                     !- Value Until Time 2
+    08:00,                   !- Time 3
+    0.2,                     !- Value Until Time 3
+    12:00,                   !- Time 4
+    0.95,                    !- Value Until Time 4
+    13:00,                   !- Time 5
+    0.5,                     !- Value Until Time 5
+    17:00,                   !- Time 6
+    0.95,                    !- Value Until Time 6
+    18:00,                   !- Time 7
+    0.7,                     !- Value Until Time 7
+    20:00,                   !- Time 8
+    0.4,                     !- Value Until Time 8
+    22:00,                   !- Time 9
+    0.1,                     !- Value Until Time 9
+    24:00,                   !- Time 10
+    0.05;                    !- Value Until Time 10
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Occ Rule 1 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0;                       !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Occ Rule 2 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    06:00,                   !- Time 1
+    0,                       !- Value Until Time 1
+    08:00,                   !- Time 2
+    0.1,                     !- Value Until Time 2
+    14:00,                   !- Time 3
+    0.5,                     !- Value Until Time 3
+    17:00,                   !- Time 4
+    0.1,                     !- Value Until Time 4
+    24:00,                   !- Time 5
+    0;                       !- Value Until Time 5
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Occ Summer Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    06:00,                   !- Time 1
+    0,                       !- Value Until Time 1
+    22:00,                   !- Time 2
+    1,                       !- Value Until Time 2
+    24:00,                   !- Time 3
+    0.05;                    !- Value Until Time 3
+
+  Schedule:Day:Interval,
+    Medium Office Bldg Occ Winter Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0;                       !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Office Bldg Light Default Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    05:00,                   !- Time 1
+    0.05,                    !- Value Until Time 1
+    07:00,                   !- Time 2
+    0.1,                     !- Value Until Time 2
+    08:00,                   !- Time 3
+    0.3,                     !- Value Until Time 3
+    17:00,                   !- Time 4
+    0.9,                     !- Value Until Time 4
+    18:00,                   !- Time 5
+    0.7,                     !- Value Until Time 5
+    20:00,                   !- Time 6
+    0.5,                     !- Value Until Time 6
+    22:00,                   !- Time 7
+    0.3,                     !- Value Until Time 7
+    23:00,                   !- Time 8
+    0.1,                     !- Value Until Time 8
+    24:00,                   !- Time 9
+    0.05;                    !- Value Until Time 9
+
+  Schedule:Day:Interval,
+    Office Bldg Light Rule 1 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0.05;                    !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Office Bldg Light Rule 2 Day Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    06:00,                   !- Time 1
+    0.05,                    !- Value Until Time 1
+    08:00,                   !- Time 2
+    0.1,                     !- Value Until Time 2
+    14:00,                   !- Time 3
+    0.5,                     !- Value Until Time 3
+    17:00,                   !- Time 4
+    0.15,                    !- Value Until Time 4
+    24:00,                   !- Time 5
+    0.05;                    !- Value Until Time 5
+
+  Schedule:Day:Interval,
+    Office Bldg Light Summer Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    1;                       !- Value Until Time 1
+
+  Schedule:Day:Interval,
+    Office Bldg Light Winter Design Day,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    No,                      !- Interpolate to Timestep
+    24:00,                   !- Time 1
+    0;                       !- Value Until Time 1
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:WEEK:DAILY ===========
+
+  Schedule:Week:Daily,
+    Medium Office Activity Week Rule - Jan1-Dec31,  !- Name
+    Medium Office Activity Default Schedule,  !- Sunday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Monday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Tuesday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Wednesday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Thursday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Friday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Saturday Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- Holiday Schedule:Day Name
+    Medium Office Activity Summer Design Day,  !- SummerDesignDay Schedule:Day Name
+    Medium Office Activity Winter Design Day,  !- WinterDesignDay Schedule:Day Name
+    Medium Office Activity Default Schedule,  !- CustomDay1 Schedule:Day Name
+    Medium Office Activity Default Schedule;  !- CustomDay2 Schedule:Day Name
+
+  Schedule:Week:Daily,
+    Medium Office Bldg Equip Week Rule - Jan1-Dec31,  !- Name
+    Medium Office Bldg Equip Rule 1 Day Schedule,  !- Sunday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Monday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Tuesday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Wednesday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Thursday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Friday Schedule:Day Name
+    Medium Office Bldg Equip Rule 2 Day Schedule,  !- Saturday Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- Holiday Schedule:Day Name
+    Medium Office Bldg Equip Summer Design Day,  !- SummerDesignDay Schedule:Day Name
+    Medium Office Bldg Equip Winter Design Day,  !- WinterDesignDay Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule,  !- CustomDay1 Schedule:Day Name
+    Medium Office Bldg Equip Default Schedule;  !- CustomDay2 Schedule:Day Name
+
+  Schedule:Week:Daily,
+    Medium Office Bldg Occ Week Rule - Jan1-Dec31,  !- Name
+    Medium Office Bldg Occ Rule 1 Day Schedule,  !- Sunday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Monday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Tuesday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Wednesday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Thursday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Friday Schedule:Day Name
+    Medium Office Bldg Occ Rule 2 Day Schedule,  !- Saturday Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- Holiday Schedule:Day Name
+    Medium Office Bldg Occ Summer Design Day,  !- SummerDesignDay Schedule:Day Name
+    Medium Office Bldg Occ Winter Design Day,  !- WinterDesignDay Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule,  !- CustomDay1 Schedule:Day Name
+    Medium Office Bldg Occ Default Schedule;  !- CustomDay2 Schedule:Day Name
+
+  Schedule:Week:Daily,
+    Office Bldg Light Week Rule - Jan1-Dec31,  !- Name
+    Office Bldg Light Rule 1 Day Schedule,  !- Sunday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Monday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Tuesday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Wednesday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Thursday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Friday Schedule:Day Name
+    Office Bldg Light Rule 2 Day Schedule,  !- Saturday Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- Holiday Schedule:Day Name
+    Office Bldg Light Summer Design Day,  !- SummerDesignDay Schedule:Day Name
+    Office Bldg Light Winter Design Day,  !- WinterDesignDay Schedule:Day Name
+    Office Bldg Light Default Schedule,  !- CustomDay1 Schedule:Day Name
+    Office Bldg Light Default Schedule;  !- CustomDay2 Schedule:Day Name
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:YEAR ===========
+
+  Schedule:Year,
+    Medium Office Activity,  !- Name
+    ActivityLevel 13,        !- Schedule Type Limits Name
+    Medium Office Activity Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
+    1,                       !- Start Month 1
+    1,                       !- Start Day 1
+    12,                      !- End Month 1
+    31;                      !- End Day 1
+
+  Schedule:Year,
+    Medium Office Bldg Equip,!- Name
+    Fraction,                !- Schedule Type Limits Name
+    Medium Office Bldg Equip Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
+    1,                       !- Start Month 1
+    1,                       !- Start Day 1
+    12,                      !- End Month 1
+    31;                      !- End Day 1
+
+  Schedule:Year,
+    Medium Office Bldg Occ,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Medium Office Bldg Occ Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
+    1,                       !- Start Month 1
+    1,                       !- Start Day 1
+    12,                      !- End Month 1
+    31;                      !- End Day 1
+
+  Schedule:Year,
+    Office Bldg Light,       !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Office Bldg Light Week Rule - Jan1-Dec31,  !- Schedule:Week Name 1
+    1,                       !- Start Month 1
+    1,                       !- Start Day 1
+    12,                      !- End Month 1
+    31;                      !- End Day 1
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
+
+  Schedule:Constant,Infiltration Sched,Fraction,1;
+
+!-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
+
+  Material,
+    1/2IN Gypsum,            !- Name
+    Smooth,                  !- Roughness
+    0.0127,                  !- Thickness {m}
+    0.16,                    !- Conductivity {W/m-K}
+    784.9,                   !- Density {kg/m3}
+    830.000000000001,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.4,                     !- Solar Absorptance
+    0.4;                     !- Visible Absorptance
+
+  Material,
+    1IN Stucco,              !- Name
+    Smooth,                  !- Roughness
+    0.0253,                  !- Thickness {m}
+    0.691799999999999,       !- Conductivity {W/m-K}
+    1858,                    !- Density {kg/m3}
+    836.999999999999,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.92,                    !- Solar Absorptance
+    0.92;                    !- Visible Absorptance
+
+  Material,
+    8IN Concrete HW,         !- Name
+    MediumRough,             !- Roughness
+    0.2033,                  !- Thickness {m}
+    1.72959999999999,        !- Conductivity {W/m-K}
+    2242.99999999999,        !- Density {kg/m3}
+    836.999999999999,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.65,                    !- Solar Absorptance
+    0.65;                    !- Visible Absorptance
+
+  Material,
+    F08 Metal surface,       !- Name
+    Smooth,                  !- Roughness
+    0.0008,                  !- Thickness {m}
+    45.2800000000001,        !- Conductivity {W/m-K}
+    7823.99999999999,        !- Density {kg/m3}
+    500,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+  Material,
+    F16 Acoustic tile,       !- Name
+    MediumSmooth,            !- Roughness
+    0.0191,                  !- Thickness {m}
+    0.06,                    !- Conductivity {W/m-K}
+    368,                     !- Density {kg/m3}
+    590.000000000002,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.3,                     !- Solar Absorptance
+    0.3;                     !- Visible Absorptance
+
+  Material,
+    G01a 19mm gypsum board,  !- Name
+    MediumSmooth,            !- Roughness
+    0.019,                   !- Thickness {m}
+    0.16,                    !- Conductivity {W/m-K}
+    800,                     !- Density {kg/m3}
+    1090,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.4,                     !- Solar Absorptance
+    0.4;                     !- Visible Absorptance
+
+  Material,
+    G05 25mm wood,           !- Name
+    MediumSmooth,            !- Roughness
+    0.0254,                  !- Thickness {m}
+    0.15,                    !- Conductivity {W/m-K}
+    608,                     !- Density {kg/m3}
+    1630,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+  Material,
+    I01 25mm insulation board,  !- Name
+    MediumRough,             !- Roughness
+    0.0254,                  !- Thickness {m}
+    0.03,                    !- Conductivity {W/m-K}
+    43,                      !- Density {kg/m3}
+    1210,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.6,                     !- Solar Absorptance
+    0.6;                     !- Visible Absorptance
+
+  Material,
+    M11 100mm lightweight concrete,  !- Name
+    MediumRough,             !- Roughness
+    0.1016,                  !- Thickness {m}
+    0.53,                    !- Conductivity {W/m-K}
+    1280,                    !- Density {kg/m3}
+    840.000000000002,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+  Material,
+    MAT-CC05 4 HW CONCRETE,  !- Name
+    Rough,                   !- Roughness
+    0.1016,                  !- Thickness {m}
+    1.311,                   !- Conductivity {W/m-K}
+    2240,                    !- Density {kg/m3}
+    836.800000000001,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.85,                    !- Solar Absorptance
+    0.85;                    !- Visible Absorptance
+
+  Material,
+    Metal Decking,           !- Name
+    MediumSmooth,            !- Roughness
+    0.0015,                  !- Thickness {m}
+    45.006,                  !- Conductivity {W/m-K}
+    7680,                    !- Density {kg/m3}
+    418.4,                   !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.6,                     !- Solar Absorptance
+    0.6;                     !- Visible Absorptance
+
+  Material,
+    Roof Insulation [21],    !- Name
+    MediumRough,             !- Roughness
+    0.2105,                  !- Thickness {m}
+    0.049,                   !- Conductivity {W/m-K}
+    265,                     !- Density {kg/m3}
+    836.800000000001,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+  Material,
+    Roof Membrane,           !- Name
+    VeryRough,               !- Roughness
+    0.0095,                  !- Thickness {m}
+    0.16,                    !- Conductivity {W/m-K}
+    1121.29,                 !- Density {kg/m3}
+    1460,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+  Material,
+    Wall Insulation [40],    !- Name
+    MediumRough,             !- Roughness
+    0.0793999999999999,      !- Thickness {m}
+    0.0432,                  !- Conductivity {W/m-K}
+    91,                      !- Density {kg/m3}
+    836.999999999999,        !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+!-   ===========  ALL OBJECTS IN CLASS: MATERIAL:NOMASS ===========
+
+  Material:NoMass,
+    CP02 CARPET PAD,         !- Name
+    Smooth,                  !- Roughness
+    0.1,                     !- Thermal Resistance {m2-K/W}
+    0.9,                     !- Thermal Absorptance
+    0.8,                     !- Solar Absorptance
+    0.8;                     !- Visible Absorptance
+
+!-   ===========  ALL OBJECTS IN CLASS: MATERIAL:AIRGAP ===========
+
+  Material:AirGap,
+    F04 Wall air space resistance,  !- Name
+    0.15;                    !- Thermal Resistance {m2-K/W}
+
+  Material:AirGap,
+    F05 Ceiling air space resistance,  !- Name
+    0.18;                    !- Thermal Resistance {m2-K/W}
+
+!-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:GLAZING ===========
+
+  WindowMaterial:Glazing,
+    Clear 3mm,               !- Name
+    SpectralAverage,         !- Optical Data Type
+    ,                        !- Window Glass Spectral Data Set Name
+    0.00299999999999999,     !- Thickness {m}
+    0.837,                   !- Solar Transmittance at Normal Incidence
+    0.075,                   !- Front Side Solar Reflectance at Normal Incidence
+    0,                       !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                   !- Visible Transmittance at Normal Incidence
+    0.081,                   !- Front Side Visible Reflectance at Normal Incidence
+    0,                       !- Back Side Visible Reflectance at Normal Incidence
+    0,                       !- Infrared Transmittance at Normal Incidence
+    0.84,                    !- Front Side Infrared Hemispherical Emissivity
+    0.84,                    !- Back Side Infrared Hemispherical Emissivity
+    0.9,                     !- Conductivity {W/m-K}
+    1,                       !- Dirt Correction Factor for Solar and Visible Transmittance
+    No;                      !- Solar Diffusing
+
+  WindowMaterial:Glazing,
+    Theoretical Glass [207], !- Name
+    SpectralAverage,         !- Optical Data Type
+    ,                        !- Window Glass Spectral Data Set Name
+    0.00299999999999999,     !- Thickness {m}
+    0.3311,                  !- Solar Transmittance at Normal Incidence
+    0.6189,                  !- Front Side Solar Reflectance at Normal Incidence
+    0,                       !- Back Side Solar Reflectance at Normal Incidence
+    0.44,                    !- Visible Transmittance at Normal Incidence
+    0.51,                    !- Front Side Visible Reflectance at Normal Incidence
+    0,                       !- Back Side Visible Reflectance at Normal Incidence
+    0,                       !- Infrared Transmittance at Normal Incidence
+    0.9,                     !- Front Side Infrared Hemispherical Emissivity
+    0.9,                     !- Back Side Infrared Hemispherical Emissivity
+    0.0133,                  !- Conductivity {W/m-K}
+    1,                       !- Dirt Correction Factor for Solar and Visible Transmittance
+    No;                      !- Solar Diffusing
+
+!-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
+
+  Construction,
+    ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Name
+    Roof Membrane,           !- Outside Layer
+    Roof Insulation [21],    !- Layer 2
+    Metal Decking;           !- Layer 3
+
+  Construction,
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Name
+    1IN Stucco,              !- Outside Layer
+    8IN Concrete HW,         !- Layer 2
+    Wall Insulation [40],    !- Layer 3
+    1/2IN Gypsum;            !- Layer 4
+
+  Construction,
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Name
+    Theoretical Glass [207]; !- Outside Layer
+
+  Construction,
+    Exterior Door,           !- Name
+    F08 Metal surface,       !- Outside Layer
+    I01 25mm insulation board;  !- Layer 2
+
+  Construction,
+    ExtSlabCarpet 4in ClimateZone 1-8,  !- Name
+    MAT-CC05 4 HW CONCRETE,  !- Outside Layer
+    CP02 CARPET PAD;         !- Layer 2
+
+!-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
+
+  GlobalGeometryRules,
+    UpperLeftCorner,         !- Starting Vertex Position
+    Counterclockwise,        !- Vertex Entry Direction
+    Relative,                !- Coordinate System
+    Relative,                !- Daylighting Reference Point Coordinate System
+    Relative;                !- Rectangular Surface Coordinate System
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONE ===========
+
+  Zone,
+    Thermal Zone 1,          !- Name
+    -0,                      !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1;                       !- Multiplier
+
+  Zone,
+    Thermal Zone 2,          !- Name
+    -0,                      !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1;                       !- Multiplier
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONELIST ===========
+
+  ZoneList,
+    Space Type 1,            !- Name
+    Thermal Zone 1;          !- Zone 1 Name
+
+  ZoneList,
+    Space Type 2,            !- Name
+    Thermal Zone 2;          !- Zone 1 Name
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
+
+  BuildingSurface:Detailed,
+    Face 0,                  !- Name
+    Floor,                   !- Surface Type
+    ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -28.956,35.052,0,  !- X,Y,Z ==> Vertex 1 {m}
+    -28.956,10.668,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -53.34,10.668,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -53.34,35.052,0;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 1,                  !- Name
+    Roof,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -28.956,10.668,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -28.956,35.052,4.572,  !- X,Y,Z ==> Vertex 2 {m}
+    -53.34,35.052,4.572,  !- X,Y,Z ==> Vertex 3 {m}
+    -53.34,10.668,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 2,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -28.956,10.668,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -28.956,10.668,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -28.956,35.052,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -28.956,35.052,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 3,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -53.34,10.668,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -53.34,10.668,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -28.956,10.668,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -28.956,10.668,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 4,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -53.34,35.052,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -53.34,35.052,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -53.34,10.668,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -53.34,10.668,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 5,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 1,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -28.956,35.052,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -28.956,35.052,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -53.34,35.052,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -53.34,35.052,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 10,                 !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -1.524,-15.24,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -1.524,-15.24,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -1.524,-39.624,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -1.524,-39.624,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 11,                 !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    22.86,-15.24,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    22.86,-15.24,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -1.524,-15.24,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -1.524,-15.24,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 6,                  !- Name
+    Floor,                   !- Surface Type
+    ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    22.86,-15.24,0,  !- X,Y,Z ==> Vertex 1 {m}
+    22.86,-39.624,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -1.524,-39.624,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -1.524,-15.24,0;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 7,                  !- Name
+    Roof,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    22.86,-39.624,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    22.86,-15.24,4.572,  !- X,Y,Z ==> Vertex 2 {m}
+    -1.524,-15.24,4.572,  !- X,Y,Z ==> Vertex 3 {m}
+    -1.524,-39.624,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 8,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    22.86,-39.624,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    22.86,-39.624,0,  !- X,Y,Z ==> Vertex 2 {m}
+    22.86,-15.24,0,  !- X,Y,Z ==> Vertex 3 {m}
+    22.86,-15.24,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+  BuildingSurface:Detailed,
+    Face 9,                  !- Name
+    Wall,                    !- Surface Type
+    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    Thermal Zone 2,          !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    Autocalculate,           !- View Factor to Ground
+    Autocalculate,           !- Number of Vertices
+    -1.524,-39.624,4.572,  !- X,Y,Z ==> Vertex 1 {m}
+    -1.524,-39.624,0,  !- X,Y,Z ==> Vertex 2 {m}
+    22.86,-39.624,0,  !- X,Y,Z ==> Vertex 3 {m}
+    22.86,-39.624,4.572;  !- X,Y,Z ==> Vertex 4 {m}
+
+!-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
+
+  FenestrationSurface:Detailed,
+    Sub Surface 2,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 3,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    -38.7096,10.668,1.524,  !- X,Y,Z ==> Vertex 1 {m}
+    -38.7096,10.668,0.3048,  !- X,Y,Z ==> Vertex 2 {m}
+    -37.1856,10.668,0.3048,  !- X,Y,Z ==> Vertex 3 {m}
+    -37.1856,10.668,1.524;  !- X,Y,Z ==> Vertex 4 {m}
+
+  FenestrationSurface:Detailed,
+    Sub Surface 3,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 3,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    -45.1104,10.668,1.524,  !- X,Y,Z ==> Vertex 1 {m}
+    -45.1104,10.668,0.3048,  !- X,Y,Z ==> Vertex 2 {m}
+    -43.5864,10.668,0.3048,  !- X,Y,Z ==> Vertex 3 {m}
+    -43.5864,10.668,1.524;  !- X,Y,Z ==> Vertex 4 {m}
+
+  FenestrationSurface:Detailed,
+    Sub Surface 4,           !- Name
+    Door,                    !- Surface Type
+    Exterior Door,           !- Construction Name
+    Face 3,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    -42.0624,10.668,2.4384,  !- X,Y,Z ==> Vertex 1 {m}
+    -42.0624,10.668,0,  !- X,Y,Z ==> Vertex 2 {m}
+    -40.2336,10.668,0,  !- X,Y,Z ==> Vertex 3 {m}
+    -40.2336,10.668,2.4384;  !- X,Y,Z ==> Vertex 4 {m}
+
+  FenestrationSurface:Detailed,
+    Sub Surface 1,           !- Name
+    Door,                    !- Surface Type
+    Exterior Door,           !- Construction Name
+    Face 9,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    9.7536,-39.624,2.4384,  !- X,Y,Z ==> Vertex 1 {m}
+    9.7536,-39.624,0,  !- X,Y,Z ==> Vertex 2 {m}
+    11.5824,-39.624,0,  !- X,Y,Z ==> Vertex 3 {m}
+    11.5824,-39.624,2.4384;  !- X,Y,Z ==> Vertex 4 {m}
+
+  FenestrationSurface:Detailed,
+    Sub Surface 5,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 9,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    6.7056,-39.624,1.524,  !- X,Y,Z ==> Vertex 1 {m}
+    6.7056,-39.624,0.3048,  !- X,Y,Z ==> Vertex 2 {m}
+    8.2296,-39.624,0.3048,  !- X,Y,Z ==> Vertex 3 {m}
+    8.2296,-39.624,1.524;  !- X,Y,Z ==> Vertex 4 {m}
+
+  FenestrationSurface:Detailed,
+    Sub Surface 6,           !- Name
+    Window,                  !- Surface Type
+    ASHRAE 189.1-2009 ExtWindow ClimateZone 4-5,  !- Construction Name
+    Face 9,                  !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    Autocalculate,           !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1.0,                     !- Multiplier
+    Autocalculate,           !- Number of Vertices
+    13.1064,-39.624,1.524,  !- X,Y,Z ==> Vertex 1 {m}
+    13.1064,-39.624,0.3048,  !- X,Y,Z ==> Vertex 2 {m}
+    14.6304,-39.624,0.3048,  !- X,Y,Z ==> Vertex 3 {m}
+    14.6304,-39.624,1.524;  !- X,Y,Z ==> Vertex 4 {m}
+
+!-   ===========  ALL OBJECTS IN CLASS: PEOPLE ===========
+
+  People,
+    People 1,                !- Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
+    Medium Office Bldg Occ,  !- Number of People Schedule Name
+    People/Area,             !- Number of People Calculation Method
+    ,                        !- Number of People
+    0.0538195520835486,      !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    Autocalculate,           !- Sensible Heat Fraction
+    Medium Office Activity;  !- Activity Level Schedule Name
+
+  People,
+    People 2,                !- Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
+    Medium Office Bldg Occ,  !- Number of People Schedule Name
+    People/Area,             !- Number of People Calculation Method
+    ,                        !- Number of People
+    0.0538195520835486,      !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    Autocalculate,           !- Sensible Heat Fraction
+    Medium Office Activity;  !- Activity Level Schedule Name
+
+!-   ===========  ALL OBJECTS IN CLASS: LIGHTS ===========
+
+  Lights,
+    Lights 1,                !- Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
+    Office Bldg Light,       !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    9.68751937503875,        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0,                       !- Return Air Fraction
+    0,                       !- Fraction Radiant
+    0,                       !- Fraction Visible
+    1,                       !- Fraction Replaceable
+    General;                 !- End-Use Subcategory
+
+  Lights,
+    Lights 2,                !- Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
+    Office Bldg Light,       !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    9.68751937503875,        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0,                       !- Return Air Fraction
+    0,                       !- Fraction Radiant
+    0,                       !- Fraction Visible
+    1,                       !- Fraction Replaceable
+    General;                 !- End-Use Subcategory
+
+!-   ===========  ALL OBJECTS IN CLASS: ELECTRICEQUIPMENT ===========
+
+  ElectricEquipment,
+    Electric Equipment 1,    !- Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
+    Medium Office Bldg Equip,!- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    5.81251162502325,        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0,                       !- Fraction Latent
+    0,                       !- Fraction Radiant
+    0,                       !- Fraction Lost
+    General;                 !- End-Use Subcategory
+
+  ElectricEquipment,
+    Electric Equipment 2,    !- Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
+    Medium Office Bldg Equip,!- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    5.81251162502325,        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0,                       !- Fraction Latent
+    0,                       !- Fraction Radiant
+    0,                       !- Fraction Lost
+    General;                 !- End-Use Subcategory
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONEINFILTRATION:DESIGNFLOWRATE ===========
+
+  ZoneInfiltration:DesignFlowRate,
+    189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration,  !- Name
+    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Sched,      !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.3,                     !- Air Changes per Hour {1/hr}
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration 1,  !- Name
+    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Sched,      !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.3,                     !- Air Changes per Hour {1/hr}
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZING:PARAMETERS ===========
+
+  Sizing:Parameters,
+    1.25,                    !- Heating Sizing Factor
+    1.15;                    !- Cooling Sizing Factor
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTDOORAIR:NODE ===========
+
+  OutdoorAir:Node,
+    Model Outdoor Air Node;  !- Name
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
+
+  Output:VariableDictionary,IDF,Unsorted;
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:TABLE:SUMMARYREPORTS ===========
+
+  Output:Table:SummaryReports,
+    AllSummary;              !- Report 1 Name
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:TABLE:STYLE ===========
+
+  OutputControl:Table:Style,
+    HTML;                    !- Column Separator
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:REPORTINGTOLERANCES ===========
+
+  OutputControl:ReportingTolerances,
+    0.2,                     !- Tolerance for Time Heating Setpoint Not Met {deltaC}
+    0.2;                     !- Tolerance for Time Cooling Setpoint Not Met {deltaC}
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
+
+  Output:Variable,*,Zone Air Relative Humidity,Timestep;
+
+  Output:Variable,*,Zone Air Temperature,Timestep;
+
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
+
+  Output:Variable,*,Site Outdoor Air Wetbulb Temperature,Timestep;
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:SQLITE ===========
+
+  Output:SQLite,
+    SimpleAndTabular;        !- Option Type
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:DIAGNOSTICS ===========
+
+  Output:Diagnostics,
+    DisplayAllWarnings;      !- Key 1
+
