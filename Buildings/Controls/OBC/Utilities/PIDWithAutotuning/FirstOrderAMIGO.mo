@@ -139,7 +139,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
     "Outputs true if the controller is conducting the autotuning process"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-//protected
+protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
@@ -236,11 +236,11 @@ equation
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,70},{-26,70},{-26,
           46},{-2,46}},color={0,0,127}));
   connect(resPro.tau, conProMod.tau) annotation (Line(points={{22,40},{34,40},{34,
-          62},{38,62}},    color={0,0,127}));
+          62},{38,62}}, color={0,0,127}));
   connect(conProMod.tOff, resPro.tOff) annotation (Line(points={{38,66},{30,66},
           {30,44},{22,44}},color={0,0,127}));
   connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,48},{26,48},{26,
-          74},{38,74}},    color={0,0,127}));
+          74},{38,74}}, color={0,0,127}));
   connect(rel.yDif, conProMod.u) annotation (Line(points={{-38,30},{-14,30},{-14,
           78},{38,78}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k) annotation (Line(points={{78,36},{66,36},{66,78},

@@ -65,7 +65,7 @@ block ControlProcessModel
     annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput tunSta
-    "Autotuning status, true when the autotuning completes successfully"
+    "True when the autotuning completes successfully"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 protected

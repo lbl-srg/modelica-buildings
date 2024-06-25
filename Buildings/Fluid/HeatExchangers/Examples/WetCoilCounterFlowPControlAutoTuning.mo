@@ -39,8 +39,7 @@ model WetCoilCounterFlowPControlAutoTuning
     nPorts=1,
     use_T_in=true,
     p=300000 + 12000)
-                   annotation (Placement(transformation(extent={{-40,50},{-20,
-            70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium2,
