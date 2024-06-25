@@ -1,7 +1,7 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
 model InletTemperaturePulse
   "Comparative model validation with FEFLOW for a response to a pulse in inlet temperature"
-  extends Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Pulse(
+  extends Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100(
     redeclare Modelica.Blocks.Sources.Constant m_flow(
       k=borFieDat.conDat.mZon_flow_nominal),
     redeclare Modelica.Blocks.Sources.Pulse TIn(

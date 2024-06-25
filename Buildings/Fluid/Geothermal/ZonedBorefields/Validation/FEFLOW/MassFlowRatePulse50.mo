@@ -1,7 +1,7 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
-model MassFlowRatePulse
+model MassFlowRatePulse50
   "Comparative model validation with FEFLOW for a response to a pulse in inlet mass flow rate"
-  extends Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Pulse(
+  extends Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100(
     redeclare Modelica.Blocks.Sources.Pulse m_flow(
       amplitude=0.5*borFieDat.conDat.mZon_flow_nominal,
       each period=3600*24*10,
@@ -13,7 +13,7 @@ model MassFlowRatePulse
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse50.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -53,4 +53,4 @@ First implementation.
     experiment(
       StopTime=15465600,
       Tolerance=1e-06));
-end MassFlowRatePulse;
+end MassFlowRatePulse50;

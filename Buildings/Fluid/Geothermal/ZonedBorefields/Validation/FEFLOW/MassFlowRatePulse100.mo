@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
-model Pulse "Comparative model validation with FEFLOW for a pulse response"
+model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse response"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
@@ -133,7 +133,7 @@ equation
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse100.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -171,4 +171,4 @@ First implementation.
     experiment(
       StopTime=15465600,
       Tolerance=1e-06));
-end Pulse;
+end MassFlowRatePulse100;

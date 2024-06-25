@@ -1,4 +1,4 @@
-Pulse
-Step
-MassFlowRatePulse
 InletTemperaturePulse
+MassFlowRatePulse100
+MassFlowRatePulse50
+MassFlowRateStep100
