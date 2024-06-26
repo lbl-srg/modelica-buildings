@@ -70,6 +70,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SwitchBox
+
+    </td>
+    <td valign=\"top\">Added HX primary flow sensor and moving average to break the algebraic loop
+                       when using components configured in steady state.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
