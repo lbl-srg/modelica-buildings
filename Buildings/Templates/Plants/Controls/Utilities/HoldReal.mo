@@ -64,7 +64,6 @@ Holds input value fixed at its last value while the Boolean signal
 </p>
 </html>", revisions="<html>
 <ul>
-<ul>
 <li>
 June 26, 2024, by Antoine Gautier:<br/>
 Removed unnecessary conditional pass-through block following the refactoring of the hold block.<br/>
