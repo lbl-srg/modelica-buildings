@@ -84,7 +84,7 @@ block DisableChillers
         iconTransformation(extent={{100,-70},{140,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowCel
     "True: the tower cells should be enabled"
-    annotation (Placement(transformation(extent={{200,-260},{240,-220}}),
+    annotation (Placement(transformation(extent={{200,-250},{240,-210}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
@@ -157,7 +157,7 @@ block DisableChillers
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr chiMod(
     final nin=nChi)
-      "True: the plant has chiller mode"
+    "True: the plant has chiller mode"
     annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nChi](
     final k=fill(0, nChi)) "Constant zero"
@@ -182,7 +182,15 @@ block DisableChillers
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
     final k=true) if not have_WSE
     "Logical true"
-    annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Placement(transformation(extent={{-80,-220},{-60,-200}})));
+  Buildings.Controls.OBC.CDL.Logical.Or disTow
+    "Disable cooling tower"
+    annotation (Placement(transformation(extent={{80,-240},{100,-220}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con4(
+    final k=false)
+    if not have_WSE "Logical false"
+    annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
+
 equation
   connect(noChi.y, truDel.u)
     annotation (Line(points={{-118,200},{-102,200}}, color={255,0,255}));
@@ -264,8 +272,6 @@ equation
           {158,-52}}, color={0,0,127}));
   connect(con2.y, swi3.u1) annotation (Line(points={{42,-110},{140,-110},{140,-162},
           {158,-162}}, color={0,0,127}));
-  connect(chiMod.y, yTowCel) annotation (Line(points={{-158,200},{-150,200},{-150,
-          -240},{220,-240}}, color={255,0,255}));
   connect(uWSE, not1.u)
     annotation (Line(points={{-220,-260},{-82,-260}}, color={255,0,255}));
   connect(and3.y, and5.u1)
@@ -280,10 +286,18 @@ equation
           {58,-68}}, color={255,0,255}));
   connect(not1.y, and6.u2) annotation (Line(points={{-58,-260},{50,-260},{50,-178},
           {58,-178}}, color={255,0,255}));
-  connect(con3.y, and5.u2) annotation (Line(points={{-58,-220},{50,-220},{50,-68},
+  connect(con3.y, and5.u2) annotation (Line(points={{-58,-210},{50,-210},{50,-68},
           {58,-68}}, color={255,0,255}));
-  connect(con3.y, and6.u2) annotation (Line(points={{-58,-220},{50,-220},{50,-178},
+  connect(con3.y, and6.u2) annotation (Line(points={{-58,-210},{50,-210},{50,-178},
           {58,-178}}, color={255,0,255}));
+  connect(chiMod.y, disTow.u1) annotation (Line(points={{-158,200},{-150,200},{-150,
+          -230},{78,-230}}, color={255,0,255}));
+  connect(disTow.y, yTowCel)
+    annotation (Line(points={{102,-230},{220,-230}}, color={255,0,255}));
+  connect(uWSE, disTow.u2) annotation (Line(points={{-220,-260},{-150,-260},{-150,
+          -238},{78,-238}}, color={255,0,255}));
+  connect(con4.y, disTow.u2) annotation (Line(points={{2,-280},{60,-280},{60,-238},
+          {78,-238}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={
@@ -300,7 +314,7 @@ annotation (defaultComponentName = "disChi",
   Documentation(info="<html>
 <p>
 It disables the devices when the chiller plant is disabled in chiller mode.
-It is implemented as provided in sections 5.2.2.5 and 5.2.2.7.
+It is implemented as ASHRAE Guideline36-2021, section 5.20.2.5 and 5.20.2.7.
 </p>
 <p>
 When the plant is disabled:

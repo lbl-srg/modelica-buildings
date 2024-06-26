@@ -5,10 +5,8 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains control sequences for condenser and chilled water pumps.
-The implementations are based on section 5.2.9 Condenser water pumps and 
-section 5.2.6 Primary chilled water pumps, in
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020).
+The implementations are based on section 5.20.9 Condenser water pumps and 
+section 5.20.6 Primary chilled water pumps, in ASHRAE Guideline36-2021.
 </p>
 </html>"),
 Icon(graphics={

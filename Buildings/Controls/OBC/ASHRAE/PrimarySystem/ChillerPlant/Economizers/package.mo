@@ -5,9 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains waterside economizer (WSE) control sequences.
-The implementation is based on section 5.2.3. in ASHRAE RP-1711 Advanced Sequences
-of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020).
+The implementation is based on section 5.20.3. in ASHRAE Guideline36-2021.
 </p>
 </html>"),
 Icon(graphics={

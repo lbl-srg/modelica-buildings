@@ -290,8 +290,62 @@ annotation (
 This example validates composed chiller plant controller
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>. It shows the
-process of enabling plant, enabling waterside economizer and staging up one chiller.
+process of enabling plant, enabling waterside economizer and staging up one chiller. The plant:
 </p>
+<ul>
+<li>
+is less coupled;
+</li>
+<li>
+has waterside economizer and the chilled water flow through the economizer is
+controlled using heat exchanger pump;
+</li>
+<li>
+has 2 parallel identical chillers and do not have head pressure control signal;
+</li>
+<li>
+has 2 headed chilled water pumps, 1 remote differential pressure sensor and do
+not have local differential pressure sensor hardwired to the plant controller;
+</li>
+<li>
+has 2 headed variable speed condenser water pumps;
+</li>
+<li>
+has cooling tower with 2 cells.
+</li>
+</ul>
+ 
+<p>
+The example shows following process:
+</p>
+<ul>
+<li>
+At 15 minutes, the plant becomes enabled in waterside economizer mode. The
+economizer is enabled and the heat exchanger pump starts operating
+(<code>wseSta.yPumSpe</code> is greater than 0). The condenser water pump becomes
+enabled and the number (1) of enabling pumps is specified by the parameter
+<code>desConWatPumNum</code> and it starts operating at speed (0.5) specified by
+(<code>desConWatPumSpe</code>). The cooling tower cell 1 becomes enabled and its
+isolation valve starts open. After 5 minutes (<code>chaTowCelIsoTim</code>) at 20
+minutes when the isolation valve is fully open, it turns on the cell 1.
+</li>
+<li>
+At 115 minutes, the plant starts staging up (<code>staSetCon.yUp=true</code>,
+<code>upProCon.yStaPro=true</code>) and it stages up chiller 1.
+</li>
+<li>
+In the staging up process, at 127.07 minutes, it increases the condenser water
+pump speed (0.6) and increases number (2) of the pump. Also, it starts staging up
+cooling tower (<code>upProCon.yTowStaUp=true</code>) at the same moment. At 127.241
+minutes, it enables the chiller 1 head pressure control. When the chilled water
+isolation valve is fully open at 132.741 minutes, it then turns on chiller 1. The
+staging up process is done (<code>upProCon.yStaPro=false</code>).
+</li>
+<li>
+At 145 minutes, the plant starts staging up again to add chiller 2
+(<code>yChiSet[2]=true</code>). The whole staging up process starts again.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

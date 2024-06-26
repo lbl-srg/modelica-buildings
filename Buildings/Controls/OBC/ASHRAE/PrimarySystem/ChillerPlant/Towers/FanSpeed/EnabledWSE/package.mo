@@ -6,7 +6,7 @@ preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences for cooling tower fan speed control when the waterside
 economizer is enabled.
-The implementation is based on section 5.2.12.2, item 4 in ASHRAE RP-1711, Draft on March 23, 2020.
+The implementation is based on section 5.20.12.2, item c in ASHRAE Guideline36-2021.
 </p>
 </html>"),
 Icon(graphics={

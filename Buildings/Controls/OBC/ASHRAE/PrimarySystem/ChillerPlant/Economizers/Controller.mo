@@ -96,12 +96,14 @@ block Controller "Waterside economizer (WSE) enable/disable status"
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(group="Valve or pump control",
-                       enable=(valCon == CDL.Types.SimpleController.PI or valCon == CDL.Types.SimpleController.PID)
+                       enable=(valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                               or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                                and have_byPasValCon));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Valve or pump control",
-                       enable=(valCon == CDL.Types.SimpleController.PD or valCon == CDL.Types.SimpleController.PID)
+                       enable=(valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                               or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
                                and have_byPasValCon));
   parameter Real minSpe(
     final min=0,
@@ -144,7 +146,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     final max=1,
     final unit="1")
     "Maximum cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-220,-10},{-180,30}}),
+    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
     iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
@@ -202,7 +204,7 @@ block Controller "Waterside economizer (WSE) enable/disable status"
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter"
-    annotation (Placement(transformation(extent={{180,10},{220,50}}),
+    annotation (Placement(transformation(extent={{180,20},{220,60}}),
       iconTransformation(extent={{100,40},{140,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
@@ -255,7 +257,7 @@ protected
     final wseOnTimDec=wseOnTimDec,
     final wseOnTimInc=wseOnTimInc)
     "Tuning parameter for the WSE outlet temperature calculation"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature wseTOut(
     final heaExcAppDes=heaExcAppDes,
@@ -350,9 +352,13 @@ protected
     "Break algebric loop"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And enaWSE
+    "Enable economizer if the plant is enabled"
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+
 equation
-  connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,10},
-          {-150,10},{-150,25},{-142,25}},     color={0,0,127}));
+  connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,20},
+          {-150,20},{-150,35},{-142,35}},     color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-200,210},{-120,210},{-120,168},{-102,168}},
     color={0,0,127}));
@@ -376,9 +382,8 @@ equation
     annotation (Line(points={{-78,100},{-62,100}},color={0,0,127}));
   connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,100},{90,100},{
           90,158},{98,158}}, color={255,0,255}));
-  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-118,30},{-110,
-          30},{-110,152},{-102,152}},
-                                  color={0,0,127}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-118,40},{-110,40},
+          {-110,152},{-102,152}}, color={0,0,127}));
   connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,160},{-22,160}},
                      color={0,0,127}));
   connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,170},{-170,170},{-170,
@@ -386,7 +391,7 @@ equation
   connect(sub2.y, enaTWet.u)
     annotation (Line(points={{2,166},{18,166}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
-    annotation (Line(points={{-118,30},{200,30}},   color={0,0,127}));
+    annotation (Line(points={{-118,40},{200,40}},   color={0,0,127}));
   connect(nor.y, timer.u)
     annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
   connect(hys.y, nor.u1)
@@ -409,8 +414,6 @@ equation
     annotation (Line(points={{-200,-108},{-102,-108}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
-  connect(truFalHol.y, enaEco.u1) annotation (Line(points={{162,166},{170,166},{
-          170,70},{110,70},{110,-20},{118,-20}},  color={255,0,255}));
   connect(enaEco.y, y)
     annotation (Line(points={{142,-20},{200,-20}}, color={255,0,255}));
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-140},{-60,-140},
@@ -446,13 +449,19 @@ equation
   connect(enaEco.y, falEdg.u) annotation (Line(points={{142,-20},{150,-20},{150,
           0},{-160,0},{-160,60},{-102,60}}, color={255,0,255}));
   connect(enaEco.y, wseTun.uWseSta) annotation (Line(points={{142,-20},{150,-20},
-          {150,0},{-160,0},{-160,35},{-142,35}}, color={255,0,255}));
+          {150,0},{-160,0},{-160,45},{-142,45}}, color={255,0,255}));
   connect(pre2.y, enaEco.u2) annotation (Line(points={{82,-20},{100,-20},{100,
           -28},{118,-28}}, color={255,0,255}));
   connect(not1.y, lat.clr) annotation (Line(points={{-38,-100},{0,-100},{0,-26},
           {18,-26}}, color={255,0,255}));
   connect(and1.y, lat.u)
     annotation (Line(points={{-38,-20},{18,-20}}, color={255,0,255}));
+  connect(uPla, enaWSE.u2) annotation (Line(points={{-200,-20},{-154,-20},{-154,
+          12},{58,12}}, color={255,0,255}));
+  connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,166},{170,166},{
+          170,60},{40,60},{40,20},{58,20}}, color={255,0,255}));
+  connect(enaWSE.y, enaEco.u1) annotation (Line(points={{82,20},{110,20},{110,-20},
+          {118,-20}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

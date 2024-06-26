@@ -160,8 +160,8 @@ annotation (defaultComponentName = "enaDev",
   Documentation(info="<html>
 <p>
 It controls the devices when the chiller plant is enabled in chiller mode or
-waterside economizer mode. It is implemented as provided in sections 5.2.2.4,
-section 1 and 2.
+waterside economizer mode. It is implemented as provided in sections 5.20.2.4,
+section a and b.
 </p>
 <ol>
 <li>

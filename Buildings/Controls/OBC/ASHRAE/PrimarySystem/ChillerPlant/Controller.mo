@@ -2362,6 +2362,159 @@ Documentation(info="<html>
 This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.
 It is composed by following subsequences:
 </p>
+<table summary=\"summary\" border=\"1\"><thead>
+<tr>
+<th bgcolor=\"silver\">Subsequences</th>
+<th bgcolor=\"silver\">Primary<br>only</th>
+<th bgcolor=\"silver\">Primary<br>Secondary</th>
+<th bgcolor=\"silver\">Parallel<br>chillers</th>
+<th bgcolor=\"silver\">Series<br>chillers</th>
+<th bgcolor=\"silver\">Headed<br>CHWP</th>
+<th bgcolor=\"silver\">Dedicated<br>CHWP</th>
+<th bgcolor=\"silver\">Headed<br>CWP</th>
+<th bgcolor=\"silver\">Dedicated<br>CWP</th>
+<th bgcolor=\"silver\">VarSpe<br>CWP</th>
+<th bgcolor=\"silver\">ConSpe<br>CWP</th>
+<th bgcolor=\"silver\">Water<br>cooled</th>
+<th bgcolor=\"silver\">Air<br>cooled</th>
+<th bgcolor=\"silver\">With<br>WSE</th>
+<th bgcolor=\"silver\"></th>
+</tr></thead>
+<tbody>
+    <tr>
+      <td>Plant</br>reset</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes<sup>1</sup></td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes<sup>2</sup></td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset\">
+        Chilled water plant reset</a></br>
+        and
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply\">
+        Chilled water supply</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Head pressure</br>control<sup>3</sup></td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller\">
+        Head pressure controller</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Minimum</br>flow</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller\">
+        Bypass valve controller</a></br>
+        and
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint\">
+        Bypass flow setpoint</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Chilled water</br>pump</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller\">
+        Chilled water pump controller</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Chiller</br>staging</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up\">
+        Staging up</a></br>
+        and
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down\">
+        Staging down</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Cooling</br>tower<sup>4</sup></td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller\">
+        Tower controller</a>
+      </td>
+    </tr>
+  </tbody></table>
+
+
+
+
 <h4>1. Plant reset</h4>
 <p>
 The sequences

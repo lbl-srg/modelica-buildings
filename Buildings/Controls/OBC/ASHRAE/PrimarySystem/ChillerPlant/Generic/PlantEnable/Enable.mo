@@ -221,9 +221,8 @@ annotation (
  Documentation(info="<html>
 <p>
 Block that generate chiller plant enable signals and output the initial plant stage,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.2.1,
-5.2.2.2 and 5.2.2.3.
+according to ASHRAE Guideline36-2021, section 5.20.2.1,
+5.20.2.2 and 5.20.2.3.
 </p>
 <p>
 The chiller plant should be enabled and disabled according to following sequences:

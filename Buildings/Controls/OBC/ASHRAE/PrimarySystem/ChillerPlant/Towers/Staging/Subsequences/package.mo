@@ -5,7 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains subsequences for cooling tower staging.
-The implementation is based on section 5.2.12.1 in ASHRAE RP-1711, Draft 6 (July 25, 2019).
+The implementation is based on section 5.20.12.1 in ASHRAE Guideline36-2021.
 </p>
 </html>"),
 Icon(graphics={

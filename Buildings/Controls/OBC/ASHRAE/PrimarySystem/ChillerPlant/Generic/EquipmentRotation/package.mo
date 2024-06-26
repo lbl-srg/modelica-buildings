@@ -4,8 +4,9 @@ package EquipmentRotation "Equipment rotation sequences to maintain even wear"
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
-This package contains equipment staging and rotation sequences implemented based on ASHRAE RP1711.
-March 2020 draft, section 5.1.2. The control intent of these sequences is, where the device configuration allows for it, 
+This package contains equipment staging and rotation sequences implemented based on
+ASHRAE Guideline36-2021, section 5.1.15. The control intent of these sequences is,
+where the device configuration allows for it, 
 to have the devices be lead/lag or lead/standby rotated to maintain even wear.
 </html>"),
 Icon(graphics={
