@@ -281,7 +281,7 @@ equation
   connect(rel.trigger, triTun) annotation (Line(points={{-56,18},{-56,0},{-6,0},
           {-6,-70},{60,-70},{60,-120}}, color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-6,34},{-6,-70},
-          {60,-70},{60,-120}},      color={255,0,255}));
+          {60,-70},{60,-120}}, color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{142,-62},{146,-62}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
