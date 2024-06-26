@@ -923,7 +923,7 @@ sampled, as sampling were to change the dynamic response.
 <ul>
 <li>
 June 26, 2024, by Antoine Gautier:<br/>
-Replaced hold with pre to break the algebraic loop involving the latch component.
+Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
 </li>

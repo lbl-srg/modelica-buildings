@@ -51,7 +51,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer
     </td>
-    <td valign=\"top\">Added a pre block to break the algebraic loop involving the mixed air temperature.<br/>
+    <td valign=\"top\">Added a <code>pre</code> block to break the algebraic loop involving the mixed air temperature.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
     </td>
 </tr>
@@ -60,7 +60,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression
     </td>
-    <td valign=\"top\">Replaced hold with pre to break the algebraic loop involving the latch component.<br/>
+    <td valign=\"top\">Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">#3883</a>.
     </td>
 </tr>
@@ -97,7 +97,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr>
     <td valign=\"top\">Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
     </td>
-    <td valign=\"top\">Replaced hold with pre to break the algebraic loop involving the latch component.<br/>
+    <td valign=\"top\">Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
     </td>
 </tr>
