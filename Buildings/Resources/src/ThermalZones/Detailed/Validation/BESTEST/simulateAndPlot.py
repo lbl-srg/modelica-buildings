@@ -19,7 +19,7 @@ CLEAN_MAT = True
 DelTemDir = True
 # If true, export MBL results to results file.
 # It will not update the plots and the html.
-ExportData = False
+ExportData = True
 
 CWD = os.getcwd()
 
@@ -28,7 +28,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, dymola and optimica are supported
-TOOL = 'optimica'
+TOOL = 'dymola'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
@@ -293,15 +293,15 @@ def get_export_data():
         temp = {'case': case['case']}
         if (case['case'] == 'Case600'):
             resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TSkyTemHou.y', 'TSkyTemAnn.y',
-                      'hTra.y', 'traSol.y', 'hGloSou.y', 'gloSou.y', 'hGloHor.y', 'gloHor.y']
+                      'roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y', 'roo.HGlo[1]', 'gloSou.y', 'hGloHor.y', 'gloHor.y']
         elif (case['case'] == 'Case610' or case['case'] == 'Case630'):
-            resVal = ['hTra.y', 'traSol.y']
+            resVal = ['roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y']
         elif (case['case'] == 'Case620'):
-            resVal = ['hTra.y', 'traSol.y', 'hGloSou.y', 'gloSou.y', 'hGloEas.y', 'gloEas.y']
+            resVal = ['roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y', 'roo.HGlo[1]', 'gloSou.y', 'roo.HGlo[2]', 'gloEas.y']
         elif (case['case'] == 'Case640' or case['case'] == 'Case940'):
             resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TRooHou.y']
         elif (case['case'] == 'Case660' or case['case'] == 'Case670'):
-            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'hTra.y', 'traSol.y']
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y']
         elif (case['case'] == 'Case680' or case['case'] == 'Case685'
               or case['case'] == 'Case695' or case['case'] == 'Case900'
               or case['case'] == 'Case980' or case['case'] == 'Case985'
@@ -487,7 +487,7 @@ def export_data(data_set):
                     TSkyTemAnn = varVal['value'][-1]
                 elif varVal['variable'] == 'traSol.y':
                     traSol = varVal['value'][-1]
-                elif varVal['variable'] == 'hTra.y':
+                elif varVal['variable'] == 'roo.QTraGlo[1]':
                     Feb1_hTra = varVal['value'][745:769]
                     May4_hTra = varVal['value'][2953:2977]
                     Jul14_hTra = varVal['value'][4657:4681]
@@ -502,13 +502,15 @@ def export_data(data_set):
                 elif varVal['variable'] == 'hGloHor.y':
                     May4_hGloHor = varVal['value'][2953:2977]
                     Jul14_hGloHor = varVal['value'][4657:4681]
-                elif varVal['variable'] == 'hGloSou.y':
+                elif varVal['variable'] == 'roo.HGlo[1]':
                     May4_hGloSou = varVal['value'][2953:2977]
                     Jul14_hGloSou = varVal['value'][4657:4681]
                 elif varVal['variable'] == 'gloSou.y':
                     gloSou = varVal['value'][-1]
                 elif varVal['variable'] == 'gloHor.y':
                     gloHor = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
             Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
             Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
             for i in range(len(Feb1_PCoo)):
@@ -524,10 +526,10 @@ def export_data(data_set):
                      'Annual_TSky': '{:.2f}'.format(TSkyTemAnn-273.15),
                      'Max_TSky': peaMax['value'] + ', ' + peaMax['hour'],
                      'Min_TSky': peaMin['value'] + ', ' + peaMin['hour'],
-                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
-                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Feb1_hTra],
-                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in May4_hTra],
-                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hTra],
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
+                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Feb1_hTra],
+                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in May4_hTra],
+                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Jul14_hTra],
                      'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
                      'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
                      'Ann_Load': ['{:.2f}'.format(ele) for ele in Ann_Load[1:]],
@@ -559,7 +561,7 @@ def export_data(data_set):
         elif ('Case660' in data['case']) or ('Case670' in data['case']):
             temp = {'case': data['case']}
             for varVal in data['result']:
-                if varVal['variable'] == 'hTra.y':
+                if varVal['variable'] == 'roo.QTraGlo[1]':
                     Feb1_hTra = varVal['value'][745:769]
                     May4_hTra = varVal['value'][2953:2977]
                     Jul14_hTra = varVal['value'][4657:4681]
@@ -571,6 +573,8 @@ def export_data(data_set):
                     Jul14_PHea = varVal['value'][4657:4681]
                 elif varVal['variable'] == 'traSol.y':
                     traSol = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
             Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
             Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
             for i in range(len(Feb1_PCoo)):
@@ -578,10 +582,10 @@ def export_data(data_set):
                 Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
             temp1 = {'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
                      'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
-                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
-                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Feb1_hTra],
-                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in May4_hTra],
-                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hTra]}
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
+                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Feb1_hTra],
+                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in May4_hTra],
+                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Jul14_hTra]}
         elif ('Case680' in data['case']) or ('Case685' in data['case']) or \
              ('Case695' in data['case']) or ('Case900' in data['case']) or \
              ('Case980' in data['case']) or ('Case985' in data['case']) or \
@@ -613,7 +617,9 @@ def export_data(data_set):
             for varVal in data['result']:
                 if varVal['variable'] == 'traSol.y':
                     traSol = varVal['value'][-1]
-            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh)}
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh)}
         elif ('Case960' in data['case']):
             temp = {'case': data['case']}
             for varVal in data['result']:
@@ -629,10 +635,12 @@ def export_data(data_set):
                     gloWes = varVal['value'][-1]
                 elif varVal['variable'] == 'gloEas.y':
                     gloEas = varVal['value'][-1]
-                elif varVal['variable'] == 'hGloSou.y':
+                elif varVal['variable'] == 'roo.HGlo[1]':
                     May4_hGloWes = varVal['value'][2953:2977]
                     Jul14_hGloWes = varVal['value'][4657:4681]
-            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/kWh),
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
                      'Annual_Global_West_Solar': '{:.2f}'.format(gloWes/kWh),
                      'Annual_Global_East_Solar': '{:.2f}'.format(gloEas/kWh),
                      'May4_Global_West_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloWes],

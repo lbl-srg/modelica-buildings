@@ -26,10 +26,6 @@ model Case620 "Case 600, but with windows on East and West side walls"
    heaCri(lowerLimit=3.67*3.6e9, upperLimit=5.38*3.6e9),
    cooCri(lowerLimit=-2.76*3.6e9, upperLimit=-5.19*3.6e9));
 
-  Modelica.Blocks.Sources.RealExpression hGloEas(
-    y(final unit="W/m2")=roo.conExtWinRad[2].HDir + roo.conExtWinRad[2].HDif)
-    "East global solar irradiance"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Continuous.Integrator gloEas(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -37,10 +33,10 @@ model Case620 "Case 600, but with windows on East and West side walls"
     u(final unit="W/m2"),
     y(final unit="J/m2"))
     "Annual east global solar irradiance"
-    annotation (Placement(transformation(extent={{74,66},{82,74}})));
+    annotation (Placement(transformation(extent={{88,18},{96,26}})));
 equation
-  connect(hGloEas.y, gloEas.u)
-    annotation (Line(points={{61,70},{73.2,70}}, color={0,0,127}));
+  connect(roo.HGlo[2], gloEas.u) annotation (Line(points={{67.5,-22.5},{72,
+          -22.5},{72,22},{87.2,22}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case620.mos"
         "Simulate and plot"),
         experiment(
@@ -78,16 +74,5 @@ October 6, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics={
-          Text(
-          extent={{24,26},{108,16}},
-          textColor={28,108,200},
-          textString=
-              "For the case, it is global solar irradiancethe on west window."),
-                      Text(
-          extent={{-96,110},{8,102}},
-          textColor={28,108,200},
-          textString=
-              "For the case, it is the transmitted solar radiation through west window.")}));
+</html>"));
 end Case620;

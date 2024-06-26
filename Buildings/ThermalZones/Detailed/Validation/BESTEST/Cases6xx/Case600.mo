@@ -85,10 +85,6 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     y(final unit="J/m2"))
     "Annual global horizontal solar irradiance"
     annotation (Placement(transformation(extent={{74,26},{82,34}})));
-  replaceable Modelica.Blocks.Sources.RealExpression hGloSou(
-    y(final unit="W/m2")=roo.conExtWinRad[1].HDir + roo.conExtWinRad[1].HDif)
-    "South global solar irradiance"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Modelica.Blocks.Continuous.Integrator gloSou(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -96,19 +92,15 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     u(final unit="W/m2"),
     y(final unit="J/m2"))
     "Annual south global solar irradiance"
-    annotation (Placement(transformation(extent={{74,6},{82,14}})));
+    annotation (Placement(transformation(extent={{80,2},{88,10}})));
   Modelica.Blocks.Continuous.Integrator traSol(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0,
-    u(final unit="W/m2"),
-    y(final unit="J/m2"))
+    u(final unit="W"),
+    y(final unit="J"))
     "Annual transmitted solar irradiance"
-    annotation (Placement(transformation(extent={{-40,86},{-32,94}})));
-  replaceable Modelica.Blocks.Sources.RealExpression hTra(
-    y(final unit="W/m2")=(roo.conExtWinRad[1].QTraDif_flow + roo.conExtWinRad[1].QTraDir_flow)/(roo.conExtWinRad[1].AWin))
-    "Transmitted solar radiation"
-    annotation (Placement(transformation(extent={{-74,80},{-54,100}})));
+    annotation (Placement(transformation(extent={{88,-12},{96,-4}})));
   Modelica.Blocks.Sources.RealExpression TSkyTem(
     y(final unit="K", displayUnit="degC")=weaDat.weaBus.TBlaSky)
     "Black body sky temperature"
@@ -188,14 +180,14 @@ equation
       smooth=Smooth.None));
   connect(hGloHor.y, gloHor.u)
     annotation (Line(points={{61,30},{73.2,30}}, color={0,0,127}));
-  connect(hGloSou.y, gloSou.u)
-    annotation (Line(points={{61,10},{73.2,10}}, color={0,0,127}));
-  connect(hTra.y, traSol.u)
-    annotation (Line(points={{-53,90},{-40.8,90}}, color={0,0,127}));
   connect(TSkyTem.y, TSkyTemHou.u) annotation (Line(points={{61,-50},{70,-50},{70,
           -44},{87.2,-44}}, color={0,0,127}));
   connect(TSkyTem.y, TSkyTemAnn.u) annotation (Line(points={{61,-50},{70,-50},{70,
           -56},{87.2,-56}}, color={0,0,127}));
+  connect(roo.QTraGlo[1], traSol.u) annotation (Line(points={{67.5,-25.5},{78,-25.5},
+          {78,-8},{87.2,-8}}, color={0,0,127}));
+  connect(roo.HGlo[1], gloSou.u) annotation (Line(points={{67.5,-22.5},{72,-22.5},
+          {72,6},{79.2,6}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600.mos"
         "Simulate and plot"),
         experiment(
