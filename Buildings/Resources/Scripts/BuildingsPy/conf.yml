@@ -297,18 +297,6 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerInput
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerTotal
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
 - model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
