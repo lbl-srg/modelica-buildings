@@ -19,7 +19,7 @@ CLEAN_MAT = True
 DelTemDir = True
 # If true, export MBL results to results file.
 # It will not update the plots and the html.
-ExportData = True
+ExportData = False
 
 CWD = os.getcwd()
 
@@ -28,7 +28,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, dymola and optimica are supported
-TOOL = 'dymola'
+TOOL = 'optimica'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
