@@ -282,7 +282,7 @@ of difference (<code>chaRat</code>) but no longer than 30 minutes (<code>1800</c
 <ul>
 <li>
 June 18, 2024, by Antoine Gautier:<br/>
-Replaced hold with pre to break the algebraic loop involving the latch component.
+Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">issue 3883</a>.
 </li>
