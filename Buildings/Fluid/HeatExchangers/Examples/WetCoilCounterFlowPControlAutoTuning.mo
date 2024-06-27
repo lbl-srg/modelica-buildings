@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControlAutoTuning
-  "Model that demonstrates the use of a heat exchanger with condensation and autotuning feedback control"
+  "Model that demonstrates the use of a heat exchanger with condensation and with autotuning feedback control"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;

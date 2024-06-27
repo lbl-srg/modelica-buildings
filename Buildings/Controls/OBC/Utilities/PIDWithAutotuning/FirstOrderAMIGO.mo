@@ -16,7 +16,8 @@ block FirstOrderAMIGO
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
   parameter Real u_s_start
-    "Start value of the set point";
+    "Start value of the set point"
+    annotation (Dialog(tab="Advanced",group="Initialization"));
   parameter Real r(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
@@ -61,6 +62,10 @@ block FirstOrderAMIGO
     "Value to which the controller output is reset 
      if the boolean trigger has a rising edge"
     annotation (Dialog(group="Integrator reset"));
+  parameter Real SetHys = 0.001*r
+    "Hysteresis for checking set point";
+  parameter Real SymHys = 0.001
+    "Hysteresis for checking symmetricity";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -172,7 +177,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Absolute value"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
+     final h=SymHys)
     "Check if the relay output is asymmetric"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(final k=1e-3)
@@ -212,7 +218,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Absolute value of the setpoint change"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre1
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1(
+    final h=SetHys)
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{50,220},{70,240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
@@ -405,7 +412,9 @@ The following procedure can be used to determine the values of those parameters.
 </p>
 <ol>
 <li>
-Perform the simulation without enabling autotuning and with a constant set point.
+Perform a \"test run\" to determine the maximum and the minimum values of measurement.
+In this test run, the autotuning is disenabled and the set point is constant.
+This test run should stop after the system is stable.
 Record the maximum and the minimum values of measurement after the system is stable.
 </li>
 <li>
@@ -417,16 +426,15 @@ The <code>yRef</code> can be determined by dividing the set point by the sum of 
 minimum and the maximum values of the measurement.
 </li>
 <li>
-The <code>yLow</code> should be adjusted to realize an asymmetric relay output, 
+The <code>yLow</code> and <code>yHig</code> should be adjusted to realize an asymmetric relay output, 
 i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-When determining the <code>deaBan</code>, we first divide the maximum and the
-minimum deviations of measurement
-from the setpoint by the <code>r</code>, respectively.
-We then calculate the absolute values of the two deviations.
-After, we set the <code>deaBan</code> to be half of the smaller one between those
-two absolute values.
+
+When determining the <code>deaBan</code>, we first divide the maximum and the 
+minimum difference of measurement from the setpoint by the typical range of control error <code>r</code>, 
+then find the absolute value of the two deviations. 
+The <code>deaBan</code> can be set as half of the smaller one between the two absolute deviations.
 </li>
 </ol>
 <h4>References</h4>
