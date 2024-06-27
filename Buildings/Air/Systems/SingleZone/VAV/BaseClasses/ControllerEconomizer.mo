@@ -196,7 +196,7 @@ Economizer controller.
 <ul>
 <li>
 June 26, 2024, by Antoine Gautier:<br/>
-Added a pre block to break the algebraic loop involving the mixed air temperature.
+Added a <code>pre</code> block to break the algebraic loop involving the mixed air temperature.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
 </li>
