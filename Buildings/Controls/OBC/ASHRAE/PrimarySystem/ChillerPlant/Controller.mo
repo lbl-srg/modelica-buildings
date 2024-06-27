@@ -2360,7 +2360,9 @@ annotation (
 Documentation(info="<html>
 <p>
 This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.
-It is composed by following subsequences:
+It is composed by the subsequences in this pacakge. The applicability of some sequences
+are listed in the table below. The <code>yes</code> means that the sequence is appliable to
+the system type, while <code>no</code> means not applicable.
 </p>
 <table summary=\"summary\" border=\"1\"><thead>
 <tr>
@@ -2402,6 +2404,26 @@ It is composed by following subsequences:
         and
         <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply\">
         Chilled water supply</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Waterside</br>economizer</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller\">
+        Economizer controller</a>
       </td>
     </tr>
     <tr>
@@ -2511,51 +2533,22 @@ It is composed by following subsequences:
       </td>
     </tr>
   </tbody></table>
-
-
-
-
-<h4>1. Plant reset</h4>
 <p>
-The sequences
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterPlantReset</a>
-and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply</a>
-are for resetting chilled water temperature setpoint and differential pressure setpoint.
-They are applicable for the primary-only plants or for the primary-secondary systems
-serving differential pressure controlled pumps.  
+Footnote to the table:  
 </p>
-<table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"silver\">Applicable</th> </tr>
-<tr><td>Primary-only systems</td></tr>
-<tr><td>Primay-secondary systems serving differential pressure controlled pumps</td></tr>
-<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
-<tr><td>Primary-only systems serving a single large load, e.g. large AHU</td></tr>
-<tr><td>Primay-secondary systems where there are any coil pumps</td></tr>
-<tr><td>Plants with multiple reset loops</td></tr>
-<tr><td>Plants with series chiller</td></tr>
-</table>
-
-<h4>2. Head pressure control</h4>
-<p>
-The sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller</a>
-generates control signals for chiller head pressure control.
-</p>
-<table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"silver\">Applicable</th> </tr>
-<tr><td>Plants with headered condenser water pump, fixed or variable speed</td></tr>
-<tr><td>Plants with or without waterside economizer</td></tr>
-<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
-<tr><td>Plants with air-cooling chillers</td></tr>
-</table>
-<p>
-Note the sequence assumes:
-</p>
-<ul>
+<ol>
+<li>
+The plant reset sequence is not applicable for primary-only system serving a single
+large load, e.g. large AHU.
+</li>
+<li>
+The plant reset sequence is not applicable for primary-secondary systems where
+there are any coil pumps.
+</li>
+<li>
+If the chillers have head pressure control signal, the sequence is not needed.
+Also, the sequence assumes:
+<uL>
 <li>
 the plants with fixed speed condenser water pump do not have waterside economizer.
 </li>
@@ -2564,83 +2557,23 @@ when plants have variable speed condenser water pump and have waterside economiz
 the pumps are headered.
 </li>
 </ul>
-
-<h4>3. Minimum flow bypass valve control</h4>
-<p>
-The sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Controller</a>
-and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint</a>
-control chilled water minimum flow bypass valve.
-</p>
-<table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"silver\">Applicable</th> </tr>
-<tr><td>Primary-only plants, with parallel or series chillers</td></tr>
-<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
-<tr><td>Primary-secondary plants</td></tr>
-</table>
-
-<h4>4. Chilled water pump control</h4>
-<p>
-The sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller</a>
-controls chilled water pump. It is applicable for primary-only plants with parallel
-chillers.
-</p>
-<table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"silver\">Applicable</th> </tr>
-<tr><td>Primary-only plants with parallel chillers</td></tr>
-<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
-<tr><td>Primary-only plants with series chillers</td></tr>
-<tr><td>Primary-secondary plants</td></tr>
-</table>
-
-<h4>5. Chiller staging control</h4>
-<p>
-The sequences
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Up</a>
-and
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Down</a>
-controls chiller staging up and down process. They are applicable for following plants:
-</p>
-<table summary=\"summary\" border=\"1\">
-<tr><th bgcolor=\"silver\">Applicable</th> </tr>
-<tr><td>water-cooled, primary-only, parallel chiller plants with headered chilled water pumps and headered condenser water pumps</td></tr>
-<tr><td>air-cooled primary-only, parallel chiller plants with headered chilled water pumps</td></tr>
-<tr><th bgcolor=\"silver\">Not applicable</th> </tr>
-<tr><td>Primary-only plants with parallel chillers, dedicated chilled water or condenser water pumps</td></tr>
-<tr><td>Primary-only plants with series chillers</td></tr>
-<tr><td>Primary-secondary plants</td></tr>
-</table>
-
-<h4>6. Tower control</h4>
-<p>
-The sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller</a>
-controls cooling tower staging and the fans speed. It is appliable for plants with
-dynamic load profiles, i.e. those for which PLR may change by more than approximately
-25% in any hour, for controlling condenser water return temperature. It is not
-applicable for the plants where 2-position tower bypass control valves are needed
-to prevent tower freezing.
-Note that the sequence assumes that the cells are enabled in order as it is labelled, meaning
-that it enabled the cells as cell 1, 2, 3, etc.
-</p>
-
-<h4>7. Equipment rotation</h4>
-<p>
-The sequence
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo</a>
-rotates equipment, such as chillers or pumps, in order to ensure equal wear and tear.
-It is applicable for <b>two identical</b> devices or device groups.
-</p>
-
+</li>
+<li>
+The tower sequence assumes that the cells are enabled in the order as it is labelled,
+meaning that it enabled the cells as cell 1, 2, 3, etc.
+<ul>
+<li>
+The tower control sequence is applicable for plants with dynamic load profile,
+i.e. those for which PLR may change by more than approximately 25% in any hour,
+for controlling condenser water return temperature.
+</li>
+<li>
+It is not applicable for the plants where 2-position tower bypass control valves
+are needed to prevent tower freezing.
+</li>
+</ul>
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
 <li>
