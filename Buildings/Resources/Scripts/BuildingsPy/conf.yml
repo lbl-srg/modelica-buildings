@@ -241,14 +241,28 @@
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
-- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Pulse
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.InletTemperaturePulse
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
-- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.Step
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse100
+  openmodelica:
+    comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+    translate: false
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRatePulse50
+  openmodelica:
+    comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
+    translate: false
+  optimica:
+    translate: false
+    comment: Singularity, likely related to Modelon ticket 956
+- model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW.MassFlowRateStep100
   openmodelica:
     comment: Failure in evaluating borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel
     translate: false
