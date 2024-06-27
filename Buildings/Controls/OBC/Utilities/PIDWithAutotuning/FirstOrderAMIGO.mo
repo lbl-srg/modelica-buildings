@@ -191,8 +191,7 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(message="*** Warning: An autotuning is ongoing and the new autotuning request is ignored.")
-    "Warning message when an autotuning tuning 
-    is ongoing while a new autotuning request is received"
+    "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
     "True only when a new request is received"
@@ -406,15 +405,15 @@ a request for performing autotuning will be ignored.
 <p>
 The performance of the autotuning is affected by the parameters, including the
 typical range of control error, <code>r</code>, 
-the reference output for the tuning process, <code>yRef</code>, the lower value for
-the relay output, <code>yLow</code>, and the deadband, <code>deaBan</code>.
+the reference output for the tuning process, <code>yRef</code>, the higher and the lower values for
+the relay output, <code>yHig</code> and <code>yLow</code>, and the deadband, <code>deaBan</code>.
 The following procedure can be used to determine the values of those parameters. 
 </p>
 <ol>
 <li>
 Perform a \"test run\" to determine the maximum and the minimum values of measurement.
-In this test run, the autotuning is disenabled and the set point is constant.
-This test run should stop after the system is stable.
+In this test run, the autotuning is disabled and the set point is constant.
+This test run should cover the period when the system is stable.
 Record the maximum and the minimum values of measurement after the system is stable.
 </li>
 <li>
@@ -426,11 +425,10 @@ The <code>yRef</code> can be determined by dividing the set point by the sum of 
 minimum and the maximum values of the measurement.
 </li>
 <li>
-The <code>yLow</code> and <code>yHig</code> should be adjusted to realize an asymmetric relay output, 
+The <code>yHig</code> and <code>yLow</code> should be adjusted to realize an asymmetric relay output, 
 i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-
 When determining the <code>deaBan</code>, we first divide the maximum and the 
 minimum difference of measurement from the setpoint by the typical range of control error <code>r</code>, 
 then find the absolute value of the two deviations. 
