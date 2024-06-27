@@ -88,7 +88,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Log log
     "Natural logarithm of the input"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre1(h=0)
+  Buildings.Controls.OBC.CDL.Reals.Greater gre1(final h=1e-6)
     "Check if the input is less than 0"
     annotation (Placement(transformation(extent={{38,-130},{58,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Max max1
