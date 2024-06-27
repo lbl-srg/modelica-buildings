@@ -34,24 +34,23 @@ protected
     final unit="s")
     "Time instant when false hold started";
 initial equation
-  /* To ensure that no true hold is active at the start of the simulation
-  if u is initially false, we set pre(entryTimeTrue) to -Modelica.Constants.inf.
-  This guarantees that the condition time >= pre(entryTimeTrue) + trueHoldDuration
-  is met at the start of the simulation.
-  Similarly, we set pre(entryTimeFalse) to -Modelica.Constants.inf if u is true. */
-  pre(entryTimeTrue)=if u then time else -Modelica.Constants.inf;
-  pre(entryTimeFalse)=if u then -Modelica.Constants.inf else time;
-  pre(u)=pre_u_start;
-  pre(y)=u;
+  pre(entryTimeTrue) = -Modelica.Constants.inf;
+  pre(entryTimeFalse) = -Modelica.Constants.inf;
+  pre(u) = pre_u_start;
+  pre(y) = u;
 equation
-  when {change(u),
-        time >= pre(entryTimeFalse) + falseHoldDuration and
-        time >= pre(entryTimeTrue) + trueHoldDuration} then
+  when initial() then
+    y = u;
+    entryTimeTrue = if y then time else pre(entryTimeTrue);
+    entryTimeFalse = if not y then time else pre(entryTimeFalse);
+  elsewhen {change(u),
+            time >= pre(entryTimeFalse) + falseHoldDuration and
+            time >= pre(entryTimeTrue) + trueHoldDuration} then
     y=if time >= pre(entryTimeFalse) + falseHoldDuration and
          time >= pre(entryTimeTrue) + trueHoldDuration then u
       else pre(y);
-    entryTimeTrue=if change(y) and y then time else pre(entryTimeTrue);
-    entryTimeFalse=if change(y) and not y then time else pre(entryTimeFalse);
+    entryTimeTrue = if change(y) and y then time else pre(entryTimeTrue);
+    entryTimeFalse = if change(y) and not y then time else pre(entryTimeFalse);
   end when;
   annotation (
     defaultComponentName="truFalHol",
