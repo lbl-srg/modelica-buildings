@@ -1,5 +1,5 @@
 within Buildings.Fluid.Geothermal.ZonedBorefields.Validation.FEFLOW;
-model Pulse "Comparative model validation with FEFLOW for a pulse response"
+model MassFlowRatePulse100 "Comparative model validation with FEFLOW for a pulse response"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
@@ -49,6 +49,24 @@ model Pulse "Comparative model validation with FEFLOW for a pulse response"
   final parameter Integer nZon(min=1) = borFieDat.conDat.nZon
     "Total number of independent bore field zones";
 
+  replaceable Modelica.Blocks.Sources.Constant TIn[nZon](
+    each k(each final unit="K",
+      each displayUnit="degC")=293.15)
+    constrainedby Modelica.Blocks.Interfaces.SO
+    "Inlet temperature into each zone"
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable TOut(
+    tableOnFile=true,
+    tableName="tab1",
+    columns={2,3},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.txt"),
+    y(each unit="K",
+      each displayUnit="degC"))
+    "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
   Modelica.Units.SI.TemperatureDifference dTOut[2] =
     {if m_flow[i].y > 1E-5 then TOut.y[i] - TBorFieOut[i].T else 0 for i in 1:2}
     "Temperature difference FEFLOW minus Modelica outlet temperature";
@@ -86,27 +104,18 @@ model Pulse "Comparative model validation with FEFLOW for a pulse response"
     amplitude=borFieDat.conDat.mZon_flow_nominal,
     each width=50,
     each period=3600*24*10,
-    each startTime=0) constrainedby Modelica.Blocks.Interfaces.SO
+    each startTime=0)
+    constrainedby Modelica.Blocks.Interfaces.SO
     "Mass flow rate into each zone"
-    annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-
-  Modelica.Blocks.Sources.CombiTimeTable TOut(
-    tableOnFile=true,
-    tableName="tab1",
-    columns={2,3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.txt"),
-    y(each unit="K",
-      each displayUnit="degC"))
-    "Reference results for the borehole fluid outlet temperature in each zone from FEFLOW"
-    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+    annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
 
   Sources.MassFlowSource_T sou[nZon](
     redeclare each package Medium = Medium,
     each use_m_flow_in=true,
-    each T=293.15,
+    each use_T_in=true,
     each nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
 equation
   connect(TBorFieIn.port_b,borFie. port_a)
     annotation (Line(points={{20,0},{30,0}},       color={0,127,255}));
@@ -117,35 +126,20 @@ equation
   connect(sou.ports[1], TBorFieIn.port_a)
     annotation (Line(points={{-20,0},{0,0}},   color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
-    annotation (Line(points={{-59,8},{-42,8}}, color={0,0,127}));
+    annotation (Line(points={{-59,32},{-50,32},{-50,8},{-42,8}},
+                                               color={0,0,127}));
+  connect(TIn.y, sou.T_in) annotation (Line(points={{-59,0},{-52,0},{-52,4},{
+          -42,4}}, color={0,0,127}));
   annotation (
   Diagram(coordinateSystem(extent={{-100,-60},{140,80}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/Pulse.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/ZonedBorefields/Validation/FEFLOW/MassFlowRatePulse100.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This validation cases compares the outlet temperature of a borefield with two
 zones against the temperatures that were calculated with the FEFLOW software.
 The mass flow rate in both zones is a pulse function.
-</p>
-<p>
-The temperatures <code>TOut</code> are the leaving water temperatures from FEFLOW,
-computed with FEFLOW's analytical solution for the borehole heat transfer.
-Comparing <code>TOut</code> with the temperatures <code>TBorFieOut</code>
-shows good agreement except after the step changes in mass flow rate.
-The results after the step changes in mass flow rates
-show similar discrepancies as the comparison of FEFLOW's analytical and
-numerical solutions that is presented in the FEFLOW white paper (DHI-WASY 2010).
-In the FEFLOW white paper, it is explained that the reason for this difference is
-due to the FEFLOW's analytical solution not being valid for such short-time dynamics.
-Therefore, the validation of the Modelica implementation is satisfactory.
-</p>
-<h5>References</h5>
-<p>
-DHI-WASY Software FEFLOW. Finite Element Subsurface Flow &amp; Transport Simulation System.
-White Paper Vol. V.
-DHI-WASY GmbH. Berlin 2010.
 </p>
 </html>",
 revisions="<html>
@@ -159,4 +153,4 @@ First implementation.
     experiment(
       StopTime=15465600,
       Tolerance=1e-06));
-end Pulse;
+end MassFlowRatePulse100;
