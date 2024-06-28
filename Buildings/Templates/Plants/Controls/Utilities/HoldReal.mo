@@ -22,7 +22,7 @@ block HoldReal "Hold value of real signal based on timer and Boolean signal"
     "Switch between actual and fixed value"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final falseHoldDuration=0, final trueHoldDuration=dtHol) if dtHol > 0
+    final falseHoldDuration=0, final trueHoldDuration=dtHol)
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
