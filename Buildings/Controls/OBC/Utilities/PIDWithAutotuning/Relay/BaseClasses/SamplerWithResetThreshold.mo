@@ -32,7 +32,7 @@ protected
     annotation (Placement(transformation(origin={0,148}, extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or samTri "Sampling trigger"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre(final h=1e-6)
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if the input signal is larger than the threshold"
     annotation (Placement(transformation(origin={-8,-50}, extent={{-32,20},{-12,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi

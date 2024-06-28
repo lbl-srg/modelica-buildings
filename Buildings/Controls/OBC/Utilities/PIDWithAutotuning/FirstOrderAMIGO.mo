@@ -62,10 +62,8 @@ block FirstOrderAMIGO
     "Value to which the controller output is reset 
      if the boolean trigger has a rising edge"
     annotation (Dialog(group="Integrator reset"));
-  parameter Real SetHys = 0.001*r
+  parameter Real setHys = 0.05*r
     "Hysteresis for checking set point";
-  parameter Real SymHys = 0.001
-    "Hysteresis for checking symmetricity";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -177,8 +175,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Absolute value"
     annotation (Placement(transformation(extent={{-20,140},{0,160}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre(
-     final h=SymHys)
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if the relay output is asymmetric"
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con4(final k=1e-3)
@@ -218,7 +215,7 @@ protected
     "Absolute value of the setpoint change"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre1(
-    final h=SetHys)
+    final h=setHys)
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{50,220},{70,240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
