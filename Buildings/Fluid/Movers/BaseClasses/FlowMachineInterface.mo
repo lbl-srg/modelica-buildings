@@ -109,13 +109,15 @@ model FlowMachineInterface
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
-    final unit="1") "Hydraulic efficiency"
+    final unit="1",
+    start = 0.7) "Hydraulic efficiency"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-90},{120,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
-    final unit="1") "Motor efficiency"
+    final unit="1",
+    start = 0.7) "Motor efficiency"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
 
@@ -611,7 +613,7 @@ equation
     P_internal=PEle;
     eta_internal=eta;
     WHyd = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1=etaMot, x2=1E-2, deltaX=1E-3);
+                    x1=etaHyd, x2=1E-2, deltaX=1E-3);
   end if;
   if per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate then
@@ -642,21 +644,15 @@ equation
     else
       eta_internal = cha.efficiency(per=per.efficiency, V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta);
     end if;
-    if per.powerOrEfficiencyIsHydraulic then
-      P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    else
-      P_internal=WHyd/Buildings.Utilities.Math.Functions.smoothMax(
-                        x1=eta_internal, x2=1E-2, deltaX=1E-3);
-    end if;
+    P_internal=WFlo/Buildings.Utilities.Math.Functions.smoothMax(
+                      x1=eta_internal, x2=1E-2, deltaX=1E-3);
   else // Not provided
     if per.powerOrEfficiencyIsHydraulic then
       eta_internal=0.7;
-      P_internal=WFlo/eta_internal;
     else
       eta_internal=0.49;
-      P_internal=WHyd/eta_internal;
     end if;
+    P_internal=WFlo/eta_internal;
   end if;
 
   // Motor efficiency etaMot
@@ -864,6 +860,15 @@ See discussions and an example of this situation in
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 15, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency equations if
+<code>powerOrEfficiencyIsHydraulic=false</code>
+and specified the <code>start</code> attribute for <code>etaHyd</code>
+and <code>etaMot</code> to suppress a warning.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
 <li>
 August 8, 2022, by Hongxiang Fu:<br/>
 <ul>

@@ -84,7 +84,9 @@ package Air
   Modelica.Media.Interfaces.Types.Temperature T(
    stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
    "Temperature of medium";
-  Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
+  Modelica.Media.Interfaces.Types.MassFraction[2] X(
+    start=reference_X,
+    nominal={0.01, 1})
     "Mass fractions (= (component mass)/total mass  m_i/m)";
   Modelica.Media.Interfaces.Types.SpecificInternalEnergy u
     "Specific internal energy of medium";
@@ -92,7 +94,8 @@ package Air
     "Gas constant (of mixture if applicable)";
   Modelica.Media.Interfaces.Types.MolarMass MM
     "Molar mass (of mixture or single fluid)";
-  ThermodynamicState state
+  ThermodynamicState state(
+    X(nominal={0.01, 1}))
     "Thermodynamic state record for optional functions";
 
     Modelica.Units.NonSI.Temperature_degC T_degC=
@@ -1056,6 +1059,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>

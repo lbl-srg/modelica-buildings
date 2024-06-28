@@ -49,7 +49,6 @@ protected
     extends Buildings.Examples.Tutorial.SpaceCooling.System3(
       vol(energyDynamics=
       Modelica.Fluid.Types.Dynamics.FixedInitial),
-      fan(nominalValuesDefineDefaultPressureCurve=true),
       hex(dp1_nominal=200 + 10,
           dp2_nominal=200 + 200));
     annotation (Documentation(info="<html>
@@ -217,6 +216,13 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Removed redundant nominal curve specification which is now specified
+in a lower-level model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 September 21, 2021 by David Blum:<br/>
 Use design conditions for UA parameterization in cooling coil.<br/>
