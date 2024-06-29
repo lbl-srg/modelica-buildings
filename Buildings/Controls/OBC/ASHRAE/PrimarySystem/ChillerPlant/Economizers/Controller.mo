@@ -506,8 +506,8 @@ equation
 Documentation(info="<html>
 <p>
 Waterside economizer (WSE) control sequence per ASHRAE Guideline36-2021, section 5.20.3.
-It implements the enable/disable conditions as provided in sections 5.20.3.1. and 5.20.3.2.
 </p>
+<h4>Enable and disable WSE</h4>
 <p>
 The sequence controls the WSE status as follows:
 </p>
@@ -531,7 +531,7 @@ The following state machine chart illustrates the transitions between WSE enable
 src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizer/WaterSideEconomizerEnableDisableStateGraph.png\"/>
 </p>
 <p>
-The WSE control sequence uses the following subsequences:
+The WSE enabling sequence uses the following subsequences:
 </p>
 <ul>
 <li>
@@ -545,6 +545,28 @@ Calculation of the tuning parameter used as an input to PHXLWT calculation:
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning</a>.
 </li>
 </ul>
+
+<h4>Chilled water flow through the WSE</h4>
+<ul>
+<li>
+If the flow through the WSE is controlled using a modulating heat exchanger bypass
+valve (<code>have_byPasValCon=true</code>), the WSE in-line CHW return line valve
+(<code>yRetVal</code>) is controlled by
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.BypassValve\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.BypassValve</a>
+</li>
+<li>
+If the flow through the WSE is controller by a variable speed pump
+(<code>have_byPasValCon=false</code>), the pump is controlled by
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump</a>
+
+</li>
+
+</ul>
+
+
+
 </html>",
 revisions="<html>
 <ul>

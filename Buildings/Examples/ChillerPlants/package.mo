@@ -1,5 +1,5 @@
 within Buildings.Examples;
-package ChillerPlants 
+package ChillerPlants  
 
   extends Modelica.Icons.ExamplesPackage;
 

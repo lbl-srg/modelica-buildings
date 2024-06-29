@@ -118,8 +118,7 @@ annotation (
 <p>
 Block that enable and disable leading primary chilled water pump, for plants
 with dedicated primary chilled water pumps and parallel chillers, 
-according to ASHRAE Guideline36-2021, 
-section 5.20.6 Primary chilled water pumps, part 5.20.6.5.
+according to ASHRAE Guideline36-2021, section 5.20.6.6.
 </p>
 <p>
 The lead primary chilled water pump should be enabled when the plant is enabled

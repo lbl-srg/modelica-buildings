@@ -264,7 +264,7 @@ annotation (defaultComponentName = "cap",
           extent={{-200,-200},{200,200}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides
+This subsequence is not directly specified in Guideline36 as it provides
 a side calculation pertaining to generalization of the staging 
 sequences for any number of chillers and stages provided by the 
 user.

@@ -323,7 +323,7 @@ Maximum cooling tower fan speed <code>uTowFanSpeMax</code> is below 100%
 </li>
 </ul>
 <p>
-The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.2.4.15.
+The implementation is according to ASHRAE Guideline36-2021, section 5.20.4.15.
 and can be used for both primary-only plants with and without a WSE.
 </p>
 </html>",

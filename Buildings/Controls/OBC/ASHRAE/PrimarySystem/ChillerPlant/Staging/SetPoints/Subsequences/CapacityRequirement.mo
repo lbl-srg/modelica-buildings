@@ -170,13 +170,13 @@ Documentation(info="<html>
 Calculates cooling capacity requirement based on the measured chilled water return temperature <code>TChiWatRet</code>,
 calculated chilled water supply temperature setpoint
 <code>TChiWatSupSet</code> and the measured chilled water flow <code>VChiWat_flow</code>.<br/>
-The calculation is according to 1711 March 2020 Draft, section 5.2.4.8.
+The calculation is according to Guideline36-2021, section 5.20.4.8.
 </p>
 <p>
 When a stage change process is in progress, as indicated by a boolean input
 <code>chaPro</code>, the capacity requirement is kept constant for the longer of
 <code>holPer</code> and the duration of the change process.<br/>
-The calculation is according to 1711 March 2020 Draft, section 5.2.4.9.
+The calculation is according to Guideline36-2021, section 5.20.4.9.
 </p>
 </html>",
 revisions="<html>

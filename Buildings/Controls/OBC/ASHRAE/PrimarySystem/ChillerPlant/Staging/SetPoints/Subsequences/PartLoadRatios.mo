@@ -654,49 +654,68 @@ equation
           textString="PLR")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-380,-600},{380,340}})),
-        Documentation(info="<html>
-<p>Calculates operative part load ratios (OPLR) per sections 5.2.4.5., 9., 10. and stage part load ratios (SPLR, up or down) per section 5.2.4.5.13 (July Draft). </p>
-<p>OPLR is a ratio of the current capacity requirement to a given design or minimal stage capacity, such as: </p>
+Documentation(info="<html>
+<p>
+Calculates operative part load ratios (OPLR) per sections 5.20.4.5, section 5.20.4.9,
+section 5.20.4.10 and stage part load ratios (SPLR, up or down) per section 5.20.4.14
+of Guideline36-2021.</p>
+<p>
+OPLR is a ratio of the current capacity requirement to a given design or minimal
+stage capacity, such as:
+</p>
 <ul>
-<li>Current stage design OPLR (<span style=\"font-family: monospace;\">y</span>). </li>
-<li>Current stage minimal OPLR (<span style=\"font-family: monospace;\">yMin</span>). </li>
-<li>Next available higher stage nominal OPLR (<span style=\"font-family: monospace;\">yUp</span>). </li>
-<li>Next available higher stage minimal OPLR (<span style=\"font-family: monospace;\">yUpMin</span>). </li>
+<li>
+Current stage design OPLR(<sub>y</sub>).
+</li>
+<li>
+Current stage minimal OPLR(<sub>yMin</sub>).
+</li>
+<li>
+Next available higher stage nominal OPLR(<sub>yUp</sub>).
+</li>
+<li>
+Next available higher stage minimal OPLR(<sub>yUpMin</sub>).
+</li>
 </ul>
 <p>
-SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the stage type <code>staTyp</code> as indicated in the table below.
-Note that the rules are prioritized by stage type column, from left to right</p><p>The stage type is determined by the
+SPLRup <code>yStaUp</code> or SPLRdown <code>yStaDown</code> value depends on the
+stage type <code>staTyp</code> as indicated in the table below.
+Note that the rules are prioritized by stage type column, from left to right
+</p>
+<p>
+The stage type is determined by the
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a> subsequence based on the type of chillers staged.
-<br></br>
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator</a>
+subsequence based on the type of chillers staged.
 </p>
 <table summary=\"summary\" cellspacing=\"2\" cellpadding=\"0\" border=\"1\"><tr>
-<td><p align=\"center\"><b>Row: Stage / Column: Stage Type</b></p></td>
-<td><p align=\"center\"><b>Any Constant Speed Centrifugal</b></p></td>
-<td><p align=\"center\"><b>All Positive Displacement</b></p></td>
-<td><p align=\"center\"><b>Any Variable Speed and no Constant Speed Centrifugal </b></p></td>
+<td><b>Row: Stage / Column: Stage Type</b></td>
+<td><b>Any Constant Speed Centrifugal</b></td>
+<td><b>All Positive Displacement</b></td>
+<td><b>Any Variable Speed and no Constant Speed Centrifugal</b></td>
 </tr>
 <tr>
-<td><p align=\"center\">Next Available Up</p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaUp=conSpeCenMult</span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">N/A </span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">N/A </span></p></td>
+<td>Next Available Up</td>
+<td>yStaUp=conSpeCenMult</td>
+<td>N/A</td>
+<td>>N/A</td>
 </tr>
 <tr>
-<td><p align=\"center\">Current</p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=conSpeCenMult</span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaUp=posDisMult</span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaUp=f(uLif, uLifMin, uLifMax)</span></p></td>
+<td>Current</td>
+<td>yStaDown=conSpeCenMult</td>
+<td>yStaUp=posDisMult</td>
+<td>yStaUp=f(uLif, uLifMin, uLifMax)</td>
 </tr>
 <tr>
-<td><p align=\"center\">Next Available Down</p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">N/A</span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=posDisMult</span></p></td>
-<td><p align=\"center\"><span style=\"font-family: monospace;\">yStaDown=f(uLif, uLifMin, uLifMax)</span></p></td>
+<td>Next Available Down</td>
+<td>N/A</td>
+<td>yStaDown=posDisMult</span></p></td>
+<td>yStaDown=f(uLif, uLifMin, uLifMax)</td>
 </tr>
 </table>
-<p>For operation outside of the recommended staging order as provided in the table above a constant
-SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent
+<p>
+For operation outside of the recommended staging order as provided in the table
+above a constant SPLRup and SPLRdown value <code>anyOutOfScoMult</code> is set to prevent
 simulation interruption, accompanied with a warning.
 </p>
 </html>",

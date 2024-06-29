@@ -778,7 +778,7 @@ chiller stage integer index <code>ySta</code>, chiller stage change trigger sign
 <code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
 </p>
 <p>
-Implemented according to ASHRAE RP-1711 March 2020 Draft, section 5.2.4.1 - 17.
+It is implemented according to ASHRAE Guideline36-2021, section 5.20.4.1 - 15.
 </p>
 <p>
 The controller contains the following subsequences:

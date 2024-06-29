@@ -401,7 +401,7 @@ equation
         extent={{-440,-300},{440,300}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides a side
+This subsequence is not directly specified in Guideline36 as it provides a side
 calculation pertaining to generalization of the staging sequences for any number
 of chillers and stages provided by the user.
 </p>
@@ -459,7 +459,7 @@ At plant enable the intial stage <code>uIni</code> is held for at least <code>de
 and until any stage up or down signal is generated.
 </p>
 <p>
-Per 1711 March 2020 Draft 5.2.4.15.1. Each stage shall have a minimum runtime
+Per Guideline36-2021, section 5.20.4.15.a. Each stage shall have a minimum runtime
 of <code>delayStaCha</code>.
 </p>
 </html>",

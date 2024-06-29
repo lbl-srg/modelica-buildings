@@ -1,5 +1,6 @@
 within Buildings.Examples.ChillerPlants;
-package RP1711 "Closed loop test of chiller plant sequences from ASHRAE RP1711"
+package Guideline36
+  "Closed loop test of chiller plant sequences from ASHRAE Guideline36"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
@@ -7,4 +8,4 @@ annotation (Documentation(info="<html>
 This package includes chiller plant that uses ASHRAE Guideline 36 sequences.
 </p>
 </html>"));
-end RP1711;
+end Guideline36;

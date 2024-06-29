@@ -340,10 +340,11 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-220},{160,220}})),
 Documentation(info="<html>
-<p>Outputs a boolean stage up signal <code>y</code> based on the
-various plant operation conditions that get provided as input signals.
-Implemented according to 1711 March 2020 Draft, section 5.2.4.15.
- and applies to primary-only plant with and without a WSE.
+<p>
+Outputs a boolean stage up signal <code>y</code> based on the various plant
+operation conditions that get provided as input signals.
+It is implemented according to Guideline36-2021, section 5.20.4.15 and applies to
+primary-only plant with and without a WSE.
 </p>
 <p>
 The stage up signal becomes <code>true</code> when:
@@ -360,9 +361,9 @@ Failsafe condition is true.
 </li>
 </ul>
 <p>
-If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available
-stage occurs when the chilled water supply temperature is sufficienctly above its setpoint
-for either a shorter or a longer time period
+If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first
+available stage occurs when the chilled water supply temperature is sufficienctly
+above its setpoint for either a shorter or a longer time period
 </p>
 <p>
 Note that when the plant is enabled in chiller mode, the stage up signal will keep

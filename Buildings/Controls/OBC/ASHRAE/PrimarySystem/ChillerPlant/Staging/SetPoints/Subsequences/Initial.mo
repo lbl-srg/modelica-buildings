@@ -183,14 +183,14 @@ annotation (defaultComponentName = "iniSta",
           extent={{-240,-140},{240,140}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides a side
+This subsequence is not directly specified in Guideline36-2021 as it provides a side
 calculation pertaining to generalization of the staging sequences for any
 number of chillers and stages provided by the user.
 </p>
 <p>
 Determines the initial stage upon plant startup for both plants with and
-without a WSE. Implemented according to section 5.2.4.15. 1711 March 2020
-Draft, under 8. (primary-only) and 15. (primary-secondary) plants.
+without a WSE. It is implemented according to section 5.20.4.15 of Guideline36-2021,
+under part g. (primary-only) and part p. (primary-secondary) plants.
 </p>
 <p>
 The initial stage <code>yIni</code> is defined as:

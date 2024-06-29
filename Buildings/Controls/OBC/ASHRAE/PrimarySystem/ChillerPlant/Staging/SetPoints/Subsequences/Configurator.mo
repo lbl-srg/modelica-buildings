@@ -253,7 +253,7 @@ equation
           extent={{-220,-200},{220,200}})),
 Documentation(info="<html>
 <p>
-This subsequence is not directly specified in 1711 as it provides
+This subsequence is not directly specified in Guideline36-2021 as it provides
 a side calculation pertaining to generalization of the staging
 sequences for any number of chillers and stages provided by the
 user.
@@ -264,24 +264,24 @@ Given the staging matrix input parameter <code>staMat</code> the staging configu
 <ul>
 <li>
 Stage availability vector <code>yAva</code> from the chiller availability <code>uChiAva</code>
-input vector according to RP-1711 March 2020 Draft section 5.2.4.13<br/>
+input vector according to Guideline36-2021, section 5.20.4.13
 </li>
 <li>
 Design stage capacity vector <code>yDesCap</code> from the design chiller capacity vector
 input parameter <code>chiDesCap</code>.
 The chillers need to be tagged in order of ascending chiller capacity if unequally sized. This is
-according to 3.1.1.4.1 1711 March 2020 Draft, otherwise a warning is thrown.<br/>
+according to section 3.1.7.5.a of Guideline36-2021, otherwise a warning is thrown.
 </li>
 <li>
 Minimum stage capacity vector <code>yMinCap</code> from the chiller minimum cycling load input
-parameter <code>chiMinCap</code> according to section 3.1.1.5.1, 1711 March 2020 Draft.<br/>
+parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline36-2021.
 </li>
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter
-<code>uChiTyp</code>, as listed in section 5.2.4.14, 1711 March 2020 Draft. Chiller types are defined in
+<code>uChiTyp</code>, as listed in section 5.20.4.14. Chiller types are defined in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes</a>.<br/>
-Stage type is, based on the chiller types in that stage and in the recommended staging order:<br/>
+Stage type is, based on the chiller types in that stage and in the recommended staging order:
 <ul>
 <li>
 Positive displacement, for any stage with only positive displacement chiller(s)

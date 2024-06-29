@@ -1169,6 +1169,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller chiWatPumCon(
     final have_heaPum=have_heaChiWatPum,
     final have_locSen=have_locSenChiWatPum,
+    final have_WSE=have_WSE,
     final nChi=nChi,
     final nPum=nChiWatPum,
     final nSen=nSenChiWatPum,
@@ -1695,9 +1696,9 @@ equation
   connect(dowProCon.VChiWat_flow, VChiWat_flow) annotation(Line(points={{172,-192},
           {-880,-192},{-880,440},{-920,440}},color={0,0,127}));
   connect(VChiWat_flow, chiWatPumCon.VChiWat_flow) annotation(Line(points={{-920,
-          440},{-880,440},{-880,498},{434,498}},color={0,0,127}));
+          440},{-880,440},{-880,495},{434,495}},color={0,0,127}));
   connect(dpChiWat_remote, chiWatPumCon.dpChiWat_remote) annotation(Line(
-        points={{-920,470},{-770,470},{-770,486},{434,486}},  color={0,0,127}));
+        points={{-920,470},{-770,470},{-770,483},{434,483}},  color={0,0,127}));
   connect(TChiWatSup, towCon.TChiWatSup) annotation(Line(points={{-920,210},{-840,
           210},{-840,-596},{-268,-596}},     color={0,0,127}));
   connect(chiWatSupSet.TChiWatSupSet, towCon.TChiWatSupSet) annotation(Line(
@@ -1710,7 +1711,7 @@ equation
   connect(uChiWatIsoVal, upProCon.uChiWatIsoVal) annotation(Line(points={{-920,-228},
           {110,-228},{110,292},{172,292}},   color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet_remote)
-    annotation (Line(points={{-476,452},{-370,452},{-370,480},{434,480}}, color=
+    annotation (Line(points={{-476,452},{-370,452},{-370,477},{434,477}}, color=
          {0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-920,80},{-268,80}},
           color={255,0,255}));
@@ -1816,7 +1817,7 @@ equation
   connect(conInt2.y, intSwi.u3) annotation (Line(points={{342,560},{360,560},{360,
           572},{378,572}},     color={255,127,0}));
   connect(intSwi.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{402,580},
-          {420,580},{420,540},{434,540}}, color={255,127,0}));
+          {420,580},{420,543},{434,543}}, color={255,127,0}));
   connect(uChiWatPum, equRot.uDevSta) annotation (Line(points={{-920,574},{258,574}},
           color={255,0,255}));
   connect(chiStaUp.y, chiMinFloSet.u2) annotation (Line(points={{402,320},{420,320},
@@ -1904,7 +1905,7 @@ equation
   connect(relDem.y, yReaChiDemLim)
     annotation (Line(points={{502,-210},{940,-210}}, color={255,0,255}));
   connect(dpChiWat_local, chiWatPumCon.dpChiWat_local) annotation (Line(points={{-920,
-          510},{-820,510},{-820,492},{434,492}}, color={0,0,127}));
+          510},{-820,510},{-820,489},{434,489}}, color={0,0,127}));
   connect(dpChiWat_local, staSetCon.dpChiWatPum_local) annotation (Line(points={{-920,
           510},{-820,510},{-820,4},{-268,4}}, color={0,0,127}));
   connect(chiWatPumCon.dpChiWatPumSet_local, staSetCon.dpChiWatPumSet_local)
@@ -1995,9 +1996,9 @@ equation
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
           574},{-790,-434},{-542,-434}}, color={255,0,255}));
   connect(equRot.yDevStaSet, chiWatPumCon.uChiWatPum) annotation (Line(points={{282,586},
-          {300,586},{300,528},{434,528}},          color={255,0,255}));
+          {300,586},{300,531},{434,531}},          color={255,0,255}));
   connect(plaEna.yPla, chiWatPumCon.uPla) annotation (Line(points={{-658,-520},
-          {-580,-520},{-580,534},{434,534}},color={255,0,255}));
+          {-580,-520},{-580,537},{434,537}},color={255,0,255}));
   connect(leaChiPum.y, equRot.uLeaStaSet) annotation (Line(points={{222,592},{234,
           592},{234,586},{258,586}}, color={255,0,255}));
   connect(leaChiPumPre.y, leaChiPum.u3) annotation (Line(points={{542,600},{550,
@@ -2085,14 +2086,16 @@ equation
   connect(chiHeaCon.y, heaPreCon.uChiHeaCon) annotation (Line(points={{542,280},
           {560,280},{560,260},{-550,260},{-550,220},{-524,220}}, color={255,0,
           255}));
-  connect(uChiWatIsoVal, chiWatPumCon.uChiWatIsoVal) annotation (Line(points={{
-          -920,-228},{110,-228},{110,504},{434,504}}, color={0,0,127}));
+  connect(uChiWatIsoVal, chiWatPumCon.uChiWatIsoVal) annotation (Line(points={{-920,
+          -228},{110,-228},{110,501},{434,501}},      color={0,0,127}));
   connect(upProCon.yEndStaTri, or2.u1) annotation (Line(points={{268,284},{300,
           284},{300,30},{578,30}}, color={255,0,255}));
   connect(dowProCon.yEndStaTri, or2.u2) annotation (Line(points={{268,-296},{
           300,-296},{300,22},{578,22}}, color={255,0,255}));
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,326},{-630,326},
           {-630,-479},{738,-479}}, color={255,0,255}));
+  connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,326},{
+          -630,326},{-630,507},{434,507}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2435,7 +2438,7 @@ the system type, while <code>no</code> means not applicable.
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2471,6 +2474,26 @@ the system type, while <code>no</code> means not applicable.
     </tr>
     <tr>
       <td>Chilled water</br>pump</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"vertical-align: middle;\">
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller\">
+        Chilled water pump controller</a>
+      </td>
+    </tr>
+    <tr>
+      <td>Condenser water</br>pump</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2574,6 +2597,13 @@ are needed to prevent tower freezing.
 </ul>
 </li>
 </ol>
+
+<p>
+FIXME: add limitation about the lead-lag rotation!!!!!
+</p>
+
+
+
 </html>", revisions="<html>
 <ul>
 <li>
