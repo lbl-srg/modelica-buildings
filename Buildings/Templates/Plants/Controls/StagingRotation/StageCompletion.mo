@@ -53,10 +53,8 @@ block StageCompletion
   Buildings.Controls.OBC.CDL.Logical.And chaAndMat
     "True if enable command changed and equipment status matches command"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holAnyCha(
-    trueHoldDuration=1,
-    falseHoldDuration=0)
-    "Hold signal to guard against concomitant stage change and command change"
+  Buildings.Controls.OBC.CDL.Logical.Pre           preAnyCha
+    "Left-limit of signal to guard against concomitant stage change and command change"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
@@ -98,9 +96,9 @@ equation
   connect(allTru.y, chaAndMat.u2)
     annotation (Line(points={{52,0},{60,0},{60,40},{20,40},{20,52},{28,52}},
       color={255,0,255}));
-  connect(anyCha.y, holAnyCha.u)
+  connect(anyCha.y,preAnyCha. u)
     annotation (Line(points={{-68,60},{-52,60}},color={255,0,255}));
-  connect(holAnyCha.y, lckAnyCha.u)
+  connect(preAnyCha.y, lckAnyCha.u)
     annotation (Line(points={{-28,60},{-12,60}},color={255,0,255}));
   connect(chaSta.y, lckChaSta.u)
     annotation (Line(points={{-108,100},{28,100}},color={255,0,255}));
@@ -156,6 +154,11 @@ the stage change is in progress.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2024, by Antoine Gautier:<br/>
+Replaced <code>hold</code> with <code>pre</code> to guard against concomitant stage change and command change.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">#3787</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

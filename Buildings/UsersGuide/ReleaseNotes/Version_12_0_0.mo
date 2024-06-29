@@ -12,9 +12,15 @@ Version 12.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.ZonedBorefields
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package with models for borefields in which individual groups of boreholes can be operated
+                       independently from each other. In contrast to Buildings.Fluid.Geothermal.Borefields,
+                       in which all boreholes are connected in parallel,
+                       this package allows to form groups of parallel connected boreholes. Each of these groups
+                       has its own fluid ports, allowing them for example to be connected in series,
+                       or to operate groups at the center of the borefield with a warmer temperature than
+                       groups at the perimeter.
     </td>
     </tr>
 </table>
@@ -54,19 +60,63 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+<tr><td valign=\"top\">Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerEconomizer
     </td>
-    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
+    <td valign=\"top\">Added a <code>pre</code> block to break the algebraic loop involving the mixed air temperature.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression
+    </td>
+    <td valign=\"top\">Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">#3883</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Refactored with synchronous language elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+    </td>
+    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.ETS.Combined.BaseClasses.PartialHeatPumpHeatExchanger<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SwitchBox
+    </td>
+    <td valign=\"top\">Added HX primary flow sensor and moving average to break the algebraic loop
+                       when using components configured in steady state.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests
+    </td>
+    <td valign=\"top\">Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -85,6 +135,20 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHold<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Validation.TrueHold
+    </td>
+    <td valign=\"top\">The blocks have been moved to the <code>Obsolete</code> package.
+                       Users are encouraged to use <code>TrueFalseHold(falseHoldDuration=0)</code>
+                       instead.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
