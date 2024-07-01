@@ -33,19 +33,17 @@ block Controller "Chiller plant controller"
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real chiDesCap[nChi](
-    final unit=fill("W",nChi))
+  parameter Real chiDesCap[nChi](unit=fill("W", nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real chiMinCap[nChi](
-    final unit=fill("W",nChi))
+  parameter Real chiMinCap[nChi](unit=fill("W", nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Real TChiWatSupMin[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={278.15,278.15}
+    unit=fill("K", nChi),
+    displayUnit="degC")={278.15,278.15}
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -65,7 +63,7 @@ block Controller "Chiller plant controller"
 
   // ---- General: Waterside economizer ----
 
-  parameter Boolean have_WSE=true
+  parameter Boolean have_WSE=false
     "True if the plant has waterside economizer. When the plant has waterside economizer, the condenser water pump speed must be variable"
     annotation (Dialog(tab="General", group="Waterside economizer"));
 
@@ -138,8 +136,8 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
   parameter Real desConWatPumSpe[totSta](
-    final min=fill(0, totSta),
-    final max=fill(1, totSta))={0,0.5,0.75,0.6,0.75,0.9}
+    max=fill(1, totSta),
+    min=fill(0, totSta))={0,0.5,0.75,0.6,0.75,0.9}
     "Design condenser water pump speed setpoints, according to current chiller stage and WSE status"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
@@ -298,13 +296,11 @@ block Controller "Chiller plant controller"
     "Time constant for resetting minimum bypass flow"
     annotation(Dialog(tab="Minimum flow bypass", group="Time parameters"));
 
-  parameter Real minFloSet[nChi](
-    final unit=fill("m3/s",nChi))={0.0089,0.0089}
+  parameter Real minFloSet[nChi](unit=fill("m3/s", nChi))={0.0089,0.0089}
     "Minimum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-  parameter Real maxFloSet[nChi](
-    final unit=fill("m3/s",nChi))={0.025,0.025}
+  parameter Real maxFloSet[nChi](unit=fill("m3/s", nChi))={0.025,0.025}
     "Maximum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
@@ -348,8 +344,8 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Chilled water pumps", group="Speed controller"));
 
   parameter Integer nPum_nominal(
-    final max=nChiWatPum,
-    final min=1)=nChiWatPum
+    max=nChiWatPum,
+    min=1)=nChiWatPum
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
 
@@ -426,9 +422,8 @@ block Controller "Chiller plant controller"
     "Minimum chilled water pump differential static pressure, default 5 psi"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatPumMax[nSenChiWatPum](
-    final unit=fill("Pa",nSenChiWatPum),
-    displayUnit=fill("Pa",nSenChiWatPum))
+  parameter Real dpChiWatPumMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
+      displayUnit="Pa")
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
@@ -521,8 +516,8 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
   parameter Real effConSigDif(
-    final min=0,
-    final max=1) = 0.05
+    max=1,
+    min=0)=0.05
     "Signal hysteresis deadband"
     annotation (Dialog(tab="Staging", group="Value comparison"));
 
@@ -609,20 +604,19 @@ block Controller "Chiller plant controller"
                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Real LIFT_min[nChi](
-    final unit=fill("K",nChi))={12,12}
+  parameter Real LIFT_min[nChi](unit=fill("K", nChi))={12,12}
     "Minimum LIFT of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatSup_nominal[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={293.15,293.15}
+    unit=fill("K", nChi),
+    displayUnit="degC")={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatRet_nominal[nChi](
-    final unit=fill("K",nChi),
-    displayUnit=fill("degC",nChi))={303.15,303.15}
+    unit=fill("K", nChi),
+    displayUnit="degC")={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
@@ -1577,6 +1571,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{200,582},{220,602}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers disChi(
+    final have_WSE=have_WSE,
     final nChi=nChi,
     final nChiWatPum=nChiWatPum,
     final nConWatPum=nConWatPum,
@@ -2388,10 +2383,10 @@ the system type.
 <tbody>
     <tr>
       <td>Plant</br>reset</td>
-      <td style=\"text-align: center; vertical-align: middle;\">yes<sup>1</sup></td>
-      <td style=\"text-align: center; vertical-align: middle;\">yes<sup>2</sup></td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2410,7 +2405,7 @@ the system type.
       </td>
     </tr>
     <tr>
-      <td>Waterside</br>economizer</td>
+      <td>Waterside</br>economizers</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2430,7 +2425,7 @@ the system type.
       </td>
     </tr>
     <tr>
-      <td>Head pressure</br>control<sup>3</sup></td>
+      <td>Head pressure</br>control</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2442,7 +2437,7 @@ the system type.
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"vertical-align: middle;\">
         <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller\">
@@ -2452,7 +2447,7 @@ the system type.
     <tr>
       <td>Minimum</br>flow</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2473,11 +2468,11 @@ the system type.
       </td>
     </tr>
     <tr>
-    <td>Primary chilled</br>water pump</td>
+    <td>Primary chilled</br>water pumps</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2493,11 +2488,11 @@ the system type.
       </td>
     </tr>
     <tr>
-      <td>Condenser water</br>pump</td>
+      <td>Condenser water</br>pumps</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2505,7 +2500,7 @@ the system type.
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"vertical-align: middle;\">
         <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller\">
@@ -2513,15 +2508,15 @@ the system type.
       </td>
     </tr>
     <tr>
-      <td>Chiller</br>staging</td>
+      <td>Chillers</br>staging</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
+      <td bgcolor=\"gray\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2536,7 +2531,7 @@ the system type.
       </td>
     </tr>
     <tr>
-      <td>Cooling</br>tower<sup>4</sup></td>
+      <td>Cooling</br>towers</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2558,7 +2553,7 @@ the system type.
   </tbody></table>
 
 
-<h4>Plant reset</h4>
+<h4>1. Plant reset</h4>
 <p>
 In Guideline36-2021, the sequences for following types of plant have been specified.
 However, they have not yet been implemented in this library.
@@ -2575,7 +2570,7 @@ Plants with series chillers.
 </li>
 </ul>
 
-<h4>Head pressure control</h4>
+<h4>2. Head pressure control</h4>
 <p>
 If there is head pressure control signal from chiller, the sequence is not needed.
 In Guideline36-2021, it assumes:
@@ -2590,7 +2585,7 @@ the condenser water pumps are headered.
 </li>
 </ul>
 
-<h4>Minimum chilled water flow</h4>
+<h4>3. Minimum chilled water flow</h4>
 <p>
 In Guideline36-2021, the sequences for following types of plant have not been specified.
 </p>
@@ -2600,7 +2595,7 @@ Plants with primary-secondary systems
 </li>
 </ul>
 
-<h4>Primary chilled water (CHW) pump control</h4>
+<h4>4. Primary chilled water (CHW) pump control</h4>
 <p>
 In Guideline36-2021, the sequences for following types of plant have been specified.
 However, they have not yet been implemented in this library.
@@ -2631,13 +2626,13 @@ deduce decoupler flow, section 5.20.6.18.
 </li>
 </ul>
 
-<h4>Secondary chilled water pumps control</h4>
+<h4>5. Secondary chilled water pumps control</h4>
 <p>
 In Guideline36-2021, the secondary chilled water pumps control have been specified.
 However, they have not yet been implemented in this library, section 5.20.7.
 </p>
 
-<h4>Condenser water (CW) pumps control</h4>
+<h4>6. Condenser water (CW) pumps control</h4>
 <p>
 In Guideline36-2021, the sequences for following types of plant have not been specified.
 </p>
@@ -2647,7 +2642,7 @@ Plants with series chiller
 </li>
 </ul>
 
-<h4>Chiller staging control</h4>
+<h4>7. Chiller staging control</h4>
 <p>
 In Guideline36-2021, the sequences for following types of plant have been specified.
 However, they have not yet been implemented in this library.
@@ -2694,7 +2689,7 @@ Water-cooled primary-only series chiller plants with dedicated CW pumps, section
 </li>
 </ul>
 
-<h4>Cooling tower control</h4>
+<h4>8. Cooling tower control</h4>
 <p>
 In current implementation, the tower sequence assumes that the cells are enabled in
 the order as it is labelled, meaning that it enabled the cells as cell 1, 2, 3,
@@ -2722,12 +2717,15 @@ temperature, section 5.20.12.2.b.
 </li>
 </ul>
 
+<h4>9. Equipment rotation</h4>
 <p>
-FIXME: add limitation about the lead-lag rotation!!!!!
+The sequence Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo</a>
+rotates equipment,
+such as chillers or pumps, in order to ensure equal wear and tear. It is applicable
+for two identical devices or device groups.
 </p>
-
-
-
 </html>", revisions="<html>
 <ul>
 <li>

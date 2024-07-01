@@ -93,7 +93,7 @@ the bypass valve position has been changed successfully. After 60 seconds to abo
 260 seconds, the minimum bypass valve position changing process is finished
 (<code>yMinBypRes=true</code>).
 </li>
-</ui>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

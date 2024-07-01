@@ -658,7 +658,8 @@ Documentation(info="<html>
 <p>
 Calculates operative part load ratios (OPLR) per sections 5.20.4.5, section 5.20.4.9,
 section 5.20.4.10 and stage part load ratios (SPLR, up or down) per section 5.20.4.14
-of Guideline36-2021.</p>
+of Guideline36-2021.
+</p>
 <p>
 OPLR is a ratio of the current capacity requirement to a given design or minimal
 stage capacity, such as:
@@ -709,7 +710,7 @@ subsequence based on the type of chillers staged.
 <tr>
 <td>Next Available Down</td>
 <td>N/A</td>
-<td>yStaDown=posDisMult</span></p></td>
+<td>yStaDown=posDisMult</td>
 <td>yStaDown=f(uLif, uLifMin, uLifMax)</td>
 </tr>
 </table>

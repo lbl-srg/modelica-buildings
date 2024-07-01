@@ -1,4 +1,4 @@
-last-generated=2024-05-31
+last-generated=2024-07-01
 statistics-simulation=
 {
   "linear": " ",

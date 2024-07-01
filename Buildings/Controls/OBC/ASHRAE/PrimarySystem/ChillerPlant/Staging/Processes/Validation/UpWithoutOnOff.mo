@@ -236,7 +236,7 @@ enabling the head pressure control of chiller 2 (<code>yChiHeaCon[2]=true</code>
 at 840 seconds.
 </li>
 <li>
-After 30 seconds (<code>waiTim) at 870 seconds, it starts slowly open the chilled
+After 30 seconds (<code>waiTim</code>) at 870 seconds, it starts slowly open the chilled
 water isolation valve of chiller 2 (<code>yChiWatIsoVal[2]</code>). After 300
 seconds (<code>chaChiWatIsoTim</code>) at 1170 seconds, the valve is fully open.
 </li>

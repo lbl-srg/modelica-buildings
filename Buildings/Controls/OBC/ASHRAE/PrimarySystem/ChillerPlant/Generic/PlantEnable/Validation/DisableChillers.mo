@@ -3,7 +3,7 @@ model DisableChillers
   "Validation sequence for disabling chillers and the associated devices"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers
-    disPlaFroChi
+    disPlaFroChi(have_WSE=false)
     "Disable plant from chiller mode"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
@@ -31,21 +31,21 @@ model DisableChillers
 
 equation
   connect(chiSta.y, disPlaFroChi.uChi) annotation (Line(points={{-38,50},{44,50},
-          {44,17},{58,17}},   color={255,0,255}));
-  connect(chiSta.y, disPlaFroChi.uChiWatReq) annotation (Line(points={{-38,50},{
-          40,50},{40,15},{58,15}}, color={255,0,255}));
-  connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-38,50},{
-          48,50},{48,10},{58,10}},   color={255,0,255}));
+          {44,19},{58,19}},   color={255,0,255}));
+  connect(chiSta.y, disPlaFroChi.uChiWatReq) annotation (Line(points={{-38,50},
+          {40,50},{40,17},{58,17}},color={255,0,255}));
+  connect(chiSta.y, disPlaFroChi.uConWatReq) annotation (Line(points={{-38,50},
+          {48,50},{48,12},{58,12}},  color={255,0,255}));
   connect(chiIsoVal.y, disPlaFroChi.uChiWatIsoVal) annotation (Line(points={{-58,20},
-          {20,20},{20,13},{58,13}}, color={0,0,127}));
+          {20,20},{20,15},{58,15}}, color={0,0,127}));
   connect(conIsoVal1.y, disPlaFroChi.uConWatIsoVal) annotation (Line(points={{-38,-10},
-          {24,-10},{24,7},{58,7}}, color={0,0,127}));
+          {24,-10},{24,9},{58,9}}, color={0,0,127}));
   connect(pumSpe.y, disPlaFroChi.uChiWatPumSpe) annotation (Line(points={{-58,-40},
-          {28,-40},{28,5},{58,5}}, color={0,0,127}));
+          {28,-40},{28,7},{58,7}}, color={0,0,127}));
   connect(pumSpe.y, disPlaFroChi.uConWatPumSpe) annotation (Line(points={{-58,-40},
-          {32,-40},{32,3},{58,3}}, color={0,0,127}));
+          {32,-40},{32,5},{58,5}}, color={0,0,127}));
   connect(staPro.y, disPlaFroChi.chaPro) annotation (Line(points={{-18,-70},{36,
-          -70},{36,1},{58,1}}, color={255,0,255}));
+          -70},{36,3},{58,3}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnable/Validation/DisableChillers.mos"
