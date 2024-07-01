@@ -353,7 +353,7 @@ equation
   connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-130,-68},
           {-130,6},{62,6},{62,62}}, color={255,0,255}));
   connect(sam_u_s.trigger, triTun) annotation (Line(points={{-90,242},{-90,252},
-          {-154,252},{-154,-96},{60,-96},{60,-120}}, color={255,0,255}));
+          {-74,252},{-74,-96},{60,-96},{60,-120}},   color={255,0,255}));
 annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -393,10 +393,10 @@ The PID tuning process ends automatically
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
 at which point this block turns back to a PID controller but with tuned PID parameters.
 </p>
-
 <p>
 <b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
 a request for performing autotuning will be ignored.
+In addition, the set point should be unchanged during the autotuning process.
 </p>
 <h4>Guidance for setting the parameters</h4>
 <p>
@@ -410,7 +410,7 @@ The following procedure can be used to determine the values of those parameters.
 <li>
 Perform a \"test run\" to determine the maximum and the minimum values of measurement.
 In this test run, the autotuning is disabled and the set point is constant.
-This test run should cover the period when the system is stable.
+This test run should stop after the system is stable.
 Record the maximum and the minimum values of measurement after the system is stable.
 </li>
 <li>
