@@ -2365,7 +2365,7 @@ Documentation(info="<html>
 This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.
 It is composed by the subsequences in this pacakge. The applicability of some sequences
 are listed in the table below. The <code>yes</code> means that the sequence is appliable to
-the system type, while <code>no</code> means not applicable.
+the system type.
 </p>
 <table summary=\"summary\" border=\"1\"><thead>
 <tr>
@@ -2391,7 +2391,7 @@ the system type, while <code>no</code> means not applicable.
       <td style=\"text-align: center; vertical-align: middle;\">yes<sup>1</sup></td>
       <td style=\"text-align: center; vertical-align: middle;\">yes<sup>2</sup></td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2442,7 +2442,7 @@ the system type, while <code>no</code> means not applicable.
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"vertical-align: middle;\">
         <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller\">
@@ -2452,7 +2452,7 @@ the system type, while <code>no</code> means not applicable.
     <tr>
       <td>Minimum</br>flow</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2473,11 +2473,11 @@ the system type, while <code>no</code> means not applicable.
       </td>
     </tr>
     <tr>
-      <td>Chilled water</br>pump</td>
+    <td>Primary chilled</br>water pump</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2495,33 +2495,33 @@ the system type, while <code>no</code> means not applicable.
     <tr>
       <td>Condenser water</br>pump</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
-      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>specified</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td style=\"text-align: center; vertical-align: middle;\">yes</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>applicable</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"vertical-align: middle;\">
-        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Controller\">
-        Chilled water pump controller</a>
+        <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Controller\">
+        Condenser water pump controller</a>
       </td>
     </tr>
     <tr>
       <td>Chiller</br>staging</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
-      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">no</td>
+      <td bgcolor=\"lightblue\" style=\"text-align: center; vertical-align: middle;\">not</br>implemented</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
       <td style=\"text-align: center; vertical-align: middle;\">yes</td>
@@ -2556,34 +2556,150 @@ the system type, while <code>no</code> means not applicable.
       </td>
     </tr>
   </tbody></table>
+
+
+<h4>Plant reset</h4>
 <p>
-Footnote to the table:  
+In Guideline36-2021, the sequences for following types of plant have been specified.
+However, they have not yet been implemented in this library.
 </p>
-<ol>
+<ul>
 <li>
-The plant reset sequence is not applicable for primary-only system serving a single
-large load, e.g. large AHU.
+Primary-only sytem serving a single large load, e.g. large AHU,
 </li>
 <li>
-The plant reset sequence is not applicable for primary-secondary systems where
-there are any coil pumps.
+Primary-secondary systems where there are any coil pumps,
 </li>
 <li>
-If the chillers have head pressure control signal, the sequence is not needed.
-Also, the sequence assumes:
-<uL>
+Plants with series chillers.
+</li>
+</ul>
+
+<h4>Head pressure control</h4>
+<p>
+If there is head pressure control signal from chiller, the sequence is not needed.
+In Guideline36-2021, it assumes:
+</p>
+<ul>
 <li>
 the plants with fixed speed condenser water pump do not have waterside economizer.
 </li>
 <li>
-when plants have variable speed condenser water pump and have waterside economizer,
-the pumps are headered.
+If the plants have variable speed condenser water pumps and have waterside economizer,
+the condenser water pumps are headered.
 </li>
 </ul>
+
+<h4>Minimum chilled water flow</h4>
+<p>
+In Guideline36-2021, the sequences for following types of plant have not been specified.
+</p>
+<ul>
+<li>
+Plants with primary-secondary systems
+</li>
+</ul>
+
+<h4>Primary chilled water (CHW) pump control</h4>
+<p>
+In Guideline36-2021, the sequences for following types of plant have been specified.
+However, they have not yet been implemented in this library.
+</p>
+<ul>
+<li>
+Plants with series chiller, section 5.20.6.4 and 5.20.6.5.
 </li>
 <li>
-The tower sequence assumes that the cells are enabled in the order as it is labelled,
-meaning that it enabled the cells as cell 1, 2, 3, etc.
+Primary-secondary plants and primary-only plants where primary pump speed is not
+controlled to maintain differential pressure, section 5.20.6.13 and 5.20.6.14.
+</li>
+<li>
+Primary-only plants and primary-secondary plants with variable speed primary pumps
+that are intended to operate at a fixed speed, section 5.20.6.15.
+</li>
+<li>
+Variable primary-variable secondary plants with primary and secondary loop flow
+meters, section 5.20.6.16.
+</li>
+<li>
+Variable primary-variable secondary plants with a flow meter in the decoupler,
+section 5.20.6.17.
+</li>
+<li>
+Variable primary-variable secondary plants without flow meters from which to
+deduce decoupler flow, section 5.20.6.18.
+</li>
+</ul>
+
+<h4>Secondary chilled water pumps control</h4>
+<p>
+In Guideline36-2021, the secondary chilled water pumps control have been specified.
+However, they have not yet been implemented in this library, section 5.20.7.
+</p>
+
+<h4>Condenser water (CW) pumps control</h4>
+<p>
+In Guideline36-2021, the sequences for following types of plant have not been specified.
+</p>
+<ul>
+<li>
+Plants with series chiller
+</li>
+</ul>
+
+<h4>Chiller staging control</h4>
+<p>
+In Guideline36-2021, the sequences for following types of plant have been specified.
+However, they have not yet been implemented in this library.
+</p>
+<ul>
+<li>
+Water-cooled primary-only parallel chiller plants with headered CHW pumps
+and dedicated CW pumps, section 5.20.4.18 and 5.20.4.19.
+</li>
+<li>
+Water-cooled primary-only parallel chiller plants with dedicated CHW pumps
+and headered CW pumps or air-cooled primary-only parallel chilled plants
+with dedicated chilled water pumps, section 5.20.4.20 and 5.20.4.21.
+</li>
+<li>
+Water-cooled primary-only parallel chiller plants with dedicated CHW pumps
+and dedicated CW pumps, section 5.20.4.22 and 5.20.4.23.
+</li>
+<li>
+Water-cooled primary-secondary parallel chiller plants with headered primary CHW
+pumps and headered CW pumps or air-cooled primary-secondary parallel plants with
+headered CHW pumps, section 5.20.4.24 and 5.20.4.25.
+</li>
+<li>
+Water-cooled primary-secondary parallel chiller plants with headered primary CHW
+pumps and dedicated CW pumps, section 5.20.4.26 and 5.20.4.27.
+</li>
+<li>
+Water-cooled primary-secondary parallel chiller plants with dedicated primary CHW
+pumps and headered CW pumps or air-cooled primary-secondary parallel chiller plants
+with dedicated primary CHW pumps, section 5.20.4.28 and 5.20.4.29.
+</li>
+<li>
+Water-cooled primary-secondary parallel chiller plants with dedicated primary CHW
+pumps and dedicated CW pumps, section 5.20.4.30 and 5.20.4.31.
+</li>
+<li>
+Water-cooled primary-only series chiller plants with headered CW pumps or air-cooled
+primary-only series chiller plants, section 5.20.4.32 and 5.20.4.33.
+</li>
+<li>
+Water-cooled primary-only series chiller plants with dedicated CW pumps, section
+5.20.4.34 and 5.20.4.35.
+</li>
+</ul>
+
+<h4>Cooling tower control</h4>
+<p>
+In current implementation, the tower sequence assumes that the cells are enabled in
+the order as it is labelled, meaning that it enabled the cells as cell 1, 2, 3,
+etc. Note from the Guideline36-2021,
+</p>
 <ul>
 <li>
 The tower control sequence is applicable for plants with dynamic load profile,
@@ -2595,8 +2711,16 @@ It is not applicable for the plants where 2-position tower bypass control valves
 are needed to prevent tower freezing.
 </li>
 </ul>
+<p>
+In Guideline36-2021, the sequences for following types of plant have been specified.
+However, they have not yet been implemented in this library.
+</p>
+<ul>
+<li>
+Plants with cooling tower fan speed control, for control condenser water supply
+temperature, section 5.20.12.2.b.
 </li>
-</ol>
+</ul>
 
 <p>
 FIXME: add limitation about the lead-lag rotation!!!!!
