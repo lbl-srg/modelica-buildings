@@ -92,7 +92,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if not
-    have_hol "Constant – Placeholder value in there is no hold signal"
+    have_hol "Constant – Placeholder value if there is no hold signal"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swiHol
     "Switch to zero reset until hold is released and sampler clock ticks"
@@ -105,6 +105,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
     final trueHoldDuration=dtHol,
     final falseHoldDuration=0) if have_hol
+    "Hold true for the longer of dtHol and the time uHol remains true"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
   CDL.Logical.And notHolAndTic
     "Return true if hold is released and sampler clock ticks"
@@ -381,7 +382,7 @@ on request number"),
           extent={{22,68},{174,20}},
           textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
-          textString="Optional hold of the input signal")}),
+          textString="Optional hold of the loop output")}),
    Documentation(info="<html>
 <p>
 This block implements the trim and respond logic according to ASHRAE guideline G36,
@@ -446,10 +447,10 @@ or going through a delay time of <code>delTim</code>).
 <p>
 This is typically used in control sequences to freeze the reset logic during the plant
 staging process.
-Consider for example the following specification: 
-When a plant stage change is initiated, the reset logic shall be disabled and value
+Consider for example the following specification:<br/>
+\"When a plant stage change is initiated, the reset logic shall be disabled and value
 fixed at its last value for the longer of <i>15</i> minutes and the time it takes 
-for the plant to successfully stage.
+for the plant to successfully stage.\"<br/>
 Using this block with <code>have_hol=true</code> and <code>dtHol=15*60</code> 
 yields the following sequence of events.
 </p>

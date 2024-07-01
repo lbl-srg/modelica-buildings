@@ -13,7 +13,7 @@ block Sampler
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sampleTrigger
-    "True, if sample time instant"
+    "True at sample time instant"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
 protected
