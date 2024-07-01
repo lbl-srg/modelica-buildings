@@ -95,10 +95,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Use setpoint different value when sample period time has passed"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final falseHoldDuration=0,
-    final trueHoldDuration=samplePeriod)
-    "Hold true signal for sample period of time"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Use left-limit of signal to break algebraic loop"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Switch pasSupTim
     "Check if suppression time has passed"
@@ -148,9 +145,8 @@ equation
     annotation (Line(points={{62,110},{98,110}}, color={0,0,127}));
   connect(abs1.y, greThr.u) annotation (Line(points={{122,110},{140,110},{140,60},
           {-140,60},{-140,-150},{-122,-150}}, color={0,0,127}));
-  connect(truHol.y,lat. clr)
-    annotation (Line(points={{102,-150},{110,-150},{110,-170},{-90,-170},{-90,-156},
-          {-82,-156}}, color={255,0,255}));
+  connect(pre1.y, lat.clr) annotation (Line(points={{102,-150},{110,-150},{110,
+          -170},{-90,-170},{-90,-156},{-82,-156}}, color={255,0,255}));
   connect(gai.y,supTim. u1)
     annotation (Line(points={{42,30},{60,30},{60,16},{78,16}}, color={0,0,127}));
   connect(maxSupTim.y,supTim. u2)
@@ -165,7 +161,7 @@ equation
     annotation (Line(points={{-18,-150},{18,-150}}, color={0,0,127}));
   connect(pasSup.y, lat1.u) annotation (Line(points={{42,-150},{60,-150},{60,-80},
           {78,-80}}, color={255,0,255}));
-  connect(pasSup.y, truHol.u)
+  connect(pasSup.y, pre1.u)
     annotation (Line(points={{42,-150},{78,-150}}, color={255,0,255}));
   connect(pasSupTim.y, yAftSup)
     annotation (Line(points={{162,-100},{200,-100}}, color={255,0,255}));
@@ -284,6 +280,12 @@ of difference (<code>chaRat</code>) but no longer than 30 minutes (<code>1800</c
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Antoine Gautier:<br/>
+Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">issue 3883</a>.
+</li>
 <li>
 December 12, 2023, by Jianjun Hu:<br/>
 Reimplemented the check of ignoring the first sampling period.

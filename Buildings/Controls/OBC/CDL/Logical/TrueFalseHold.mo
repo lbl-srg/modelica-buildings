@@ -13,13 +13,18 @@ block TrueFalseHold
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
+  /* The following parameter is required solely as a warkaround for a bug in OCT [Modelon - 1263].
+  Both Dymola and OMC can handle the initial equation pre(u)=u, which complies with MLS. */
+  parameter Boolean pre_u_start=false
+    "Value of pre(u) at initial time"
+    annotation (Evaluate=true);
   discrete Real entryTimeTrue(
     final quantity="Time",
     final unit="s")
@@ -29,23 +34,23 @@ protected
     final unit="s")
     "Time instant when false hold started";
 initial equation
-  pre(entryTimeTrue)=time;
-  pre(entryTimeFalse)=time;
-  pre(y)=u;
+  pre(entryTimeTrue) = -Modelica.Constants.inf;
+  pre(entryTimeFalse) = -Modelica.Constants.inf;
+  pre(u) = pre_u_start;
+  pre(y) = u;
 equation
-  when u and time >= pre(entryTimeFalse) + falseHoldDuration then
-    y=true;
-    entryTimeTrue=if change(y) then time else pre(entryTimeTrue);
-    entryTimeFalse=pre(entryTimeFalse);
-  elsewhen not u and time >= pre(entryTimeTrue) + trueHoldDuration then
-    y=false;
-    entryTimeTrue=pre(entryTimeTrue);
-    entryTimeFalse=if change(y) then time else pre(entryTimeFalse);
-  elsewhen time >= pre(entryTimeFalse) + falseHoldDuration and
-           time >= pre(entryTimeTrue) + trueHoldDuration then
-    y=u;
-    entryTimeTrue=if change(y) and y then time else pre(entryTimeTrue);
-    entryTimeFalse=if change(y) and not y then time else pre(entryTimeFalse);
+  when initial() then
+    y = u;
+    entryTimeTrue = if y then time else pre(entryTimeTrue);
+    entryTimeFalse = if not y then time else pre(entryTimeFalse);
+  elsewhen {change(u),
+            time >= pre(entryTimeFalse) + falseHoldDuration and
+            time >= pre(entryTimeTrue) + trueHoldDuration} then
+    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
+         time >= pre(entryTimeTrue) + trueHoldDuration then u
+      else pre(y);
+    entryTimeTrue = if change(y) and y then time else pre(entryTimeTrue);
+    entryTimeFalse = if change(y) and not y then time else pre(entryTimeFalse);
   end when;
   annotation (
     defaultComponentName="truFalHol",
@@ -77,13 +82,21 @@ equation
           textString="%falseHoldDuration"),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if y then{0,255,0}else{235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if y then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-83,7},{-69,-7}},
-          lineColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
-          fillColor=DynamicSelect({235,235,235},if u then{0,255,0}else{235,235,235}),
+          lineColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},if u then
+                                                         {0,255,0} else
+                                                                      {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,96},{96,68}},
@@ -91,8 +104,7 @@ equation
           textString="%trueHoldDuration")}),
     Diagram(
       coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-180,-120},{180,140}})),
+        preserveAspectRatio=false)),
     Documentation(
       info="<html>
 <p>

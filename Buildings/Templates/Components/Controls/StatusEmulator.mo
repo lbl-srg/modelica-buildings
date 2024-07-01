@@ -19,18 +19,19 @@ block StatusEmulator "Block that emulates the status of an equipment"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual
     "Equipment status" annotation (Placement(transformation(extent={{100,-20},{140,
             20}}), iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(final realTrue=1,
-      final realFalse=0) "Convert to real"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+    final realTrue=1,
+    final realFalse=0)
+    "Convert to real"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Fluid.BaseClasses.ActuatorFilter fil(
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     final f=fCut,
     final initType=initType,
     final y_start=y_start)
     "Filter signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=yLim)
-    "Compare filtered signal to zero to trigger true status"
+    "Compare filtered signal to threshold to trigger true status"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 protected
   final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
@@ -66,15 +67,15 @@ the current on/off state as reported by the hardware itself.
 The implementation is based on
 <a href=\"modelica://Buildings.Fluid.BaseClasses.ActuatorFilter\">
 Buildings.Fluid.BaseClasses.ActuatorFilter</a>
-and the model is configured with <code>yLim=0.5</code> so that 
-the delay between the on command and the on status is 
+and the model is configured with <code>yLim=0.5</code> so that
+the delay between the on command and the on status is
 equal to the delay between the off command and the off status
 (about <i>2</i>&nbsp;s with the default parameter settings).
-Note that this delay may not be representative of the actual 
+Note that this delay may not be representative of the actual
 dynamics of certain equipment such as chillers or heat pumps.
-In addition, this block uses the equipment command signal to 
-generate the status signal, which in turn can lead to inconsistencies 
-with certain equipment that run cyclically at low load and 
+In addition, this block uses the equipment command signal to
+generate the status signal, which in turn can lead to inconsistencies
+with certain equipment that run cyclically at low load and
 where the status then comes and goes.
 </p>
 </html>", revisions="<html>

@@ -30,7 +30,12 @@ model StageCompletion "Validation model for the evaluation of stage completion"
     period=1800)
     "Stage index"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+initial equation
+  Modelica.Utilities.Streams.print("At initialization: comSta.y1End = " + String(comSta.y1End));
 equation
+  when initial() then
+    Modelica.Utilities.Streams.print("When initial(): comSta.y1End = " + String(comSta.y1End));
+  end when;
   connect(comSta.y1End, y1ComSta.u)
     annotation (Line(points={{42,6},{50,6},{50,0},{58,0}},color={255,0,255}));
   connect(booTimTab.y[1:2], comSta.u1[1:2])
