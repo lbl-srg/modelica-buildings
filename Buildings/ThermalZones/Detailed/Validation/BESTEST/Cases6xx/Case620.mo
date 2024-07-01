@@ -26,6 +26,17 @@ model Case620 "Case 600, but with windows on East and West side walls"
    heaCri(lowerLimit=3.67*3.6e9, upperLimit=5.38*3.6e9),
    cooCri(lowerLimit=-2.76*3.6e9, upperLimit=-5.19*3.6e9));
 
+  Modelica.Blocks.Continuous.Integrator gloEas(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual east global solar irradiance"
+    annotation (Placement(transformation(extent={{88,18},{96,26}})));
+equation
+  connect(roo.HGlo[2], gloEas.u) annotation (Line(points={{67.5,-22.5},{72,
+          -22.5},{72,22},{87.2,22}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case620.mos"
         "Simulate and plot"),
         experiment(
