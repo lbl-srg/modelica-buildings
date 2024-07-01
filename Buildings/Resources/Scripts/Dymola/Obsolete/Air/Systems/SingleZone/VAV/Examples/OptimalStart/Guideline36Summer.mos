@@ -1,0 +1,3 @@
+simulateModel("Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer", startTime=15984000, stopTime=16761600, method="Radau", tolerance=1e-06, resultFile="OptimalStartGuideline36Summer");
+createPlot(id=1, position={39, 33, 2892, 1072}, y={"zonAHUG36Con.con.TZonHeaSet", "zonAHUG36Con.con.TZonCooSet", "zonAHUG36Opt.TZon","zonAHUG36Con.TZon"}, range={15984000.0, 16761600.0, 14.0, 32.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+createPlot(id=1, position={39, 33, 2892, 1072}, y={"optStaHea.tOpt","optStaCoo.tOpt"}, range={15984000.0, 16761600.0, -0.2, 1.4}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}});

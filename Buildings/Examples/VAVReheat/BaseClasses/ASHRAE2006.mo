@@ -8,7 +8,9 @@ model ASHRAE2006
     "Minimum discharge air flow rate ratio";
 
   Controls.FanVFD conFanSup(
-    xSet_nominal(displayUnit="Pa") = 410,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 410,
     r_N_min=yFanMin)
     "Controller for fan"
     annotation (Placement(transformation(extent={{240,-10},{260,10}})));
@@ -35,8 +37,10 @@ model ASHRAE2006
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.RoomVAV conVAV[numZon](
+    have_preIndDam=fill(false, numZon),
     ratVFloMin=ratVMinVAV_flow,
-    ratVFloHea=mHeaVAV_flow_nominal ./ mCooVAV_flow_nominal)
+    ratVFloHea=mHeaVAV_flow_nominal ./ mCooVAV_flow_nominal,
+    V_flow_nominal=mCooVAV_flow_nominal/1.2)
     "Controller for terminal unit"
     annotation (Placement(transformation(extent={{580,40},{600,60}})));
 
@@ -62,16 +66,16 @@ model ASHRAE2006
   Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{40,-250},{60,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin TRooMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin TRooMin(
     final nin=numZon,
     u(each final unit="K",
       each displayUnit="degC"),
@@ -166,7 +170,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
-          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
+          -305.455},{260,-305.455},{260,-60},{228,-60},{228,6},{238,6}},
                                                                  color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
@@ -263,8 +267,8 @@ equation
   connect(damExh.port_b, amb.ports[3]) annotation (Line(points={{-50,-10},{-100,
           -10},{-100,-45},{-114,-45}}, color={0,127,255}));
   connect(TRoo, conVAV.TRoo) annotation (Line(
-      points={{-400,320},{-360,320},{-360,304},{48,304},{48,96},{548,96},{548,
-          44},{579,44}},
+      points={{-400,320},{-360,320},{-360,304},{48,304},{48,96},{548,96},{548,47},
+          {578,47}},
       color={0,0,127}));
   connect(controlBus.TRooSetHea, TRooHeaSet.u) annotation (Line(
       points={{-240,-340},{440,-340},{440,64},{478,64}},
@@ -282,16 +286,16 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TRooHeaSet.y, conVAV.TRooHeaSet) annotation (Line(points={{502,64},{
-          552,64},{552,56},{578,56}},
-                                 color={0,0,127}));
-  connect(TRooCooSet.y, conVAV.TRooCooSet) annotation (Line(points={{502,30},{
-          544,30},{544,50},{578,50}},
-                                 color={0,0,127}));
+  connect(TRooHeaSet.y, conVAV.TRooHeaSet) annotation (Line(points={{502,64},{552,
+          64},{552,58},{578,58}},color={0,0,127}));
+  connect(TRooCooSet.y, conVAV.TRooCooSet) annotation (Line(points={{502,30},{544,
+          30},{544,53},{578,53}},color={0,0,127}));
   connect(conVAV.yDam, VAVBox.yVAV)
-    annotation (Line(points={{601,54.8},{716,56}}, color={0,0,127}));
-  connect(conVAV.yVal, VAVBox.yHea) annotation (Line(points={{601,45},{608,45},
-          {608,46},{716,46}}, color={0,0,127}));
+    annotation (Line(points={{602,55},{716,56}},   color={0,0,127}));
+  connect(conVAV.yVal, VAVBox.yHea) annotation (Line(points={{602,45},{608,45},{
+          608,46},{716,46}},  color={0,0,127}));
+  connect(VAVBox.VSup_flow, conVAV.VDis_flow) annotation (Line(points={{762,56},
+          {780,56},{780,90},{570,90},{570,42},{578,42}}, color={0,0,127}));
   annotation (
   defaultComponentName="hvac",
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-380,-400},{1420,
@@ -356,6 +360,10 @@ ASHRAE, Atlanta, GA, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code>.
+</li>
 <li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations for

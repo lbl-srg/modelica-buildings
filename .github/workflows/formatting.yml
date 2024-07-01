@@ -24,23 +24,30 @@ jobs:
     # Skip if the commit message contains "ci skip"
     if: "!contains(github.event.head_commit.message, 'ci skip')"
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
       - name: Checkout code
-        uses: nschloe/action-cached-lfs-checkout@v1
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.8.10' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          python-version: '3.10.11' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64'      # optional x64 or x86. Defaults to x64 if not specified
 
       - name: "Install pip"
         run: pip3 install --upgrade pip wheel
 
       - name: "Install BuildingsPy"
-        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@e52684deb8c2c2846faaa21c426999fecf3ad58f
+        run: pip3 install git+https://github.com/lbl-srg/BuildingsPy@0bc654fd913c83f64163be167807e8989eff0293
+
+      - name: Check for UTF-8 BOM
+        run : |
+              for ff in `grep -rlI --exclude="ffd.vcxproj" --exclude-dir="\.git" $'^\xEF\xBB\xBF' .`; do
+                echo "::error file=${ff}:: Found BOM in ${ff}."
+              done;
+              test -z "${ff}"
 
       - name: "Test html syntax"
         run : ../bin/runUnitTests.py --validate-html-only
@@ -48,9 +55,11 @@ jobs:
       - name: "Test experiment setup"
         run : ../bin/runUnitTests.py --validate-experiment-setup
 
-      - name: "Test if package.order are correct"
+      - name: "Test if package.order are correct, and revert order in UsersGuide"
         run : |
               python -c 'import buildingspy.development.refactor as r; r.write_package_order(".", recursive=True)'
+              git checkout UsersGuide/ReleaseNotes/package.order
+              git checkout UsersGuide/package.order
               git diff --exit-code .
 
       - name: "Verify files for invalid strings"
@@ -74,9 +83,6 @@ jobs:
               cd ..
               python Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py
               git diff --exit-code Buildings
-
-      - name: Check for UTF-8 BOM
-        run: "! find . -name '*.mo' -print0 | xargs -0 grep -l $'^\\xEF\\xBB\\xBF' | grep ."
 
       - name: Check for file permissions
         run : |

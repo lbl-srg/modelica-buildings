@@ -384,11 +384,14 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
   size_t len;
   char *spawnFullPath; /* Path to the executable, including the name of the executable file */
   char *pathToExe;     /* Path to the executable, without the name of the executable file */
+  char *nameSpawnLight; /* Name of Spawn-light, such as Spawn-light-{version}-{commit[0:10]} */
 
   char *str;
   char *token;
   char *saveptr;
   char *searchPathCopy;
+
+  const size_t extra_len_light = strlen("Spawn-light-") - strlen("spawn-");
 
   const char* prefix = "/Resources/bin/";
   const char* suffix = "/bin";
@@ -414,18 +417,28 @@ char* findSpawnExe(FMUBuilding* bui, const char* SEARCHPATH, const char* spawnEx
     if (bui->logLevel >= MEDIUM)
       SpawnFormatMessage("%.3f %s: In findSpawnExe, trying to to use buildingsLibraryRoot to find spawn.\n", bui->time, bui->modelicaNameBuilding);
 
-    len = strlen(bui->buildingsLibraryRoot) + strlen(prefix) + strlen(spawnExe) + strlen(binDir) + strlen(suffix) + 1;
+    /* Construct Spawn-light-{version}-{commit[0:10]} from spawn-{version}-{commit[0:10]} */
+
+    mallocString(strlen(spawnExe) + 1 + extra_len_light, "Failed to allocate memory in findSpawnExe() for nameSpawnLight",
+      &nameSpawnLight, SpawnFormatError);
+    memset(nameSpawnLight, '\0', strlen(spawnExe) + 1 + extra_len_light);
+    strcpy(nameSpawnLight, "Spawn-light-");
+    /* Don't copy spawn-, but copy {version}-{commit[0:10]} from spawn-{version}-{commit[0:10]} */
+    memcpy(&nameSpawnLight[strlen("Spawn-light-")], &spawnExe[strlen("spawn-")], strlen(spawnExe)-strlen("spawn-"));
+
+    len = strlen(bui->buildingsLibraryRoot) + strlen(prefix) + strlen(nameSpawnLight) + strlen(binDir) + strlen(suffix) + 1;
     mallocString(len, "Failed to allocate memory in findSpawnExe() for pathToExe.",
       &pathToExe, SpawnFormatError);
     memset(pathToExe, '\0', len);
     strcpy(pathToExe, bui->buildingsLibraryRoot);
     strcat(pathToExe, prefix);
-    strcat(pathToExe, spawnExe);
+    strcat(pathToExe, nameSpawnLight);
     strcat(pathToExe, binDir);
     strcat(pathToExe, suffix);
 
     /* Recursively call this function, but now with SEARCHPATH set */
     spawnFullPath = findSpawnExe(bui, pathToExe, spawnExe);
+    free(nameSpawnLight);
     if (spawnFullPath == NULL){
       /* Did not find it. */
       free(pathToExe);
@@ -516,7 +529,6 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
   /* Generate the FMU */
   char* optionFlags;
   char* outputFlag;
-  char* createFlag;
   char* fulCmd;
   int retVal;
   size_t len;
@@ -532,12 +544,11 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
     SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
   }
 
-  optionFlags = " --no-compress "; /* Flag for command */
-  outputFlag = " --output-path "; /* Flag for command */
-  createFlag = " --create "; /* Flag for command */
+  optionFlags = " energyplus create-fmu "; /* Flag for command */
+  outputFlag = " --output-path ";          /* Flag for command */
   len = strlen("\"") + strlen(spawnFullPath) + strlen("\"") + strlen(optionFlags)
-    + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
-    + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
+    + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\" ")
+    + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
 #ifdef _WIN32 /* Win32 or Win64 */
   /* Windows needs double quotes in the system call, see https://stackoverflow.com/questions/2642551/windows-c-system-call-with-spaces-in-command */
@@ -559,8 +570,7 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
   strcat(fulCmd, outputFlag);
   strcat(fulCmd, "\"");
   strcat(fulCmd, bui->fmuAbsPat);
-  strcat(fulCmd, "\"");
-  strcat(fulCmd, createFlag);
+  strcat(fulCmd, "\" ");
   strcat(fulCmd, "\"");
   strcat(fulCmd, modelicaBuildingsJsonFile);
   strcat(fulCmd, "\"");
@@ -777,8 +787,12 @@ void importSpawnFMU(FMUBuilding* bui){
   if(jm_status == jm_status_error){
     SpawnFormatError("Failed to instantiate building FMU with name %s.",  bui->modelicaNameBuilding);
   }
+  /* Set the FMU mode to instantiationMode */
+  setFMUMode(bui, instantiationMode);
+
   /* Set the debug level in the FMU */
   setFMUDebugLevel(bui);
+
 }
 
 void setReusableFMU(FMUBuilding* bui){
@@ -798,17 +812,6 @@ void setReusableFMU(FMUBuilding* bui){
       }
     }
   }
-}
-
-
-int deleteFile(const char* fileName){
-  /* Remove file if it exists */
-  if (access(fileName, F_OK) == 0) {
-    /* FMU exists. Delete it. */
-    return remove(fileName);
-  }
-  else
-    return 0;
 }
 
 void copyBinaryFile(
@@ -911,7 +914,7 @@ void generateAndInstantiateBuilding(FMUBuilding* bui){
         spawnFullPath = findSpawnExe(bui, env, bui->spawnExe);
     }
     if (spawnFullPath == NULL){
-      SpawnFormatError("Failed to find spawn executable in Buildings Library installation, on SPAWNPATH and on PATH. See instructions at Buildings.ThermalZones.EnergyPlus_%s.UsersGuide.Installation", bui->idfVersion);
+      SpawnFormatError("Failed to find spawn executable in Buildings Library installation, on SPAWNPATH and on PATH. See installation instructions at Buildings.ThermalZones.EnergyPlus_%s.UsersGuide.Installation", bui->idfVersion);
     }
     terminateIfSpacesInInstallation(bui);
     /* Generate FMU using spawnFullPath */

@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Validation.Alarms", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="Alarms_DualDuctMixConDischargeSensor");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.VActSet_flow", "ala.VDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.yLowFloAla"}, range={0.0, 8000.0, -1.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.u1CooFan", "ala.u1HeaFan"}, range={0.0, 8000.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.VCooMax_flow", "ala.VDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, subPlot=102, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.yFloSenAla"}, range={0.0, 8000.0, -1.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.uOpeMod"}, range={0.0, 8000.0, -1.0, 4.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1245, 21, 592, 1154}, y={"ala.uCooDam", "ala.uHeaDam"}, range={0.0, 8000.0, -0.1, 0.7}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=3, position={1245, 21, 592, 1154}, y={"ala.yLeaDamAla"}, range={0.0, 8000.0, -0.5, 4.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+
+

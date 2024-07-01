@@ -1,30 +1,33 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse;
 model RadiantHeatingCooling_TRoom
   "Example model with one thermal zone with a radiant floor where the cooling is controlled based on the room air temperature"
-  extends Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned(building(
+  extends
+    Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned(
+     building(
         idfName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
     "Water medium";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=7500
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=8000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
       4200/10 "Design water mass flow rate for heating";
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-5000
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=-3000
     "Nominal heat flow rate for cooling";
   parameter Modelica.Units.SI.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal
       /4200/5 "Design water mass flow rate for heating";
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(nLay=4,
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(
+      nLay=4,
       material={Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
-        Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
+        Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.20),
         Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2),
         HeatTransfer.Data.Solids.Generic(
         x=2,
         k=1.3,
         c=800,
         d=1500)})
-    "Material layers from surface a to b (8cm concrete, 10 cm insulation, 20 cm concrete, 200 cm soil, below which is the undisturbed soil assumed)"
+    "Material layers from surface a to b (8cm concrete, 20 cm insulation, 20 cm concrete, 200 cm soil, below which is the undisturbed soil assumed)"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layCei(
     nLay=4,
@@ -43,7 +46,7 @@ model RadiantHeatingCooling_TRoom
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
-    disPip=0.2,
+    disPip=0.30,
     nCir=3,
     A=AFlo,
     m_flow_nominal=mHea_flow_nominal,
@@ -57,7 +60,7 @@ model RadiantHeatingCooling_TRoom
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-190},{50,-170}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
@@ -115,7 +118,7 @@ model RadiantHeatingCooling_TRoom
     nPorts=1)
     "Mass flow source for cooling water at prescribed temperature"
     annotation (Placement(transformation(extent={{-38,80},{-18,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooCoo(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooCoo(
     k(final unit="K",
       displayUnit="degC")=299.15,
     y(final unit="K",
@@ -136,7 +139,7 @@ model RadiantHeatingCooling_TRoom
         origin={100,-180})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-      TSupSet_max=318.15)
+      TSupSet_max=313.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-140,-160},{-120,-140}})));
   Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum
@@ -210,9 +213,9 @@ that has a radiant ceiling, used for cooling, and a radiant floor, used for heat
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 The model is constructed by extending
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-and adding the radiant ceiling.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+and adding the radiant ceiling. For simplicity, this model provide heating with an idealized heater.
 </p>
 <p>
 The next section explains how the radiant ceiling is configured.
@@ -276,6 +279,16 @@ in EnergyPlus is assumed to be undisturbed.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 13, 2024, by Michael Wetter:<br/>
+Updated <code>idf</code> file to add insulation, and resized system.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">issue 3707</a>.
+</li>
+<li>
+December 1, 2022, by Michael Wetter:<br/>
+Increased thickness of insulation of radiant slab and changed pipe spacing.
+</li>
 <li>
 March 30, 2021, by Michael Wetter:<br/>
 First implementation.

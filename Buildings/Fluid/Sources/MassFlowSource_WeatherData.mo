@@ -2,13 +2,13 @@ within Buildings.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  extends Buildings.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
   parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable=not use_m_flow_in));
@@ -186,6 +186,18 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Removed duplicate connector.<br/>

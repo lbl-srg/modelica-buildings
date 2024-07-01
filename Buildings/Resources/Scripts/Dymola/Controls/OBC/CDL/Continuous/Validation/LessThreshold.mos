@@ -1,2 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.LessThreshold", stopTime=5.0, method="Cvode", tolerance=1e-06, resultFile="LessThreshold1");
-createPlot(id=1, position={15, 15, 742, 472}, y={"les.u", "les.t", "les.y", "lesHys.y"}, range={0.0, 5.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}, {28,108,200}, {28,108,200}});

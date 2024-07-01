@@ -4,14 +4,14 @@ model h_TDryBulPhi "Model to test the specific enthalpy computation"
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.h_TDryBulPhi   hBulPhi
    "Model for specific enthalpy computation"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p(k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-64,-42},{-44,-22}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=1,
     offset=0.001) "Relative humidity"
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-64,24},{-44,44}})));
 

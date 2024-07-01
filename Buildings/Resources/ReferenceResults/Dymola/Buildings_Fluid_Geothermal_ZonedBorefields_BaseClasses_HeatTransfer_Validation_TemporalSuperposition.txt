@@ -1,0 +1,10 @@
+last-generated=2024-04-22
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+supPosErr[1]=[2.220446049250313e-16, 2.220446049250313e-16]
+supPosErr[2]=[0e+00, 0e+00]

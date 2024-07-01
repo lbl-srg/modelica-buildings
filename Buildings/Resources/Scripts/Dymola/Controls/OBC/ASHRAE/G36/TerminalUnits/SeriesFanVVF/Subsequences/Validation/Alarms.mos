@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.Validation.Alarms", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="Alarms_SeriesFanVVF");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.VPri_flow", "ala.VActSet_flow"}, range={0.0, 8000.0, 0.0, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.yLowFloAla"}, range={0.0, 8000.0, -1.0, 4.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.u1Fan", "ala.u1FanCom", "ala.u1TerFan"}, range={0.0, 8000.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.yFanStaAla"}, range={0.0, 8000.0, -2.0, 6.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.uOpeMod"}, range={0.0, 8000.0, -2.0, 6.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.uDam", "ala.uVal"}, range={0.0, 8000.0, -0.5, 1.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.TSup", "ala.TDis", "ala.TDisSet"}, range={0.0, 8000.0, 10.0, 40.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.yFloSenAla"}, range={0.0, 8000.0, -2.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.yLowTemAla"}, range={0.0, 8000.0, -2.0, 4.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.yLeaValAla"}, range={0.0, 8000.0, -2.0, 4.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s");
+

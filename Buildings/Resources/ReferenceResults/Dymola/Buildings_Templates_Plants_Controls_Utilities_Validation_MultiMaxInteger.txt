@@ -1,0 +1,9 @@
+last-generated=2024-04-02
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+mulMax.y=[5e+00, 5e+00]

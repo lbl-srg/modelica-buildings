@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "chi.refCyc.sigBus.TConInMea",
+    "chi.refCyc.sigBus.TConOutMea",
+    "chi.refCyc.sigBus.TEvaOutMea",
+    "chi.refCyc.sigBus.TEvaInMea",
+    "chi.QCon_flow",
+    "chi.QEva_flow",
+    "chi.P",
+    "chi.refCyc.sigBus.ySet",
+    "chi.refCyc.sigBus.yMea"
+  };

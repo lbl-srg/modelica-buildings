@@ -6,7 +6,7 @@ model PowerConsumption "Validate model PowerConsumption"
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.4; 2700,0; 3000,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Water mass flow rate"

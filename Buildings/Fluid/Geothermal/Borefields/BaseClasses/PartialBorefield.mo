@@ -39,7 +39,12 @@ partial model PartialBorefield
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nSegGFun(min=1)=12 "Number of segments to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nClu(min=1)=5
+    "Number of borehole clusters to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
 
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
@@ -68,11 +73,6 @@ partial model PartialBorefield
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
 
-  // Dynamics of filling material
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
-
   Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
                                                 final unit="K",
                                                 displayUnit = "degC",
@@ -83,6 +83,8 @@ partial model PartialBorefield
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     final tLoaAgg=tLoaAgg,
     final nCel=nCel,
+    final nSeg=nSegGFun,
+    final nClu=nClu,
     final borFieDat=borFieDat,
     final forceGFunCalc=forceGFunCalc)
     "Ground temperature response"
@@ -105,7 +107,6 @@ partial model PartialBorefield
     final energyDynamics=energyDynamics,
     final p_start=p_start,
     final mSenFac=mSenFac,
-    final dynFil=dynFil,
     final TFlu_start=TFlu_start,
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
@@ -117,14 +118,16 @@ protected
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=1/borFieDat.conDat.nBor)
                                    "Division of flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
@@ -181,7 +184,7 @@ equation
     annotation (Line(points={{-4.44089e-16,-20},{0,-20},{0,-30}},
                                                         color={191,0,0}));
   connect(QBorHol.Q_flow, QTotSeg_flow.u)
-    annotation (Line(points={{-10,-10},{-86,-10},{-86,80},{-62,80}},
+    annotation (Line(points={{-11,-10},{-86,-10},{-86,80},{-62,80}},
                                                           color={0,0,127}));
   connect(groTemRes.delTBor, repDelTBor.u)
     annotation (Line(points={{41,80},{58,80}}, color={0,0,127}));

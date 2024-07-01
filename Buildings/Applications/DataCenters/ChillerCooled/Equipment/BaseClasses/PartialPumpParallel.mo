@@ -40,14 +40,14 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.Units.SI.Time riseTimeValve=120
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+  parameter Modelica.Units.SI.Time riseTimeValve=riseTimePump
+    "Rise time of the filter (time to become 99.6 % open)" annotation (
       Dialog(
       tab="Dynamics",
       group="Valve",
       enable=use_inputFilter));
-  parameter Real[num] yValve_start = fill(0,num)
-    "Initial value of pump signals"
+  parameter Real[num] yValve_start = fill(1,num)
+    "Initial value of valve signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
 
   // Dynamics
@@ -139,14 +139,22 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[num](
     each final uLow=threshold,
     each final uHigh=2*threshold) "Hysteresis for isolation valves"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
-    "Boolean to real conversion for isolation valves"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[num]
+    "Switch to enable pump only once the valve is commanded open"
+    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
+protected
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[num](
+    each final k=0.0) "Outputs 0 as the control signal"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+protected
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one[num](each final k=
+        1.0) "Outputs 1 as the control signal"
+    annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -164,12 +172,17 @@ equation
   connect(pum.P, P)
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
-  connect(booToRea.y, val.y)
-    annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
-  connect(hys.y, booToRea.u)
-    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
-  connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
+  connect(hys.u, u) annotation (Line(points={{-82,40},{-120,40}},
         color={0,0,127}));
+  connect(hys.y, swi.u2) annotation (Line(points={{-58,40},{-52,40},{-52,-30},{
+          -50,-30}},              color={255,0,255}));
+  connect(zer.y, swi.u3)
+    annotation (Line(points={{-68,-60},{-60,-60},{-60,-38},{-50,-38}},
+                                                 color={0,0,127}));
+  connect(one.y, swi.u1)
+    annotation (Line(points={{-68,-22},{-50,-22}}, color={0,0,127}));
+  connect(swi.y, val.y) annotation (Line(points={{-26,-30},{28,-30},{28,20},{50,
+          20},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-60,60},{60,40}},
@@ -241,17 +254,33 @@ equation
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
 <li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Improved sequence to avoid switching pump on when the valve is commanded off.
+</li>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Set initial state of valve to be open, and changed rise time of valve to be the same as pump.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, issue 1659</a>.
+</li>
+<li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
 added assertion for correct combination of energy and mass dynamics.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">IBPSA, issue 1542</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, Buildings, #1341</a>.
 </li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>

@@ -119,7 +119,7 @@ parameter Real scaDpFanRet_nominal = 1
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=120)
     "Boolean to real conversion, outputs static pressure set point"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-  Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(raisingSlewRate=1/120)
+  Controls.OBC.CDL.Reals.LimitSlewRate ramLim(raisingSlewRate=1/120)
     "Ramp limiter for fan control signal"
     annotation (Placement(transformation(extent={{50,100},{70,120}})));
 equation

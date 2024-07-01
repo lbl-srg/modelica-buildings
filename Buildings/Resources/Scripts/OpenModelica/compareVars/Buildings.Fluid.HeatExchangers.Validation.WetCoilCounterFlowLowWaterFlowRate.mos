@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "hex.Q1_flow",
+    "hex.QSen2_flow",
+    "hex.QLat2_flow",
+    "hex.m1_flow",
+    "hex.m2_flow",
+    "hex.ele[1].mas.T",
+    "senTemAirIn.T",
+    "senTemWatIn.T"
+  };

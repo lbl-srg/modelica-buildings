@@ -4,17 +4,21 @@ model Case900 "Case 600, but with high thermal mass"
    matExtWal = extWalCase900,
    matFlo =    floorCase900,
    staRes(
-    annualHea(Min=1.170*3.6e9, Max=2.041*3.6e9, Mean=1.745*3.6e9),
-    annualCoo(Min=-2.132*3.6e9, Max=-3.415*3.6e9, Mean=-2.678*3.6e9),
-    peakHea(Min=2.850*1000, Max=3.797*1000, Mean=3.506*1000),
-    peakCoo(Min=-2.888*1000, Max=-3.871*1000, Mean=-3.390*1000)));
+    annualHea(Min=1.379*3.6e9, Max=1.814*3.6e9, Mean=1.626*3.6e9),
+    annualCoo(Min=-2.267*3.6e9, Max=-2.714*3.6e9, Mean=-2.467*3.6e9),
+    peakHea(Min=2.443*1000, Max=2.778*1000, Mean=2.591*1000),
+    peakCoo(Min=-2.556*1000, Max=-3.376*1000, Mean=-2.975*1000)),
+   heaCri(lowerLimit=1.04*3.6e9, upperLimit=2.28*3.6e9),
+   cooCri(lowerLimit=-2.35*3.6e9, upperLimit=-2.6*3.6e9));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase900
-     extWalCase900 "Exterior wall"
+     extWalCase900
+    "Exterior wall"
     annotation (Placement(transformation(extent={{60,60},{74,74}})));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.FloorCase900
-    floorCase900 "Floor"
+    floorCase900
+    "Floor"
     annotation (Placement(transformation(extent={{80,60},{94,74}})));
 
   annotation (
@@ -29,6 +33,12 @@ The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 July 29, 2016, by Michael Wetter:<br/>
 Added missing parameter declarations.

@@ -1,0 +1,13 @@
+last-generated=2022-06-24
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+zonStaDup.yTZon[1, 1]=[1e+00, 1e+00]
+zonStaDup.yTZon[1, 2]=[2e+00, 2e+00]
+zonStaDup.yTZon[2, 3]=[3e+00, 3e+00]
+zonStaDup.yTZon[2, 4]=[4e+00, 4e+00]
+zonStaDup.yTZon[2, 5]=[5e+00, 5e+00]

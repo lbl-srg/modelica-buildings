@@ -809,7 +809,7 @@ During the initialzation, the following data are sent from Modelica to CFD:
 An array of strings where each element is the name of the surface,
 as declared by
 the user when instantiating the model
-<a href=\"Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
 Let us call this array <code>name</code>.
 The orders of elements in this array are as follows:
 <ol>
@@ -989,7 +989,7 @@ port <i>2</i> etc.
 <p>
 <a name=\"ZuoEtAl2016\"/>
 Wangda Zuo, Michael Wetter, Wei Tian, Dan Li, Mingang Jin, Qingyan Chen.<br/>
-<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/Zuo2016.pdf\">
+<a href=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/FFD/ZuoEtAl2016.pdf\">
 Coupling Indoor Airflow, HVAC, Control and Building Envelope Heat Transfer in the Modelica Buildings Library.
 </a>
 <br/>

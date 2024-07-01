@@ -1,0 +1,42 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="InjectionTwoWayConstant");
+
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "T1Sup.T", "T1Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
+
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "con.res3.m_flow", "mPum_flow_nominal", "con.mPum_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
+
+
+// Delta-T function of the load
+nPoints = readTrajectorySize("InjectionTwoWayConstant.mat");
+q_flow_nom = readTrajectory("InjectionTwoWayConstant.mat", {"loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("InjectionTwoWayConstant.mat", {"loa1.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("InjectionTwoWayConstant.mat", {"loa1.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("InjectionTwoWayConstant.mat", {"loa1.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("InjectionTwoWayConstant.mat", {"con.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("InjectionTwoWayConstant.mat", {"con.m2_flow_nominal"}, 1);
+dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
+dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
+q_flow = readTrajectory("InjectionTwoWayConstant.mat", {"loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("InjectionTwoWayConstant.mat", {"loa1.Q_flow"}, nPoints);
+dT = readTrajectory("InjectionTwoWayConstant.mat", {"dT1.y"}, nPoints);
+ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
+T2Sup = readTrajectory("InjectionTwoWayConstant.mat", {"con.T2Sup.T"}, nPoints);
+T2Ret = readTrajectory("InjectionTwoWayConstant.mat", {"con.T2Ret.T"}, nPoints);
+
+createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, T2Ret[1] - T2Sup[1], id=6, erase=false, legend="dT2", pattern=LinePattern.None, marker=MarkerStyle.Dot, color={238,46,47});
+plotArray({1}, {dTPri_nom}, id=6, erase=false, legend="Design operating point", color={238,46,47});
+plotArray({0, 1}, {0, dTPri_nom}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);
+
+// Mass flow function of the load
+mPum_flow = readTrajectory("InjectionTwoWayConstant.mat", {"pum.m_flow"}, nPoints);
+mPum_flow_nom = readTrajectory("InjectionTwoWayConstant.mat", {"mPum_flow_nominal"}, 1);
+m2_flow = readTrajectory("InjectionTwoWayConstant.mat", {"con.pum.m_flow"}, nPoints);
+createPlot(id=8, position={1157, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="m_flow/m_flow_nominal [-]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
+plotArray(ratQTot_flow, mPum_flow[1] / mPum_flow_nom[1,1], id=8, erase=false, legend="Primary circuit", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray(ratQTot_flow, m2_flow[1] / mSec_flow_nom[1,1], id=8, erase=false, legend="Consumer circuit", pattern=LinePattern.None, marker=MarkerStyle.Dot, color={238,46,47});

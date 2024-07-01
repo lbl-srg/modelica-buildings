@@ -24,7 +24,6 @@ model Carnot_TCon
     allowFlowReversal1=false,
     allowFlowReversal2=false,
     use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000) "Heat pump"
@@ -106,8 +105,14 @@ a temperature difference equal to <code>dTEva_nominal</code>.
 revisions="<html>
 <ul>
 <li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>
