@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.Validation;
-model PIDDerivativeTime "Test model for calculating the integral time for a PID controller"
+model PIDDerivativeTime "Test model for calculating the derivative time for a PID controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDDerivativeTime
     PIDDerTim
     "Blocks that calculates the integral time"

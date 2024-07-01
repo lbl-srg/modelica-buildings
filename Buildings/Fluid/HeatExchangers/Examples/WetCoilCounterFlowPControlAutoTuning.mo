@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPControlAutoTuning
-  "Model that demonstrates use of a heat exchanger with condensation and with autotuning feedback control"
+  "Model that demonstrates the use of a heat exchanger with condensation and with autotuning feedback control"
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
@@ -39,8 +39,7 @@ model WetCoilCounterFlowPControlAutoTuning
     nPorts=1,
     use_T_in=true,
     p=300000 + 12000)
-                   annotation (Placement(transformation(extent={{-40,50},{-20,
-            70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium2,
@@ -92,6 +91,7 @@ model WetCoilCounterFlowPControlAutoTuning
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+    u_s_start=288.15,
     r=10,
     yLow=0.2,
     deaBan=0.2,
@@ -103,15 +103,15 @@ model WetCoilCounterFlowPControlAutoTuning
     height=5,
     offset=T_a1_nominal,
     startTime=300,
-    duration=2000) "Water temperature, raised to high value at t=3000 s"
+    duration=2000) "Water temperature, raised to a high value at t=3000 s"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse autTunSig(
-    width=0.1,
-    period=4000,
-    shift=400)
+    width=0.2,
+    period=2000,
+    shift=100)
     "Signal for enabling the autotuning"
     annotation (Placement(transformation(extent={{20,160},{40,180}})));
 equation
@@ -183,23 +183,25 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
 Documentation(info="<html>
 <p>
 This example is identical to 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a> except that the PI controller
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl\">
+Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl</a> except that the PI controller
 is replaced by an autotuning PI controller.
 </p>
-<p>
-The autotuning is triggered at <i>400</i>s and stops automatically.
-When it stops, the tuned PI parameters are put into effect to replace the default parameter values.
-For details of the autotuning, refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
-</p>
+The autotuning is triggered twice.
+<ul>
+<li>
+The first one occurs at <i>100</i> seconds and it completes successfully.
+The tuned PI parameters are put into effect at <i>215</i> seconds.
+</li>
+<li>
+The second one occurs at <i>2100</i> seconds and it fails because the setpoint
+changes at <i>2400</i> seconds.
+The PI parameters are kept unchanged.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
-<li>
-April 3, 2024, by Sen Huang:<br/>
-Added parameter values.
-</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Removed wrong normalization.

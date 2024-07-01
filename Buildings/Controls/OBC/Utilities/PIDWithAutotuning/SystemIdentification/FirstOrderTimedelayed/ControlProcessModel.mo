@@ -48,22 +48,26 @@ block ControlProcessModel
         origin={60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
-    annotation (Placement(transformation(extent={{160,50},{200,90}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{160,60},{200,100}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput T(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant"
-    annotation (Placement(transformation(extent={{160,0},{200,40}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{160,20},{200,60}}),
+        iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput L(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay"
-    annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
-        iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput tunSta
+    "True when the autotuning completes successfully"
+    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1)
@@ -91,7 +95,7 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samL(
     final y_start=1)
     "Block that samples the time delay when the tuning period ends"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtOn(
     final y_start=1)
     "Block that samples the length of the on period when the tuning period ends"
@@ -111,6 +115,19 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Abs abs1
     "Absolute gain value"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if an error occurs during the autotuning process"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if the autotuning completes successfully"
+    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(message="In " +
+        getInstanceName() +
+        ": an autotuning fails, see earlier warnings for possible reasons, the controller gains are unchanged.")
+    "Warning message when an autotuning fails"
+    annotation (Placement(transformation(extent={{134,50},{154,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if an error occurs"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
           80}},  color={0,0,127}));
@@ -121,23 +138,24 @@ equation
   connect(gain.triSta, triSta) annotation (Line(points={{-110,8},{-110,-120}},
          color={255,0,255}));
   connect(timConDel.T, samT.u)
-    annotation (Line(points={{82,26},{100,26},{100,20},{118,20}}, color={0,0,127}));
+    annotation (Line(points={{82,28},{100,28},{100,20},{118,20}}, color={0,0,127}));
   connect(samT.y, T)
-    annotation (Line(points={{142,20},{180,20}}, color={0,0,127}));
+    annotation (Line(points={{142,20},{148,20},{148,40},{180,40}},
+                                                 color={0,0,127}));
   connect(samT.trigger, triEnd) annotation (Line(points={{130,8},{130,-120}},
          color={255,0,255}));
   connect(L, samL.y)
-    annotation (Line(points={{180,-60},{122,-60}},color={0,0,127}));
-  connect(samL.u, timConDel.L) annotation (Line(points={{98,-60},{90,-60},{90,14},
-          {82,14}}, color={0,0,127}));
-  connect(samL.trigger, triEnd) annotation (Line(points={{110,-72},{110,-90},{130,
-          -90},{130,-120}},  color={255,0,255}));
+    annotation (Line(points={{180,-40},{122,-40}},color={0,0,127}));
+  connect(samL.u, timConDel.L) annotation (Line(points={{98,-40},{90,-40},{90,20},
+          {82,20}}, color={0,0,127}));
+  connect(samL.trigger, triEnd) annotation (Line(points={{110,-52},{110,-70},{130,
+          -70},{130,-120}},  color={255,0,255}));
   connect(samk.y, timConDel.k)
     annotation (Line(points={{-38,20},{58,20}},
          color={0,0,127}));
   connect(samk.trigger, triEnd) annotation (Line(points={{-50,8},{-50,-90},{130,
           -90},{130,-120}},color={255,0,255}));
-  connect(samk.y, k) annotation (Line(points={{-38,20},{40,20},{40,70},{180,70}},
+  connect(samk.y, k) annotation (Line(points={{-38,20},{52,20},{52,80},{180,80}},
                 color={0,0,127}));
   connect(timConDel.tOn, samtOn.y) annotation (Line(points={{58,26},{20,26},{20,
           60},{2,60}},  color={0,0,127}));
@@ -164,6 +182,18 @@ equation
     annotation (Line(points={{-98,20},{-92,20}}, color={0,0,127}));
   connect(abs1.y, samk.u)
     annotation (Line(points={{-68,20},{-62,20}}, color={0,0,127}));
+  connect(and2.u1, not1.y) annotation (Line(points={{78,-70},{68,-70},{68,-50},{
+          62,-50}}, color={255,0,255}));
+  connect(and2.y, tunSta) annotation (Line(points={{102,-70},{106,-70},{106,-80},
+          {180,-80}}, color={255,0,255}));
+  connect(and2.u2, triEnd) annotation (Line(points={{78,-78},{0,-78},{0,-90},{
+          130,-90},{130,-120}}, color={255,0,255}));
+  connect(timConDel.triFai, not1.u) annotation (Line(points={{82,12},{86,12},{86,
+          0},{8,0},{8,-50},{38,-50}},    color={255,0,255}));
+  connect(not2.y, assMes4.u)
+    annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
+  connect(not2.u, timConDel.triFai) annotation (Line(points={{98,60},{96,60},{96,
+          12},{82,12}}, color={255,0,255}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -174,7 +204,7 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,140},{100,100}},
+          extent={{-100,160},{100,120}},
           textString="%name",
           textColor={0,0,255}),
         Polygon(
