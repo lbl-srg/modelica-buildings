@@ -120,16 +120,10 @@ motor part load ratio requires knowing the nominal power.
 ** The models will ignore this record if the pressure curve is not provided
 and the speed is unknown. This is because the models wouldn't be able
 to compute the elctrical power correctly using similarity laws without speed.
-In this case the user can mitigate the error by providing other information for
-hydraulic efficiency. Compare validation models
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
-Buildings.Fluid.Movers.Validation.PowerSimplified</a>,
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
-Buildings.Fluid.Movers.Validation.PowerExact</a>,
-and
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-as an example.
+In this case the user should consider using the preconfigured mover models in
+<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured\">
+Buildings.Fluid.Movers.Preconfigured</a>
+which will auto-populate a pressure curve from nominal flow rate and pressure.
 </li>
 </ul>
 <p>
@@ -216,6 +210,11 @@ i.e., the fan or pump has idealized perfect control and infinite capacity.
 Using these models that take as an input the head or the mass flow rate often leads
 to smaller system of equations compared to using the models that take
 as an input the speed.
+The validation model
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerInput\">
+Buildings.Fluid.Movers.Validation.ComparePowerInput</a>
+demonstrates that the models with different input signals produce the same
+power consumption estimates.
 </p>
 <p>
 These models can be configured for three different control inputs.
@@ -461,10 +460,6 @@ constant. If the array has more than one element, the efficiency is interpolated
 or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
-See
-<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
-Buildings.Fluid.Movers.Validation.PowerSimplified</a>
-as an example.
 </li>
 <li>
 <code>Power_VolumeFlowRate</code> -
@@ -473,10 +468,6 @@ The power is interpolated or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 <i>&eta;<sub>hyd</sub></i> is then computed from <i>W&#775;<sub>hyd</sub></i>.
-See
-<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
-Buildings.Fluid.Movers.Validation.PowerExact</a>
-as an example.
 </li>
 <li>
 <b><code>EulerNumber</code> (default 1)</b> -
@@ -523,11 +514,6 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>
 specifies the peak point directly.
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-explictly calls the function.
-</li>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
 Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>
 implicitly calls the function when
@@ -571,9 +557,11 @@ The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </ul>
 
 <p>
-These options are tested in
+These options are validated in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerHydraulic\">
+Buildings.Fluid.Movers.Validation.ComparePowerHydraulic</a>.
 </p>
 <p>
 The model uses <code>EulerNumber</code> as the default option
@@ -587,9 +575,11 @@ This changes the default constant value to <i>&eta;=0.49</i> and also imposes
 an additional constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
 <i>&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub></i>
 from producing efficiency values larger than one.
-This configuration is tested in
+This configuration is validated in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a>.
+Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerTotal\">
+Buildings.Fluid.Movers.Validation.ComparePowerTotal</a>.
 </p>
 <p>
 Although the Euler number method is defined for <i>&eta;<sub>hyd</sub></i>,

@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Movers.Validation.ComparePowerInput", method="dassl", tolerance=1e-6, stopTime=200, resultFile="ComparePowerInput");
+createPlot(id=1, position={26, -4, 656, 575}, y={"mov1.eta", "mov1.etaHyd", "mov1.etaMot"}, range={0.0, 200.0, -0.5, 1.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=1, position={26, -4, 656, 575}, y={"mov2.eta", "mov2.etaHyd", "mov2.etaMot"}, range={0.0, 200.0, -0.5, 1.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=1, position={26, -4, 656, 575}, y={"mov3.eta", "mov3.etaHyd", "mov3.etaMot"}, range={0.0, 200.0, -0.5, 1.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=2, position={607, 91, 601, 428}, y={"ramSpe.y", "ramDam.y"}, range={0.0, 200.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={607, 91, 601, 428}, y={"mov1.P", "mov2.P", "mov3.P"}, range={0.0, 200.0, -10000.0, 30000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"W", "W", "W"});
