@@ -15,7 +15,7 @@ model ClosedLoop
   parameter Modelica.Units.SI.ThermalConductance UA_nominal=4748
     "Total thermal conductance at nominal flow, from textbook";
 
-  Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.RP1711 chiPla(
+  Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.Guideline36 chiPla(
     final mChi_flow_nominal=mWater_flow_nominal,
     final mCon_flow_nominal=mWater_flow_nominal,
     final dTChi=7) "Chiller plant with controller"

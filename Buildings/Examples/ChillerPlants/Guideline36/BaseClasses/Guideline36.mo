@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlants.Guideline36.BaseClasses;
-model RP1711 "Chiller plant model with RP1711 controller"
+model Guideline36 "Chiller plant model with Guideline36 controller"
 
   extends
     Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.PartialChillerPlant
@@ -659,4 +659,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end RP1711;
+end Guideline36;
