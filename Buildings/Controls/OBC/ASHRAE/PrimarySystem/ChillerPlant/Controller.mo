@@ -43,7 +43,7 @@ block Controller "Chiller plant controller"
 
   parameter Real TChiWatSupMin[nChi](
     unit=fill("K", nChi),
-    displayUnit="degC")={278.15,278.15}
+    displayUnit=fill("degC",nChi))={278.15,278.15}
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -422,8 +422,9 @@ block Controller "Chiller plant controller"
     "Minimum chilled water pump differential static pressure, default 5 psi"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatPumMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
-      displayUnit="Pa")
+  parameter Real dpChiWatPumMax[nSenChiWatPum](
+    unit=fill("Pa", nSenChiWatPum),
+    displayUnit=fill("Pa",nSenChiWatPum))
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
@@ -610,13 +611,13 @@ block Controller "Chiller plant controller"
 
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit="degC")={293.15,293.15}
+    displayUnit=fill("degC",nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatRet_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit="degC")={303.15,303.15}
+    displayUnit=fill("degC",nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 

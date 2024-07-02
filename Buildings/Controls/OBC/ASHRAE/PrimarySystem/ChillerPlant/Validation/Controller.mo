@@ -148,9 +148,8 @@ model Controller "Validation head pressure controller"
     final samplePeriod=5)
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{148,-150},{168,-130}})));
-  CDL.Reals.Sources.TimeTable chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable chiWatFlo(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-
     final table=[0,0; 6500,0; 7000,0.005; 7500,0.008; 9200,0.02; 10000,0.020;
         10800,0.024],
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
