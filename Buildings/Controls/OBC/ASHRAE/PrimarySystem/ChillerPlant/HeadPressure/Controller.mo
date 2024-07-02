@@ -128,6 +128,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
 
 protected
   Buildings.Controls.OBC.CDL.Reals.Switch swi if have_heaPreConSig
+    "Head pressure control from chiller controller"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if have_heaPreConSig "Constant"

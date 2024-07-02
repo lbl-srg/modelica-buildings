@@ -64,7 +64,7 @@ block ControlLoop
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract lif "Lift temperature"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1)
     "Constant one"
@@ -74,20 +74,19 @@ protected
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
 equation
-  connect(TConWatRet, sub1.u1)
-    annotation (Line(points={{-120,-20},{-80,-20},{-80,-34},{-62,-34}},
-      color={0,0,127}));
+  connect(TConWatRet, lif.u1) annotation (Line(points={{-120,-20},{-80,-20},{-80,
+          -34},{-62,-34}}, color={0,0,127}));
   connect(con.y, conPID.u_s)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(conPID.y, yHeaPreCon)
     annotation (Line(points={{42,60},{60,60},{60,0},{120,0}}, color={0,0,127}));
-  connect(sub1.y, gai.u)
+  connect(lif.y, gai.u)
     annotation (Line(points={{-38,-40},{-22,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{2,-40},{30,-40},{30,48}}, color={0,0,127}));
   connect(uHeaPreEna, conPID.trigger)
     annotation (Line(points={{-120,20},{24,20},{24,48}}, color={255,0,255}));
-  connect(TChiWatSup, sub1.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
+  connect(TChiWatSup, lif.u2) annotation (Line(points={{-120,-80},{-80,-80},{-80,
           -46},{-62,-46}}, color={0,0,127}));
 
 annotation (

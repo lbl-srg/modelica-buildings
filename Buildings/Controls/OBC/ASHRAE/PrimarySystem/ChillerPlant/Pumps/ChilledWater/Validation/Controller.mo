@@ -80,7 +80,7 @@ protected
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[3](
-    trueHoldDuration=fill(5, 3))
+    trueHoldDuration=fill(5, 3)) "Chilled water pump status"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
 
 equation

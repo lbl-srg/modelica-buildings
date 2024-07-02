@@ -1606,9 +1606,6 @@ block Controller "Chiller plant controller"
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{780,-590},{800,-570}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    annotation (Placement(transformation(extent={{580,20},{600,40}})));
-
 protected
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
@@ -2083,10 +2080,6 @@ equation
           255}));
   connect(uChiWatIsoVal, chiWatPumCon.uChiWatIsoVal) annotation (Line(points={{-920,
           -228},{110,-228},{110,501},{434,501}},      color={0,0,127}));
-  connect(upProCon.yEndStaTri, or2.u1) annotation (Line(points={{268,284},{300,
-          284},{300,30},{578,30}}, color={255,0,255}));
-  connect(dowProCon.yEndStaTri, or2.u2) annotation (Line(points={{268,-296},{
-          300,-296},{300,22},{578,22}}, color={255,0,255}));
   connect(wseSta.y, disChi.uWSE) annotation (Line(points={{-656,326},{-630,326},
           {-630,-479},{738,-479}}, color={255,0,255}));
   connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,326},{

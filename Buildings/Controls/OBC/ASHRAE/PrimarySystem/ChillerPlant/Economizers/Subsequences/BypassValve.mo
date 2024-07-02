@@ -52,7 +52,8 @@ block BypassValve
     annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal conWatIso
+    "Condensing water valve position"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
@@ -70,8 +71,10 @@ block BypassValve
     "Design static pressure difference across waterside economizer in chilled water side"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Divide div1
+    "Normalize the measured value"
     annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Return line valve position"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Waterside economizer commanded on"
@@ -91,13 +94,13 @@ equation
           -28}},color={0,0,127}));
   connect(swi.y, yRetVal) annotation (Line(points={{82,-20},{120,-20}},
                 color={0,0,127}));
-  connect(booToRea.y, yConWatIsoVal)
+  connect(conWatIso.y, yConWatIsoVal)
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(uWSE, and1.u1)
     annotation (Line(points={{-120,40},{-82,40}}, color={255,0,255}));
   connect(uPla, and1.u2) annotation (Line(points={{-120,80},{-90,80},{-90,32},{-82,
           32}}, color={255,0,255}));
-  connect(and1.y, booToRea.u)
+  connect(and1.y, conWatIso.u)
     annotation (Line(points={{-58,40},{58,40}}, color={255,0,255}));
   connect(and1.y, conPID.trigger) annotation (Line(points={{-58,40},{-40,40},{-40,
           -20},{-6,-20},{-6,-12}}, color={255,0,255}));

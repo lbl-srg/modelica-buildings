@@ -6,7 +6,7 @@ clear
 convertClear();
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3689
-convertClass("Buildings.Controls.OBC.CDL.Logical.TrueHold",
+convertClass("Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset",
              "Buildings.Controls.OBC.CDL.Logical.TrueHold");
 
 // Conversion of hot water load

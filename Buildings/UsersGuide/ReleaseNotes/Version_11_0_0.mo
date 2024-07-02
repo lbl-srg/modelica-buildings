@@ -443,7 +443,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHold
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset
     </td>
     <td valign=\"top\">Renamed the block to <code>TrueHold</code>.<br/>
                        This is for

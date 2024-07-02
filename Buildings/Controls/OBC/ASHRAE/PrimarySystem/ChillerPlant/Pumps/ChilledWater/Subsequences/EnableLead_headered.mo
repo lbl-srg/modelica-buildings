@@ -35,7 +35,8 @@ protected
     final uHigh=fill(0.975, nChi))
     "Check if isolation valve is open more than 95%"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr2(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyIsoVal(final nin=nChi)
+    "Check if any chilled water isolation valve is proven on"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
     final k=false)
@@ -56,9 +57,9 @@ equation
     annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
   connect(uChiWatIsoVal, hys4.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={0,0,127}));
-  connect(hys4.y, mulOr2.u)
+  connect(hys4.y, anyIsoVal.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={255,0,255}));
-  connect(mulOr2.y, or2.u1)
+  connect(anyIsoVal.y, or2.u1)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(uWse, or2.u2) annotation (Line(points={{-120,-40},{-10,-40},{-10,-8},{
           -2,-8}}, color={255,0,255}));

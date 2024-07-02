@@ -32,8 +32,8 @@ model ChilledWaterPlantReset
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
-    nout=2)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator chiWatPum(nout=2)
+    "Chilled water pump status"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin1(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -72,10 +72,10 @@ equation
       color={255,0,255}));
   connect(booPul.y,not1. u)
     annotation (Line(points={{-58,-40},{-42,-40}},color={255,0,255}));
-  connect(not1.y, booRep.u)
-    annotation (Line(points={{-18,-40},{8,-40}},  color={255,0,255}));
-  connect(booRep.y, devRes.uChiWatPum)
-    annotation (Line(points={{32,-40},{40,-40},{40,-44},{58,-44}}, color={255,0,255}));
+  connect(not1.y, chiWatPum.u)
+    annotation (Line(points={{-18,-40},{8,-40}}, color={255,0,255}));
+  connect(chiWatPum.y, devRes.uChiWatPum) annotation (Line(points={{32,-40},{40,
+          -40},{40,-44},{58,-44}}, color={255,0,255}));
   connect(reaToInt1.y, plaRes.TChiWatSupResReq)
     annotation (Line(points={{22,80},{40,80},{40,90},{58,90}}, color={255,127,0}));
   connect(reaToInt3.y, devRes.TChiWatSupResReq)
