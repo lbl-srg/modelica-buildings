@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Controls;
 block StatusEmulator "Block that emulates the status of an equipment"
-  parameter Modelica.Units.SI.Time yLim=0.5
+  parameter Real yLim=0.5
     "Value of filtered signal above which the equipment reports on status";
   parameter Modelica.Units.SI.Time riseTime=10
     "Rise time of the filter (time to reach 99.6 % of the speed)";
