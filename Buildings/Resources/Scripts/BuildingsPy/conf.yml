@@ -151,6 +151,12 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Examples.ChillerPlants.Guideline36.ClosedLoop
+  optimica:
+    comment: Requires "pre" block
+    simulate: false
+  openmodelica:
+    simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
   optimica:
     comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
