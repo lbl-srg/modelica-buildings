@@ -117,7 +117,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-160,-98},{-140,-78}})));
-  CDL.Reals.Sources.Constant                        triAmoCon(final k=triAmo)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant triAmoCon(final k=triAmo)
     "Trim amount constant"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxResCon(k=maxRes)
@@ -169,8 +169,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs1 "Absolute value of real input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
-protected
-  CDL.Reals.Sources.Constant zer(final k=0) "Constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Constant"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 equation
   connect(difReqIgnReq.y, greThr.u)
