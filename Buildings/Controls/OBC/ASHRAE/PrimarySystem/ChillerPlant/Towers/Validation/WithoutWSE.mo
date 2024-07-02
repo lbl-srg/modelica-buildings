@@ -101,24 +101,25 @@ protected
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
-  CDL.Logical.Sources.Pulse                        chiSta2(final width=0.7,
-      final period=3600)
-                       "Chiller one enabling status"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta2(
+    final width=0.7,
+    final period=3600)
+    "Chiller one enabling status"
     annotation (Placement(transformation(extent={{-360,198},{-340,218}})));
-  CDL.Logical.Not                        chiTwoSta1 "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Not chiTwoSta1
+    "Chiller two status"
     annotation (Placement(transformation(extent={{-320,198},{-300,218}})));
-  CDL.Conversions.BooleanToInteger                        chiSta3
-                                                                 "Chiller stage "
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger chiSta3
+    "Chiller stage "
     annotation (Placement(transformation(extent={{-100,-260},{-80,-240}})));
-  CDL.Reals.Switch maxTowSpe2
+  Buildings.Controls.OBC.CDL.Reals.Switch maxTowSpe2
     "Max tower speed from chiller 2 head pressure control"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-
-public
-  CDL.Integers.Add addInt
+  Buildings.Controls.OBC.CDL.Integers.Add addInt "Chiller stage"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  CDL.Integers.Sources.TimeTable intTimTab(table=[0,0; 360,1; 1560,2; 3600,2],
-      period=3600)
+  Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable intTimTab(
+    table=[0,0; 360,1; 1560,2; 3600,2],
+    period=3600) "Chiller stage setpoint"
     annotation (Placement(transformation(extent={{-40,-290},{-20,-270}})));
 equation
   connect(ram2.y, conWatSupTem.u2) annotation (Line(points={{-338,-220},{-320,-220},

@@ -129,7 +129,7 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Logical.Not noConWatReq
     "No condenser water request"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi]
     "Close valve"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
@@ -192,8 +192,6 @@ block DisableChillers
     annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
 
 equation
-  connect(noChi.y, truDel.u)
-    annotation (Line(points={{-118,200},{-102,200}}, color={255,0,255}));
   connect(uChiWatReq, mulOr.u)
     annotation (Line(points={{-220,160},{-182,160}}, color={255,0,255}));
   connect(mulOr.y, noChiWatReq.u)
@@ -209,11 +207,11 @@ equation
   connect(truDel.y, cloConIsoVal.u1) annotation (Line(points={{-78,200},{-60,200},
           {-60,70},{-42,70}},     color={255,0,255}));
   connect(mulOr1.y, noConWatReq.u)
-    annotation (Line(points={{-158,50},{-102,50}}, color={255,0,255}));
+    annotation (Line(points={{-158,50},{-142,50}}, color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
     annotation (Line(points={{-220,50},{-182,50}},   color={255,0,255}));
-  connect(noConWatReq.y, cloConIsoVal.u2) annotation (Line(points={{-78,50},{-60,
-          50},{-60,62},{-42,62}},    color={255,0,255}));
+  connect(noConWatReq.y, cloConIsoVal.u2) annotation (Line(points={{-118,50},{
+          -60,50},{-60,62},{-42,62}},color={255,0,255}));
   connect(booScaRep2.y, swi1.u2)
     annotation (Line(points={{102,70},{158,70}}, color={255,0,255}));
   connect(uConWatIsoVal, swi1.u3) annotation (Line(points={{-220,20},{140,20},{140,
@@ -298,6 +296,8 @@ equation
           -238},{78,-238}}, color={255,0,255}));
   connect(con4.y, disTow.u2) annotation (Line(points={{2,-280},{60,-280},{60,-238},
           {78,-238}}, color={255,0,255}));
+  connect(noChi.y, truDel.u)
+    annotation (Line(points={{-118,200},{-102,200}}, color={255,0,255}));
 annotation (defaultComponentName = "disChi",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

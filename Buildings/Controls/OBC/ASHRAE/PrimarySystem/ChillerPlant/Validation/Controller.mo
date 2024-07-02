@@ -82,11 +82,12 @@ model Controller "Validation head pressure controller"
     final k=305.15)
     "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-260,-230},{-240,-210}})));
-  Buildings.Controls.OBC.CDL.Reals.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1 "Current fan speed"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
+    "Condenser water pump status"
     annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro[2]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[2] "Condenser water pump speed"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp dpChiWat(
     final height=2*6895,
@@ -95,8 +96,9 @@ model Controller "Validation head pressure controller"
     final startTime=0) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
+    "Boolean to real"
     annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2]
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[2] "Chiller cooling load"
     annotation (Placement(transformation(extent={{-200,-138},{-180,-118}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta
     "Chiller one status"

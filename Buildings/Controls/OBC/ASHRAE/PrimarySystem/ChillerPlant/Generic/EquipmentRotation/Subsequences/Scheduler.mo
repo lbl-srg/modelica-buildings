@@ -186,17 +186,15 @@ equation
         fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if yRot then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if yRot then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-75,-6},{-89,8}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
+          lineColor={235,235,235},
+          fillColor={235,235,235},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
