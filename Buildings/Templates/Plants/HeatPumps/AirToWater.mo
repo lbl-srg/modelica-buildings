@@ -1055,7 +1055,9 @@ equation
 <p>
 This template represents an air-to-water heat pump plant
 with closed-loop controls. While the heat pump plant configuration can be changed
-through parameters, a typical configuration is shown in the image below.
+through parameters, the image below shows a typical configuration with
+two reversible air-to-water heat pumps, a primary-secondary distribution system 
+and a sidestream heat recovery chiller.
 For a detailed schematic of the actual plant configuration, refer to the diagram
 view of the plant component. In Dymola, for example, you can access this by right-clicking
 the component <code>pla</code> in the model
