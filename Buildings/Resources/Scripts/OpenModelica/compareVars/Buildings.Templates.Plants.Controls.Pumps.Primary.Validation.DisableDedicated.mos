@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "y1.y",
+    "y1EquLea.y",
+    "y1EquLea_actual.y",
+    "y1ReqEquLea.y",
+    "enaDed.y1",
+    "enaDedReq.y1"
+  };

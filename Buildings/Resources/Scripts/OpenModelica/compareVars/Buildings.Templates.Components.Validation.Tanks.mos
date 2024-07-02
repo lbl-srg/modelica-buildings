@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "intFlo.y",
+    "tan.V",
+    "sou.T",
+    "tan.sta_b.T",
+    "noTan.sta_b.T"
+  };

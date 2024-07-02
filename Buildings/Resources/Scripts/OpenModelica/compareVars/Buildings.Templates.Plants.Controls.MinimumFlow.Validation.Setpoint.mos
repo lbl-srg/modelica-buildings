@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "u1Equ.y[1]",
+    "u1Equ.y[2]",
+    "setFloMin.ratFloMinEna[1].y",
+    "setFloMin.ratFloMinEna[2].y",
+    "setFloMin.maxRatFloMinEna.y",
+    "setFloMin.V_flow_min[1]",
+    "setFloMin.V_flow_min[2]",
+    "setFloMin.VPriSet_flow"
+  };

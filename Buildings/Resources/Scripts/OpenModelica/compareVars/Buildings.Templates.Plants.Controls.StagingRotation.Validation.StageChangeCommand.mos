@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "chaSta.capReq.y",
+    "chaSta.capReq.QReq_flow",
     "chaSta.capSta.y",
     "chaSta.capStaLow.y",
     "capHea_nominal",

@@ -17,6 +17,8 @@ model HeatPumpGroupAirToWater
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
+      typTanHeaWat = Buildings.Templates.Components.Types.IntegrationPoint.None,
+      typTanChiWat = Buildings.Templates.Components.Types.IntegrationPoint.None,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=false,
       typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
@@ -64,6 +66,8 @@ model HeatPumpGroupAirToWater
       typPumHeaWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumChiWatPri=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Variable,
       typPumHeaWatSec=Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.None,
+      typTanHeaWat = Buildings.Templates.Components.Types.IntegrationPoint.None,
+      typTanChiWat = Buildings.Templates.Components.Types.IntegrationPoint.None,
       have_pumHeaWatPriVar=true,
       have_pumChiWatPriVar=true,
       typDis=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Only,
@@ -170,8 +174,7 @@ model HeatPumpGroupAirToWater
     redeclare final package Medium=Medium,
     use_p_in=true,
     use_T_in=true,
-    nPorts=hpAwNrv.nHp)
-    "Boundary conditions at HP inlet"
+    nPorts=hpAwNrv.nHp) "Boundary conditions at HP inlet"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(

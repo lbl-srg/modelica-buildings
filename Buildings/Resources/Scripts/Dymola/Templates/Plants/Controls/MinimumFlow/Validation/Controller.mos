@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.MinimumFlow.Validation.Controller",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1000.0,
+    resultFile="MinimumFlowController");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 500},
+    y={"u1EquValPum.y[1]", "u1EquValPum.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctlFloMinVal.VPriSet_flow", "VPri_flow.y", "ctlFloMinPum.VPriSet_flow", "VPri_flow1.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"ctlFloMinVal.y", "ctlFloMinPum.y"},
+    autoscale=true,
+    grid=true
+);

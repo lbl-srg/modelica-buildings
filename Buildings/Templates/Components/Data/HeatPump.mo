@@ -156,7 +156,7 @@ record HeatPump "Record for heat pump model"
 
 annotation (
   defaultComponentPrefixes="parameter",
-  defaultComponentName="dat",
+  defaultComponentName="datHp",
   Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for

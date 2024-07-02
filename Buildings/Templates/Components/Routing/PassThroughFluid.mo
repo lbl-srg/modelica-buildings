@@ -4,10 +4,9 @@ model PassThroughFluid "Direct fluid pass-through"
     annotation (
     IconMap(primitivesVisible = false));
 
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
-    Buildings.Templates.Components.Types.IconPipe.Supply
-    "Pipe symbol"
-    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
+      Buildings.Templates.Components.Types.IntegrationPoint.Supply
+    "Pipe symbol" annotation (Dialog(tab="Graphics", enable=false));
 
 equation
   connect(port_a, port_b) annotation (Line(points={{-100,0},{0,0},{0,0},{100,0}},
@@ -20,8 +19,8 @@ equation
     points={{-100,0},{100,0}},
     color={0,0,0},
     thickness=5,
-    visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
-    pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply then
+    visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+    pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply then
     LinePattern.Solid else LinePattern.Dash)}),
     Documentation(info="<html>
 <p>

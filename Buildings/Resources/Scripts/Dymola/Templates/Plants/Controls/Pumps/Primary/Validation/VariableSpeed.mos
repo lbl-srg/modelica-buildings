@@ -1,0 +1,153 @@
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeed",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=5000.0,
+    resultFile="PumpsPrimaryVariableSpeed");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 300, 400},
+    y={"ctlPumPriHdrHea.u1PumHeaWatPri[1]", "ctlPumPriHdrHea.u1PumHeaWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctlPumPriHdrHea.yPumHeaWatPriHdr"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={315, 5, 300, 400},
+    y={"ctlPumPriHdr.u1PumHeaWatPri[1]", "ctlPumPriHdr.u1PumHeaWatPri[2]", "ctlPumPriHdr.u1PumChiWatPri[1]", "ctlPumPriHdr.u1PumChiWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"ctlPumPriHdr.yPumHeaWatPriHdr", "ctlPumPriHdr.yPumChiWatPriHdr"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={620, 5, 300, 400},
+    y={"ctlPumPriDedCom.u1PumHeaWatPri[1]", "ctlPumPriDedCom.u1PumHeaWatPri[2]", "ctlPumPriDedCom.u1Hea[1]", "ctlPumPriDedCom.u1Hea[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"ctlPumPriDedCom.yPumHeaWatPriDed[1]", "ctlPumPriDedCom.yPumHeaWatPriDed[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=1,
+    position={925, 5, 300, 400},
+    y={"ctlPumPriDedSep.u1PumHeaWatPri[1]", "ctlPumPriDedSep.u1PumHeaWatPri[2]", "ctlPumPriDedSep.u1PumChiWatPri[1]", "ctlPumPriDedSep.u1PumChiWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"ctlPumPriDedSep.yPumHeaWatPriDed[1]", "ctlPumPriDedSep.yPumHeaWatPriDed[2]","ctlPumPriDedSep.yPumChiWatPriDed[1]", "ctlPumPriDedSep.yPumChiWatPriDed[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=1,
+    position={30, 30, 300, 500},
+    y={"ctlPumPriHdrHeaDp.u1PumHeaWatPri[1]", "ctlPumPriHdrHeaDp.u1PumHeaWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"ctlPumPriHdrHeaDp.dpHeaWatLocSet[1]", "ctlPumPriHdrHeaDp.dpHeaWatLocSet[2]", "ctlPumPriHdrHeaDp.dpHeaWatLoc"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=5,
+    subPlot=3,
+    y={"ctlPumPriHdrHeaDp.yPumHeaWatPriHdr"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    subPlot=1,
+    position={335, 30, 300, 500},
+    y={"ctlPumPriHdrDp.u1PumHeaWatPri[1]", "ctlPumPriHdrDp.u1PumHeaWatPri[2]", "ctlPumPriHdrDp.u1PumChiWatPri[1]", "ctlPumPriHdrDp.u1PumChiWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"ctlPumPriHdrDp.dpHeaWatRemSet[1]", "ctlPumPriHdrDp.dpHeaWatRemSet[2]", "ctlPumPriHdrDp.dpHeaWatRem[1]", "ctlPumPriHdrDp.dpHeaWatRem[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=6,
+    subPlot=3,
+    y={"ctlPumPriHdrDp.yPumHeaWatPriHdr", "ctlPumPriHdrDp.yPumChiWatPriHdr"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=7,
+    subPlot=1,
+    position={640, 30, 300, 500},
+    y={"ctlPumPriDedComDp.u1PumHeaWatPri[1]", "ctlPumPriDedComDp.u1PumHeaWatPri[2]", "ctlPumPriDedComDp.u1Hea[1]", "ctlPumPriDedComDp.u1Hea[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=7,
+    subPlot=2,
+    y={"ctlPumPriDedComDp.dpHeaWatLocSet[1]", "ctlPumPriDedComDp.dpHeaWatLocSet[2]", "ctlPumPriDedComDp.dpHeaWatLoc", "ctlPumPriDedComDp.dpChiWatLoc"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=7,
+    subPlot=3,
+    y={"ctlPumPriDedComDp.yPumHeaWatPriDed[1]", "ctlPumPriDedComDp.yPumHeaWatPriDed[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=8,
+    subPlot=1,
+    position={945, 30, 300, 500},
+    y={"ctlPumPriDedSepDp.u1PumHeaWatPri[1]", "ctlPumPriDedSepDp.u1PumHeaWatPri[2]", "ctlPumPriDedSepDp.u1PumChiWatPri[1]", "ctlPumPriDedSepDp.u1PumChiWatPri[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=8,
+    subPlot=2,
+    y={"ctlPumPriDedSepDp.dpHeaWatLocSet[1]", "ctlPumPriDedSepDp.dpHeaWatLocSet[2]", "ctlPumPriDedSepDp.dpHeaWatLoc", "ctlPumPriDedSepDp.dpChiWatLoc"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=8,
+    subPlot=3,
+    y={"ctlPumPriDedSepDp.yPumHeaWatPriDed[1]", "ctlPumPriDedSepDp.yPumHeaWatPriDed[2]", "ctlPumPriDedSepDp.yPumChiWatPriDed[1]", "ctlPumPriDedSepDp.yPumChiWatPriDed[2]"},
+    autoscale=true,
+    grid=true
+);

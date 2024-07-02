@@ -29,7 +29,10 @@ record Damper "Record for damper model"
     "Air pressure drop of fixed elements in series with damper"
     annotation (
       Dialog(group="Mechanical", enable=false));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datDam",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing parameters for
 the class

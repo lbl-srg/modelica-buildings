@@ -58,7 +58,7 @@ model HeatPumpEquationFit
         coeP={-5.8086010402,1.6894933858,5.1167787436,0,0},
         TRefLoa=Buildings.Templates.Data.Defaults.TChiWatRet,
         TRefSou=Buildings.Templates.Data.Defaults.TOutHpCoo)))
-    "Reversible AWHP parameters parameters"
+    "Reversible AWHP parameters"
     annotation (Placement(transformation(extent={{120,22},{140,42}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(k=datHpAw.TChiWatSup_nominal,
@@ -152,6 +152,7 @@ model HeatPumpEquationFit
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   AirToWater hpAwNrv(
     is_rev=false,
+    redeclare final package MediumHeaWat = Medium,
     final energyDynamics=energyDynamics,
     final dat=datHpAwNrv) "Non reversible AWHP"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
@@ -169,8 +170,8 @@ model HeatPumpEquationFit
     redeclare final package MediumHeaWat = Medium,
     final dat=datHpWw,
     final energyDynamics=energyDynamics,
-    have_preDroChiHeaWat=false,
-    have_preDroSou=false)
+    have_dpChiHeaWat=false,
+    have_dpSou=false)
     "Reversible WWHP - CHW/HW and source fluid pressure drops computed externally"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   parameter Data.HeatPump datHpWw(
@@ -204,7 +205,7 @@ model HeatPumpEquationFit
         coeP={-5.8086010402,1.6894933858,5.1167787436,0,0},
         TRefLoa=Buildings.Templates.Data.Defaults.TChiWatRet,
         TRefSou=Buildings.Templates.Data.Defaults.TSouHpCoo)))
-    "Reversible WWHP parameters parameters"
+    "Reversible WWHP parameters"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
 
   Fluid.Sensors.TemperatureTwoPort TRet2(redeclare final package Medium =
@@ -404,7 +405,7 @@ equation
 This model validates the models
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps.AirToWater\">
 Buildings.Templates.Components.HeatPumps.AirToWater</a>
-and 
+and
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps.WaterToWater\">
 Buildings.Templates.Components.HeatPumps.WaterToWater</a>
 in a configuration in which the heat pump components are exposed

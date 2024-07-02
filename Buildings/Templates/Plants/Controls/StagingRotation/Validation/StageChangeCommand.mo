@@ -45,17 +45,14 @@ model StageChangeCommand "Validation model for stage change logic"
     "Source signal for volume flow rate ratio"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand chaSta(
+    typ=Buildings.Templates.Plants.Controls.Types.Application.Heating,
+    have_pumSec=false,
     plrSta=0.9,
-    staEqu=[
-      1, 0, 0;
-      0, 1 / 2, 1 / 2;
-      1, 1 / 2, 1 / 2;
-      0, 1, 1;
-      1, 1, 1],
-    capEqu=1E3 * {100, 450, 450},
+    staEqu=[1,0,0; 0,1/2,1/2; 1,1/2,1/2; 0,1,1; 1,1,1],
+    capEqu=1E3*{100,450,450},
     cp_default=cp_default,
-    rho_default=rho_default)
-    "Generate stage change command"
+    rho_default=rho_default,
+    dT=2.5) "Generate stage change command"
     annotation (Placement(transformation(extent={{-50,-12},{-30,12}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSet(
     final k=THeaWatSup_nominal)
@@ -77,10 +74,12 @@ model StageChangeCommand "Validation model for stage change logic"
     each k=true)
     "Stage available signal"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold      y1UpHol(duration=1)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1UpHol(
+    final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage up command for plotting"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold      y1DowHol(duration=1)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1DowHol(
+    final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage down command for plotting"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter V_flow(
@@ -109,9 +108,9 @@ model StageChangeCommand "Validation model for stage change logic"
     annotation (Placement(transformation(extent={{-30,50},{-50,70}})));
 equation
   connect(TRet.y, chaSta.TRet)
-    annotation (Line(points={{-108,0},{-100,0},{-100,-6},{-52,-6}},color={0,0,127}));
+    annotation (Line(points={{-108,0},{-104,0},{-104,-6},{-52,-6}},color={0,0,127}));
   connect(TSupSet.y, chaSta.TSupSet)
-    annotation (Line(points={{-108,40},{-100,40},{-100,-4},{-52,-4}},color={0,0,127}));
+    annotation (Line(points={{-108,40},{-100,40},{-100,0},{-52,0}},  color={0,0,127}));
   connect(chaSta.y1Up, idxSta.u1Up)
     annotation (Line(points={{-28,4},{-20,4},{-20,2},{-2,2}},color={255,0,255}));
   connect(chaSta.y1Dow, idxSta.u1Dow)
@@ -142,13 +141,15 @@ equation
   connect(enaEqu.y1, staEqu.y1)
     annotation (Line(points={{82,0},{98,0}},color={255,0,255}));
   connect(comSta.y1, chaSta.u1StaPro)
-    annotation (Line(points={{-52,54},{-58,54},{-58,2},{-52,2}},color={255,0,255}));
+    annotation (Line(points={{-52,54},{-58,54},{-58,4},{-52,4}},color={255,0,255}));
   connect(enaEqu.y1, comSta.u1)
     annotation (Line(points={{82,0},{90,0},{90,60},{-28,60},{-28,60}},color={255,0,255}));
   connect(staEqu.y1_actual, comSta.u1_actual)
     annotation (Line(points={{122,0},{130,0},{130,56},{-28,56}},color={255,0,255}));
   connect(idxSta.y, comSta.uSta)
     annotation (Line(points={{22,0},{40,0},{40,64},{-28,64}},color={255,127,0}));
+  connect(TSupSet.y, chaSta.TPriSup) annotation (Line(points={{-108,40},{-100,
+          40},{-100,-2},{-52,-2}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -175,15 +176,15 @@ equation
         extent={{-140,-120},{140,120}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand</a>
-in a configuration with one small unit and two large equally sized 
+in a configuration with one small unit and two large equally sized
 units (component <code>avaStaOneTwo</code>).
 In response to a varying flow rate, the variation of the
 required capacity <code>chaSta.capReq.y</code> triggers stage change
 events.
-The block 
+The block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
 is used to illustrate how these events translate into

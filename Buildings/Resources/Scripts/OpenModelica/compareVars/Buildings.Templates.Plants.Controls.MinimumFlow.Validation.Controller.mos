@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "u1EquValPum.y[1]",
+    "u1EquValPum.y[2]",
+    "ctlFloMinVal.VPriSet_flow",
+    "VPri_flow.y",
+    "ctlFloMinPum.VPriSet_flow",
+    "VPri_flow1.y",
+    "ctlFloMinVal.y",
+    "ctlFloMinPum.y"
+  };
