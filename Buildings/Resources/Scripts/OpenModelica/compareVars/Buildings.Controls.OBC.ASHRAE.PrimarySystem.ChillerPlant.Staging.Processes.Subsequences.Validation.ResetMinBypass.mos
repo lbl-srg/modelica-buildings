@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "minBypRes.uUpsDevSta",
+    "minBypRes.uStaPro",
+    "minBypRes.uSetChaPro",
+    "minBypRes.VChiWat_flow",
+    "minBypRes.VMinChiWat_setpoint",
+    "minBypRes.yMinBypRes"
+  };
