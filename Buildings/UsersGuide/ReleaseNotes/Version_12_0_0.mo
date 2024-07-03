@@ -146,8 +146,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">#3604</a>.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Controls.Validation.StatusEmulator
+    </td>
+    <td valign=\"top\">Refactored using <code>delay</code> operator.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3923\">#3923</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices

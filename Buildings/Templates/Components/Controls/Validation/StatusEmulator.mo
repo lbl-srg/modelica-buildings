@@ -4,7 +4,7 @@ model StatusEmulator "Validation model for status emulator"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse y1(period=10)
     "Enable command"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Templates.Components.Controls.StatusEmulator sta(y_start=1)
+  Buildings.Templates.Components.Controls.StatusEmulator sta
     "Generate status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
@@ -24,5 +24,6 @@ This model validates
 <a href=\"modelica://Buildings.Templates.Components.Controls.StatusEmulator\">
 Buildings.Templates.Components.Controls.StatusEmulator</a>.
 </p>
+</html>", revisions="<html>
 </html>"));
 end StatusEmulator;
