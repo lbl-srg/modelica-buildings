@@ -41,20 +41,16 @@ This block emulates the status of an equipment, i.e.,
 the current on/off state as reported by the hardware itself.
 </p>
 <p>
-The implementation is based on
-<a href=\"modelica://Buildings.Fluid.BaseClasses.ActuatorFilter\">
-Buildings.Fluid.BaseClasses.ActuatorFilter</a>
-and the model is configured with <code>yLim=0.5</code> so that
-the delay between the on command and the on status is
-equal to the delay between the off command and the off status
-(about <i>2</i>&nbsp;s with the default parameter settings).
+With the default parameter settings, the delay between the on 
+command and the on status is <i>2</i>&nbsp;s.
+The delay between the off command and the off status is the same.
 Note that this delay may not be representative of the actual
 dynamics of certain equipment such as chillers or heat pumps.
 In addition, this block uses the equipment command signal to
 generate the status signal, which in turn can lead to inconsistencies
 with certain equipment that run cyclically at low load.
 In such cases, the actual status comes and goes, whereas the status
-computed with this block will remain ON continuously.
+computed with this block will remain continuously on.
 </p>
 </html>",
       revisions="<html>

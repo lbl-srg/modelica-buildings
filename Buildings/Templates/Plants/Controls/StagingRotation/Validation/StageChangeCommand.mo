@@ -100,7 +100,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Components.Controls.StatusEmulator staEqu[3](
-    each riseTime=60)
+    each delayTime=15)
     "Evaluate equipment status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(
@@ -175,15 +175,15 @@ equation
         extent={{-140,-120},{140,120}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageChangeCommand</a>
-in a configuration with one small unit and two large equally sized 
+in a configuration with one small unit and two large equally sized
 units (component <code>avaStaOneTwo</code>).
 In response to a varying flow rate, the variation of the
 required capacity <code>chaSta.capReq.y</code> triggers stage change
 events.
-The block 
+The block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
 is used to illustrate how these events translate into
