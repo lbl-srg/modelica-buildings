@@ -153,9 +153,10 @@
     simulate: false
 - model_name: Buildings.Examples.ChillerPlants.Guideline36.ClosedLoop
   optimica:
-    comment: Requires "pre" block
+    comment: Requires pre block
     simulate: false
   openmodelica:
+    comment: Require pre block
     simulate: false
 - model_name: Buildings.Examples.DualFanDualDuct.ClosedLoop
   optimica:
