@@ -139,6 +139,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nRemSen)
     if (not have_serChi) and (not have_locSen)
+    "Check if there is any true input"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
   Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nRemSen]

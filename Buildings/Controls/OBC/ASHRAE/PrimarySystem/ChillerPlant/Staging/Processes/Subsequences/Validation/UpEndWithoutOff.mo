@@ -12,9 +12,11 @@ model UpEndWithoutOff
     "End staging up process which does not require one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
 
-  CDL.Reals.Sources.Sin sin(freqHz=1/1200)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
+    freqHz=1/1200) "Source for the trigger sampling"
     annotation (Placement(transformation(extent={{80,190},{100,210}})));
-  CDL.Discrete.TriggeredSampler triSam
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
+    "Check if there is end staging edge "
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(

@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-package SetPoints
+package SetPoints "Sequences for setting the setpoints for chilled water control "
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

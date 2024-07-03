@@ -25,6 +25,7 @@ protected
     "Check if water level is lower than minimum level"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if it should add water"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minWatLev(
     final k=watLevMin) "Minimum water level"

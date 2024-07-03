@@ -176,7 +176,7 @@ At 720 seconds, the staging down process requires chiller 2 being diabled and ch
 <li>
 At 1020 seconds, which is 5 mintes after enabling chiller 3 (specified by
 <code>proOnTim</code>), chiller 2 becomes disabled and the chiller demand limit
-can be released (<code>yRelDemLim=true</code>.
+can be released (<code>yRelDemLim=true</code>).
 </li>
 </ul>
 <p>

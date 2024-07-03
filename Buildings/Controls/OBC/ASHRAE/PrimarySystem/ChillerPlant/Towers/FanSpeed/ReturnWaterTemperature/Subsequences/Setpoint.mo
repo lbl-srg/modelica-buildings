@@ -86,7 +86,7 @@ protected
     annotation (Placement(transformation(extent={{40,124},{60,144}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product of inputs"
     annotation (Placement(transformation(extent={{40,-44},{60,-24}})));
-  Buildings.Controls.OBC.CDL.Reals.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add inputs"
     annotation (Placement(transformation(extent={{80,-38},{100,-18}})));
   Buildings.Controls.OBC.CDL.Reals.Min min "Minimum value of two inputs"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));

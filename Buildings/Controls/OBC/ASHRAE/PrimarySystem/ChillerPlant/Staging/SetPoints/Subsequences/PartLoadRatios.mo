@@ -399,7 +399,7 @@ protected
     annotation (Placement(transformation(extent={{-300,-170},{-280,-150}})));
 
   Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
-    final delta=avePer) if anyVsdCen
+    final delta=avePer) if anyVsdCen "Moving mean"
     annotation (Placement(transformation(extent={{300,-330},{320,-310}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr[3](

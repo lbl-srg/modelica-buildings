@@ -46,6 +46,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "In staging down process and the chilled water isolation valve has open"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)

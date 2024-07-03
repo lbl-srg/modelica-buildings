@@ -47,6 +47,7 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "In staging up process and the chilled water isolation valve has open"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=nChi)
     "Replicate boolean input"
