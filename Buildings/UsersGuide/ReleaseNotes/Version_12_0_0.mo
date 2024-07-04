@@ -151,7 +151,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Components.Controls.Validation.StatusEmulator
     </td>
-    <td valign=\"top\">Refactored using <code>delay</code> operator.<br/>
+    <td valign=\"top\">Refactored using a state graph.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3923\">#3923</a>.
     </td>
 </tr>
