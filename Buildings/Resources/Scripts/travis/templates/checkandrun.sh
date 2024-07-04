@@ -15,13 +15,17 @@
 # - If all simulations succeed: overwrite stored checksum with new value,
 #                               otherwise do nothing.
 #
-# To update the checksums and run simulations locally, execute:
-# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local [--tool SIMULATOR]
+# To update the checksum and skip all simulations, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip
 #
-# To simply update the checksums locally and skip all simulations, execute:
-# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local --skip
+# To update the checksum and check that it matches the value from the last commit, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip --diffhead
+#
+# To update the checksums and run simulations, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum [--tool SIMULATOR]
+#
 
-LOCALRUN=false
+DIFFHEAD=false
 SKIP=false
 USE_CHECKSUM=false
 SIMULATOR=Dymola
@@ -33,8 +37,8 @@ CEND='\033[0m'
 
 while [[ "$1" != "" ]]; do
   case $1 in
-    --local )
-      LOCALRUN=true
+    --diffhead )
+      DIFFHEAD=true
       ;;
     --skip )
       SKIP=true
@@ -64,7 +68,7 @@ while [[ "$1" != "" ]]; do
         echo "Invalid option: $1"
         echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE]"
         echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
-        echo "     --local is for local execution (use this option to update the checksums and run simulations)."
+        echo "     --diffhead is to check that the current checksum matches the value from the last commit."
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
@@ -108,9 +112,8 @@ for type in "${!test_script[@]}"; do
     # Add checksum file to the index so that differences show up in git diff even if file was never added before.
     git add --intent-to-add "./Resources/Scripts/travis/templates/$type.checksum"
 
-    # Diff/HEAD: only for remote testing.
-    # (Locally, it is expected that there is some diff/HEAD, and we proceed directly to the next step: diff/master.)
-    if [ "$LOCALRUN" = false ]; then
+    # Diff/HEAD
+    if [ "$DIFFHEAD" = true ]; then
       diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
       if (( $? == 0 )); then
         printf "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for Templates.%s.\n" $type
