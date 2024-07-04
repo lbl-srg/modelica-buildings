@@ -134,4 +134,4 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Compute the checksum and check that it matches the value from the last commit
-        uses: ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip --diffhead
+        run: ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip --diffhead
