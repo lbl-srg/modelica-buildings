@@ -7,6 +7,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Instead those parameter declarations are annoted with enable=false
   in the record class.
 */
+// Dummy modification to generate checksum diff
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
     redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
