@@ -285,10 +285,10 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Obsolete.Fluid.Movers</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Obsolete.Fluid.Movers.Validation.PowerSimplified
+<tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.PowerSimplified
     </td>
     <td valign=\"top\">Corrected efficiency assignment.<br/>
                        This is for
