@@ -73,13 +73,13 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(bou.ports[1], pump_Nrpm.port_a) annotation (Line(
-      points={{-82,18.6667},{-82,60},{-60,60}},
+      points={{-82,22.6667},{-82,60},{-60,60}},
       color={0,127,255}));
   connect(pump_dp.port_a, bou.ports[2]) annotation (Line(
       points={{-60,20},{-82,20}},
       color={0,127,255}));
   connect(pump_m_flow.port_a, bou.ports[3]) annotation (Line(
-      points={{-60,-20},{-82,-20},{-82,21.3333}},
+      points={{-60,-20},{-82,-20},{-82,17.3333}},
       color={0,127,255}));
   connect(pump_Nrpm.port_b, res[1].port_a) annotation (Line(
       points={{-40,60},{0,60},{0,20},{20,20}},
@@ -91,7 +91,7 @@ equation
       points={{-40,-20},{0,-20},{0,20},{20,20}},
       color={0,127,255}));
   connect(sink.ports[1:3], res.port_b) annotation (Line(
-      points={{80,21.3333},{60,21.3333},{60,20},{40,20}},
+      points={{80,17.3333},{60,17.3333},{60,20},{40,20}},
       color={0,127,255}));
   connect(ramp.y, pump_Nrpm.Nrpm) annotation (Line(
       points={{-59,80},{-50,80},{-50,72}},
