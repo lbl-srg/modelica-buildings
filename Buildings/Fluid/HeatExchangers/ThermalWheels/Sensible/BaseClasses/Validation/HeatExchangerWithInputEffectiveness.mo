@@ -67,7 +67,7 @@ equation
     annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}}, color={0,127,255}));
   connect(hex.port_a2, sou_2.ports[1])
     annotation (Line(points={{26,5.55112e-16},{60,5.55112e-16},{60,-40},{40,-40}},
-      color={0,127,255}));
+    color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
     annotation (Line(points={{26,12},{40,12},{40,40},{60,40}}, color={0,127,255}));
   connect(hex.port_b2, sin_2.ports[1])

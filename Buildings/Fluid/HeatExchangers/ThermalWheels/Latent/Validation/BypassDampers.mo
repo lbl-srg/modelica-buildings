@@ -2,19 +2,17 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.Validation;
 model BypassDampers
   "Test model for the enthalpy recovery wheel with bypass dampers"
   extends Modelica.Icons.Example;
-  package Medium1 = Buildings.Media.Air
-    "Supply air";
-  package Medium2 = Buildings.Media.Air
-    "Exhaust air";
+  package Medium = Buildings.Media.Air
+    "Air";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
     T=273.15 + 10,
     nPorts=1)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
-    redeclare package Medium = Medium2,
+    redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325 + 500,
     T(displayUnit="K") = 293.15,
     nPorts=1)
@@ -28,7 +26,7 @@ model BypassDampers
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
     p(displayUnit="Pa") = 101325 - 500,
@@ -36,7 +34,7 @@ model BypassDampers
     "Supply air sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
@@ -45,12 +43,9 @@ model BypassDampers
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers whe(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    m1_flow_nominal=5,
-    m2_flow_nominal=5,
-    dp1_nominal(displayUnit="Pa"),
-    dp2_nominal(displayUnit="Pa"),
+    redeclare package Medium = Medium,
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
     P_nominal=100,
     epsLatCoo_nominal=0.7,
     epsLatCooPL=0.6,
@@ -71,12 +66,12 @@ model BypassDampers
     shift=72) "Operating signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-      redeclare package Medium =Medium2,
+      redeclare package Medium =Medium,
       m_flow_nominal=5)
       "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-      redeclare package Medium = Medium1,
+      redeclare package Medium = Medium,
       m_flow_nominal=5)
       "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -84,23 +79,24 @@ equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
   connect(sou_1.ports[1],whe.port_a1)
-    annotation (Line(points={{-20,30},{-14,30},{-14,6},{0,6}},
-                                                     color={0,127,255}));
+    annotation (Line(points={{-20,30},{-14,30},{-14,7.8},{0,7.8}},
+    color={0,127,255}));
   connect(whe.port_a2, sou_2.ports[1])
-    annotation (Line(points={{20,-6},{30,-6},{30,-40},{70,-40}},
-        color={0,127,255}));
+    annotation (Line(points={{20,-8},{30,-8},{30,-40},{70,-40}},
+    color={0,127,255}));
   connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
-                             color={0,0,127}));
-  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},
-          {-2,8}}, color={255,0,255}));
+    color={0,0,127}));
+  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},{-2,8}},
+    color={255,0,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-40},{-58,-40}}, color={0,127,255}));
   connect(senExhTem.port_a, whe.port_b2) annotation (Line(points={{-20,-40},{-8,
-          -40},{-8,-6},{0,-6}}, color={0,127,255}));
+          -40},{-8,-8},{0,-8}},color={0,127,255}));
   connect(senSupTem.port_b, sin_1.ports[1])
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
-  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{28,30},
-          {28,6},{20,6}}, color={0,127,255}));
+  connect(senSupTem.port_a, whe.port_b1) annotation (Line(points={{40,30},{28,
+          30},{28,8},{20,8}},
+    color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Latent/Validation/BypassDampers.mos"
         "Simulate and plot"),
