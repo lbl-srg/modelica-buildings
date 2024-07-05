@@ -8,12 +8,12 @@ record heatExchangerEffectivenessParameters
     "Correction of the heat exchange effectiveness under a given speed ratio";
   annotation (Documentation(info="<html>
 <p>
-Data record that describes wheel speed ratio versus
-heat exchange effectiveness corrections, i.e., the ratio of the heat exchange effectiveness 
+Data record that describes wheel speed ratio <code>uSpe</code> versus
+heat exchange effectiveness corrections <code>epsCor</code>, i.e., the ratio of the heat exchange effectiveness 
 to that when the <code>uSpe</code> is <i>1</i>.
 The wheel speed ratio <code>uSpe</code> must be increasing, 
 i.e.,<code>uSpe[i] &lt; uSpe[i+1]</code>.
-Both vectors, <code>uSpe</code> and <code>uSpe</code>
+Both vectors, <code>uSpe</code> and <code>epsCor</code>
 must have the same size.
 </p>
 </html>", revisions="<html>
