@@ -1,4 +1,4 @@
-within Buildings.Fluid.Movers.Validation;
+within Buildings.Obsolete.Fluid.Movers.Validation;
 model PowerSimplified
   "Power calculation comparison among three mover types, using simplified power computation for m_flow and dp"
   extends Modelica.Icons.Example;
@@ -25,7 +25,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -39,7 +40,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -112,8 +114,9 @@ equation
     annotation (Line(points={{-69,80},{-50,80},{-50,52}}, color={0,0,127}));
   annotation (    experiment(Tolerance=1e-6, StopTime=200),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),
+    obsolete = "Obsolete model - refer to Buildings.Fluid.Movers.Validation.ComparePowerInput",
     Documentation(info="<html>
 <p>
 This example compares the power consumed by pumps that
@@ -143,10 +146,16 @@ power calculation where the speed <i>y</i> differs from
 the nominal speed <i>y<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Obsolete/Fluid/Movers/Validation/PowerSimplified.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 14, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency assignment and moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Replaced the pump with <code>Nrpm</code> signal with one with <code>y</code>
