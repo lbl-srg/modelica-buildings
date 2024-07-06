@@ -48,7 +48,7 @@ while [[ "$1" != "" ]]; do
         SIMULATOR="$1"
       else
         echo "$0: $1 is not a valid Modelica tool, only Dymola and Optimica are allowed." >&2
-        exit
+        exit 1
       fi
       ;;
     --cover )
@@ -57,7 +57,7 @@ while [[ "$1" != "" ]]; do
         FRACTION_TEST_COVERAGE=$1
       else
         echo "$0: $1 is not a valid fraction of test coverage, it must be within ]0, 1]." >&2
-        exit
+        exit 1
       fi
       ;;
     * )
@@ -68,7 +68,7 @@ while [[ "$1" != "" ]]; do
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
-        exit
+        exit 1
        ;;
   esac
   shift
@@ -83,6 +83,8 @@ declare -A checksum_dirs=(
   ["ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Plants.HeatPumps"]="Templates/Plants/HeatPumps
+                        Templates/Plants/Controls"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
@@ -90,6 +92,7 @@ declare -A checksum_dirs=(
 declare -A test_script=(
   ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
   ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
 for type in "${!test_script[@]}"; do
