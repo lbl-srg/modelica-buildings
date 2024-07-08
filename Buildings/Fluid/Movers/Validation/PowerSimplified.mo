@@ -25,7 +25,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -39,7 +40,8 @@ model PowerSimplified
       pressure(V_flow={0,0}, dp={0,0}),
       etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
-      efficiency(V_flow={0}, eta={0.3577})),
+      efficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -116,6 +118,13 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
+Note that the results of this validation model is no longer relevant
+to the current implementation and it will be obsoleted in a future release.
+For details see
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">
+IBPSA issue #1880</a>.
+</p>
+<p>
 This example compares the power consumed by pumps that
 take three different control signals.
 Each pump has identical mass flow rate and pressure rise.
@@ -147,6 +156,12 @@ the nominal speed <i>y<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 20, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency assignment.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Replaced the pump with <code>Nrpm</code> signal with one with <code>y</code>
