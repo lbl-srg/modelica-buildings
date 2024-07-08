@@ -121,8 +121,8 @@ block PlantReset
     final triAmo=tri)
     "Compute plant reset with trim and respond logic "
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
-    final duration=dtHol)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final falseHoldDuration=0, final trueHoldDuration=dtHol)
     "Hold true value of input signal for given time"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
