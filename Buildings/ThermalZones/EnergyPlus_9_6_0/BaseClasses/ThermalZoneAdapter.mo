@@ -50,24 +50,32 @@ model ThermalZoneAdapter
     final unit="K",
     displayUnit="degC")
     "Zone air temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),iconTransformation(extent={{-140,80},
+            {-100,120}})));
   Modelica.Blocks.Interfaces.RealInput X_w(
     final unit="kg/kg")
     "Zone air mass fraction in kg/kg total air"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},
+            {-100,80}})));
   Modelica.Blocks.Interfaces.RealInput m_flow[nFluPor](
     each final unit="kg/s")
     "Mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput TInlet[nFluPor](
     each final unit="K",
-    each displayUnit="degC")
-    "Air inlet temperatures"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+    each displayUnit="degC") "Air inlet temperatures"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
+  Modelica.Blocks.Interfaces.RealInput p(
+    final unit="Pa",
+    displayUnit="bar") "Air pressure" annotation (Placement(transformation(extent={{-140,
+            -80},{-100,-40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput QGaiRad_flow(
     final unit="W")
     "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),iconTransformation(extent={{-140,
+            -120},{-100,-80}})));
   Modelica.Blocks.Interfaces.RealOutput TRad(
     final unit="K",
     displayUnit="degC")
@@ -87,6 +95,10 @@ model ThermalZoneAdapter
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),iconTransformation(extent={{100,-70},{120,-50}})));
 
 protected
+  constant Modelica.Units.SI.AbsolutePressure pMin = 30E3
+     "Minimum allowed pressure; this is below the pressure on 8000 m, and hence certainly a modeling error";
+  constant Modelica.Units.SI.AbsolutePressure pMax = 110E3
+    "Maximum allowed pressure; this is higher than the maximum pressure measured in an anti-cyclone, and hence certainly a modeling error";
   constant Integer nParOut=3
     "Number of parameter values retrieved from EnergyPlus";
   constant Integer nInp=5
@@ -256,6 +268,18 @@ equation
 
   // Synchronization with EnergyPlus
   when {time >= pre(tNext)} then
+    // The assertions below are inside an if-clause to work around an issue in OPTIMICA,
+    // see https://github.com/lbl-srg/modelica-buildings/issues/3319#issuecomment-1494960744
+    if (p >= pMax or p <= pMin) then
+    // Monitor pressure to catch cases where a user may forget to add a flow path for exhaust air
+    assert(p < pMax,
+      "In " + getInstanceName() + ": Air pressure is above physically reasonable limit.
+  Require " + String(pMin) + " < p < " + String(pMax) + ", but p = " + String(p) + " Pa. Model seems to have fresh air supply but no exhaust air or exfiltration.");
+    assert(p > pMin,
+      "In " + getInstanceName() + ": Air pressure is below physically reasonable limit.
+  Require " + String(pMin) + " < p < " + String(pMax) + ", but p = " + String(p) + " Pa. Model seems to have exhaust air but no supply air or infiltration.");
+    end if;
+
     // Initialization of output variables.
     TRooLast=T;
     dtLast=time-pre(tLast);
@@ -313,6 +337,12 @@ of its class <code>adapter</code>, of EnergyPlus.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 10, 2024, by Michael Wetter:<br/>
+Added check for air pressure to be within reasonable limits.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last

@@ -188,7 +188,7 @@ protected
         h=inStream(ports.h_outflow),
         X=inStream(ports.Xi_outflow)))) if nPorts > 0
     "Temperature that the air has if it were flowing into the room"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
@@ -201,11 +201,11 @@ protected
       h=vol.hOut,
       X=cat(1,vol.XiOut,{1-sum(vol.XiOut)})))
     "Air temperature of control volume"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Modelica.Blocks.Sources.RealExpression pFlu(
     y=vol.medium.p)
     "Air pressure"
-    annotation (Placement(transformation(extent={{122,2},{142,22}})));
+    annotation (Placement(transformation(extent={{120,4},{140,24}})));
   Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
     annotation (Placement(transformation(extent={{160,12},{180,32}})));
@@ -261,26 +261,28 @@ equation
     connect(ports[i],senMasFlo[i].port_a)
       annotation (Line(points={{0,-150},{0,-120}},color={0,127,255}));
     connect(fmuZon.m_flow[i],senMasFlo[i].m_flow)
-      annotation (Line(points={{78,-50},{30,-50},{30,-110},{11,-110}},color={0,0,127}));
+      annotation (Line(points={{78,-48},{30,-48},{30,-110},{11,-110}},color={0,0,127}));
     connect(senMasFlo[i].port_b,vol.ports[i])
       annotation (Line(points={{0,-100},{0,-80}},                 color={0,127,255}));
   end for;
   connect(fmuZon.TInlet,TAirIn.y)
-    annotation (Line(points={{78,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
+    annotation (Line(points={{78,-52},{64,-52},{64,-60},{61,-60}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
-    annotation (Line(points={{61,0},{70,0},{70,16},{-90,16},{-90,0},{-82,0}},    color={0,0,127}));
+    annotation (Line(points={{61,30},{70,30},{70,16},{-90,16},{-90,0},{-82,0}},  color={0,0,127}));
   connect(heaFloSen.port_b,preTem.port)
     annotation (Line(points={{-40,0},{-60,0}},    color={191,0,0}));
   connect(heaFloSen.port_a,heaPorAir)
     annotation (Line(points={{-20,0},{0,0}},                    color={191,0,0}));
   connect(TFlu.y,fmuZon.T)
-    annotation (Line(points={{61,0},{70,0},{70,-42},{78,-42}},color={0,0,127}));
+    annotation (Line(points={{61,30},{70,30},{70,-40},{78,-40}},
+                                                              color={0,0,127}));
   connect(TFlu.y,TAir)
-    annotation (Line(points={{61,0},{210,0}},color={0,0,127}));
+    annotation (Line(points={{61,30},{150,30},{150,0},{210,0}},
+                                             color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
     annotation (Line(points={{-30,-11},{-30,-64},{-12,-64}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
-    annotation (Line(points={{0,-59},{0,-46},{78,-46}},                  color={0,0,127}));
+    annotation (Line(points={{0,-59},{0,-24},{30,-24},{30,-44},{78,-44}},color={0,0,127}));
   connect(X_w.y,relHum.X_w)
     annotation (Line(points={{62,-22},{64,-22},{64,22},{159,22}},color={0,0,127}));
   connect(vol.mXiOut[1],X_w.u1)
@@ -288,9 +290,9 @@ equation
   connect(vol.mOut,X_w.u2)
     annotation (Line(points={{11,-64},{24,-64},{24,-28},{38,-28}},color={0,0,127}));
   connect(TFlu.y,relHum.T)
-    annotation (Line(points={{61,0},{120,0},{120,30},{159,30}},color={0,0,127}));
+    annotation (Line(points={{61,30},{159,30}},                color={0,0,127}));
   connect(pFlu.y,relHum.p)
-    annotation (Line(points={{143,12},{150,12},{150,14},{159,14}},color={0,0,127}));
+    annotation (Line(points={{141,14},{159,14}},                  color={0,0,127}));
   connect(relHum.phi,phi)
     annotation (Line(points={{181,22},{192,22},{192,-120},{210,-120}},color={0,0,127}));
   connect(QPeaRep.y,CTot_flow.u2)
@@ -307,6 +309,9 @@ equation
           -52},{114,84},{-140,84},{-140,36},{-122,36}}, color={0,0,127}));
   connect(heaGai.QLat_flow, QLat_flow.u2) annotation (Line(points={{-158,94},{-144,
           94},{-144,24},{-122,24}}, color={0,0,127}));
+  connect(pFlu.y, fmuZon.p) annotation (Line(points={{141,14},{146,14},{146,-18},
+          {72,-18},{72,-56},{78,-56}},
+                 color={0,0,127}));
   connect(radHeaFloSen.port_b, preRadTem.port)
     annotation (Line(points={{-10,60},{-20,60}},
                                                color={191,0,0}));
@@ -315,13 +320,14 @@ equation
                                                       color={191,0,0}));
   connect(fmuZon.TRad, preRadTem.T) annotation (Line(points={{101,-44},{106,-44},
           {106,76},{-52,76},{-52,60},{-42,60}}, color={0,0,127}));
-  connect(fmuZon.QGaiRad_flow, QRad_flow.y) annotation (Line(points={{78,-58},{74,
-          -58},{74,110},{61,110}}, color={0,0,127}));
+  connect(fmuZon.QGaiRad_flow, QRad_flow.y) annotation (Line(points={{78,-60},{
+          74,-60},{74,110},{61,110}},
+                                   color={0,0,127}));
   connect(QRad_flow.u1, heaGai.QRad_flow) annotation (Line(points={{38,116},{-140,
           116},{-140,106},{-158,106}}, color={0,0,127}));
   connect(QRad_flow.u2, radHeaFloSen.Q_flow) annotation (Line(points={{38,104},
-          {26,104},{26,40},{0,40},{0,49}},  color={0,0,127}));
-  annotation (
+          {24,104},{24,50},{0,50},{0,49}},  color={0,0,127}));
+    annotation (
     defaultComponentName="zon",
     Icon(
       coordinateSystem(
@@ -550,6 +556,12 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 10, 2024, by Michael Wetter:<br/>
+Added check for air pressure to be within reasonable limits.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+</li>
 <li>
 March 22, 2024, by Michael Wetter:<br/>
 Changed radiative heat flow rate sent to EnergyPlus to be the average over the last
