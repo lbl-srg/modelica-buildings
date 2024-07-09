@@ -37,7 +37,10 @@ record Fan "Record for fan model"
       choicesAllMatching=true,
       Dialog(enable=typ <> Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datFan",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing parameters for
 the classes within

@@ -72,3 +72,8 @@ convertClass("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStand
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3727
 convertClass("Buildings.Experimental.DHC", "Buildings.DHC");
 convertClass("Buildings.Experimental.DHC.EnergyTransferStations", "Buildings.DHC.ETS");
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1880
+convertClass("Buildings.Fluid.Movers.Validation.PowerEuler", "Buildings.Obsolete.Fluid.Movers.Validation.PowerEuler");
+convertClass("Buildings.Fluid.Movers.Validation.PowerExact", "Buildings.Obsolete.Fluid.Movers.Validation.PowerExact");
+convertClass("Buildings.Fluid.Movers.Validation.PowerSimplified", "Buildings.Obsolete.Fluid.Movers.Validation.PowerSimplified");

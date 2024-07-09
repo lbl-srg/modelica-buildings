@@ -41,6 +41,7 @@ record PumpMultiple "Record for multiple-pump models"
     annotation(Dialog(enable=false));
 
   annotation (
+  defaultComponentPrefixes = "parameter",
   defaultComponentName="datPum", Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 
