@@ -20,7 +20,7 @@ block ControlDifferentialPressure
   final parameter Real y_max(
     final unit="1",
     final min=0,
-    final max=1)=1
+    final max=2)=1
     "Maximum pump speed";
   parameter Real k(
     min=100 * Buildings.Controls.OBC.CDL.Constants.eps)=1
@@ -54,8 +54,7 @@ block ControlDifferentialPressure
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpLocSet[nSenDpRem](
-    each final unit="Pa")
-    if not have_senDpRemWir
+    each final unit="Pa") if not have_senDpRemWir
     "Local differential pressure setpoint"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -63,7 +62,7 @@ block ControlDifferentialPressure
     final unit="1")
     "Pump speed command"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{98,-20},{138,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyOn(
     final nin=nPum)
     "Return true when any pump is proven on"
@@ -104,6 +103,10 @@ block ControlDifferentialPressure
     if have_senDpRemWir
     "Maximum control loop output"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dpLocSetMax(final unit="Pa")
+    if not have_senDpRemWir "Maximum local differential pressure setpoint"
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
 protected
   parameter Real dpSca(
     final unit="Pa",
@@ -135,6 +138,8 @@ equation
     annotation (Line(points={{12,-40},{80,-40},{80,0},{120,0}},color={0,0,127}));
   connect(maxY.y, y)
     annotation (Line(points={{62,40},{80,40},{80,0},{120,0}},color={0,0,127}));
+  connect(maxSet.y, dpLocSetMax) annotation (Line(points={{-68,-40},{-40,-40},{
+          -40,-20},{120,-20}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctlDp",
     Icon(

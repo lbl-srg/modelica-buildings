@@ -127,15 +127,12 @@ model Controller_UnspecifiedClimate
     final realFalse=0)
     "Convert to real"
     annotation (Placement(transformation(extent={{190,70},{170,90}})));
-  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
-    final f=5/(2*Modelica.Constants.pi*10),
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final y_start=0)
-    "Filter signal"
-    annotation (Placement(transformation(extent={{160,70},{140,90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=0.5)
     "Compare filtered signal to threshold to trigger true status"
     annotation (Placement(transformation(extent={{130,70},{110,90}})));
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold sam(samplePeriod=10)
+    "Sample signal value"
+    annotation (Placement(transformation(extent={{160,70},{140,90}})));
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
           25.4545},{96,25.4545}},  color={0,0,127}));
@@ -183,14 +180,14 @@ equation
           {32,-3.63636},{96,-3.63636}}, color={0,0,127}));
   connect(opeMod.y, conAHU.uAhuOpeMod) annotation (Line(points={{-178,250},{80,
           250},{80,38.1818},{96,38.1818}}, color={255,127,0}));
-  connect(booToRea.y, fil.u)
-    annotation (Line(points={{168,80},{162,80}}, color={0,0,127}));
-  connect(fil.y, greThr.u)
-    annotation (Line(points={{139,80},{132,80}}, color={0,0,127}));
   connect(conAHU.y1SupFan, booToRea.u) annotation (Line(points={{184,-40},{200,
           -40},{200,80},{192,80}}, color={255,0,255}));
   connect(greThr.y, conAHU.u1SupFan) annotation (Line(points={{108,80},{86,80},
           {86,16.3636},{96,16.3636}}, color={255,0,255}));
+  connect(greThr.u, sam.y)
+    annotation (Line(points={{132,80},{138,80}}, color={0,0,127}));
+  connect(booToRea.y, sam.u)
+    annotation (Line(points={{168,80},{162,80}}, color={0,0,127}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller_UnspecifiedClimate.mos"
     "Simulate and plot"),

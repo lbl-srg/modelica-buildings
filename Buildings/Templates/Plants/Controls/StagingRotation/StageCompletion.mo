@@ -156,7 +156,7 @@ the stage change is in progress.
 <ul>
 <li>
 June 26, 2024, by Antoine Gautier:<br/>
-Replaced hold with pre to guard against concomitant stage change and command change.<br/>
+Replaced <code>hold</code> with <code>pre</code> to guard against concomitant stage change and command change.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">#3787</a>.
 </li>
 <li>

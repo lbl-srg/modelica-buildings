@@ -1,6 +1,8 @@
 EquipmentAvailability
 EquipmentEnable
 EventSequencing
+FailsafeCondition
+LoadAverage
 SortRuntime
 StageAvailability
 StageChangeCommand

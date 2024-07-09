@@ -52,6 +52,7 @@ equation
     annotation (Line(points={{32,20},{40,20},{40,48}},color={255,0,255}));
   annotation (
     defaultComponentName="truHol",
+    obsolete = "This model is obsolete",
     Icon(
       graphics={
         Rectangle(
@@ -122,7 +123,7 @@ The figure below shows the state chart of the implementation. Note that the
 transition are done in zero time.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHoldImplementation.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TrueHoldImplementation.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -131,7 +132,7 @@ and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds
 </p>
 
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TrueHold.png\"
 alt=\"Input and output of the block\"/>
 </p>
 
@@ -140,7 +141,7 @@ The figure below shows an example with a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold1.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TrueHold1.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -149,7 +150,7 @@ has been negated. The figure below has again a hold time of <i>3600</i> seconds
 and a pulse width period <i>9000</i> seconds that starts at <i>t=200</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold2.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TrueHold2.png\"
 alt=\"Input and output of the block\"/>
 </p>
 <p>
@@ -157,7 +158,7 @@ The figure below has again a hold time of <i>60</i> seconds
 and a pulse width period <i>3600</i> seconds that starts at <i>t=0</i> seconds.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/TrueHold3.png\"
+<img src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/CDL/Logical/TrueHold3.png\"
 alt=\"Input and output of the block\"/>
 </p>
 </html>",
