@@ -48,6 +48,8 @@ equation
   connect(y1, notY1.u) annotation (Line(points={{-120,0},{-20,0},{-20,-40},{8,
           -40}}, color={255,0,255}));
   annotation (
+    __cdl(
+      extensionBlock=true),
     defaultComponentName="sta",
     Icon(
       coordinateSystem(
