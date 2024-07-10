@@ -122,17 +122,18 @@ model Controller_UnspecifiedClimate
     final period=3600)
     "Freeze protection reset"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
-    final realTrue=1,
-    final realFalse=0)
-    "Convert to real"
-    annotation (Placement(transformation(extent={{190,70},{170,90}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(final t=0.5)
-    "Compare filtered signal to threshold to trigger true status"
-    annotation (Placement(transformation(extent={{130,70},{110,90}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold sam(samplePeriod=10)
-    "Sample signal value"
-    annotation (Placement(transformation(extent={{160,70},{140,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timY1(t=2)
+    "Return true if equipment commanded on for sufficient time"
+    annotation (Placement(transformation(extent={{170,110},{150,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notY1
+    "Return true if equipment commanded off"
+    annotation (Placement(transformation(extent={{210,70},{190,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timNotY1(t=2)
+    "Return true if equipment commanded off for sufficient time"
+    annotation (Placement(transformation(extent={{170,70},{150,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Lock status until equipment commanded off for sufficient time"
+    annotation (Placement(transformation(extent={{130,110},{110,130}})));
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
           25.4545},{96,25.4545}},  color={0,0,127}));
@@ -180,14 +181,18 @@ equation
           {32,-3.63636},{96,-3.63636}}, color={0,0,127}));
   connect(opeMod.y, conAHU.uAhuOpeMod) annotation (Line(points={{-178,250},{80,
           250},{80,38.1818},{96,38.1818}}, color={255,127,0}));
-  connect(conAHU.y1SupFan, booToRea.u) annotation (Line(points={{184,-40},{200,
-          -40},{200,80},{192,80}}, color={255,0,255}));
-  connect(greThr.y, conAHU.u1SupFan) annotation (Line(points={{108,80},{86,80},
-          {86,16.3636},{96,16.3636}}, color={255,0,255}));
-  connect(greThr.u, sam.y)
-    annotation (Line(points={{132,80},{138,80}}, color={0,0,127}));
-  connect(booToRea.y, sam.u)
-    annotation (Line(points={{168,80},{162,80}}, color={0,0,127}));
+  connect(conAHU.y1SupFan,timY1. u) annotation (Line(points={{184,-40},{220,-40},
+          {220,120},{172,120}}, color={255,0,255}));
+  connect(timNotY1.u,notY1. y)
+    annotation (Line(points={{172,80},{188,80}}, color={255,0,255}));
+  connect(timNotY1.passed,lat. clr) annotation (Line(points={{148,72},{140,72},
+          {140,114},{132,114}}, color={255,0,255}));
+  connect(lat.y, conAHU.u1SupFan) annotation (Line(points={{108,120},{86,120},{
+          86,16.3636},{96,16.3636}}, color={255,0,255}));
+  connect(conAHU.y1SupFan, notY1.u) annotation (Line(points={{184,-40},{220,-40},
+          {220,80},{212,80}}, color={255,0,255}));
+  connect(timY1.passed, lat.u) annotation (Line(points={{148,112},{144,112},{
+          144,120},{132,120}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller_UnspecifiedClimate.mos"
     "Simulate and plot"),
