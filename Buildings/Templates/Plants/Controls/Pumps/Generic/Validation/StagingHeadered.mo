@@ -26,16 +26,6 @@ model StagingHeadered
         V_flow_nominal)
     "Flow rate"
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
-    "Convert command signal to real value"
-    annotation (Placement(transformation(extent={{80,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[nPum](each
-      samplePeriod=1)
-    "Hold signal value"
-    annotation (Placement(transformation(extent={{50,70},{30,90}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nPum]
-    "Compare to zero to compute equipment status"
-    annotation (Placement(transformation(extent={{20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
     table=[0,0,0,0; 0.1,1,0,0; 0.5,1,1,0; 1,1,1,1; 1.5,1,1,1; 2,0,1,1; 2.5,0,0,1;
         3,0,0,0],
@@ -83,40 +73,27 @@ model StagingHeadered
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPum(k=0.6)
     "Pump speed command"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+  Components.Controls.StatusEmulator y1Pum_actual[nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{20,70},{0,90}})));
 equation
   connect(ratFlo.y[1],VPri_flow. u)
     annotation (Line(points={{-88,0},{-70,0}},color={0,0,127}));
   connect(VPri_flow.y, staPumPriDp.V_flow) annotation (Line(points={{-46,0},{-40,
           0},{-40,-42},{-2,-42}}, color={0,0,127}));
-  connect(booToRea.y,zerOrdHol. u)
-    annotation (Line(points={{58,80},{52,80}},
-                                             color={0,0,127}));
-  connect(zerOrdHol.y,greThr. u)
-    annotation (Line(points={{28,80},{22,80}},  color={0,0,127}));
-  connect(staPumPriDp.y1, booToRea.u) annotation (Line(points={{22,-40},{100,-40},
-          {100,80},{82,80}}, color={255,0,255}));
-  connect(greThr.y, staPumPriDp.u1Pum_actual) annotation (Line(points={{-2,80},{
-          -20,80},{-20,-40},{-2,-40}}, color={255,0,255}));
   connect(u1.y, staPumPriDp.u1ValInlIso) annotation (Line(points={{-88,40},{-30,
           40},{-30,-34},{-2,-34}}, color={255,0,255}));
   connect(u1.y, staPumPriDp.u1ValOutIso) annotation (Line(points={{-88,40},{-30,
           40},{-30,-36},{-2,-36}}, color={255,0,255}));
   connect(u1.y[1], staPumSecDp.u1Pla) annotation (Line(points={{-88,40},{-30,40},
           {-30,-72},{-2,-72}}, color={255,0,255}));
-  connect(greThr.y, staPumSecDp.u1Pum_actual) annotation (Line(points={{-2,80},{
-          -20,80},{-20,-80},{-2,-80}}, color={255,0,255}));
   connect(VPri_flow.y, staPumSecDp.V_flow) annotation (Line(points={{-46,0},{-40,
           0},{-40,-82},{-2,-82}}, color={0,0,127}));
   connect(u1.y, staPumPriNoDp.u1ValInlIso) annotation (Line(points={{-88,40},{-30,
           40},{-30,6},{-2,6}}, color={255,0,255}));
   connect(u1.y, staPumPriNoDp.u1Pum) annotation (Line(points={{-88,40},{-30,40},
           {-30,2},{-2,2}},   color={255,0,255}));
-  connect(greThr.y, staPumPriNoDp.u1Pum_actual) annotation (Line(points={{-2,80},
-          {-20,80},{-20,0},{-2,0}},   color={255,0,255}));
   connect(u1.y, staPumPriDed.u1Pum) annotation (Line(points={{-88,40},{-30,40},{
           -30,42},{-2,42}}, color={255,0,255}));
-  connect(greThr.y, staPumPriDed.u1Pum_actual) annotation (Line(points={{-2,80},
-          {-20,80},{-20,40},{-2,40}}, color={255,0,255}));
   connect(yPum.y, staPumPriDp.y) annotation (Line(points={{-88,-80},{-60,-80},{-60,
           -48},{-2,-48}}, color={0,0,127}));
   connect(yPum.y, staPumSecDp.y) annotation (Line(points={{-88,-80},{-60,-80},{-60,
@@ -129,6 +106,16 @@ equation
           {-80,-86},{-2,-86}}, color={0,0,127}));
   connect(dpSet.y, staPumSecDp.dpSet[1]) annotation (Line(points={{-88,-40},{-80,-40},
           {-80,-84},{-2,-84}}, color={0,0,127}));
+  connect(staPumPriDp.y1, y1Pum_actual.y1) annotation (Line(points={{22,-40},{
+          40,-40},{40,80},{22,80}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, staPumPriDed.u1Pum_actual) annotation (Line(
+        points={{-2,80},{-20,80},{-20,40},{-2,40}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, staPumPriNoDp.u1Pum_actual) annotation (Line(
+        points={{-2,80},{-20,80},{-20,0},{-2,0}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, staPumPriDp.u1Pum_actual) annotation (Line(
+        points={{-2,80},{-20,80},{-20,-40},{-2,-40}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, staPumSecDp.u1Pum_actual) annotation (Line(
+        points={{-2,80},{-20,80},{-20,-80},{-2,-80}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file=
@@ -172,6 +159,10 @@ All pumps are disabled when the plant is disabled.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 10, 2024, by Antoine Gautier:<br/>
+Updated the model with <code>StatusEmulator</code>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
