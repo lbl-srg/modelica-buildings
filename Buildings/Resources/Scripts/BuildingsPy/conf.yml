@@ -30,10 +30,6 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.DHC.ETS.Combined.Subsystems.Validation.HeatPumpDHWTank
-  openmodelica:
-    comment: 'Fails to translate due to CDL.Logical.Latch (nonlinear equations within when-equations)'
-    translate: false
 - model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
