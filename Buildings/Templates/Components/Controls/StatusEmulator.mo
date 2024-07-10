@@ -83,7 +83,8 @@ Note that the default delay may not be representative of the actual
 dynamics of certain equipment such as chillers or heat pumps.
 In addition, this block uses the equipment command signal to
 generate the status signal, which in turn can lead to inconsistencies
-with certain equipment that run cyclically at low load.
+with certain equipment that run cyclically at low load, despite being 
+steadily commanded on.
 In such cases, the actual status comes and goes, whereas the status
 computed with this block will remain continuously on.
 </p>
