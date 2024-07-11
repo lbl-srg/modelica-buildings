@@ -23,7 +23,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate mHot_flow_nominal
     "Nominal mass flow rate of the evaporator fluid"
     annotation(Dialog(group="Evaporator"));
-  parameter Modelica.Units.SI.PressureDifference dpHot_nominal = 0
+  parameter Modelica.Units.SI.PressureDifference dpHot_nominal(
+    displayUnit="Pa") = 0
     "Nominal pressure drop of the hot fluid in evaporator"
     annotation(Dialog(group="Evaporator"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinEva_set(
@@ -44,7 +45,8 @@ model Cycle "Organic Rankine cycle as a bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal
     "Nominal mass flow rate of the condenser fluid"
     annotation(Dialog(group="Condenser"));
-  parameter Modelica.Units.SI.PressureDifference dpCol_nominal = 0
+  parameter Modelica.Units.SI.PressureDifference dpCol_nominal(
+    displayUnit="Pa") = 0
     "Nominal pressure drop of the cold fluid in condenser"
     annotation(Dialog(group="Condenser"));
   parameter Modelica.Units.SI.TemperatureDifference dTPinCon(
