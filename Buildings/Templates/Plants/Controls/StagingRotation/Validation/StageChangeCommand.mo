@@ -99,7 +99,7 @@ model StageChangeCommand "Validation model for stage change logic"
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Components.Controls.StatusEmulator staEqu[3](
-    each riseTime=60)
+    each delayTime=15)
     "Evaluate equipment status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion comSta(

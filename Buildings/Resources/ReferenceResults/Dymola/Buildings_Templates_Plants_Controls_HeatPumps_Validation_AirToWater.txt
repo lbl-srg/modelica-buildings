@@ -3,7 +3,7 @@ statistics-simulation=
 {
   "linear": " ",
   "nonlinear": " ",
-  "number of continuous time states": "40",
+  "number of continuous time states": "8",
   "numerical Jacobians": "0"
 }
 time=[0e+00, 8.64e+04]
