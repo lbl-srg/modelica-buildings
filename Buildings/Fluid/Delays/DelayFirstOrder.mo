@@ -7,7 +7,7 @@ model DelayFirstOrder
     final mSenFac=1);
 
   parameter Modelica.Units.SI.Time tau=60 "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+    annotation (Dialog(group="Delay time"));
 
 protected
   parameter Modelica.Units.SI.Volume V_nominal=m_flow_nominal*tau/rho_default
@@ -34,6 +34,11 @@ The heat flux connector is optional and need not be connnected.
 </html>",
 revisions="<html>
 <ul>
+July 12, 2024, by Michael Wetter:<br/>
+Moved parameter <code>tau</code> to the main parameter tab.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1906\">#1906</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
