@@ -290,6 +290,7 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 </table>
+
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
