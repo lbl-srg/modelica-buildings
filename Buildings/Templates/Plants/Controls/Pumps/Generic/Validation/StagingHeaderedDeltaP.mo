@@ -43,16 +43,6 @@ model StagingHeaderedDeltaP
     nout=nPum)
     "Replicate signal"
     annotation (Placement(transformation(extent={{100,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
-    "Convert command signal to real value"
-    annotation (Placement(transformation(extent={{30,90},{10,110}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[nPum](
-    each samplePeriod=1)
-    "Hold signal value"
-    annotation (Placement(transformation(extent={{0,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nPum]
-    "Compare to zero to compute equipment status"
-    annotation (Placement(transformation(extent={{-30,90},{-50,110}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpSet(k=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max)
     "Loop differential pressure setpoint"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -75,19 +65,9 @@ model StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep1(nout=nPum)
     "Replicate signal"
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-                                                               [nPum]
-    "Convert command signal to real value"
-    annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1
-                                                             [nPum](each
-      samplePeriod=1)
-    "Hold signal value"
-    annotation (Placement(transformation(extent={{-10,-30},{-30,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
-                                                          [nPum]
-    "Compare to zero to compute equipment status"
-    annotation (Placement(transformation(extent={{-40,-30},{-60,-10}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nPum]
+    "Convert Boolean signal to real value"
+    annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(k=fill(1/nPum*V_flow_nominal*
         0.99, nPum), nin=nPum)
     "Compute nPum_actual / nPum * V_flow_nominal * 0.99"
@@ -100,6 +80,10 @@ model StagingHeaderedDeltaP
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yPum1(table=[0,1; 1,1; 1.5,
         0.3; 2,0.3], timeScale=3600) "Pump speed command"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  Components.Controls.StatusEmulator y1Pum_actual[nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{30,90},{10,110}})));
+  Components.Controls.StatusEmulator y1Pum_actual1[nPum] "Pump Status"
+    annotation (Placement(transformation(extent={{30,-30},{10,-10}})));
 equation
   connect(ratFlo.y[1], VPri_flow.u)
     annotation (Line(points={{-88,60},{-82,60}},
@@ -120,18 +104,6 @@ equation
   connect(idxSta.y, rep.u)
     annotation (Line(points={{72,60},{110,60},{110,100},{102,100}},
                                                               color={255,127,0}));
-  connect(y1.y, booToRea.u)
-    annotation (Line(points={{48,100},{32,100}},
-                                              color={255,0,255}));
-  connect(booToRea.y, zerOrdHol.u)
-    annotation (Line(points={{8,100},{2,100}},
-                                             color={0,0,127}));
-  connect(zerOrdHol.y, greThr.u)
-    annotation (Line(points={{-22,100},{-28,100}},
-                                                color={0,0,127}));
-  connect(greThr.y, staPum.u1_actual)
-    annotation (Line(points={{-52,100},{-60,100},{-60,68},{8,68}},
-      color={255,0,255}));
   connect(dpSet.y, staPum.dpSet[1]) annotation (Line(points={{-28,40},{-2,40},{-2,60},
           {8,60}}, color={0,0,127}));
   connect(dpSet.y, staPum.dp[1]) annotation (Line(points={{-28,40},{-2,40},{-2,56},
@@ -146,16 +118,6 @@ equation
           {40,-54},{48,-54}}, color={255,0,255}));
   connect(idxSta1.y, rep1.u) annotation (Line(points={{72,-60},{110,-60},{110,-20},
           {102,-20}}, color={255,127,0}));
-  connect(y2.y, booToRea1.u)
-    annotation (Line(points={{48,-20},{32,-20}}, color={255,0,255}));
-  connect(booToRea1.y, zerOrdHol1.u)
-    annotation (Line(points={{8,-20},{-8,-20}}, color={0,0,127}));
-  connect(zerOrdHol1.y, greThr1.u)
-    annotation (Line(points={{-32,-20},{-38,-20}}, color={0,0,127}));
-  connect(greThr1.y, staPumFaiSaf.u1_actual) annotation (Line(points={{-62,-20},
-          {-70,-20},{-70,-52},{8,-52}}, color={255,0,255}));
-  connect(zerOrdHol1.y, mulSum.u) annotation (Line(points={{-32,-20},{-36,-20},{
-          -36,-40},{-110,-40},{-110,-60},{-102,-60}}, color={0,0,127}));
   connect(dp.y[1], staPumFaiSaf.dp[1]) annotation (Line(points={{-48,-80},{-2,-80},
           {-2,-64},{8,-64}}, color={0,0,127}));
   connect(dpSet.y, staPumFaiSaf.dpSet[1]) annotation (Line(points={{-28,40},{-2,40},
@@ -166,6 +128,18 @@ equation
           40,-66},{40,-62},{48,-62}}, color={255,0,255}));
   connect(mulSum.y, staPumFaiSaf.V_flow) annotation (Line(points={{-78,-60},{-4,
           -60},{-4,-56},{8,-56}}, color={0,0,127}));
+  connect(y1.y, y1Pum_actual.y1)
+    annotation (Line(points={{48,100},{32,100}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, staPum.u1_actual) annotation (Line(points={{8,
+          100},{0,100},{0,68},{8,68}}, color={255,0,255}));
+  connect(y2.y, y1Pum_actual1.y1)
+    annotation (Line(points={{48,-20},{32,-20}}, color={255,0,255}));
+  connect(y1Pum_actual1.y1_actual, staPumFaiSaf.u1_actual) annotation (Line(
+        points={{8,-20},{0,-20},{0,-52},{8,-52}}, color={255,0,255}));
+  connect(y1Pum_actual1.y1_actual, booToRea.u)
+    annotation (Line(points={{8,-20},{-18,-20}}, color={255,0,255}));
+  connect(booToRea.y, mulSum.u) annotation (Line(points={{-42,-20},{-110,-20},{
+          -110,-60},{-102,-60}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -197,6 +171,10 @@ to <i>0</i>. This transition is not subject to the minimum runtime.
 </html>",
       revisions="<html>
 <ul>
+<li>
+July 10, 2024, by Antoine Gautier:<br/>
+Updated the model with <code>StatusEmulator</code>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
