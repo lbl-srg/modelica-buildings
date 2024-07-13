@@ -5,7 +5,9 @@ model HeatPumpDHWTank
     Buildings.DHC.ETS.Combined.Subsystems.BaseClasses.PartialHeatPump(
       heaPum(
         QCon_flow_nominal=QHotWat_flow_nominal,
-        QCon_flow_max=QHotWat_flow_nominal));
+        QCon_flow_max=QHotWat_flow_nominal),
+    pumCon(use_inputFilter=true),
+    pumEva(use_inputFilter=true));
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
@@ -368,6 +370,14 @@ the supply equal to <code>dT_nominal</code>.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2024, by Michael Wetter:<br/>
+Enabled input filter to the pumps to avoid a nonlinear system of equations that causes OpenModelica
+to stop the translation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3924\">
+issue 3924</a>.
+</li>
 <li>
 June 11, 2024, by Michael Wetter:<br/>
 Changed temperature sensor to not allow reverse flow as it is not needed and will

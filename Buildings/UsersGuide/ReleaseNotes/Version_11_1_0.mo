@@ -70,6 +70,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.DHC.ETS.Combined.Subsystems</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.Subsystems.HeatPumpDHWTank
+    </td>
+    <td valign=\"top\">Enabled input filter for pumps to avoid a nonlinear system of equations that causes issues in OpenModelica.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3924\">issue 3924</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
