@@ -392,8 +392,8 @@ on request number"),
           textString="Optional hold of the loop output")}),
    Documentation(info="<html>
 <p>
-This block implements the trim and respond logic according to ASHRAE Guideline G36,
-Section 5.1.14.3 and 5.1.14.4.
+This block implements the trim and respond logic according to Section 5.1.14.3 
+and 5.1.14.4 of ASHRAE Guideline 36, May 2020.
 </p>
 <p>
 For each upstream system or plant set point being controlled by a trim and respond
@@ -437,10 +437,6 @@ In other words, every time step <code>samplePeriod</code>:
 -numIgnReq)</code> but no more than <code>maxRes</code>.
 </li>
 </ul>
-<p align=\"center\">
-<img alt=\"Image of set point reset\"
-src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimRespond.png\"/>
-</p>
 <h4>Hold and release loop output</h4>
 <p>
 Optionally, if the parameter <code>have_hol</code> is set to true, an additional
@@ -467,6 +463,30 @@ yields the following sequence of events.
 since <i>&lt;&nbsp;15&nbsp;</i>minutes have elapsed.</li>
 <li>0:15 - T&amp;R is released and continues resetting from <i>50&nbsp;%</i>.</li>
 </ul>
+<h4>Examples</h4>
+<p>
+The figure below illustrates the trim and respond logic with a negative trim amount,
+comparing scenarios with and without holding the loop output.
+</p>
+<p>
+<img alt=\"Trend graph for trim and response\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond.png\"/>
+</p>
+<p>
+The figure below illustrates the trim and respond logic with a positive trim amount.
+</p>
+<p>
+<img alt=\"Trend graph for trim and response\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond1.png\"/>
+</p>
+<p>
+The figure below illustrates the trim and respond logic with a negative trim amount,
+in a scenario where the equipment switches on and off.
+</p>
+<p>
+<img alt=\"Trend graph for trim and response\"
+src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/Generic/TrimAndRespond2.png\"/>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

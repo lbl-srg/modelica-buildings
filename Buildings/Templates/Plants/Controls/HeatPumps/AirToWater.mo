@@ -632,7 +632,7 @@ block AirToWater
   parameter Real dtResHeaWat(
     min=1E-3,
     unit="s")=300
-    "Reset period for HW plant reset"
+    "Time step for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Integer nReqResIgnHeaWat(min=0)=2
@@ -654,13 +654,13 @@ block AirToWater
   parameter Real rspHeaWat_max(
     min=0,
     unit="1")=0.07
-    "Maximum response per reset period for HW plant reset"
+    "Maximum response per time interval for HW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_heaWat and have_pumHeaWatSec));
   parameter Real dtResChiWat(
     min=1E-3,
     unit="s")=300
-    "Reset period for CHW plant reset"
+    "Time step for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_pumChiWatSec));
   parameter Integer nReqResIgnChiWat(min=0)=2
@@ -682,7 +682,7 @@ block AirToWater
   parameter Real rspChiWat_max(
     min=0,
     unit="1")=0.07
-    "Maximum response per reset period for CHW plant reset"
+    "Maximum response per time interval for CHW plant reset"
     annotation (Dialog(tab="Advanced",group="Plant reset",
       enable=have_pumChiWatSec));
   parameter Real yPumHeaWatPri_min(
@@ -2007,9 +2007,9 @@ With sidestream heat recovery chiller
 </td>
 <td>
 This option is only available for heating and cooling plants.
-When selected, the plant controller incorporates logic to manage a chiller 
-and its associated dedicated primary CHW and CW pumps. 
-The chiller is considered connected in a sidestream configuration to both 
+When selected, the plant controller incorporates logic to manage a chiller
+and its associated dedicated primary CHW and CW pumps.
+The chiller is considered connected in a sidestream configuration to both
 the CHW return and the HW return.
 </td>
 </tr>

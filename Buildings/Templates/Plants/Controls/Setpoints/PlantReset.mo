@@ -73,7 +73,7 @@ block PlantReset
   parameter Real tri(
     final max=0,
     final unit="1")=-0.02
-    "Reset period"
+    "Trim amount"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   parameter Real rsp(
     final min=0,
@@ -83,7 +83,7 @@ block PlantReset
   parameter Real rsp_max(
     final min=0,
     final unit="1")=0.07
-    "Maximum response per reset period (must have same sign as respond amount)"
+    "Maximum response per time interval (must have same sign as respond amount)"
     annotation (Dialog(tab="Advanced",group="Trim and respond"));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nReqRes
     "Sum of reset requests of all loads served"
@@ -276,12 +276,12 @@ CHW/HW Plant Reset variable is reset using trim and respond logic with the follo
 <tr><td>SPmin</td><td><code>res_min</code></td><td>Minimum reset value</td></tr>
 <tr><td>SPmax</td><td><code>res_max</code></td><td>Maximum reset value</td></tr>
 <tr><td>Td</td><td><code>dtDel</code></td><td>Delay time before the reset begins</td></tr>
-<tr><td>T</td><td><code>dtRes</code></td><td>Reset period</td></tr>
+<tr><td>T</td><td><code>dtRes</code></td><td>Time step</td></tr>
 <tr><td>I</td><td><code>nReqResIgn</code></td><td>Number of ignored requests</td></tr>
 <tr><td>R</td><td><code>nReqRes</code></td><td>Number of requests</td></tr>
 <tr><td>SPtrim</td><td><code>tri</code></td><td>Trim amount</td></tr>
 <tr><td>SPres</td><td><code>rsp</code></td><td>Respond amount</td></tr>
-<tr><td>SPres_max</td><td><code>rsp_max</code></td><td>Maximum response per reset period</td></tr>
+<tr><td>SPres_max</td><td><code>rsp_max</code></td><td>Maximum response per time interval</td></tr>
 </table>
 <p>
 The plant reset loop is enabled when the plant is enabled and disabled when the plant is disabled.
