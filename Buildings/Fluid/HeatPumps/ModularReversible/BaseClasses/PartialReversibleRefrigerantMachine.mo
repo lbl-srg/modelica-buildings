@@ -201,7 +201,7 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
-  parameter Real ySet_small=0.01
+  parameter Real ySet_small(min=0.002)=0.01
     "Threshold for relative speed for the device to be considered on"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
   parameter Boolean calEff=true
@@ -315,7 +315,7 @@ partial model PartialReversibleRefrigerantMachine
         rotation=0)));
 
   Modelica.Blocks.Logical.Hysteresis hys(
-    final uLow=Modelica.Constants.eps,
+    final uLow=0.001,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=180,
@@ -690,6 +690,11 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
+    Adjust hysteresis bandwidth (see issue
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">IBPSA #1908</a>)
+  </li>
   <li>
     May 2, 2024, by Michael Wetter:<br/>
     Refactored check for device identifiers.<br/>
