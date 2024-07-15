@@ -91,25 +91,6 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if not
-    have_hol "Constant – Placeholder value if there is no hold signal"
-    annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiHol
-    "Switch to zero reset until hold is released and sampler clock ticks"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notHol "Return true if hold is released"
-    annotation (Placement(transformation(extent={{-170,30},{-150,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "True when hold is active and sampler clock ticks: enables applying the last calculated reset before freezing output"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
-    final trueHoldDuration=dtHol,
-    final falseHoldDuration=0) if have_hol
-    "Hold true for the longer of dtHol and the time uHol remains true"
-    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
-  CDL.Logical.And notHolAndTic
-    "Return true if hold is released and sampler clock ticks"
-    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
 protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(k=iniSet)
     "Initial setpoint"
@@ -171,6 +152,30 @@ protected
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Constant"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false) if not
+    have_hol "Constant – Placeholder value if there is no hold signal"
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHol
+    "Switch to zero reset until hold is released and sampler clock ticks"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notHol "Return true if hold is released"
+    annotation (Placement(transformation(extent={{-170,50},{-150,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "True when hold is active and sampler clock ticks: enables applying the last calculated reset before freezing output"
+    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final trueHoldDuration=dtHol,
+    final falseHoldDuration=0) if have_hol
+    "Hold true for the longer of dtHol and the time uHol remains true"
+    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+  Buildings.Controls.OBC.CDL.Logical.And notHolAndTic
+    "Return true if hold is released and sampler clock ticks"
+    annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
+    final period=samplePeriod,
+    final shift=0)
+    "Generate signal matching the request sampling frequency"
+    annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
 equation
   connect(difReqIgnReq.y, greThr.u)
     annotation (Line(points={{-78,-70},{-40,-70},{-40,-90},{18,-90}},
@@ -308,8 +313,8 @@ equation
     annotation (Line(points={{-68,146},{-30,146}}, color={0,0,127}));
   connect(zer.y, swiHol.u1) annotation (Line(points={{-68,60},{-60,60},{-60,48},
           {-52,48}}, color={0,0,127}));
-  connect(fal.y, notHol.u) annotation (Line(points={{-188,60},{-180,60},{-180,
-          40},{-172,40}}, color={255,0,255}));
+  connect(fal.y, notHol.u) annotation (Line(points={{-188,60},{-172,60}},
+                          color={255,0,255}));
   connect(lat.y, swiHol.u2) annotation (Line(points={{-68,20},{-60,20},{-60,40},
           {-52,40}}, color={255,0,255}));
   connect(swi2.y, uniDel.u) annotation (Line(points={{122,180},{140,180},{140,
@@ -317,16 +322,16 @@ equation
   connect(uHol, truHol.u)
     annotation (Line(points={{-240,20},{-212,20}}, color={255,0,255}));
   connect(truHol.y, notHol.u) annotation (Line(points={{-188,20},{-180,20},{
-          -180,40},{-172,40}}, color={255,0,255}));
+          -180,60},{-172,60}}, color={255,0,255}));
   connect(notHol.y, notHolAndTic.u1)
-    annotation (Line(points={{-148,40},{-132,40}}, color={255,0,255}));
+    annotation (Line(points={{-148,60},{-140,60},{-140,40},{-132,40}},
+                                                   color={255,0,255}));
   connect(notHolAndTic.y, lat.clr) annotation (Line(points={{-108,40},{-100,40},
           {-100,14},{-92,14}}, color={255,0,255}));
-  connect(sampler.sampleTrigger, lat.u) annotation (Line(points={{-138,-44},{
-          -120,-44},{-120,20},{-92,20}}, color={255,0,255}));
-  connect(sampler.sampleTrigger, notHolAndTic.u2) annotation (Line(points={{
-          -138,-44},{-120,-44},{-120,20},{-140,20},{-140,32},{-132,32}}, color=
-          {255,0,255}));
+  connect(samTri.y, lat.u)
+    annotation (Line(points={{-148,20},{-92,20}}, color={255,0,255}));
+  connect(samTri.y, notHolAndTic.u2) annotation (Line(points={{-148,20},{-140,
+          20},{-140,32},{-132,32}}, color={255,0,255}));
 annotation (
   defaultComponentName = "triRes",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

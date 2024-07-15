@@ -85,11 +85,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.Sampler
-    </td>
-    <td valign=\"top\">Added output connector for the sample time instant.
-    </td>
-</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
     </td>
     <td valign=\"top\">Simplified the implementation.<br/>

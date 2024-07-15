@@ -12,16 +12,15 @@ block Sampler
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sampleTrigger
-    "True at sample time instant"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
-        iconTransformation(extent={{100,40},{140,80}})));
+
 protected
   parameter Real t0(
     final quantity="Time",
     final unit="s",
     fixed=false)
     "First sample time instant";
+  output Boolean sampleTrigger
+    "True, if sample time instant";
   output Boolean firstTrigger(
     start=false,
     fixed=true)
@@ -101,10 +100,6 @@ via parameter <code>samplePeriod</code>.
 </html>",
       revisions="<html>
 <ul>
-<li>
-June 6, 2024, by Antoine Gautier:<br/>
-Added output connector for the sample time instant.
-</li>
 <li>
 March 30, 2022, by Michael Wetter:<br/>
 Removed graphic from diagram view.
