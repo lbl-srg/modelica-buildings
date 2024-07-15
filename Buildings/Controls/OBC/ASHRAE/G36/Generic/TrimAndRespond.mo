@@ -6,18 +6,21 @@ block TrimAndRespond "Block to inplement trim and respond logic"
   parameter Real iniSet  "Initial setpoint";
   parameter Real minSet  "Minimum setpoint";
   parameter Real maxSet  "Maximum setpoint";
-  parameter Real delTim(min=100*1E-15, unit="s")
-                          "Delay time";
-  parameter Real samplePeriod(min=1E-3, unit="s")
+  parameter Real delTim(
+    min=100*1E-15,
+    final unit="s") "Delay time";
+  parameter Real samplePeriod(
+    min=1E-3,
+    final unit="s")
     "Sample period of component";
-  parameter Integer numIgnReq  "Number of ignored requests";
-  parameter Real triAmo  "Trim amount";
-  parameter Real resAmo  "Respond amount (must have opposite sign of triAmo)";
-  parameter Real maxRes  "Maximum response per time interval (must have same sign as resAmo)";
+  parameter Integer numIgnReq "Number of ignored requests";
+  parameter Real triAmo "Trim amount";
+  parameter Real resAmo "Respond amount (must have opposite sign of triAmo)";
+  parameter Real maxRes "Maximum response per time interval (must have same sign as resAmo)";
   parameter Real dtHol(
     min=0,
     start=0,
-    unit="s")=0
+    final unit="s")=0
     "Minimum hold time"
     annotation(Dialog(enable=have_hol));
 
@@ -49,7 +52,7 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Reals.Switch netRes "Net setpoint reset value"
     annotation (Placement(transformation(extent={{160,-60},{180,-80}})));
-  CDL.Reals.Sources.Constant                        resAmoCon(final k=resAmo)
+  CDL.Reals.Sources.Constant resAmoCon(final k=resAmo)
     "Respond amount constant"
     annotation (Placement(transformation(extent={{-200,-180},{-180,-160}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro
@@ -92,22 +95,22 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-230},{100,-210}})));
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(k=iniSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(final k=iniSet)
     "Initial setpoint"
     annotation (Placement(transformation(extent={{-90,220},{-70,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(k=numIgnReq)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(final k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-160,-98},{-140,-78}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant triAmoCon(final k=triAmo)
     "Trim amount constant"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxResCon(k=maxRes)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxResCon(final k=maxRes)
     "Maximum response per time interval"
     annotation (Placement(transformation(extent={{-200,-250},{-180,-230}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSetCon(k=maxSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSetCon(final k=maxSet)
     "Maximum setpoint constant"
     annotation (Placement(transformation(extent={{-28,100},{-8,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerTri(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerTri(final k=0)
     "Zero reset amount during time range from (device ON) to (device ON + delTim + timSet)"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
@@ -389,7 +392,7 @@ on request number"),
           textString="Optional hold of the loop output")}),
    Documentation(info="<html>
 <p>
-This block implements the trim and respond logic according to ASHRAE guideline G36,
+This block implements the trim and respond logic according to ASHRAE Guideline G36,
 Section 5.1.14.3 and 5.1.14.4.
 </p>
 <p>
