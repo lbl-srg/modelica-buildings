@@ -12,6 +12,13 @@ model PowerExact
         Documentation(
 info="<html>
 <p>
+Note that the results of this validation model is no longer relevant
+to the current implementation and it will be obsoleted in a future release.
+For details see
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">
+IBPSA issue #1880</a>.
+</p>
+<p>
 This example is identical to
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
 Buildings.Fluid.Movers.Validation.PowerSimplified</a>, except that the

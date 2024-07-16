@@ -276,7 +276,21 @@ that can lead to wrong simulation results):
     <td valign=\"top\">xxx.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.Validation.PowerSimplified
+    </td>
+    <td valign=\"top\">Corrected efficiency assignment.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+    </td>
+</tr>
 </table>
+
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors

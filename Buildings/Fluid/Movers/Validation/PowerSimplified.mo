@@ -23,7 +23,8 @@ model PowerSimplified
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
-      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+      hydraulicEfficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -35,7 +36,8 @@ model PowerSimplified
     redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
       use_powerCharacteristic=false,
-      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+      hydraulicEfficiency(V_flow={0}, eta={0.3577}),
+      motorEfficiency(V_flow={0}, eta={1})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -115,6 +117,13 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
+Note that the results of this validation model is no longer relevant
+to the current implementation and it will be obsoleted in a future release.
+For details see
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">
+IBPSA issue #1880</a>.
+</p>
+<p>
 This example compares the power consumed by pumps that
 take three different control signals.
 Each pump has identical mass flow rate and pressure rise.
@@ -146,6 +155,12 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 20, 2024, by Hongxiang Fu:<br/>
+Corrected efficiency assignment.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
+</li>
 <li>
 October 15, 2021, by Hongxiang Fu:<br/>
 Fixed the image in the documentation which was cut off
