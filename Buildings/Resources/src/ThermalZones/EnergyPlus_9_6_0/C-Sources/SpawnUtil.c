@@ -905,11 +905,6 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   const char* modelicaInstanceName = bui->modelicaNameBuilding;
 
-  /* Make sure startTime is positive */
-  if (startTime < 0){
-    SpawnFormatError(" Negative simulation start time is not yet supported. See https://github.com/lbl-srg/modelica-buildings/issues/1938");
-  }
-
   /* Instantiate the FMU for this building */
   generateAndInstantiateBuilding(bui);
   bui->time = startTime;
