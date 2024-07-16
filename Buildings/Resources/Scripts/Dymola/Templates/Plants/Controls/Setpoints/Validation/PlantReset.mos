@@ -14,7 +14,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"res.triRes.y", "res.res.y", "res.resDp_max", "res.resTSup_min"},
+    y={"res.triRes.y", "res.resDp_max", "res.resTSup_min"},
     autoscale=true,
     grid=true,
     timeUnit="min"

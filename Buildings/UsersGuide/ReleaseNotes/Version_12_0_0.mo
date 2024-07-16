@@ -78,6 +78,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">#3883</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond
+    </td>
+    <td valign=\"top\">Added logic to hold trim and respond loop output.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -117,6 +121,14 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Setpoints.PlantReset
+    </td>
+    <td valign=\"top\">Updated hold logic during staging after refactoring trim and respond block.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
