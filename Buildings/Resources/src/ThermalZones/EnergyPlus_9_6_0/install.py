@@ -189,7 +189,7 @@ def _getEnergyPlusVersion(spawn_dir):
 
     raise ValueError("Failed to find EnergyPlus version.")
 
-def update_version_in_modelica_files(spawn_dir, spawn_exe):
+def update_version_in_modelica_files(spawn_dir, spawn_exe, build_type):
     import os
     import re
 
@@ -208,12 +208,15 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe):
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
                 rel_file))
 
-        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
         with open (abs_file, 'r' ) as f:
             content = f.read()
-        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", "{}".format(spawn_exe), content)
-        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", "{}".format(spawn_dir), content)
-        content = re.sub(r"EnergyPlus \d+.\d+.\d+", "EnergyPlus {}".format(energyPlus_version), content)
+
+        # Replace spawn.s3.amazonaws.com/builds/ or spawn.s3.amazonaws.com/custom/
+        content = re.sub(r"spawn\.s3\.amazonaws\.com/[a-zA-Z]+/", f"spawn.s3.amazonaws.com/{build_type}/", content)
+        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", spawn_exe, content)
+        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", spawn_dir, content)
+        content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
         with open(abs_file, 'w' ) as f:
             f.write(content)
@@ -290,7 +293,7 @@ if __name__ == "__main__":
     on_windows = "Windows" in platform.system()
     install_linux = on_linux     or not args.binaries_for_os_only
     install_windows = on_windows or not args.binaries_for_os_only
-    update_mo_files = on_linux and not args.binaries_for_os_only
+    update_mo_files = on_linux
 
     # Build list of distributions
     dists = list()
@@ -329,7 +332,8 @@ if __name__ == "__main__":
             print("Updating Spawn version in Modelica files.")
             update_version_in_modelica_files(
                 spawn_dir = dist["spawn_dir"],
-                spawn_exe = dist["spawn_exe"])
+                spawn_exe = dist["spawn_exe"],
+                build_type = build_type)
         # Update the table with supported output variables and actuator names
         if update_mo_files and 'linux' in dist['des']:
             print("Updating actuator and output tables.")
