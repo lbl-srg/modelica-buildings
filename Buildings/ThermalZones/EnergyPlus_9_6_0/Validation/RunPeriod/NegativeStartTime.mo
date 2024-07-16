@@ -18,7 +18,7 @@ model NegativeStartTime "Validation model for negative start time"
   __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Validation/RunPeriod/NegativeStartTime.mos" "Simulate and plot"),
     experiment(
-      StartTime=-86400,
+      StartTime=-172800,
       StopTime=86400,
       Tolerance=1e-06),
     Documentation(
@@ -26,6 +26,9 @@ model NegativeStartTime "Validation model for negative start time"
 <p>
 Validation model for negative start time.
 This test validates that EnergyPlus correctly simulates if it is started at a negative start time.
+The model simulates the last two days of the year and the first day.
+For comparison with the Modelica weather data, the model reads the solar irradiation and the outdoor drybulb temperature
+from EnergyPlus.
 </p>
 </html>",
      revisions="<html>
