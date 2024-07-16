@@ -108,7 +108,7 @@ equation
   connect(theMixVal.port_hot, heaPum.port_b1) annotation (Line(points={{-60,66},
           {-64,66},{-64,50},{20,50},{20,4},{0,4}},
                                      color={0,127,255}));
-  connect(on.y, heaPum.uEna) annotation (Line(points={{-29,20},{-16,20},{-16,7},
+  connect(on.y, heaPum.uEna) annotation (Line(points={{-29,20},{-26,20},{-26,7},
           {-22,7}},    color={255,0,255}));
   annotation (
     Diagram(
