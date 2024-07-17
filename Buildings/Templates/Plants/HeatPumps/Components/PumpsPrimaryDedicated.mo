@@ -58,7 +58,7 @@ model PumpsPrimaryDedicated
          then Buildings.Templates.Data.Defaults.dpValChe else 0, nPum))=fill(
     if typArrPumPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated
      then Buildings.Templates.Data.Defaults.dpValChe else 0, nPum)
-    "HW pump check valve pressure drop at design HW pump flow rate"
+    "HW pump check valve pressure drop at design pump flow rate (selection conditions)"
     annotation (Dialog(group="Nominal condition",
       enable=typArrPumPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated));
   parameter Modelica.Units.SI.PressureDifference dpValCheChiWat_nominal[if have_pumChiWatPriDed then nPum else 0](
@@ -67,7 +67,7 @@ model PumpsPrimaryDedicated
          else 0, if have_pumChiWatPriDed then nPum else 0))=fill(if
     have_pumChiWatPriDed then Buildings.Templates.Data.Defaults.dpValChe else 0,
     if have_pumChiWatPriDed then nPum else 0)
-    "CHW pump check valve pressure drop at design CHW pump flow rate"
+    "CHW pump check valve pressure drop at design pump flow rate (selection conditions)"
     annotation (Dialog(group="Nominal condition", enable=have_pumChiWatPriDed));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

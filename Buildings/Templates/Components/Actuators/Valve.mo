@@ -522,16 +522,12 @@ equation
   annotation (
   Icon(graphics={
     Line(
-      points={{-100,0},{-40,0}},
-      color={0,0,0},
-      thickness=5),
-    Line(
-      points={{40,0},{100,0}},
+      points={{-100,0},{100,0}},
       color={0,0,0},
       thickness=5),
     Line(
       visible=is_thrWay,
-      points={{0,-100},{0,-40}},
+      points={{0,-100},{0,0}},
       color={0,0,0},
       thickness=5),
     Bitmap(

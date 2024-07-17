@@ -4,7 +4,6 @@ compareVars :=
     "res.u1StaPro",
     "res.nReqRes",
     "res.triRes.y",
-    "res.res.y",
     "res.resDp_max",
     "res.resTSup_min",
     "res.dpSet[1]",

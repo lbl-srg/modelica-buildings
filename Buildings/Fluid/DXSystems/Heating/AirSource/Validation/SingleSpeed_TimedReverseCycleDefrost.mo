@@ -56,6 +56,13 @@ as the heat transfer from the airloop.
 revisions="<html>
 <ul>
 <li>
+July 9, 2024, by Michael Wetter:<br/>
+Replaced instance <code>plrToPul</code> with model from <code>CDL</code> package as the earlier
+implementation caused problems in cross-tool validation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3936\">#3939</a>.
+</li>
+<li>
 April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
 </li>

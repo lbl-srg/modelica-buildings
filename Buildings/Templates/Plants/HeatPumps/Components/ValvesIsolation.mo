@@ -64,32 +64,37 @@ model ValvesIsolation
     "Balancing valve pressure drop at design CHW mass flow rate - Each heat pump"
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
-  parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp]=fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
-    "HW isolation valve pressure drop: identical for inlet and outlet valves"
+  parameter Modelica.Units.SI.PressureDifference dpValveHeaWat_nominal[nHp]=
+    fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
+    "HW isolation valve pressure drop (identical for inlet and outlet valves)"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpFixedHeaWat_nominal[nHp]=
     dpHeaWatHp_nominal + dpBalHeaWatHp_nominal
     "Fixed HW pressure drop: HP + balancing valve"
     annotation (Dialog(group="Nominal condition"));
+  // The following parameter is intended for external use.
   final parameter Modelica.Units.SI.PressureDifference dpHeaWat_nominal[nHp]=
-    dpFixedHeaWat_nominal +(if have_valHpOutIso then dpValveHeaWat_nominal else fill(0, nHp)) +
+    dpFixedHeaWat_nominal +
+    (if have_valHpOutIso then dpValveHeaWat_nominal else fill(0, nHp)) +
     (if have_valHpInlIso then dpValveHeaWat_nominal else fill(0, nHp))
     "Total HW pressure drop: fixed + valves"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpValveChiWat_nominal[nHp](
     each start=0)=fill(Buildings.Templates.Data.Defaults.dpValIso, nHp)
-    "Isolation valve CHW pressure drop: identical for inlet and outlet valves"
+    "Isolation valve CHW pressure drop (identical for inlet and outlet valves)"
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
   final parameter Modelica.Units.SI.PressureDifference dpFixedChiWat_nominal[nHp]=
-    if have_chiWat then dpChiWatHp_nominal + dpBalChiWatHp_nominal else fill(0, nHp)
+    if have_chiWat then dpBalChiWatHp_nominal + dpChiWatHp_nominal else fill(0, nHp)
     "Total fixed CHW pressure drop"
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
+  // The following parameter is intended for external use.
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal[nHp]=
-    dpFixedChiWat_nominal +(if have_chiWat and have_valHpOutIso then dpValveChiWat_nominal
-    else fill(0, nHp)) +(if have_chiWat and have_valHpInlIso then dpValveChiWat_nominal
-    else fill(0, nHp))
+    if have_chiWat then dpFixedChiWat_nominal +
+      (if have_valHpOutIso then dpValveChiWat_nominal else fill(0, nHp)) +
+      (if have_valHpInlIso then dpValveChiWat_nominal else fill(0, nHp))
+    else fill(0, nHp)
     "Total CHW pressure drop: fixed + valves"
     annotation (Dialog(group="Nominal condition",
       enable=have_chiWat));
@@ -161,7 +166,7 @@ model ValvesIsolation
     annotation (Evaluate=true,
     Dialog(tab="Advanced",
       enable=have_valHpInlIso or have_valHpOutIso));
-  parameter Boolean linearized=true
+  parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Evaluate=true,
     Dialog(tab="Advanced",
@@ -369,7 +374,7 @@ model ValvesIsolation
     final nPorts=nHp + 1)
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-160,50})));
+      origin={-160,120})));
   Fluid.Delays.DelayFirstOrder junChiWatSup(
     redeclare final package Medium=Medium,
     final tau=tau,
@@ -381,7 +386,7 @@ model ValvesIsolation
     if have_chiWat
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={-82,50})));
+      origin={-80,120})));
   Fluid.Delays.DelayFirstOrder junHeaWatRet(
     redeclare final package Medium=Medium,
     final tau=tau,
@@ -392,7 +397,7 @@ model ValvesIsolation
     final nPorts=nHp + 1)
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={80,50})));
+      origin={80,120})));
   /*
   HW pressure drop computed in this component in the absence of isolation valves
   at both inlet and outlet.
@@ -430,7 +435,7 @@ model ValvesIsolation
     if have_chiWat
     "Fluid volume at junction"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
-      origin={160,50})));
+      origin={160,120})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busValHeaWatHpInlIso[nHp]
     if have_valHpInlIso
@@ -474,8 +479,8 @@ equation
   connect(ports_aHeaWatHp, pasHeaWatHpOut.port_a)
     annotation (Line(points={{-180,-200},{-160,-200},{-160,-10}},          color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasHeaWatHpOut.port_a)
-    annotation (Line(points={{-100,-200},{-120,-200},{-120,-20},{-160,-20},{
-          -160,-10}},
+    annotation (Line(points={{-100,-200},{-120,-200},{-120,-20},{-160,-20},{-160,
+          -10}},
       color={0,127,255}));
   connect(ports_aChiHeaWatHp, pasChiWatHpOut.port_a)
     annotation (Line(points={{-100,-200},{-80,-200},{-80,-10}},          color={0,127,255}));
@@ -483,38 +488,42 @@ equation
     annotation (Line(points={{-20,-200},{-20,-20},{-80,-20},{-80,-10}},
       color={0,127,255}));
   connect(valHeaWatHpOutIso.port_b, junHeaWatSup.ports[1:nHp])
-    annotation (Line(points={{-180,10},{-180,20},{-160,20},{-160,40}},color={0,127,255}));
+    annotation (Line(points={{-180,10},{-180,20},{-160,20},{-160,110}},
+                                                                      color={0,127,255}));
   connect(pasHeaWatHpOut.port_b, junHeaWatSup.ports[1:nHp])
-    annotation (Line(points={{-160,10},{-160,40}},color={0,127,255}));
+    annotation (Line(points={{-160,10},{-160,110}},
+                                                  color={0,127,255}));
   connect(junHeaWatSup.ports[nHp + 1], port_bHeaWat)
-    annotation (Line(points={{-160,40},{-180,40},{-180,200}},color={0,127,255}));
+    annotation (Line(points={{-160,110},{-180,110},{-180,200}},
+                                                             color={0,127,255}));
   connect(valChiWatHpOutIso.port_b, junChiWatSup.ports[1:nHp])
-    annotation (Line(points={{-100,10},{-100,20},{-82,20},{-82,40}},color={0,127,255}));
+    annotation (Line(points={{-100,10},{-100,20},{-80,20},{-80,110}},
+                                                                    color={0,127,255}));
   connect(pasChiWatHpOut.port_b, junChiWatSup.ports[1:nHp])
-    annotation (Line(points={{-80,10},{-80,40},{-82,40}},color={0,127,255}));
+    annotation (Line(points={{-80,10},{-80,110}},        color={0,127,255}));
   connect(port_bChiWat, junChiWatSup.ports[nHp + 1])
-    annotation (Line(points={{-100,200},{-100,40},{-82,40}},color={0,127,255}));
+    annotation (Line(points={{-100,200},{-100,110},{-80,110}},
+                                                            color={0,127,255}));
   connect(port_aHeaWat, junHeaWatRet.ports[nHp + 1])
-    annotation (Line(points={{100,200},{100,40},{80,40}},color={0,127,255}));
+    annotation (Line(points={{100,200},{100,110},{80,110}},
+                                                         color={0,127,255}));
   connect(junHeaWatRet.ports[1:nHp], valHeaWatHpInlIso.port_a)
-    annotation (Line(points={{80,40},{80,20},{100,20},{100,10}},color={0,127,255}));
+    annotation (Line(points={{80,110},{80,20},{100,20},{100,10}},
+                                                                color={0,127,255}));
   connect(pasHeaWatHpInl.port_a, junHeaWatRet.ports[1:nHp])
-    annotation (Line(points={{80,10},{80,26},{80,40},{80,40}},color={0,127,255}));
+    annotation (Line(points={{80,10},{80,110}},               color={0,127,255}));
   connect(port_aChiWat, junChiWatRet.ports[nHp + 1])
-    annotation (Line(points={{180,200},{180,40},{160,40}},color={0,127,255}));
+    annotation (Line(points={{180,200},{180,110},{160,110}},
+                                                          color={0,127,255}));
   connect(valChiWatHpInlIso.port_a, junChiWatRet.ports[1:nHp])
-    annotation (Line(points={{180,10},{180,20},{160,20},{160,40}},color={0,127,255}));
+    annotation (Line(points={{180,10},{180,20},{160,20},{160,110}},
+                                                                  color={0,127,255}));
   connect(pasChiWatHpInl.port_a, junChiWatRet.ports[1:nHp])
-    annotation (Line(points={{160,10},{160,26},{160,40},{160,40}},color={0,127,255}));
+    annotation (Line(points={{160,10},{160,110}},                 color={0,127,255}));
   connect(pasHeaWatHpInl.port_b, ports_bChiHeaWatHp)
     annotation (Line(points={{80,-10},{80,-200},{100,-200}},         color={0,127,255}));
-  connect(valHeaWatHpInlIso.port_b, ports_bChiHeaWatHp)
-    annotation (Line(points={{100,-10},{100,-200}},color={0,127,255}));
   connect(pasChiWatHpInl.port_b, ports_bChiHeaWatHp)
     annotation (Line(points={{160,-10},{160,-180},{100,-180},{100,-200}},color={0,127,255}));
-  connect(valChiWatHpInlIso.port_b, ports_bChiHeaWatHp)
-    annotation (Line(points={{180,-10},{180,-180},{100,-180},{100,-200}},
-      color={0,127,255}));
   connect(busValHeaWatHpInlIso, valHeaWatHpInlIso.bus)
     annotation (Line(points={{60,160},{110,160},{110,0}},color={255,204,51},thickness=0.5));
   connect(busValChiWatHpInlIso, valChiWatHpInlIso.bus)
@@ -524,6 +533,10 @@ equation
   connect(busValHeaWatHpOutIso, valHeaWatHpOutIso.bus)
     annotation (Line(points={{-60,160},{-190,160},{-190,0}},color={255,204,51},thickness=0.5));
 
+  connect(valHeaWatHpInlIso.port_b, ports_bChiHeaWatHp) annotation (Line(points
+        ={{100,-10},{100,-10},{100,-200}}, color={0,127,255}));
+  connect(valChiWatHpInlIso.port_b, ports_bChiHeaWatHp) annotation (Line(points
+        ={{180,-10},{180,-180},{100,-180},{100,-200}}, color={0,127,255}));
   annotation (
     defaultComponentName="valIso",
     Diagram(
@@ -533,6 +546,48 @@ equation
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-2400,-700},{2400,700}}), graphics={
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 1,
+          origin={1950,-400},
+          rotation=90),
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 2,
+          origin={1150,-400},
+          rotation=90),
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 3,
+          origin={350,-400},
+          rotation=90),
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 4,
+          origin={-450,-400},
+          rotation=90),
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 5,
+          origin={-1250,-400},
+          rotation=90),
+        Line(
+          points={{240,150},{0,150},{0,-50}},
+          color={0,0,0},
+          thickness=5,
+          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 6,
+          origin={-2050,-400},
+          rotation=90),
         Line(
           points={{1000,-160},{1000,-700}},
           color={0,0,0},
@@ -1014,48 +1069,6 @@ equation
           origin={1970,-200},
           rotation=-90),
         Line(points={{1820,-508}}, color={0,0,0}),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 1,
-          origin={1950,-400},
-          rotation=90),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 2,
-          origin={1150,-400},
-          rotation=90),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 3,
-          origin={350,-400},
-          rotation=90),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 4,
-          origin={-450,-400},
-          rotation=90),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 5,
-          origin={-1250,-400},
-          rotation=90),
-        Line(
-          points={{160,150},{0,150},{0,-50}},
-          color={0,0,0},
-          thickness=5,
-          visible=have_chiWat and not have_pumChiWatPriDed and nHp >= 6,
-          origin={-2050,-400},
-          rotation=90),
    Rectangle(
           extent={{2180,220},{2220,178}},
           lineColor={0,0,0},
@@ -1210,14 +1223,6 @@ It is assumed that the heat pumps always provide heating hot water.
 Optionally, chilled water return and supply and the associated isolation valves
 can be modeled by setting the parameter <code>have_chiWat</code> to true.
 </p>
-<h4>Implementation details</h4>
-<p>
-By default, the isolation valves are modeled considering a linear
-variation of the pressure drop with the flow rate (<code>linearized=true</code>), 
-as opposed to the quadratic relationship usually considered for 
-a turbulent flow regime.
-By limiting the size of the system of nonlinear equations, this setting 
-reduces the risk of solver failure and the time to solution.
 </html>", revisions="<html>
 <ul>
 <li>
