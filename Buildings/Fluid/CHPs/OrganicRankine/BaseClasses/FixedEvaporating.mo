@@ -167,7 +167,7 @@ level=AssertionLevel.warning);
   PExp = mWor_flow * (hExpOut - hExpInl);
   PPum = mWor_flow * (hPumOut - hPumInl);
   mWor_flow =
-    if ena and hys.y
+    if on_actual
     then
       Buildings.Utilities.Math.Functions.smoothMin(
       x1=mWor_flow_internal,
