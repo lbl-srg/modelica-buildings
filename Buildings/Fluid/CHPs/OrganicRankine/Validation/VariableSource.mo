@@ -23,6 +23,8 @@ model VariableSource
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T1_start(displayUnit="K") = 350,
     T2_start(displayUnit="K") = 290,
+    dpHot_nominal = 0,
+    dpCol_nominal = 0,
     mHot_flow_nominal=mHot_flow_nominal,
     mCol_flow_nominal=mCol_flow_nominal,
     mWor_flow_max =
@@ -106,7 +108,7 @@ equation
   connect(sinCol.ports[1], TColOut.port_b)
     annotation (Line(points={{-60,-30},{-50,-30}}, color={0,127,255}));
   connect(tru.y, orc.ena)
-    annotation (Line(points={{-19,0},{-8,0}}, color={255,0,255}));
+    annotation (Line(points={{-19,0},{-11,0}},color={255,0,255}));
   connect(mHot_flow_set.y, souHot.m_flow_in) annotation (Line(points={{-59,50},{
           -50,50},{-50,38},{-42,38}}, color={0,0,127}));
   connect(THotIn_set.y, souHot.T_in) annotation (Line(points={{-59,10},{-50,10},

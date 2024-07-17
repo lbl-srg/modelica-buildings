@@ -28,6 +28,8 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     TWorEva=373.15,
     pWorEva(displayUnit="bar"),
     final mCol_flow_nominal=mCol_flow_nominal,
+    dpHot_nominal=0,
+    dpCol_nominal=0,
     dTPinCon=5,
     mWor_flow_max=0.5,
     mWor_flow_min=0.1,
@@ -171,7 +173,7 @@ equation
     annotation (Line(points={{61,10},{80,10},{80,-20},{40,-20},{40,-28}},
                                                         color={0,0,127}));
   connect(and1.y, orc.ena) annotation (Line(points={{-119,50},{-54,50},{-54,-34},
-          {-38,-34}},color={255,0,255}));
+          {-41,-34}},color={255,0,255}));
   connect(orc.port_b2,senTColOut. port_a) annotation (Line(points={{-40,-40},{-60,
           -40}},                    color={0,127,255}));
   connect(senTColOut.port_b, pum.port_a)
