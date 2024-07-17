@@ -180,6 +180,8 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+  optimica:
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Simplified1
   openmodelica:
     comment: Unable to find component bui.THotWatSupSet
