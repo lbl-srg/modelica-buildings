@@ -1,8 +1,8 @@
-last-generated=2024-04-17
+last-generated=2024-07-17
 statistics-simulation=
 {
-  "linear": " ",
-  "nonlinear": "3",
+  "linear": "0",
+  "nonlinear": "4",
   "numerical Jacobians": "0"
 }
 time=[0e+00, 3e+02]
