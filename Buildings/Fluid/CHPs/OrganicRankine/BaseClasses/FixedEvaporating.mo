@@ -146,11 +146,6 @@ level=AssertionLevel.warning);
     QEva_flow = mWor_flow * (hPumOut - hExpInl);
     (THotPin - THotOut) * (hExpInl - hPumOut)
     = (hPinEva - hPumOut) * (THotIn - THotOut);
-    // Evaporator internal computation
-    QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
-    QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
-    (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
-    = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
     // Condenser
     QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
     QCon_flow = mWor_flow * (hExpOut - hPumInl);
@@ -161,18 +156,20 @@ level=AssertionLevel.warning);
     QEva_flow = 0;
     THotOut = THotIn;
     THotPin = THotOut;
-    // Evaporator internal computation
-    QEva_flow_internal = 0;
-    THotOut_internal = THotIn;
-    THotPin_internal = THotOut_internal;
     // Condenser
     QCon_flow = 0;
     TColOut = TColIn;
     TColPin = TColIn;
   end if;
   dTPinEva = THotPin - TWorEva; // Evaporator
-  dTPinEva_set = THotPin_internal - TWorEva; // Evaporator internal
   dTPinCon = TWorCon - TColPin; // Condenser
+
+  // Evaporator internal computation
+  QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
+  QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
+  (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
+  = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
+  dTPinEva_set = THotPin_internal - TWorEva;
 
   // Other components
   PExp = mWor_flow * (hExpOut - hExpInl);
