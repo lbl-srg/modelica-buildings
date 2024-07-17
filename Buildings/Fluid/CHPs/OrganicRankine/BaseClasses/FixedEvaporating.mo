@@ -140,28 +140,39 @@ when the ORC is on.");
 If this is intended, set useLowCondenserPressureWarning = false to turn off this warning.",
 level=AssertionLevel.warning);
 
-  // Evaporator
-  QEva_flow = mHot_flow * cpHot * (THotOut - THotIn);
-  QEva_flow = mWor_flow * (hPumOut - hExpInl);
-  // Pinch point
-  (THotPin - THotOut) * (hExpInl - hPumOut)
-  = (hPinEva - hPumOut) * (THotIn - THotOut);
-  dTPinEva = THotPin - TWorEva;
-
-  // Evaporator internal computation
-  QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
-  QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
-  (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
-  = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
-  dTPinEva_set = THotPin_internal - TWorEva;
-
-  // Condenser
-  QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
-  QCon_flow = mWor_flow * (hExpOut - hPumInl);
-  // Pinch point
-  (TColPin - TColIn) * (hExpOut - hPumInl)
-  = (hPinCon - hPumInl) * (TColOut - TColIn);
-  dTPinCon = TWorCon - TColPin;
+  if ena then
+    // Evaporator
+    QEva_flow = mHot_flow * cpHot * (THotOut - THotIn);
+    QEva_flow = mWor_flow * (hPumOut - hExpInl);
+    (THotPin - THotOut) * (hExpInl - hPumOut)
+    = (hPinEva - hPumOut) * (THotIn - THotOut);
+    // Evaporator internal computation
+    QEva_flow_internal = mHot_flow * cpHot * (THotOut_internal - THotIn);
+    QEva_flow_internal = mWor_flow_internal * (hPumOut - hExpInl);
+    (THotPin_internal - THotOut_internal) * (hExpInl - hPumOut)
+    = (hPinEva - hPumOut) * (THotIn - THotOut_internal);
+    // Condenser
+    QCon_flow = mCol_flow * cpCol * (TColOut - TColIn);
+    QCon_flow = mWor_flow * (hExpOut - hPumInl);
+    (TColPin - TColIn) * (hExpOut - hPumInl)
+    = (hPinCon - hPumInl) * (TColOut - TColIn);
+  else
+    // Evaporator
+    QEva_flow = 0;
+    THotOut = THotIn;
+    THotPin = THotOut;
+    // Evaporator internal computation
+    QEva_flow_internal = 0;
+    THotOut_internal = THotIn;
+    THotPin_internal = THotOut_internal;
+    // Condenser
+    QCon_flow = 0;
+    TColOut = TColIn;
+    TColPin = TColIn;
+  end if;
+  dTPinEva = THotPin - TWorEva; // Evaporator
+  dTPinEva_set = THotPin_internal - TWorEva; // Evaporator internal
+  dTPinCon = TWorCon - TColPin; // Condenser
 
   // Other components
   PExp = mWor_flow * (hExpOut - hExpInl);
