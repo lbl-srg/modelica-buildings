@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.CHPs.OrganicRankine.Examples.ORCHotWater",
+    method="Cvode", stopTime=900, tolerance=1e-06, resultFile="ORCHotWater");
+// Plot commands
+createPlot(id=1, position={147, 7, 573, 658}, y={"pum.m_flow"}, range={0.0, 900.0, -1.0, 2.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=1, position={147, 7, 573, 658}, y={"orc.PExp", "orc.PPum"}, range={0.0, 900.0, -5000.0, 10000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
+createPlot(id=1, position={147, 7, 573, 658}, y={"orc.QEva_flow", "orc.QCon_flow"}, range={0.0, 900.0, -50000.0, 100000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
+createPlot(id=1, position={147, 7, 573, 658}, y={"senTWatSup.T", "senTWatRet.T"}, range={0.0, 900.0, 30.0, 60.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+
