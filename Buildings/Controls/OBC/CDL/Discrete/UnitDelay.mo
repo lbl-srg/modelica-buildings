@@ -23,12 +23,15 @@ protected
     "First sample time instant";
   output Boolean sampleTrigger
     "True, if sample time instant";
+  discrete Real u_internal
+    "Input value at each sampling moment";
 
 initial equation
   t0=Buildings.Utilities.Math.Functions.round(
     x=integer(time/samplePeriod)*samplePeriod,
     n=6);
   y=y_start;
+  u_internal=y_start;
 
 equation
   // Declarations that are used for all discrete blocks
@@ -36,7 +39,8 @@ equation
     t0,
     samplePeriod);
   when sampleTrigger then
-    y=pre(u);
+    u_internal=u;
+    y=pre(u_internal);
   end when;
   annotation (
     defaultComponentName="uniDel",
@@ -59,6 +63,12 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 8, 2024, by Jianjun Hu:<br/>
+Delayed the input.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">#3953</a>.
+</li> 
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
