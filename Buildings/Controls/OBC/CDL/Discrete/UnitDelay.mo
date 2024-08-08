@@ -65,7 +65,7 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 <ul>
 <li>
 August 8, 2024, by Jianjun Hu:<br/>
-Delayed the output.<br/>
+Delayed the input.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">#3953</a>.
 </li> 
