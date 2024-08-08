@@ -10,7 +10,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,92},{-34,112}})));
@@ -53,7 +52,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,134},{8,154}})));
@@ -64,7 +62,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}})));
@@ -83,7 +80,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,54},{8,74}})));
@@ -103,34 +99,33 @@ model Humidifier_u
                  annotation (Placement(transformation(extent={{-20,22},{0,42}})));
   Modelica.Blocks.Math.Add che1(k2=-1)
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
-  Modelica.Blocks.Sources.RealExpression y1(y=hea2.staB.T)
+  Modelica.Blocks.Sources.RealExpression y1(y=hea2.T_b.T)
     annotation (Placement(transformation(extent={{40,150},{140,170}})));
-  Modelica.Blocks.Sources.RealExpression y2(y=hea1.staB.T)
+  Modelica.Blocks.Sources.RealExpression y2(y=hea1.T_b.T)
     annotation (Placement(transformation(extent={{40,130},{140,150}})));
   Modelica.Blocks.Math.Add che2(k2=-1)
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
-  Modelica.Blocks.Sources.RealExpression y3(y=hea2.staA.T)
+  Modelica.Blocks.Sources.RealExpression y3(y=hea2.T_a.T)
     annotation (Placement(transformation(extent={{40,110},{140,130}})));
-  Modelica.Blocks.Sources.RealExpression y4(y=hea1.staA.T)
+  Modelica.Blocks.Sources.RealExpression y4(y=hea1.T_a.T)
     annotation (Placement(transformation(extent={{40,90},{140,110}})));
   Modelica.Blocks.Math.Add che3(k2=-1)
     annotation (Placement(transformation(extent={{160,38},{180,58}})));
-  Modelica.Blocks.Sources.RealExpression y5(y=hea4.staB.T)
+  Modelica.Blocks.Sources.RealExpression y5(y=hea4.T_b.T)
     annotation (Placement(transformation(extent={{40,48},{140,68}})));
-  Modelica.Blocks.Sources.RealExpression y6(y=hea3.staB.T)
+  Modelica.Blocks.Sources.RealExpression y6(y=hea3.T_b.T)
     annotation (Placement(transformation(extent={{40,28},{140,48}})));
   Modelica.Blocks.Math.Add che4(k2=-1)
     annotation (Placement(transformation(extent={{160,-2},{180,18}})));
-  Modelica.Blocks.Sources.RealExpression y7(y=hea4.staA.T)
+  Modelica.Blocks.Sources.RealExpression y7(y=hea4.T_a.T)
     annotation (Placement(transformation(extent={{40,8},{140,28}})));
-  Modelica.Blocks.Sources.RealExpression y8(y=hea3.staA.T)
+  Modelica.Blocks.Sources.RealExpression y8(y=hea3.T_a.T)
     annotation (Placement(transformation(extent={{40,-12},{140,8}})));
   Humidifier hea5(redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}})));
@@ -149,7 +144,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-68},{8,-48}})));
@@ -158,7 +152,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}})));
@@ -177,7 +170,6 @@ model Humidifier_u
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}})));
@@ -198,136 +190,284 @@ model Humidifier_u
             -160}})));
   Modelica.Blocks.Math.Add che5(k2=-1)
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
-  Modelica.Blocks.Sources.RealExpression y9(y=hea6.staB.T)
+  Modelica.Blocks.Sources.RealExpression y9(y=hea6.T_b.T)
     annotation (Placement(transformation(extent={{40,-50},{140,-30}})));
   Modelica.Blocks.Sources.RealExpression y10(
-                                            y=hea5.staB.T)
+                                            y=hea5.T_b.T)
     annotation (Placement(transformation(extent={{40,-72},{140,-52}})));
   Modelica.Blocks.Math.Add che6(k2=-1)
     annotation (Placement(transformation(extent={{158,-102},{178,-82}})));
   Modelica.Blocks.Sources.RealExpression y11(
-                                            y=hea6.staA.T)
+                                            y=hea6.T_a.T)
     annotation (Placement(transformation(extent={{40,-92},{140,-72}})));
   Modelica.Blocks.Sources.RealExpression y12(
-                                            y=hea5.staA.T)
+                                            y=hea5.T_a.T)
     annotation (Placement(transformation(extent={{40,-112},{140,-92}})));
   Modelica.Blocks.Math.Add che7(k2=-1)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
   Modelica.Blocks.Sources.RealExpression y13(
-                                            y=hea8.staB.T)
+                                            y=hea8.T_b.T)
     annotation (Placement(transformation(extent={{40,-154},{140,-134}})));
   Modelica.Blocks.Sources.RealExpression y14(
-                                            y=hea7.staB.T)
+                                            y=hea7.T_b.T)
     annotation (Placement(transformation(extent={{40,-174},{140,-154}})));
   Modelica.Blocks.Math.Add che8(k2=-1)
     annotation (Placement(transformation(extent={{160,-204},{180,-184}})));
   Modelica.Blocks.Sources.RealExpression y15(
-                                            y=hea8.staA.T)
+                                            y=hea8.T_a.T)
     annotation (Placement(transformation(extent={{40,-194},{140,-174}})));
   Modelica.Blocks.Sources.RealExpression y16(
-                                            y=hea7.staA.T)
+                                            y=hea7.T_a.T)
     annotation (Placement(transformation(extent={{40,-214},{140,-194}})));
   Modelica.Blocks.Math.Add che9(k2=-1)
     annotation (Placement(transformation(extent={{160,-300},{180,-280}})));
-  Modelica.Blocks.Sources.RealExpression y17(y=hea2.staB.T)
+  Modelica.Blocks.Sources.RealExpression y17(y=hea2.T_b.T)
     annotation (Placement(transformation(extent={{40,-290},{140,-270}})));
-  Modelica.Blocks.Sources.RealExpression y18(y=hea5.staB.T)
+  Modelica.Blocks.Sources.RealExpression y18(y=hea5.T_b.T)
     annotation (Placement(transformation(extent={{40,-310},{140,-290}})));
   Modelica.Blocks.Math.Add che10(k2=-1)
     annotation (Placement(transformation(extent={{160,-260},{180,-240}})));
-  Modelica.Blocks.Sources.RealExpression y19(y=hea4.staA.T)
+  Modelica.Blocks.Sources.RealExpression y19(y=hea4.T_a.T)
     annotation (Placement(transformation(extent={{40,-250},{140,-230}})));
-  Modelica.Blocks.Sources.RealExpression y20(y=hea7.staA.T)
+  Modelica.Blocks.Sources.RealExpression y20(y=hea7.T_a.T)
     annotation (Placement(transformation(extent={{40,-270},{140,-250}})));
   Modelica.Blocks.Math.Add che11(k2=-1)
     annotation (Placement(transformation(extent={{340,140},{360,160}})));
-  Modelica.Blocks.Sources.RealExpression y21(y=hea2.staB.X[1])
+  Modelica.Blocks.Sources.RealExpression y21(y=hea2.X_b.X)
     annotation (Placement(transformation(extent={{220,150},{320,170}})));
-  Modelica.Blocks.Sources.RealExpression y22(y=hea1.staB.X[1])
+  Modelica.Blocks.Sources.RealExpression y22(y=hea1.X_b.X)
     annotation (Placement(transformation(extent={{220,130},{320,150}})));
   Modelica.Blocks.Math.Add che12(k2=-1)
     annotation (Placement(transformation(extent={{340,100},{360,120}})));
-  Modelica.Blocks.Sources.RealExpression y23(
-                                            y=hea2.staA.X[1])
+  Modelica.Blocks.Sources.RealExpression y23(y=hea2.X_a.X)
     annotation (Placement(transformation(extent={{220,110},{320,130}})));
-  Modelica.Blocks.Sources.RealExpression y24(
-                                            y=hea1.staA.X[1])
+  Modelica.Blocks.Sources.RealExpression y24(y=hea1.X_a.X)
     annotation (Placement(transformation(extent={{220,90},{320,110}})));
   Modelica.Blocks.Math.Add che13(k2=-1)
     annotation (Placement(transformation(extent={{340,38},{360,58}})));
   Modelica.Blocks.Sources.RealExpression y25(
-                                            y=hea4.staB.X[1])
+                                            y=hea4.X_b.X)
     annotation (Placement(transformation(extent={{220,48},{320,68}})));
   Modelica.Blocks.Sources.RealExpression y26(
-                                            y=hea3.staB.X[1])
+                                            y=hea3.X_b.X)
     annotation (Placement(transformation(extent={{220,28},{320,48}})));
   Modelica.Blocks.Math.Add che14(k2=-1)
     annotation (Placement(transformation(extent={{340,-2},{360,18}})));
   Modelica.Blocks.Sources.RealExpression y27(
-                                            y=hea4.staA.X[1])
+                                            y=hea4.X_a.X)
     annotation (Placement(transformation(extent={{220,8},{320,28}})));
   Modelica.Blocks.Sources.RealExpression y28(
-                                            y=hea3.staA.X[1])
+                                            y=hea3.X_a.X)
     annotation (Placement(transformation(extent={{220,-12},{320,8}})));
   Modelica.Blocks.Math.Add che15(k2=-1)
     annotation (Placement(transformation(extent={{340,-62},{360,-42}})));
   Modelica.Blocks.Sources.RealExpression y29(
-                                            y=hea6.staB.X[1])
+                                            y=hea6.X_b.X)
     annotation (Placement(transformation(extent={{220,-52},{320,-32}})));
   Modelica.Blocks.Sources.RealExpression y30(
-                                            y=hea5.staB.X[1])
+                                            y=hea5.X_b.X)
     annotation (Placement(transformation(extent={{220,-72},{320,-52}})));
   Modelica.Blocks.Math.Add che16(k2=-1)
     annotation (Placement(transformation(extent={{340,-102},{360,-82}})));
   Modelica.Blocks.Sources.RealExpression y31(
-                                            y=hea6.staA.X[1])
+                                            y=hea6.X_a.X)
     annotation (Placement(transformation(extent={{220,-92},{320,-72}})));
   Modelica.Blocks.Sources.RealExpression y32(
-                                            y=hea5.staA.X[1])
+                                            y=hea5.X_a.X)
     annotation (Placement(transformation(extent={{220,-112},{320,-92}})));
   Modelica.Blocks.Math.Add che17(k2=-1)
     annotation (Placement(transformation(extent={{340,-164},{360,-144}})));
   Modelica.Blocks.Sources.RealExpression y33(
-                                            y=hea8.staB.X[1])
+                                            y=hea8.X_b.X)
     annotation (Placement(transformation(extent={{220,-154},{320,-134}})));
   Modelica.Blocks.Sources.RealExpression y34(
-                                            y=hea7.staB.X[1])
+                                            y=hea7.X_b.X)
     annotation (Placement(transformation(extent={{220,-174},{320,-154}})));
   Modelica.Blocks.Math.Add che18(k2=-1)
     annotation (Placement(transformation(extent={{340,-204},{360,-184}})));
   Modelica.Blocks.Sources.RealExpression y35(
-                                            y=hea8.staA.X[1])
+                                            y=hea8.X_a.X)
     annotation (Placement(transformation(extent={{220,-194},{320,-174}})));
   Modelica.Blocks.Sources.RealExpression y36(
-                                            y=hea7.staA.X[1])
+                                            y=hea7.X_a.X)
     annotation (Placement(transformation(extent={{220,-214},{320,-194}})));
   Modelica.Blocks.Math.Add che19(k2=-1)
     annotation (Placement(transformation(extent={{340,-300},{360,-280}})));
-  Modelica.Blocks.Sources.RealExpression y37(y=hea2.staB.X[1])
+  Modelica.Blocks.Sources.RealExpression y37(y=hea2.X_b.X)
     annotation (Placement(transformation(extent={{220,-290},{320,-270}})));
-  Modelica.Blocks.Sources.RealExpression y38(y=hea5.staB.X[1])
+  Modelica.Blocks.Sources.RealExpression y38(y=hea5.X_b.X)
     annotation (Placement(transformation(extent={{220,-310},{320,-290}})));
   Modelica.Blocks.Math.Add che20(k2=-1)
     annotation (Placement(transformation(extent={{340,-260},{360,-240}})));
-  Modelica.Blocks.Sources.RealExpression y39(y=hea4.staA.X[1])
+  Modelica.Blocks.Sources.RealExpression y39(y=hea4.X_a.X)
     annotation (Placement(transformation(extent={{220,-250},{320,-230}})));
-  Modelica.Blocks.Sources.RealExpression y40(y=hea7.staA.X[1])
+  Modelica.Blocks.Sources.RealExpression y40(y=hea7.X_a.X)
     annotation (Placement(transformation(extent={{220,-270},{320,-250}})));
 
 protected
   model Humidifier
-    "Model for humidifier that adds a variable for the thermodynamic states at its ports"
-    extends Buildings.Fluid.Humidifiers.Humidifier_u;
-   Medium.ThermodynamicState staA=
-      Medium.setState_phX(port_a.p,
-                          actualStream(port_a.h_outflow),
-                          actualStream(port_a.Xi_outflow))
-      "Thermodynamic state in port a";
-   Medium.ThermodynamicState staB=
-      Medium.setState_phX(port_b.p,
-                          actualStream(port_b.h_outflow),
-                          actualStream(port_b.Xi_outflow))
-      "Thermodynamic state in port b";
+    "Wrapper for the humidifier component with two-port sensors"
+    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      redeclare replaceable package Medium = Medium);
+
+    replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
+      "Medium model";
+
+    parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+      "Nominal mass flow rate";
+    parameter Modelica.Units.SI.PressureDifference dp_nominal
+      "Nominal pressure difference";
+    parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal
+      "Nominal water mass flow rate";
+    parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+      "Type of energy balance: dynamic (3 initialization options) or steady state"
+      annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
+    Buildings.Fluid.Humidifiers.Humidifier_u hum(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      final mWat_flow_nominal=mWat_flow_nominal,
+      final dp_nominal=dp_nominal,
+      energyDynamics=energyDynamics) "Humidifier"
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    Buildings.Fluid.Sensors.TemperatureTwoPort T_a(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      tau=0) "Temperature at port_a"
+      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    Buildings.Fluid.Sensors.TemperatureTwoPort T_b(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      tau=0) "Temperature at port_a"
+      annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
+      annotation (Placement(transformation(
+            extent={{-140,40},{-100,80}}), iconTransformation(extent={{-120,50},{
+              -100,70}})));
+    Modelica.Blocks.Interfaces.RealOutput mWat_flow(unit="kg/s")
+      "Water added to the fluid"
+      annotation (Placement(transformation(extent={{100,50},{120,70}}),
+          iconTransformation(extent={{100,50},{120,70}})));
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+      "Heat port for total heat exchange with the control volume"
+      annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
+          iconTransformation(extent={{-110,-70},{-90,-50}})));
+    Buildings.Fluid.Sensors.MassFractionTwoPort X_a(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      tau=0,
+      final substanceName="water") "Mass fraction at port_a"
+      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    Buildings.Fluid.Sensors.MassFractionTwoPort X_b(
+      redeclare final package Medium = Medium,
+      final m_flow_nominal=m_flow_nominal,
+      tau=0,
+      final substanceName="water") "Mass fraction at port_b"
+      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  equation
+    connect(T_a.port_b, hum.port_a)
+      annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
+    connect(T_b.port_a, hum.port_b)
+      annotation (Line(points={{20,0},{10,0}}, color={0,127,255}));
+    connect(hum.u, u) annotation (Line(points={{-11,6},{-20,6},{-20,60},{-120,60}},
+          color={0,0,127}));
+    connect(hum.mWat_flow, mWat_flow) annotation (Line(points={{11,6},{20,6},{20,
+            60},{110,60}}, color={0,0,127}));
+    connect(heatPort, hum.heatPort) annotation (Line(points={{-100,-60},{-20,-60},
+            {-20,-6},{-10,-6}}, color={191,0,0}));
+    connect(T_a.port_a, X_a.port_b)
+      annotation (Line(points={{-40,0},{-60,0}}, color={0,127,255}));
+    connect(X_a.port_a, port_a)
+      annotation (Line(points={{-80,0},{-100,0}}, color={0,127,255}));
+    connect(T_b.port_b, X_b.port_a)
+      annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
+    connect(X_b.port_b, port_b)
+      annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+    annotation (Icon(graphics={
+          Rectangle(
+            extent={{-70,60},{70,-60}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={95,95,95},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-101,5},{100,-4}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={0,0,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{0,-4},{100,5}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-52,-60},{58,-120}},
+            textString="m=%m_flow_nominal",
+            pattern=LinePattern.None,
+            textColor={0,0,127}),
+          Rectangle(
+            extent={{-100,61},{-70,58}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={0,0,127},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{-114,104},{-70,76}},
+            textColor={0,0,127},
+            textString="u"),
+          Rectangle(
+            extent={{-100,5},{101,-5}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={0,0,0},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-70,60},{70,-60}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={0,62,0},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{42,42},{54,34},{54,34},{42,28},{42,30},{50,34},{50,34},{42,
+                40},{42,42}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{58,-54},{54,52}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{70,61},{100,58}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={0,0,127},
+            fillPattern=FillPattern.Solid),
+          Text(
+            extent={{30,112},{96,58}},
+            textColor={0,0,127},
+            textString="mWat_flow"),
+          Polygon(
+            points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{
+                42,10}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{42,-26},{54,-34},{54,-34},{42,-40},{42,-38},{50,-34},{50,-34},
+                {42,-28},{42,-26}},
+            lineColor={255,255,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-98,-57},{-70,-60}},
+            lineColor={0,0,255},
+            pattern=LinePattern.None,
+            fillColor={191,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Humidifier;
 equation
   connect(POut.y,sin_1. p_in) annotation (Line(
@@ -558,6 +698,14 @@ initial transients decayed.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 5, 2024, by Hongxiang Fu:<br/>
+Rewrote the protected model <code>Humidifier</code>
+to add two-port temperature sensors to replace <code>sta_?.T</code>
+and two-port mass fraction sensors to replace <code>sta_?.X[1]</code>.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
 <li>
 November 2, 2016, by Michael Wetter:<br/>
 Changed assertions to blocks that compute the difference,
