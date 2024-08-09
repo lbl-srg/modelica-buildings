@@ -6,15 +6,15 @@ model AirToWater
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
   Buildings.Templates.Components.HeatPumps.AirToWater hp[nHp](
-    redeclare each final package MediumHeaWat=MediumHeaWat,
-    redeclare each final package MediumAir=MediumAir,
+    each final show_T=show_T,
+    redeclare each final package MediumHeaWat = MediumHeaWat,
+    redeclare each final package MediumAir = MediumAir,
     each final is_rev=is_rev,
     final dat=datHp,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics,
-    each final have_preDroChiHeaWat=have_preDroChiHeaWat,
-    each final have_preDroSou=have_preDroSou)
-    "Heat pump unit"
+    each final have_dpChiHeaWat=have_dpChiHeaWatHp,
+    each final have_dpSou=have_dpSou) "Heat pump unit"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 equation
   for i in 1:nHp loop

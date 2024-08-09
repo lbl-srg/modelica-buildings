@@ -30,6 +30,20 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants
+    </td>
+    <td valign=\"top\">Several new components have been added and existing ones updated
+                       to support the following new features in the heat pump plant template:
+                       sidestream heat recovery chiller, primary-only pumping, buffer tanks,
+                       failsafe staging conditions and internal computation of pump speed
+                       or balancing valve ∆p to meet design flow.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -64,13 +78,11 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3883\">#3883</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond
+    </td>
+    <td valign=\"top\">Added logic to hold trim and respond loop output.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
-    </td>
-    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Latch
@@ -79,6 +91,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">#3796</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
+    </td>
+    <td valign=\"top\">Refactored with synchronous language elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
+    </td>
+    <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">issue 3809</a>.
 <tr><td colspan=\"2\"><b>Buildings.DHC.ETS</b>
     </td>
 </tr>
@@ -101,6 +123,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Setpoints.PlantReset
+    </td>
+    <td valign=\"top\">Updated hold logic during staging after refactoring trim and respond block.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -117,6 +147,20 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueHold<br/>
+                       Buildings.Controls.OBC.CDL.Logical.Validation.TrueHold
+    </td>
+    <td valign=\"top\">The blocks have been moved to the <code>Obsolete</code> package.
+                       Users are encouraged to use <code>TrueFalseHold(falseHoldDuration=0)</code>
+                       instead.<br/>
+                       For Dymola, the conversion script will automatically
+                       update existing models.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
@@ -146,8 +190,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">#3604</a>.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Components.Controls.Validation.StatusEmulator
+    </td>
+    <td valign=\"top\">Refactored using a state graph.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3923\">#3923</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices

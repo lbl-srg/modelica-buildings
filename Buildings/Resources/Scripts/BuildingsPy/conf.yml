@@ -30,10 +30,6 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     time_out: 600
-- model_name: Buildings.DHC.ETS.Combined.Subsystems.Validation.HeatPumpDHWTank
-  openmodelica:
-    comment: Fails to translate due to CDL.Logical.Latch (nonlinear equations within when-equations)
-    translate: false
 - model_name: Buildings.DHC.ETS.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
@@ -318,6 +314,18 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
+- model_name: Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
+  openmodelica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
+- model_name: Buildings.Fluid.Movers.Validation.ComparePowerInput
+  openmodelica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
+- model_name: Buildings.Fluid.Movers.Validation.ComparePowerTotal
+  openmodelica:
+    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
+    translate: false
 - model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -342,6 +350,10 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+  openmodelica:
+    comment: Translation failed.
+    translate: false
 - model_name: Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit_translate.mos'']'' returned non-zero exit status 2.'
@@ -354,11 +366,27 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl
+- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerDualMode
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeadered
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeed
   openmodelica:
     comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl_translate.mos'']'' returned non-zero exit status 2.'
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
+  openmodelica:
+    comment: Translation failed.
+    translate: false
+- model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatRecoveryChiller
   openmodelica:
     comment: Translation failed.
     translate: false
@@ -370,15 +398,12 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
-    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
+  optimica:
+    comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
+    translate: false
   openmodelica:
     comment: Translation failed.
-    translate: false
-  optimica:
-    comment: See https://github.com/lbl-srg/modelica-buildings/issues/3759
     translate: false
 - model_name: Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly
   openmodelica:
