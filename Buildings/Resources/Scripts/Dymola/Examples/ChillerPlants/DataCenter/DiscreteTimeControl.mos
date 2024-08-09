@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl", startTime=13046400, stopTime=13651200, method="Cvode", tolerance=1e-6, resultFile="DataCenterDiscreteTimeControl");
+simulateModel("Buildings.Examples.ChillerPlants.DataCenter.DiscreteTimeControl", startTime=13046400, stopTime=13651200, method="Cvode", tolerance=1e-6, resultFile="DataCenterDiscreteTimeControl");
 createPlot(id=1, position={15, 15, 780, 797}, y={"TAirSup.T", "wseCon.TWetBul", "TCHWEntChi.T", "TCWLeaTow.T"}, range={13000000.0, 13700000.0, 0.0, 50.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC"});
 createPlot(id=1, position={15, 15, 780, 797}, y={"wseCon.y1", "chiCon.y"}, range={13000000.0, 13700000.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
 createPlot(id=1, position={15, 15, 780, 797}, y={"EHVAC.y"}, range={13000000.0, 13700000.0, -20000000000.0, 60000000000.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
