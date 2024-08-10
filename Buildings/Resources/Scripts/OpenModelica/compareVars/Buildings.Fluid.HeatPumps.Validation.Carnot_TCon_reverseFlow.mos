@@ -1,10 +1,9 @@
 compareVars :=
   {
-    "heaPum.sta_a1.T",
-    "heaPum.sta_b1.T",
-    "heaPum.sta_a2.T",
-    "heaPum.sta_b2.T",
-    "heaPum.TSet",
+    "senTConEnt.T",
+    "senTConLvg.T",
+    "senTEvaEnt.T",
+    "senTEvaLvg.T",
     "heaPum.QCon_flow",
     "heaPum.QEva_flow",
     "heaPum.P",
