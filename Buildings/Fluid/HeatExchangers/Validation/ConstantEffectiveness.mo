@@ -81,6 +81,26 @@ model ConstantEffectiveness
     offset=300000)
     "Signal for pressure boundary condition"
     annotation (Placement(transformation(extent={{40,62},{60,82}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_a1(
+    redeclare final package Medium = Medium1,
+    m_flow_nominal=hex.m1_flow_nominal,
+    tau=0) "Temperature at port_a1"
+    annotation (Placement(transformation(extent={{-30,36},{-10,56}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_b1(
+    redeclare final package Medium = Medium1,
+    m_flow_nominal=hex.m1_flow_nominal,
+    tau=0) "Temperature at port_b1"
+    annotation (Placement(transformation(extent={{40,2},{60,22}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_a2(
+    redeclare final package Medium = Medium2,
+    m_flow_nominal=hex.m2_flow_nominal,
+    tau=0) "Temperature at port_a2"
+    annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort T_b2(
+    redeclare final package Medium = Medium2,
+    m_flow_nominal=hex.m2_flow_nominal,
+    tau=0) "Temperature at port_b2"
+    annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
@@ -90,26 +110,28 @@ equation
   connect(TWat.y, sou_1.T_in)
     annotation (Line(points={{-79,50},{-70.5,50},{-62,50}},
                                                  color={0,0,127}));
-  connect(sou_1.ports[1], hex.port_a1) annotation (Line(
-      points={{-40,46},{0,46},{0,12},{6,12}},
-      color={0,127,255}));
-  connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
-      points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
-          -60}},
-      color={0,127,255}));
   connect(POut.y, sin_2.p_in) annotation (Line(
       points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
       color={0,0,127}));
-  connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
-      points={{26,12},{45,12},{45,12},{64,12}},
-      color={0,127,255}));
-  connect(sin_2.ports[1], hex.port_b2) annotation (Line(
-      points={{-38,6.66134e-16},{-27,6.66134e-16},{-27,1.22125e-15},{-16,
-          1.22125e-15},{-16,5.55112e-16},{6,5.55112e-16}},
-      color={0,127,255}));
   connect(trapezoid.y, sin_1.p_in) annotation (Line(
       points={{61,72},{94,72},{94,20},{86,20}},
       color={0,0,127}));
+  connect(sou_1.ports[1], T_a1.port_a)
+    annotation (Line(points={{-40,46},{-30,46}}, color={0,127,255}));
+  connect(T_a1.port_b, hex.port_a1) annotation (Line(points={{-10,46},{0,46},{0,
+          12},{6,12}}, color={0,127,255}));
+  connect(hex.port_b1, T_b1.port_a)
+    annotation (Line(points={{26,12},{40,12}}, color={0,127,255}));
+  connect(T_b1.port_b, sin_1.ports[1])
+    annotation (Line(points={{60,12},{64,12}}, color={0,127,255}));
+  connect(hex.port_a2, T_a2.port_b) annotation (Line(points={{26,5.55112e-16},{32,
+          5.55112e-16},{32,-20},{40,-20}}, color={0,127,255}));
+  connect(T_a2.port_a, sou_2.ports[1]) annotation (Line(points={{60,-20},{70,-20},
+          {70,-60},{60,-60}}, color={0,127,255}));
+  connect(T_b2.port_a, hex.port_b2)
+    annotation (Line(points={{-10,0},{6,0}}, color={0,127,255}));
+  connect(T_b2.port_b, sin_2.ports[1])
+    annotation (Line(points={{-30,0},{-38,0}}, color={0,127,255}));
   annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos"
         "Simulate and plot"),
@@ -122,6 +144,12 @@ for different inlet conditions.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2024, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>sta_?.T</code>
+in reference results. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
 <li>
 April 28, 2008, by Michael Wetter:<br/>
 First implementation.
