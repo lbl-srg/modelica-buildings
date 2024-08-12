@@ -226,8 +226,6 @@ model BuildingTimeSeriesAtETS
     "Optional pressure reducing valve"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
 equation
-  connect(Q_flow, Q_flow) annotation (Line(points={{110,80},{107,80},{107,80},{
-          110,80}}, color={0,0,127}));
   connect(IntEHea.y, EHea) annotation (Line(points={{81,50},{96,50},{96,50},{
           110,50}}, color={0,0,127}));
   connect(QHea.y[1], Q_flow) annotation (Line(points={{-59,80},{110,80}},
@@ -315,7 +313,7 @@ equation
         fillPattern=FillPattern.Solid),
       Text(
         extent={{-149,-114},{151,-154}},
-        textxColor={0,0,255},
+        textColor={0,0,255},
         textString="%name")}),
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -355,6 +353,10 @@ Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2024, by Michael Wetter:<br/>
+Removed connection to itself.
+</li>
 <li>
 September 15, 2023, by Kathryn Hinkelman:<br/>
 Added publication references.

@@ -41,6 +41,7 @@ model PumpCurveDerivatives
 
   Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false) "Pump for forcing a certain mass flow rate"
@@ -153,6 +154,13 @@ monotoneously increasing or decreasing relations between <code>dp</code>,
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 21, 2023, by Hongxiang Fu:<br/>
 Replaced the pump with <code>Nrpm</code> signal with one with <code>y</code>

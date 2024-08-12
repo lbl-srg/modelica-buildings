@@ -1,0 +1,27 @@
+simulateModel("Buildings.Templates.Plants.Controls.MinimumFlow.Validation.Setpoint",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1000.0,
+    resultFile="MinimumFlowSetpoint");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 500},
+    y={"u1Equ.y[1]", "u1Equ.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"setFloMin.ratFloMinEna[1].y", "setFloMin.ratFloMinEna[2].y", "setFloMin.maxRatFloMinEna.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"setFloMin.V_flow_min[1]", "setFloMin.V_flow_min[2]", "setFloMin.VPriSet_flow"},
+    autoscale=true,
+    grid=true
+);
