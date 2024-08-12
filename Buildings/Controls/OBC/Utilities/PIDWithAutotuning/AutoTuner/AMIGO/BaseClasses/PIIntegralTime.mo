@@ -36,19 +36,19 @@ protected
     annotation (Placement(transformation(extent={{0,-4},{20,16}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=12)
-    "Block that calculates products of a constant and the input"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
     final k=7)
-    "Block that calculates products of a constant and the input"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai3(
     final k=13)
-    "Block that calculates products of a constant and the input"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai4(
     final k=0.35)
-    "Block that calculates products of a constant and the input"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul1
     "Block that calculates the product of the two inputs"

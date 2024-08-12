@@ -6,6 +6,7 @@ model DirectActingPIWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+     u_s_start=0.8,
      yLow=0,
      deaBan=0.1,
      yRef=0.8,
