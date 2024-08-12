@@ -153,7 +153,7 @@ protected
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(message="*** Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
-    annotation (Placement(transformation(extent={{62,140},{82,160}})));
+    annotation (Placement(transformation(extent={{60,140},{80,160}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
     "Higher value for the relay output"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
@@ -187,9 +187,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{120,-72},{140,-52}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(message="*** Warning: An autotuning is ongoing and the new autotuning request is ignored.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
+    message="*** Warning: An autotuning is ongoing and the new tuning request is ignored.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
-    annotation (Placement(transformation(extent={{148,-72},{168,-52}})));
+    annotation (Placement(transformation(extent={{150,-72},{170,-52}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
     "True only when a new request is received"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
@@ -210,18 +211,19 @@ protected
     annotation (Placement(transformation(extent={{100,220},{120,240}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Change of the setpoint"
-    annotation (Placement(transformation(extent={{-38,220},{-18,240}})));
+    annotation (Placement(transformation(extent={{-40,220},{-20,240}})));
   Buildings.Controls.OBC.CDL.Reals.Abs abs2
     "Absolute value of the setpoint change"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre1(
-    final h=setHys)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
+    final t=setHys,
+    final h=0.5*setHys)
     "Check if the setpoint changes"
-    annotation (Placement(transformation(extent={{50,220},{70,240}})));
+    annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
     "In " + getInstanceName()
     + ": the setpoint must not change when an autotuning tuning is ongoing.")
-    "Warning message when the setpoint changes during the autotuning"
+    "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{140,220},{160,240}})));
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-40},{-60,-40},{-60,0},{-200,
@@ -253,9 +255,9 @@ equation
   connect(PIDPar.L, conProMod.L) annotation (Line(points={{78,24},{74,24},{74,66},
           {62,66}}, color={0,0,127}));
   connect(PIDPar.k, samk.u) annotation (Line(points={{102,37},{110,37},{110,96},
-          {-148,96},{-148,-20},{-102,-20}},color={0,0,127}));
+          {-154,96},{-154,-20},{-102,-20}},color={0,0,127}));
   connect(PIDPar.Ti, samTi.u) annotation (Line(points={{102,30},{112,30},{112,98},
-          {-150,98},{-150,-50},{-122,-50}},color={0,0,127}));
+          {-160,98},{-160,-50},{-122,-50}},color={0,0,127}));
   connect(PIPar.kp, conProMod.k) annotation (Line(points={{78,76},{70,76},{70,78},
           {62,78}}, color={0,0,127}));
   connect(PIPar.T, conProMod.T) annotation (Line(points={{78,70},{70,70},{70,74},
@@ -263,13 +265,13 @@ equation
   connect(PIPar.L, conProMod.L) annotation (Line(points={{78,64},{70,64},{70,66},
           {62,66}}, color={0,0,127}));
   connect(PIPar.k, samk.u) annotation (Line(points={{102,76},{110,76},{110,96},{
-          -148,96},{-148,-20},{-102,-20}}, color={0,0,127}));
+          -154,96},{-154,-20},{-102,-20}}, color={0,0,127}));
   connect(PIPar.Ti, samTi.u) annotation (Line(points={{102,64},{112,64},{112,98},
-          {-150,98},{-150,-50},{-122,-50}}, color={0,0,127}));
+          {-160,98},{-160,-50},{-122,-50}}, color={0,0,127}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,36},{44,
           36},{44,58}}, color={255,0,255}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{102,23},{114,23},{114,94},
-          {-146,94},{-146,-80},{-142,-80}}, color={0,0,127}));
+          {-148,94},{-148,-80},{-142,-80}}, color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{162,0},{200,0}}, color={0,0,127}));
   connect(u_m,con. u_m) annotation (Line(points={{-20,-120},{-20,-90},{-40,-90},
           {-40,-52}}, color={0,0,127}));
@@ -286,7 +288,7 @@ equation
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,34},{-6,34},{-6,-70},
           {60,-70},{60,-120}}, color={255,0,255}));
   connect(nand.y, assMes1.u)
-    annotation (Line(points={{142,-62},{146,-62}}, color={255,0,255}));
+    annotation (Line(points={{142,-62},{148,-62}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
     annotation (Line(points={{118,-70},{102,-70}}, color={255,0,255}));
   connect(edgReq.u, triTun)
@@ -313,7 +315,7 @@ equation
   connect(abs1.y, gre.u1)
     annotation (Line(points={{2,150},{18,150}}, color={0,0,127}));
   connect(gre.y, assMes2.u)
-    annotation (Line(points={{42,150},{60,150}}, color={255,0,255}));
+    annotation (Line(points={{42,150},{58,150}}, color={255,0,255}));
   connect(con4.y, gre.u2) annotation (Line(points={{2,120},{10,120},{10,142},{18,
           142}}, color={0,0,127}));
   connect(rel.y, yRel.u) annotation (Line(points={{-38,36},{-20,36},{-20,86},{20,
@@ -324,26 +326,23 @@ equation
           {138,8}}, color={0,0,127}));
   connect(rel.u_m, u_m) annotation (Line(points={{-50,18},{-50,-14},{-20,-14},{-20,
           -120}}, color={0,0,127}));
-  connect(rel.u_s, u_s) annotation (Line(points={{-62,30},{-160,30},{-160,0},{-200,
+  connect(rel.u_s, u_s) annotation (Line(points={{-62,30},{-170,30},{-170,0},{-200,
           0}}, color={0,0,127}));
   connect(sam_u_s.u, u_s) annotation (Line(points={{-102,230},{-170,230},{-170,0},
           {-200,0}}, color={0,0,127}));
-  connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-78,230},{-52,230},{-52,236},
-          {-40,236}}, color={0,0,127}));
-  connect(sub3.u2, u_s) annotation (Line(points={{-40,224},{-54,224},{-54,198},{
-          -116,198},{-116,230},{-170,230},{-170,0},{-200,0}}, color={0,0,127}));
+  connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-78,230},{-60,230},{-60,
+          236},{-42,236}},
+                      color={0,0,127}));
+  connect(sub3.u2, u_s) annotation (Line(points={{-42,224},{-60,224},{-60,210},{
+          -170,210},{-170,0},{-200,0}},                       color={0,0,127}));
   connect(sub3.y, abs2.u)
-    annotation (Line(points={{-16,230},{-2,230}}, color={0,0,127}));
-  connect(gre1.u1, abs2.y)
-    annotation (Line(points={{48,230},{22,230}}, color={0,0,127}));
-  connect(gre1.u2, con4.y) annotation (Line(points={{48,222},{26,222},{26,178},{
-          10,178},{10,120},{2,120}}, color={0,0,127}));
+    annotation (Line(points={{-18,230},{-2,230}}, color={0,0,127}));
   connect(nand1.y, assMes3.u)
     annotation (Line(points={{122,230},{138,230}}, color={255,0,255}));
-  connect(gre1.y, nand1.u1)
-    annotation (Line(points={{72,230},{98,230}}, color={255,0,255}));
-  connect(nand1.u2, tunStaDel.y) annotation (Line(points={{98,222},{86,222},{86,
-          182},{118,182},{118,-30},{102,-30}}, color={255,0,255}));
+  connect(greThr.y, nand1.u1)
+    annotation (Line(points={{62,230},{98,230}}, color={255,0,255}));
+  connect(nand1.u2, tunStaDel.y) annotation (Line(points={{98,222},{80,222},{80,
+          180},{120,180},{120,-30},{102,-30}}, color={255,0,255}));
   connect(conProMod.triEnd, resPro.triEnd)
     annotation (Line(points={{56,58},{56,32},{22,32}}, color={255,0,255}));
   connect(conProMod.tunSta, samk.trigger) annotation (Line(points={{62,62},{62,
@@ -354,6 +353,8 @@ equation
           {-130,6},{62,6},{62,62}}, color={255,0,255}));
   connect(sam_u_s.trigger, triTun) annotation (Line(points={{-90,242},{-90,252},
           {-74,252},{-74,-96},{60,-96},{60,-120}},   color={255,0,255}));
+  connect(abs2.y, greThr.u)
+    annotation (Line(points={{22,230},{38,230}}, color={0,0,127}));
 annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -395,8 +396,8 @@ at which point this block turns back to a PID controller but with tuned PID para
 </p>
 <p>
 <b>Note:</b> If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
-a request for performing autotuning will be ignored.
-In addition, the set point should be unchanged during the autotuning process.
+a new request for performing autotuning will be ignored.
+In addition, the set point should not be changed during the autotuning process.
 </p>
 <h4>Guidance for setting the parameters</h4>
 <p>

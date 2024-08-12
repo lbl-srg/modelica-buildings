@@ -29,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Max tMax
     "Maximum value of the length for the on and Off period "
     annotation (Placement(transformation(origin={-50,-10}, extent = {{-80, 60}, {-60, 80}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater greThr(final h=1e-6)
+  Buildings.Controls.OBC.CDL.Reals.Greater greThr
     "Check if either the length for the on period or the length for the off period are larger than 0"
     annotation (Placement(transformation(origin={-40,10}, extent = {{-40, 40}, {-20, 60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLen(
@@ -39,13 +39,13 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
     "Sample the minimum period when the minimum period is greater than 0"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater tInc(final h=1e-6)
+  Buildings.Controls.OBC.CDL.Reals.Greater tInc
     "Check if either the length for the on period or the length for the off period increases after they both become positive"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Add addtOntOff
     "Block that calculates the sum of the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-130,-20},{-110,0}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater tDec(final h=1e-6)
+  Buildings.Controls.OBC.CDL.Reals.Greater tDec
     "Check if either the length for the on period or the length for the off period decreases after they both become positive"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
@@ -63,7 +63,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Min tMin
    "Minimum value of the length for the on and Off period"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater greThr1(final h=1e-6)
+  Buildings.Controls.OBC.CDL.Reals.Greater greThr1
     "Check if both the length for the on period and the length for the off period are larger than 0"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub "Find the input difference"
