@@ -10,7 +10,7 @@ block SamplerWithResetThreshold
     annotation (Placement(transformation(extent={{-140,-10},{-100,30}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the output when trigger becomes true"
+    "Reset the output when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
@@ -32,8 +32,7 @@ protected
     annotation (Placement(transformation(origin={0,148}, extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or samTri "Sampling trigger"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater gre(
-    final h=0)
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if the input signal is larger than the threshold"
     annotation (Placement(transformation(origin={-8,-50}, extent={{-32,20},{-12,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi

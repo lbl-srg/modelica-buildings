@@ -90,7 +90,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonit
 <ul>
 <li>
 At <i>0.1</i>s, the length of the on period becomes <i>0.1</i>s,
-triggering the training period to start.
+triggering the tuning period to start.
 </li>
 <li>
 At <i>0.7</i>s, the length of the off period becomes <i>0.5</i>s.
