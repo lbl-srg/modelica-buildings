@@ -30,15 +30,15 @@ model HexElementSensibleFourPort
   Modelica.Blocks.Interfaces.RealOutput QpcmDom
     "heat flow into PCM from domestic circuit"
     annotation (Placement(transformation(
-        extent={{7,-7},{-7,7}},
+        extent={{-7,-7},{7,7}},
         rotation=0,
-        origin={-107,21})));
+        origin={107,27})));
   Modelica.Blocks.Interfaces.RealOutput QpcmPro
     "heat flow into PCM from process circuit"
     annotation (Placement(transformation(
-        extent={{7,7},{-7,-7}},
+        extent={{-7,7},{7,-7}},
         rotation=0,
-        origin={-107,-21})));
+        origin={107,-25})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor Qvol1
     annotation (Placement(transformation(extent={{-26,94},{-38,82}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor Qvol2
@@ -46,13 +46,13 @@ model HexElementSensibleFourPort
   Modelica.Blocks.Interfaces.RealOutput QvolDom "convective heat flow from domestic circuit"
     annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
-        rotation=90,
-        origin={-32,108})));
+        rotation=0,
+        origin={108,90})));
   Modelica.Blocks.Interfaces.RealOutput QvolPro "convective heat flow from process circuit"
     annotation (Placement(transformation(
         extent={{8,-8},{-8,8}},
-        rotation=90,
-        origin={-22,-108})));
+        rotation=180,
+        origin={108,-90})));
 
   Modelica.Thermal.HeatTransfer.Components.Convection conDom annotation (
       Placement(transformation(
@@ -66,9 +66,9 @@ model HexElementSensibleFourPort
         rotation=90,
         origin={-40,-72})));
   Modelica.Blocks.Interfaces.RealOutput Upcm "Value of Real output"
-    annotation (Placement(transformation(extent={{-110,0},{-126,16}})));
+    annotation (Placement(transformation(extent={{100,0},{116,16}})));
   Modelica.Blocks.Interfaces.RealOutput mpcm "Value of Real output"
-    annotation (Placement(transformation(extent={{-110,-16},{-126,0}})));
+    annotation (Placement(transformation(extent={{100,-16},{116,0}})));
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -88,15 +88,10 @@ model HexElementSensibleFourPort
 
 equation
 
-  connect(heaFloDom.Q_flow,QpcmDom)  annotation (Line(points={{-64,20.6},{-82,20.6},
-          {-82,21},{-107,21}}, color={0,0,127}));
   connect(vol1.heatPort, heaPor1) annotation (Line(points={{-10,60},{-20,60},{-20,
           88},{0,88},{0,100}}, color={191,0,0}));
-  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{18,-60},{20,
-          -60},{20,-90},{0,-90},{0,-100}}, color={191,0,0}));
-  connect(heaFloPro.Q_flow,QpcmPro)  annotation (Line(points={{-64,-16.6},{-64,-20},
-          {-80,-20},{-80,-21},{-107,-21}},
-                                      color={0,0,127}));
+  connect(vol2.heatPort, heaPor2) annotation (Line(points={{12,-60},{20,-60},{
+          20,-86},{0,-86},{0,-100}},       color={191,0,0}));
   connect(Qvol1.port_b, conDom.fluid)
     annotation (Line(points={{-38,88},{-40,88},{-40,82}}, color={191,0,0}));
   connect(Qvol1.port_a, heaPor1)
@@ -106,27 +101,34 @@ equation
   connect(Qvol2.port_a, vol2.heatPort) annotation (Line(points={{-16,-86},{20,
           -86},{20,-60},{12,-60}}, color={191,0,0}));
   connect(QvolDom, Qvol1.Q_flow)
-    annotation (Line(points={{-32,108},{-32,94.6}},
+    annotation (Line(points={{108,90},{-20,90},{-20,96},{-32,96},{-32,94.6}},
                                                   color={0,0,127}));
   connect(Qvol2.Q_flow,QvolPro)
-    annotation (Line(points={{-22,-92.6},{-22,-108}},
+    annotation (Line(points={{-22,-92.6},{-22,-94},{-12,-94},{-12,-90},{108,-90}},
                                                     color={0,0,127}));
   connect(tubeDom.port_b, conDom.solid)
     annotation (Line(points={{-40,58},{-40,62}}, color={191,0,0}));
   connect(tubePro.port_b,conPro. solid)
     annotation (Line(points={{-40,-58},{-40,-62}}, color={191,0,0}));
   connect(conPro.Gc,realExpressionPro. y) annotation (Line(points={{-30,-72},{
-          -22,-72},{-22,-10},{21,-10}}, color={0,0,127}));
+          -20,-72},{-20,-14},{10,-14},{10,-10},{21,-10}},
+                                        color={0,0,127}));
   connect(conDom.Gc, realExpressionDom.y) annotation (Line(points={{-30,72},{-22,
           72},{-22,20},{21,20}}, color={0,0,127}));
   connect(USum.y, Upcm)
-    annotation (Line(points={{-101,8},{-118,8}}, color={0,0,127}));
+    annotation (Line(points={{-97,8},{-100,8},{-100,18},{92,18},{92,8},{108,8}},
+                                                 color={0,0,127}));
   connect(mSum.y, mpcm)
-    annotation (Line(points={{-101,-8},{-118,-8}}, color={0,0,127}));
-  connect(USum_slPCMlib.y, Upcm) annotation (Line(points={{101,8},{108,8},{108,
-          20},{58,20},{58,14},{-104,14},{-104,8},{-118,8}}, color={0,0,127}));
-  connect(mSum_slPCMlib.y, mpcm) annotation (Line(points={{101,-8},{108,-8},{
-          108,-18},{-106,-18},{-106,-8},{-118,-8}}, color={0,0,127}));
+    annotation (Line(points={{-97,-8},{-100,-8},{-100,-18},{92,-18},{92,-8},{
+          108,-8}},                                color={0,0,127}));
+  connect(USum_slPCMlib.y, Upcm) annotation (Line(points={{81,8},{108,8}},
+                                                            color={0,0,127}));
+  connect(mSum_slPCMlib.y, mpcm) annotation (Line(points={{81,-8},{108,-8}},
+                                                    color={0,0,127}));
+  connect(heaFloPro.Q_flow, QpcmPro) annotation (Line(points={{-64,-16.6},{-64,
+          -32},{92,-32},{92,-25},{107,-25}}, color={0,0,127}));
+  connect(heaFloDom.Q_flow, QpcmDom) annotation (Line(points={{-64,20.6},{-64,
+          32},{92,32},{92,27},{107,27}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
