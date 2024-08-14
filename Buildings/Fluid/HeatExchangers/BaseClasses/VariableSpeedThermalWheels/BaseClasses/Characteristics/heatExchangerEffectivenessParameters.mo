@@ -1,17 +1,17 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
 record heatExchangerEffectivenessParameters
-  "Record for heat exchanger effectiveness correction vs. wheel speed ratio"
+  "Parameters for defining heat exchanger effectiveness at different wheel speed ratio"
   extends Modelica.Icons.Record;
   parameter Real uSpe[:](each min=0)
     "Wheel speed ratio";
   parameter Real epsCor[:](each max=1)
-    "Correction of the heat exchange effectiveness under a given speed ratio";
+    "Correction of the heat exchange effectiveness at a given speed ratio";
   annotation (Documentation(info="<html>
 <p>
 Data record that describes wheel speed ratio <code>uSpe</code> versus
 heat exchange effectiveness corrections <code>epsCor</code>, i.e., the ratio of the heat exchange effectiveness 
 to that when the <code>uSpe</code> is <i>1</i>.
-The wheel speed ratio <code>uSpe</code> must be increasing, 
+The elements of the vector <code>uSpe</code> should be in ascending order, 
 i.e.,<code>uSpe[i] &lt; uSpe[i+1]</code>.
 Both vectors, <code>uSpe</code> and <code>epsCor</code>
 must have the same size.

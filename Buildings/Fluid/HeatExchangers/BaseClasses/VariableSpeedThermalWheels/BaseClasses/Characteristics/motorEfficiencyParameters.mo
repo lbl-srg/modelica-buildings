@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
 record motorEfficiencyParameters
-  "Record for motor efficiency parameters vs. wheel speed ratio"
+  "Parameters for defining motor efficiency at different wheel speed ratio"
   extends Modelica.Icons.Record;
   parameter Real uSpe[:](each min=0)
     "Wheel speed ratio";

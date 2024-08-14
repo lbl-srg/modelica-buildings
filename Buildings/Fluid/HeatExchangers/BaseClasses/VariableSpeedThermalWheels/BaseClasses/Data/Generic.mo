@@ -55,22 +55,22 @@ The record contains four datasets:
 </p>
 <ul>
 <li>
-wheel speed ratio versus motor percent full-load
-efficiency,
+the motor efficiency versus wheel speed ratio,
 </li>
 <li>
-wheel speed ratio versus default motor percent full-load 
+the default motor percent full-load 
 efficiency (see <a href=
 \"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>),
+Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
+versus wheel speed ratio,
 </li>
 <li>
-wheel speed ratio versus sensible heat exchange effectiveness
-corrections,
+the sensible heat exchange effectiveness
+corrections versus wheel speed ratio,
 </li>
 <li>
-wheel speed ratio versus latent heat exchange effectiveness
-corrections.
+the latent heat exchange effectiveness
+corrections versus wheel speed ratio .
 </li>
 </ul>
 <p>

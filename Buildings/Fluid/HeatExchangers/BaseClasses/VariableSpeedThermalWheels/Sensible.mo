@@ -72,8 +72,13 @@ P = P_nominal * uSpe / eta,
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio, 
-and the <code>eta</code> is the motor percent full-load efficiency, i.e.,
-the ratio of the motor efficiency to that when the <code>uSpe</code> is <i>1</i>.
+and <code>eta</code> is the motor percent full-load efficiency, 
+which is calculated by
+<p align=\"center\" style=\"font-style:italic;\">
+eta = eff(uSpe=x) / eff(uSpe=1),
+</p>
+<p>
+where <code>eff(uSpe=x)</code> is the motor efficiency when the speed ratio is <code>x</code>.
 The <code>eta</code> is obtained based on the cubic hermite spline interpolation of
 the motor percent full-load efficiency dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.motorEfficiencyParameters\">
