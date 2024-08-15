@@ -126,7 +126,7 @@ model SimpleHouse
     m1_flow_nominal=mAir_flow_nominal,
     m2_flow_nominal=mAir_flow_nominal,
     eps=0.85) "Heat exchanger for heat recuperation"
-    annotation (Placement(transformation(extent={{-45,124},{-75,156}})));
+    annotation (Placement(transformation(extent={{-61,124},{-91,156}})));
   Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 20, uHigh=273.15 + 22)
     "Hysteresis controller for radiator"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
@@ -156,10 +156,20 @@ model SimpleHouse
     m_flow_nominal=mAir_flow_nominal,
     dp_nominal=0,
     redeclare package Medium = MediumAir) "Cooling for supply air"
-    annotation (Placement(transformation(extent={{30,140},{50,120}})));
+    annotation (Placement(transformation(extent={{48,140},{68,120}})));
   Modelica.Blocks.Sources.Constant TSupAirCoo(k=273.15 + 20)
     "Cooling setpoint for supply air"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanInl(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    tau=0) "Temperature at fan inlet"
+    annotation (Placement(transformation(extent={{-50,120},{-30,140}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanOut(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    tau=0) "Temperature at fan outlet"
+    annotation (Placement(transformation(extent={{6,120},{26,140}})));
 equation
   connect(conRes.port_a, zon.heatPort)
     annotation (Line(points={{110,30},{110,40},{160,40}},   color={191,0,0}));
@@ -171,7 +181,8 @@ equation
           1.77636e-15},{160,1.77636e-15}},
                          color={191,0,0}));
   connect(TOut.T, weaBus.TDryBul)
-    annotation (Line(points={{-82,0},{-130,0}},           color={0,0,127}));
+    annotation (Line(points={{-82,0},{-106,0},{-106,0.05},{-129.95,0.05}},
+                                                          color={0,0,127}));
   connect(TOut.port, walRes.port_a)
     annotation (Line(points={{-60,0},{60,0}},     color={191,0,0}));
   connect(heaWat.port_b, rad.port_a) annotation (Line(points={{80,-130},{120,-130}},
@@ -183,7 +194,7 @@ equation
   connect(senTemZonAir.port, zon.heatPort) annotation (Line(points={{120,180},{160,
           180},{160,40}},                      color={191,0,0}));
   connect(bouAir.ports[1], hexRec.port_b1) annotation (Line(points={{-100,139},{
-          -100,149.6},{-75,149.6}},
+          -100,162},{-91,162},{-91,149.6}},
                               color={0,127,255}));
   connect(rad.heatPortCon, zon.heatPort) annotation (Line(points={{128,-122.8},{
           128,40},{160,40}},                    color={191,0,0}));
@@ -199,14 +210,12 @@ equation
           118}},           color={0,0,127}));
   connect(gaiWin.y, win.Q_flow) annotation (Line(points={{41,-40},{60,-40}},
                            color={0,0,127}));
-  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-130,-40},
-          {-130,0}},             color={0,0,127}));
+  connect(gaiWin.u, weaBus.HGloHor) annotation (Line(points={{18,-40},{-129.95,-40},
+          {-129.95,0.05}},       color={0,0,127}));
   connect(booToInt.u, not1.y) annotation (Line(points={{-2,-150},{-11,-150},{-11,
           -110},{-19,-110}}, color={255,0,255}));
   connect(booToInt.y, pum.stage) annotation (Line(points={{21,-150},{130,-150},{
           130,-168}},       color={255,127,0}));
-  connect(hexRec.port_b2, fan.port_a) annotation (Line(points={{-45,130.4},{-30,
-          130.4},{-30,130},{-20,130}}, color={0,127,255}));
   connect(vavDam.port_b, zon.ports[1])
     annotation (Line(points={{120,130},{140,130},{140,50},{169,50}},
                                                           color={0,127,255}));
@@ -219,24 +228,32 @@ equation
   connect(TSetRoo.y,conDam. u_m) annotation (Line(points={{61,100},{70,100},{70,
           82},{90,82},{90,88}},
                          color={0,0,127}));
-  connect(fan.port_b, cooAir.port_a)
-    annotation (Line(points={{0,130},{30,130}},   color={0,127,255}));
   connect(cooAir.port_b, vavDam.port_a)
-    annotation (Line(points={{50,130},{100,130}},         color={0,127,255}));
-  connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{21,100},{24,100},
-          {24,122},{28,122}},color={0,0,127}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{
-          -130,144},{-130,0}},  color={0,0,127}));
+    annotation (Line(points={{68,130},{100,130}},         color={0,127,255}));
+  connect(TSupAirCoo.y, cooAir.TSet) annotation (Line(points={{21,100},{34,100},
+          {34,122},{46,122}},color={0,0,127}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-129.95,
+          144},{-129.95,0.05}}, color={0,0,127}));
   connect(bouAir.ports[2], hexRec.port_a2) annotation (Line(points={{-100,141},{
-          -100,130.4},{-75,130.4}}, color={0,127,255}));
-  connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-45,149.6},{171,
-          149.6},{171,50}}, color={0,127,255}));
+          -100,118},{-91,118},{-91,130.4}},
+                                    color={0,127,255}));
+  connect(hexRec.port_a1, zon.ports[2]) annotation (Line(points={{-61,149.6},{138,
+          149.6},{138,50},{171,50}},
+                            color={0,127,255}));
   connect(conRes.port_b, walCap.port) annotation (Line(points={{110,10},{110,0},
           {122,0},{122,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
   connect(win.port, walCap.port) annotation (Line(points={{80,-40},{110,-40},{110,
           0},{132,0},{132,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{132,-122.8},{132,
           1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
+  connect(hexRec.port_b2, TFanInl.port_a) annotation (Line(points={{-61,130.4},{
+          -60,130},{-50,130}}, color={0,127,255}));
+  connect(TFanInl.port_b, fan.port_a)
+    annotation (Line(points={{-30,130},{-20,130}}, color={0,127,255}));
+  connect(fan.port_b, TFanOut.port_a)
+    annotation (Line(points={{0,130},{6,130}}, color={0,127,255}));
+  connect(TFanOut.port_b, cooAir.port_a)
+    annotation (Line(points={{26,130},{48,130}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}}), graphics={
         Rectangle(
@@ -286,6 +303,12 @@ equation
     experiment(Tolerance=1e-06, StopTime=3.1536e+07),
     Documentation(revisions="<html>
 <ul>
+<li>
+August 5, 2024, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>sta_*.T</code>
+in reference results. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
 <li>
 September 15, 2023, by Jelger Jansen:<br/>
 Move the example model to <a href=\"modelica://Buildings.Examples\">Buildings.Examples</a>, 

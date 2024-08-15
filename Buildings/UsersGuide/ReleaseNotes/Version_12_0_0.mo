@@ -113,6 +113,33 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Examples.SimpleHouse<br/>
+                       Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6
+    </td>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>sta_*.T</code> in reference results.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Chillers.Validation.Carnot_TEva_reverseFlow<br/>
+                       Buildings.Fluid.FixedResistances.Validation.LosslessPipe<br/>
+                       Buildings.Fluid.HeatExchangers.Validation.ConstantEffectiveness<br/>
+                       Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2<br/>
+                       Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow<br/>
+                       Buildings.Fluid.Interfaces.Examples.Humidifier_u<br/>
+                       Buildings.Fluid.Interfaces.Examples.BaseClasses.PrescribedOutletState
+    </td>
+    <td valign=\"top\">Added two-port temperature sensors to replace <code>sta_*.T</code> in reference results.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
