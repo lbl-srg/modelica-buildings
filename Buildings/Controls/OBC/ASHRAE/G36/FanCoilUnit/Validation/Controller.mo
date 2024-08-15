@@ -151,6 +151,11 @@ protected
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win1(
+    final k=false)
+    "Negative window status"
+    annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
+
 equation
   connect(TZon.y,conFCU. TZon) annotation (Line(points={{-158,80},{-20,80},{-20,
           101.5},{18,101.5}}, color={0,0,127}));
@@ -265,7 +270,7 @@ equation
           {70,70},{10,70},{10,83.5},{18,83.5}}, color={255,0,255}));
   connect(nOcc.y, conFCU3.nOcc) annotation (Line(points={{-138,0},{-10,0},{-10,
           -143.5},{18,-143.5}}, color={255,127,0}));
-  connect(win.y, conFCU3.u1Win) annotation (Line(points={{-158,-142},{0,-142},{
+  connect(win1.y, conFCU3.u1Win) annotation (Line(points={{-158,-170},{0,-170},{
           0,-149.5},{18,-149.5}}, color={255,0,255}));
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Validation/Controller.mos"
