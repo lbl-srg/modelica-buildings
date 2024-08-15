@@ -296,8 +296,9 @@ protected
     "Falling edge to indicate the moment of disable"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(
-    final duration=holdPeriod)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final trueHoldDuration=holdPeriod,
+    final falseHoldDuration=0)
     "Holds a true signal for a period of time right after disable"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 

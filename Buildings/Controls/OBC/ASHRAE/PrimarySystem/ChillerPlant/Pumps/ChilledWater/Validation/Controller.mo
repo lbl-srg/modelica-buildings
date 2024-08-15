@@ -82,6 +82,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[3](
     trueHoldDuration=fill(5, 3)) "Chilled water pump status"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[3] "Break loop"
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
@@ -110,14 +112,11 @@ equation
     annotation (Line(points={{-38,-90},{52,-90},{52,-89},{78,-89}},
       color={0,0,127}));
   connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{
-          20,79},{78,79}},
-                        color={255,0,255}));
+          20,79},{78,79}}, color={255,0,255}));
   connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
-          -71},{78,-71}},
-                     color={255,0,255}));
+          -71},{78,-71}}, color={255,0,255}));
   connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{
-          24,10},{24,75},{78,75}},
-                                color={255,0,255}));
+          24,10},{24,75},{78,75}}, color={255,0,255}));
   connect(leaChiEna.y, dedLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
           10},{24,-75},{78,-75}}, color={255,0,255}));
   connect(leaChiEna.y, leaChiProOn.u) annotation (Line(points={{-38,10},{-30,10},
@@ -125,8 +124,7 @@ equation
   connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},
           {28,-20},{28,73},{78,73}},color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
-          28,-20},{28,-77},{78,-77}},
-                                   color={255,0,255}));
+          28,-20},{28,-77},{78,-77}}, color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
           {28,-20},{28,71},{78,71}}, color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
@@ -147,10 +145,12 @@ equation
           {56,-130},{56,-91},{78,-91}}, color={0,0,127}));
   connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
           {40,140},{40,157},{78,157}},color={0,0,127}));
-  connect(heaNoLoc.yChiWatPum, truFalHol.u) annotation (Line(points={{102,160},
-          {120,160},{120,100},{-20,100},{-20,120},{-2,120}}, color={255,0,255}));
   connect(truFalHol.y, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},{
           44,120},{44,167},{78,167}}, color={255,0,255}));
+  connect(heaNoLoc.yChiWatPum, pre.u) annotation (Line(points={{102,160},{120,160},
+          {120,140},{70,140},{70,120},{78,120}}, color={255,0,255}));
+  connect(pre.y, truFalHol.u) annotation (Line(points={{102,120},{110,120},{110,
+          100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Validation/Controller.mos"
