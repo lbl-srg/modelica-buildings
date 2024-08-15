@@ -70,7 +70,7 @@ model Controller
     final heaSpe_min=0.2,
     final cooSpe_min=0.2,
     final have_locAdj=false)
-    "Validate the cooling case for a system with a window sensor but no occupancy sensor"
+    "Validate the cooling case for a system with both a window sensor and an occupancy sensor"
     annotation (Placement(transformation(extent={{20,-154},{60,-94}})));
 
 protected
