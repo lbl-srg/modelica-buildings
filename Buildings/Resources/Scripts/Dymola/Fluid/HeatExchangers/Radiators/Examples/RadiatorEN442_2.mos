@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2", tolerance=1e-6, stopTime=10800, method="CVode", resultFile="RadiatorEN442_2");
 createPlot(id=2,
  position={19, 4, 739, 413},
- y={"senTemRad1Inl.T", "senTemRad1Out.T", "rad1.vol[3].T", "senTemRad2Inl.T", "senTemRad2Out.T", "rad2.vol[3].T", "sou.T"},
+ y={"senTemRad1In.T", "senTemRad1Out.T", "rad1.vol[3].T", "senTemRad2In.T", "senTemRad2Out.T", "rad2.vol[3].T", "sou.T"},
  range={0.0, 12000.0, 15.0, 45.0},
  grid=true,
  subPlot=101,
