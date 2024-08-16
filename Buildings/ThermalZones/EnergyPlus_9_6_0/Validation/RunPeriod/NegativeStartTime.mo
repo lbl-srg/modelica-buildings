@@ -38,7 +38,7 @@ from EnergyPlus.
 May 2, 2022, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1938\\\">#1938</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.
 </li>
 </ul>
 </html>"));
