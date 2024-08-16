@@ -1,10 +1,10 @@
 compareVars :=
   {
-    "rad1.sta_a.T",
-    "rad1.sta_b.T",
+    "senTemRad1Inl.T",
+    "senTemRad1Out.T",
     "rad1.vol[3].T",
-    "rad2.sta_a.T",
-    "rad2.sta_b.T",
+    "senTemRad2Inl.T",
+    "senTemRad2Out.T",
     "rad2.vol[3].T",
     "sou.T",
     "rad1.Q_flow",

@@ -2,4 +2,4 @@ simulateModel("Buildings.Examples.Tutorial.SimpleHouse.SimpleHouse6", stopTime=1
 createPlot(id=1,position={0, 0, 792, 1247}, y={"zon.T"}, range={0.0, 1e+06, 20, 26}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 792, 413}, y={"heaWat.u"}, range={0.0, 1e+06, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 792, 413}, y={"vavDam.y"}, range={0.0, 1e+06, -0.1, 1.1}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=2, position={818, 10, 662, 377}, y={"fan.sta_a.T", "fan.sta_b.T"}, range={0.0, 380.0, 18.0, 22.5}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={818, 10, 662, 377}, y={"TFanInl.T", "TFanOut.T"}, range={0.0, 380.0, 18.0, 22.5}, grid=true, colors={{28,108,200}, {238,46,47}});

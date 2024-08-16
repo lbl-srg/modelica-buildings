@@ -22,6 +22,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        operation within specified envelope, antifreeze protection and minimum flow rate.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.CHPs.OrganicRankine
+    </td>
+    <td valign=\"top\">Package of an organic Rankine cycle,
+                       including working fluid data records.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">issue 3433</a>.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
