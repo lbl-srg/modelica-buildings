@@ -140,6 +140,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0
+    </td>
+    <td valign=\"top\">Updated EnergyPlus binaries to support simulations that start with a negative start time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
