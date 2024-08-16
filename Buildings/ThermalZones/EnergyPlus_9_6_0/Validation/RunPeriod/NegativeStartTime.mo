@@ -20,8 +20,7 @@ model NegativeStartTime "Validation model for negative start time"
     experiment(
       StartTime=-172800,
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>
