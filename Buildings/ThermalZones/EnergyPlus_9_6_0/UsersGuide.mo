@@ -507,13 +507,6 @@ of the current EnergyPlus time step.<br/>
 This will be addressed through
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
 </p>
-<h5>Simulation must not start at a negative time</h5>
-<p>
-If a simulation starts at a time smaller than <i>0</i>, then an error will be issued and
-the simulation won't start.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
-</p>
 </html>"));
   end KnownIssues;
 
