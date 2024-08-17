@@ -1,6 +1,6 @@
 compareVars :=
   {
     "res.dp",
-    "senTemInl.T",
+    "senTemIn.T",
     "senTemOut.T"
   };
