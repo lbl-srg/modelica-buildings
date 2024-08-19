@@ -110,7 +110,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     T=293.15,
     nPorts=1) "Flow source"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort THeaHigPowInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort THeaHigPowIn(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the inlet of heaHigPow"
@@ -120,7 +120,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the outlet of heaHigPow"
     annotation (Placement(transformation(extent={{20,76},{40,96}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCooLimPowInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCooLimPowIn(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the inlet of cooLimPow"
@@ -130,7 +130,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the outlet of cooLimPow"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort THeaCooUnlInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort THeaCooUnlIn(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the inlet of heaCooUnl"
@@ -140,7 +140,7 @@ partial model PrescribedOutletState "Test model for prescribed outlet state"
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the outlet of heaCooUnl"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSteStaInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSteStaIn(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final tau=0) "Temperature sensor at the inlet of steSta"
@@ -163,33 +163,33 @@ equation
       color={0,0,127}));
   connect(m_flow.y, sou4.m_flow_in) annotation (Line(points={{-109,8},{-100,8},
           {-100,-82},{-92,-82}},color={0,0,127}));
-  connect(sou1.ports[1], THeaHigPowInl.port_a)
+  connect(sou1.ports[1], THeaHigPowIn.port_a)
     annotation (Line(points={{-70,86},{-60,86}}, color={0,127,255}));
-  connect(THeaHigPowInl.port_b, heaHigPow.port_a)
+  connect(THeaHigPowIn.port_b, heaHigPow.port_a)
     annotation (Line(points={{-40,86},{-10,86}}, color={0,127,255}));
   connect(heaHigPow.port_b, THeaHigPowOut.port_a)
     annotation (Line(points={{10,86},{20,86}}, color={0,127,255}));
   connect(THeaHigPowOut.port_b, sin.ports[1]) annotation (Line(points={{40,86},{
           50,86},{50,1.5},{90,1.5}}, color={0,127,255}));
-  connect(sou2.ports[1], TCooLimPowInl.port_a)
+  connect(sou2.ports[1], TCooLimPowIn.port_a)
     annotation (Line(points={{-70,0},{-60,0}}, color={0,127,255}));
-  connect(TCooLimPowInl.port_b, cooLimPow.port_a)
+  connect(TCooLimPowIn.port_b, cooLimPow.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(cooLimPow.port_b, TCooLimPowOut.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(TCooLimPowOut.port_b, sin.ports[2]) annotation (Line(points={{40,0},{52,
           0},{52,0.5},{90,0.5}}, color={0,127,255}));
-  connect(sou3.ports[1], THeaCooUnlInl.port_a)
+  connect(sou3.ports[1], THeaCooUnlIn.port_a)
     annotation (Line(points={{-70,-60},{-60,-60}}, color={0,127,255}));
-  connect(THeaCooUnlInl.port_b, heaCooUnl.port_a)
+  connect(THeaCooUnlIn.port_b, heaCooUnl.port_a)
     annotation (Line(points={{-40,-60},{-10,-60}}, color={0,127,255}));
   connect(heaCooUnl.port_b, THeaCooUnlOut.port_a)
     annotation (Line(points={{10,-60},{20,-60}}, color={0,127,255}));
   connect(THeaCooUnlOut.port_b, sin.ports[3]) annotation (Line(points={{40,-60},
           {50,-60},{50,-0.5},{90,-0.5}}, color={0,127,255}));
-  connect(sou4.ports[1], TSteStaInl.port_a)
+  connect(sou4.ports[1], TSteStaIn.port_a)
     annotation (Line(points={{-70,-90},{-60,-90}}, color={0,127,255}));
-  connect(TSteStaInl.port_b, steSta.port_a)
+  connect(TSteStaIn.port_b, steSta.port_a)
     annotation (Line(points={{-40,-90},{-10,-90}}, color={0,127,255}));
   connect(steSta.port_b, TSteStaOut.port_a)
     annotation (Line(points={{10,-90},{20,-90}}, color={0,127,255}));

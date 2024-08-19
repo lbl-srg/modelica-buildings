@@ -3,6 +3,6 @@ compareVars :=
     "zon.T",
     "heaWat.u",
     "vavDam.y",
-    "TFanInl.T",
+    "TFanIn.T",
     "TFanOut.T"
   };
