@@ -66,7 +66,7 @@ model RadiatorEN442_2 "Test model for radiator"
     annotation (Placement(transformation(extent={{-32,-24},{-20,-12}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TBCRad1(T=TRoo)
     annotation (Placement(transformation(extent={{-32,48},{-20,60}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRad1Inl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRad1In(
     redeclare final package Medium = Medium,
     m_flow_nominal=rad1.m_flow_nominal,
     tau=0) "Temperature sensor at inlet of radiator 1"
@@ -76,7 +76,7 @@ model RadiatorEN442_2 "Test model for radiator"
     m_flow_nominal=rad1.m_flow_nominal,
     tau=0) "Temperature sensor at outlet of radiator 1"
     annotation (Placement(transformation(extent={{20,-2},{40,18}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRad2Inl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemRad2In(
     redeclare final package Medium = Medium,
     m_flow_nominal=rad2.m_flow_nominal,
     tau=0) "Temperature sensor at inlet of radiator 2"
@@ -108,17 +108,17 @@ equation
   connect(TBCCon1.port, rad1.heatPortCon) annotation (Line(
       points={{-20,34},{-2,34},{-2,15.2}},
       color={191,0,0}));
-  connect(sou.ports[1], senTemRad1Inl.port_a) annotation (Line(points={{-60,-51},
+  connect(sou.ports[1], senTemRad1In.port_a) annotation (Line(points={{-60,-51},
           {-56,-51},{-56,-50},{-50,-50},{-50,8},{-40,8}}, color={0,127,255}));
-  connect(senTemRad1Inl.port_b, rad1.port_a)
+  connect(senTemRad1In.port_b, rad1.port_a)
     annotation (Line(points={{-20,8},{-10,8}}, color={0,127,255}));
   connect(rad1.port_b, senTemRad1Out.port_a)
     annotation (Line(points={{10,8},{20,8}}, color={0,127,255}));
   connect(senTemRad1Out.port_b, res1.port_a)
     annotation (Line(points={{40,8},{50,8}}, color={0,127,255}));
-  connect(sou.ports[2], senTemRad2Inl.port_a) annotation (Line(points={{-60,-49},
+  connect(sou.ports[2], senTemRad2In.port_a) annotation (Line(points={{-60,-49},
           {-60,-50},{-50,-50},{-50,-60},{-40,-60}}, color={0,127,255}));
-  connect(senTemRad2Inl.port_b, rad2.port_a)
+  connect(senTemRad2In.port_b, rad2.port_a)
     annotation (Line(points={{-20,-60},{-10,-60}}, color={0,127,255}));
   connect(rad2.port_b, senTemRad2Out.port_a)
     annotation (Line(points={{10,-60},{20,-60}}, color={0,127,255}));

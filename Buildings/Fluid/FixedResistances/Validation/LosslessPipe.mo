@@ -35,7 +35,7 @@ model LosslessPipe "Validation model for lossless pipe"
     "Fixed resistance"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
     redeclare final package Medium = Medium,
     m_flow_nominal=res.m_flow_nominal,
     tau=0) "Temperature sensor at the inlet"
@@ -48,9 +48,9 @@ model LosslessPipe "Validation model for lossless pipe"
 equation
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-71,8},{-52,8},{-52,8}},   color={0,0,127}));
-  connect(sou.ports[1], senTemInl.port_a)
+  connect(sou.ports[1], senTemIn.port_a)
     annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
-  connect(senTemInl.port_b, res.port_a)
+  connect(senTemIn.port_b, res.port_a)
     annotation (Line(points={{0,0},{10,0}}, color={0,127,255}));
   connect(res.port_b, senTemOut.port_a)
     annotation (Line(points={{30,0},{40,0}}, color={0,127,255}));

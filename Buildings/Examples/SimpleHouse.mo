@@ -160,7 +160,7 @@ model SimpleHouse
   Modelica.Blocks.Sources.Constant TSupAirCoo(k=273.15 + 20)
     "Cooling setpoint for supply air"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TFanInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanIn(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAir_flow_nominal,
     tau=0) "Temperature at fan inlet"
@@ -246,9 +246,9 @@ equation
           0},{132,0},{132,1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
   connect(rad.heatPortRad, walCap.port) annotation (Line(points={{132,-122.8},{132,
           1.77636e-15},{160,1.77636e-15}}, color={191,0,0}));
-  connect(hexRec.port_b2, TFanInl.port_a) annotation (Line(points={{-61,130.4},{
+  connect(hexRec.port_b2, TFanIn.port_a) annotation (Line(points={{-61,130.4},{
           -60,130},{-50,130}}, color={0,127,255}));
-  connect(TFanInl.port_b, fan.port_a)
+  connect(TFanIn.port_b, fan.port_a)
     annotation (Line(points={{-30,130},{-20,130}}, color={0,127,255}));
   connect(fan.port_b, TFanOut.port_a)
     annotation (Line(points={{0,130},{6,130}}, color={0,127,255}));

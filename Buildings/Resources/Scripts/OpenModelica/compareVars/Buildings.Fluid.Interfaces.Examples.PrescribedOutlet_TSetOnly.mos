@@ -1,12 +1,12 @@
 compareVars :=
   {
-    "THeaHigPowInl.T",
+    "THeaHigPowIn.T",
     "THeaHigPowOut.T",
-    "TCooLimPowInl.T",
+    "TCooLimPowIn.T",
     "TCooLimPowOut.T",
-    "THeaCooUnlInl.T",
+    "THeaCooUnlIn.T",
     "THeaCooUnlOut.T",
-    "TSteStaInl.T",
+    "TSteStaIn.T",
     "TSteStaOut.T",
     "heaHigPow.Q_flow",
     "cooLimPow.Q_flow",

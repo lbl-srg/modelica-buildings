@@ -52,7 +52,7 @@ model SimpleHouse6 "Free cooling model"
   Modelica.Blocks.Math.BooleanToReal booRea3(realTrue=dpAir_nominal)
     "Boolean to real"
     annotation (Placement(transformation(extent={{30,80},{10,100}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TFanInl(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanIn(
     redeclare final package Medium = MediumAir,
     final m_flow_nominal=mAir_flow_nominal,
     tau=0) "Temperature at fan inlet"
@@ -86,9 +86,9 @@ equation
     annotation (Line(points={{9,90},{0,90},{0,118}}, color={0,0,127}));
   connect(booRea3.u, hysAir.y)
     annotation (Line(points={{32,90},{50,90},{50,99}}, color={255,0,255}));
-  connect(hexRec.port_b2, TFanInl.port_a) annotation (Line(points={{-55,130.4},{
+  connect(hexRec.port_b2, TFanIn.port_a) annotation (Line(points={{-55,130.4},{
           -54,130},{-40,130}}, color={0,127,255}));
-  connect(TFanInl.port_b, fan.port_a)
+  connect(TFanIn.port_b, fan.port_a)
     annotation (Line(points={{-20,130},{-10,130}}, color={0,127,255}));
   connect(vavDam.port_a, TFanOut.port_b)
     annotation (Line(points={{100,130},{40,130}}, color={0,127,255}));

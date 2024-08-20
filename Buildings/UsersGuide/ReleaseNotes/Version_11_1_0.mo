@@ -70,6 +70,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.UnitDelay
+    </td>
+    <td valign=\"top\">Delayed the input.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">issue 3953</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
     </td>
     <td valign=\"top\">Added an output variable with the indices of the sorted elements.<br/>
