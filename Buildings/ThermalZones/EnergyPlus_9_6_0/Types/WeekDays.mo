@@ -1,16 +1,17 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0.Types;
 type WeekDays = enumeration(
-    Monday "Monday",
-    Tuesday "Tuesday",
-    Wednesday "Wednesday",
-    Thursday "Thursday",
-    Friday "Friday",
-    Saturday "Saturday",
-    Sunday "Sunday")
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday)
   "Enumeration for the day of the week"
   annotation (Documentation(info="<html>
 <p>
-Enumeration for the day of the week that is sent to EnergyPlus to configure the first day of the EnergyPlus run period.
+Enumeration for the day of the week that is sent to EnergyPlus to configure
+the first day of the EnergyPlus run period.
 The possible values are
 <code>Monday</code>,
 <code>Tuesday</code>,
