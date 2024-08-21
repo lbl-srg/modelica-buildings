@@ -27,14 +27,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-c10e8c6d7e-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-c10e8c6d7e-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-c10e8c6d7e-win64.zip\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-c10e8c6d7e-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -51,9 +51,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
-tar xzf Spawn-light-0.3.0-d6204d26f6-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.3.0-d6204d26f6-Linux/bin
+wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-c10e8c6d7e-Linux.tar.gz;
+tar xzf Spawn-light-0.5.0-c10e8c6d7e-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.5.0-c10e8c6d7e-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -69,10 +69,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.3.0-d6204d26f6-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.5.0-c10e8c6d7e-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.3.0-d6204d26f6-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.5.0-c10e8c6d7e-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
@@ -85,17 +85,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.3.0-d6204d26f6[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.5.0-c10e8c6d7e[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/linux64/bin/spawn-0.3.0-d6204d26f6
+Buildings[ x.y.z]/Resources/bin/spawn-0.5.0-c10e8c6d7e/linux64/bin/spawn-0.5.0-c10e8c6d7e
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.3.0-d6204d26f6/win64/bin/spawn-0.3.0-d6204d26f6.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.5.0-c10e8c6d7e/win64/bin/spawn-0.5.0-c10e8c6d7e.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -103,11 +103,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+<code>spawn-0.5.0-c10e8c6d7e[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.3.0-d6204d26f6[.exe]</code>.
+<code>spawn-0.5.0-c10e8c6d7e[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -249,22 +249,28 @@ temperature, and based on these values, actuates the window shading control
 using an EMS actuator.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-illustrates how to couple a radiant slab for heating in a configuration in which the
-bottom of the slab is connected to a ground heat transfer model in Modelica.
-</li>
-<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
 and
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
-are similar to the previous model, but they add a radiant slab for cooling which interfaces
+  illustrate how to couple a radiant slab for heating and cooling which interfaces
 two surfaces in EnergyPlus: The floor that connects the slab to the zone above, and the ceiling
 that connects the slab to the zone below.
 In the first model, cooling is controlled based on the surface temperature, and in the second model, it is controlled
 based on the room temperature.
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+illustrates how to couple a radiant slab for heating in a configuration in which the
+bottom of the slab is connected to a ground heat transfer model in Modelica.
+Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
+</li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Radiator</a>
+shows how to couple a radiator to a thermal zone.
 </li>
 </ol>
 </html>"));
@@ -323,6 +329,10 @@ method can be used.
 <li>
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
+</li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
 </li>
 </ul>
 </html>"));
@@ -470,21 +480,14 @@ in the same way as a conventional EnergyPlus simulation.
 </li>
 <li>
 <p>
-The first day of the simulation is repeated until the minimum and maximum air temperatures
-during the warmup day remain nearly the same between two successive iterations.
+The first day of the simulation is repeated, but Spawn uses a different criteria for stopping
+the iteration compared to a conventional EnergyPlus simulation. In EnergyPlus, the first day is repeated
+until the zone air temperature reaches a periodic steady state as indicated by the minimum and maximum temperatures
+for the warmup day stablizing. In Spawn, the exit criteria is similarly based on reaching a periodic steady state,
+however Spawn exits warmup when the surface temperatures stabilize instead of the air temperature.
 </p>
 </li>
 </ol>
-<p>
-The Spawn warmup procedure is still invoked even if there are no unconnected zones defined in the model.
-However, in this case the warmup convergence criteria will be met after only two iterations of the warmup day
-because all zone temperature and humidity values are fixed to the initial values defined in Modelica.
-It is possible for startup transients to still exist after Spawn warmup due thermal mass
-in the wall materials not being fully exposed to the surface boundary conditions
-defined by the outdoor environment and the initial zone air conditions.
-A future enhancement may define a new warmup convergence criteria that takes into account
-the internal wall temperatures.
-</p>
 </html>"));
   end EnergyPlusWarmUp;
 
@@ -496,19 +499,6 @@ the internal wall temperatures.
       Documentation(
         info="<html>
 <h4>Known issues</h4>
-<h5>EnergyPlus warnings</h5>
-<p>
-EnergyPlus may issue a warning such as
-</p>
-<pre>
-Calculated Relative Humidity out of range (PsyRhFnTdbWPb)
-</pre>
-<p>
-Such warnings can be ignored. The humidity balance of EnergyPlus is not used
-because Modelica computes the humidity balance.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2220\">issue 2220</a>.
-</p>
 <h5>Signals to time schedules and actuators</h5>
 <p>
 If Modelica overrides a time schedule or an actuator at a time instant that does not
@@ -516,13 +506,6 @@ coincide with an EnergyPlus time step, the change in value may be ignored for th
 of the current EnergyPlus time step.<br/>
 This will be addressed through
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
-</p>
-<h5>Simulation must not start at a negative time</h5>
-<p>
-If a simulation starts at a time smaller than <i>0</i>, then an error will be issued and
-the simulation won't start.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
 </p>
 </html>"));
   end KnownIssues;
@@ -591,6 +574,12 @@ for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>
 <ul>
+<li>
+Michael Wetter, Kyle Benne, Hubertus Tummescheit and Christian Winther.<br/>
+<a href=\"https://doi.org/10.1080/19401493.2023.2266414\">
+Spawn: coupling Modelica Buildings Library and EnergyPlus to enable new energy system and control applications.</a><br/>
+Journal of Building Performance Simulation. P. 1-19. 2023.
+</li>
 <li>
 Michael Wetter, Kyle Benne, Antoine Gautier, Thierry S. Nouidui,
 Agnes Ramle, Amir Roth, Hubertus Tummescheit, Stuart Mentzer and Christian Winther.<br/>

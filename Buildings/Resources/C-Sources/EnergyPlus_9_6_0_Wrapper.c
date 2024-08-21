@@ -139,14 +139,13 @@ void getParameters_Modelica_EnergyPlus_9_6_0(
 
 void exchange_Modelica_EnergyPlus_9_6_0(
   void* object,
-  int initialCall,
   const double* u,
   double dummy,
   double* y){
 
     exchange_Spawn_EnergyPlus_9_6_0(
       object,
-      initialCall,
+      0, /* Argument initialCall is hard-coded to false, and can be removed when binaries need to be recompiled. */
       u,
       y);
   }

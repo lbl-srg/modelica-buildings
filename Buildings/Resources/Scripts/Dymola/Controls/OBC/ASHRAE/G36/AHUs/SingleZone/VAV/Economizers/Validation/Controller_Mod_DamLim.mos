@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Validation.Controller_Mod_DamLim", method="Cvode", stopTime=900, tolerance=1e-06, resultFile="Controller_Mod_DamLim_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"economizer.enaDis.andEnaDis.y"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"economizer.uSupFan_actual","economizer.VOutMinSet_flow"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"economizer.yOutDam","economizer.damLim.yOutDam_min","economizer.damLim.yOutDam_max"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"economizer.yRetDam","economizer.enaDis.yRetDam_min","economizer.enaDis.yRetDam_max"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"economizer1.enaDis.andEnaDis.y"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"economizer1.uSupFan_actual","economizer1.VOutMinSet_flow"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"economizer1.TAirSup","economizer1.TSupHeaEcoSet"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"economizer1.yOutDam","economizer1.damLim.yOutDam_min","economizer1.damLim.yOutDam_max"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=5, y={"economizer1.yRetDam","economizer1.enaDis.yRetDam_min","economizer1.enaDis.yRetDam_max"}, range={0.0, 900.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{238,46,47}});

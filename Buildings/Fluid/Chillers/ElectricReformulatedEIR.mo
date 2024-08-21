@@ -120,7 +120,7 @@ Hydeman et al. (2002) that has been developed in the CoolTools project
 and that is implemented in EnergyPlus as the model
 <code>Chiller:Electric:ReformulatedEIR</code>.
 This empirical model is similar to
-<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
 The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
@@ -129,25 +129,48 @@ and it uses a bicubic polynomial to compute the part load performance.
 
 <p>
 This model uses three functions to predict capacity and power consumption:</p>
-<ul>
-<li>
-A biquadratic function is used to predict cooling capacity as a function of
-condenser leaving and evaporator leaving fluid temperature.
-</li>
-<li>
-A bicubic function is used to predict power input to cooling capacity ratio
-as a function of condenser leaving temperature and part load ratio.
-</li>
-<li>
-A biquadratic functions is used to predict power input to cooling capacity ratio as a function of
-condenser leaving and evaporator leaving fluid temperature.
-</li>
-</ul>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
+  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code> (this model)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
 
 <p>
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR</a>.
+How they are used to compute the adjusted capacity and compressor power
+can be found in the documentation of
+<a href=\"modelica://Buildings.Fluid.Chillers.BaseClasses.PartialElectric\">
+Buildings.Fluid.Chillers.BaseClasses.PartialElectric</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
 Least-squares Linear Regression method and is used when sufficient performance data exist
@@ -198,11 +221,24 @@ The electric power only contains the power for the compressor, but not any power
 <p>
 The model can be parametrized to compute a transient
 or steady-state response.
-The transient response of the boiler is computed using a first
+The transient response of the chiller is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
-
+<p>
+Optionally, the model can be configured to represent heat recovery chillers with
+a switchover option by setting the parameter <code>have_switchover</code> to
+<code>true</code>.
+In that case an additional Boolean input connector <code>coo</code> is used.
+The chiller is tracking a chilled water supply temperature setpoint at the
+outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
+Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
+a hot water supply temperature setpoint at the outlet of the condenser barrel.
+See
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
+for an example with a chiller operating in heating mode.
+</p>
 <h4>References</h4>
 <ul>
 <li>

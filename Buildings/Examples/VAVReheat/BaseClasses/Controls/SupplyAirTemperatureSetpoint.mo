@@ -9,7 +9,7 @@ block SupplyAirTemperatureSetpoint
     displayUnit="degC")
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetVal[6](k={12,12,35,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetVal[6](k={12,12,35,
         35,12,7} .+ 273.15)          "Set point values for each operating mode"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode

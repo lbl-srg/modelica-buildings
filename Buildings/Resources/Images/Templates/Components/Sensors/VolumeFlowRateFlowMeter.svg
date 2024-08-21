@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 199.99999 200.00001"
+   version="1.1"
+   id="svg6459"
+   sodipodi:docname="VolumeFlowRateFlowMeter.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="0.5"
+     inkscape:cx="67"
+     inkscape:cy="343"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="text22133">
+    <inkscape:grid
+       type="xygrid"
+       id="grid23302"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs6456">
+    <rect
+       x="325.25"
+       y="12.25"
+       width="87.75"
+       height="29.75"
+       id="rect22135" />
+    <rect
+       x="165.85773"
+       y="75.188843"
+       width="707.65967"
+       height="360.46414"
+       id="rect245" />
+    <rect
+       x="287.72479"
+       y="153.24474"
+       width="406.56766"
+       height="215.79359"
+       id="rect239" />
+    <rect
+       x="-725.72443"
+       y="334.73331"
+       width="346.48083"
+       height="266.72183"
+       id="rect10236" />
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(1.0372809,0,0,0.81239812,-112.13871,-145.03179)"
+     style="stroke-width:1.08935;stroke-dasharray:none">
+    <g
+       id="g15302"
+       style="fill:#ffffff;stroke-width:1.08935;stroke-miterlimit:4;stroke-dasharray:none">
+      <path
+         d="m 138.36344,368.42815 c 38.07298,-32.9392 94.22861,-32.9392 132.30159,0 V 234.80267 c -38.07298,32.9392 -94.22861,32.9392 -132.30159,0 z"
+         id="path702"
+         style="fill:#ffffff;stroke:#000000;stroke-width:1.08935;stroke-miterlimit:4;stroke-dasharray:none" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.16261309,0,0,0.12558817,456.10415,-28.326687)"
+     id="text237"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-orientation:upright;white-space:pre;shape-inside:url(#rect239);display:inline;fill:#000000;stroke-width:6.99758;stroke-dasharray:none;stop-color:#000000"><tspan
+       x="287.72461"
+       y="551.50513"
+       id="tspan9963"><tspan
+         dx="0 114.94141"
+         style="stroke-width:6.99757"
+         id="tspan9961">FM</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:437.06px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-orientation:upright;fill:#ffffff;stroke-width:0.999999;stroke-dasharray:none;stop-color:#000000"
+     x="522.23602"
+     y="-6.8597636"
+     id="text22131"
+     transform="scale(0.9690221,1.0319682)"><tspan
+       sodipodi:role="line"
+       id="tspan22129"
+       style="stroke-width:0.999999;stroke-dasharray:none"
+       x="522.23602"
+       y="-6.8597636" /></text>
+  <g
+     aria-label="FM"
+     transform="matrix(2.1176048,0,0,2.255161,-618.76759,47.621408)"
+     id="text22133"
+     style="font-size:20px;-inkscape-font-specification:'sans-serif, Normal';text-orientation:upright;white-space:pre;shape-inside:url(#rect22135);stroke-width:0.457603;stroke-dasharray:none;stop-color:#000000">
+    <path
+       d="m 336.49023,17.674341 h -7.35351 v 4.101562 h 6.31836 v 1.71875 h -6.31836 v 7.001953 h -1.9336 V 15.955591 h 9.28711 z"
+       id="path22139"
+       style="stroke-width:0.457603;stroke-dasharray:none" />
+    <path
+       d="m 351.64648,30.496606 h -1.93359 V 17.967309 l -4.04297,8.525391 h -1.15234 l -4.01367,-8.525391 v 12.529297 h -1.80664 V 15.955591 h 2.63671 l 3.87696,8.095703 3.75,-8.095703 h 2.68554 z"
+       id="path22141"
+       style="stroke-width:0.457603;stroke-dasharray:none" />
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model GreaterThreshold
   "Validation model for the GreaterThreshold block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=10.0)
@@ -11,7 +11,7 @@ model GreaterThreshold
     t=2)
     "Block output true if input is greater than threshold value"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

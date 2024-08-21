@@ -5,10 +5,10 @@ block BooleanToInteger
     "Output signal for true Boolean input";
   parameter Integer integerFalse=0
     "Output signal for false Boolean input";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -22,8 +22,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Integer</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
   y = if u then integerTrue else integerFalse;
@@ -36,6 +36,12 @@ and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 17, 2022, by Hongxiang Fu:<br/>
+Corrected documentation texts where the variables were described with wrong types.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

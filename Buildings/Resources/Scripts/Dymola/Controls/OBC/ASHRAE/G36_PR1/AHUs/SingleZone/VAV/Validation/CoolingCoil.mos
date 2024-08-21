@@ -1,3 +1,0 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Validation.CoolingCoil", method="Cvode", outputInterval=300, stopTime=28000, tolerance=1e-06, resultFile="CoolingCoil");
-createPlot(id=1, position={0, 0, 1532, 791}, y={"cooCoi.yCooCoi"}, range={0.0, 28000.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1532, 393}, y={"TSupSet", "TSup.y"}, range={0.0, 28000.0, 15.5, 20.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});

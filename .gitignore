@@ -27,6 +27,7 @@ simulator*.log
 comparison*.log
 unitTests*.log
 funnel_comp
+*/Resources/bin/Spawn-light-*
 
 # Files in top-level directory
 #####################################

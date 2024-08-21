@@ -3,7 +3,7 @@ model ChangeSign "Validation model for the ChangeSign block"
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.ChangeSign changSign
     "Block that change sign of the input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-1.5,
     height=3.0) "Block that generates ramp signal"

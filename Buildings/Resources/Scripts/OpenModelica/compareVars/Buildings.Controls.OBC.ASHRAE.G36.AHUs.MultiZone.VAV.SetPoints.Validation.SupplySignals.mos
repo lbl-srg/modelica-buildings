@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "supSig.TAirSup",
+    "supSig.TAirSupSet",
+    "supSig.uTSup",
+    "supSig.yHeaCoi",
+    "supSig.yCooCoi",
+    "supSig1.TAirSup",
+    "supSig.TAirSupSet",
+    "supSig1.uTSup",
+    "supSig1.yHeaCoi",
+    "supSig.yCooCoi"
+  };

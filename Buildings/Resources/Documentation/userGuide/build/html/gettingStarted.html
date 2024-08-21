@@ -83,10 +83,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#unstable-control-loops">3.1. Unstable control loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.2. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.3. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.4. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.5. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -180,7 +181,7 @@
 <p>Although the <a class="reference external" href="https://modelica.org/documents/ModelicaTutorial14.pdf">Modelica Language Tutorial</a> is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.</p>
 <p>Links to papers that describe or used the <cite>Buildings</cite> library are available at <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/publications.html">https://simulationresearch.lbl.gov/modelica/publications.html</a>.
 The model documentation from the download page contains user guides that describe the individual packages of the <cite>Buildings</cite> library.</p>
-<p>The <a class="reference external" href="http://www.iea-annex60.org/final-report.html">IEA EBC Annex 60</a> final report
+<p>The <a class="reference external" href="https://www.iea-annex60.org/final-report.html">IEA EBC Annex 60</a> final report
 summarizes the development of Modelica models, approaches and tools
 for co-simulation based on the Functional Mockup Interface standard,
 Building Information Modeling technologies based on the Industry Foundation Classes,
@@ -196,7 +197,7 @@ Make variations in these examples by changing values of model parameters
 or by replacing existing component models by new ones.
 The example models can be found in the packages <cite>Examples</cite>.</p>
 <p>Study the detailed tutorials with step-by-step instructions for how to build system models,
-which can be found in the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Examples_Tutorial.html">Tutorial package</a>.</p>
+which can be found in the <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Examples_Tutorial.html">Tutorial package</a>.</p>
 <p>Note that heat transfer models, which can be found in <cite>Buildings.HeatTransfer.*.Examples</cite>
 are easier to understand than fluid flow models because;</p>
 <ul class="simple">
@@ -206,7 +207,7 @@ are easier to understand than fluid flow models because;</p>
 </ul>
 <p>To get started with Spawn of EnergyPlus, we recommend to first familiarize yourself with Modelica, as described above.
 Next, read the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_ThermalZones_EnergyPlus_UsersGuide.html">user guide for the Spawn models</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_ThermalZones_EnergyPlus_9_6_0_UsersGuide.html">user guide for the Spawn models</a>
 which provides step-by-step instructions and points to various examples.</p>
 </section>
 <section id="software-requirements">
@@ -216,7 +217,7 @@ which provides step-by-step instructions and points to various examples.</p>
 <section id="literature-for-developers">
 <h2><span class="section-number">1.4. </span>Literature for Developers<a class="headerlink" href="#literature-for-developers" title="Permalink to this headline">¶</a></h2>
 <p>It is essential that users who develop new thermo-fluid models to understand the concept of stream connectors.
-Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://modelica.org/documents">https://modelica.org/documents</a>,
+Stream connectors are explained in the Modelica language definition, available at <a class="reference external" href="https://modelica.org/language">https://modelica.org/language</a>,
 and in the paper Franke et al. <a class="reference internal" href="#fra2009a" id="id4"><span>[Fra2009a]</span></a>.
 The <cite>Buildings</cite> library uses similar modeling principles, and the same base classes, as the <cite>Modelica.Fluid</cite> library.
 Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid <a class="reference internal" href="#fra2009b" id="id5"><span>[Fra2009b]</span></a>.</p>
@@ -264,7 +265,7 @@ In F. Casella, editor, Proc. of the 7-th International Modelica Conference, Como
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>

@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "sysReq.TCooSet",
+    "sysReq.TZon",
+    "sysReq.uCoo",
+    "sysReq.yZonTemResReq",
+    "sysReq.uAftSup",
+    "sysReq.VSet_flow",
+    "sysReq.VDis_flow",
+    "sysReq.uDam",
+    "sysReq.yZonPreResReq"
+  };

@@ -6,7 +6,10 @@ record FTX600 "Specifications for Lochinvar FTXL FTX600 boiler"
     mDry=228.6105545,
     m_flow_nominal=3.722322,
     dp_nominal=13151.51);
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of

@@ -7,7 +7,7 @@ Documentation(info="<html>
 <h4>Overview</h4>
 <p>
 The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package extends the
-capabilities of the buildings library with models for electrical systems, allowing
+capabilities of the Buildings library with models for electrical systems, allowing
 to study building-to-grid integration such as the effect of large scale PV on the
 voltage of the electrical distribution grid.
 The package contains models for different types of sources, loads, storage equipment,
@@ -30,8 +30,8 @@ The Modelica Standard Library (MSL) version 3.2.1 has different connectors depen
 type of electric system being modeled. For example, DC and AC continuous time systems have
 a connector (<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.Pin\">Modelica.Electrical.Analog.Interfaces.Pin</a>)
 that differs from the one used by AC models, which use the
-quasi-stationary assumption (<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin</a>).
+quasi-stationary assumption (<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Interfaces.Pin\">
+Modelica.Electrical.QuasiStatic.SinglePhase.Interfaces.Pin</a>).
 </p>
 <p>
 The generalized electrical connector overcomes this limitation. It uses a paradigm

@@ -81,7 +81,6 @@ initial equation
 equation
   yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
     adapter=adapter,
-    initialCall=false,
     nY=nY,
     u={u,round(time,1E-3)},
     dummy=nObj);

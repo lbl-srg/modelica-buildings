@@ -22,7 +22,7 @@ OBJS = ConvertWeatherData.class
 JARS = ConvertWeatherData.jar
 #######################################################
 all: clean doc
-	$(JC) $(SRCS)
+	$(JC) --release 8 $(SRCS)
 	$(JJ) $(JFLAGS) $(JARS) Manifest.txt $(OBJS) $(SRCS)
 	$(JJ) -i $(JARS)
 	rm $(OBJS)

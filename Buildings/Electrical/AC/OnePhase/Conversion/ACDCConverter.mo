@@ -144,8 +144,8 @@ Furthermore, reactive power on both side are set to <i>0</i>.
 <h4>Note:</h4>
 <p>
 This model is derived from
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
+<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter\">
+Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -117,7 +117,6 @@ equation
     dtLast=time-pre(tLast);
     yEP=Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.exchange(
       adapter=adapter,
-      initialCall=false,
       nY=nY,
       u={T,round(time,1E-3)},
       dummy=A);
@@ -151,7 +150,7 @@ This heat flow rate consists of
 convective heat flow rate,
 </li>
 <li>
-absorbed solar radiation,
+absorbed solar radiation, and
 </li>
 <li>
 absorbed infrared radiation minus emitted infrared radiation.
@@ -207,8 +206,8 @@ per unit area of the surface.
 </p>
 <p>
 The model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
 illustrates this use. Note that if the ground heat transfer were modeled in EnergyPlus, then
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.OpaqueConstruction\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.OpaqueConstruction</a>

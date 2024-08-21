@@ -6,8 +6,6 @@ model ExpansionVessel "Expansion vessel with fixed pressure"
    final mSenFac=1);
   parameter Modelica.Units.SI.Volume V_start(start=1)
     "Volume of liquid stored in the vessel at the start of the simulation";
-  parameter Modelica.Units.SI.Pressure p=Medium.p_default
-    "Constant pressure of the expansion vessel";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium = Medium) "Fluid port"
@@ -111,6 +109,12 @@ of equations, which may result in faster simulation.
 </html>", revisions="<html>
 <ul>
 <li>
+May 11, 2022, by Michael Wetter:<br/>
+Removed nonused parameter <code>p</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1614\">IBPSA, #1614</a>.
+</li>
+<li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
@@ -135,7 +139,7 @@ setting the <code>stateSelect</code> attribute leads to smaller systems of equat
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

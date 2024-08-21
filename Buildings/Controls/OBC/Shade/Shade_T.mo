@@ -23,7 +23,7 @@ block Shade_T
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  CDL.Continuous.Hysteresis hys(
+  CDL.Reals.Hysteresis hys(
     final uLow=TLow,
     final uHigh=THigh)
     "Temperature hysteresis"

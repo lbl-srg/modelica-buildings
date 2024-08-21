@@ -2,7 +2,7 @@ within Buildings.Examples.VAVReheat.BaseClasses.Controls;
 block FanVFD "Controller for fan revolution"
   extends Modelica.Blocks.Interfaces.SISO;
   import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset con(
     r=xSet_nominal,
     yMax=1,
     Td=60,
@@ -35,7 +35,7 @@ block FanVFD "Controller for fan revolution"
   parameter Modelica.Units.SI.Time Ti=15 "Time constant of integrator block"
     annotation (Dialog(group="Setpoint tracking"));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Set to true to enable the fan on"

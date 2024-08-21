@@ -45,8 +45,8 @@ model DryCoilCounterFlow
     "Set to false to make air-side hA independent of temperature"
     annotation (Dialog(tab="Heat transfer"));
 
-  parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/(nEle - 1)
-    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates"
+  parameter Modelica.Units.SI.ThermalConductance GDif=1E-2*UA_nominal/max(1, (nEle - 1))
+    "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
     annotation (Dialog(tab="Experimental"));
   Modelica.Units.SI.HeatFlowRate Q1_flow=sum(ele[i].Q1_flow for i in 1:nEle)
     "Heat transferred from solid into medium 1";

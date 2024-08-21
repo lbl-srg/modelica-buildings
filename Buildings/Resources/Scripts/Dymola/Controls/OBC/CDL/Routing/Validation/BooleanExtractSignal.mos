@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.BooleanExtractSignal", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="BooleanExtractSignal");
+createPlot(id=1, position={15, 15, 704, 972}, y={"extBooSig.u[1]", "extBooSig.u[2]", "extBooSig.u[3]", "extBooSig.u[4]"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={729, 17, 658, 980}, y={"extBooSig.y[1]", "extBooSig.y[2]", "extBooSig.y[3]"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1407, 17, 744, 982}, y={"extBooSig1.y[1]", "extBooSig1.y[2]", "extBooSig1.y[3]", "extBooSig1.y[4]", "extBooSig1.y[5]"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");

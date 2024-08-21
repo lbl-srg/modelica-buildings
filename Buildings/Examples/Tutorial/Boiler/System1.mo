@@ -28,7 +28,7 @@ model System1
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -169,13 +169,13 @@ input signal, which is obtained from a time table.
 <li>
 <p>
 To define a time-dependent heat gain, we instantiated the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a>
 and set its name to <code>timTab</code>.
 We set the table parameters to
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -192,8 +192,8 @@ The first time stamp is <i>-6</i> hours in order to create
 a table that has a periodicity of one day.
 We also set the interpolation of the data to using
 piece-wise constant segments.
-See the documentation of <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a> for the various options
+See the documentation of <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a> for the various options
 of this time table.
 </p>
 </li>

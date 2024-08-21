@@ -1,0 +1,10 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Validation.SystemRequests", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="SystemRequests_DualDuctMixConInletSensor");
+createPlot(id=1, position={1, 1, 990, 1342}, y={"sysReq.TCooSet", "sysReq.TZon", "sysReq.THeaSet"}, range={0.0, 7500.0, 18.0, 30.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={1, 1, 990, 1342}, y={"sysReq.uCoo", "sysReq.uHea"}, range={0.0, 7500.0, -0.2, 1.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={1, 1, 990, 1342}, y={"sysReq.VColDuc_flow_Set", "sysReq.VColDucDis_flow", "sysReq.VHotDuc_flow_Set", "sysReq.VHotDucDis_flow"}, range={0.0, 7500.0, 0.0, 1.2}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});
+createPlot(id=1, position={1, 1, 990, 1342}, y={"sysReq.uCooDam", "sysReq.uHeaDam"}, range={0.0, 7500.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={999, 3, 938, 1342}, y={"sysReq.uAftSupCoo", "sysReq.uAftSupHea"}, range={0.0, 7500.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={999, 3, 938, 1342}, y={"sysReq.yZonCooTemResReq", "sysReq.yZonHeaTemResReq"}, range={0.0, 7500.0, -0.5, 3.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={999, 3, 938, 1342}, y={"sysReq.yColDucPreResReq", "sysReq.yHotDucPreResReq", "sysReq.yHeaFanReq"}, range={0.0, 7500.0, -0.5, 3.5}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+
+

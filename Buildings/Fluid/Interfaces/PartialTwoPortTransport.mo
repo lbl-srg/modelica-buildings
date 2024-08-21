@@ -118,7 +118,7 @@ This is similar to
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>
 except that it does not use the <code>outer system</code> declaration.
 This declaration is omitted as in building energy simulation,
-many models use multiple media, an in practice,
+many models use multiple media, and in practice,
 users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>

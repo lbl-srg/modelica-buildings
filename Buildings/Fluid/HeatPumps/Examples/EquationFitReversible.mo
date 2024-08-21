@@ -53,13 +53,13 @@ model EquationFitReversible
      nPorts=1)
    "Volume for source side"
    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp THeaLoaSet(
+  Controls.OBC.CDL.Reals.Sources.Ramp THeaLoaSet(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=55 + 273.15)
    "Heating load side setpoint water temperature"
    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TCooLoaSet(
+  Controls.OBC.CDL.Reals.Sources.Ramp TCooLoaSet(
     height=1,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15) "Cooling load setpoint water temperature"
@@ -67,9 +67,9 @@ model EquationFitReversible
   Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=-1)
     "Integer threshold"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Controls.OBC.CDL.Continuous.Switch swi "Switch for set point temperature"
+  Controls.OBC.CDL.Reals.Switch swi "Switch for set point temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntCoo(
+  Controls.OBC.CDL.Reals.Sources.Ramp TSouEntCoo(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=28 + 273.15)
@@ -80,25 +80,25 @@ model EquationFitReversible
     duration(displayUnit="h") = 14400,
     offset=-1) "Heat pump operates in heating mode"
     annotation (Placement(transformation(extent={{-118,0},{-98,20}})));
-  Controls.OBC.CDL.Continuous.Switch swi1
+  Controls.OBC.CDL.Reals.Switch swi1
    "Switch for set point temperature"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Controls.OBC.CDL.Continuous.Switch swi2
+  Controls.OBC.CDL.Reals.Switch swi2
    "Switch for set point temperature"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TSouEntHea(
+  Controls.OBC.CDL.Reals.Sources.Ramp TSouEntHea(
     height=2,
     duration(displayUnit="h") = 14400,
     offset=12 + 273.15)
    "Source side entering water temperature in heating mode"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntHea(
+  Controls.OBC.CDL.Reals.Sources.Ramp TLoaEntHea(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=50 + 273.15)
    "Load side entering water temperature  in heating mode"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntCoo(
+  Controls.OBC.CDL.Reals.Sources.Ramp TLoaEntCoo(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=10 + 273.15)

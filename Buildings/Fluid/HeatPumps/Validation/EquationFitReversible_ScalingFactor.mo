@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatPumps.Validation;
 model EquationFitReversible_ScalingFactor
-  "Test model for scaling up the reversable heat pump"
+  "Test model for scaling up the reversible heat pump"
  extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium model";
 
@@ -88,7 +88,7 @@ model EquationFitReversible_ScalingFactor
   Modelica.Blocks.Math.RealToInteger reaToInt
     "Real to integer conversion"
     annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp TLoaEntHea(
+  Controls.OBC.CDL.Reals.Sources.Ramp TLoaEntHea(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=50 + 273.15,
@@ -113,13 +113,15 @@ equation
   connect(heaPum.port_a2, sou.ports[1])
     annotation (Line(points={{10,44},{26,44}},color={0,127,255}));
   connect(heaPum.port_b1, sin1.ports[1])
-    annotation (Line(points={{10,56},{20,56},{20,2},{30,2}},color={0,127,255}));
+    annotation (Line(points={{10,56},{20,56},{20,-1},{30,-1}},
+                                                            color={0,127,255}));
   connect(heaPum.port_a1, loa.ports[1])
     annotation (Line(points={{-10,56},{-24,56},{-24,42},{-40,42}},color={0,127,255}));
   connect(heaPum.port_b2, sin2.ports[1])
-    annotation (Line(points={{-10,44},{-20,44},{-20,2},{-40,2}},color={0,127,255}));
+    annotation (Line(points={{-10,44},{-20,44},{-20,-1},{-40,-1}},
+                                                                color={0,127,255}));
   connect(sin2.ports[2], heaPum1.port_b2)
-    annotation (Line(points={{-40,-2},{-20,-2},{-20,-60},{-10,-60}}, color={0,127,255}));
+    annotation (Line(points={{-40,1},{-20,1},{-20,-60},{-10,-60}},   color={0,127,255}));
   connect(sou1.ports[1], heaPum1.port_a2)
     annotation (Line(points={{30,-60},{10,-60}},          color={0,127,255}));
   connect(TSou.y, sou1.T_in)
@@ -133,7 +135,7 @@ equation
   connect(loa1.ports[1], heaPum1.port_a1)
     annotation (Line(points={{-40,-48},{-10,-48}},                    color={0,127,255}));
   connect(heaPum1.port_b1, sin1.ports[2])
-    annotation (Line(points={{10,-48},{20,-48},{20,-2},{30,-2}}, color={0,127,255}));
+    annotation (Line(points={{10,-48},{20,-48},{20,1},{30,1}},   color={0,127,255}));
   connect(mLoa.y, loa.m_flow_in)
     annotation (Line(points={{-77,50},{-60,50}},color={0,0,127}));
   connect(mSou.y, sou.m_flow_in)

@@ -10,7 +10,7 @@ block TimeTable
     final quantity="Time",
     final unit="s")
     "Periodicity of table";
-  Interfaces.BooleanOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
     "Output of the table"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 

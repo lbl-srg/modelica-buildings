@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block BooleanToReal
   "Convert Boolean to Real signal"
-  parameter Real realTrue=1
+  parameter Real realTrue=1.0
     "Output signal for true Boolean input";
-  parameter Real realFalse=0
+  parameter Real realFalse=0.0
     "Output signal for false Boolean input";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
-    "Connector of Integer output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -22,20 +22,26 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Real</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
-  y = if u then integerTrue else integerFalse;
+  y = if u then realTrue else realFalse;
 </pre>
 <p>
 where <code>u</code> is of <code>Boolean</code> and <code>y</code>
-of <code>Integer</code> type,
-and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
+of <code>Real</code> type,
+and <code>realTrue</code> and <code>realFalse</code> are parameters.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 17, 2022, by Hongxiang Fu:<br/>
+Corrected documentation texts where the variables were described with wrong types.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+</li>
 <li>
 April 10, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the
