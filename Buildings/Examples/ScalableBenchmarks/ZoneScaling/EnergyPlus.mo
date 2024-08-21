@@ -20,7 +20,7 @@ protected
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
     "Name of the weather file";
 
-  inner Buildings.ThermalZones.EnergyPlus.Building building(
+  inner Buildings.ThermalZones.EnergyPlus_9_6_0.Building building(
     idfName=idfName,
     weaName=weaName,
     epwName=epwName,
@@ -52,8 +52,8 @@ The size of the building can be scaled by selecting parameter
 Buildings.Examples.ScalableBenchmarks.ZoneScaling.BaseClasses.Types.BuildingSize</a>.
 <br/>
 The thermal zones are modeled using
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus.ThermalZone</a> objects.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a> objects.
 </p>
 </html>"));
 end EnergyPlus;

@@ -55,40 +55,40 @@ model EnergyPlusLargeOfficeFloor
   Modelica.Units.SI.Temperature TAirWes = wes.TAir
     "Air temperature west zone";
 
-  Buildings.ThermalZones.EnergyPlus.ThermalZone sou(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone eas(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{300,68},{340,108}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone nor(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone wes(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
     zoneName="Perimeter_fl" + String(floId) + "_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,58},{52,98}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone cor(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
     zoneName="Core_fl" + String(floId)) "Core zone"
     annotation (Placement(transformation(extent={{144,60},{184,100}})));
 
-  Buildings.ThermalZones.EnergyPlus.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone att(
     redeclare package Medium = Medium,
     zoneName="Plenum_fl" + String(floId),
     T_start=275.15) "Attic zone"
     annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant qGai_flow[3](k={0, 0, 0})
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant qGai_flow[3](k={0, 0, 0})
     "Internal heat gain (computed already in EnergyPlus"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 

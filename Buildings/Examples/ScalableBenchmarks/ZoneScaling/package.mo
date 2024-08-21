@@ -11,8 +11,8 @@ First implementation.
 <p>
 The models in this package are used to compare the scalability
 of thermal zones using either the
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus.ThermalZone</a> or the
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a> or the
 <a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">
 Buildings.ThermalZones.Detailed.MixedAir</a> classes.
 </p>
