@@ -103,13 +103,14 @@ char* getDayOfWeekForStartTime(
     int startDay;
     int posStartTime = startTime_inDay;
     int increment;
-
+    size_t sLen = 0;
 
     const int WEEK = 7;
 
     char * const days[] = {"Monday", "Tuesday", "Wednesday", "Thursday",
                            "Friday", "Saturday", "Sunday"};
     char* day;
+
     if (dayOfWeekIsAtTime0){
         while( posStartTime < 0){
             increment = abs(posStartTime) / 7;
@@ -124,7 +125,11 @@ char* getDayOfWeekForStartTime(
     else{
       startDay = dayOfWeekForStartDay; /* 1 is Monday per Modelica implementation */
     }
-    day = malloc(strlen( days[startDay-1] ) + 1);
+
+    sLen = strlen( days[startDay-1] ) + 1;
+
+    day = (char *)malloc(sizeof(char) * (sLen));
+
     if (day == NULL){
       SpawnFormatError("%s\n", "Failed to allocate memory for day of week.");
     }
@@ -177,6 +182,7 @@ void buildJSONModelStructureForEnergyPlus(
 
   /* RunPeriod */
   saveAppend(buffer, "  \"RunPeriod\": {\n", size, SpawnFormatError);
+
   dayOfWeekForStartDay = getDayOfWeekForStartTime(
     bui->time, bui->runPer->dayOfWeekForStartDay, bui->runPer->dayOfWeekIsAtTime0, SpawnFormatError);
   buildJSONKeyStringValue(buffer, 2, "day_of_week_for_start_day",
