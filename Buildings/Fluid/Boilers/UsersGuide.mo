@@ -53,7 +53,7 @@ of <code>UAOve.Q_flow</code> is from the ambient to the boiler.
 </p>
 <p>
 The fuel is specified in
-<a href=\"Buildings.Fluid.Data.Fuels\">Buildings.Fluid.Data.Fuels</a>
+<a href=\"modelica://Buildings.Fluid.Data.Fuels\">Buildings.Fluid.Data.Fuels</a>
 via
 </p>
 <p align=\"center\">

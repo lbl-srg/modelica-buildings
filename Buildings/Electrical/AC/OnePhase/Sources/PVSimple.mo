@@ -73,6 +73,10 @@ Buildings.Electrical.AC.OnePhase.Sources.PVSimpleOriented</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 23, 2022, by Michael Wetter:<br/>
+Corrected documentation string for parameter <code>A</code>.
+</li>
+<li>
 October 7, 2019, by Michael Wetter:<br/>
 Corrected model to include DC/AC conversion in output <code>P</code>.<br/>
 This is for issue

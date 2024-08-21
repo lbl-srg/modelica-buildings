@@ -64,7 +64,7 @@ protected
     each max=0,
     start=-A .* 0.8*Modelica.Constants.sigma*293.15^4,
     fixed={sampleModel and (i <= nOpa or i > nOpa + nWin) for i in 1:nTot},
-    each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
+    each nominal=-10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
 
   Modelica.Units.SI.HeatFlowRate G[nTot](

@@ -46,7 +46,7 @@ def simulate(expectToFail):
     """ Simulate the model.
 
         If `expectedToFail = False` and the simulation fails, or
-        if `exptectedToFail = True` and the simulation succeeds, the
+        if `expectedToFail = True` and the simulation succeeds, the
         function raises `RuntimeError`. Otherwise it return without error.
     """
     import subprocess
@@ -66,11 +66,11 @@ def simulate(expectToFail):
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise
-    if (process.returncode is not 0) and (not expectToFail):
+    if (process.returncode != 0) and (not expectToFail):
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Failed to simulate fmu, but expected successful simulation.")
-    if (process.returncode is 0) and expectToFail:
+    if (process.returncode == 0) and expectToFail:
         print_output("stdout", stdout)
         print_output("stderr", stderr)
         raise RuntimeError("Simulation was successful, but it was expected to fail.")
@@ -79,11 +79,11 @@ def simulate(expectToFail):
 def run_test(pathVariable):
     # List of files to be moved
     fileMoves = [
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-linux64")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-0.5.0-c10e8c6d7e", "linux64")),
          "des": "my-bin"},
         {"src": os.path.abspath(os.path.join("Buildings", "Resources", "weatherdata")),
          "des": "some_weather_directory_that_the_fmu_does_not_know_about"},
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "Data", "ThermalZones", "EnergyPlus_9_6_0")),
          "des": "some_idf_directory_that_the_fmu_does_not_know_about"},
     ]
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     from buildingspy.simulate.Optimica import Simulator
     import sys
-    model = "Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.Unconditioned"
+    model = "Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned"
     #model = "Buildings.Controls.Continuous.Examples.LimPID"
     fmu = model.replace('.', '_') + ".fmu"
     s=Simulator(model)
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     args = ["SPAWNPATH", "PATH", None]
     for arg in args:
         retVal = run_test(arg)
-        if retVal is not 0:
+        if retVal != 0:
             sys.exit(1)
     sys.exit(0)
 

@@ -30,11 +30,17 @@ model PartialMixingVolume
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.Units.SI.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01)
+      ) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
-  Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
+  Medium.Temperature T = Medium.temperature_phX(
+    p=p,
+    h=hOut_internal,
+    X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi)
     "Temperature of the fluid";
   Modelica.Blocks.Interfaces.RealOutput U(unit="J")
     "Internal energy of the component";
@@ -83,15 +89,15 @@ protected
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
-  parameter Modelica.Units.SI.Density rho_start=Medium.density(state=
-      state_start) "Density, used to compute start and guess values";
+  parameter Modelica.Units.SI.Density rho_start=Medium.density(
+    state=state_start) "Density, used to compute start and guess values";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
-      state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
@@ -116,12 +122,15 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(
+    port(T(start=T_start)))
     "Port temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
     annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen(
+    port_a(T(start=T_start)),
+    port_b(T(start=T_start)))
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
@@ -301,6 +310,18 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
+October 24, 2022, by Michael Wetter:<br/>
+Improved conversion from <code>Xi</code> to <code>X</code> so that it also works
+with media that have <code>reducedX=true</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
 Set start value for <code>steBal.hOut</code> so that <code>T_start</code>
@@ -497,7 +518,7 @@ as a state. See ticket Dynasim #13596.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>

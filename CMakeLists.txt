@@ -6,6 +6,8 @@
 ##################################################################
 cmake_policy(SET CMP0048 NEW)
 
+set(ENERGYPLUS_VERSION "9_6_0")
+
 project( Modelica-Buildings
   DESCRIPTION "Modelica Buildings Library"
   LANGUAGES C
@@ -91,31 +93,31 @@ add_definitions(-D_GNU_SOURCE)
 message("Added GNU_SOURCE")
 endif()
 
-add_library( ModelicaBuildingsEnergyPlus SHARED
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnUtil.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectFree.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectExchange.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/BuildingInstantiate.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnFMU.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/cryptographicsHash.c
-  Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources/SpawnObjectAllocate.c
+add_library( ModelicaBuildingsEnergyPlus_${ENERGYPLUS_VERSION} SHARED
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnUtil.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnObjectFree.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnObjectExchange.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnObjectInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/BuildingInstantiate.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnFMU.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/cryptographicsHash.c
+  Buildings/Resources/src/ThermalZones/EnergyPlus_${ENERGYPLUS_VERSION}/C-Sources/SpawnObjectAllocate.c
 )
 
-target_include_directories( ModelicaBuildingsEnergyPlus
-  PRIVATE Buildings/Resources/src/ThermalZones/EnergyPlus/C-Sources
+target_include_directories( ModelicaBuildingsEnergyPlus_${ENERGYPLUS_VERSION}
+  PRIVATE Buildings/Resources/src/ThermalZones_${ENERGYPLUS_VERSION}/EnergyPlus/C-Sources
   PRIVATE Buildings/Resources/src/fmi-library/include
 )
 
 #link_directories(${CMAKE_SOURCE_DIR}/Buildings/Resources/Library/darwin64)
 
 if (WIN32)
-target_link_libraries( ModelicaBuildingsEnergyPlus
+target_link_libraries( ModelicaBuildingsEnergyPlus_${ENERGYPLUS_VERSION}
   PRIVATE ${FMILIB_SHARED}
   PRIVATE ${CMAKE_DL_LIBS}
 )
 else()
-target_link_libraries( ModelicaBuildingsEnergyPlus
+target_link_libraries( ModelicaBuildingsEnergyPlus_${ENERGYPLUS_VERSION}
   PRIVATE ${CMAKE_DL_LIBS}
 )
 endif()
@@ -123,56 +125,4 @@ endif()
 set(BUILDINGS_INSTALL_DIR "${BUILDINGS_INSTALL_PREFIX}/Resources/Library/${PLATFORM_INSTALL_PREFIX}/")
 message("Installing to: ${BUILDINGS_INSTALL_DIR}")
 
-install( TARGETS ModelicaBuildingsEnergyPlus DESTINATION ${BUILDINGS_INSTALL_DIR} )
-
-# Other stuff not compiled yet
-
-# add_jar( ConvertEIRData
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/BiCubicCurve.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/BiQuadraticCurve.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/ElectricEIR.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/ICurve.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/ConvertEIRData.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/Parser.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/ParserResultObject.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/QuadraticCurve.java
-#   Buildings/Resources/src/fluid/chillers/convertEIR/src/convertEIR/ReformElectricEIR.java
-# )
-# get_target_property(ConvertEIRData_JAR ConvertEIRData JAR_FILE)
-# install( PROGRAMS ${ConvertEIRData_JAR} DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/bin )
-#
-# add_jar( ConvertDXData
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/BiQuadraticCurve.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/DXSingleSpeed.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/ICurve.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/ConvertDXData.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/Parser.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/ParserResultObject.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/QuadraticCurve.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/DXCoilPerformance.java
-#   Buildings/Resources/src/fluid/dxcoils/convertDXSingleDoubleSpeed/src/convertDXSingleDoubleSpeed/DXDoubleSpeed.java
-# )
-# get_target_property(ConvertDXData_JAR ConvertDXData JAR_FILE)
-# install( PROGRAMS ${ConvertDXData_JAR} DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/bin )
-#
-# add_jar( ConvertWeatherData
-#   Buildings/Resources/src/convertEPW/src/ConvertWeatherData.java
-# )
-#get_target_property(ConvertWeatherData_JAR ConvertWeatherData JAR_FILE)
-#install( PROGRAMS ${ConvertWeatherData_JAR} DESTINATION ${BUILDINGS_INSTALL_PREFIX}/Resources/bin )
-#
-#
-#
-#./Buildings/Resources/Documentation/userGuide/Makefile
-#./Buildings/Resources/Scripts/travis/Makefile
-#./Buildings/Resources/src/Makefile
-
-# python / documentation related
-#./Buildings/Resources/src/fluid/heatpumps/calibration/doc/Makefile
-#./Buildings/Resources/src/fluid/heatpumps/calibration/Makefile
-#./Buildings/Resources/src/fluid/Makefile
-
-# python interpreter
-#./Buildings/Resources/src/python/Makefile.darwin
-#./Buildings/Resources/src/python/Makefile.linux
-#./Buildings/Resources/src/python/Makefile.windows.bat
+install( TARGETS ModelicaBuildingsEnergyPlus_${ENERGYPLUS_VERSION} DESTINATION ${BUILDINGS_INSTALL_DIR} )

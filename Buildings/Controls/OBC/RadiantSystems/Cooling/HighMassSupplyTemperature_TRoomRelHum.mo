@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.RadiantSystems.Cooling;
 block HighMassSupplyTemperature_TRoomRelHum
-  "Room temperature controller for radiant cooling with constant mass flow and variable supply temperature"
+  "Controller for radiant cooling that controls the room temperature using constant mass flow and variable supply temperature"
 
   parameter Real TSupSet_max(
     final unit="K",
@@ -45,14 +45,14 @@ block HighMassSupplyTemperature_TRoomRelHum
     final unit="K",
     displayUnit="degC") "Measured room air temperature"
     annotation (Placement(transformation(
-          extent={{-140,-20},{-100,20}}),  iconTransformation(extent={{-140,-20},
-            {-100,20}})));
+          extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},
+            {-100,-20}})));
 
   Controls.OBC.CDL.Interfaces.RealInput phiRoo(
     final unit="1") "Measured room air relative humidity"
     annotation (Placement(transformation(
-          extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+          extent={{-140,-100},{-100,-60}}),iconTransformation(extent={{-140,
+            -100},{-100,-60}})));
 
   Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
@@ -85,12 +85,12 @@ block HighMassSupplyTemperature_TRoomRelHum
   CDL.Psychrometrics.DewPoint_TDryBulPhi dewPoi
     "Dew point temperature, used to avoid condensation"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CDL.Continuous.Hysteresis hysCoo(
+  CDL.Reals.Hysteresis hysCoo(
     uLow=0.1,
     uHigh=0.2)
     "Hysteresis to switch system on and off"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  CDL.Continuous.PID conCoo(
+  CDL.Reals.PID conCoo(
     final controllerType=controllerType,
     final k=k,
     final Ti = Ti,
@@ -102,14 +102,14 @@ block HighMassSupplyTemperature_TRoomRelHum
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
 protected
-  CDL.Continuous.Sources.Constant TSupMin(
+  CDL.Reals.Sources.Constant TSupMin(
     final k(
       final unit="K",
       displayUnit="degC") = TSupSet_min,
       y(final unit="K", displayUnit="degC"))
     "Minimum cooling supply water temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  CDL.Continuous.Sources.Constant TSupMax(
+  CDL.Reals.Sources.Constant TSupMax(
     final k(
       final unit="K",
       displayUnit="degC") = TSupSet_max,
@@ -117,18 +117,18 @@ protected
     "Maximum cooling supply water temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  CDL.Continuous.Sources.Constant one(final k=1) "Outputs one"
+  CDL.Reals.Sources.Constant one(final k=1) "Outputs one"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  CDL.Continuous.Sources.Constant zero(final k=0) "Outputs zero"
+  CDL.Reals.Sources.Constant zero(final k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  CDL.Continuous.Line TSupNoDewPoi(
+  CDL.Reals.Line TSupNoDewPoi(
     limitBelow=false,
     limitAbove=false,
     y(final unit="K", displayUnit="degC"))
     "Set point for supply water temperature without consideration of dew point"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  CDL.Continuous.Max TSupCoo
+  CDL.Reals.Max TSupCoo
     "Cooling water supply temperature"
     annotation (Placement(transformation(extent={{60,14},{80,34}})));
   CDL.Conversions.BooleanToReal booToRea(
@@ -151,8 +151,8 @@ equation
           {90,30},{120,30}},color={0,0,127}));
   connect(conCoo.u_s, TRooSet) annotation (Line(points={{-82,20},{-92,20},{-92,60},
           {-120,60}}, color={0,0,127}));
-  connect(dewPoi.phi, phiRoo) annotation (Line(points={{18,-16},{-10,-16},{-10,-88},
-          {-92,-88},{-92,-60},{-120,-60}},
+  connect(dewPoi.phi, phiRoo) annotation (Line(points={{18,-16},{-10,-16},{-10,
+          -88},{-92,-88},{-92,-80},{-120,-80}},
                        color={0,0,127}));
   connect(booToRea.y, yPum)
     annotation (Line(points={{82,-80},{120,-80}}, color={0,0,127}));
@@ -170,10 +170,12 @@ equation
     annotation (Line(points={{-58,20},{18,20}}, color={0,0,127}));
   connect(TSupNoDewPoi.y, TSupCoo.u1) annotation (Line(points={{42,20},{52,20},{
           52,30},{58,30}}, color={0,0,127}));
-  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,0},{-88,0},{-88,4},{-70,
-          4},{-70,8}}, color={0,0,127}));
-  connect(TRoo, dewPoi.TDryBul) annotation (Line(points={{-120,0},{-88,0},{-88,-80},
-          {-16,-80},{-16,-4},{18,-4}}, color={0,0,127}));
+  connect(TRoo, conCoo.u_m) annotation (Line(points={{-120,-40},{-88,-40},{-88,
+          4},{-70,4},{-70,8}},
+                       color={0,0,127}));
+  connect(TRoo, dewPoi.TDryBul) annotation (Line(points={{-120,-40},{-88,-40},{
+          -88,-80},{-16,-80},{-16,-4},{18,-4}},
+                                       color={0,0,127}));
   annotation (
   defaultComponentName="conCoo",
   Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
@@ -205,7 +207,7 @@ equation
           textColor={0,0,127},
           textString="TRooSet"),
         Text(
-          extent={{-94,32},{-74,-14}},
+          extent={{-96,-6},{-76,-52}},
           textColor={0,0,127},
           textString="TRoo"),
         Rectangle(
@@ -218,7 +220,6 @@ equation
           points={{56,-82},{56,-26},{-24,-26},{-24,-20},{56,-20}},
           color={28,108,200},
           thickness=1),
-        Line(points={{-100,0},{-30,0}},                     color={28,108,200}),
         Rectangle(
           extent={{-30,-16},{48,48}},
           lineColor={28,108,200},
@@ -264,12 +265,14 @@ equation
             String(y,
               leftJustified=false,
               significantDigits=2))),
-        Line(points={{-30,-8},{-66,-8},{-66,-60},{-100,-60}},
+        Line(points={{-30,-8},{-66,-8},{-66,-80},{-100,-80}},
              color={28,108,200}),
         Text(
-          extent={{-92,-24},{-72,-70}},
+          extent={{-96,-44},{-76,-90}},
           textColor={0,0,127},
-          textString="phi")}),
+          textString="phi"),
+        Line(points={{-30,12},{-72,12},{-72,-40},{-100,-40}},
+             color={28,108,200})}),
     Documentation(info="<html>
 <p>
 Controller for a radiant cooling system.

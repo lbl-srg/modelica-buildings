@@ -15,20 +15,21 @@ model NaturalConvectionWithControl
     yMin=0,
     Ti=120,
     k=1,
-    yMax=2)
+    yMax=2,
+    u_m(final unit="K", displayUnit="degC"),
+    u_s(final unit="K", displayUnit="degC"))
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,50})));
-  Modelica.Blocks.Sources.Constant TSet(k=275.15) "Temperature set point"
+  Modelica.Blocks.Sources.Constant TSet(k(final unit="K", displayUnit="degC")=275.15) "Temperature set point"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={90,50})));
 equation
   connect(roo.yCFD[1], conPID.u_m) annotation (Line(
-      points={{101,-26.5},{100,-26.5},{100,-26},{110,-26},{110,20},{50,20},{50,
-          38}},
+      points={{101,-26},{100,-26},{100,-26},{110,-26},{110,20},{50,20},{50,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet.y, conPID.u_s) annotation (Line(
@@ -49,7 +50,7 @@ equation
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/NaturalConvectionWithControl.mos"
         "Simulate and plot"),
-   experiment(Tolerance=1e-06, StopTime=7200),
+   experiment(Tolerance=1e-06, StopTime=3600),
    Documentation(info="<html>
 <p>
 This model tests the coupled simulation of

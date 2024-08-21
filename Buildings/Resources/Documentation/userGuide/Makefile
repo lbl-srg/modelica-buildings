@@ -127,4 +127,4 @@ copytowww:
 	  --rsh=ssh --compress --times --checksum --verbose \
 	  --exclude "*~" \
 	  --exclude ".DS_Store" \
-	  build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
+	  build/html/* gundog.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/

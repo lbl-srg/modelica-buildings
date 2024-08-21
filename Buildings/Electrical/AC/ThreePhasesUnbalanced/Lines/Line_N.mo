@@ -1,6 +1,8 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model Line_N "Model of an electrical line with neutral cable"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
   extends Buildings.Electrical.Transmission.BaseClasses.PartialBaseLine(
   V_nominal(start = 480),
   commercialCable = Buildings.Electrical.Transmission.Functions.selectCable_low(P_nominal, V_nominal));
@@ -126,6 +128,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
+<li>
 October 6, 2014, by Marco Bonvini:<br/>
 Revised documentation and model.
 </li>
@@ -134,7 +140,7 @@ Revised documentation and model.
 <p>
 This model represents an AC three-phase unbalanced cable with
 neutral connection. The model is based on
-<a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>
 using either commercial cables or default values.

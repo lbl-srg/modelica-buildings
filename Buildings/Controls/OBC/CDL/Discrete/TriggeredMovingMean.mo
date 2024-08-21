@@ -4,13 +4,13 @@ block TriggeredMovingMean
   parameter Integer n(
     min=1)
     "Number of samples over which the input is averaged";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Boolean signal that triggers the block"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Discrete averaged signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -27,7 +27,7 @@ protected
     start=0,
     fixed=true)
     "Index of the vector ySample";
-  Real ySample[n](
+  discrete Real ySample[n](
     start=zeros(n),
     each fixed=true)
     "Vector of samples to be averaged";
@@ -173,6 +173,12 @@ and produces this value at its output <code>y</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Added <code>discrete</code> keyword to sampled variable.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Removed non-needed protected parameter <code>t0</code>.

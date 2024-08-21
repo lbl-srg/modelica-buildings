@@ -16,8 +16,7 @@ model Tank "Example that test the tank model"
     mIce_max=1/4*2846.35,
     coeCha={1.76953858E-04,0,0,0,0,0},
     dtCha=10,
-    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,
-        3.00544E-04},
+    coeDisCha={5.54E-05,-1.45679E-04,9.28E-05,1.126122E-03,-1.1012E-03,3.00544E-04},
     dtDisCha=10)
     "Tank performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -27,7 +26,9 @@ model Tank "Example that test the tank model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     SOC_start=SOC_start,
-    per=per) annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    per=per,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=2*m_flow_nominal,
@@ -42,14 +43,19 @@ model Tank "Example that test the tank model"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=500) "Flow resistance"
-    annotation (Placement(transformation(extent={{36,-10},{56,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSou(
-    table=[0,273.15 - 5; 3600*10,273.15 - 5;
-         3600*10,273.15 + 10; 3600*11,273.15 + 10;
-        3600*18,273.15 + 10; 3600*18,
-        273.15 - 5], y(each unit="K", each displayUnit="degC"))
-                     "Source temperature"
+    table=[
+      0,       273.15 - 5;
+      3600*10, 273.15 - 5;
+      3600*10, 273.15 + 10;
+      3600*11, 273.15 + 10;
+      3600*18, 273.15 + 10;
+      3600*18, 273.15 - 5],
+      y(each unit="K",
+        each displayUnit="degC"))
+      "Source temperature"
     annotation (Placement(transformation(extent={{-92,-6},{-72,14}})));
 
   Modelica.Blocks.Sources.TimeTable TSet(table=[
@@ -60,53 +66,38 @@ model Tank "Example that test the tank model"
     3600*24,273.15 +10], y(unit="K", displayUnit="degC"))
     "Table with set points for leaving water temperature which will be tracked subject to thermodynamic constraints"
     annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
-  Sensors.TemperatureTwoPort TOut(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=m_flow_nominal,
-    tau=0) "Outlet temperature"
-    annotation (Placement(transformation(extent={{8,-10},{28,10}})));
   Buildings.Fluid.Storage.Ice.Tank iceTanUnc(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     SOC_start=SOC_start,
-    per=per) "Uncontrolled ice tank"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    per=per,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
+             "Uncontrolled ice tank"
+    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   FixedResistances.PressureDrop resUnc(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=500) "Flow resistance"
-    annotation (Placement(transformation(extent={{36,-50},{56,-30}})));
-  Sensors.TemperatureTwoPort TOutUnc(
-    redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    m_flow_nominal=m_flow_nominal,
-    tau=0) "Outlet temperature"
-    annotation (Placement(transformation(extent={{8,-50},{28,-30}})));
+    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
 equation
-  connect(sou.ports[1], iceTan.port_a)
-    annotation (Line(points={{-40,-1},{-30,-1},{-30,0},{-20,0}},
-                                               color={0,127,255}));
   connect(res.port_b, bou.ports[1])
-    annotation (Line(points={{56,0},{62,0},{62,-1},{66,-1}},
+    annotation (Line(points={{50,0},{62,0},{62,-1},{66,-1}},
                                              color={0,127,255}));
   connect(TSou.y[1], sou.T_in) annotation (Line(points={{-71,4},{-62,4}},
                     color={0,0,127}));
   connect(TSet.y, iceTan.TSet) annotation (Line(points={{-71,40},{-28,40},{-28,
-          6},{-22,6}}, color={0,0,127}));
-  connect(iceTan.port_b, TOut.port_a)
-    annotation (Line(points={{0,0},{8,0}}, color={0,127,255}));
-  connect(TOut.port_b, res.port_a)
-    annotation (Line(points={{28,0},{36,0}}, color={0,127,255}));
-  connect(sou.ports[2], iceTanUnc.port_a) annotation (Line(points={{-40,1},{-26,
-          1},{-26,-40},{-20,-40}}, color={0,127,255}));
-  connect(iceTanUnc.port_b, TOutUnc.port_a)
-    annotation (Line(points={{0,-40},{8,-40}}, color={0,127,255}));
-  connect(TOutUnc.port_b, resUnc.port_a)
-    annotation (Line(points={{28,-40},{36,-40}}, color={0,127,255}));
-  connect(resUnc.port_b, bou.ports[2]) annotation (Line(points={{56,-40},{60,
+          6},{-12,6}}, color={0,0,127}));
+  connect(resUnc.port_b, bou.ports[2]) annotation (Line(points={{50,-40},{60,
           -40},{60,-2},{66,-2},{66,1}}, color={0,127,255}));
+  connect(iceTan.port_b, res.port_a)
+    annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
+  connect(iceTanUnc.port_b, resUnc.port_a)
+    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
+  connect(iceTanUnc.port_a, sou.ports[1]) annotation (Line(points={{-10,-40},{
+          -28,-40},{-28,-1},{-40,-1}}, color={0,127,255}));
+  connect(iceTan.port_a, sou.ports[2]) annotation (Line(points={{-10,0},{-26,0},
+          {-26,2},{-40,2}}, color={0,127,255}));
   annotation (
     experiment(
       StartTime=0,
@@ -116,7 +107,7 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
 <p>
-This example is to verify the ice tank model <a href=\"Buildings.Fluid.Storage.Ice\">Buildings.Fluid.Storage.Ice</a>.
+This example is to verify the ice tank model <a href=\"modelica://Buildings.Fluid.Storage.Ice\">Buildings.Fluid.Storage.Ice</a>.
 </p>
 </html>", revisions="<html>
 <ul>

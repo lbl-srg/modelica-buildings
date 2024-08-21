@@ -11,6 +11,10 @@ model PVSimpleOriented "Model of a simple PV panel with orientation"
     Documentation(revisions="<html>
 <ul>
 <li>
+March 23, 2022, by Michael Wetter:<br/>
+Corrected documentation string for parameter <code>A</code>.
+</li>
+<li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
 This is for

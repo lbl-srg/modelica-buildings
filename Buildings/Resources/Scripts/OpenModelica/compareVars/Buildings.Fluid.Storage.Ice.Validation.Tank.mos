@@ -1,7 +1,7 @@
 compareVars :=
   {
     "TSet.y",
-    "TOut.T",
+    "iceTan.T",
     "TSou.y[1]",
     "iceTan.SOC",
     "iceTanUnc.SOC",

@@ -1,0 +1,63 @@
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeaderedDeltaP",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=8400.0,
+    resultFile="StagingHeaderedDeltaP");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 500},
+    y={"ratFlo.y[1]", "enaLea.y[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"idxSta.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"staPum.preFaiSaf.y", "staPum.preEff.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 600},
+    y={"staPumFaiSaf.dp[1]", "staPumFaiSaf.dpSet[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"staPumFaiSaf.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"idxSta1.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=4,
+    y={"staPumFaiSaf.preFaiSaf.y", "staPumFaiSaf.preEff.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

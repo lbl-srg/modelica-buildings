@@ -119,7 +119,7 @@ This is illustrated by the results below.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/216\">issue 216</a> for a discussion.
 </p>
 <p>
-Note that Dymola 2015FD01 can only reliable solve the last case. For the other
+Note that Dymola 2015FD01 can only reliably solve the last case. For the other
 two cases the Newton solver of the nonlinear system does not converge.
 </p>
 <p>

@@ -5,37 +5,43 @@ clear
 
 convertClear();
 
-// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1542
-convertClass("Buildings.Airflow.Multizone.MediumColumnDynamic", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayLinear", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Actuators.Valves.ThreeWayTable", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Movers.FlowControlled_dp", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Movers.FlowControlled_m_flow", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Movers.SpeedControlled_Nrpm", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Movers.SpeedControlled_y", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Storage.Stratified", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Storage.StratifiedEnhanced", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.EvaporatorCondenser", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.HeaterCooler_u", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Humidifiers.Humidifier_u", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXTwoUTube", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Interfaces.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.ThermalZones.ReducedOrder.RC.FourElements", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.ThermalZones.ReducedOrder.RC.OneElement", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.ThermalZones.ReducedOrder.RC.ThreeElements", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.ThermalZones.ReducedOrder.RC.TwoElements", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Delays.DelayFirstOrder", {"massDynamics"}, fill("",0), true);
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1614
+convertModifiers("Buildings.Fluid.Storage.ExpansionVessel", {"p"}, fill("",0), true);
 
-convertClass("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamicsHex"}, fill("",0), true);
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2990
+convertModifiers("Buildings.Controls.OBC.CDL.Integers.Change", {"y_start"}, fill("", 0), true);
+
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1542
+convertModifiers("Buildings.Airflow.Multizone.MediumColumnDynamic", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Valves.ThreeWayLinear", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Actuators.Valves.ThreeWayTable", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Movers.FlowControlled_m_flow", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_Nrpm", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Movers.SpeedControlled_y", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Storage.Stratified", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Storage.StratifiedEnhanced", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.EvaporatorCondenser", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.HeaterCooler_u", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Humidifiers.Humidifier_u", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXOneUTube", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalHEXTwoUTube", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Interfaces.PrescribedOutlet", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.ReducedOrder.RC.FourElements", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.ReducedOrder.RC.OneElement", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.ReducedOrder.RC.ThreeElements", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.ReducedOrder.RC.TwoElements", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.ActiveBeams.Cooling", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Delays.DelayFirstOrder", {"massDynamics"}, fill("",0), true);
+
+convertModifiers("Buildings.Fluid.Storage.StratifiedEnhancedInternalHex", {"massDynamicsHex"}, fill("",0), true);
 
 convertElement("Buildings.Fluid.Humidifiers.SteamHumidifier_X",
   "massDynamics",
@@ -44,31 +50,31 @@ convertElement("Buildings.Fluid.Humidifiers.SprayAirWasher_X",
   "massDynamics",
   "energyDynamics");
 
-convertClass("Buildings.Fluid.Geothermal.Boreholes.UTube", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Geothermal.Boreholes.UTube", {"massDynamics"}, fill("",0), true);
 
-convertClass("Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Cooling", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Heating", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Experimental.DHC.Networks.Connection2Pipe", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatPumps.EquationFitReversible", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatPumps.ScrollWaterToWater", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Boilers.BoilerPolynomial", {"massDynamics"}, fill("",0), true);
-convertClass("Buildings.Fluid.Boilers.BoilerTable", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimaryLoadSide", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.IntegratedPrimarySecondary", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.NonIntegrated", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.CoolingCoilHumidifyingHeating", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Applications.DataCenters.ChillerCooled.Equipment.HeatExchanger_TSet", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Cooling", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Obsolete.DistrictHeatingCooling.SubStations.Heating", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Experimental.DHC.Networks.Connection2Pipe", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.CollectorDistributor", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatPumps.EquationFitReversible", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatPumps.ReciprocatingWaterToWater", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatPumps.ScrollWaterToWater", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Boilers.BoilerPolynomial", {"massDynamics"}, fill("",0), true);
+convertModifiers("Buildings.Fluid.Boilers.BoilerTable", {"massDynamics"}, fill("",0), true);
 
 
 
@@ -131,8 +137,8 @@ convertClass("Buildings.Controls.OBC.CDL.Types.Day",
              "Buildings.Obsolete.Controls.OBC.CDL.Types.Day");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2759
-convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"showWeatherData"}, fill("",0), true);
-convertModifiers("Buildings.ThermalZones.EnergyPlus.Building", {"generatePortableFMU"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.EnergyPlus_9_6_0.Building", {"showWeatherData"}, fill("",0), true);
+convertModifiers("Buildings.ThermalZones.EnergyPlus_9_6_0.Building", {"generatePortableFMU"}, fill("",0), true);
 
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1522
 convertClass("Buildings.Controls.Continuous.PIDHysteresisTimer",

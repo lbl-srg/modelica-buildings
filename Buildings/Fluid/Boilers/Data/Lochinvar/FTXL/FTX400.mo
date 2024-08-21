@@ -12,7 +12,10 @@ record FTX400 "Specifications for Lochinvar FTXL FTX400 boiler"
     mDry=216.8171529,
     m_flow_nominal=2.460518,
     dp_nominal=10461.43);
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of

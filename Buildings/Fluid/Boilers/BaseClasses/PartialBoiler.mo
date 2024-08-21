@@ -27,7 +27,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Units.SI.Power QWat_flow=eta*QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
     // The direction of UAOve.Q_flow is from the ambient to the boiler
-    //   and therefore it takes a plus size here.
+    //   and therefore it takes a plus sign here.
   Modelica.Units.SI.MassFlowRate mFue_flow=QFue_flow/fue.h
     "Fuel mass flow rate";
   Modelica.Units.SI.VolumeFlowRate VFue_flow=mFue_flow/fue.d
@@ -38,7 +38,9 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
 
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
-    final unit = "K", displayUnit = "degC", min=0)
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
     "Temperature of the fluid"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
@@ -82,7 +84,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSen.T, T) annotation (Line(
-      points={{20,40},{60,40},{60,80},{110,80}},
+      points={{21,40},{60,40},{60,80},{110,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFlo.port, vol.heatPort) annotation (Line(

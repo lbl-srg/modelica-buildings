@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "actAirSet.uOpeMod",
+    "actAirSet.VCooMax_flow",
+    "actAirSet.VOccMin_flow",
+    "actAirSet.VActCooMax_flow",
+    "actAirSet.VActMin_flow",
+    "actAirSet.VActHeaMax_flow"
+  };

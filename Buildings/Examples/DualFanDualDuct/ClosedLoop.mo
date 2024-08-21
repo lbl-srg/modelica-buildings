@@ -106,15 +106,17 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{290,-10},{310,10}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
-    per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
+    m_flow_nominal=mAirCol_flow_nominal,
+    dp_nominal=600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{290,-160},{310,-140}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
-    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=100,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
@@ -147,7 +149,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1) "Controller for fan of hot deck"
@@ -268,7 +272,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
-                        xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     r_N_min=0.2,
@@ -515,7 +521,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
@@ -540,7 +548,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Controls.MixedAirTemperatureSetpoint TMixSet
     "Mixed air temperature set point"
     annotation (Placement(transformation(extent={{-190,110},{-170,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conTMix(
+  Buildings.Controls.OBC.CDL.Reals.PID conTMix(
     k=0.05,
     Ti=1200,
     reverseActing=false) "Controller for mixed air temperature"
@@ -1238,6 +1246,17 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code> attribute.
+</li>
+<li>
+August 22, 2022, by Hongxiang Fu:<br/>
+Replaced <code>fanSupCol</code> and <code>fanRet</code> with preconfigured
+fan models.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue #2668</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

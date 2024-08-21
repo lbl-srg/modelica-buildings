@@ -79,12 +79,12 @@ equation
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
-      points={{120,-70},{76.2,-70},{76.2,-52}},
+      points={{120,-70},{76.2,-70},{76.2,-52.4167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TWesWal.port, roo.surf_surBou[2])
     annotation (Line(
-      points={{120,-110},{76.2,-110},{76.2,-52}},
+      points={{120,-110},{76.2,-110},{76.2,-52.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
@@ -96,7 +96,7 @@ equation
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=7200),
+        experiment(Tolerance=1e-06, StopTime=3600),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model.
@@ -318,7 +318,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
+Set simulation the stop time of the Modelica model <code>3600</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.

@@ -40,9 +40,12 @@ external"C" retVal = cfdStartCosimulation(
     nConExtWin,
     nXi,
     nC,
-    rho_start) annotation (Include="#include <cfdStartCosimulation.c>",
+    rho_start)
+    annotation (
+      Include="#include <cfdStartCosimulation.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      LibraryDirectory="modelica://Buildings/Resources/Library", Library="ffd");
+      LibraryDirectory="modelica://Buildings/Resources/Library",
+      Library="ffd");
 
   annotation (Documentation(info="<html>
 <p>

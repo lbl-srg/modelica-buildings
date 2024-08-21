@@ -1,0 +1,21 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.Generic.Validation.TrimAndRespond", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="TrimAndRespond1");
+createPlot(
+  id=1,
+  position={20, 10, 400, 500},
+  subPlot=1,
+  y={"trimRespondLogic.uDevSta", "trimRespondLogicHold.uHol"},
+  range={0.0, 1.0, -0.2, 0.12},
+  grid=true);
+createPlot(id=1, subPlot=2, y={"trimRespondLogic.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(
+  id=1,
+  subPlot=3,
+  y={"trimRespondLogic.y", "trimRespondLogicHold.y"},
+  range={0.0, 1.0, -0.2, 0.12},
+  grid=true);
+createPlot(id=2, position={425, 10, 400, 500}, subPlot=1, y={"trimRespondLogic1.uDevSta"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, subPlot=2, y={"trimRespondLogic1.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=2, subPlot=3, y={"trimRespondLogic1.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={830, 10, 400, 500}, subPlot=1, y={"trimRespondLogic2.uDevSta"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, subPlot=2, y={"trimRespondLogic2.numOfReq"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});
+createPlot(id=3, subPlot=3, y={"trimRespondLogic2.y"}, range={0.0, 1.0, -0.2, 0.12}, grid=true, colors={{238,46,47}});

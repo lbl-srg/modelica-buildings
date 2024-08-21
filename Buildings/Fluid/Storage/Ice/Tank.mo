@@ -2,7 +2,8 @@ within Buildings.Fluid.Storage.Ice;
 model Tank "Ice tank with performance based on performance curves"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     final allowFlowReversal = false,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final tau=tauHex,
+    final energyDynamics=energyDynamicsHex,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
   parameter Real SOC_start(min=0, max=1, final unit="1")
@@ -15,9 +16,14 @@ model Tank "Ice tank with performance based on performance curves"
       choicesAllMatching = true,
       Placement(transformation(extent = {{40, 60}, {60, 80}}, rotation = 0)));
 
-  parameter Modelica.Units.SI.Time tau = 30
-    "Time constant at nominal flow"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamicsHex=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balance for heat exchanger internal fluid mass"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
+
+  parameter Modelica.Units.SI.Time tauHex(min=1) = 30
+    "Time constant of working fluid through the heat exchanger at nominal flow"
+     annotation (Dialog(tab = "Dynamics heat exchanger", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -45,8 +51,17 @@ model Tank "Ice tank with performance based on performance curves"
   Modelica.Blocks.Interfaces.RealOutput SOC(
     final unit = "1")
     "state of charge"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
+
+  Modelica.Blocks.Interfaces.RealOutput T(
+    final quantity="ThermodynamicTemperature",
+    final unit = "K",
+    displayUnit = "degC",
+    min=0)
+    "Temperature of the fluid leaving at port_b"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+
   Modelica.Blocks.Interfaces.RealOutput mIce(
     quantity="Mass",
     unit="kg") "Mass of remaining ice"
@@ -55,58 +70,61 @@ model Tank "Ice tank with performance based on performance curves"
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(final unit="W")
     "Heat flow rate, positive during charging, negative when melting the ice"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}}),
+        iconTransformation(extent={{100,30},{120,50}})));
 
-  BaseClasses.Tank tanHeaTra(
+protected
+  Buildings.Fluid.Storage.Ice.BaseClasses.Tank tanHeaTra(
     final SOC_start=SOC_start,
     final per=per,
     final cp=cp)
     "Model for tank heat transfer between working fluid and ice"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-11,-40})));
-protected
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
+    "Temperature of fluid"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-40,-40})));
+
   Modelica.Blocks.Sources.RealExpression TIn(
     final y=Medium.temperature(state=
         Medium.setState_phX(
         p=port_a.p,
         h=inStream(port_a.h_outflow),
         X=inStream(port_a.Xi_outflow)))) "Inlet temperature into tank"
-    annotation (Placement(transformation(extent={{-90,-54},{-70,-34}})));
-
-  Modelica.Blocks.Sources.RealExpression TOut(
-    final y=Medium.temperature(state=
-        Medium.setState_phX(
-        p=port_b.p,
-        h=port_b.h_outflow,
-        X=port_b.Xi_outflow))) "Outlet temperature of the tank"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-90,-74},{-70,-54}})));
 
   Modelica.Blocks.Sources.RealExpression limQ_flow(y=m_flow*cp*(per.TFre - TIn.y))
    "Upper/Lower limit for charging/discharging rate"
-    annotation (Placement(transformation(extent={{-90,-86},{-70,-66}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 equation
-  connect(tanHeaTra.TIn, TIn.y) annotation (Line(points={{-42,-64},{-58,-64},{
-          -58,-44},{-69,-44}},
+  connect(tanHeaTra.TIn, TIn.y) annotation (Line(points={{-42,-64},{-69,-64}},
                            color={0,0,127}));
-  connect(tanHeaTra.TOut, TOut.y) annotation (Line(points={{-42,-70},{-64,-70},
-          {-64,-60},{-69,-60}},color={0,0,127}));
-  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-21,-40},{-28,
-          -40},{-28,-10},{-9,-10}},                color={191,0,0}));
-  connect(tanHeaTra.SOC, SOC) annotation (Line(points={{-19,-70},{80,-70},{80,
-          80},{110,80}},
-                      color={0,0,127}));
-  connect(tanHeaTra.mIce, mIce) annotation (Line(points={{-19,-74},{94,-74},{94,
+  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{-21,-40},{-26,
+          -40},{-26,-10},{-9,-10}},                color={191,0,0}));
+  connect(tanHeaTra.SOC, SOC) annotation (Line(points={{-19,-70},{80,-70},{80,-40},
+          {110,-40}}, color={0,0,127}));
+  connect(tanHeaTra.mIce, mIce) annotation (Line(points={{-19,-74},{80,-74},{80,
           -80},{110,-80}}, color={0,0,127}));
-  connect(limQ_flow.y, tanHeaTra.QLim_flow) annotation (Line(points={{-69,-76},
-          {-42,-76}},                    color={0,0,127}));
-  connect(tanHeaTra.Q_flow, Q_flow) annotation (Line(points={{-19,-66},{96,-66},
-          {96,-40},{110,-40}},                    color={0,0,127}));
+  connect(limQ_flow.y, tanHeaTra.QLim_flow) annotation (Line(points={{-69,-80},
+          {-56,-80},{-56,-76},{-42,-76}},color={0,0,127}));
+  connect(tanHeaTra.Q_flow, Q_flow) annotation (Line(points={{-19,-66},{10,-66},
+          {10,-40},{74,-40},{74,40},{110,40}},    color={0,0,127}));
   connect(tanHeaTra.Q_flow, preHeaFlo.Q_flow) annotation (Line(points={{-19,-66},
           {10,-66},{10,-40},{-1,-40}},color={0,0,127}));
+  connect(temSen.T, T) annotation (Line(points={{-51,-40},{-80,-40},{-80,50},{
+          74,50},{74,80},{110,80}},
+        color={0,0,127}));
+  connect(temSen.T, tanHeaTra.TOut) annotation (Line(points={{-51,-40},{-54,-40},
+          {-54,-70},{-42,-70}}, color={0,0,127}));
+  connect(vol.heatPort, temSen.port) annotation (Line(points={{-9,-10},{-26,-10},
+          {-26,-40},{-30,-40}}, color={191,0,0}));
   annotation (defaultComponentModel="iceTan", Icon(graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
@@ -145,11 +163,11 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Text(
-          extent={{102,-8},{130,-32}},
+          extent={{100,72},{140,46}},
           textColor={0,0,88},
           textString="Q_flow"),
         Text(
-          extent={{102,-50},{130,-74}},
+          extent={{100,-48},{128,-72}},
           textColor={0,0,88},
           textString="mIce"),
         Rectangle(
@@ -159,9 +177,13 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0}),
         Text(
-          extent={{102,110},{130,86}},
+          extent={{100,-10},{128,-34}},
           textColor={0,0,88},
-          textString="SOC")}),
+          textString="SOC"),
+        Text(
+          extent={{90,110},{124,88}},
+          textColor={0,0,88},
+          textString="T")}),
     Documentation(info="<html>
 <p>
 This model implements an ice tank model whose performance is computed based on
@@ -253,6 +275,11 @@ where <i>T<sub>in</sub></i> is the inlet temperature, <i>T<sub>out</sub></i> is 
 <i>T<sub>fre</sub></i> is the freezing temperature
 and <i>T<sub>nom</sub></i> is a nominal temperature difference of 10 Kelvin.
 </p>
+<h4>Usage</h4>
+<p>
+This model requires the fluid to flow from <code>port_a</code> to <code>port_b</code>.
+Otherwise, the simulation stops with an error.
+</p>
 <h4>
 Reference
 </h4>
@@ -261,7 +288,8 @@ Strand, R.K. 1992. “Indirect Ice Storage System Simulation,” M.S. Thesis,
 Department of Mechanical and Industrial Engineering, University of Illinois at Urbana-Champaign.
 </p>
 <p>
-Li, Guowen, et al. <i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
+Guowen Li, Yangyang Fu, Amanda Pertzborn, Jin Wen and Zheng O'Neill.
+<i>An Ice Storage Tank Modelica Model: Implementation and Validation.</i> Modelica Conferences. 2021.
 <a href=\"https://doi.org/10.3384/ecp21181177\">doi:10.3384/ecp21181177</a>.
 </p>
 </html>", revisions="<html>

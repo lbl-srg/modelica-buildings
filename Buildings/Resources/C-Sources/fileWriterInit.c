@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "ModelicaUtilities.h"
 
 #include "fileWriterStructure.c"
 

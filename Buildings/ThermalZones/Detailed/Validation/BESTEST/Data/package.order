@@ -1,7 +1,14 @@
+CriteriaLimits
+ExteriorWallCase680
 ExteriorWallCase900
+ExteriorWallCase980
 FloorCase900
 Glass600
+Glass660
 ResultSummary
+RoofCase680
 StandardResults
 StandardResultsFreeFloating
 Win600
+Win660
+Win670

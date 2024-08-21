@@ -2,7 +2,10 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortRLC_N
   "Model of an RLC element with two electrical ports and neutral line cable"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
+
   parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
   parameter Modelica.Units.SI.Resistance Rn
     "Resistance of neutral cable at temperature T_ref";
@@ -231,6 +234,10 @@ The resistance, capacitance and inductance of the neutral cable are defined sepa
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 September 17, 2016, by Michael Wetter:<br/>
 Corrected wrong annotation to avoid an error in the pedantic model check

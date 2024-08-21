@@ -40,10 +40,10 @@ model SingleZoneFloorWithHeating
     gai(K=0*[0.4; 0.4; 0.2]))
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{66,106},{106,146}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRoo(k=273.15 + 22,
       y(unit="K", displayUnit="degC")) "Setpoint for room air"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum EHeaFlo(nin=5)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum EHeaFlo(nin=5)
     "Heating energy of the five-zone floor"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndCon(

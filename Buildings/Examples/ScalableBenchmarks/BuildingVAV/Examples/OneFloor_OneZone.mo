@@ -12,8 +12,8 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Prescribed pressure difference";
   parameter Modelica.Units.SI.Volume VRoo[nZon,nFlo]={{6*8*2.7 for j in 1:nFlo}
       for i in 1:nZon} "Room volume";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]={{7*
-      conv*VRoo[i, j] for j in 1:nFlo} for i in 1:nZon}
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
+    7*conv*VRoo[:,:]
     "Nominal flow rate to each zone";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
@@ -37,7 +37,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each constantHead=850,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each m_flow_nominal=10,
+    each m_flow_nominal=0.1,
     each inputType=Buildings.Fluid.Types.InputType.Continuous,
     each nominalValuesDefineDefaultPressureCurve=true)
       "Supply air fan"
@@ -139,10 +139,11 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal)  "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{28,118},{12,134}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet[nFlo](
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanRet[nFlo](
     redeclare each package Medium = MediumA,
+    each m_flow_nominal=m_flow_nominal,
+    each dp_nominal=1.5*110,
     each tau=60,
-    each per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       "Return air fan"
     annotation (Placement(transformation(extent={{-10,116},{-30,136}})));
@@ -202,7 +203,7 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Computes lowest room temperature"
     annotation (Placement(transformation(extent={{108,94},{120,106}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet[nFlo](
-    each xSet_nominal(displayUnit="m3/s") = m_flow_nominal/1.2,
+    each xSet_nominal(final unit="m3/s") = m_flow_nominal/1.2,
     each r_N_min=0.2) "Controller for fan"
     annotation (Placement(transformation(extent={{14,152},{28,166}})));
   Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses.ControlBus controlBus[nFlo]
@@ -315,7 +316,7 @@ equation
         color={255,204,51}, thickness=0.5),
         Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(eco[iFlo].port_Exh, amb[iFlo].ports[1])
-      annotation (Line(points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
+      annotation (Line(points={{-262,40},{-278,40},{-278,38.3},{-306,38.3}},
         color={0,127,255}, thickness=0.5));
     connect(senRetFlo[iFlo].port_b, fanRet[iFlo].port_a)
       annotation (Line(points={{12,126},{-10,126}},color={0,127,255}, thickness=0.5));
@@ -335,7 +336,7 @@ equation
       annotation (Line(points={{-51,-60},{-50,-60},{-50,-66}},
         color={0,127,255}));
     connect(amb[iFlo].ports[2], VOut1[iFlo].port_a)
-      annotation (Line(points={{-306,37.6},{-300,37.6},{-300,22},{-292,22}},
+      annotation (Line(points={{-306,39.7},{-300,39.7},{-300,22},{-292,22}},
         color={0,127,255}, thickness=0.5));
     connect(VOut1[iFlo].port_b, eco[iFlo].port_Out)
       annotation (Line(points={{-276,22},{-270,22},{-262,22}},
@@ -437,13 +438,13 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-360,-120},{140,200}})),
   Documentation(info="<html>
 <p>
-Model an buiding that has multiple thermal zones on each floor,
+This is a model of a building that has multiple thermal zones on each floor,
 and an HVAC system on each floor.
 </p>
 <p>
-The HVAC system is a variable air volume (VAV) flow system with economizer
-and a heating and cooling coil in the air handler unit. There is also a
-reheat coil and an air damper in each zone inlet branches. Each floor has one VAV
+The HVAC system is a variable air volume (VAV) system with economizer
+and a heating and cooling coil in the air handler unit (AHU). There is also a
+reheat coil and an air damper in each zone inlet branch. Each floor has one VAV
 AHU system.
 The figure below shows the schematic diagram of the HVAC system
 </p>
@@ -454,7 +455,7 @@ The figure below shows the schematic diagram of the HVAC system
 The control sequence regulates the supply fan speed to ensure a
 prescribed pressure rise of <code>850 Pa</code> when the supply fan runs
 during operation modes <i>occupied</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
+<i>unoccupied warm-up</i>, and <i>unoccupied pre-cool</i>.
 The heating coil valve, outside air damper, and cooling coil valve are
 modulated in sequence to maintain the supply air temperature set point.
 The economizer control ensures the following functions:
@@ -470,18 +471,18 @@ Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV</a>.
 There is also a finite state machine that transitions the mode of operation of
 the HVAC system between the modes
 <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
-<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>.
+<i>unoccupied warm-up</i>, and <i>unoccupied pre-cool</i>.
 Local loop control is implemented using proportional and proportional-integral
 controllers, while the supervisory control is implemented
 using a finite state machine.
 </p>
 <p>
 The thermal room model computes transient heat conduction through
-walls, floors and ceilings and long-wave radiative heat exchange between
+walls, floors, and ceilings and long-wave radiative heat exchange between
 surfaces. The convective heat transfer coefficient is computed based
 on the temperature difference between the surface and the room air.
 There is also a layer-by-layer short-wave radiation,
-long-wave radiation, convection and conduction heat transfer model for the
+long-wave radiation, convection, and conduction heat transfer model for the
 windows. The model is similar to the Window 5 model and described in
 TARCOG 2006.
 </p>
@@ -510,6 +511,29 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code> attribute.
+</li>
+<li>
+April 27, 2023, by Michael Wetter:<br/>
+Reformulated assignment of <code>m_flow_each</code> to avoid in Dymola 2023x
+the error \"Incompatible number of dimensions for variable and its definition equation\".<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3360\">issue #3360</a>.
+</li>
+<li>
+August 22, 2022, by Hongxiang Fu:<br/>
+Replaced <code>fanRet[]</code> with a preconfigured fan model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue #2668</a>.
+</li>
+<li>
+June 17, 2022, by Hongxiang Fu:<br/>
+Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">issue #3067</a>.
+</li>
 <li>
 June 30, 2021, by Antoine Gautier:<br/>
 Changed cooling coil model. This is for

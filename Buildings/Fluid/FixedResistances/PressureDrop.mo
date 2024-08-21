@@ -80,12 +80,12 @@ The mass flow rate is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = k
-&radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
+&radic;<span style=\"text-decoration:overline;\">&Delta;p</span>,
 </p>
 <p>
 where
 <i>k</i> is a constant and
-<i>&Delta;P</i> is the pressure drop.
+<i>&Delta;p</i> is the pressure drop.
 The constant <i>k</i> is equal to
 <code>k=m_flow_nominal/sqrt(dp_nominal)</code>,
 where <code>m_flow_nominal</code> and <code>dp_nominal</code>
@@ -163,7 +163,7 @@ Buildings.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 and its inverse function.

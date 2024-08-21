@@ -71,9 +71,11 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 
+#def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug, color, rewriteConfigurationFile):
 def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification, debug, color):
     import buildingspy.development.regressiontest as u
 
+#    ut = u.Tester(tool=tool, skip_verification=skip_verification, color=color, rewriteConfigurationFile=rewriteConfigurationFile)
     ut = u.Tester(tool=tool, skip_verification=skip_verification, color=color)
     ut.batchMode(batch)
     ut.setLibraryRoot(path)
@@ -88,10 +90,8 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification
     # Below are some option that may occassionally be used.
     # These are currently not exposed as command line arguments.
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
-
     ut.writeOpenModelicaResultDictionary()
     # Run the regression tests
-
     retVal = ut.run()
 
     # Display HTML report if not run in batch mode.
@@ -144,7 +144,9 @@ if __name__ == '__main__':
     unit_test_group.add_argument('-d', "--debug",
                                  action="store_true",
                                  help="Enable debug output.")
-
+#    unit_test_group.add_argument("--rewrite-configuration-file",
+#                                 help='If specified, rewrite the configuration file conf.yml (implemented for openmodelica only)',
+#                                 action="store_true")
 
     html_group = parser.add_argument_group(
         "arguments to check html syntax only")
@@ -202,6 +204,6 @@ if __name__ == '__main__':
                            show_gui=args.show_gui,
                            skip_verification=args.skip_verification,
                            debug=args.debug,
-                           color=True
-                           )
+                           color=True)
+#                           rewriteConfigurationFile=args.rewrite_configuration_file)
     exit(retVal)

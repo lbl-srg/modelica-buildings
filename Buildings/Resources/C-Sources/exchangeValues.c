@@ -13,10 +13,12 @@
  * Pierre Vigouroux, LBNL                  7/18/2011
  */
 
-#include "externalObjectStructure.h"
-
 #include <string.h>
 #include <stdlib.h>
+
+#include "ModelicaUtilities.h"
+
+#include "externalObjectStructure.h"
 
 double exchangeValues(void* object, size_t iX, double x, size_t iY){
   ExternalObjectStructure* table = (ExternalObjectStructure*) object;
@@ -32,7 +34,7 @@ double exchangeValues(void* object, size_t iX, double x, size_t iY){
   /* Manage memory
    * At first call, initialize storage */
   if ( table->x == NULL ){
-    table->x= malloc( nNew * sizeof(double) );
+    table->x = (double *)malloc( nNew * sizeof(double) );
     if ( table->x == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for table.");
     table->n = nNew;
@@ -45,7 +47,7 @@ double exchangeValues(void* object, size_t iX, double x, size_t iY){
 
   if (iX > nTab){
     /* Assign more memory before storing the value */
-    tab2 = malloc( nTab * sizeof(double) );
+    tab2 = (double *)malloc( nTab * sizeof(double) );
     if ( tab2 == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for tab2.");
 
@@ -54,7 +56,7 @@ double exchangeValues(void* object, size_t iX, double x, size_t iY){
 
     /* Increase the size of x */
     free(table->x);
-    table->x = malloc(nNew * sizeof(double) );
+    table->x = (double *)malloc(nNew * sizeof(double) );
     if ( table->x == NULL )
       ModelicaError("Out of memory in storeValue.c when allocating memory for table->x.");
     table->n = nNew;
