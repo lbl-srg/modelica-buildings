@@ -175,11 +175,9 @@ equation
   connect(TOut1.y, chiPlaCon.TOut) annotation (Line(points={{-238,-180},{-150,-180},
           {-150,-100},{-30,-100}}, color={0,0,127}));
   connect(TChiWatRet.y, chiPlaCon.TChiWatRet)
-    annotation (Line(points={{-218,30},{-128,30},{-128,80},{-30,80}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-218,30},{-128,30},{-128,80},{-30,80}}, color={0,0,127}));
   connect(TChiWatSup.y, chiPlaCon.TChiWatSup)
-    annotation (Line(points={{-278,10},{-144,10},{-144,60},{-30,60}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-278,10},{-144,10},{-144,60},{-30,60}}, color={0,0,127}));
   connect(TChiWatRetDow.y, chiPlaCon.TChiWatRetDow) annotation (Line(points={{-278,
           -160},{-170,-160},{-170,90},{-30,90}}, color={0,0,127}));
   connect(TConWatRet.y, chiPlaCon.TConWatRet) annotation (Line(points={{-198,-240},
@@ -201,8 +199,7 @@ equation
   connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-90},{
           190,-90},{190,-210},{-70,-210},{-70,-150},{-30,-150}}, color={0,0,127}));
   connect(chiPlaCon.yConWatPum, conWatPum.u) annotation (Line(points={{90,20},{
-          108,20},{108,-40},{158,-40}},
-                                    color={255,0,255}));
+          108,20},{108,-40},{158,-40}}, color={255,0,255}));
   connect(conWatPum.y, chiPlaCon.uConWatPum) annotation (Line(points={{182,-40},
           {210,-40},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,255}));
   connect(conWatPum.y, booToRea.u)
@@ -216,7 +213,7 @@ equation
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
           {200,-60},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,90},
-          {-180,90},{-180,140},{-30,140}},          color={0,0,127}));
+          {-180,90},{-180,140},{-30,140}}, color={0,0,127}));
   connect(booToRea1.y, pro1.u1) annotation (Line(points={{-218,170},{-210,170},
           {-210,-122},{-202,-122}}, color={0,0,127}));
   connect(chiCooLoa.y, pro1.u2) annotation (Line(points={{-278,-120},{-220,-120},
@@ -224,7 +221,7 @@ equation
   connect(pro1.y, chiPlaCon.uChiCooLoa) annotation (Line(points={{-178,-128},{-70,
           -128},{-70,-110},{-30,-110}},  color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,50},
-          {198,50}},                     color={0,0,127}));
+          {198,50}}, color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
           {-100,-70},{-100,-60},{-30,-60}}, color={255,127,0}));
   connect(reaToInt1.y, intGreThr.u) annotation (Line(points={{-258,-70},{-220,-70},
@@ -341,10 +338,6 @@ cooling tower (<code>upProCon.yTowStaUp=true</code>) at the same moment. At 127.
 minutes, it enables the chiller 1 head pressure control. When the chilled water
 isolation valve is fully open at 132.741 minutes, it then turns on chiller 1. The
 staging up process is done (<code>upProCon.yStaPro=false</code>).
-</li>
-<li>
-At 145 minutes, the plant starts staging up again to add chiller 2
-(<code>yChiSet[2]=true</code>). The whole staging up process starts again.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -90,6 +90,16 @@ model TrueFalseHold
     "Negation of input signal"
     annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
 
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol8(trueHoldDuration=
+        0, falseHoldDuration=1000)
+    "The block introduces a minimal offset between the input signal rising and falling edge"
+    annotation (Placement(transformation(extent={{120,90},{140,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    annotation (Placement(transformation(extent={{70,130},{90,150}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol9(trueHoldDuration=
+        0, falseHoldDuration=1000)
+    "The block introduces a minimal offset between the input signal rising and falling edge"
+    annotation (Placement(transformation(extent={{120,130},{140,150}})));
 equation
   connect(booPul.y,truFalHol.u)
     annotation (Line(points={{-118,70},{-118,70},{-42,70}},color={255,0,255}));
@@ -115,6 +125,12 @@ equation
     annotation (Line(points={{42,-50},{68,-50}},color={255,0,255}));
   connect(not4.y,truFalHol7.u)
     annotation (Line(points={{92,-50},{118,-50}},color={255,0,255}));
+  connect(booPul4.y, truFalHol8.u) annotation (Line(points={{42,70},{80,70},{80,
+          100},{118,100}}, color={255,0,255}));
+  connect(booPul4.y, edg.u) annotation (Line(points={{42,70},{60,70},{60,140},{
+          68,140},{68,140}}, color={255,0,255}));
+  connect(edg.y, truFalHol9.u)
+    annotation (Line(points={{92,140},{118,140}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=7200.0,

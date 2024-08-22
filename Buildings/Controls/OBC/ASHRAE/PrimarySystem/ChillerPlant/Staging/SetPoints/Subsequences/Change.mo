@@ -170,8 +170,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold staChaHol2(
-    final trueHoldDuration=0,
-    final falseHoldDuration=delayStaCha)
+    final trueHoldDuration=delayStaCha,
+    final falseHoldDuration=0)
     "Stage change hold"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -191,6 +191,7 @@ protected
     "Check if there is stage change"
     annotation (Placement(transformation(extent={{300,90},{320,110}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Consider staging up only if stage down signal is not on"
     annotation (Placement(transformation(extent={{-320,60},{-300,80}})));
@@ -298,8 +299,6 @@ equation
           color={255,0,255}));
   connect(staChaHol2.y, triSam.trigger) annotation (Line(points={{102,-50},{120,
           -50},{120,58}},   color={255,0,255}));
-  connect(edg1.y, or1.u1) annotation (Line(points={{-58,-80},{0,-80},{0,-50},{38,
-          -50}}, color={255,0,255}));
   connect(edg1.y, or3.u2) annotation (Line(points={{-58,-80},{140,-80},{140,-58},
           {158,-58}}, color={255,0,255}));
   connect(staChaHol3.y, not1.u)
@@ -320,8 +319,6 @@ equation
           270,-138},{278,-138}}, color={255,0,255}));
   connect(and5.y,logSwi1. u3) annotation (Line(points={{302,-130},{378,-130}},
           color={255,0,255}));
-  connect(edg2.y, and2.u2) annotation (Line(points={{-18,-170},{-10,-170},{-10,-138},
-          {-2,-138}}, color={255,0,255}));
   connect(and6.y, and2.u1) annotation (Line(points={{-158,-80},{-150,-80},{-150,
           -130},{-2,-130}}, color={255,0,255}));
   connect(and7.y, logSwi2.u3) annotation (Line(points={{302,-90},{378,-90}},
@@ -386,6 +383,10 @@ equation
           340,-82},{378,-82}}, color={255,0,255}));
   connect(truDel.y, logSwi1.u2) annotation (Line(points={{262,-210},{340,-210},{
           340,-122},{378,-122}}, color={255,0,255}));
+  connect(edg2.y, and2.u2) annotation (Line(points={{-18,-170},{-10,-170},{-10,-138},
+          {-2,-138}}, color={255,0,255}));
+  connect(edg1.y, or1.u1) annotation (Line(points={{-58,-80},{-20,-80},{-20,-50},
+          {38,-50}}, color={255,0,255}));
   annotation (defaultComponentName = "cha",
         Icon(graphics={
         Rectangle(

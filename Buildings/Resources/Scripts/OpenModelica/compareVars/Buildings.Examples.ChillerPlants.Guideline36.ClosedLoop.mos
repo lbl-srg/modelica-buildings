@@ -8,6 +8,8 @@ compareVars :=
     "chiPla.chi2.m2_flow",
     "chiPla.chi2.on",
     "chiPla.chi2.TSet",
+    "chiPla.chiWatSupTem.T",
+    "chiPla.chiWatRet.T",
     "chiPla.chwIsoVal1.y",
     "chiPla.chwIsoVal2.y",
     "chiPla.chiWatPum1.y",
@@ -17,5 +19,7 @@ compareVars :=
     "chiPla.conWatPum1.y",
     "chiPla.conWatPum2.y",
     "chiPla.cooTow1.y",
-    "chiPla.cooTow2.y"
+    "chiPla.cooTow2.y",
+    "chiPla.conWatSupTem.T",
+    "chiPla.conWatRetTem.T"
   };
