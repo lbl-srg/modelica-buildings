@@ -16,7 +16,8 @@ model ReverseActingPIWithFirstOrderAMIGO
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti=0.5,
-    Td=0.1) "PI controller with constant gains"
+    Td=0.1)
+    "PI controller with constant gains"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"

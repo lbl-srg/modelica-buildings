@@ -10,14 +10,16 @@ model DirectActingPIDWithFirstOrderAMIGO
       yLow=0,
       deaBan=0.1,
       yRef=0.8,
-      reverseActing=false) "PID controller with an autotuning feature"
+      reverseActing=false)
+    "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset PID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=0.5,
     Td=0.1,
-    reverseActing=false) "PID controller with constant gains"
+    reverseActing=false)
+    "PID controller with constant gains"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"

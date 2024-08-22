@@ -18,7 +18,8 @@ model WetCoilCounterFlowPControlAutoTuning
     nPorts=1,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
-    T=303.15) annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
+    T=303.15)
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     nPorts=1,
@@ -26,14 +27,15 @@ model WetCoilCounterFlowPControlAutoTuning
     X={0.02,1 - 0.02},
     use_T_in=true,
     use_X_in=true,
-    p(displayUnit="Pa") = 101325 + 300) annotation (Placement(transformation(
-          extent={{140,10},{120,30}})));
+    p(displayUnit="Pa") = 101325 + 300)
+    annotation (Placement(transformation(extent={{140,10},{120,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     nPorts=1,
     use_p_in=false,
     p=300000,
-    T=293.15) annotation (Placement(transformation(extent={{140,50},{120,70}})));
+    T=293.15)
+    annotation (Placement(transformation(extent={{140,50},{120,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     nPorts=1,
@@ -52,8 +54,9 @@ model WetCoilCounterFlowPControlAutoTuning
     dp_nominal=3000,
     m_flow_nominal=m1_flow_nominal)
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
-               Medium2, m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen(
+    redeclare package Medium =Medium2,
+    m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,10},{0,30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
@@ -61,10 +64,11 @@ model WetCoilCounterFlowPControlAutoTuning
     dpValve_nominal=6000)
     "Valve model"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
-  Modelica.Blocks.Sources.TimeTable TSet(table=[0,288.15; 600,288.15; 600,
-        298.15; 1200,298.15; 1800,283.15; 2400,283.15; 2400,288.15])
-    "Setpoint temperature" annotation (Placement(transformation(extent={{-80,90},
-            {-60,110}})));
+  Modelica.Blocks.Sources.TimeTable TSet(
+    table=[0,288.15; 600,288.15; 600,298.15; 1200,298.15;
+           1800,283.15; 2400,283.15; 2400,288.15])
+    "Setpoint temperature"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,

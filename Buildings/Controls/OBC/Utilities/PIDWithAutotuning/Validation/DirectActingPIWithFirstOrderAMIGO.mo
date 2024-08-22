@@ -10,7 +10,8 @@ model DirectActingPIWithFirstOrderAMIGO
      yLow=0,
      deaBan=0.1,
      yRef=0.8,
-     reverseActing=false) "PI controller with an autotuning feature"
+     reverseActing=false)
+     "PI controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
 
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset PI(
@@ -18,7 +19,8 @@ model DirectActingPIWithFirstOrderAMIGO
     k=1,
     Ti=0.5,
     Td=0.1,
-    reverseActing=false) "PI controller with constant gains"
+    reverseActing=false)
+    "PI controller with constant gains"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
