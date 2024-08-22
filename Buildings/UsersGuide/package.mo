@@ -75,6 +75,15 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.Borefields\">Fluid.Geothermal.Borefields</a>
+   </td>
+   <td valign=\"top\">Package with models for geothermal borefields.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields\">Fluid.Geothermal.ZonedBorefields</a>
+   </td>
+   <td valign=\"top\">Package with models for zoned geothermal borefields in which individual zones of the borefield can be
+   operated independently of other zones of the borefield.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
    </td>
    <td valign=\"top\">Package with active beams.</td>

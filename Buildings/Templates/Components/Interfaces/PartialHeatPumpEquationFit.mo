@@ -5,8 +5,8 @@ model PartialHeatPumpEquationFit
     final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
 
   final parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic datPerFit(
-    dpHeaSou_nominal = if have_preDroSou then dat.perFit.dpHeaSou_nominal else 0,
-    dpHeaLoa_nominal = if have_preDroChiHeaWat then dat.perFit.dpHeaLoa_nominal else 0,
+    dpHeaSou_nominal = if have_dpSou then dat.perFit.dpHeaSou_nominal else 0,
+    dpHeaLoa_nominal = if have_dpChiHeaWat then dat.perFit.dpHeaLoa_nominal else 0,
     hea(
       TRefLoa = dat.perFit.hea.TRefLoa,
       TRefSou = dat.perFit.hea.TRefSou,
@@ -152,9 +152,9 @@ equation
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
 The model can be configured with the parameter <code>is_rev</code>
-to represent either a non-reversible heat pump (heating only) or a 
+to represent either a non-reversible heat pump (heating only) or a
 reversible heat pump.
-This model uses 
+This model uses
 <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>,
 which the user may refer to for the modeling assumptions.
@@ -171,7 +171,7 @@ DO signal, with a dimensionality of zero
 <li>For reversible heat pumps only (<code>is_rev=true</code>),
 Heat pump operating mode command signal <code>y1Hea</code>:
 DO signal, with a dimensionality of zero<br/>
-(<code>y1Hea=true</code> for heating mode, 
+(<code>y1Hea=true</code> for heating mode,
 <code>y1Hea=false</code> for cooling mode)
 </li>
 <li>
