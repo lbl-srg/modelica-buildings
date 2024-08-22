@@ -26,28 +26,39 @@ Record containing the configuration of the EnergyPlus <code>RunPeriod</code> obj
 </p>
 <p>
 EnergyPlus has an entry \"Day of Week for Start Day\" that determines the week-day of the first simulated day.
-This can be set with the Modelica parameter <code>dayOfWeekForStartDay</code> and by setting <code>dayOfWeekIsAtTime0 = false</code>.
-For example, if in Modelica the start time is <i>t=24*3600</i> seconds, the setting
+The first simulated day can be set with the Modelica parameter <code>dayOfWeekForStartDay</code>.
+Note however a difference between the default behavior of EnergyPlus, and
+the EnergyPlus behavior when used with this Modelica coupling.
 </p>
+<p>
+The default behavior of EnergyPlus -- but not of this coupling -- is as follows:
+If in the idf file, the first day of the simulation is set to Sunday, then
+if the simulation starts on January 1, then January 1 is a Sunday and January 2 is a Monday.
+Now, if the simulation is started at January 2, then January 2 is a Sunday. Hence,
+depending on the start day of the simulation, the day of the week associated with a day changes.
+This can give unexpected behavior, for example, if one only simulates a few days of a year,
+as in this case, a week-end day can become a working day, and thus perhaps cause EnergyPlus
+to use a different schedule for occupancy or internal loads.
+</p>
+<p>
+Therefore, in this implementation in which we couple EnergyPlus to Modelica, we have parameters
+that are by default set to
 <pre>
 dayOfWeekForStartDay = Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays.Sunday,
-dayOfWeekIsAtTime0 = false
+dayOfWeekIsAtTime0 = true
 </pre>
-<p>
-will cause the first simulated day, i.e., January 2, to be a Sunday, and January 3 to be a Monday. This is the
-default behavior of EnergyPlus. However, note that if a model is started at
-<i>t=2*24*3600</i>, i.e., on January 3, then with this setting, January 3 is now the Sunday.
-This can give unexpected behavior if a modeller changes the start time and through this action,
-January 3 is no longer a Monday.
-To allow a modeller to avoid this behavior,
-Modelica uses the parameter <code>dayOfWeekIsAtTime0</code>, with default set to <code>true</code>.
-For the above scenario, this means that January 1 is a Sunday, January 2 is a Monday and January 3 is Tuesday,
-regardless of whether the simulation starts at <i>t=24*3600</i> seconds or at <i>t=2*24*3600</i> seconds.
-</p>
+With this setting,
+January 1 is a Sunday and January 2 is a Monday,
+regardless of whether the simulation starts at <i>t=0</i> seconds or at <i>t=24*3600</i> seconds.
+Users who want to retain the original behavior of EnergyPlus can set
+<code>dayOfWeekIsAtTime0 = false</code>.
 <p>
 Note that the simulation start and stop time is controlled by Modelica,
-and therefore the entries in the EnergyPlus input data file for the
+and therefore all entries in the EnergyPlus input data file for the
 <code>RunPeriod</code> object are ignored.
+</p>
+<p>
+Also, there is no support for leap years, each year has 365 days, also in multi-year simulations.
 </p>
 </html>",
   revisions="<html>
