@@ -26,22 +26,36 @@ model LosslessPipe "Validation model for lossless pipe"
     p(displayUnit="Pa") = 101325)
     "Pressure boundary condition"
     annotation (Placement(transformation(
-          extent={{50,-10},{30,10}})));
+          extent={{90,-10},{70,10}})));
 
   Buildings.Fluid.FixedResistances.LosslessPipe res(
     redeclare package Medium = Medium,
     show_T=true,
     m_flow_nominal=1)
     "Fixed resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=res.m_flow_nominal,
+    tau=0) "Temperature sensor at the inlet"
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=res.m_flow_nominal,
+    tau=0) "Temperature sensor at the outlet"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  connect(sou.ports[1], res.port_a)
-    annotation (Line(points={{-30,0},{-10,0}},          color={0,127,255}));
-  connect(res.port_b, sin.ports[1])
-    annotation (Line(points={{10,0},{10,0},{30,0}},    color={0,127,255}));
   connect(m_flow.y, sou.m_flow_in)
     annotation (Line(points={{-71,8},{-52,8},{-52,8}},   color={0,0,127}));
+  connect(sou.ports[1], senTemIn.port_a)
+    annotation (Line(points={{-30,0},{-20,0}}, color={0,127,255}));
+  connect(senTemIn.port_b, res.port_a)
+    annotation (Line(points={{0,0},{10,0}}, color={0,127,255}));
+  connect(res.port_b, senTemOut.port_a)
+    annotation (Line(points={{30,0},{40,0}}, color={0,127,255}));
+  connect(senTemOut.port_b, sin.ports[1])
+    annotation (Line(points={{60,0},{70,0}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/LosslessPipe.mos"
         "Simulate and plot"),
@@ -51,6 +65,12 @@ Validation model for a the pipe model with no friction and no heat loss.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2024, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>sta_*.T</code>
+in reference results. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>
 First implementation for

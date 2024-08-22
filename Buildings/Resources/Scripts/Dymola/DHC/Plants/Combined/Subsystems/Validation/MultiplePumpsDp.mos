@@ -1,0 +1,43 @@
+simulateModel("Buildings.DHC.Plants.Combined.Subsystems.Validation.MultiplePumpsDp",
+    method="Cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=1000,
+    resultFile="MultiplePumpsDp");
+createPlot(
+    id=1,
+    position={42, 30, 624, 552},
+    y={"y1Pum.y[1]", "y1Pum.y[2]", "ope.y"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=102,
+    y={"dpSet.y", "senRelPre.p_rel", "senRelPre1.p_rel"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=103,
+    y={"senMasFlo.m_flow", "senMasFlo1.m_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=104,
+    y={"pum.P"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+plotExpression(apply(MultiplePumpsDp.pum1.P + MultiplePumpsDp.pum2.P), false, "pum1.P+pum2.P");

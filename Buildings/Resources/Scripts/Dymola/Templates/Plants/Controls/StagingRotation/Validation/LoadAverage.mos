@@ -1,0 +1,55 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.LoadAverage",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=2000.0,
+    resultFile="LoadAverage");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    subPlot=1,
+    y={"loaHea.TSupSet", "loaHea.TRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"loaHea.V_flow"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"loaHea.QReq_flow"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 500},
+    subPlot=1,
+    y={"loaCoo.TSupSet", "loaCoo.TRet"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"loaCoo.V_flow"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"loaCoo.QReq_flow"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

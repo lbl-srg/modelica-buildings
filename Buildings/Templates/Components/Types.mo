@@ -4,6 +4,8 @@ package Types "Package with type definitions"
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
+      None
+      "No chiller",
       WaterCooled
       "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";
@@ -67,14 +69,34 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
-  type IconPipe = enumeration(
+  type HeatPump = enumeration(
+      AirToWater
+      "Air-to-water heat pump",
+      WaterToWater
+      "Water(or brine)-to-water heat pump")
+    "Enumeration to specify the type of heat pump";
+  type HeatPumpModel = enumeration(
+      EquationFit
+      "Heat pump model based on the equation fit method")
+    "Enumeration to specify the heat pump model";
+  type IntegrationPoint = enumeration(
       None
-      "No line",
+      "None",
       Return
-      "Return pipe - Dashed line",
+      "Return side",
       Supply
-      "Supply pipe - Solid line")
-    "Enumeration to specify the pipe symbol";
+      "Supply side") "Enumeration to specify the integration point of equipment";
+  type Pump = enumeration(
+      None
+      "No pump",
+      Single
+      "Single pump",
+      Multiple
+      "Multiple pumps in parallel")
+    "Enumeration to configure the pump";
+  type PumpArrangement = enumeration(
+      Dedicated "Dedicated pumps",
+      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

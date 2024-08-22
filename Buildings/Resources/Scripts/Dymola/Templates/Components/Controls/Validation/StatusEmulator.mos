@@ -1,0 +1,12 @@
+simulateModel("Buildings.Templates.Components.Controls.Validation.StatusEmulator",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=50.0,
+    resultFile="StatusEmulator");
+createPlot(
+    id=1,
+    position={5, 5, 300, 300},
+    y={"sta.y1", "sta.y1_actual"},
+    autoscale=true,
+    grid=true
+);

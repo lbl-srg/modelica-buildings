@@ -15,13 +15,17 @@
 # - If all simulations succeed: overwrite stored checksum with new value,
 #                               otherwise do nothing.
 #
-# To update the checksums and run simulations locally, execute:
-# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local [--tool SIMULATOR]
+# To update the checksum and skip all simulations, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip
 #
-# To simply update the checksums locally and skip all simulations, execute:
-# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --local --skip
+# To update the checksum and check that it matches the value from the last commit, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip --diffhead
+#
+# To update the checksums and run simulations, execute:
+# ./Resources/Scripts/travis/templates/checkandrun.sh --checksum [--tool SIMULATOR]
+#
 
-LOCALRUN=false
+DIFFHEAD=false
 SKIP=false
 USE_CHECKSUM=false
 SIMULATOR=Dymola
@@ -33,8 +37,8 @@ CEND='\033[0m'
 
 while [[ "$1" != "" ]]; do
   case $1 in
-    --local )
-      LOCALRUN=true
+    --diffhead )
+      DIFFHEAD=true
       ;;
     --skip )
       SKIP=true
@@ -48,7 +52,7 @@ while [[ "$1" != "" ]]; do
         SIMULATOR="$1"
       else
         echo "$0: $1 is not a valid Modelica tool, only Dymola and Optimica are allowed." >&2
-        exit
+        exit 1
       fi
       ;;
     --cover )
@@ -57,18 +61,18 @@ while [[ "$1" != "" ]]; do
         FRACTION_TEST_COVERAGE=$1
       else
         echo "$0: $1 is not a valid fraction of test coverage, it must be within ]0, 1]." >&2
-        exit
+        exit 1
       fi
       ;;
     * )
         echo "Invalid option: $1"
         echo "Usage: checkandrun.sh --checksum [--local] [--skip] [--tool SIMULATOR] [--cover FRACTION_TEST_COVERAGE]"
         echo "     --checksum triggers testing based on checksum verification (only method currently available, mandatory option)."
-        echo "     --local is for local execution (use this option to update the checksums and run simulations)."
+        echo "     --diffhead is to check that the current checksum matches the value from the last commit."
         echo "     --skip disables all simulations (use this option to simply update the checksums locally)."
         echo "     --tool allows specifying the Modelica tool to be used, defaulting to Dymola."
         echo "     --cover allows specifying the fraction of test coverage, defaulting to 1."
-        exit
+        exit 1
        ;;
   esac
   shift
@@ -83,6 +87,8 @@ declare -A checksum_dirs=(
   ["ZoneEquipment"]="Templates/ZoneEquipment
                      Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly
                      Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat"
+  ["Plants.HeatPumps"]="Templates/Plants/HeatPumps
+                        Templates/Plants/Controls"
 )
 # Declare the python script that must be run for each template package.
 # Each key is a Modelica package name under Buildings.Templates (with . as separator).
@@ -90,6 +96,7 @@ declare -A checksum_dirs=(
 declare -A test_script=(
   ["AirHandlersFans"]="./Resources/Scripts/travis/templates/VAVMultiZone.py"
   ["ZoneEquipment"]="./Resources/Scripts/travis/templates/VAVBox.py"
+  ["Plants.HeatPumps"]="./Resources/Scripts/travis/templates/Plants.HeatPumps.py"
 )
 
 for type in "${!test_script[@]}"; do
@@ -108,9 +115,8 @@ for type in "${!test_script[@]}"; do
     # Add checksum file to the index so that differences show up in git diff even if file was never added before.
     git add --intent-to-add "./Resources/Scripts/travis/templates/$type.checksum"
 
-    # Diff/HEAD: only for remote testing.
-    # (Locally, it is expected that there is some diff/HEAD, and we proceed directly to the next step: diff/master.)
-    if [ "$LOCALRUN" = false ]; then
+    # Diff/HEAD
+    if [ "$DIFFHEAD" = true ]; then
       diff_checksum="$(git diff --name-only HEAD | grep Resources/Scripts/travis/templates/$type.checksum)"
       if (( $? == 0 )); then
         printf "${CRED}Computed checksum does not match checksum on HEAD${CEND}: please commit updated checksum for Templates.%s.\n" $type
@@ -126,7 +132,7 @@ for type in "${!test_script[@]}"; do
     fi
 
     # Diff/master
-    diff_checksum="$(git diff --name-only origin/master | grep Resources/Scripts/travis/templates/$type.checksum)"
+    diff_checksum="$(git diff --name-only origin/master Resources/Scripts/travis/templates | grep Resources/Scripts/travis/templates/$type.checksum)"
     if (( $? == 0 ));  then
       echo "Computed checksum does not match checksum on master."
       if [ "$SKIP" = false ]; then

@@ -348,8 +348,8 @@ protected
     have_heaPla)
     "Output 0 or 1 request "
     annotation (Placement(transformation(extent={{100,-440},{120,-420}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(duration=samplePeriod)
-    "Hold true signal for sample period of time"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Use left-limit of signal to break algebraic loop"
     annotation (Placement(transformation(extent={{120,330},{140,350}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{120,300},{140,280}})));
@@ -566,9 +566,8 @@ equation
     annotation (Line(points={{122,-430},{138,-430}}, color={0,0,127}));
   connect(reaToInt3.y,yHeaPlaReq)
     annotation (Line(points={{162,-430},{200,-430}}, color={255,127,0}));
-  connect(truHol.y, lat.clr)
-    annotation (Line(points={{142,340},{160,340},{160,320},{-80,320},{-80,334},{
-          -62,334}},        color={255,0,255}));
+  connect(pre1.y, lat.clr) annotation (Line(points={{142,340},{160,340},{160,
+          320},{-80,320},{-80,334},{-62,334}}, color={255,0,255}));
   connect(lat.y, logSwi.u2)
     annotation (Line(points={{-38,340},{-20,340},{-20,318},{100,318},{100,290},{
           118,290}},
@@ -651,7 +650,7 @@ equation
     annotation (Line(points={{22,340},{36,340}}, color={0,0,127}));
   connect(supTim.y, les.u2) annotation (Line(points={{22,280},{32,280},{32,332},
           {36,332}}, color={0,0,127}));
-  connect(notLes.y, truHol.u)
+  connect(notLes.y, pre1.u)
     annotation (Line(points={{98,340},{118,340}}, color={255,0,255}));
   connect(lat1.u, notLes.y) annotation (Line(points={{58,270},{46,270},{46,326},
           {108,326},{108,340},{98,340}}, color={255,0,255}));
@@ -922,6 +921,12 @@ sampled, as sampling were to change the dynamic response.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 26, 2024, by Antoine Gautier:<br/>
+Replaced <code>hold</code> with <code>pre</code> to break the algebraic loop involving the latch component.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3915\">#3915</a>.
+</li>
 <li>
 March 1, 2023, by Michael Wetter:<br/>
 Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
