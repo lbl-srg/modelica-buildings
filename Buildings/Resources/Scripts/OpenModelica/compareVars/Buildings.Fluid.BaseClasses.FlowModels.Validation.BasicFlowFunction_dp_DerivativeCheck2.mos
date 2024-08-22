@@ -4,7 +4,5 @@ compareVars :=
     "m_flow_comp",
     "m_flow_turbulent",
     "der(m_flow)",
-    "der(m_flow_comp)",
-    "err_m_flow",
-    "err_der_m_flow"
+    "der(m_flow_comp)"
   };

@@ -382,7 +382,9 @@ partial model PartialReversibleRefrigerantMachine
         rotation=180,
         origin={110,30})));
 // To avoid using the bus, set the section below to protected
+//@modelica_select_start @remove_AixLib
 protected
+//@modelica_select_end
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -391,12 +393,12 @@ protected
   parameter Boolean use_busConOnl=false
     "=true to allow input to bus connector,
     not applicable with internal safety control"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
-          use_intSafCtr));
+    annotation(choices(checkBox=true),
+                Dialog(group="Input Connectors", enable=not use_intSafCtr));
 
-// <!-- @include_AixLib
-protected
-// -->
+//@modelica_select_start @remove_Buildings @remove_BuildingSystems @remove_IDEAS
+// removed: protected
+//@modelica_select_end
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
