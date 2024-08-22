@@ -26,11 +26,6 @@ model IndirectDry
     final unit = "1")=0.8
     "Heat exchanger effectiveness";
 
-  parameter Real effCoe[11]={0.792714, 0.958569, -0.25193, -1.03215, 0.0262659,
-                             0.914869, -1.48241, -0.018992, 1.13137, 0.0327622,
-                             -0.145384}
-    "Coefficients for evaporative medium efficiency calculation";
-
   parameter Modelica.Units.SI.Pressure dp1_nominal
     "Nominal pressure drop of medium flow to be cooled";
 
@@ -51,7 +46,6 @@ model IndirectDry
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
-    displayUnit="kg/s",
     final quantity="MassFlowRate")
     "Water vapor mass flow rate difference between inlet and outlet of secondary air"
     annotation (Placement(transformation(origin={120,90},extent={{-20,-20},{20,20}}),
@@ -62,8 +56,7 @@ model IndirectDry
     final m_flow_nominal=m2_flow_nominal,
     final dp_nominal=dp2_nominal,
     final padAre=padAre,
-    final dep=dep,
-    final effCoe=effCoe)
+    final dep=dep)
     "Direct evaporative cooler for representing effect on secondary air"
     annotation (Placement(transformation(origin={0,-60},extent={{-10,-10},{10,10}})));
 

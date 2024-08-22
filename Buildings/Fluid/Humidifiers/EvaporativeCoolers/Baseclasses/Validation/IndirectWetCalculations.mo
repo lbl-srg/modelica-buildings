@@ -21,19 +21,31 @@ model IndirectWetCalculations
     "Nominal supply air volume flowrate";
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal(maxEff=maxEff, floRat=floRat)
+    indWetCal(
+    final maxEff=maxEff,
+    final floRat=floRat)
+    "Calculation instance with time-varying primary air volume flowrate"
     annotation (Placement(transformation(origin={50,50}, extent={{-12,-12},{12,12}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal1(maxEff=maxEff, floRat=floRat)
+    indWetCal1(
+    final maxEff=maxEff,
+    final floRat=floRat)
+    "Calculation instance with time-varying secondary air volume flowrate"
     annotation (Placement(transformation(origin={50,0}, extent={{-12,-12},{12,12}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal2(maxEff=maxEff, floRat=floRat)
+    indWetCal2(
+    final maxEff=maxEff,
+    final floRat=floRat)
+    "Calculation instance with time-varying secondary air drybulb temperature"
     annotation (Placement(transformation(origin={50,-50}, extent={{-12,-12},{12,12}})));
 
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal3(maxEff=maxEff, floRat=floRat)
+    indWetCal3(
+    final maxEff=maxEff,
+    final floRat=floRat)
+    "Calculation instance with time-varying secondary air wetbulb temperature"
     annotation (Placement(transformation(origin={50,-90}, extent={{-12,-12},{12,12}})));
 
 protected
