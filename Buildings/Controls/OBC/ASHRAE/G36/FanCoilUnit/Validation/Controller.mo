@@ -3,8 +3,8 @@ model Controller
     "Validation of the top-level controller"
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=false,
     final kHea=1,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -15,12 +15,13 @@ model Controller
     final heaSpe_max=0.6,
     final heaSpe_min=0.2,
     final cooSpe_min=0.2,
-    have_locAdj=false) "Validate the heating case"
+    final have_locAdj=false)
+    "Validate the heating case"
     annotation (Placement(transformation(extent={{20,76},{60,136}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU1(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
@@ -32,12 +33,13 @@ model Controller
     final heaSpe_max=0.6,
     final heaSpe_min=0.2,
     final cooSpe_min=0.2,
-    have_locAdj=false) "Validate the cooling case"
+    final have_locAdj=false)
+    "Validate the cooling case for a system with a window sensor but no occupancy sensor"
     annotation (Placement(transformation(extent={{20,0},{60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU2(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=false,
     final kCoo=1,
     final kHea=1,
@@ -49,24 +51,26 @@ model Controller
     final heaSpe_max=0.6,
     final heaSpe_min=0.2,
     final cooSpe_min=0.2,
-    have_locAdj=false) "Validate the cooling case"
+    final have_locAdj=false)
+    "Validate the cooling case for a system with an occupancy sensor but no window sensor"
     annotation (Placement(transformation(extent={{20,-78},{60,-18}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Controller conFCU3(
-    cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
-    heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
+    final cooCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased,
+    final heaCoi=Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased,
     final have_winSen=true,
     final kCoo=1,
     final kHea=1,
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final have_occSen=false,
+    final have_occSen=true,
     final TSupSet_max=297.15,
     final TSupSet_min=285.15,
     final heaSpe_max=0.6,
     final heaSpe_min=0.2,
     final cooSpe_min=0.2,
-    have_locAdj=false) "Validate the cooling case"
+    final have_locAdj=false)
+    "Validate the cooling case for a system with both a window sensor and an occupancy sensor"
     annotation (Placement(transformation(extent={{20,-154},{60,-94}})));
 
 protected
@@ -108,9 +112,10 @@ protected
     "Number of occupants"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(final k=false)
-    "Window status"
-    annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win(
+    final k=true)
+    "True window status"
+    annotation (Placement(transformation(extent={{-180,-152},{-160,-132}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon1(
     final duration=86400,
@@ -146,6 +151,11 @@ protected
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant win1(
+    final k=false)
+    "Negative window status"
+    annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
+
 equation
   connect(TZon.y,conFCU. TZon) annotation (Line(points={{-158,80},{-20,80},{-20,
           101.5},{18,101.5}}, color={0,0,127}));
@@ -155,7 +165,7 @@ equation
           60},{-80,127},{18,127}}, color={0,0,127}));
   connect(TSup.y,conFCU. TSup) annotation (Line(points={{-158,40},{-140,40},{-140,
           104.5},{18,104.5}}, color={0,0,127}));
-  connect(win.y,conFCU1. u1Win) annotation (Line(points={{-158,-140},{0,-140},{0,
+  connect(win.y,conFCU1. u1Win) annotation (Line(points={{-158,-142},{0,-142},{0,
           4.5},{18,4.5}},color={255,0,255}));
   connect(occSch.tNexOcc,conFCU1. tNexOcc) annotation (Line(points={{-99,60},{-20,
           60},{-20,51},{18,51}}, color={0,0,127}));
@@ -174,8 +184,6 @@ equation
           60},{-80,-27},{18,-27}}, color={0,0,127}));
   connect(TZon1.y,conFCU2. TZon) annotation (Line(points={{-158,-40},{-70,-40},{
           -70,-52.5},{18,-52.5}}, color={0,0,127}));
-  connect(win.y,conFCU3. u1Win) annotation (Line(points={{-158,-140},{0,-140},{0,
-          -149.5},{18,-149.5}}, color={255,0,255}));
   connect(occSch.occupied,conFCU3. u1Occ) annotation (Line(points={{-99,48},{-74,
           48},{-74,-116.35},{18,-116.35}}, color={255,0,255}));
   connect(TSup1.y,conFCU3. TSup) annotation (Line(points={{-158,-70},{-84,-70},{
@@ -260,6 +268,10 @@ equation
           {72,-160},{10,-160},{10,-146.5},{18,-146.5}}, color={255,0,255}));
   connect(conFCU.y1Fan, conFCU.u1Fan) annotation (Line(points={{62,121},{70,121},
           {70,70},{10,70},{10,83.5},{18,83.5}}, color={255,0,255}));
+  connect(nOcc.y, conFCU3.nOcc) annotation (Line(points={{-138,0},{-10,0},{-10,
+          -143.5},{18,-143.5}}, color={255,127,0}));
+  connect(win1.y, conFCU3.u1Win) annotation (Line(points={{-158,-170},{0,-170},{
+          0,-149.5},{18,-149.5}}, color={255,0,255}));
 annotation (experiment(StopTime=86400, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/FanCoilUnit/Validation/Controller.mos"
     "Simulate and plot"),

@@ -12,25 +12,27 @@ block Controller
                 Dialog(group="System and building parameters"));
 
   parameter Boolean have_winSen=false
-    "True if the zone has window status sensor";
+    "True if the zone has window status sensor"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Boolean have_occSen=false
-    "True if the zone has occupancy sensor";
+    "True if the zone has occupancy sensor"
+    annotation(__cdl(ValueInReference=false));
 
   parameter Real heaDea(
     unit="1",
     displayUnit="1")=0.05
     "Heating loop signal limit above which controller operation changes from deadband mode to heating mode"
-    annotation (Dialog(
-      enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
+    annotation (__cdl(ValueInReference=false),
+      Dialog(enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric));
 
   parameter Real cooDea(
     unit="1",
     displayUnit="1")=0.05
     "Cooling loop signal limit above which controller operation changes from deadband mode to cooling mode"
-    annotation(Dialog(
-      enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
+    annotation(__cdl(ValueInReference=false),
+      Dialog(enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
              or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
@@ -177,7 +179,8 @@ block Controller
     unit="1",
     displayUnit="1")=0.1
     "Deadband mode fan speed"
-    annotation (Dialog(tab="Supply air setpoints",group="Fan speed"));
+    annotation (__cdl(ValueInReference=false),
+      Dialog(tab="Supply air setpoints",group="Fan speed"));
 
   parameter Real uHeaFan_max(unit="1")=1
     "Maximum heating loop signal at which fan speed is modified"
@@ -193,7 +196,8 @@ block Controller
 
   parameter Real heaSpe_min(unit="1")=0.1
     "Minimum fan speed for heating"
-    annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Heating",
+    annotation (__cdl(ValueInReference=false),
+      Dialog(tab="Supply air setpoints",group="Fan speed - Heating",
       enable=heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
              or heaCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.Electric));
 
@@ -211,7 +215,8 @@ block Controller
 
   parameter Real cooSpe_min(unit="1")=0.1
     "Minimum fan speed for cooling"
-    annotation (Dialog(tab="Supply air setpoints",group="Fan speed - Cooling",
+    annotation (__cdl(ValueInReference=false),
+      Dialog(tab="Supply air setpoints",group="Fan speed - Cooling",
       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
              or cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.DXCoil));
 
@@ -307,49 +312,49 @@ block Controller
     unit="1",
     displayUnit="1")=0.1
     "Valve position limit below which zero chilled water plant requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water plant requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqLim0(
     unit="1",
     displayUnit="1")=0.85
     "Valve position limit below which zero chilled water reset requests are sent when one request was previously being sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatPlaReqLim1(
     unit="1",
     displayUnit="1")=0.95
     "Valve position limit above which one chilled water plant request is sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water plant requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqLim2(
     unit="K",
     displayUnit="K")=2.78
     "Temperature difference limit between setpoint and supply air temperature above which two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqTimLim2(
     unit="s",
     displayUnit="s")=300
     "Time period for which chiWatResReqLim2 has to be exceeded before two chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqLim3(
     unit="K",
     displayUnit="K")=5.56
     "Temperature difference limit between setpoint and supply air temperature above which three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real chiWatResReqTimLim3(
     unit="s",
     displayUnit="s")=300
     "Time period for which chiWatResReqLim3 has to be exceeded before three chilled water reset requests are sent"
-    annotation(Dialog(tab="Request limits", group="Chilled water requests",
+    annotation(Dialog(tab="Request limits", group="Chilled water temperature reset requests",
                       enable=cooCoi==Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased));
 
   parameter Real hotWatPlaReqLim0(
@@ -405,19 +410,19 @@ block Controller
     unit="1",
     displayUnit="1")=-0.1
     "Lower limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   parameter Real uHigh(
     unit="1",
     displayUnit="1")=0.1
     "Higher limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   parameter Real deaHysLim(
     unit="1",
     displayUnit="1")=0.01
     "Hysteresis limits for cooling and heating loop signals for deadband mode transitions"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   parameter Real preWarCooTim(
     unit="s",
@@ -429,19 +434,13 @@ block Controller
     unit="1",
     displayUnit="1")=0.1
     "Hysteresis for checking temperature difference"
-    annotation(Dialog(tab="Advanced"));
-
-  parameter Real posHys(
-    unit="1",
-    displayUnit="1")=0.05
-    "Hysteresis for checking valve position difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   parameter Real dFanSpe(
     unit="1",
     displayUnit="1")=0.05
     "Fan speed hysteresis difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "Current occupancy period, true if it is in occupant period"
@@ -717,7 +716,6 @@ protected
     final hotWatResReqLim3=hotWatResReqLim3,
     final hotWatResReqTimLim3=hotWatResReqTimLim3,
     final Thys=Thys,
-    final posHys=posHys,
     final dFanSpe=dFanSpe) if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
      or heaCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.HeatingCoil.WaterBased
     "Block for generating chilled water requests and hot water requests for their respective plants"
