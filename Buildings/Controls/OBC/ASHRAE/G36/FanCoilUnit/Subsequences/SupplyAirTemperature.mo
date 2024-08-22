@@ -18,7 +18,7 @@ block SupplyAirTemperature
 
   parameter Real TSupSet_max(
     final unit="K",
-    displayUnit="degC") = 273.15 + 32
+    displayUnit="degC") = 305.15
     "Supply air temperature setpoint at maximum heating loop signal"
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Heating loop", enable = have_heaCoi));
@@ -37,7 +37,7 @@ block SupplyAirTemperature
 
   parameter Real TSupSet_min(
     final unit="K",
-    displayUnit="degC") = 273.15+12.8
+    displayUnit="degC") = 285.95
     "Supply air temperature setpoint at maximum cooling loop signal"
     annotation(__cdl(ValueInReference=false),
       Dialog(group="Cooling loop", enable = have_cooCoi));
