@@ -370,12 +370,12 @@ the heating and cooling loop signals. The implemented sequence is based on
 ASHRAE Guideline 36, 2021, Part 5.22.4.
 </p>
 <p>
-The fan enable signal <code>y1Fan</code> is switched to <code>false</code>
+The fan enable signal <code>y1Fan</code> is set to <code>false</code>
 when the operating mode signal <code>opeMod</code> is <code>unoccupied</code>,
 and is set to <code>true</code> otherwise.
 </p>
 <p>
-The fan speed signal <code>yFan</code> is varied from 
+The fan speed signal <code>yFan</code> is varied from
 the minimum cooling mode fan speed <code>cooSpe_min</code> to the maximum
 cooling mode fan speed <code>cooSpe_max</code>,
 when the cooling loop signal <code>uCoo</code> varies from the minimum limit
