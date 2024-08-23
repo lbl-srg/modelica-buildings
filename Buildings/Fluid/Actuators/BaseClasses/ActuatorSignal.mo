@@ -7,12 +7,17 @@ model ActuatorSignal
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+
+  parameter Boolean use_constantTravelTime = true
+    "Set to true to use an actuator dynamics that models the movement of the actuator"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+
   parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter));
+      enable=use_inputFilter and not use_constantTravelTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -52,18 +57,35 @@ protected
     final f=fCut,
     final normalized=true,
     final initType=init,
-    final y_start=y_start) if use_inputFilter
+    final y_start=y_start) if use_inputFilter and not use_constantTravelTime
     "Second order filter to approximate actuator opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{6,81},{20,95}})));
+    annotation (Placement(transformation(extent={{16,89},{24,96}})));
 
+  Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
+    Rising=1/riseTime,
+    Falling=-1/riseTime,
+    Td=10/riseTime,
+    initType=init,
+    y_start=y_start,
+    strict=true)
+    if use_inputFilter and use_constantTravelTime
+      "Actuator position"
+    annotation (Placement(transformation(extent={{16,76},{24,84}})));
 equation
   connect(filter.y, y_filtered)
-    annotation (Line(points={{20.7,88},{50,88}}, color={0,0,127}));
+    annotation (Line(points={{24.4,92.5},{34,92.5},{34,88},{50,88}},
+                     color={0,0,127}));
+  connect(actPos.y, y_filtered)
+    annotation (Line(points={{24.4,80},{34,80},{34,88},
+          {50,88}}, color={0,0,127}));
+
   if use_inputFilter then
-    connect(y, filter.u) annotation (Line(points={{1.11022e-15,120},{1.11022e-15,
-            88},{4.6,88}}, color={0,0,127}));
-    connect(filter.y, y_internal) annotation (Line(points={{20.7,88},{30,88},{30,
-            70},{50,70}}, color={0,0,127}));
+    connect(y, filter.u) annotation (Line(points={{0,120},{0,92.5},{15.2,92.5}},
+                           color={0,0,127}));
+  connect(actPos.u, y)
+    annotation (Line(points={{15.2,80},{0,80},{0,120}}, color={0,0,127}));
+
+    connect(y_filtered, y_internal);
   else
     connect(y, y_internal) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
@@ -72,6 +94,7 @@ equation
   if not casePreInd then
     connect(y_internal, y_actual);
   end if;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(
