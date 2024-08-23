@@ -22,6 +22,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        operation within specified envelope, antifreeze protection and minimum flow rate.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.CHPs.OrganicRankine
+    </td>
+    <td valign=\"top\">Package of an organic Rankine cycle,
+                       including working fluid data records.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">issue 3433</a>.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -68,6 +76,12 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Discrete.UnitDelay
+    </td>
+    <td valign=\"top\">Delayed the input.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">issue 3953</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
