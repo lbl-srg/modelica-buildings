@@ -51,6 +51,8 @@ equation
       else pre(y);
     entryTimeTrue = if change(y) and y then time else pre(entryTimeTrue);
     entryTimeFalse = if change(y) and not y then time else pre(entryTimeFalse);
+//     Modelica.Utilities.Streams.print(getInstanceName()+ " when change()u, or hold end, u is: "+String(u) + " at " + String(time) + " seconds.");
+//     Modelica.Utilities.Streams.print(getInstanceName()+ " when change()u, or hold end, y is: "+String(y) + " at " + String(time) + " seconds.");
   end when;
   annotation (
     defaultComponentName="truFalHol",

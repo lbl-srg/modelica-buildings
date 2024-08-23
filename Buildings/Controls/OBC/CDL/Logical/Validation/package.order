@@ -18,6 +18,7 @@ TimerNegativeStartTime
 Toggle
 TrueDelay
 TrueFalseHold
+TrueFalseHold_test
 VariablePulse
 VariablePulseMinHold
 Xor
