@@ -1098,7 +1098,7 @@ Documentation(info="<html>
 <p>
 Block for fan coil unit control. It outputs supply fan enable signal and speed signal,
 the supply air temperature setpoint, the zone air heating and cooling setpoints,
-and valve positions of heating and cooling coils.
+and commanded valve positions for heating and cooling coils.
 </p>
 <p>
 It is implemented according to the ASHRAE Guideline 36-2021, Part 5.22.
@@ -1129,7 +1129,7 @@ for more detailed description.
 <h4>Zone air heating and cooling setpoints</h4>
 <p>
 The zone air heating setpoint <code>TZonHeaSet</code>and cooling setpoint <code>TZonHeaSet</code>
-as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are detailed at
+as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are described at
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
 </p>
