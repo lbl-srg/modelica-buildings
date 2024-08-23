@@ -742,7 +742,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold havOcc(
     final t=1) if have_occSen
     "Check if there is occupant"
-    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
+    annotation (Placement(transformation(extent={{-202,-220},{-182,-200}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit.Subsequences.SupplyAirTemperature
     TSupAir(
@@ -819,8 +819,8 @@ equation
           {-150,223},{-142,223}}, color={255,0,255}));
   connect(u1Win, modSetPoi.u1Win) annotation (Line(points={{-240,-260},{-150,-260},
           {-150,223},{-142,223}}, color={255,0,255}));
-  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-78,100},{-60,
-          100},{-60,160},{-164,160},{-164,196},{-142,196}}, color={255,0,255}));
+  connect(havOcc.y, modSetPoi.u1OccSen) annotation (Line(points={{-180,-210},{
+          -164,-210},{-164,196},{-142,196}},                color={255,0,255}));
   connect(modSetPoi.warUpTim, warUpTim) annotation (Line(points={{-142,226},{-166,
           226},{-166,260},{-240,260}}, color={0,0,127}));
   connect(modSetPoi.cooDowTim, cooDowTim) annotation (Line(points={{-142,228},{-160,
@@ -861,8 +861,9 @@ equation
     annotation (Line(points={{220,160},{220,160}}, color={0,0,127}));
   connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-230},{8,-230},{8,
           59},{38,59}}, color={255,0,255}));
-  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-140,-200},{-140,
-          100},{-102,100}}, color={255,127,0}));
+  connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-212,-200},{
+          -212,-210},{-204,-210}},
+                            color={255,127,0}));
   connect(cooSetAdj, modSetPoi.cooSetAdj) annotation (Line(points={{-240,140},{-172,
           140},{-172,201},{-142,201}}, color={0,0,127}));
   connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-240,110},{-168,
