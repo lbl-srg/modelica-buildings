@@ -18,7 +18,7 @@ model IndirectDry
 
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium
-    "Medium  rejected to outdoor air"
+    "Medium rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 

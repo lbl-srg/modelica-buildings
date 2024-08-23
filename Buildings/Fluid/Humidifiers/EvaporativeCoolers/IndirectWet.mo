@@ -30,11 +30,11 @@ model IndirectWet "Indirect wet evaporative cooler"
     "Rejected air nominal mass flow rate";
 
   parameter Real maxEff(
-    displayUnit="1")
+    unit="1")
     "Maximum efficiency of heat exchanger coil";
 
   parameter Real floRat(
-    displayUnit="1")
+    unit="1")
     "Coil flow ratio of actual to maximum heat transfer";
 
   parameter Modelica.Units.SI.Time tau=30

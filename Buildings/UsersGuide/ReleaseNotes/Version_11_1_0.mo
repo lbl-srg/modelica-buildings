@@ -12,6 +12,14 @@ Version 11.1.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+
+<tr><td valign=\"top\">Buildings.Fluid.Humidifiers.EvaporativeCoolers
+    </td>
+    <td valign=\"top\">Package with evaporative cooler models based on EnergyPlus v23.1.0 Engineering Reference.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3492\">issue 3492</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Chillers.ModularReversible<br/>
                        Buildings.Fluid.HeatPumps.ModularReversible
     </td>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model Direct
-  "Direct Evaporative cooler"
+  "Direct evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
@@ -30,6 +30,7 @@ model Direct
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final T_start=298.15)
@@ -38,6 +39,7 @@ model Direct
 
   Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final TWetBul_start=296.15)
@@ -46,12 +48,14 @@ model Direct
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium =  Medium,
+    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal)
     "Volume flow rate sensor"
     annotation (Placement(transformation(origin={-10,0}, extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
     final dp_nominal=dp_nominal,
     final m_flow_nominal = m_flow_nominal)
     "Pressure drop"
@@ -60,6 +64,7 @@ model Direct
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     redeclare final package Medium = Medium,
     final m_flow_nominal = m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
     final V=m_flow_nominal*tau/rho_default,
     final nPorts = 2)
     "Moist air mixing volume"
@@ -99,11 +104,11 @@ equation
   connect(senTemWetBul.port_b,senVolFlo. port_a)
     annotation (Line(points={{-30,0},{-20,0}}));
   connect(res.port_b, vol.ports[1])
-    annotation (Line(points={{40,0},{78,0},{78,10}}, color = {0, 127, 255}));
+    annotation (Line(points={{40,0},{79,0},{79,10}}, color = {0, 127, 255}));
   connect(port_a, senTem.port_a)
     annotation (Line(points={{-100,0},{-80,0}}));
   connect(vol.ports[2], port_b)
-    annotation (Line(points={{82,10},{82,0},{100,0}}, color = {0, 127, 255}));
+    annotation (Line(points={{81,10},{81,0},{100,0}}, color = {0, 127, 255}));
   connect(senTem.port_a, senPre.port)
     annotation (Line(points={{-80,0},{-90,0},{-90,44}}, color={0,127,255}));
   connect(senPre.p, dirEvaCoo.p)
@@ -117,29 +122,29 @@ equation
 
 annotation (defaultComponentName="dirEvaCoo",
 Icon(graphics={
-  Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent = {{-70, 60}, {70, -60}}),
-  Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, pattern = LinePattern.None,
-            fillPattern =  FillPattern.Solid, extent = {{-101, 5}, {100, -4}}),
-  Rectangle(lineColor = {0, 0, 255}, fillColor = {255, 0, 0}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent = {{0, -4}, {100, 5}}),
-  Text(textColor = {0, 0, 127}, extent = {{-52, -60}, {58, -120}}, textString = "m=%m_flow_nominal"),
-  Rectangle(lineColor = {0, 0, 255}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent = {{-100, 5}, {101, -5}}),
-  Rectangle(lineColor = {0, 0, 255}, fillColor = {0, 62, 0}, pattern = LinePattern.None,
-            fillPattern = FillPattern.Solid, extent = {{-70, 60}, {70, -60}}),
-  Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-            fillPattern = FillPattern.Solid,
-            points = {{42, 42}, {54, 34}, {54, 34}, {42, 28}, {42, 30}, {50, 34}, {50, 34}, {42, 40}, {42, 42}}),
-  Rectangle(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-            fillPattern = FillPattern.Solid, extent = {{58, -54}, {54, 52}}),
-  Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-          fillPattern = FillPattern.Solid,
-          points = {{42, 10}, {54, 2}, {54, 2}, {42, -4}, {42, -2}, {50, 2}, {50, 2}, {42, 8}, {42, 10}}),
-  Polygon(lineColor = {255, 255, 255}, fillColor = {255, 255, 255},
-          fillPattern = FillPattern.Solid,
-          points = {{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})},
-  coordinateSystem(extent = {{-100, -100}, {100, 100}})),
+  Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-70,60},{70,-60}}),
+  Rectangle(lineColor={0,0,255}, fillColor={0,0,255}, pattern = LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-101,5},{100,-4}}),
+  Rectangle(lineColor={0,0,255}, fillColor={255,0,0}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{0, -4},{100, 5}}),
+  Text(textColor={0,0,127}, extent={{-52,-60}, {58,-120}}, textString="m=%m_flow_nominal"),
+  Rectangle(lineColor={0,0,255}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-100, 5}, {101, -5}}),
+  Rectangle(lineColor={0, 0, 255}, fillColor={0, 62, 0}, pattern=LinePattern.None,
+            fillPattern=FillPattern.Solid, extent={{-70, 60}, {70, -60}}),
+  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255},
+            fillPattern=FillPattern.Solid,
+            points={{42, 42}, {54, 34}, {54, 34}, {42, 28}, {42, 30}, {50, 34}, {50, 34}, {42, 40}, {42, 42}}),
+  Rectangle(lineColor={255, 255, 255}, fillColor={255, 255, 255},
+            fillPattern=FillPattern.Solid, extent={{58, -54}, {54, 52}}),
+  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255},
+          fillPattern=FillPattern.Solid,
+          points={{42, 10}, {54, 2}, {54, 2}, {42, -4}, {42, -2}, {50, 2}, {50, 2}, {42, 8}, {42, 10}}),
+  Polygon(lineColor={255, 255, 255}, fillColor={255, 255, 255},
+          fillPattern=FillPattern.Solid,
+          points={{42, -26}, {54, -34}, {54, -34}, {42, -40}, {42, -38}, {50, -34}, {50, -34}, {42, -28}, {42, -26}})},
+  coordinateSystem(extent={{-100, -100}, {100, 100}})),
 Documentation(
 info="<html>
 <p>
@@ -158,5 +163,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Diagram(graphics={Line(origin = {28, 62}, points = {{0, 0}})}));
+  Diagram(graphics={Line(origin={28, 62}, points={{0, 0}})}));
 end Direct;
