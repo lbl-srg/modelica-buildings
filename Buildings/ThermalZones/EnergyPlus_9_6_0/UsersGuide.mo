@@ -289,6 +289,16 @@ The following conventions are made:
 </p>
 <ul>
 <li>
+The entries of the EnergyPlus <code>RunPeriod</code> object are ignored.
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
+for how the run period and the day of the week are handled.
+</li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
+</li>
+<li>
 If a zone is in the idf file but not modeled in Modelica, then
 <ul>
 <li>
@@ -329,10 +339,6 @@ method can be used.
 <li>
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
-</li>
-<li>
-In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
-This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
 </li>
 </ul>
 </html>"));

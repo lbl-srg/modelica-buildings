@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.RunPeriod.StartDayOfWeek", method="Cvode", stopTime=604800, tolerance=1e-06, resultFile="StartDayOfWeek");
+createPlot(id=1, position={35, 35, 857, 532}, y={"sunEle.y"}, range={0.0, 8.5, -500.0, 1000.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="d", displayUnits={"W"});
+createPlot(id=1, position={35, 35, 857, 532}, y={"monEle.y"}, range={0.0, 8.5, -500.0, 1000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="d", displayUnits={"W"});
+

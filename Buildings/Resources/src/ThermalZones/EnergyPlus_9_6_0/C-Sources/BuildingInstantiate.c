@@ -89,6 +89,54 @@ void closeJSONModelArrayBracket(
   }
 }
 
+/* Return the day of the week to be used in the EnergyPlus RunPeriod object.
+   This function calls malloc on the returned value.
+*/
+char* getDayOfWeekForStartTime(
+  const double startTime,
+  const int dayOfWeekForStartDay,
+  bool dayOfWeekIsAtTime0,
+  void (*SpawnFormatError)(const char *string, ...)){
+
+
+    int startTime_inDay = (int)(floor((startTime + 1E-6) / (3600*24.)));
+    int startDay;
+    int posStartTime = startTime_inDay;
+    int increment;
+    size_t sLen = 0;
+
+    const int WEEK = 7;
+
+    char * const days[] = {"Monday", "Tuesday", "Wednesday", "Thursday",
+                           "Friday", "Saturday", "Sunday"};
+    char* day;
+
+    if (dayOfWeekIsAtTime0){
+        while( posStartTime < 0){
+            increment = abs(posStartTime) / 7;
+            posStartTime += (increment+1)*WEEK;
+        }
+      /* Set startDay to 1, 2, ...7 */
+      startDay = (posStartTime % 7) + 1;
+
+       /* Take into account the shift for the user-specified start day */
+      startDay = (startDay-1 + (dayOfWeekForStartDay-1) ) % 7 + 1;
+    }
+    else{
+      startDay = dayOfWeekForStartDay; /* 1 is Monday per Modelica implementation */
+    }
+
+    sLen = strlen( days[startDay-1] ) + 1;
+
+    day = (char *)malloc(sizeof(char) * (sLen));
+
+    if (day == NULL){
+      SpawnFormatError("%s\n", "Failed to allocate memory for day of week.");
+    }
+    strcpy(day, days[startDay-1]);
+    return day;
+}
+
 void buildJSONModelStructureForEnergyPlus(
   const FMUBuilding* bui, char* *buffer, size_t* size, char** modelHash){
   size_t i;
@@ -99,6 +147,7 @@ void buildJSONModelStructureForEnergyPlus(
   size_t iMod = 0;
   int objectType;
   size_t objectCount[6];
+  char* dayOfWeekForStartDay;
   const int nObjectTypes = sizeof(objectCount)/sizeof(objectCount[0]);
 
   void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
@@ -117,7 +166,7 @@ void buildJSONModelStructureForEnergyPlus(
   }
 
   saveAppend(buffer, "{\n", size, SpawnFormatError);
-  buildJSONKeyStringValue(buffer, 1, "version", "0.1", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 1, "version", "0.2", true, size, SpawnFormatError);
   saveAppend(buffer, "  \"EnergyPlus\": {\n", size, SpawnFormatError);
   /* idf name */
   buildJSONKeyStringValue(buffer, 2, "idf", bui->idfName, true, size, SpawnFormatError);
@@ -128,6 +177,24 @@ void buildJSONModelStructureForEnergyPlus(
   /* Tolerance of solver for surface heat balance */
   buildJSONKeyDoubleValue(buffer, 2, "relativeSurfaceTolerance", bui->relativeSurfaceTolerance,
     false, size, SpawnFormatError);
+
+  saveAppend(buffer, "  },\n", size, SpawnFormatError);
+
+  /* RunPeriod */
+  saveAppend(buffer, "  \"RunPeriod\": {\n", size, SpawnFormatError);
+
+  dayOfWeekForStartDay = getDayOfWeekForStartTime(
+    bui->time, bui->runPer->dayOfWeekForStartDay, bui->runPer->dayOfWeekIsAtTime0, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "day_of_week_for_start_day",
+    dayOfWeekForStartDay,
+    true, size, SpawnFormatError);
+  free(dayOfWeekForStartDay);
+
+  buildJSONKeyStringValue(buffer, 2, "apply_weekend_holiday_rule", bui->runPer->applyWeekEndHolidayRule ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_daylight_saving_period", bui->runPer->use_weatherFileDaylightSavingPeriod ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_holidays_and_special_days", bui->runPer->use_weatherFileHolidaysAndSpecialDays ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_rain_indicators", bui->runPer->use_weatherFileRainIndicators ? "Yes": "No", true, size, SpawnFormatError);
+  buildJSONKeyStringValue(buffer, 2, "use_weather_file_snow_indicators", bui->runPer->use_weatherFileSnowIndicators ? "Yes": "No", false, size, SpawnFormatError);
 
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
 
