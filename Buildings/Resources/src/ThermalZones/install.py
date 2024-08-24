@@ -9,6 +9,8 @@ import os
 
 if __name__ == '__main__':
 
+  VERSIONS = ["9_6_0", "24_1_0"]
+  
   # Configure the argument parser
   parser = argparse.ArgumentParser(
       description='Install and updates files used by Spawn.',
@@ -48,9 +50,10 @@ if __name__ == '__main__':
   if executable is None:
     raise OSError("A Python installation of at least version 3 is required to run this script. Executable 'python' nor 'python3' is pointing to a valid version.")
 
-  proc = [executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), "EnergyPlus_9_6_0", "install.py")] 
+  for version in VERSIONS: 
+    proc = [executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), f"EnergyPlus_{version}", "install.py")] 
 
-  if args.binaries_for_os_only:
-    proc += ["--binaries-for-os-only"]
+    if args.binaries_for_os_only:
+      proc += ["--binaries-for-os-only"]
 
-  subprocess.run(proc, shell=False)
+    subprocess.run(proc, shell=False)
