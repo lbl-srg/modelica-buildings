@@ -153,6 +153,12 @@ particular package.<br/>
                     one or several building envelope models.</td>
 </tr>
 
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide\">ThermalZones.EnergyPlus.UsersGuide</a>
+   </td>
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus to simulate
+                    one or several building envelope models.</td>
+</tr>
+
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python_3_8.UsersGuide\">Utilities.IO.Python_3_8</a>
    </td>
    <td valign=\"top\">Package to call Python functions from Modelica.</td>
