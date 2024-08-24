@@ -3,5 +3,5 @@ compareVars :=
     "vol.T_start",
     "vol.T",
     "TOut.T",
-    "cooCoi.sta_b2.T"
+    "senTemSupAir.T"
   };

@@ -1,7 +1,7 @@
 simulateModel("Buildings.Examples.Tutorial.SpaceCooling.System3", startTime=15552000, tolerance=1e-6, stopTime=15638400, method="CVode", resultFile="SpaceCoolingSystem3");
 createPlot(id = 1,
  position = {15, 10, 733, 355},
- y = {"vol.T_start", "vol.T", "TOut.T", "cooCoi.sta_a2.T", "cooCoi.sta_b2.T"},
+ y = {"vol.T_start", "vol.T", "TOut.T", "senTemHXOut.T", "senTemSupAir.T"},
  range = {0.0, 4000.0, 32.0, 16.0},
  autoscale = true,
  autoerase = true,

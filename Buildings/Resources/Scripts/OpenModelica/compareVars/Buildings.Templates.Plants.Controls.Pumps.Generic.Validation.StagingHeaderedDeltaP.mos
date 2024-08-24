@@ -2,5 +2,13 @@ compareVars :=
   {
     "ratFlo.y[1]",
     "enaLea.y[1]",
-    "idxSta.y"
+    "idxSta.y",
+    "staPum.preFaiSaf.y",
+    "staPum.preEff.y",
+    "staPumFaiSaf.dp[1]",
+    "staPumFaiSaf.dpSet[1]",
+    "staPumFaiSaf.y",
+    "idxSta1.y",
+    "staPumFaiSaf.preFaiSaf.y",
+    "staPumFaiSaf.preEff.y"
   };

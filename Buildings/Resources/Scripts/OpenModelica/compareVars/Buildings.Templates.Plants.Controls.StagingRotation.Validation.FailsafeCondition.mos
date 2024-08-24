@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "faiSafHea.TSupSet",
+    "faiSafHea.TPriSup",
+    "faiSafHea.TSecSup",
+    "faiSafHea.reset",
+    "faiSafHea.y1",
+    "faiSafCoo.TSupSet",
+    "faiSafCoo.TPriSup",
+    "faiSafCoo.TSecSup",
+    "faiSafCoo.reset",
+    "faiSafCoo.y1",
+    "faiSafCooPri.TSupSet",
+    "faiSafCooPri.TPriSup",
+    "faiSafCooPri.reset",
+    "faiSafCooPri.y1"
+  };
