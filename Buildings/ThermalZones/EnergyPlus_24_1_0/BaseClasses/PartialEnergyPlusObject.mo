@@ -63,7 +63,7 @@ initial equation
       graphics={
         Bitmap(
           extent={{58,-98},{98,-68}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_24_1_0/EnergyPlusLogo.png",
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png",
           visible=not usePrecompiledFMU)}),
     Documentation(
       info="<html>

@@ -395,7 +395,7 @@ equation
         Bitmap(
           visible=false,
           extent={{134,-176},{174,-146}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_24_1_0/EnergyPlusLogo.png"),
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png"),
         Text(
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
