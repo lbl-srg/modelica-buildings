@@ -15,7 +15,7 @@
 
 /* This function is called for each Spawn object in the 'initial equation' section
 */
-void initialize_Spawn_EnergyPlus_9_6_0(
+void initialize_Spawn_EnergyPlus_24_1_0(
     void* object,
     int *nObj){
   SpawnObject* ptrSpaObj = (SpawnObject*) object;
@@ -23,10 +23,10 @@ void initialize_Spawn_EnergyPlus_9_6_0(
   const char* modelicaName = ptrSpaObj->modelicaName;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.3f %s: Entered initialize_Spawn_EnergyPlus_9_6_0.\n", bui->time, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered initialize_Spawn_EnergyPlus_24_1_0.\n", bui->time, modelicaName);
   }
   if (bui == NULL){
-    bui->SpawnFormatError("Pointer bui is NULL in initialize_Spawn_EnergyPlus_9_6_0 for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
+    bui->SpawnFormatError("Pointer bui is NULL in initialize_Spawn_EnergyPlus_24_1_0 for %s. For Dymola 2020x, make sure you set 'Hidden.AvoidDoubleComputation=true'. See Buildings.ThermalZones.EnergyPlus.UsersGuide.", modelicaName);
   }
   if (bui->fmu == NULL){
     /* EnergyPlus is not yet loaded.
@@ -67,7 +67,7 @@ void initialize_Spawn_EnergyPlus_9_6_0(
 
 /* Returns the parameter values for this Spawn object
 */
-void getParameters_Spawn_EnergyPlus_9_6_0(
+void getParameters_Spawn_EnergyPlus_24_1_0(
     void* object,
     double *parOut){
   SpawnObject* ptrSpaObj = (SpawnObject*) object;
@@ -76,7 +76,7 @@ void getParameters_Spawn_EnergyPlus_9_6_0(
   size_t i;
 
   if (bui->logLevel >= MEDIUM){
-    bui->SpawnFormatMessage("%.3f %s: Entered getParameters_Spawn_EnergyPlus_9_6_0.\n", bui->time, modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Entered getParameters_Spawn_EnergyPlus_24_1_0.\n", bui->time, modelicaName);
   }
 
   /* Assign the parameters for this object */
@@ -85,5 +85,5 @@ void getParameters_Spawn_EnergyPlus_9_6_0(
     parOut++; /* Increment to next element */
   }
   if (bui->logLevel >= MEDIUM)
-    bui->SpawnFormatMessage("%.3f %s: Leaving getParameters_Spawn_EnergyPlus_9_6_0.\n", bui->time, ptrSpaObj->modelicaName);
+    bui->SpawnFormatMessage("%.3f %s: Leaving getParameters_Spawn_EnergyPlus_24_1_0.\n", bui->time, ptrSpaObj->modelicaName);
 }

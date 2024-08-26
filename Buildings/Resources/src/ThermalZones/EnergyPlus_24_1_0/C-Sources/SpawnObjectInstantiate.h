@@ -20,8 +20,8 @@
 #include "fmilib.h"
 #include "JM/jm_portability.h"
 
-LBNL_Spawn_EXPORT void initialize_Spawn_EnergyPlus_9_6_0(void* object, int *nObj);
+LBNL_Spawn_EXPORT void initialize_Spawn_EnergyPlus_24_1_0(void* object, int *nObj);
 
-LBNL_Spawn_EXPORT void getParameters_Spawn_EnergyPlus_9_6_0(void* object, double *parOut);
+LBNL_Spawn_EXPORT void getParameters_Spawn_EnergyPlus_24_1_0(void* object, double *parOut);
 
 #endif

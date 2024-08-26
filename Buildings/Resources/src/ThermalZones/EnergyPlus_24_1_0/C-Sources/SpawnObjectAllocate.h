@@ -11,7 +11,7 @@
 #include "SpawnUtil.h"
 
 /* Create the structure and return a pointer to its address. */
-LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_9_6_0(
+LBNL_Spawn_EXPORT void* allocate_Spawn_EnergyPlus_24_1_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,

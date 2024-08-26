@@ -10,6 +10,6 @@
 #include "SpawnFMU.h"
 #include "FMI2/fmi2_import.h"
 
-LBNL_Spawn_EXPORT void free_Spawn_EnergyPlus_9_6_0(void* object);
+LBNL_Spawn_EXPORT void free_Spawn_EnergyPlus_24_1_0(void* object);
 
 #endif
