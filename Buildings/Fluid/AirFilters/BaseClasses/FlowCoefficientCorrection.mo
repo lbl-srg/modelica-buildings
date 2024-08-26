@@ -1,26 +1,27 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
-  parameter Real b
-    "Resistance coefficient";
+  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
+    "Record with performance dat"
+    annotation (Placement(transformation(extent={{20,62},{40,82}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
-    final unit="1",
-    final min=0,
-    final max=1)
+    each final unit="1",
+    each final min=0,
+    each final max=1)
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit="1",
-    final min=1)
+    each final unit="1",
+    each final min=1)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
 initial equation
-    assert(b > 1,
-      "In " + getInstanceName() + ": Resistance coefficient has to be greater than 1.",
-      level=AssertionLevel.error);
+  assert(per.b - 1.0 > 0.01,
+          "In " + getInstanceName() + ":The resistance coefficient should be larger
+          than 1")
+         "Validate the resistance coefficient";
 equation
-  y = b^rat;
+  y = per.b^rat;
 
 annotation (defaultComponentName="coeCor",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

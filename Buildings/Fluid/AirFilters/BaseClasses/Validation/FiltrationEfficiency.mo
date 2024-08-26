@@ -3,19 +3,23 @@ model FiltrationEfficiency
   "Validation model for the calculation of the filtration efficiency"
   extends Modelica.Icons.Example;
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency eps(
-    mCon_nominal=1,
-    epsFun={0.98,-0.1})
+                    per=per)
     "Filtration efficiency"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Modelica.Blocks.Sources.Ramp mCon(
     duration=1,
     height=1.2,
     offset=0)
     "Mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
+      mCon_nominal=1,
+      filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{0.7,0.6,0.5}}))
+    "Performance dataset"
+    annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
 equation
   connect(mCon.y, eps.mCon)
-  annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
+  annotation (Line(points={{-39,0},{-10,0}}, color={0,0,127}));
 
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/FiltrationEfficiency.mos"

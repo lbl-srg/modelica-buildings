@@ -2,25 +2,72 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput C_inflow[Medium.nC]
-    "Input trace substance rate"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-      rotation=-90, origin={0,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(
-    final unit = "1",
-    final min = 0,
-    final max= 1)
+  parameter String substanceName[:] = {"CO2"}
+    "Name of trace substance";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[size(substanceName,1)](
+    each final unit = "1",
+    each final min = 0,
+    each final max= 1)
     "Mass transfer coefficient"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[size(substanceName,1)](
+    each final unit = "kg/s")
+    "Contaminant mass flow rate"
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
+  parameter Real s1[:,:]= {
+    {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName[j],
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:Medium.nC}
+    for j in 1:size(substanceName,1)}
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
+  parameter Real s2[:,:]= {
+    {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName[j],
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:size(substanceName,1)}
+    for j in 1:Medium.nC}
+    "Vector with zero everywhere except where species is"
+    annotation(Evaluate=true);
+initial equation
+  assert(abs(sum(s1) - size(substanceName,1)) < 0.1,
+         "In " + getInstanceName() + ":Some specified trace substances are 
+         not present in medium '" + Medium.mediumName + "'.\n"
+         + "Check sensor parameter and medium model.",
+         level = AssertionLevel.warning)
+         "Check if all the specificed substances are included in the medium";
 
 equation
-  if allowFlowReversal then
-    port_b.C_outflow =inStream(port_a.C_outflow) - eps*C_inflow;
-    port_a.C_outflow = inStream(port_a.C_outflow);
-  else
-    port_b.C_outflow = inStream(port_a.C_outflow);
-    port_a.C_outflow = inStream(port_b.C_outflow);
-  end if;
+  // Modify the substances individually.
+  for i in 1:Medium.nC loop
+      if max(s2[i]) > 0.9 then
+        for j in 1:size(substanceName,1) loop
+            if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                              string2=substanceName[j],
+                                              caseSensitive=false)) then
+                port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j]);
+                port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
+            end if;
+        end for;
+      else
+        port_b.C_outflow[i] = inStream(port_a.C_outflow[i]);
+        port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
+      end if;
+  end for;
+  for i in 1:size(substanceName,1) loop
+      if max(s1[i]) > 0.9 then
+        for j in 1:Medium.nC loop
+            if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[j],
+                                              string2=substanceName[i],
+                                              caseSensitive=false)) then
+                mCon_flow[i] = inStream(port_a.C_outflow[j])* eps[i];
+            end if;
+        end for;
+      else
+        mCon_flow[i] = 0;
+      end if;
+  end for;
   // Mass balance (no storage).
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);

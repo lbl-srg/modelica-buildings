@@ -3,27 +3,32 @@ model MassAccumulation
   "Validation model for the accumulation of the contaminants"
   extends Modelica.Icons.Example;
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
-    mCon_nominal=1,
-    mCon_reset=0)
+    per=per,
+    mCon_reset=0,
+    nin=1)
     "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Ramp mCon_flow(
-    duration=1,
-    height=1.2,
-    offset=0)
-    "Contaminant mass flow rate"
+  Modelica.Blocks.Sources.Ramp mCon_flow[1](
+    each duration=1,
+    each height=1.2,
+    each offset=0) "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse RepSig(
     period=1,
     shift=0.5)
     "Filter replacement signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  parameter Data.Generic                                        per(
+      mCon_nominal=1, filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{
+          0.7,0.6,0.5}}))
+    "Performance dataset"
+    annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
 equation
   connect(RepSig.y, masAcc.uRep)
     annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},{-12,-6}}, color={255,0,255}));
-  connect(mCon_flow.y, masAcc.mCon_flow)
-    annotation (Line(points={{-39,30},{-20,30},{-20,0},{-12,0}}, color={0,0,127}));
 
+  connect(mCon_flow.y, masAcc.mCon_flow) annotation (Line(points={{-39,30},{-20,
+          30},{-20,0},{-12,0}}, color={0,0,127}));
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/BaseClasses/Validation/MassAccumulation.mos"
         "Simulate and plot"),

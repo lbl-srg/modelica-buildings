@@ -1,13 +1,17 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model MassAccumulation
   "Component that mimics the accumulation of the contaminants"
-  parameter Real mCon_nominal
-    "Maximum mass of the contaminant captured by the filter";
+  parameter Integer nin(
+    min=1)=1
+    "Number of input connections";
+  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
+    "Record with performance dat"
+    annotation (Placement(transformation(extent={{20,62},{40,82}})));
   parameter Real mCon_reset(
     final min = 0)
     "Initial contaminant mass of the filter after replacement";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon_flow(
-    final unit = "kg/s")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon_flow[nin](
+    each final unit="kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
@@ -28,7 +32,7 @@ model MassAccumulation
     "Check if the filter is full"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
-     final k=mCon_nominal)
+     final k=per.mCon_nominal)
     "Constant"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -36,9 +40,9 @@ model MassAccumulation
     "Warning message when the filter is full"
     annotation (Placement(transformation(extent={{72,40},{92,60}})));
 
+  Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nin) "Summation of the inputs"
+    annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
 equation
-  connect(intWitRes.u, mCon_flow)
-    annotation (Line(points={{-12,0},{-120,0}}, color={0,0,127}));
   connect(intWitRes.y, mCon)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   connect(con.y, intWitRes.y_reset_in)
@@ -52,6 +56,10 @@ equation
   connect(con1.y, greater.u1)
     annotation (Line(points={{2,50},{38,50}}, color={0,0,127}));
 
+  connect(mulSum.y, intWitRes.u)
+    annotation (Line(points={{-30,0},{-12,0}}, color={0,0,127}));
+  connect(mulSum.u, mCon_flow)
+    annotation (Line(points={{-54,0},{-120,0}}, color={0,0,127}));
 annotation (defaultComponentName="masAcc",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
      Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200},

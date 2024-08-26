@@ -1,37 +1,37 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Component that calculates the filtration efficiency"
-  parameter Real mCon_nominal(
-    final unit="kg")
-    "Maximum mass of the contaminant can be captured by the filter";
-  parameter Real epsFun[:]
-    "Filtration efficiency curve";
+  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
+    "Record with performance dat"
+    annotation (Placement(transformation(extent={{20,62},{40,82}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
     final unit="kg")
     "Mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    final unit="1",
-    final min=0,
-    final max=1)
-    "Filtration efficiency"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[size(per.substanceName, 1)](
+    each final unit="1",
+    each final min=0,
+    each final max=1) "Filtration efficiency"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
-    final unit="1",
-    final min=0,
-    final max=1)
+    each final unit="1",
+    each final min=0,
+    each final max=1)
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-
 equation
-  rat = Buildings.Utilities.Math.Functions.smoothMin(x1=1, x2= mCon/mCon_nominal, deltaX=0.1);
-  y = Buildings.Utilities.Math.Functions.polynomial(a=epsFun, x=rat);
-  assert(
-    y > 0 and y < 1,
-    "In " + getInstanceName() + ": The filter efficiency has to be in the range of [0, 1], 
-    check the filter efficiency curve.",
-    level=AssertionLevel.error);
-
+  rat = Buildings.Utilities.Math.Functions.smoothMin(
+                x1=1,
+                x2= mCon/per.mCon_nominal,
+                deltaX=0.1)
+                "Calculate the relative mass of the contaminant captured by the filter";
+  for i in 1:size(per.substanceName, 1) loop
+     y[i] = Buildings.Utilities.Math.Functions.smoothInterpolation(
+                x=rat,
+                xSup=per.filterationEfficiencyParameters.rat[i],
+                ySup=per.filterationEfficiencyParameters.eps[i])
+                "Calculate the filtration efficiency";
+  end for;
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(
           extent={{-100,100},{100,-100}},
@@ -46,13 +46,10 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
   defaultComponentName="eps",
 Documentation(info="<html>
 <p>
-This model calculates the filtration efficiency, <i>eps</i>, by
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-eps = epsFun<sub>1</sub> + epsFun<sub>2</sub>rat + epsFun<sub>3</sub> rat<sup>2</sup> + ...,
-</p>
-<p>
-where the coefficients <i>epsFun<sub>i</sub></i> are declared by the parameter <i>epsFun</i>;
+This model calculates the filtration efficiency, <i>eps</i>, based on the cubic hermite spline interpolation of
+the filter dataset (see 
+<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filterationEfficiencyParameters\">
+Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filterationEfficiencyParameters</a>).
 </p>
 <p>
 The <i>rat</i> is the relative mass of the contaminant captured by the filter
