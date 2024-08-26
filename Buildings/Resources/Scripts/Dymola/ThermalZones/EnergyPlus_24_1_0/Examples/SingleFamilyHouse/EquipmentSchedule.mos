@@ -1,0 +1,2 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.EquipmentSchedule", stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="EquipmentSchedule");
+createPlot(id=1, position={255, 85, 590, 557}, y={"zon.TAir"}, range={0.0, 90000.0, 17.0, 21.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});

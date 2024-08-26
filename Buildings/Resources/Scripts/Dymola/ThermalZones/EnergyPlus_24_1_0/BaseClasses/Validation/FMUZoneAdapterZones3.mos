@@ -1,0 +1,6 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Validation.FMUZoneAdapterZones3", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="FMUZoneAdapterZones3");
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
+createPlot(id=1, position={95, 90, 1092, 1001}, y={"fmuZonCor.T", "fmuZonNor.T", "fmuZonSou.T"}, range={0.0, 3600.0, 270.0, 295.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={95, 90, 1092, 498}, y={"fmuZonCor.QCon_flow", "fmuZonSou.QCon_flow", "fmuZonNor.QCon_flow"}, range={0.0, 3600.0, -16000.0, 6000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
