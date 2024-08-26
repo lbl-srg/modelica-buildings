@@ -25,7 +25,7 @@ model FMUZoneAdapterZones1
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_24_1_0/FMUs/Zones1.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones1.fmu"),
     logLevel=building.logLevel,
     setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)

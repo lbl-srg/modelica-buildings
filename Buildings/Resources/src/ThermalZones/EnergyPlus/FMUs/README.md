@@ -1,6 +1,6 @@
 This directory contains FMUs that are precompiled for Linux 64bit.
 They are used in the examples in
-Buildings.ThermalZones.EnergyPlus.BaseClasses.Validation
+Buildings.ThermalZones.EnergyPlus*.BaseClasses.Validation
 
 To generate the FMUs, run
 
