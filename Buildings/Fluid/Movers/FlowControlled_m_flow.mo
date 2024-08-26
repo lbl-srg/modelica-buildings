@@ -15,9 +15,10 @@ model FlowControlled_m_flow
       u_nominal=m_flow_nominal),
     motSpe(
       final y_start=m_flow_start,
-      u(final unit="kg/s"),
-      y(final unit="kg/s"),
-      x(each nominal=m_flow_nominal)),
+      u(final unit="kg/s",
+        nominal=m_flow_nominal),
+      y(final unit="kg/s",
+        nominal=m_flow_nominal)),
     eff(
       per(
         final pressure = if per.havePressureCurve then

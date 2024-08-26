@@ -16,9 +16,10 @@ model FlowControlled_dp
       u_nominal=dp_nominal),
     motSpe(
       final y_start=dp_start,
-      u(final unit="Pa"),
-      y(final unit="Pa"),
-      x(each nominal=dp_nominal)),
+      u(final unit="Pa",
+        nominal=dp_nominal),
+      y(final unit="Pa",
+      nominal=dp_nominal)),
     eff(
       per(
         final pressure=
