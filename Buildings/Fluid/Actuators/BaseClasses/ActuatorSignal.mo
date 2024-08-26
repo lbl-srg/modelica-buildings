@@ -8,8 +8,8 @@ model ActuatorSignal
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
-  parameter Boolean use_constantTravelTime = true
-    "Set to true to use an actuator dynamics that models the movement of the actuator"
+  parameter Boolean use_linearDynamics = true
+    "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
   parameter Modelica.Units.SI.Time riseTime=120
@@ -17,7 +17,7 @@ model ActuatorSignal
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter and not use_constantTravelTime));
+      enable=use_inputFilter and not use_linearDynamics));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
@@ -57,7 +57,7 @@ protected
     final f=fCut,
     final normalized=true,
     final initType=init,
-    final y_start=y_start) if use_inputFilter and not use_constantTravelTime
+    final y_start=y_start) if use_inputFilter and not use_linearDynamics
     "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{16,89},{24,96}})));
 
@@ -68,7 +68,7 @@ protected
     initType=init,
     y_start=y_start,
     strict=true)
-    if use_inputFilter and use_constantTravelTime
+    if use_inputFilter and use_linearDynamics
       "Actuator position"
     annotation (Placement(transformation(extent={{16,76},{24,84}})));
 equation
