@@ -11,6 +11,10 @@ model SpeedControlled_y
       final y_start=y_start,
       u(final unit="1"),
       y(final unit="1")),
+    motSpe(
+      final y_start=y_start,
+      u(final unit="1"),
+      y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
           final etaHydMet = per.etaHydMet,
@@ -54,6 +58,8 @@ equation
   if use_inputFilter then
     connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
             26},{-26,26},{-26,-46}},  color={0,0,127}));
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
+            26},{-26,26},{-26,-46}},  color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
             26},{-26,26},{-26,-46}},
@@ -85,6 +91,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
+
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Removed the modification that normalised the speed input

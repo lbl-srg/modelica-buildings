@@ -52,6 +52,11 @@ partial model PartialFlowMachine
   parameter Boolean use_inputFilter=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+
+  parameter Boolean use_linearDynamics = true
+    "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+
   parameter Modelica.Units.SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
       Dialog(
@@ -238,9 +243,19 @@ protected
     final n=2,
     final f=fCut,
     final normalized=true,
-    final initType=init) if use_inputFilter
+    final initType=init) if use_inputFilter and not use_linearDynamics
     "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,61},{40,80}})));
+    annotation (Placement(transformation(extent={{16,89},{24,96}})));
+
+  Modelica.Blocks.Nonlinear.SlewRateLimiter motSpe(
+    Rising=1/riseTime,
+    Falling=-1/riseTime,
+    Td=10/riseTime,
+    initType=init,
+    strict=true)
+    if use_inputFilter and use_linearDynamics
+      "Dynamics of engine speed"
+    annotation (Placement(transformation(extent={{16,76},{24,84}})));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -507,7 +522,8 @@ equation
           -86},{48,-86}}, color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
           {18,70.5}},     color={0,0,127}));
-
+  connect(inputSwitch.y, motSpe.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
+          {18,70.5}},     color={0,0,127}));
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,
@@ -640,6 +656,12 @@ See discussions in
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
+
 <li>
 June 18, 2024, by Michael Wetter:<br/>
 Added <code>start</code> and <code>nominal</code> attributes

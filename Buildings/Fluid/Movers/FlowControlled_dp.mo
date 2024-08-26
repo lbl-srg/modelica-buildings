@@ -14,6 +14,11 @@ model FlowControlled_dp
       y(final unit="Pa"),
       x(each nominal=dp_nominal),
       u_nominal=dp_nominal),
+    motSpe(
+      final y_start=dp_start,
+      u(final unit="Pa"),
+      y(final unit="Pa"),
+      x(each nominal=dp_nominal)),
     eff(
       per(
         final pressure=
@@ -115,6 +120,10 @@ equation
       points={{41,70.5},{44,70.5},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
+    connect(motSpe.y, gain.u) annotation (Line(
+      points={{41,70.5},{44,70.5},{44,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
       points={{1,50},{44,50},{44,42}},
@@ -179,6 +188,11 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Refactored the model with a new declaration for

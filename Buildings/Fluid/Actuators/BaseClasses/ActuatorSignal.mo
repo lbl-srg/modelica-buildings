@@ -142,6 +142,11 @@ for a description of the filter.
 </html>", revisions="<html>
 <ul>
 <li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear actuator travel dynamics.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
+<li>
 June 10, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter and changed the parameter <code>order</code> to a constant
 as most users need not change this value.<br/>

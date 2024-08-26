@@ -84,6 +84,9 @@ equation
     connect(booToRea.y, filter.u)
       annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
         color={0,0,127}));
+    connect(booToRea.y, actPos.u)
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
+        color={0,0,127}));
   else
     connect(booToRea.y, y_actual)
       annotation (Line(points={{-67.4,40},{-60,40},{-60,74},{-20,74}},
@@ -117,6 +120,11 @@ The signal filter is used to smoothe the on/off signal for the valves.
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear actuator travel dynamics.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

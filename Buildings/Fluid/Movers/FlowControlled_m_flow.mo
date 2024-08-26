@@ -13,6 +13,11 @@ model FlowControlled_m_flow
       y(final unit="kg/s"),
       x(each nominal=m_flow_nominal),
       u_nominal=m_flow_nominal),
+    motSpe(
+      final y_start=m_flow_start,
+      u(final unit="kg/s"),
+      y(final unit="kg/s"),
+      x(each nominal=m_flow_nominal)),
     eff(
       per(
         final pressure = if per.havePressureCurve then
@@ -104,6 +109,12 @@ equation
       smooth=Smooth.None));
     connect(filter.y, preSou.m_flow_in)
       annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
+    connect(motSpe.y, m_flow_actual) annotation (Line(
+      points={{41,70.5},{44,70.5},{44,50},{110,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(motSpe.y, preSou.m_flow_in)
+      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
   else
   connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
                                              color={0,0,127}));
@@ -146,6 +157,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
+
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Refactored the model with a new declaration for

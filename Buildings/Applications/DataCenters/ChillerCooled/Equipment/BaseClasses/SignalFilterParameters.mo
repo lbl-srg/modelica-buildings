@@ -5,6 +5,11 @@ record SignalFilterParameters
   parameter Boolean use_inputFilter=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+
+  parameter Boolean use_linearDynamics = true
+    "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+
   parameter Modelica.Units.SI.Time riseTimeValve=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
@@ -19,6 +24,11 @@ record SignalFilterParameters
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear actuator travel dynamics.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
 <li>
 November 15, 2022, by Michael Wetter:<br/>
 Change <code>riseTimeValve</code> to 30 seconds so that it is the same as for pumps.
