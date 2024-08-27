@@ -4,9 +4,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium1 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium1 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -14,9 +14,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium2 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium2 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -24,9 +24,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium3 =
     Modelica.Media.Interfaces.PartialMedium "Medium 3 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium3 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium3 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium3 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -34,9 +34,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium4 =
     Modelica.Media.Interfaces.PartialMedium "Medium 4 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium4 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium4 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium4 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -150,6 +150,11 @@ may be used by models that extend this model to treat flow reversal. </p>
 <p>This model is identical to <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has eight ports. </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 27, 2024, by Jianjun Hu:<br/>
+Corrected dropdown media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">#1924</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
