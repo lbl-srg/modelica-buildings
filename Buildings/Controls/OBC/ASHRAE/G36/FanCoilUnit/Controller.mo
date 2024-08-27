@@ -855,8 +855,6 @@ equation
           45},{38,45}},    color={0,0,127}));
   connect(heaPI.y, TSupAir.uHea) annotation (Line(points={{-58,260},{0,260},{0,52},
           {38,52}},   color={0,0,127}));
-  connect(TZonHeaSet, TZonHeaSet)
-    annotation (Line(points={{220,160},{220,160}}, color={0,0,127}));
   connect(u1Fan, TSupAir.u1Fan) annotation (Line(points={{-240,-230},{8,-230},{8,
           59},{38,59}}, color={255,0,255}));
   connect(nOcc, havOcc.u) annotation (Line(points={{-240,-200},{-212,-200},{
