@@ -49,13 +49,19 @@ equation
     y = u;
     entryTimeTrue = if y then time else pre(entryTimeTrue);
     entryTimeFalse = if not y then time else pre(entryTimeFalse);
-  elsewhen {edge(u),
-            edge(not_u),
-            time >= pre(entryTimeFalse) + falseHoldDuration and
-            time >= pre(entryTimeTrue) + trueHoldDuration} then
-    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
-         time >= pre(entryTimeTrue) + trueHoldDuration then u
+  /*
+  The two elsewhen clauses below are kept separate to address an issue
+  with event handling in the CVODE solver.
+  */
+  elsewhen {edge(u), edge(not_u)} then
+    y = if time >= pre(entryTimeFalse) + falseHoldDuration and
+      time >= pre(entryTimeTrue) + trueHoldDuration then u
       else pre(y);
+    entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
+    entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
+  elsewhen time >= pre(entryTimeFalse) + falseHoldDuration and
+    time >= pre(entryTimeTrue) + trueHoldDuration then
+    y = u;
     entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
     entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
   end when;
