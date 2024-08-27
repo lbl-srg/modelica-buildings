@@ -16,11 +16,11 @@ protected
     annotation (Placement(transformation(extent={{-50,89},{-42,96}})));
 
   Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
-    Rising=1/riseTime,
-    Falling=-1/riseTime,
-    Td=10/riseTime,
-    initType=init,
-    y_start=y_start,
+    Rising=1/riseTimeValve,
+    Falling=-1/riseTimeValve,
+    Td=10/riseTimeValve,
+    initType=initValve,
+    y_start=yValve_start,
     strict=true)
     if use_inputFilter and use_linearDynamics
       "Actuator position"
