@@ -656,7 +656,8 @@ P<sub>mot,nominal</sub>=
 &frasl; &eta;<sub>hyd,p</sub>,
 </p>
 where the factor <i>1.2</i> also assumes a 20% oversize
-and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
+and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>
+unless a hydraulic peak value is available in the record.
 </li>
 </ul>
 The model then computes the efficiency the same way as in the option of

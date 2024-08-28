@@ -23,9 +23,7 @@ Buildings.Fluid.Movers.Data.Pumps</a>
 for pumps and
 <a href=\"Modelica://Buildings.Fluid.Movers.Data.Fans\">
 Buildings.Fluid.Movers.Data.Fans</a>
-for fans.
-(See also
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
+for fans. See link in References for more details.
 The model identifies itself as a fan or pump based on the default density of
 the medium.
 </li>
@@ -42,6 +40,9 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>
 for details.
 </li>
 </ul>
+<h4>References</h4>
+<a href=\"https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_HydronicConfigurations_UsersGuide.html#Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\">
+https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_HydronicConfigurations_UsersGuide.html#Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>
 </html>"));
 
 end UsersGuide;
