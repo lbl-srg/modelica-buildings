@@ -85,23 +85,23 @@ are not implemented.
 <li>
 August 27, 2024, by Jianjun Hu:<br/>
 Corrected dropdown media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">#1924</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
 </li>
 <li>
 April 6, 2020, by Filip Jorissen:<br/>
 Added arrows to the icon indicating the intended flow direction
 when <code>allowFlowReversal=false</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">#1336</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">IBPSA #1336</a>.
 </li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050</a>.
 </li>
 <li>
 July 8, 2018, by Filip Jorissen:<br/>
 Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">IBPSA #977</a>.
 </li>
 <li>
 November 12, 2015, by Michael Wetter:<br/>
@@ -113,7 +113,7 @@ Removed parameters
 <code>h_outflow_a2_start</code> and
 <code>h_outflow_b2_start</code>.
 This is for issue
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">#299</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">IBPSA #299</a>.
 </li>
 <li>
 October 30, 2015, by Matthis Thorade:<br/>

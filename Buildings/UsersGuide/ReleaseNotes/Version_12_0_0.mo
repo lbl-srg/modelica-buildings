@@ -60,16 +60,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
-                       Buildings.Fluid.Interfaces.EightPort
-    </td>
-    <td valign=\"top\">Corrected dropdown media choice.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">#1924</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone</b>
     </td>
 </tr>
