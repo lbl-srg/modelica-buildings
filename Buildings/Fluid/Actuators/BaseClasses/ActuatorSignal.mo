@@ -5,7 +5,7 @@ model ActuatorSignal
   constant Integer order(min=1) = 2 "Order of filter";
 
   parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    "= true, if opening is filtered to avoid a step change in actuator position"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
   parameter Boolean use_linearDynamics = true

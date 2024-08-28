@@ -50,11 +50,11 @@ partial model PartialFlowMachine
 
   // Classes used to implement the filtered speed
   parameter Boolean use_inputFilter=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    "= true, if speed is filtered to avoid a step change in motor speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
   parameter Boolean use_linearDynamics = true
-    "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
+    "Set to true to use an motor dynamics that models the change in motor speed linear in time"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
   parameter Modelica.Units.SI.Time riseTime=30

@@ -3,7 +3,7 @@ record SignalFilterParameters
   "Record that contains the parameters of the filtered opening for multiple valves and dampers"
   parameter Integer numFil(min=1)=4 "Number of filters";
   parameter Boolean use_inputFilter=false
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    "= true, if opening is filtered to avoid a step change in actuator position"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
   parameter Boolean use_linearDynamics = true
