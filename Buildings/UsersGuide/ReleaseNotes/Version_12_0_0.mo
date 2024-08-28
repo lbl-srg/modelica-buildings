@@ -104,7 +104,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
     </td>
     <td valign=\"top\">Refactored with synchronous language elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>
+                     and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
