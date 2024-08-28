@@ -153,12 +153,12 @@ may be used by models that extend this model to treat flow reversal. </p>
 <li>
 August 27, 2024, by Jianjun Hu:<br/>
 Corrected dropdown media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">#1924</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
 </li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050</a>.
 </li>
 <li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>

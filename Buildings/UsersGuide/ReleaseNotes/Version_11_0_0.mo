@@ -297,7 +297,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Interfaces.EightPort
     </td>
     <td valign=\"top\">Corrected dropdown media choice.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">#1924</a>.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
