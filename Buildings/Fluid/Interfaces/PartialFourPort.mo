@@ -4,9 +4,9 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium1 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium1 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -14,9 +14,9 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium2 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium2 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -82,6 +82,11 @@ are not implemented.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 27, 2024, by Jianjun Hu:<br/>
+Corrected dropdown media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
+</li>
 <li>
 April 6, 2020, by Filip Jorissen:<br/>
 Added arrows to the icon indicating the intended flow direction
