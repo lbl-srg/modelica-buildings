@@ -354,7 +354,7 @@ equation
           {-20,-140}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{-62,130},{-158,130},{-158,-20},
           {-200,-20}},color={0,0,127}));
-  connect(sam_u_s.u, u_s) annotation (Line(points={{-124,294},{-154,294},{-154,
+  connect(sam_u_s.u, u_s) annotation (Line(points={{-124,294},{-142,294},{-142,
           254},{-170,254},{-170,-20},{-200,-20}}, color={0,0,127}));
   connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-100,294},{-48,294},{
           -48,280},{-42,280}}, color={0,0,127}));
@@ -376,18 +376,18 @@ equation
           {-14,56},{-14,-90},{60,-90},{60,-140}},    color={255,0,255}));
   connect(abs2.y, greThr.u)
     annotation (Line(points={{22,294},{30,294},{30,300},{38,300}}, color={0,0,127}));
-  connect(nand1.u2, triTun) annotation (Line(points={{92,292},{54,292},{54,260},
+  connect(nand1.u2, triTun) annotation (Line(points={{92,292},{80,292},{80,260},
           {-112,260},{-112,56},{60,56},{60,-140}}, color={255,0,255}));
   connect(falEdg.u, nand1.y) annotation (Line(points={{-150,230},{-156,230},{
           -156,316},{124,316},{124,300},{116,300}}, color={255,0,255}));
   connect(falEdg.y, or2.u1)
     annotation (Line(points={{-126,230},{-86,230}}, color={255,0,255}));
-  connect(resPro.triEnd, or2.u2) annotation (Line(points={{22,102},{-2,102},{-2,
-          64},{-124,64},{-124,222},{-86,222}}, color={255,0,255}));
+  connect(resPro.triEnd, or2.u2) annotation (Line(points={{22,102},{24,102},{24,
+          64},{-98,64},{-98,222},{-86,222}},   color={255,0,255}));
   connect(or2.y, inTunPro.clr) annotation (Line(points={{-62,230},{-62,146},{
           -70,146},{-70,24},{-42,24}}, color={255,0,255}));
-  connect(conProMod.triEnd, or2.y) annotation (Line(points={{48,152},{48,150},{
-          -12,150},{-12,230},{-62,230}}, color={255,0,255}));
+  connect(conProMod.triEnd, resPro.triEnd)
+    annotation (Line(points={{48,152},{48,102},{22,102}}, color={255,0,255}));
 annotation (defaultComponentName = "PIDWitTun",
 Documentation(info="<html>
 <p>
