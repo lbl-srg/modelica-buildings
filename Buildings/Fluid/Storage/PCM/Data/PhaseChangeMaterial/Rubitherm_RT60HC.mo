@@ -30,7 +30,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
 
   end propData;
 
-
   // ----------------------------------
   redeclare function extends phaseFrac_complMelting
     "Returns liquid mass phase fraction for complete melting processes"
@@ -45,7 +44,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
     (xi, dxi) := slPCMlib.BasicUtilities.cubicHermiteSplineEval(T-273.15,
                  len_x, data_x, data_y, m_k, iy_start, iy_scaler);
   end phaseFrac_complMelting;
-
   // ----------------------------------
   redeclare function extends phaseFrac_complSolidification
     "Returns liquid mass phase fraction for complete solidification processes"
@@ -60,7 +58,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
     (xi, dxi) := slPCMlib.BasicUtilities.cubicHermiteSplineEval(T-273.15,
                  len_x, data_x, data_y, m_k, iy_start, iy_scaler);
   end phaseFrac_complSolidification;
-
   // ----------------------------------
   package data_H "spline interpolation data for heating"
     extends Modelica.Icons.Package;
@@ -71,7 +68,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
     constant Real[14] iy_start = {0.0000000000000000E+00, 2.1132995318000000E-02, 6.0826279545999999E-02, 1.1351162332700000E-01, 2.2903176267100001E-01, 3.7279235327900001E-01, 5.0119875362400002E-01, 6.0585069281799997E-01, 7.3606596203700003E-01, 8.5763225187900005E-01, 9.8208566423599997E-01, 9.9297508217700003E-01, 1.0000000000000000E+00, 1.0000000000000000E+00};
     constant Real    iy_scaler = 9.9652958170012729E-01;
   end data_H;
-
   // ----------------------------------
   package data_C "spline interpolation data for cooling"
     extends Modelica.Icons.Package;
@@ -82,7 +78,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
     constant Real[14] iy_start = {0.0000000000000000E+00, 8.2992418110000004E-03, 1.9552843239000001E-02, 1.9552843239000001E-02, 2.9791235958000001E-02, 9.0264936278000002E-02, 1.8592201589099999E-01, 3.2711213370199999E-01, 4.3619956348400002E-01, 7.4917354024000005E-01, 8.8198822150300005E-01, 9.6465103943300001E-01, 9.9759720153499998E-01, 1.0000000000000000E+00};
     constant Real    iy_scaler = 9.9195728546595674E-01;
   end data_C;
-
   // ----------------------------------
   redeclare function extends density_solid "Returns solid density"
   algorithm
@@ -103,7 +98,6 @@ package Rubitherm_RT60HC "Rubitherm GmbH, RT60HC; data taken from: Rubitherm dat
   algorithm
     lambda := 2.0000000000000001E-01;
   end conductivity_liquid;
-
 
 annotation(Documentation(
   info="<html>

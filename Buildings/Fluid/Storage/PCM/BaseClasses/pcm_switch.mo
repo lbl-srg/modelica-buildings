@@ -16,10 +16,10 @@ model pcm_switch
         origin={-40,0})));
   Modelica.Blocks.Sources.RealExpression USum(y=sum((pcm.u[i]*pcm.m[i]) for i in
             1:size(pcm.u, 1))) if not pcm_new
-    annotation (Placement(transformation(extent={{-80,-2},{-100,18}})));
+    annotation (Placement(transformation(extent={{-76,-2},{-96,18}})));
   Modelica.Blocks.Sources.RealExpression mSum(y=sum((pcm.m[i]) for i in 1:size(
         pcm.u, 1))) if not pcm_new
-    annotation (Placement(transformation(extent={{-80,2},{-100,-18}})));
+    annotation (Placement(transformation(extent={{-76,2},{-96,-18}})));
   slPCMlib.Components.SingleLayerSlPCMlib pcm_slPCMlib(
     A=A_pcm,
     thickness=PCM.x,
@@ -34,10 +34,10 @@ model pcm_switch
     annotation (choicesAllMatching=true, Dialog(enable=pcm_new, group="PCM"));
   Modelica.Blocks.Sources.RealExpression USum_slPCMlib(y=sum((pcm_slPCMlib.u[i]*pcm_slPCMlib.m[i])
         for i in 1:size(pcm_slPCMlib.u, 1))) if pcm_new
-    annotation (Placement(transformation(extent={{80,-2},{100,18}})));
+    annotation (Placement(transformation(extent={{60,-2},{80,18}})));
   Modelica.Blocks.Sources.RealExpression mSum_slPCMlib(y=sum((pcm_slPCMlib.m[i]) for i in
             1:size(pcm_slPCMlib.u, 1))) if pcm_new
-    annotation (Placement(transformation(extent={{80,2},{100,-18}})));
+    annotation (Placement(transformation(extent={{60,2},{80,-18}})));
 equation
   connect(heaFloDom.port_b,pcm. port_b)
     annotation (Line(points={{-70,14},{-74,14},{-74,10},{-40,10}},

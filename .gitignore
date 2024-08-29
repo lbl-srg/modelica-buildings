@@ -75,3 +75,4 @@ sqlite*
 Buildings/spawn-*
 !Buildings/Fluid/Storage/PCM/Data/HeatExchanger/Generic.mo
 Buildings/Fluid/Storage/PCM/Data/HeatExchanger
+Buildings/Fluid/Storage/PCM/Data/PhaseChangeMaterial

@@ -88,15 +88,15 @@ replaceable parameter Buildings.Fluid.Storage.PCM.Data.PhaseChangeMaterial.Gener
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Modelica.Blocks.Continuous.Integrator Epcm(k=1) "sum of energy into PCM [J]"
     annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{6,-6},{-6,6}},
         rotation=180,
-        origin={-90,-8.88178e-16})));
+        origin={74,0})));
   Modelica.Blocks.Math.Add Qpcm(k2=+1, k1=+1)
     "sum of heat transfer rates into PCM [W]" annotation (Placement(
         transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{6,-6},{-6,6}},
         rotation=180,
-        origin={-72,0})));
+        origin={54,0})));
   Modelica.Blocks.Interfaces.RealOutput QDom
     "convective heat flow from domestic circuit [W]"
                                         annotation (Placement(transformation(
@@ -166,35 +166,33 @@ equation
           {20,-50},{20,-7.2},{12,-7.2}},
                                      color={0,127,255}));
   connect(tubHeaPort_a1, eleHex.tubHeaPort_a1) annotation (Line(points={{-101,19},
-          {-53.5,19},{-53.5,4.56},{-12,4.56}},
-                                             color={191,0,0}));
+          {-30,19},{-30,4.56},{-12,4.56}},   color={191,0,0}));
   connect(tubHeaPort_b2, eleHex.tubHeaPort_b2) annotation (Line(points={{-101,
-          -19},{-53.5,-19},{-53.5,-4.56},{-12,-4.56}},
+          -19},{-30,-19},{-30,-4.56},{-12,-4.56}},
                                                 color={191,0,0}));
   connect(eleHex.tubHeaPort_b1, tubHeaPort_b1) annotation (Line(points={{12,4.56},
-          {54,4.56},{54,19},{99,19}},color={191,0,0}));
+          {30,4.56},{30,19},{99,19}},color={191,0,0}));
   connect(tubHeaPort_a2, eleHex.tubHeaPort_a2) annotation (Line(points={{99,-19},
-          {54.5,-19},{54.5,-4.56},{12,-4.56}},
-                                             color={191,0,0}));
+          {30,-19},{30,-4.56},{12,-4.56}},   color={191,0,0}));
   connect(heaPorDom, eleHex.heaPor1)
     annotation (Line(points={{0,100},{0,12}}, color={191,0,0}));
   connect(heaPorPro, eleHex.heaPor2)
     annotation (Line(points={{0,-100},{0,-12}}, color={191,0,0}));
   connect(Epcm.u, Qpcm.y)
-    annotation (Line(points={{-82.8,0},{-78.6,0}}, color={0,0,127}));
-  connect(Qpcm.u2, eleHex.QpcmDom) annotation (Line(points={{-64.8,3.6},{-36.4,
-          3.6},{-36.4,2.52},{-12.84,2.52}},
-                                          color={0,0,127}));
-  connect(Qpcm.u1, eleHex.QpcmPro) annotation (Line(points={{-64.8,-3.6},{-36.4,
-          -3.6},{-36.4,-2.52},{-12.84,-2.52}}, color={0,0,127}));
-  connect(eleHex.QvolDom,QDom)  annotation (Line(points={{-3.84,12.96},{-3.92,
-          12.96},{-3.92,82},{110,82}}, color={0,0,127}));
-  connect(eleHex.QvolPro,QPro)  annotation (Line(points={{-2.64,-12.96},{-2.64,
+    annotation (Line(points={{66.8,0},{60.6,0}},   color={0,0,127}));
+  connect(Qpcm.u2, eleHex.QpcmDom) annotation (Line(points={{46.8,3.6},{32,3.6},
+          {32,2},{12.84,2},{12.84,3.24}}, color={0,0,127}));
+  connect(Qpcm.u1, eleHex.QpcmPro) annotation (Line(points={{46.8,-3.6},{32,
+          -3.6},{32,-2},{14,-2},{14,-3},{12.84,-3}},
+                                               color={0,0,127}));
+  connect(eleHex.QvolDom,QDom)  annotation (Line(points={{12.96,10.8},{-3.92,
+          10.8},{-3.92,82},{110,82}},  color={0,0,127}));
+  connect(eleHex.QvolPro,QPro)  annotation (Line(points={{12.96,-10.8},{12.96,
           -34},{40,-34},{40,66},{110,66}}, color={0,0,127}));
   connect(calcSOC.y, SOC)
     annotation (Line(points={{61,-90},{110,-90}}, color={0,0,127}));
-  connect(Epcm.y, EPCM) annotation (Line(points={{-96.6,0},{-120,0},{-120,-66},
-          {110,-66}}, color={0,0,127}));
+  connect(Epcm.y, EPCM) annotation (Line(points={{80.6,0},{88,0},{88,-66},{110,
+          -66}},      color={0,0,127}));
   connect(calcTesCap.y, Ufg)
     annotation (Line(points={{-71,-92},{-110,-92}}, color={0,0,127}));
   annotation (
