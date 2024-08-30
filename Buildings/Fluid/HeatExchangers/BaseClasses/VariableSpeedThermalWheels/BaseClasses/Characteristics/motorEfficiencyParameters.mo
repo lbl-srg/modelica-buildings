@@ -8,10 +8,13 @@ record motorEfficiencyParameters
     "Wheel motor efficiency at wheel speed ratios";
   annotation (Documentation(info="<html>
 <p>
-This model is identical to
+This model describes wheel speed ratio <code>uSpe</code> versus
+the motor percent full-load efficiency (see 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>).
+It is developed based on
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
-Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>,
-with the original definition expanded to cover wheels.
+Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>.
 </p>
 </html>",
 revisions="<html>

@@ -82,8 +82,8 @@ where <code>eff(uSpe=x)</code> is the motor efficiency when the speed ratio is <
 The <code>eta</code> is obtained based on the cubic hermite spline interpolation of
 the motor percent full-load efficiency dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.motorEfficiencyParameters\">
-Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.motorEfficiencyParameters</a>.).
-Please note that <code>uSpe/eta</code> should be less or equal to 1.
+Buildings.Fluid.HeatExchangers.BaseClasses.BaseClasses.VariableSpeedThermalWheels.Characteristics.motorEfficiencyParameters</a>).
+Please note that <code>uSpe/eta</code> must be less or equal to 1.
 </p>
 </li>
 <li>

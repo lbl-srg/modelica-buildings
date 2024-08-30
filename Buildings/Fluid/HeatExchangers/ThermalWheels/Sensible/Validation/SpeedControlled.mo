@@ -4,6 +4,17 @@ model SpeedControlled
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE per(
+    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
+    haveLatentHeatExchange=false,
+    useDefaultMotorEfficiencyCurve=false)
+    "Performance record for the sensible heat wheel"
+    annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perDefMotCur(
+      haveLatentHeatExchange=true,
+      useDefaultMotorEfficiencyCurve=true)
+    "Performance record for the sensible heat wheel with default motor curve"
+    annotation (Placement(transformation(extent={{6,60},{26,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -72,20 +83,10 @@ model SpeedControlled
     redeclare package Medium = Medium,
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    per=perDefMotCur)    
+    per=perDefMotCur)
     "Wheel with a default curve"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE per(
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
-    haveLatentHeatExchange=false,
-    useDefaultMotorEfficiencyCurve=false)
-    "Performance record for the sensible heat wheel"
-    annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perDefMotCur(
-      haveLatentHeatExchange=true, 
-      useDefaultMotorEfficiencyCurve=true)
-    "Performance record for the sensible heat wheel with default motor curve"
-    annotation (Placement(transformation(extent={{6,60},{26,80}})));
+
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));

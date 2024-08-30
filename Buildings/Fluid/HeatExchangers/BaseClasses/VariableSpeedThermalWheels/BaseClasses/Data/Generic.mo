@@ -79,14 +79,14 @@ Note that
 <ul>
 <li>
 When <code>haveLatentHeatExchange</code> is false,
-the dataset of wheel speed ratio versus latent heat exchange effectiveness 
-corrections is disabled,
+the dataset of the latent heat exchange effectiveness
+corrections versus wheel speed ratio is disabled,
 </li>
 <li>
 When <code>useDefaultMotorEfficiencyCurve</code> is true,
-the curve of wheel speed ratio versus motor percent full-load 
-efficiency is disabled while the curve of wheel speed ratio 
-versus default motor percent full-load efficiency is enabled. 
+the motor efficiency versus wheel speed ratio is disabled 
+while the default motor percent full-load 
+efficiency versus wheel speed ratio is enabled. 
 </li>
 </ul>
 </html>"));

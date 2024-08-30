@@ -2,17 +2,18 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Val
 model VariableSpeedThermalWheels
   "Model that tests the variable-speed thermal wheels"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
-    senWhe(per=perSenWhe)
-    "Sensible heat wheel"
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
     perSenWhe(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
+    senWhe(per=perSenWhe)
+    "Sensible heat wheel"
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+
   Modelica.Blocks.Sources.Ramp uSpe(
     duration=1,
     startTime=0,
