@@ -21,6 +21,12 @@ record BaseCable "Record that contains the properties of a generic cable"
     annotation (Documentation(revisions="<html>
 <ul>
 <li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong parameter keyword on protected variable, which is needed for Dymola 2025x.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1930\">IBPSA, #1930</a>.
+</li>
+<li>
 September 23, 2014, by Marco Bonvini:<br/>
 Added function and documentation
 </li>
@@ -39,6 +45,12 @@ Added function and documentation
     Modelica.Units.SI.AngularVelocity omega=2*Modelica.Constants.pi*f;
     annotation (Documentation(revisions="<html>
 <ul>
+<li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong parameter keyword on protected variable, which is needed for Dymola 2025x.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1930\">IBPSA, #1930</a>.
+</li>
 <li>
 September 23, 2014, by Marco Bonvini:<br/>
 Added function and documentation
@@ -59,6 +71,12 @@ Added function and documentation
     annotation (Documentation(revisions="<html>
 <ul>
 <li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong parameter keyword on protected variable, which is needed for Dymola 2025x.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1930\">IBPSA, #1930</a>.
+</li>
+<li>
 September 23, 2014, by Marco Bonvini:<br/>
 Added function and documentation
 </li>
@@ -68,6 +86,12 @@ Added function and documentation
 
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong parameter keyword on protected variable, which is needed for Dymola 2025x.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1930\">IBPSA, #1930</a>.
+</li>
 <li>
 September 24, 2014, by Marco Bonvini:<br/>
 Revised structure of the record, now the temperature constant <code>M</code>
