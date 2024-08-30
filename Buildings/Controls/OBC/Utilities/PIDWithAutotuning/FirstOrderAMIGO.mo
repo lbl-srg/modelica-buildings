@@ -144,13 +144,13 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
     "Outputs true if the controller is conducting the autotuning process"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Check if the setpoint changes during an autotuning process"
     annotation (Placement(transformation(extent={{-148,220},{-128,240}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the autotuning is completed or aborted"
     annotation (Placement(transformation(extent={{-84,220},{-64,240}})));
+	
 protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
@@ -231,9 +231,9 @@ protected
     final h=0.5*setHys)
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{40,290},{60,310}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message="In " +
-        getInstanceName() +
-        ": the setpoint must not change when an autotuning tuning is ongoing. This ongoing autotuning will thus abort.")
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
+    "In " + getInstanceName()
+    + ": the setpoint must not change when an autotuning tuning is ongoing. This ongoing autotuning will thus abort.")
     "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{150,290},{170,310}})));
 
@@ -249,81 +249,63 @@ equation
   connect(samTd.y,con. Td) annotation (Line(points={{-118,-100},{-60,-100},{-60,
           -64},{-52,-64}}, color={0,0,127}));
   connect(resPro.on, rel.yOn) annotation (Line(points={{-2,110},{-30,110},{-30,
-          124},{-38,124}},
-                    color={255,0,255}));
+          124},{-38,124}}, color={255,0,255}));
   connect(modTim.y, resPro.tim) annotation (Line(points={{-138,190},{-4,190},{
-          -4,126},{-10,126},{-10,116},{-2,116}},
-                       color={0,0,127}));
+          -4,126},{-10,126},{-10,116},{-2,116}}, color={0,0,127}));
   connect(resPro.tau, conProMod.tau) annotation (Line(points={{22,110},{30,110},
-          {30,156}},    color={0,0,127}));
+          {30,156}}, color={0,0,127}));
   connect(conProMod.tOff, resPro.tOff) annotation (Line(points={{30,160},{26,
-          160},{26,114},{22,114}},
-                           color={0,0,127}));
+          160},{26,114},{22,114}}, color={0,0,127}));
   connect(resPro.tOn, conProMod.tOn) annotation (Line(points={{22,118},{22,168},
-          {30,168}},    color={0,0,127}));
+          {30,168}}, color={0,0,127}));
   connect(rel.yDif, conProMod.u) annotation (Line(points={{-38,130},{18,130},{
-          18,172},{30,172}},
-                        color={0,0,127}));
+          18,172},{30,172}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k) annotation (Line(points={{78,108},{64,108},{
-          64,172},{54,172}},
-                    color={0,0,127}));
+          64,172},{54,172}}, color={0,0,127}));
   connect(PIDPar.T, conProMod.T) annotation (Line(points={{78,102},{60,102},{60,
-          148},{62,148},{62,168},{54,168}},
-                    color={0,0,127}));
+          148},{62,148},{62,168},{54,168}}, color={0,0,127}));
   connect(PIDPar.L, conProMod.L) annotation (Line(points={{78,96},{58,96},{58,
-          150},{60,150},{60,160},{54,160}},
-                    color={0,0,127}));
+          150},{60,150},{60,160},{54,160}}, color={0,0,127}));
   connect(PIDPar.k, samk.u) annotation (Line(points={{102,109},{102,110},{146,
-          110},{146,78},{-154,78},{-154,-40},{-102,-40}},
-                                           color={0,0,127}));
+          110},{146,78},{-154,78},{-154,-40},{-102,-40}}, color={0,0,127}));
   connect(PIDPar.Ti, samTi.u) annotation (Line(points={{102,102},{118,102},{118,
-          -6},{-124,-6},{-124,-70},{-122,-70}},
-                                           color={0,0,127}));
+          -6},{-124,-6},{-124,-70},{-122,-70}}, color={0,0,127}));
   connect(PIPar.kp, conProMod.k) annotation (Line(points={{82,172},{54,172}},
-                    color={0,0,127}));
+         color={0,0,127}));
   connect(PIPar.T, conProMod.T) annotation (Line(points={{82,166},{62,166},{62,
-          168},{54,168}},
-                    color={0,0,127}));
-  connect(PIPar.L, conProMod.L) annotation (Line(points={{82,160},{54,160}},
-                    color={0,0,127}));
+          168},{54,168}}, color={0,0,127}));
+  connect(PIPar.L, conProMod.L) annotation (Line(points={{82,160},{54,160}}, color={0,0,127}));
   connect(PIPar.k, samk.u) annotation (Line(points={{106,172},{156,172},{156,70},
           {-148,70},{-148,-40},{-102,-40}},color={0,0,127}));
   connect(PIPar.Ti, samTi.u) annotation (Line(points={{106,160},{166,160},{166,
-          48},{-140,48},{-140,-70},{-122,-70}},
-                                            color={0,0,127}));
+          48},{-140,48},{-140,-70},{-122,-70}}, color={0,0,127}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{22,106},{
-          36,106},{36,152}},
-                        color={255,0,255}));
+          36,106},{36,152}}, color={255,0,255}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{102,95},{102,94},{112,
-          94},{112,88},{-162,88},{-162,-100},{-142,-100}},
-                                              color={0,0,127}));
+          94},{112,88},{-162,88},{-162,-100},{-142,-100}}, color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{162,-20},{200,-20}}, color={0,0,127}));
   connect(u_m,con. u_m) annotation (Line(points={{-20,-140},{-20,-110},{-40,-110},
           {-40,-72}}, color={0,0,127}));
   connect(swi.u3,con. y) annotation (Line(points={{138,-28},{56,-28},{56,-60},{
-          -28,-60}},
-                 color={0,0,127}));
+          -28,-60}}, color={0,0,127}));
   connect(inTunPro.y, swi.u2) annotation (Line(points={{-18,30},{-6,30},{-6,-20},
           {138,-20}}, color={255,0,255}));
   connect(inTunPro.u, triTun) annotation (Line(points={{-42,30},{-56,30},{-56,
-          46},{-14,46},{-14,-90},{60,-90},{60,-140}},
-                               color={255,0,255}));
+          46},{-14,46},{-14,-90},{60,-90},{60,-140}}, color={255,0,255}));
   connect(rel.trigger, triTun) annotation (Line(points={{-56,118},{-56,108},{
-          -90,108},{-90,56},{60,56},{60,-140}},
-                                        color={255,0,255}));
+          -90,108},{-90,56},{60,56},{60,-140}}, color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-2,104},{-14,104},{
-          -14,-90},{60,-90},{60,-140}},
-                               color={255,0,255}));
+          -14,-90},{60,-90},{60,-140}}, color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{102,30},{138,30}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
     annotation (Line(points={{78,22},{40,22},{40,-40},{34,-40}}, color={255,0,255}));
   connect(edgReq.u, triTun)
     annotation (Line(points={{10,-40},{-14,-40},{-14,-90},{60,-90},{60,-140}},
-                                                           color={255,0,255}));
+    color={255,0,255}));
   connect(tunStaDel.y, nand.u1) annotation (Line(points={{32,30},{78,30}}, color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{8,30},{-18,30}},
-                          color={255,0,255}));
+    color={255,0,255}));
   connect(con1.y, sub.u1) annotation (Line(points={{-138,400},{-108,400},{-108,
           386},{-102,386}}, color={0,0,127}));
   connect(con2.y, sub.u2) annotation (Line(points={{-138,370},{-110,370},{-110,
@@ -343,7 +325,7 @@ equation
   connect(gre.y, assMes2.u)
     annotation (Line(points={{82,380},{148,380}},color={255,0,255}));
   connect(con4.y, gre.u2) annotation (Line(points={{22,388},{58,388}},
-                 color={0,0,127}));
+    color={0,0,127}));
   connect(rel.y, yRel.u) annotation (Line(points={{-38,136},{-6,136},{-6,220},{
           38,220}}, color={0,0,127}));
   connect(yRel.y, addPar.u)
