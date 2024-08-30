@@ -47,7 +47,7 @@ Buildings.Controls.OBC.CDL.Reals.Round</a>.
 <ul>
 <li>
 August 30, 2024, by Michael Wetter:<br/>
-Removed wrong <code>parameter</code> declaration which causes an error in
+Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in
 Dymola 2025x beta1.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
