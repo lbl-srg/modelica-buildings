@@ -7,7 +7,7 @@ function round "Round real number to specified digits"
   output Real y "Connector of Real output signal";
 
 protected
-  parameter Real fac = 10^n "Factor used for rounding";
+  Real fac = 10^n "Factor used for rounding";
 
 algorithm
   y := if (x>0) then floor(x*fac + 0.5)/fac else ceil(x*fac - 0.5)/fac;
@@ -45,6 +45,13 @@ Buildings.Controls.OBC.CDL.Reals.Round</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in
+Dymola 2025x beta1.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 First implementation.<br/>
