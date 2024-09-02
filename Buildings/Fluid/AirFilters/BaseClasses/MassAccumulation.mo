@@ -40,7 +40,7 @@ model MassAccumulation
     "Warning message when the filter is full"
     annotation (Placement(transformation(extent={{72,40},{92,60}})));
 
-  Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nin) "Summation of the inputs"
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nin) "Summation of the inputs"
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
 equation
   connect(intWitRes.y, mCon)

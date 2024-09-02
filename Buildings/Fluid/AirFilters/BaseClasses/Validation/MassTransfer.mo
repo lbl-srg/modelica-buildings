@@ -29,7 +29,7 @@ model MassTransfer
       package Medium = Medium, m_flow_nominal=1)
     "Trace substance sensor of CO2 in inlet air"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Sources.Boundary_pT sou(
+  Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_C_in=true,
     p(displayUnit="Pa") = 101325 + 100,
@@ -68,7 +68,6 @@ model MassTransfer
 equation
   connect(senTraSubCO2Out.port_a, masTra.port_b)
     annotation (Line(points={{20,0},{10,0}}, color={0,127,255}));
-
   connect(C_VOC_inflow.y, sou.C_in[2]) annotation (Line(points={{-189,-30},{-180,
           -30},{-180,-8},{-172,-8}}, color={0,0,127}));
   connect(C_CO2_inflow.y, sou.C_in[1]) annotation (Line(points={{-187,30},{-180,
@@ -79,7 +78,7 @@ equation
     annotation (Line(points={{-120,0},{-100,0}}, color={0,127,255}));
   connect(res.port_a, sou.ports[1])
     annotation (Line(points={{-140,0},{-150,0}},
-                                               color={0,127,255}));
+    color={0,127,255}));
   connect(senTraSubCO2In.port_b, senTraSubVOCIn.port_a)
     annotation (Line(points={{-80,0},{-58,0}}, color={0,127,255}));
   connect(senTraSubVOCIn.port_b, masTra.port_a)

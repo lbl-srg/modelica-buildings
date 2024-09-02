@@ -2,6 +2,11 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model MassAccumulation
   "Validation model for the accumulation of the contaminants"
   extends Modelica.Icons.Example;
+  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
+      mCon_nominal=1, filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{
+          0.7,0.6,0.5}}))
+    "Performance dataset"
+    annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
     per=per,
     mCon_reset=0,
@@ -18,11 +23,7 @@ model MassAccumulation
     shift=0.5)
     "Filter replacement signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  parameter Data.Generic                                        per(
-      mCon_nominal=1, filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{
-          0.7,0.6,0.5}}))
-    "Performance dataset"
-    annotation (Placement(transformation(extent={{-60,66},{-40,86}})));
+
 equation
   connect(RepSig.y, masAcc.uRep)
     annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},{-12,-6}}, color={255,0,255}));

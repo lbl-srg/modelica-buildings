@@ -266,10 +266,10 @@ equation
           {100,-142},{100,80},{91,80}}, color={0,0,127}));
   connect(out.ports[1], airFil.port_a) annotation (Line(points={{-142,-23},{
           -136,-23},{-136,0},{-128,0}},
-                            color={0,127,255}));
+          color={0,127,255}));
   connect(out.ports[2], hex.port_b2) annotation (Line(points={{-142,-21},{-136,
           -21},{-136,-46},{-70,-46},{-70,-32}},
-                                             color={0,127,255}));
+          color={0,127,255}));
   connect(C_inflow.y, out.C_in[1]) annotation (Line(points={{-149,-60},{-144,-60},
           {-144,-42},{-170,-42},{-170,-30},{-164,-30}}, color={0,0,127}));
   connect(airFil.port_b, C_out.port_a)
