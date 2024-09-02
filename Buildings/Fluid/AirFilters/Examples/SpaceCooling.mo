@@ -3,7 +3,8 @@ model SpaceCooling
   "Space cooling system"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA = Buildings.Media.Air(extraPropertiesNames={"CO2"}) "Medium for air";
+  replaceable package MediumA = Buildings.Media.Air(extraPropertiesNames={"PM10"})
+  "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
@@ -162,19 +163,22 @@ model SpaceCooling
     annotation (Placement(transformation(extent={{-128,-10},{-108,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
     mCon_nominal=5,
-    filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{0.5,0.4,0.2}}),   b=1.2)
+    substanceName={"PM10"},
+    filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{0.5,0.4,0.2}}),
+    b=1.3)
     "Performance dataset of the air filter"
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
   Modelica.Blocks.Sources.Ramp C_inflow(
     duration=87600/2,
-    height=50/1000000*1.53,
-    offset=100/1000000*1.53,
+    height=5/1000000000/1.293,
+    offset=10/1000000000/1.293,
     startTime=15552000 + 87600/2)
     "Contaminant mass flow rate fraction"
     annotation (Placement(transformation(extent={{-170,-70},{-150,-50}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort C_out(redeclare package
     Medium =MediumA,
-    m_flow_nominal=mA_flow_nominal)
+    m_flow_nominal=mA_flow_nominal,
+    substanceName="PM10")
     "Trace substance sensor of outlet air"
     annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant repSig(k=false)
@@ -279,31 +283,29 @@ equation
 This block is identical to
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
-except that an air filter is added.
+except that an air filter is added to the cooling system.
 </p>
 <p>
 The major input signals for the air filter are configured as follows:
 </p>
 <ul>
 <li>
-The operating signal <i>uRot</i> changes from <code>false</code> to <code>true</code> at 6:00 (15552000+6*3600 seconds)
-and from <code>true</code> to <code>false</code> at 18:00 (15552000+18*3600 seconds).
+The input trace substance <i>C_inflow.y</i> changes from 10 &#181;g/m&sup3; (7.73e-9 kg/kg) to 15 &#181;g/m&sup3;
+(1.15e-8 kg/kg) at 12:00 (15552000+12*3600 seconds).
 </li>
 <li>
-The supply air flow rate <i>mAir_flow</i> changes from <i>0</i> to <i>0.646</i> at around 5:00
-and from <i>0.646</i> to <i>0</i> at around 17:00.
-</li>
-<li>
-The bypass damper positions are controlled to maintain the temperature of the air leaving the thermal wheel, 
-<code>senTemHXOut.T</code>, at 298.15 K.
+the filter replacement signal <code>repSig</code> is false.
 </li>
 </ul>
 <p>
-The expected output is:
+The expected output are:
 </p>
 <ul>
 <li>
-<code>senTemHXOut.T</code> is less or equal to 298.15 K.
+The ratio of the outlet trace substance <i>C_out.C</i> to the <i>C_inflow.y</i> slightly decreases. 
+</li>
+<li>
+The fan power  <i>fan.P</i> slightly increases. 
 </li>
 </ul>
 </html>", revisions="<html>
@@ -318,7 +320,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},{120,
             100}})),
     __Dymola_Commands(file=
-     "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System3.mos"
+     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/AirFilters/Examples/SpaceCooling.mos"
         "Simulate and plot"),
     experiment(StartTime=15552000, Tolerance=1e-6, StopTime=15638400));
 end SpaceCooling;

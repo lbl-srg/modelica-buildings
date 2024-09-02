@@ -31,14 +31,14 @@ model Empirical "Example for using the empirical air filter model"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   Modelica.Blocks.Sources.Ramp C_CO2_inflow(
     duration=30,
-    height=-0.3,
-    offset=1,
+    height=-0.03,
+    offset=0.1,
     startTime=20) "Contaminant mass flow rate fraction for CO2"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Modelica.Blocks.Sources.Ramp C_VOC_inflow(
     duration=40,
-    height=-0.4,
-    offset=1,
+    height=-0.04,
+    offset=0.1,
     startTime=20)
     "Contaminant mass flow rate fraction for VOC"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
@@ -100,17 +100,17 @@ First implementation.
 </html>", info="<html>
 <p>
 From 0 to 12 seconds, the testing case is warming-up and the inlet trace substances of 
-are fixed at <i>1kg/kg</i>.
+are fixed at <i>0.1kg/kg</i>.
 </p>
 <p>
-From 20 to 50 seconds, the inlet trace substances changes from <i>1</i> to <i>0.7kg/kg</i>.
+From 20 to 50 seconds, the inlet trace substances changes from <i>0.1</i> to <i>0.07kg/kg</i>.
 </p>
 <p>
-At the 30 seconds and , the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.
+At the 30 seconds, the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.
 </p>
 <p>
 From 12 to 30 seconds, the trace substance of the outlet port <code>C_out</code> doesn't change much;
-From 30 to 45 seconds, the outlet trace substances first decrease and then increase.
+From 30 to 45 seconds, the outlet trace substances first decrease and then becomes relatively smooth.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

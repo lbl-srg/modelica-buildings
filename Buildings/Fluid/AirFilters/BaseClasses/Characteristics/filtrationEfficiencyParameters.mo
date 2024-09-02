@@ -11,7 +11,7 @@ record filtrationEfficiencyParameters
 <p>
 Data record that describes the relative mass of the contaminant captured by the filter <code>rat</code> versus
 the filteration efficiency <code>eps</code>.
-The <code>rat</code> must be increasing, 
+The elements of the vector <code>rat</code> should be in ascending order, 
 i.e.,<code>rat[i] &lt; rat[i+1]</code>.
 Both vectors, <code>rat</code> and <code>eps</code>
 must have the same size.

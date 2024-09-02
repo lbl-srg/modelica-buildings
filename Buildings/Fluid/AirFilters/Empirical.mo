@@ -261,7 +261,7 @@ The dynamic characteristics of the filters are defined by
 <ul>
 <li>
 The <code>mCon_nominal</code> determines the maximum mass of the contaminants that the
-filter can capture.
+filter can held.
 </li>
 <li>
 A performance dataset <code>per</code> that determines 
@@ -281,10 +281,10 @@ with the contaminant accumulation for each contaminant.
 </ul>
 <p>
 See more detailed descriptions in
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
-Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a> and
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection\">
-Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>.
+Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection</a>
+and <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
+Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>, respectively.
 </p>
 <p>
 The input boolean flag, <code>uRep</code>, triggers the filter replacement.
@@ -299,7 +299,7 @@ when the captured contaminant mass becomes greater than the
 maximum contaminant mass (<code>mCon_nominal</code>).
 </li>
 <li>
-when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
+or when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
 defined in the <code>per</code>.
 </li>
 </ul>
