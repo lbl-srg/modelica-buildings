@@ -321,7 +321,8 @@ equation
             color={0,127,255},
             thickness=0.5));
   connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
+      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,
+            144}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -480,17 +481,17 @@ equation
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
     annotation (Line(
-      points={{-236.9,65},{-174,65}},
+      points={{-236.9,65},{-206,65},{-206,64},{-174,64}},
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
+      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
@@ -551,6 +552,8 @@ equation
           {-126,226},{-126,248},{-122,248}},color={0,0,127}));
   connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
           {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
+  connect(plaOn.y, CWPumCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,70},{-174,70}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,260}})),
     Documentation(info="<html>

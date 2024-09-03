@@ -162,11 +162,11 @@ equation
       color={255,127,0}));
   connect(priPumCon.cooMod, cooModCon.y)
     annotation (Line(
-      points={{-174,35},{-186,35},{-186,110},{-191,110}},
+      points={{-174,36},{-186,36},{-186,110},{-191,110}},
       color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod)
     annotation (Line(
-      points={{-191,110},{-186,110},{-186,75},{-174,75}},
+      points={{-191,110},{-186,110},{-186,76},{-174,76}},
       color={255,127,0}));
   connect(chiStaCon.cooMod, cooModCon.y)
     annotation (Line(
@@ -181,17 +181,20 @@ equation
       points={{-191,110},{-188,110},{-188,204},{162,204},{162,160},{178,160}},
       color={255,127,0}));
   connect(chiNumOn.y, priPumCon.numOnChi) annotation (Line(points={{-236.9,65},
-          {-188,65},{-188,25},{-174,25}}, color={255,127,0}));
+          {-188,65},{-188,24},{-174,24}}, color={255,127,0}));
   connect(cooModCon.y, cooTowSpeCon.cooMod) annotation (Line(points={{-191,110},
           {-186,110},{-186,182.444},{-172,182.444}}, color={255,127,0}));
   connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-214,114}},
+      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{-224,200},{-224,114},{
+          -214,114}},
       color={255,204,51},
       thickness=0.5));
   connect(pumSpeSig.y, secPum.u)
     annotation (Line(points={{-99,-10},{-44,-10},{-44,-26}}, color={0,0,127}));
   connect(priPumCon.y, priPum.u) annotation (Line(points={{-151,30},{-16,30},{-16,
           12},{74,12},{74,4},{62,4}}, color={0,0,127}));
+  connect(plaOn.y, priPumCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,30},{-174,30}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{320,260}})),
     __Dymola_Commands(file=
