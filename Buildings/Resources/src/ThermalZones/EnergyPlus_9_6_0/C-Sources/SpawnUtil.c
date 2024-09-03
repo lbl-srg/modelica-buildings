@@ -143,26 +143,23 @@ void setVariables(
   /* If debug mode, write exchanged values to log file */
   // - fixme if (bui->logLevel >= TIMESTEP){
     for(i = 0; i < ptrReals->n; i++){
-      bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.8g [%s].\n",
-        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-        fmi2_import_get_unit_name(ptrReals->units[i]));
-//      if (ptrReals->units[i]){ /* Units are defined */
-//        bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
-//          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-//          fmi2_import_get_unit_name(ptrReals->units[i]));
+      if (ptrReals->units[i]){ /* Units are defined */
+        bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g [%s].\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+          fmi2_import_get_unit_name(ptrReals->units[i]));
       }
       else{
         bui->SpawnFormatMessage("%.3f %s: Sending to EnergyPlus, %s = %.6g (no units declared).\n",
           bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i]);
       }
-    }
   // - fixme }
 
   status = fmi2_import_set_real(bui->fmu, ptrReals->valRefs, ptrReals->n, ptrReals->valsEP);
   if (status != (fmi2_status_t)fmi2OK) {
     bui->SpawnFormatError("Failed to set variables for %s in FMU.\n",  modelicaInstanceName);
+    }
   }
-}
+  }
 
 void stopIfResultsAreNaN(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals* ptrReals){
   size_t i;
@@ -225,13 +222,10 @@ void getVariables(FMUBuilding* bui, const char* modelicaInstanceName, spawnReals
   /* If debug mode, write exchanged values to log file */
   // - fixme if (bui->logLevel >= TIMESTEP){
     for(i = 0; i < ptrReals->n; i++){
-      bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.8g [%s].\n",
-        bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-        fmi2_import_get_unit_name(ptrReals->units[i]));
-//      if (ptrReals->units[i]){ /* Units are defined */
-//        bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
-//          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
-//          fmi2_import_get_unit_name(ptrReals->units[i]));
+      if (ptrReals->units[i]){ /* Units are defined */
+        bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g [%s].\n",
+          bui->time, modelicaInstanceName, ptrReals->fmiNames[i], ptrReals->valsEP[i],
+          fmi2_import_get_unit_name(ptrReals->units[i]));
       }
       else{
         bui->SpawnFormatMessage("%.3f %s: Received from EnergyPlus, %s = %.6g (no units declared).\n",
