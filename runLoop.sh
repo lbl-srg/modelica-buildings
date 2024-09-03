@@ -1,6 +1,6 @@
 #!/bin/bash
-LOGFILE=Buildings_ThermalZones_EnergyPlus_Examples_SmallOffice_IdealHeatingCoolingSpring_log.txt
-MODEL=Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.IdealHeatingCoolingSpring
+LOGFILE=Buildings_ThermalZones_EnergyPlus_9_6_0_Examples_SmallOffice_IdealHeatingCoolingSpring_log.txt
+MODEL=Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
 jm_ipython.sh jmodelica.py ${MODEL}
 
 cp ${LOGFILE} log.txt
