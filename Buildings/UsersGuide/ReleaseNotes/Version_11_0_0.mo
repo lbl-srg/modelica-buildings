@@ -294,6 +294,13 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
+                       Buildings.Fluid.Interfaces.EightPort
+    </td>
+    <td valign=\"top\">Corrected dropdown media choice.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPort<br/>
                      Buildings.Fluid.Interfaces.PartialTwoPort<br/>
                      Buildings.Fluid.Interfaces.PartialTwoPortVector
     </td>
