@@ -1,8 +1,8 @@
-last-generated=2024-02-09
+last-generated=2024-09-03
 statistics-simulation=
 {
-  "linear": "0, 0",
-  "nonlinear": " ",
+  "linear": " ",
+  "nonlinear": "1, 1",
   "number of continuous time states": "14",
   "numerical Jacobians": "0"
 }
