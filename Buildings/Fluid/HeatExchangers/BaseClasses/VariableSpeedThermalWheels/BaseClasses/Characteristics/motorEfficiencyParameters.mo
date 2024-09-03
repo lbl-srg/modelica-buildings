@@ -1,18 +1,18 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
 record motorEfficiencyParameters
-  "Parameters for defining motor efficiency at different wheel speed ratio"
+  "Parameters for defining motor efficiency at different wheel speed ratios"
   extends Modelica.Icons.Record;
-  parameter Real uSpe[:](each min=0)
+  parameter Real uSpe[:](each final min=0)
     "Wheel speed ratio";
-  parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](each max=1)
-    "Wheel motor efficiency at wheel speed ratios";
+  parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](each final max=1)
+    "Wheel motor efficiency at a given speed ratio";
   annotation (Documentation(info="<html>
 <p>
 This model describes wheel speed ratio <code>uSpe</code> versus
 the motor percent full-load efficiency (see 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>).
-It is developed based on
+It is based on
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>.
 </p>

@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
 record heatExchangerEffectivenessParameters
-  "Parameters for defining heat exchanger effectiveness at different wheel speed ratio"
+  "Parameters for defining heat exchanger effectiveness at different wheel speed ratios"
   extends Modelica.Icons.Record;
-  parameter Real uSpe[:](each min=0)
+  parameter Real uSpe[:](each final min=0)
     "Wheel speed ratio";
-  parameter Real epsCor[:](each max=1)
+  parameter Real epsCor[:](each final max=1)
     "Correction of the heat exchange effectiveness at a given speed ratio";
   annotation (Documentation(info="<html>
 <p>

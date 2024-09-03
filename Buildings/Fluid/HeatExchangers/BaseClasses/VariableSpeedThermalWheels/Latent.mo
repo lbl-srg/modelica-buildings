@@ -23,7 +23,7 @@ heat exchange effectiveness correction of an enthalpy wheel.
 </p>
 <p>
 The calculation of the power consumption and the sensible 
-heat exchange effectiveness correction can be referred to
+heat exchange effectiveness correction is elaborated in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\"> 
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
