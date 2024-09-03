@@ -27,7 +27,7 @@ Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.OutputVariable.OneZoneOneOutp
 a model that outputs the electricity consumption that is specified via an EnergyPlus schedule.
 This schedule set the electricity consumption to zero for the whole day on Saturday and Sunday,
 but not on other days.
-In the instance <code>sun</code>, the start day of the week is left as the default, which is Sunday,
+In the instance <code>sun</code>, the start day of the year is left as the default, which is Sunday,
 and in the instance <code>mon</code>, it is set to Monday.
 Plotting the electricity consumption verifies that the setting is properly applied
 in EnergyPlus.
