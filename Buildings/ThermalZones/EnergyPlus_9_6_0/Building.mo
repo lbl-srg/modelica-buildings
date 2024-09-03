@@ -159,7 +159,7 @@ while Modelica will use the file specified by <code>weaName</code>.
 <p>
 The parameter <code>runPeriod</code> can be used to configure certain data of the EnergyPlus
 <code>RunPeriod</code> object. See
-<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
 for the available options.
 Note however that the simulation start and stop time is controlled by Modelica,
