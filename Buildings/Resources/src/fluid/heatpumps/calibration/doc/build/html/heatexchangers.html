@@ -2,22 +2,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Evaporator and condenser models &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,9 +28,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -133,11 +134,11 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="module-PythonModel.heatexchangers">
+  <section id="module-PythonModel.heatexchangers">
 <span id="evaporator-and-condenser-models"></span><h1>Evaporator and condenser models<a class="headerlink" href="#module-PythonModel.heatexchangers" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser">
-<em class="property">class </em><code class="sig-prename descclassname">PythonModel.heatexchangers.</code><code class="sig-name descname">EvaporatorCondenser</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.heatexchangers.</span></span><span class="sig-name descname"><span class="pre">EvaporatorCondenser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for heat exchanger based on epsilon-NTU method for a heat
 transfer fluid exchanging heat with refrigerant experiencing constant
@@ -148,9 +149,9 @@ temperature phase change.</p>
 condenser (W/K).</p>
 </dd>
 </dl>
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature">
-<code class="sig-name descname">get_RefrigerantTemperature</code><span class="sig-paren">(</span><em class="sig-param">Q_flow</em>, <em class="sig-param">m_flow</em>, <em class="sig-param">flu</em>, <em class="sig-param">T_in</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature">
+<span class="sig-name descname"><span class="pre">get_RefrigerantTemperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_flow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.get_RefrigerantTemperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the refrigerant temperature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -166,7 +167,7 @@ condenser (W/K).</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fluids</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">fluids</span><span class="o">.</span><span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">eva</span><span class="o">.</span><span class="n">get_RefrigerantTemperature</span><span class="p">(</span><span class="mi">19300</span><span class="p">,</span> <span class="mf">0.71</span><span class="p">,</span> <span class="n">flu</span><span class="p">,</span> <span class="mf">298.75</span><span class="p">)</span>
@@ -177,9 +178,9 @@ condenser (W/K).</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters">
-<code class="sig-name descname">initialGuessParameters</code><span class="sig-paren">(</span><em class="sig-param">Q_nominal</em>, <em class="sig-param">P_nominal</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters">
+<span class="sig-name descname"><span class="pre">initialGuessParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_nominal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -196,9 +197,9 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath">
-<code class="sig-name descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath">
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the full path to the EvaporatorCondenser model in the</dt><dd><p>Buildings library.</p>
 </dd>
@@ -209,7 +210,7 @@ routine.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span> <span class="o">=</span> <span class="n">EvaporatorCondenser</span><span class="p">([</span><span class="mi">21523</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eva</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatExchangers.EvaporatorCondenser&#39;</span>
 </pre></div>
@@ -218,15 +219,15 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.printParameters">
-<code class="sig-name descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.printParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.printParameters">
+<span class="sig-name descname"><span class="pre">printParameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.printParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the value of the model parameters.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters">
-<code class="sig-name descname">reinitializeParameters</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters">
+<span class="sig-name descname"><span class="pre">reinitializeParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reinitializes the evaporator or condenser using new parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -235,9 +236,9 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters">
-<code class="sig-name descname">set_ModelicaParameters</code><span class="sig-paren">(</span><em class="sig-param">simulator</em>, <em class="sig-param">suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters">
+<span class="sig-name descname"><span class="pre">set_ModelicaParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.heatexchangers.EvaporatorCondenser.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set parameter values for simulation in dymola.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -254,7 +255,7 @@ routine.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -272,8 +273,8 @@ routine.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

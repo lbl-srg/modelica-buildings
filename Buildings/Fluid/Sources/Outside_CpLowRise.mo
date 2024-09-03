@@ -1,25 +1,35 @@
 within Buildings.Fluid.Sources;
 model Outside_CpLowRise
-  "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
+  "Boundary that takes weather data as an input and computes the wind pressure for low-rise buildings based on the equation from Swami and Chandra (1987)"
   extends Buildings.Fluid.Sources.BaseClasses.Outside;
 
   parameter Real Cp0(min=0, max=1, final unit="1") = 0.6
     "Wind pressure coefficient for wind normal to wall";
   parameter Real s(final min=0, final unit="1")
     "Side ratio, s=length of this wall/length of adjacent wall";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
 
-  Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
-  Real CpAct(min=0, final unit="1") "Actual wind pressure coefficient";
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  Modelica.Units.SI.Angle alpha = winDir-surOut
+    "Wind incidence angle (0: normal to wall)";
+  Real CpAct(final unit="1")=
+   Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
+     Cp0=Cp0,
+     alpha=alpha,
+     G=G)
+   "Actual wind pressure coefficient";
+  Modelica.Units.SI.Pressure pWin(displayUnit="Pa")=
+    0.5*CpAct*d*vWin*vWin
     "Change in pressure due to wind force";
 protected
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, final unit="Pa")
     "Pressure from weather bus";
   Modelica.Blocks.Interfaces.RealInput vWin(final unit="m/s")
     "Wind speed from weather bus";
-  Modelica.Blocks.Interfaces.RealOutput pTot(min=0, nominal=1E5, final unit="Pa")
+  Modelica.Blocks.Interfaces.RealOutput pTot(
+    min=0,
+    nominal=1E5,
+    final unit="Pa") = pWea + pWin
     "Sum of atmospheric pressure and wind pressure";
   final parameter Real G = Modelica.Math.log(s)
     "Natural logarithm of side ratio";
@@ -27,18 +37,13 @@ protected
   Modelica.Blocks.Interfaces.RealInput winDir(final unit="rad",
                                               displayUnit="deg")
     "Wind direction from weather bus";
-  Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
+  Modelica.Units.SI.Angle surOut=azi - Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
-  Modelica.Blocks.Interfaces.RealInput d = Medium.density(
-    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal));
+  Modelica.Units.SI.Density d = Medium.density(
+    Medium.setState_pTX(p_in_internal, T_in_internal, X_in_internal))
+    "Air density";
 
 equation
-  alpha = winDir-surOut;
-  CpAct = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
-            Cp0=Cp0, incAng=alpha, G=G);
-  pWin = 0.5*CpAct*d*vWin*vWin;
-  pTot = pWea + pWin;
-
   connect(weaBus.winDir, winDir);
   connect(weaBus.winSpe, vWin);
   connect(weaBus.pAtm, pWea);
@@ -59,9 +64,12 @@ on Swami and Chandra (1987) and valid for low-rise buildings
 with rectangular shape.
 The same correlation is also implemented in CONTAM (Persily and Ivy, 2001).
 For other buildings, the model
+<a href=\"modelica://Buildings.Fluid.Sources.Outside_CpData\">
+Buildings.Fluid.Sources.Outside_CpData</a> or
 <a href=\"modelica://Buildings.Fluid.Sources.Outside_Cp\">
-Buildings.Fluid.Sources.Outside_Cp</a> should be used that takes
-the wind pressure coefficient as an input or parameter.
+Buildings.Fluid.Sources.Outside_Cp</a>
+should be used that takes
+the wind pressure coefficient as a parameter or an input.
 </p>
 <p>
 The wind pressure coefficient is computed based on the
@@ -110,6 +118,13 @@ where
 <i>&rho;</i> is the fluid density.
 </p>
 
+<p>
+This model differs from <a href=\"modelica://Buildings.Fluid.Sources.Outside_CpData\">
+Buildings.Fluid.Sources.Outside_CpData</a> by the calculation of the wind pressure coefficient C<sub>p,act</sub>.
+The wind pressure coefficient is defined by an equation in stead of a user-defined table.
+This model is only suited for low-rise rectangular buildings.
+</p>
+
 <h4>References</h4>
 <ul>
 <li>
@@ -138,6 +153,23 @@ Gaithersburg, MD.
 revisions="<html>
 <ul>
 <li>
+April 4, 2023, by Michael Wetter:<br/>
+Removed use of non-existent parameter in annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1724\">IBPSA, #1724</a>.
+</li>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Jun 28, 2021, by Klaas De Jonge:<br/>
+Documentation changes to explain the difference with <a href=\"modelica://Buildings.Fluid.Sources.Outside_CpData\">
+Buildings.Fluid.Sources.Outside_CpData</a>.
+</li>
+<li>
 January 26, 2016, by Michael Wetter:<br/>
 Added <code>unit</code> and <code>quantity</code> attributes.
 </li>
@@ -147,18 +179,14 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Text(
-          visible=use_Cp_in,
-          extent={{-140,92},{-92,62}},
-          lineColor={0,0,255},
-          textString="C_p"),
+    Icon(graphics={
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="C"),
         Text(
           extent={{-28,22},{28,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Cp")}));
 end Outside_CpLowRise;

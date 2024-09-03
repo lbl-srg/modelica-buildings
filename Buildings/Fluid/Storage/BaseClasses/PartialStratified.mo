@@ -1,14 +1,15 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Buildings.Fluid.Storage.BaseClasses.PartialTwoPortInterface;
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-  parameter Modelica.SIunits.Volume VTan "Tank volume";
-  parameter Modelica.SIunits.Length hTan "Height of tank (without insulation)";
-  parameter Modelica.SIunits.Length dIns "Thickness of insulation";
-  parameter Modelica.SIunits.ThermalConductivity kIns = 0.04
+
+  parameter Modelica.Units.SI.Volume VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
     "Specific heat conductivity of insulation";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
 
@@ -16,10 +17,7 @@ model PartialStratified
   // Assumptions
   parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -28,9 +26,9 @@ model PartialStratified
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
     "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
-    annotation(Dialog(tab = "Initialization"));
+    annotation (Dialog(tab="Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -40,7 +38,7 @@ model PartialStratified
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   // Dynamics
-  parameter Modelica.SIunits.Time tau=1 "Time constant for mixing";
+  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing";
 
   ////////////////////////////////////////////////////////////////////
   // Connectors
@@ -68,7 +66,7 @@ model PartialStratified
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
-    each massDynamics=massDynamics,
+    each massDynamics=energyDynamics,
     each p_start=p_start,
     T_start=TFlu_start,
     each X_start=X_start,
@@ -79,20 +77,21 @@ model PartialStratified
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Tank segment"
     annotation (Placement(transformation(extent={{6,-16},{26,4}})));
+
 protected
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  parameter Modelica.SIunits.Length hSeg = hTan / nSeg
-    "Height of a tank segment";
-  parameter Modelica.SIunits.Area ATan = VTan/hTan
+  parameter Modelica.Units.SI.Length hSeg=hTan/nSeg "Height of a tank segment";
+  parameter Modelica.Units.SI.Area ATan=VTan/hTan
     "Tank cross-sectional area (without insulation)";
-  parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
+  parameter Modelica.Units.SI.Length rTan=sqrt(ATan/Modelica.Constants.pi)
     "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
+  parameter Modelica.Units.SI.ThermalConductance conFluSeg=ATan*
+      Medium.thermalConductivity(sta_default)/hSeg
     "Thermal conductance between fluid volumes";
-  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
+  parameter Modelica.Units.SI.ThermalConductance conTopSeg=ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
 
   BaseClasses.Buoyancy buo(
@@ -168,11 +167,11 @@ equation
           {52,74},{20,74}}, color={191,0,0}));
   connect(heaFloBot.port_b, heaPorBot) annotation (Line(points={{42,20},{44,20},
           {44,-74},{20,-74}}, color={191,0,0}));
-  connect(heaFloTop.Q_flow, mul.u1[1]) annotation (Line(points={{36,54},{50,54},
+  connect(heaFloTop.Q_flow, mul.u1[1]) annotation (Line(points={{36,53.4},{50,53.4},
           {50,52.5},{61.2,52.5}}, color={0,0,127}));
-  connect(heaFloSid.Q_flow, mul.u2) annotation (Line(points={{36,34},{50,34},{
-          50,49},{61.2,49}}, color={0,0,127}));
-  connect(heaFloBot.Q_flow, mul.u3[1]) annotation (Line(points={{36,14},{36,10},
+  connect(heaFloSid.Q_flow, mul.u2) annotation (Line(points={{36,33.4},{50,33.4},
+          {50,49},{61.2,49}},color={0,0,127}));
+  connect(heaFloBot.Q_flow, mul.u3[1]) annotation (Line(points={{36,13.4},{36,10},
           {58,10},{58,45.5},{61.2,45.5}}, color={0,0,127}));
   connect(mul.y, sum1.u) annotation (Line(points={{70.4,49},{76.8,49}}, color={
           0,0,127}));
@@ -207,6 +206,12 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 November 13, 2019 by Jianjun Hu:<br/>
 Added parameter <code>TFlu_start</code> and changed the initial tank segments
@@ -328,49 +333,13 @@ Icon(graphics={
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-76,2},{-90,-2}},
+          extent={{2,100},{-2,60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{0,84},{-80,80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-76,84},{-80,-2}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,0},{78,-86}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,84},{-4,60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{82,-84},{2,-88}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{6,-60},{2,-84}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{92,2},{78,-2}},
+          extent={{2,-60},{-2,-100}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
@@ -383,7 +352,7 @@ Icon(graphics={
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{100,106},{134,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLoss"),
         Rectangle(
           extent={{-10,10},{10,-10}},
@@ -425,5 +394,8 @@ Icon(graphics={
         Line(
           points={{22,-74},{70,-74},{70,72}},
           color={127,0,0},
-          pattern=LinePattern.Dot)}));
+          pattern=LinePattern.Dot),     Text(
+        extent={{-100,100},{-8,70}},
+        textString="%name",
+        textColor={0,0,255})}));
 end PartialStratified;

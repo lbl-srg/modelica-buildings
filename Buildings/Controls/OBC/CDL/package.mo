@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC;
-package CDL
-  "Package with blocks, examples and validation tests for control description language"
+package CDL "Package with blocks, examples and validation tests for control description language"
   annotation (
     Documentation(
       info="<html>
@@ -13,8 +12,8 @@ contain validation and example models.
 These are not part of the CDL specification, but rather
 implemented to provide reference responses computed by the CDL blocks.
 For a specification of CDL, see
-<a href=\"http://obc.lbl.gov/specification/cdl.html\">
-http://obc.lbl.gov/specification/cdl.html</a>.
+<a href=\"https://obc.lbl.gov/specification/cdl.html\">
+https://obc.lbl.gov/specification/cdl.html</a>.
 </p>
 </html>",
       revisions="<html>

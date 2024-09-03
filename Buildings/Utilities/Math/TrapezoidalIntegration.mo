@@ -7,7 +7,7 @@ equation
   y = Buildings.Utilities.Math.Functions.trapezoidalIntegration(N=N, f=u, deltaX=deltaX);
   annotation (Icon(graphics={Text(
           extent={{-90,36},{90,-36}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="trapezoidalIntegration()")}), Documentation(info="<html>
 <p>This function computes a definite integral using the trapezoidal rule. </p>
 </html>", revisions="<html>

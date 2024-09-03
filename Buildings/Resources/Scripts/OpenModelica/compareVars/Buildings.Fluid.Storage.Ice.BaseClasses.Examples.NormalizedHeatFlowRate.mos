@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "norQSta.qNor",
+    "norQSta.canMelt",
+    "norQSta.SOC"
+  };

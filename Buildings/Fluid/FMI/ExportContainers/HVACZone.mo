@@ -51,24 +51,24 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{104,72},{154,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRad",
           horizontalAlignment=TextAlignment.Left),
         Text(
           extent={{100,-28},{150,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRad"),
         Text(
           extent={{100,-78},{150,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QCon"),
         Text(
           extent={{100,-128},{150,-148}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat"),
         Text(
           extent={{-72,252},{70,146}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-144,-24},{36,-34}},

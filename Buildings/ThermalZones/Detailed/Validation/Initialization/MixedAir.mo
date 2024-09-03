@@ -4,7 +4,7 @@ model MixedAir
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Temperature T_start=273.15-15 "Initial value";
+  parameter Modelica.Units.SI.Temperature T_start=273.15 - 15 "Initial value";
 
   parameter
     Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
@@ -77,7 +77,6 @@ model MixedAir
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722,
     T_start=T_start) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
 

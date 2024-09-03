@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ThermalConductor
   "Lumped thermal element with variable area, transporting heat without storing it"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;
-  parameter Modelica.SIunits.ThermalConductance G
+  parameter Modelica.Units.SI.ThermalConductance G
     "Constant thermal conductance of material";
   Modelica.Blocks.Interfaces.RealInput u(min=0)
     "Input signal for thermal conductance"
@@ -29,14 +29,14 @@ equation
           thickness=0.5),
         Text(
           extent={{-113,136},{115,96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="G=%G"),
         Text(
           extent={{-105,90},{-64,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u"),   Text(
           extent={{-50,-84},{48,-132}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
                "%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -48,11 +48,11 @@ equation
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-26,-10},{27,-39}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Text(
           extent={{-80,50},{80,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="dT = port_a.T - port_b.T")}),
     Documentation(info="<html>
 <p>

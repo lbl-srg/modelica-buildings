@@ -3,16 +3,16 @@ model ExteriorWallTwoWindows
   "Test model for an exterior wall with two windows, one having a shade, the other not"
   extends Modelica.Icons.Example;
   parameter Integer nCon = 2 "Number of constructions";
-  parameter Modelica.SIunits.Area A[:]={3*10, 3*10}
+  parameter Modelica.Units.SI.Area A[:]={3*10,3*10}
     "Heat transfer area of wall and window";
-  parameter Modelica.SIunits.Length hWin[:] = {2, 1} "Window height";
-  parameter Modelica.SIunits.Length wWin[:] = {3, 3} "Window width";
-  parameter Modelica.SIunits.Area AWin[:]= hWin .* wWin
+  parameter Modelica.Units.SI.Length hWin[:]={2,1} "Window height";
+  parameter Modelica.Units.SI.Length wWin[:]={3,3} "Window width";
+  parameter Modelica.Units.SI.Area AWin[:]=hWin .* wWin
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";
-  final parameter Modelica.SIunits.Area AFra[:]= fFra .* AWin "Frame area";
-  final parameter Modelica.SIunits.Area AGla[:] = AWin .- AFra "Glass area";
+  final parameter Modelica.Units.SI.Area AFra[:]=fFra .* AWin "Frame area";
+  final parameter Modelica.Units.SI.Area AGla[:]=AWin .- AFra "Glass area";
 
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
@@ -58,7 +58,6 @@ model ExteriorWallTwoWindows
     nCon=2,
     linearizeRadiation = false,
     conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed,
-    lat=0.73268921998722,
     conPar=conPar)
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
@@ -116,8 +115,8 @@ model ExteriorWallTwoWindows
     absIR_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
     tauIR_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
     tauIR_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    A=AGla) if
-     glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
+    A=AGla)
+  if glaSys1.haveShade or glaSys2.haveShade "Interior shade radiation model"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective intShaCon[nCon](
     A=A,
@@ -299,6 +298,12 @@ This model tests the exterior construction with two windows.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 February 18, 2020, by Michael Wetter:<br/>
 Corrected wrong parameter assignment.<br/>

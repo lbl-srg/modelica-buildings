@@ -12,11 +12,11 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
       constrainedby Interfaces.Terminal_p(
       i(start = zeros(PhaseSystem_p.n),
       each stateSelect = StateSelect.prefer)));
-  parameter Modelica.SIunits.Voltage VHigh
+  parameter Modelica.Units.SI.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage VLow
+  parameter Modelica.Units.SI.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VABase
+  parameter Modelica.Units.SI.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
@@ -27,51 +27,45 @@ model ACACTransformer "AC AC transformer simplified equivalent circuit"
   parameter Boolean ground_2 = true
     "If true, connect side 2 of converter to ground"
     annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-  parameter Modelica.SIunits.Angle phi_1 = 0
+  parameter Modelica.Units.SI.Angle phi_1=0
     "Angle of the voltage side 1 at initialization"
-     annotation(Evaluate=true,Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Angle phi_2 = phi_1
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Angle phi_2=phi_1
     "Angle of the voltage side 2 at initialization"
-     annotation(Evaluate=true, Dialog(tab = "Initialization"));
-  Modelica.SIunits.Efficiency eta "Efficiency";
-  Modelica.SIunits.Power PLoss[2] "Loss power";
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
+  Modelica.Units.SI.Efficiency eta "Efficiency";
+  Modelica.Units.SI.Power PLoss[2] "Loss power";
 
-  Modelica.SIunits.Voltage V1[2](
-    start = PhaseSystem_n.phaseVoltages(VHigh, phi_1))
-    "Voltage at the winding - primary side";
-  Modelica.SIunits.Voltage V2[2](
-    start = PhaseSystem_p.phaseVoltages(VLow, phi_2))
+  Modelica.Units.SI.Voltage V1[2](start=PhaseSystem_n.phaseVoltages(VHigh,
+        phi_1)) "Voltage at the winding - primary side";
+  Modelica.Units.SI.Voltage V2[2](start=PhaseSystem_p.phaseVoltages(VLow, phi_2))
     "Voltage at the winding - secondary side";
 protected
   Real N = VHigh/VLow "Winding ratio";
-  Modelica.SIunits.Current IHigh = VABase/VHigh
+  Modelica.Units.SI.Current IHigh=VABase/VHigh
     "Nominal current on primary side";
-  Modelica.SIunits.Current ILow = VABase/VLow
+  Modelica.Units.SI.Current ILow=VABase/VLow
     "Nominal current on secondary side";
-  Modelica.SIunits.Current IscHigh = IHigh/Zperc
+  Modelica.Units.SI.Current IscHigh=IHigh/Zperc
     "Short circuit current on primary side";
-  Modelica.SIunits.Current IscLow = ILow/Zperc
+  Modelica.Units.SI.Current IscLow=ILow/Zperc
     "Short circuit current on secondary side";
-  Modelica.SIunits.Impedance Zp = VHigh/IscHigh
+  Modelica.Units.SI.Impedance Zp=VHigh/IscHigh
     "Impedance of the primary side (module)";
-  Modelica.SIunits.Impedance Z1[2]=
-    {Zp*cos(atan(XoverR)), Zp*sin(atan(XoverR))}
+  Modelica.Units.SI.Impedance Z1[2]={Zp*cos(atan(XoverR)),Zp*sin(atan(XoverR))}
     "Impedance of the primary side of the transformer";
-  Modelica.SIunits.Impedance Zs = VLow/IscLow
+  Modelica.Units.SI.Impedance Zs=VLow/IscLow
     "Impedance of the secondary side (module)";
-  Modelica.SIunits.Impedance Z2[2]=
-    {Zs*cos(atan(XoverR)), Zs*sin(atan(XoverR))}
+  Modelica.Units.SI.Impedance Z2[2]={Zs*cos(atan(XoverR)),Zs*sin(atan(XoverR))}
     "Impedance of the secondary side of the transformer";
-  Modelica.SIunits.Power P_p[2]=
-    PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2]=
-    PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n (primary)";
-  Modelica.SIunits.Power S_p = Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]^2, delta=0.1)
-    "Apparent power at terminal p";
-  Modelica.SIunits.Power S_n = Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]^2, delta=0.1)
-    "Apparent power at terminal n";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p (secondary)";
+  Modelica.Units.SI.Power P_n[2]=PhaseSystem_n.phasePowers_vi(terminal_n.v,
+      terminal_n.i) "Power transmitted at pin n (primary)";
+  Modelica.Units.SI.Power S_p=Modelica.Fluid.Utilities.regRoot(P_p[1]^2 + P_p[2]
+      ^2, delta=0.1) "Apparent power at terminal p";
+  Modelica.Units.SI.Power S_n=Modelica.Fluid.Utilities.regRoot(P_n[1]^2 + P_n[2]
+      ^2, delta=0.1) "Apparent power at terminal n";
 
 equation
   // Efficiency
@@ -114,23 +108,23 @@ equation
                                       graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-130,60},{-70,20}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-130,100},{-70,60}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{70,100},{130,60}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,60},{130,20}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2"),
         Line(
           points={{-72,40},{-66,40},{-64,44},{-60,36},{-56,44},{-52,36},{-48,44},
@@ -232,11 +226,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-64,60},{-48,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="R"),
         Text(
           extent={{-20,60},{-4,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="L")}),
     Documentation(info="<html>
 <p>

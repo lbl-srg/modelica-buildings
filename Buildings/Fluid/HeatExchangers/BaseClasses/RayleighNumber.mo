@@ -4,12 +4,12 @@ model RayleighNumber
   extends Modelica.Blocks.Icons.Block;
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model";
-  parameter Modelica.SIunits.Diameter ChaLen "Characteristic length";
+  parameter Modelica.Units.SI.Diameter ChaLen "Characteristic length";
   Real Gr "Grashof number";
   Real B(unit="1/K") "isobaricExpansionCoefficient";
   Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
-  Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
-  Modelica.SIunits.Density rho "Density of the medium";
+  Modelica.Units.SI.DynamicViscosity mu "Dynamic viscosity of the medium";
+  Modelica.Units.SI.Density rho "Density of the medium";
 
    Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Surface temperature of the HX"
@@ -25,17 +25,17 @@ model RayleighNumber
      annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
 equation
     mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
-        T=  0.5 * (TSur+TFlu));
+        T = 0.5 * (TSur+TFlu));
     rho = Medium.density(
         Medium.setState_pTX(
-        p=  Medium.p_default,
-        T=  0.5*(TSur+TFlu),
-        X=  Medium.X_default));
+        p = Medium.p_default,
+        T = 0.5*(TSur+TFlu),
+        X = Medium.X_default));
     Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
-          T=  0.5*(TSur+TFlu));
+          T = 0.5*(TSur+TFlu));
 
     B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
-          T=  0.5*(TSur+TFlu));
+          T = 0.5*(TSur+TFlu));
     nu = mu/rho;
 
     Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;

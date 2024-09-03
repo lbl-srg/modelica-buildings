@@ -4,7 +4,8 @@ model LimPIDWithReset
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal setPoi "Set point"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim "Model time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(
       threshold=1) "Outputs true after t=1"
@@ -19,7 +20,7 @@ model LimPIDWithReset
     reset=Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=0.5) "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes1
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID limPIDInp(
@@ -31,10 +32,10 @@ model LimPIDWithReset
     reset=Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input,
     y_reset=0.5) "Controller, reset to input value"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes2
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes2
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resVal(k=0.75)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant resVal(k=0.75)
     "Reset value"
     annotation (Placement(transformation(extent={{-40,12},{-20,32}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID limPIPar(
@@ -46,7 +47,7 @@ model LimPIDWithReset
     reset=Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Parameter,
     y_reset=0.5) "Controller, reset to parameter value"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes3
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes3
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.LimPID limPIInp(
@@ -58,10 +59,10 @@ model LimPIDWithReset
     reset=Buildings.Obsolete.Controls.OBC.CDL.Types.Reset.Input,
     y_reset=0.5) "Controller, reset to input value"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes4
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes4
     "Integrator whose output should be brought to the set point"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Reset input to integrator when the reset is disabled"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTri(final k=false)

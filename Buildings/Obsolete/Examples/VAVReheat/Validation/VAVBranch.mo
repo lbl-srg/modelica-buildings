@@ -74,6 +74,6 @@ Buildings.Obsolete.Examples.VAVReheat.BaseClasses.VAVBranch</a>.
 </html>",
       revisions="<html>
 </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Obsolete/Examples/VAVReheat/Validation/VAVBranch.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Examples/VAVReheat/Validation/VAVBranch.mos"
         "Simulate and plot"));
 end VAVBranch;

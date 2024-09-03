@@ -3,14 +3,14 @@ model InteriorHeatTransferConvective
   "Model for heat convection at the interior surface of a window that may have a shading device"
   extends BaseClasses.PartialWindowBoundaryCondition(final thisSideHasShade=haveInteriorShade);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=4
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=4
     "Constant convection coefficient";
   parameter Types.InteriorConvection conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
- Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(final unit="W") if
-       haveShade
+ Modelica.Blocks.Interfaces.RealInput QRadAbs_flow(final unit="W")
+    if haveShade
     "Total net radiation that is absorbed by the shade (positive if absorbed)"
      annotation (Placement(transformation(extent={{10,-10},{-10,10}},
                        rotation=270,
@@ -19,8 +19,8 @@ model InteriorHeatTransferConvective
         origin={-60,-110})));
   Modelica.Blocks.Interfaces.RealOutput TSha(
    final unit="K",
-   final quantity="ThermodynamicTemperature") if
-      haveShade "Shade temperature"
+   final quantity="ThermodynamicTemperature")
+   if haveShade "Shade temperature"
                        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -37,8 +37,8 @@ model InteriorHeatTransferConvective
 
   BaseClasses.ShadeConvection conSha(
     final A=AGla,
-    final thisSideHasShade=thisSideHasShade) if
-       haveShade "Convection model for shade"
+    final thisSideHasShade=thisSideHasShade)
+    if haveShade "Convection model for shade"
     annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
   BaseClasses.InteriorConvection conFra(
     final A=AFra,
@@ -142,10 +142,10 @@ First implementation.
          graphics={
         Text(
           extent={{-94,-82},{-28,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRadAbs"),
         Text(
           extent={{-28,-84},{34,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSha")}));
 end InteriorHeatTransferConvective;

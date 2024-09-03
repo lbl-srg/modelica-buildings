@@ -7,9 +7,9 @@ model Loads "This model tests the load models without neutral cable connection"
     annotation (Placement(transformation(extent={{-94,-10},{-74,10}})));
   Modelica.Blocks.Sources.Sine ph_1(
     amplitude=2000,
-    freqHz=10,
+    f=10,
     offset=-2500) "Power signal for loads on phase 1"
-               annotation (Placement(transformation(extent={{80,30},{60,50}})));
+    annotation (Placement(transformation(extent={{80,30},{60,50}})));
   Modelica.Blocks.Sources.Constant ph_23(k=0)
     "Power signal for loads on phase 2 and 3"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));

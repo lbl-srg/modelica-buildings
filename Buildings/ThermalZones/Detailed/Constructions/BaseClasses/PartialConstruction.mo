@@ -2,8 +2,8 @@ within Buildings.ThermalZones.Detailed.Constructions.BaseClasses;
 partial model PartialConstruction
   "Partial model for exterior construction that has no window"
 
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Area AOpa
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area AOpa
     "Heat transfer area of opaque construction"
     annotation (Dialog(group="Opaque construction"));
 
@@ -13,11 +13,11 @@ partial model PartialConstruction
                choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
 
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
 
-  final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
+  final parameter Boolean is_floor=til > 2.74889125 and til < 3.53428875
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-  final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
+  final parameter Boolean is_ceiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a
@@ -35,10 +35,10 @@ partial model PartialConstruction
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
         annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
+  parameter Modelica.Units.SI.Temperature T_a_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
+  parameter Modelica.Units.SI.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
@@ -99,7 +99,7 @@ equation
           fillPattern=FillPattern.Backward),
         Text(
           extent={{-314,336},{286,302}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>
@@ -114,6 +114,12 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 October 29, 2016, by Michael Wetter:<br/>
 Propagated parameters for optionally adding states at the surface.<br/>

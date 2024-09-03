@@ -5,7 +5,7 @@ model ChillerDXHeatingEconomizer
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
     hvac(QCoo_flow_nominal=-10000));
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer con(
@@ -23,7 +23,7 @@ model ChillerDXHeatingEconomizer
     TSupChi_nominal=TSupChi_nominal,
     TSetSupAir=286.15) "Controller for single zone VAV system"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooHea(
     table=[
       0,       15 + 273.15;
       8*3600,  20 + 273.15;
@@ -33,7 +33,7 @@ model ChillerDXHeatingEconomizer
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-152,40},{-132,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooCoo(
     table=[
       0,       30 + 273.15;
       8*3600,  25 + 273.15;

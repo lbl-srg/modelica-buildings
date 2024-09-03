@@ -24,23 +24,21 @@ model CoilRegister "Register for a heat exchanger"
   final parameter Integer nEle = nPipPar * nPipSeg
     "Number of heat exchanger elements";
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant"
-     annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
-    "Mass flow rate medim 1"
-  annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-    "Mass flow rate medium 2"
-  annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
+    "Mass flow rate medim 1" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
+    "Mass flow rate medium 2" annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Time tau1=20
-    "Time constant at nominal flow for medium 1"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Time tau2=1
-    "Time constant at nominal flow for medium 2"
-  annotation(Dialog(group = "Nominal condition", enable=not (energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Time tau1=20
+    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
+          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Time tau2=1
+    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
+          "Nominal condition", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   parameter Boolean allowFlowReversal1 = true
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
@@ -102,18 +100,18 @@ model CoilRegister "Register for a heat exchanger"
     "Heat port for heat exchange with the control volume 2"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow
+  Modelica.Units.SI.HeatFlowRate Q1_flow
     "Heat transferred from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow
+  Modelica.Units.SI.HeatFlowRate Q2_flow
     "Heat transferred from solid into medium 2";
-  parameter Modelica.SIunits.Time tau_m=60
+  parameter Modelica.Units.SI.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Modelica.Blocks.Interfaces.RealInput Gc_2
     "Signal representing the convective thermal conductance medium 2 in [W/K]"
@@ -292,10 +290,10 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
           fillPattern=FillPattern.Solid),
         Text(
           extent={{62,-94},{88,-122}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h"),
         Text(
           extent={{-80,112},{-58,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="h")}));
 end CoilRegister;

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conTSupSet.uZonTemResReq",
+    "conTSupSet.u1SupFan",
+    "conTSupSet.uOpeMod",
+    "conTSupSet.maxSupTemRes.y",
+    "conTSupSet.TOut",
+    "conTSupSet.TAirSupSet"
+  };

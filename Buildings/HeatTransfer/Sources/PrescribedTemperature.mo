@@ -23,12 +23,12 @@ equation
           thickness=0.5),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{50,-20},{50,20},{90,0},{50,-20}},
           lineColor={191,0,0},
@@ -52,7 +52,7 @@ as required to keep the temperature at the specified value.
           fillPattern=FillPattern.Backward),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Line(
           points={{-102,0},{64,0}},

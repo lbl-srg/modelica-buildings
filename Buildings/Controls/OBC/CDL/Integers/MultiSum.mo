@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block MultiSum
-  "Sum of Reals, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
+  "Sum of Integers, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
   parameter Integer nin(
     min=0)=0
     "Number of input connections"
@@ -9,10 +9,10 @@ block MultiSum
     1,
     nin)
     "Input gains";
-  Interfaces.IntegerInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Connector of Integer input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -35,20 +35,20 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-200,-110},{200,-140}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="%k"),
         Text(
           extent={{-82,84},{82,-52}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           fillColor={255,213,170},
           fillPattern=FillPattern.Solid,
           textString="+"),
         Text(
           extent={{-144,150},{156,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

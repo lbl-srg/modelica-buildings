@@ -4,7 +4,8 @@ model PPM "Test model for the extra property sensor outputting PPM"
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"})
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = volDyn.V*senPPMTwoPort.tau*3*rho_default
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+    volDyn.V*senPPMTwoPort.tau*3*rho_default
     "Mass flow rate into and out of the volume";
 
   Buildings.Fluid.MixingVolumes.MixingVolume volDyn(
@@ -13,17 +14,17 @@ model PPM "Test model for the extra property sensor outputting PPM"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1,
     use_C_flow=true,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal) "Mixing volume with dynamics"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     nPorts=2,
     m_flow=m_flow_nominal) "Fresh air supply"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+    annotation (Placement(transformation(origin = {-28, 0}, extent = {{-40, 30}, {-20, 50}})));
 
-  Buildings.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium,
-      warnAboutOnePortConnection=false)
+  Buildings.Fluid.Sensors.PPM senPPMVol(
+    redeclare package Medium = Medium,
+    warnAboutOnePortConnection=false)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/1000)
@@ -69,7 +70,6 @@ model PPM "Test model for the extra property sensor outputting PPM"
     nPorts=3,
     V=1,
     use_C_flow=true,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume without dynamics"
@@ -82,32 +82,44 @@ model PPM "Test model for the extra property sensor outputting PPM"
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal) "Fresh air supply for steady state volume"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+    annotation (Placement(transformation(origin = {-28, 0}, extent = {{-40, 110}, {-20, 130}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2) "Exhaust air"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(origin = {-30, 0}, extent = {{-40, -60}, {-20, -40}})));
+
+  Buildings.Fluid.FixedResistances.PressureDrop dp(
+     redeclare package Medium = Medium,
+     dp_nominal = 200,
+     m_flow_nominal = m_flow_nominal)
+     "Pressure drop to decouple volume pressure from boundary pressure"
+     annotation (
+    Placement(transformation(origin = {-28, -50}, extent = {{-2, -10}, {18, 10}})));
 
 protected
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values"
+    annotation(Evaluate=true);
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(
+    state=state_default)
+    "Density, used to compute fluid mass"
+    annotation(Evaluate=true);
 
 equation
-  connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-20,42},{
-          77.3333,42},{77.3333,50}},       color={0,127,255}));
+  connect(mSou.ports[1], volDyn.ports[1]) annotation (Line(points={{-48,39},{
+          -48,50},{78.6667,50}},
+                            color={0,127,255}));
   connect(CO2In.y, volDyn.C_flow[1]) annotation (Line(points={{21,70},{32,70},{32,
           54},{68,54}}, color={0,0,127}));
   connect(senPPMVol.port, volDyn.ports[2]) annotation (Line(points={{130,40},{80,
-          40},{80,50}},         color={0,127,255}));
+          40},{80,50}},color={0,127,255}));
   connect(senPPMIn.port, mSou.ports[2])
-    annotation (Line(points={{-10,80},{-10,38},{-20,38}}, color={0,127,255}));
+    annotation (Line(points={{-10,80},{-10,41},{-48,41}}, color={0,127,255}));
   connect(senPPMTwoPort.port_a, volDyn.ports[3]) annotation (Line(points={{80,20},
-          {80,50},{82.6667,50}},         color={0,127,255}));
+          {80,50},{81.3333,50}},         color={0,127,255}));
   connect(senPPMNoRev.port_a, senPPMTwoPort.port_b)
     annotation (Line(points={{80,-20},{80,0}}, color={0,127,255}));
   connect(senPPMRev.port_b, senPPMNoRev.port_b) annotation (Line(points={{60,-50},
@@ -116,15 +128,17 @@ equation
     annotation (Line(points={{20,-50},{30,-50},{40,-50}}, color={0,127,255}));
   connect(CO2In.y,volSte. C_flow[1]) annotation (Line(points={{21,70},{32,70},{32,
           84},{68,84}}, color={0,0,127}));
-  connect(volSte.ports[1], senPPMVol2.port) annotation (Line(points={{77.3333,
+  connect(volSte.ports[1], senPPMVol2.port) annotation (Line(points={{78.6667,
           80},{130,80}},          color={0,127,255}));
-  connect(mSouSta.ports[1], volSte.ports[2]) annotation (Line(points={{-20,120},
+  connect(mSouSta.ports[1], volSte.ports[2]) annotation (Line(points={{-48,120},
           {54,120},{54,80},{80,80}},      color={0,127,255}));
-  connect(sin.ports[1], senPPMSta.port_b) annotation (Line(points={{-20,-48},{-10,
-          -48},{-10,-50},{0,-50}}, color={0,127,255}));
-  connect(sin.ports[2], volSte.ports[3]) annotation (Line(points={{-20,-52},{
-          -20,-80},{110,-80},{110,80},{82.6667,80}},
-                                                 color={0,127,255}));
+  connect(sin.ports[1], volSte.ports[3]) annotation (
+    Line(points={{-50,-51},{-50,-80},{110,-80},{110,80},{81.3333,80}},            color = {0, 127, 255}));
+  connect(dp.port_b, senPPMSta.port_b) annotation (
+    Line(points = {{-10, -50}, {0, -50}}, color = {0, 127, 255}));
+  connect(dp.port_a, sin.ports[2]) annotation (
+    Line(points={{-30,-50},{-40,-50},{-40,-49},{-50,-49}},
+                                            color = {0, 127, 255}));
     annotation (
 experiment(Tolerance=1e-6, StopTime=3),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos"
@@ -142,8 +156,13 @@ and with or without dynamics are tested.
 revisions="<html>
 <ul>
 <li>
+February 1, 2024, by Michael Wetter:<br/>
+Added pressure drop to avoid redundant initial conditions for pressure of control volume.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1830\"> #1830</a>.
+</li>
+<li>
 May 2, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

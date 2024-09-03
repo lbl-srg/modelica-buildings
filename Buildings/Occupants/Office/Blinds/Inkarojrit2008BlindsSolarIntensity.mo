@@ -9,7 +9,7 @@ model Inkarojrit2008BlindsSolarIntensity
   seven-point scale, 1 for least sensitive, 7 for most sensitive"
   annotation(Dialog(tab = "Advanced"));
     parameter Integer seed = 10 "Seed for the random number generator";
-    parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(unit="W/m2") "Solar intensity"
       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -30,7 +30,8 @@ model Inkarojrit2008BlindsSolarIntensity
       final max=1) "The probability of keeping the blinds on";
 
 protected
-    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
     Real curSeed "Current value for seed as a real-valued variable";
 
@@ -61,7 +62,7 @@ equation
     annotation (Icon(graphics={
               Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
               extent={{-40,20},{40,-20}},
-              lineColor={28,108,200},
+              textColor={28,108,200},
               fillColor={0,0,255},
               fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},

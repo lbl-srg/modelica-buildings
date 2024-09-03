@@ -12,9 +12,9 @@ model JSONWriter "Model for writing results to a json file"
     Buildings.Utilities.IO.Files.BaseClasses.OutputTime.Terminal
     "Time when results are written to file"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Time customTime = 0
+  parameter Modelica.Units.SI.Time customTime=0
     "Custom time when results are stored, used if outputTime=Custom only"
-    annotation(Dialog(enable=outputTime==Buildings.Utilities.IO.Files.BaseClasses.OutputTime.Custom));
+    annotation (Dialog(enable=outputTime == Buildings.Utilities.IO.Files.BaseClasses.OutputTime.Custom));
 
   Modelica.Blocks.Interfaces.RealVectorInput[nin] u "Variables that are saved"
      annotation (Placement(transformation(extent={{-120,20},{-80,-20}})));
@@ -95,7 +95,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1114\">#1114</a>.
   Icon(graphics={
          Text(
           extent={{-88,90},{88,48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="JSON")}));
 end JSONWriter;

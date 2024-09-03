@@ -11,7 +11,7 @@ model Compressor
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Blocks.Sources.Sine TSupMea(
     amplitude=2,
-    freqHz=1/120,
+    f=1/120,
     offset=291.15) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 

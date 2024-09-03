@@ -2,8 +2,10 @@ within Buildings.Applications.DataCenters.DXCooled.Controls;
 model CoolingMode
   "Controller for the DX cooling system with an airside economizer"
 
-  parameter Modelica.SIunits.Time tWai "Waiting time, set to avoid frequent switching";
-  parameter Modelica.SIunits.TemperatureDifference dT(min=0.1) = 1.1 "Deadband";
+  parameter Modelica.Units.SI.Time tWai
+    "Waiting time, set to avoid frequent switching";
+  parameter Modelica.Units.SI.TemperatureDifference dT(min=0.1) = 1.1
+    "Deadband";
 
   Modelica.Blocks.Interfaces.RealInput TOutDryBul(
     final quantity="ThermodynamicTemperature",
@@ -40,12 +42,14 @@ model CoolingMode
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={0,8})));
-  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1, nOut=1)
+                                                          "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={0,58})));
-  Modelica.StateGraph.StepWithSignal fulMecCoo "Fully mechanical cooling mode"
+  Modelica.StateGraph.StepWithSignal fulMecCoo(nIn=1, nOut=1)
+                                               "Fully mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -142,7 +146,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

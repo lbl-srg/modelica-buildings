@@ -5,23 +5,24 @@ model SpeedControlled_y
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
-    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
     filter(
       final y_start=y_start,
-      u_nominal=1,
       u(final unit="1"),
       y(final unit="1")),
     eff(
       per(final pressure = per.pressure,
-          final use_powerCharacteristic = per.use_powerCharacteristic)),
-    gaiSpe(u(final unit="1"),
-           final k=1/per.speed_nominal));
+          final etaHydMet = per.etaHydMet,
+          final etaMotMet = per.etaMotMet),
+      r_N(start=y_start)));
+
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput y(
-    unit="1") if
-    inputType == Buildings.Fluid.Types.InputType.Continuous
+    unit="1")
+ if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -35,39 +36,37 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={10,-20})));
+        origin={-10,-20})));
 initial equation
   assert(per.havePressureCurve,
    "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
 
 equation
-  connect(gaiSpe.u, y)
-    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
-  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
-          {-26,50},{-22,50}}, color={0,0,127}));
+  connect(inputSwitch.u, y) annotation (Line(points={{-22,50},{-26,50},{-26,80},
+          {0,80},{0,120}}, color={0,0,127}));
   connect(eff.dp, gain.u)
-    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
+    annotation (Line(points={{-11,-50},{-6,-50},{-6,-42},{-10,-42},{-10,-32}},
+                                                           color={0,0,127}));
   connect(gain.y, preSou.dp_in)
-    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+    annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
   if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
-            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
-                                      color={0,0,127}));
+    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
+            26},{-26,26},{-26,-46}},  color={0,0,127}));
   else
-    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
             26},{-26,26},{-26,-46}},
                                    color={0,0,127}));
   end if;
 
-    annotation (defaultComponentName="fan",
+    annotation (defaultComponentName="mov",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
          graphics={
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("y", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(y, format=".2f") else String(stage)))}),
     Documentation(info="<html>
@@ -77,10 +76,6 @@ The input connector provides the normalized rotational speed (between 0 and 1).
 The head is computed based on the performance curve that take as an argument
 the actual volume flow rate divided by the maximum flow rate and the relative
 speed of the fan.
-The efficiency of the device is computed based
-on the efficiency curves that take as an argument
-the actual volume flow rate divided by the maximum possible volume flow rate, or
-based on the motor performance curves.
 </p>
 <p>
 See the
@@ -90,6 +85,37 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the modification that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Removed the modification of <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
+<li>
+March 8, 2022, by Hongxiang Fu:<br/>
+Refactored the model by replacing <code>not use_powerCharacteristic</code>
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>

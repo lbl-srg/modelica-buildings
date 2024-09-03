@@ -3,8 +3,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealOutput inc(
     final quantity="Angle",
@@ -15,8 +14,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
 protected
   SolarGeometry.IncidenceAngle incAng(
     final azi=azi,
-    final til=til,
-    final lat=lat) "Incidence angle"
+    final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface
     HDirTil "Direct irradition on tilted surface"
@@ -60,6 +58,12 @@ For a definition of the parameters, see the
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 April 21, 2016, by Michael Wetter:<br/>
 Removed duplicate instance <code>weaBus</code>.
 This is for
@@ -80,5 +84,5 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end DirectTiltedSurface;

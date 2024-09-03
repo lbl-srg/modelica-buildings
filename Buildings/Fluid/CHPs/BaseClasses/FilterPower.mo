@@ -2,10 +2,8 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model FilterPower "Constraints for electric power"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Power PEleMax
-    "Maximum power output";
-  parameter Modelica.SIunits.Power PEleMin
-    "Minimum power output";
+  parameter Modelica.Units.SI.Power PEleMax "Maximum power output";
+  parameter Modelica.Units.SI.Power PEleMin "Minimum power output";
   parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
   parameter Real dPEleMax(final unit="W/s")
@@ -30,18 +28,18 @@ model FilterPower "Constraints for electric power"
 protected
   Modelica.Blocks.Nonlinear.VariableLimiter PLim "Power limiter"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PMax(
     final k=PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PMin(
     final k=PEleMin) "Minimum power"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.SlewRateLimiter dPLim(
-    final raisingSlewRate(unit="W/s")=dPEleMax,
-    final fallingSlewRate(unit="W/s")=-dPEleMax,
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate dPLim(
+    final raisingSlewRate(unit="W/s") = dPEleMax,
+    final fallingSlewRate(unit="W/s") = -dPEleMax,
     final Td=1) "Power rate limiter"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch
+  Buildings.Controls.OBC.CDL.Reals.Switch switch
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant limDp(
     final k=use_powerRateLimit)
@@ -74,19 +72,19 @@ annotation (
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-86,-64},{-46,-44}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="uMin"),
         Text(
           extent={{-34,76},{-9,56}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="output"),
         Text(
           extent={{50,50},{90,70}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="uMax"),
         Text(
           extent={{52,-8},{74,-20}},
-          lineColor={128,128,128},
+          textColor={128,128,128},
           textString="input"),
     Line(points={{-90,0},{68,0}}, color={192,192,192}),
     Line(

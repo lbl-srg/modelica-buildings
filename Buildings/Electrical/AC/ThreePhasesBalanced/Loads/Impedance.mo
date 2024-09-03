@@ -11,10 +11,10 @@ model Impedance "Model of a resistive load"
       __Dymola_radioButtons=true));
 
 protected
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
-  Modelica.SIunits.AngularVelocity omega
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-  Modelica.SIunits.Reactance X(start = 1) "Complex component of the impedance";
+  Modelica.Units.SI.Reactance X(start=1) "Complex component of the impedance";
 
 equation
   theRef = PhaseSystem.thetaRef(terminal.theta);
@@ -51,7 +51,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,-80},{120,-120}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Rectangle(
           extent={{-11,30},{11,-30}},

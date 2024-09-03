@@ -4,9 +4,8 @@ partial model PartialStaticTwoPortCoolingTower
 
   package Medium_W = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
-    "Design water flow rate"
-      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.5
+    "Design water flow rate" annotation (Dialog(group="Nominal condition"));
 
   replaceable
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower tow
@@ -24,8 +23,8 @@ partial model PartialStaticTwoPortCoolingTower
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water loop"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    "Pump for condenser water loop"
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
@@ -79,6 +78,11 @@ partial model PartialStaticTwoPortCoolingTower
     "Water temperature"
     annotation (Placement(transformation(extent={{-70,-160},{-50,-140}})));
 
+  Buildings.Fluid.Sensors.TemperatureTwoPort TEnt(
+    redeclare package Medium = Medium_W,
+    m_flow_nominal=m_flow_nominal)
+    "Water entering temperature"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(weaDat.weaBus, weaBus)
    annotation (Line(points={{-80,50},{-60,50}},color={255,204,51}));
@@ -91,7 +95,7 @@ equation
    annotation (Line(points={{1,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
-   annotation (Line(points={{27.3333,-120},{-60,-120},{-60,-50},{-40,-50}},
+   annotation (Line(points={{28.6667,-120},{-70,-120},{-70,-50}},
       color={0,127,255}));
   connect(fixHeaFlo.port, vol.heatPort)
    annotation (Line(points={{-20,-90},{10,-90},{10,-110},{20,-110}},
@@ -102,22 +106,23 @@ equation
   connect(tow.port_b, vol.ports[2])
    annotation (Line(points={{42,-50},{60,-50},{60,-120},{30,-120}},
       color={0,127,255}));
-  connect(pum.port_b, tow.port_a)
-   annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
   connect(onOffCon.u, TSwi.y)
    annotation (Line(points={{-22,-196},{-59,-196}},color={0,0,127}));
   connect(TVol.T, onOffCon.reference)
-   annotation (Line(points={{-50,-150},{-40,-150},{-40,-184},{-22,-184}},
+   annotation (Line(points={{-49,-150},{-40,-150},{-40,-184},{-22,-184}},
       color={0,0,127}));
   connect(swi.y, pum.m_flow_in)
-   annotation (Line(points={{41,-190},{70,-190},{70,-240},{-100,-240},
-     {-100,-30},{-30,-30},{-30,-38}},color={0,0,127}));
+   annotation (Line(points={{41,-190},{46,-190},{46,-240},{-100,-240},{-100,-30},
+          {-60,-30},{-60,-38}},color={0,0,127}));
   connect(exp.ports[1], vol.ports[3])
-   annotation (Line(points={{80,-120},{32.6667,-120}},color={0,127,255}));
+   annotation (Line(points={{80,-120},{31.3333,-120}},color={0,127,255}));
 
+  connect(pum.port_b, TEnt.port_a)
+    annotation (Line(points={{-50,-50},{-40,-50}}, color={0,127,255}));
+  connect(TEnt.port_b, tow.port_a)
+    annotation (Line(points={{-20,-50},{22,-50}},color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
-            -260},{140,100}}),
-                      graphics), Documentation(info="<html>
+            -260},{140,100}})),  Documentation(info="<html>
 <p>
 Partial model to test cooling tower models that are connected to a weather data reader
 and a simple fluid loop to which a constant amount of heat is added.
@@ -127,6 +132,13 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 28, 2022, by Hongxiang Fu:<br/>
+Added a temperature sensor for better measurement of the entering water
+temperature. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2866\">
+#2866</a>.
+</li>
 <li>
 January 16, 2020, by Michael Wetter:<br/>
 Changed energy balance to dynamic balance and set fan to use the input filter,

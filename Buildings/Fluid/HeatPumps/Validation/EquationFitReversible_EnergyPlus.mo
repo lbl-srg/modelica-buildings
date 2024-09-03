@@ -6,16 +6,15 @@ model EquationFitReversible_EnergyPlus "Validation with EnergyPlus model"
   parameter Data.EquationFitReversible.EnergyPlus perEP
     "EnergyPlus heat pump performance"
       annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=perEP.hea.mSou_flow
     "Source heat exchanger nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=perEP.hea.mLoa_flow
     "Load heat exchanger nominal mass flow rate";
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     per=perEP,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Water to Water heat pump"
       annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Sources.MassFlowSource_T loaPum(
@@ -122,7 +121,7 @@ equation
 Documentation(info="<html>
 <p>
 This model implements a comparative model validation of
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>
 against results obtained using EnergyPlus 9.1.
 <p>

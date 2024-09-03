@@ -1,15 +1,15 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
 record SideFins "Record for window side fins"
   extends Modelica.Icons.Record;
-  parameter Modelica.SIunits.Length h(min=0)
+  parameter Modelica.Units.SI.Length h(min=0)
     "Height of side fin that extends above window, measured from top of window"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length dep(min=0)
+    annotation (Dialog(tab="General", group="Side fin"));
+  parameter Modelica.Units.SI.Length dep(min=0)
     "Side fin depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length gap(min=0)
+    annotation (Dialog(tab="General", group="Side fin"));
+  parameter Modelica.Units.SI.Length gap(min=0)
     "Distance between side fin and window edge"
-    annotation(Dialog(tab="General",group="Side fin"));
+    annotation (Dialog(tab="General", group="Side fin"));
 
   final parameter Boolean haveSideFins= dep > Modelica.Constants.eps
     "Flag, true if the window has side fins" annotation (Evaluate=true);

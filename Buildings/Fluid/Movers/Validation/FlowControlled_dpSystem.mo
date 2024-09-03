@@ -3,9 +3,9 @@ model FlowControlled_dpSystem
   "Demonstration of the use of prescribedPressure"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 100
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=100
     "Nominal pressure difference";
   Modelica.Blocks.Sources.Ramp y(
     duration=0.5,
@@ -23,6 +23,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1,
     use_inputFilter=false) "Regular dp controlled fan"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
@@ -30,6 +31,7 @@ model FlowControlled_dpSystem
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=false,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1,
     use_inputFilter=false,
     prescribeSystemPressure=true)
@@ -228,6 +230,13 @@ The mass flow rates and actual pressure heads of the two configurations are comp
 </html>", revisions="<html>
 <ul>
 <li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
+<li>
 May 4 2017, by Filip Jorissen:<br/>
 First implementation.
 This is for
@@ -235,5 +244,5 @@ This is for
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlowControlled_dpSystem;

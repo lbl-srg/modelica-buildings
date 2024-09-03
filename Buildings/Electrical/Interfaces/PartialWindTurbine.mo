@@ -126,11 +126,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-42,134},{-20,108}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="v"),
         Text(
           extent={{100,100},{122,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P")}),
     Documentation(info="<html>
 <p>

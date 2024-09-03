@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetAbsolutePath "Test model to get the absolute path of a URI"
   extends Modelica.Icons.Example;
-  parameter String f = "modelica://Buildings/package.mo"
+  parameter String f = Modelica.Utilities.Files.loadResource("modelica://Buildings/package.mo")
    "Name of a file that exists";
   parameter String fAbs=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=f)
@@ -21,6 +21,10 @@ This model tests the function that gets the absolute path of a URI.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>loadResource</code> call.
+</li>
 <li>
 November 18, 2016, by Michael Wetter:<br/>
 Removed tests that assumed that the regression test is run

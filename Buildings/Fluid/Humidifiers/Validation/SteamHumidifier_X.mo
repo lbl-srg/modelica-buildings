@@ -3,8 +3,7 @@ model SteamHumidifier_X
   "Model that demonstrates the steam humidifier model, configured as steady-state model"
   extends Buildings.Fluid.Humidifiers.Validation.SprayAirWasher_X(
     redeclare Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
-      mWatMax_flow=mWat_flow_nominal,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+      mWatMax_flow=mWat_flow_nominal));
 
 annotation (
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SteamHumidifier_X.mos"

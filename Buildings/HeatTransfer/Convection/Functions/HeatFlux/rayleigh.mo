@@ -1,17 +1,17 @@
 within Buildings.HeatTransfer.Convection.Functions.HeatFlux;
 function rayleigh "Rayleigh number with smooth transition to lower limit"
   extends Modelica.Icons.Function;
- input Modelica.SIunits.Length x "Layer thickness";
- input Modelica.SIunits.Density rho "Mass density";
- input Modelica.SIunits.SpecificHeatCapacity c_p "Specific heat capacity";
- input Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity";
- input Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
- input Modelica.SIunits.Temperature T_a "Temperature of surface a";
- input Modelica.SIunits.Temperature T_b "Temperature of surface b";
+  input Modelica.Units.SI.Length x "Layer thickness";
+  input Modelica.Units.SI.Density rho "Mass density";
+  input Modelica.Units.SI.SpecificHeatCapacity c_p "Specific heat capacity";
+  input Modelica.Units.SI.DynamicViscosity mu "Dynamic viscosity";
+  input Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
+  input Modelica.Units.SI.Temperature T_a "Temperature of surface a";
+  input Modelica.Units.SI.Temperature T_b "Temperature of surface b";
  input Real Ra_min "Minimum value for Rayleigh number";
  output Real Ra "Rayleigh number";
 protected
- Modelica.SIunits.TemperatureDifference dT "Temperature difference";
+  Modelica.Units.SI.TemperatureDifference dT "Temperature difference";
 algorithm
   Ra := Buildings.Utilities.Math.Functions.smoothMax(
     x1=rho^2*x^3*Modelica.Constants.g_n*c_p*abs(T_a - T_b)/((T_a+T_b)/2*mu*k),

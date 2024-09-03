@@ -46,7 +46,6 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/924\">#924</a>.
 This model demonstrates the use of the csv file writer.
 </p>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Files/Examples/CSVWriter.mos"
         "Simulate and plot"));
 end CSVWriter;

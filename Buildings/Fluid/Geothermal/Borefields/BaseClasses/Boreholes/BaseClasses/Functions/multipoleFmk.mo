@@ -7,12 +7,14 @@ function multipoleFmk "Complex matrix F_mk from Claesson and Hellstrom (2011)"
   input Real QPip_flow[nPip](each unit="W/m") "Heat flow in pipes";
   input Real PRea[nPip,J] "Multipoles (Real part)";
   input Real PIma[nPip,J] "Multipoles (Imaginary part)";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
-  input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
-  input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
-  input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
-  input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.Radius rPip[nPip] "Outter radius of pipes";
+  input Modelica.Units.SI.Position xPip[nPip] "x-Coordinates of pipes";
+  input Modelica.Units.SI.Position yPip[nPip] "y-Coordinates of pipes";
+  input Modelica.Units.SI.ThermalConductivity kFil
+    "Thermal conductivity of grouting material";
+  input Modelica.Units.SI.ThermalConductivity kSoi
+    "Thermal conductivity of soil material";
 
   output Real FRea[nPip,J] "Multipole coefficients";
   output Real FIma[nPip,J] "Multipole coefficients";

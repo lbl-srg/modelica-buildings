@@ -1,10 +1,8 @@
 within Buildings.Media.Refrigerants.R410A;
 function dSpecificVolumeVap_pT
   "Function that calculates the Jacobian of specific volume R410A vapor based on pressure and temperature"
-  input Modelica.SIunits.AbsolutePressure p
-    "Pressure of refrigerant vapor";
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
+  input Modelica.Units.SI.AbsolutePressure p "Pressure of refrigerant vapor";
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
   input Real dp(
     final unit="Pa/s")
     "Delta of pressure of refrigerant vapor";
@@ -24,8 +22,7 @@ protected
     final unit="Pa.kg/m3")
      "Derivative of pressure with regards to specific volume";
 
-  Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
+  Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
 
 algorithm
 

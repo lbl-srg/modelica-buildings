@@ -1,13 +1,13 @@
 within Buildings.Examples.ScalableBenchmarks.BuildingVAV.BaseClasses;
 block FanOnOffWithDP
   "Controller for fan on/off and to provide prescribed dP"
-  import Buildings.Examples.VAVReheat.Controls.OperationModes;
-  parameter Modelica.SIunits.PressureDifference preRis=850
+  import Buildings.Examples.VAVReheat.BaseClasses.Controls.OperationModes;
+  parameter Modelica.Units.SI.PressureDifference preRis=850
     "Prescribed pressure difference";
   Modelica.Blocks.Interfaces.RealOutput y(unit="Pa")
     "Supply fan requested pressure rise, or zero if fan should be off"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Examples.VAVReheat.Controls.ControlBus controlBus
+  Buildings.Examples.VAVReheat.BaseClasses.Controls.ControlBus controlBus
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Modelica.Blocks.Routing.Extractor extractor(
     nin=6,
@@ -52,12 +52,12 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,-50},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="prescribed_dP=%dP_pre"),
         Text(
         extent={{-120,140},{120,104}},
         textString="%name",
-        lineColor={0,0,255})}),
+        textColor={0,0,255})}),
 Documentation(info="<html>
 <p>This model outputs <code>ON/OFF</code> signal to control fan operation.
 When the system is in mode like <code>unoccupiedOff, safety</code>, it outputs

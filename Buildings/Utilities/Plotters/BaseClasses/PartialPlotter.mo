@@ -7,9 +7,8 @@ partial block PartialPlotter "Partial block for plotters"
 
   parameter String fileName = plotConfiguration.fileName "Name of html file";
 
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3) = plotConfiguration.samplePeriod
-    "Sample period of component"
-    annotation(Dialog(group="Activation"));
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3) = plotConfiguration.samplePeriod
+    "Sample period of component" annotation (Dialog(group="Activation"));
 
   parameter String title = getInstanceName() "Title of the plot"
     annotation(Dialog(group="Labels"));
@@ -27,23 +26,22 @@ partial block PartialPlotter "Partial block for plotters"
     "Set to true to enable an input that allows activating and deactivating the plotting"
     annotation(Dialog(group="Activation"));
 
-  parameter Modelica.SIunits.Time activationDelay(min=0)=plotConfiguration.activationDelay
+  parameter Modelica.Units.SI.Time activationDelay(min=0) = plotConfiguration.activationDelay
     "Time that needs to elapse to enable plotting after activate becomes true"
-    annotation(Dialog(group="Activation"));
+    annotation (Dialog(group="Activation"));
 
   Modelica.Blocks.Interfaces.RealVectorInput y[n] "y-data" annotation (
       Placement(transformation(extent={{-130,-20},{-90,20}}),
         iconTransformation(extent={{-140,20},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.BooleanInput activate if
-     (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
+  Modelica.Blocks.Interfaces.BooleanInput activate
+  if (activation == Buildings.Utilities.Plotters.Types.LocalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Boolean active "Flag, true if plots record data";
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
   parameter String insNam = Modelica.Utilities.Strings.replace(
     getInstanceName(), ".", "_")
     "Name of this instance with periods replace by underscore";
@@ -59,7 +57,8 @@ protected
 
   Modelica.Blocks.Interfaces.BooleanInput activate_internal
     "Internal connector to activate plots";
-  discrete Modelica.SIunits.Time tActivateLast "Time when plotter was the last time activated";
+  discrete Modelica.Units.SI.Time tActivateLast
+    "Time when plotter was the last time activated";
 
   output Boolean sampleTrigger "True, if sample time instant";
 

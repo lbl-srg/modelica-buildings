@@ -6,8 +6,8 @@ partial model MixingVolumeReverseFlow
 
   constant Boolean prescribedHeatFlowRate = false
     "Flag that affects what steady state balance is used in the volume";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10 "Nominal pressure drop";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 2.0
+  parameter Modelica.Units.SI.Pressure dp_nominal=10 "Nominal pressure drop";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2.0
     "Nominal mass flow rate";
 
   Modelica.Fluid.Sources.MassFlowSource_T sou(

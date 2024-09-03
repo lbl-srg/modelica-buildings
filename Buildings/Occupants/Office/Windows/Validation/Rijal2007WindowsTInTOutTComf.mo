@@ -7,24 +7,21 @@ model Rijal2007WindowsTInTOutTComf "Validating the model for window behaviors"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Sine TIn(
     amplitude=10,
-    freqHz=0.0007,
-    y(unit="K",
-      displayUnit="degC"),
-    offset=298)            "Indoor air temperature"
+    f=0.0007,
+    y(unit="K", displayUnit="degC"),
+    offset=298) "Indoor air temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.Sine TOut(
-    freqHz=0.001,
-    y(unit="K",
-      displayUnit="degC"),
+    f=0.001,
+    y(unit="K", displayUnit="degC"),
     offset=298,
-    amplitude=12)          "Outdoor air temperature"
+    amplitude=12) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-80,-34},{-60,-14}})));
   Modelica.Blocks.Sources.Sine TComf(
     amplitude=2,
     offset=298,
-    freqHz=0.0005,
-    y(unit="K",
-      displayUnit="degC")) "Comfort air temperature"
+    f=0.0005,
+    y(unit="K", displayUnit="degC")) "Comfort air temperature"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Occupants.Office.Windows.Rijal2007WindowsTInTOutTComf win "Tested windows model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

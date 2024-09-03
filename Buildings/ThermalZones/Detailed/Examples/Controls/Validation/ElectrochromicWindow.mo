@@ -31,7 +31,7 @@ equation
   annotation (
     experiment(Tolerance=1e-6, StopTime=172800),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/Controls/Validation/ElectrochromicWindow.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/Controls/Validation/ElectrochromicWindow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

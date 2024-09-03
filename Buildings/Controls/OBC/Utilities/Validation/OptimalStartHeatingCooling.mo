@@ -11,38 +11,35 @@ model OptimalStartHeatingCooling
     y_start=19+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOcc(
     k=24+273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOutBase(
     amplitude=5,
     freqHz=1/86400,
     offset=15+273.15,
     startTime(
       displayUnit="h")=0)
     "Outdoor dry bulb temperature, base component"
-    annotation (Placement(transformation(extent={{-208,-20},{-188,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain UA(
-    k=25)
+    annotation (Placement(transformation(extent={{-212,70},{-192,90}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter UA(k=25)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dT(
-    k1=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QCoo(
-    k=-4000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QCoo(k=-4000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(
     realTrue=-6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID1(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID1(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3,
     reverseActing=false)
@@ -53,11 +50,11 @@ model OptimalStartHeatingCooling
     period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     nin=3)
     "Sum heat gains"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHeaOcc(
     k=21+273.15)
     "Zone heating setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
@@ -65,42 +62,39 @@ model OptimalStartHeatingCooling
     realTrue=6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Reset temperature from unoccupied to occupied for optimal start period"
     annotation (Placement(transformation(extent={{140,40},{160,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=3)
     "PI control for space heating"
     annotation (Placement(transformation(extent={{180,40},{200,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(
-    k=2000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QHea(k=2000)
     "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add TOut
+  Buildings.Controls.OBC.CDL.Reals.Add TOut
     "Outdoor dry bulb temperature"
-    annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+    annotation (Placement(transformation(extent={{-174,50},{-154,70}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     shift(
       displayUnit="d")=604800,
     amplitude=15,
     period(
       displayUnit="d")=1209600)
     "Range of outdoor dry bulb temperature"
-    annotation (Placement(transformation(extent={{-210,-60},{-190,-40}})));
+    annotation (Placement(transformation(extent={{-214,30},{-194,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetHea(
     realTrue=273.15+21,
     realFalse=273.15+15,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for heating"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15+24,
     realFalse=273.15+30,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
@@ -109,11 +103,9 @@ equation
   connect(dT.y,UA.u)
     annotation (Line(points={{-118,10},{-102,10}},color={0,0,127}));
   connect(TRoo.y,optSta.TZon)
-    annotation (Line(points={{1,10},{10,10},{10,7},{38,7}},color={0,0,127}));
-  connect(TRoo.y,dT.u1)
-    annotation (Line(points={{1,10},{6,10},{6,34},{-146,34},{-146,16},{-142,16}},color={0,0,127}));
+    annotation (Line(points={{1,10},{10,10},{10,6},{38,6}},color={0,0,127}));
   connect(TSetCooOcc.y,optSta.TSetZonCoo)
-    annotation (Line(points={{2,70},{10,70},{10,13},{38,13}},color={0,0,127}));
+    annotation (Line(points={{2,70},{10,70},{10,14},{38,14}},color={0,0,127}));
   connect(optSta.optOn,booToRea1.u)
     annotation (Line(points={{62,6},{70,6},{70,10},{78,10}},color={255,0,255}));
   connect(add1.y,conPID1.u_s)
@@ -132,8 +124,6 @@ equation
     annotation (Line(points={{62,6},{70,6},{70,50},{78,50}},color={255,0,255}));
   connect(add2.y,conPID.u_s)
     annotation (Line(points={{162,50},{178,50}},color={0,0,127}));
-  connect(conPID.u_m,dT.u1)
-    annotation (Line(points={{190,38},{190,34},{-146,34},{-146,16},{-142,16}},color={0,0,127}));
   connect(conPID1.y,QCoo.u)
     annotation (Line(points={{202,10},{210,10},{210,-80},{-110,-80},{-110,-30},{-102,-30}},color={0,0,127}));
   connect(conPID.y,QHea.u)
@@ -143,11 +133,9 @@ equation
   connect(QHea.y,mulSum.u[3])
     annotation (Line(points={{-78,-100},{-68,-100},{-68,8.66667},{-62,8.66667}},color={0,0,127}));
   connect(TOutBase.y,TOut.u1)
-    annotation (Line(points={{-186,-10},{-178,-10},{-178,-24},{-172,-24}},color={0,0,127}));
-  connect(TOut.y,dT.u2)
-    annotation (Line(points={{-148,-30},{-146,-30},{-146,4},{-142,4}},color={0,0,127}));
+    annotation (Line(points={{-190,80},{-182,80},{-182,66},{-176,66}},    color={0,0,127}));
   connect(pul.y,TOut.u2)
-    annotation (Line(points={{-188,-50},{-176,-50},{-176,-36},{-172,-36}},color={0,0,127}));
+    annotation (Line(points={{-192,40},{-180,40},{-180,54},{-176,54}},    color={0,0,127}));
   connect(TSetCoo.y,add1.u2)
     annotation (Line(points={{102,-30},{130,-30},{130,4},{138,4}},color={0,0,127}));
   connect(occSch.occupied,TSetCoo.u)
@@ -160,6 +148,12 @@ equation
     annotation (Line(points={{102,50},{120,50},{120,56},{138,56}},color={0,0,127}));
   connect(TSetHea.y,add2.u2)
     annotation (Line(points={{102,-60},{126,-60},{126,44},{138,44}},color={0,0,127}));
+  connect(TRoo.y, conPID.u_m) annotation (Line(points={{1,10},{6,10},{6,34},{190,
+          34},{190,38}}, color={0,0,127}));
+  connect(TOut.y, dT.u1) annotation (Line(points={{-152,60},{-146,60},{-146,16},
+          {-142,16}}, color={0,0,127}));
+  connect(TRoo.y, dT.u2) annotation (Line(points={{1,10},{6,10},{6,-6},{-146,-6},
+          {-146,4},{-142,4}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=2419200,

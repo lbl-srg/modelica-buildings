@@ -6,22 +6,24 @@ input ExtendableArray table
 input Integer iSam(min=1)
     "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
 
-input Modelica.SIunits.HeatFlowRate Q_flow
+  input Modelica.Units.SI.HeatFlowRate Q_flow
     "Heat flow rate to be stored in the external object";
-input Modelica.SIunits.Time samplePeriod "Period between two samples";
-input Modelica.SIunits.Radius rExt "External radius of the cylinder";
-input Modelica.SIunits.Height hSeg "Height of the cylinder";
-input Modelica.SIunits.ThermalConductivity k "Thermal conductivity of the soil";
-input Modelica.SIunits.Density d "Density of the soil";
-input Modelica.SIunits.SpecificHeatCapacity c
+  input Modelica.Units.SI.Time samplePeriod "Period between two samples";
+  input Modelica.Units.SI.Radius rExt "External radius of the cylinder";
+  input Modelica.Units.SI.Height hSeg "Height of the cylinder";
+  input Modelica.Units.SI.ThermalConductivity k
+    "Thermal conductivity of the soil";
+  input Modelica.Units.SI.Density d "Density of the soil";
+  input Modelica.Units.SI.SpecificHeatCapacity c
     "Specific heat capacity of the soil";
-output Modelica.SIunits.TemperatureDifference dT "Temperature drop of the soil";
+  output Modelica.Units.SI.TemperatureDifference dT
+    "Temperature drop of the soil";
 protected
- Modelica.SIunits.Time minSamplePeriod= rExt^2/(4*(k/c/d)*3.8)
+  Modelica.Units.SI.Time minSamplePeriod=rExt^2/(4*(k/c/d)*3.8)
     "Minimal length of the sampling period";
- Modelica.SIunits.HeatFlowRate QL_flow
+  Modelica.Units.SI.HeatFlowRate QL_flow
     "Intermediate variable for heat flow rate at the lower bound of the time interval";
- Modelica.SIunits.HeatFlowRate QU_flow
+  Modelica.Units.SI.HeatFlowRate QU_flow
     "Intermediate variable for heat flow rate at the upper bound of the time interval";
 
 algorithm

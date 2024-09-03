@@ -9,9 +9,9 @@ model VAVBranch "Supply branch of a VAV system"
   parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
@@ -86,8 +86,8 @@ model VAVBranch "Supply branch of a VAV system"
     "Actuator position for reheat valve (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiM_flow(
-    final k=m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiM_flow(final k=
+        m_flow_nominal*1000*15/4200/10) "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{80,2},{60,22}})));
   Modelica.Blocks.Interfaces.RealOutput y_actual "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,46},{120,66}}),

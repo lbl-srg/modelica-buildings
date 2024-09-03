@@ -5,15 +5,12 @@ block DiffusePerez
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
   parameter Real rho(min=0, max=1, final unit="1")=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false
     "Output contribution of diffuse irradiation from ground";
 
-  Modelica.Blocks.Math.Add add "Block to add radiations"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil if outSkyCon
     "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -35,14 +32,14 @@ protected
   BaseClasses.SkyBrightness skyBri "Sky brightness"
     annotation (Placement(transformation(extent={{-60,-54},{-52,-46}})));
   SolarGeometry.IncidenceAngle incAng(
-    final lat=lat,
     final azi=azi,
     final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{-86,-96},{-76,-86}})));
-
+  Modelica.Blocks.Math.Add add "Block to add radiations"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
-      points={{-71.6,-40},{-66,-40},{-66,-48.4},{-60.8,-48.4}},
+      points={{-71.6,-40},{-66,-40},{-66,-47.6},{-60.8,-47.6}},
       color={0,0,127}));
   connect(skyBri.skyBri, briCoe.skyBri) annotation (Line(
       points={{-51.6,-50},{-46,-50},{-46,-30},{-40.8,-30}},
@@ -57,13 +54,13 @@ equation
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,17.6},{-62.8,17.6}},
       color={0,0,127}));
   connect(weaBus.solZen, relAirMas.zen) annotation (Line(
-      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-40},{-80.8,-40}},
+      points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-42.4},{-80.8,-42.4}},
       color={0,0,127}));
   connect(weaBus.solZen, briCoe.zen) annotation (Line(
       points={{-100,5.55112e-16},{-86,5.55112e-16},{-86,-20},{-66,-20},{-66,-32},
           {-40.8,-32},{-40.8,-32.4}},
       color={0,0,127}));
-  connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
+  connect(weaBus.HDirNor, skyCle.HDirNor) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,22.4},{-62.8,22.4}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -78,7 +75,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.HDifHor, skyBri.HDifHor) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-51.6},{-60.8,-51.6}},
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-50},{-60.8,-50}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -107,7 +104,7 @@ equation
       points={{-31.6,-28.4},{-28,-28.4},{-28,4.2},{-4.2,4.2}},
       color={0,0,127}));
   connect(weaBus, incAng.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-90.8},{-86,-90.8}},
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-91},{-86,-91}},
       color={255,204,51},
       thickness=0.5), Text(
       textString="%first",
@@ -138,6 +135,22 @@ equation
   connect(HDifTil.HGroDifTil, HGroDifTil) annotation (Line(
       points={{44.1,-8.4},{52,-8.4},{52,-60},{110,-60}},
       color={0,0,127}));
+  connect(weaBus.solTim, skyBri.solTim) annotation (Line(
+      points={{-100,0},{-96,0},{-96,-52.4},{-60.8,-52.4}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBus.alt, relAirMas.alt) annotation (Line(
+      points={{-100,0},{-84,0},{-84,-37.6},{-80.8,-37.6}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
     defaultComponentName="HDifTil",
     Documentation(info="<html>
@@ -168,6 +181,12 @@ Solar Energy, 44(5):271-289.
 </html>", revisions="<html>
 <ul>
 <li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 November 14, 2015, by Michael Wetter:<br/>
 Added <code>min</code>, <code>max</code> and <code>unit</code>
 attributes for <code>rho</code>.
@@ -190,5 +209,5 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end DiffusePerez;

@@ -4,16 +4,16 @@ model SingleUTubeBoundaryCondition
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic matSoi
     "Thermal properties of the soil"
      annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Radius rExt=3
+  parameter Modelica.Units.SI.Radius rExt=3
     "Distance from the brine where the calculation is performed";
-  parameter Modelica.SIunits.Height hSeg=10 "Height of the segment";
-  parameter Modelica.SIunits.Temperature TExt_start=283.15
+  parameter Modelica.Units.SI.Height hSeg=10 "Height of the segment";
+  parameter Modelica.Units.SI.Temperature TExt_start=283.15
     "Initial external temperature";
-  parameter Modelica.SIunits.Time samplePeriod=604800
+  parameter Modelica.Units.SI.Time samplePeriod=604800
     "Period between two samples";
   ExtendableArray table=ExtendableArray()
     "Extentable array, used to store history of rate of heat flows";
-  Modelica.SIunits.HeatFlowRate QAve_flow
+  Modelica.Units.SI.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat flow rate at the center of the borehole, positive if heat is added to soil"
@@ -23,15 +23,15 @@ model SingleUTubeBoundaryCondition
             {106,10}}), iconTransformation(extent={{86,-10},
             {106,10}})));
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity c= matSoi.c
+  final parameter Modelica.Units.SI.SpecificHeatCapacity c=matSoi.c
     "Specific heat capacity of the soil";
-  final parameter Modelica.SIunits.ThermalConductivity k= matSoi.k
+  final parameter Modelica.Units.SI.ThermalConductivity k=matSoi.k
     "Thermal conductivity of the soil";
-  final parameter Modelica.SIunits.Density d = matSoi.d "Density of the soil";
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
-  Modelica.SIunits.Energy U
+  final parameter Modelica.Units.SI.Density d=matSoi.d "Density of the soil";
+  Modelica.Units.SI.Energy UOld "Internal energy at the previous period";
+  Modelica.Units.SI.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
-  final parameter Modelica.SIunits.Time startTime(fixed=false)
+  final parameter Modelica.Units.SI.Time startTime(fixed=false)
     "Start time of the simulation";
   Integer iSam(min=1)
     "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
@@ -71,12 +71,12 @@ annotation (
           thickness=0.5),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{40,-18},{40,22},{80,2},{40,-18}},
           lineColor={191,0,0},

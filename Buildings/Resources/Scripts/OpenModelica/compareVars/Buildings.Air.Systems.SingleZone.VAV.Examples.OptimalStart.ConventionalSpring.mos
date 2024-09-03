@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "TSetRooHea.y[1]",
+    "TSetRooCoo.y[1]",
+    "zonAHUOpt.TZon",
+    "zonAHUCon.TZon",
+    "optSta.tOpt"
+  };

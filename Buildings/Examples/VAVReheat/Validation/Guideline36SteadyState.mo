@@ -2,11 +2,13 @@ within Buildings.Examples.VAVReheat.Validation;
 model Guideline36SteadyState
   "Validation of detailed model that is at steady state with constant weather data"
   extends Buildings.Examples.VAVReheat.Guideline36(
-    redeclare replaceable Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
-      final lat=lat,
-      final sampleModel=sampleModel,
-      gai(K=0*[0.4; 0.4; 0.2])),
-      weaDat(
+    flo(
+      gai(K=0*[0.4; 0.4; 0.2]),
+      use_windPressure=false,
+      sampleModel=false),
+    hvac(
+      occSch(occupancy=3600*24*365*{1,2}, period=2*3600*24*365)),
+    weaDat(
       pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       ceiHeiSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       totSkyCovSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -19,26 +21,22 @@ model Guideline36SteadyState
       winSpeSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       winDirSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-      HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor),
-      use_windPressure=false,
-      sampleModel=false,
-      occSch(
-        occupancy=3600*24*365*{1,2},
-        period=2*3600*24*365));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant solRad(k=0) "Solar radiation"
-    annotation (Placement(transformation(extent={{-400,160},{-380,180}})));
+      HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant solRad(k=0) "Solar radiation"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={-70,-20})));
 equation
-  connect(weaDat.HDifHor_in, solRad.y) annotation (Line(points={{-361,170.5},{-370,
-          170.5},{-370,170},{-378,170}}, color={0,0,127}));
-  connect(weaDat.HGloHor_in, solRad.y) annotation (Line(points={{-361,167},{-370,
-          167},{-370,170},{-378,170}}, color={0,0,127}));
+  connect(weaDat.HDifHor_in, solRad.y) annotation (Line(points={{-91,0.5},{-96,
+          0.5},{-96,-20},{-82,-20}},     color={0,0,127}));
+  connect(weaDat.HGloHor_in, solRad.y) annotation (Line(points={{-91,-3},{-96,
+          -3},{-96,-20},{-82,-20}},    color={0,0,127}));
   annotation (
     experiment(
       StopTime=604800,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Validation/Guideline36SteadyState.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-420,-300},{1360,660}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
@@ -49,6 +47,18 @@ no HVAC operation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class

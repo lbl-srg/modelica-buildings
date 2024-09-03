@@ -12,13 +12,16 @@ LimiterTotalSkyCover
 LimiterWindDirection
 LimiterWindSpeed
 LocalCivilTime
+PartialConvertTime
 PartialLimiter
 PartialLimiterMin
 SolarTime
 SourceSelector
 SourceSelectorRadiation
 getAbsolutePath
+getAltitudeLocationTMY3
 getHeaderElementTMY3
+getLastHeaderElementTMY3
 getLatitudeTMY3
 getLongitudeTMY3
 getTimeSpanTMY3

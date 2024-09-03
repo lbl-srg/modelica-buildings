@@ -2,22 +2,22 @@ within Buildings.Fluid.Sources;
 model MassFlowSource_WeatherData
   "Ideal flow source that produces a prescribed mass flow with prescribed
   trace substances, outside specific enthalpy and mass fraction "
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  extends Buildings.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    annotation(Evaluate=true);
+  parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable=not use_m_flow_in));
   parameter Medium.ExtraProperty C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
     annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s") if
-       use_m_flow_in "Prescribed mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput m_flow_in(final unit="kg/s")
+    if use_m_flow_in "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-120,60},{-80,100}}),
       iconTransformation(extent={{-120,60},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC](
@@ -128,7 +128,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -140,20 +140,20 @@ equation
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_C_in,
           extent={{-155,-98},{-35,-126}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),        Text(
           extent={{-161,110},{139,150}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate and trace
@@ -186,6 +186,18 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
 <li>
 November 14, 2019, by Michael Wetter:<br/>
 Removed duplicate connector.<br/>

@@ -40,36 +40,42 @@ block OptimalStart
     displayUnit="degC",
     min=200) if computeHeating
     "Zone heating setpoint temperature during occupancy"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-180,-50},{-140,-10}}),iconTransformation(extent={{-140,-50},{-100,-10}})));
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonCoo(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) if computeCooling
     "Zone cooling setpoint temperature during occupancy"
-    annotation (Placement(transformation(extent={{-180,10},{-140,50}}),iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time until next occupancy"
-    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOpt(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Optimal start time duration of HVAC system"
-    annotation (Placement(transformation(extent={{140,20},{180,60}}),iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{140,20},{180,60}}),
+      iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput optOn
     "Outputs true if the HVAC system remains in the optimal start period"
-    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
@@ -86,42 +92,37 @@ block OptimalStart
     final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  CDL.Continuous.GreaterThreshold hysSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold hysSta(
     t=60,
     h=60)
     "Hysteresis to activate the optimal start boolean output"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=-tOptMax,
-    k=1)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    p=-tOptMax)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Get the optimal start boolean output"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTHea(
-    final k1=+1,
-    final k2=-1) if computeHeating
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTHea if computeHeating
     "Temperature difference between heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTCoo(
-    final k1=+1,
-    final k2=-1) if computeCooling
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTCoo if computeCooling
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Stop calculation"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
     final k=0) if not computeHeating
     "Becomes effective when optimal start is only for heating"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=0) if not computeCooling
     "Becomes effective when optimal start is only for cooling"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
@@ -136,11 +137,11 @@ protected
 
 equation
   connect(TSetZonCoo,dTCoo.u2)
-    annotation (Line(points={{-160,30},{-132,30},{-132,-56},{-82,-56}},color={0,0,127}));
+    annotation (Line(points={{-160,40},{-132,40},{-132,-56},{-82,-56}},color={0,0,127}));
   connect(TZon,dTCoo.u1)
-    annotation (Line(points={{-160,-30},{-126,-30},{-126,-44},{-82,-44}},color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-90,-40},{-90,-44},{-82,-44}},  color={0,0,127}));
   connect(TZon,dTHea.u2)
-    annotation (Line(points={{-160,-30},{-126,-30},{-126,74},{-82,74}},color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-122,-40},{-122,74},{-82,74}},color={0,0,127}));
   connect(TSetZonHea,dTHea.u1)
     annotation (Line(points={{-160,80},{-126,80},{-126,86},{-82,86}},color={0,0,127}));
   connect(max.y,tOpt)
@@ -333,7 +334,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\
           color={238,46,47}),
         Text(
           extent={{-68,56},{-44,40}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="TSet"),
         Polygon(
           points={{-70,92},{-78,70},{-62,70},{-70,92}},
@@ -357,7 +358,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\
           color={28,108,200},
           pattern=LinePattern.Dot),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Ellipse(
@@ -375,8 +376,8 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\
           fillPattern=FillPattern.Solid),
         Text(
           extent={{226,106},{106,56}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(tOpt,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}));
 end OptimalStart;

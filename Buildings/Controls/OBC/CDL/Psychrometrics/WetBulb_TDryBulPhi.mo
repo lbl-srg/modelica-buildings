@@ -1,18 +1,18 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
 block WetBulb_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput TWetBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
@@ -20,6 +20,8 @@ block WetBulb_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
+  constant Real uniCon(final unit="1/rad") = 1
+    "Unit conversion to satisfy unit check";
   Real TDryBul_degC(
     final unit="degC",
     displayUnit="degC")
@@ -31,12 +33,13 @@ protected
 equation
   TDryBul_degC=TDryBul-273.15;
   rh_per=100*phi;
-  TWetBul=273.15+TDryBul_degC*Modelica.Math.atan(
-    0.151977*sqrt(
-      rh_per+8.313659))+Modelica.Math.atan(
-    TDryBul_degC+rh_per)-Modelica.Math.atan(
-    rh_per-1.676331)+0.00391838*rh_per^(1.5)*Modelica.Math.atan(
-    0.023101*rh_per)-4.686035;
+  TWetBul=273.15
+    + TDryBul_degC * uniCon * Modelica.Math.atan(0.151977*sqrt(rh_per+8.313659))
+    + uniCon * (
+      Modelica.Math.atan(TDryBul_degC+rh_per)
+      - Modelica.Math.atan(rh_per-1.676331)
+      + 0.00391838*rh_per^(1.5)*Modelica.Math.atan(0.023101*rh_per))
+      -4.686035;
   annotation (
     defaultComponentName="wetBul",
     Icon(
@@ -47,7 +50,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -55,21 +58,21 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-90,-44},{-70,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(
           points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -85,7 +88,7 @@ equation
           points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -138,8 +141,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
       revisions="<html>
 <ul>
 <li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
+<li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

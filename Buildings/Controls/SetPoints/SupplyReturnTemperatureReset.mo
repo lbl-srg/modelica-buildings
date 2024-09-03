@@ -4,27 +4,26 @@ block SupplyReturnTemperatureReset
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real m = 1.3 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
+  parameter Modelica.Units.SI.Temperature TSup_nominal "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
+  parameter Modelica.Units.SI.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15
-    "Room temperature"
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
+  parameter Modelica.Units.SI.Temperature TRoo_nominal=293.15
+    "Room temperature" annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Temperature TOut_nominal "Outside temperature"
     annotation (Dialog(group="Nominal conditions"));
 
   parameter Boolean use_TRoo_in = false
     "Get the room temperature set point from the input connector"
-    annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.Temperature TRoo = 293.15
+    annotation(Evaluate=true);
+  parameter Modelica.Units.SI.Temperature TRoo=293.15
     "Fixed value of room temperature set point"
-    annotation(Dialog(enable = not use_TRoo_in));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
-    "Offset for heating curve";
+    annotation (Dialog(enable=not use_TRoo_in));
+  parameter Modelica.Units.SI.TemperatureDifference dTOutHeaBal(displayUnit="K")
+     = 8 "Offset for heating curve";
   Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
-                                               final unit = "K", displayUnit = "degC", min=0) if
-          use_TRoo_in "Room air temperature set point"
+                                               final unit = "K", displayUnit = "degC", min=0)
+       if use_TRoo_in "Room air temperature set point"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
@@ -45,9 +44,10 @@ protected
                                                         final unit = "K", displayUnit = "degC", min=0)
     "Needed to connect to conditional connector";
   Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
-  Modelica.SIunits.Temperature TOutOffSet
+  Modelica.Units.SI.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account room heat gains)";
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
+  parameter Modelica.Units.SI.Temperature TOutOffSet_nominal=TOut_nominal +
+      dTOutHeaBal
     "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
 
 equation
@@ -86,8 +86,14 @@ shift the heating curve.
 </html>", revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 January 03, 2020, by Jianjun Hu:<br/>
-Changed name from <code>HotWaterTemperatureReset</code> to 
+Changed name from <code>HotWaterTemperatureReset</code> to
 <code>SupplyReturnTemperatureReset</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1273\">#1273</a>.
@@ -134,19 +140,19 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{40,86},{90,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{42,-30},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet")}));
 end SupplyReturnTemperatureReset;

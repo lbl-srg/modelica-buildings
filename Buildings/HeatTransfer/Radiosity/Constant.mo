@@ -29,7 +29,7 @@ equation
                                   color={0,0,0}),
     Text(
       extent={{-150,-150},{150,-110}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="k=%k")}),
 Documentation(info="<html>
 <p>

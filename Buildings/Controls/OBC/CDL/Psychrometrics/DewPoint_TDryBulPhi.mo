@@ -1,19 +1,19 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
 block DewPoint_TDryBulPhi
   "Block to compute the dew point temperature based on relative humidity"
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1,
     unit="1")
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput TDewPoi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
@@ -61,7 +61,7 @@ ASHRAE Handbook Fundamentals, p. 1.9, equation 39.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -90,10 +90,10 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -104,11 +104,11 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,-46},{-70,-72}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Polygon(
           points={{86,-74},{76,-72},{76,-76},{86,-74}},
@@ -117,7 +117,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -125,7 +125,7 @@ First implementation.
           points={{-48,84},{-48,-74}}),
         Text(
           extent={{60,14},{98,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDewPoi"),
         Line(
           points={{82,-72},{-66,-72}}),

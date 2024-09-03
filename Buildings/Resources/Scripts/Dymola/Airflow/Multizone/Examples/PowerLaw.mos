@@ -1,0 +1,2 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.PowerLaw", stopTime=1, tolerance=1e-06, resultFile="PowerLaw2");
+createPlot(id=1, position={126, 35, 1073, 627}, x="pow_m_flow.dp", y={"pow_2dat.V_flow", "pow_1dat.V_flow", "pow_V_flow.V_flow", "pow_m_flow.V_flow"}, range={-1.0, 1.0, -3.0000000000000008E-05, 3.500000000000001E-05}, erase=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="Pa", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});

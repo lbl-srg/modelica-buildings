@@ -17,7 +17,7 @@ model CFD
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
@@ -26,9 +26,8 @@ model CFD
   parameter Boolean useCFD = true
     "Set to false to deactivate the CFD computation and use instead yFixed as output"
     annotation(Dialog(group = "CFD"), Evaluate = true);
-  parameter Modelica.SIunits.Time samplePeriod(min=100*Modelica.Constants.eps)
-    "Sample period of component"
-    annotation(Dialog(group = "Sampling"));
+  parameter Modelica.Units.SI.Time samplePeriod(min=100*Modelica.Constants.eps)
+    "Sample period of component" annotation (Dialog(group="Sampling"));
   parameter Real uSha_fixed[nConExtWin] = zeros(nConExtWin)
     "Constant control signal for the shading device (0: unshaded; 1: fully shaded)";
   parameter String sensorName[:]
@@ -41,8 +40,8 @@ model CFD
     annotation (Dialog(group = "CFD",
         loadSelector(caption=
             "Select CFD input file")));
-  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen] if
-       haveSensor "Sensor for output from CFD"
+  Modelica.Blocks.Interfaces.RealOutput yCFD[nSen]
+    if haveSensor "Sensor for output from CFD"
     annotation (Placement(transformation(
      extent={{460,110},{480,130}}), iconTransformation(extent={{200,110},{220,130}})));
 protected
@@ -53,8 +52,8 @@ protected
     "Flag, true if the model has at least one sensor";
   final parameter Integer nSen(min=0) = size(sensorName, 1)
     "Number of sensors that are connected to CFD output";
-  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed) if
-       haveShade "Constant signal for shade"
+  Modelica.Blocks.Sources.Constant conSha[nConExtWin](final k=uSha_fixed)
+    if haveShade "Constant signal for shade"
     annotation (Placement(transformation(extent={{-260,170},{-240,190}})));
 
 equation
@@ -103,19 +102,19 @@ equation
           fileName="modelica://Buildings/Resources/Images/ThermalZones/Detailed/cfd.png"),
         Text(
           extent={{162,98},{196,140}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCFD"),
         Text(
           extent={{-86,-14},{0,16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="air"),
         Text(
           extent={{-102,-50},{-22,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="radiation"),
         Text(
           extent={{-114,-134},{-36,-116}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="surface")}),
     Documentation(info="<html>
 <p>
@@ -139,6 +138,12 @@ Ph.D. Thesis, School of Mechanical Engineering, Purdue University, 2010.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 May 2, 2016, by Michael Wetter:<br/>
 Refactored implementation of latent heat gain.

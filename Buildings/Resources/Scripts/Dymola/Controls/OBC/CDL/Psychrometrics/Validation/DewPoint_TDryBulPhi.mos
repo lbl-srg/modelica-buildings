@@ -1,5 +1,7 @@
 simulateModel("Buildings.Controls.OBC.CDL.Psychrometrics.Validation.DewPoint_TDryBulPhi", stopTime=1.0, method="Cvode", tolerance=1e-06, resultFile="DewPoint_TDryBulPhi1");
-createPlot(id=1, position={15, 10, 590, 700}, subPlot=1, y={"dewBulPhi.TDewPoi","TDewPoi.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
-createPlot(id=1, position={15, 10, 590, 700}, subPlot=2, y={"dewBulPhi1.TDewPoi","TDewPoi1.T"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{28,108,200}});
-createPlot(id=2, position={620, 10, 590, 700}, subPlot=1, y={"add.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
-createPlot(id=2, position={620, 10, 590, 700}, subPlot=2, y={"add1.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={13, 9, 900, 1100}, y={"dewBulPhi.TDryBul"}, range={0.0, 1.0, 260.0, 340.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=1, position={13, 9, 900, 1100}, y={"dewBulPhi.phi"}, range={0.0, 1.0, -0.2, 1.2}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={13, 9, 900, 1100}, y={"dewBulPhi.TDewPoi"}, range={0.0, 1.0, 200.0, 320.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=2, position={927, 7, 860, 1100}, y={"dewBulPhi1.TDryBul"}, range={0.0, 1.0, 270.0, 320.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=2, position={927, 7, 860, 1100}, y={"dewBulPhi1.phi"}, range={0.0, 1.0, 0.4, 0.46}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={927, 7, 860, 1100}, y={"dewBulPhi1.TDewPoi"}, range={0.0, 1.0, 260.0, 300.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});

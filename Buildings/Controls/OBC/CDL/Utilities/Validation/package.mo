@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Utilities;
-package Validation
-  "Collection of models that validate the utilities blocks of the CDL"
+package Validation "Collection of models that validate the utilities blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

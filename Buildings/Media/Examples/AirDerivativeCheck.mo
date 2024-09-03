@@ -3,19 +3,19 @@ model AirDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
    package Medium = Buildings.Media.Air;
-    Modelica.SIunits.Temperature T "Temperature";
-    Modelica.SIunits.MassFraction X[1] "Water vapor mass fraction";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.MassFraction X[1] "Water vapor mass fraction";
 
-    Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteSym "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
-    Modelica.SIunits.SpecificHeatCapacity cpSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cpCod "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvCod "Specific heat capacity";
+  Modelica.Units.SI.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hSteSym "Water vapor enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hSteCod "Water vapor enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hAirSym "Dry air enthalpy";
+  Modelica.Units.SI.SpecificEnthalpy hAirCod "Dry air enthalpy";
+  Modelica.Units.SI.SpecificHeatCapacity cpSym "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cpCod "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cvSym "Specific heat capacity";
+  Modelica.Units.SI.SpecificHeatCapacity cvCod "Specific heat capacity";
     constant Real convT(unit="K/s3") = 270
     "Conversion factor to satisfy unit check";
     constant Real convX(unit="1/s3") = 0.01

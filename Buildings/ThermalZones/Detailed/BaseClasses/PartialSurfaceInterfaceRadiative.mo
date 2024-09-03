@@ -4,24 +4,27 @@ partial model PartialSurfaceInterfaceRadiative
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialSurfaceInterface;
 
 protected
-  parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.absIR_b
+  parameter Modelica.Units.SI.Emissivity epsConExt[NConExt]=datConExt.layers.absIR_b
     "Absorptivity of exterior constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
+  parameter Modelica.Units.SI.Emissivity epsConExtWinOpa[NConExtWin]=
+      datConExtWin.layers.absIR_b
     "Absorptivity of opaque part of exterior constructions that contain a window";
-  parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
-    {(datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b) for i in 1:NConExtWin}
+  parameter Modelica.Units.SI.Emissivity epsConExtWinUns[NConExtWin]={(
+      datConExtWin[i].glaSys.glass[size(datConExtWin[i].glaSys.glass, 1)].absIR_b)
+      for i in 1:NConExtWin}
     "Absorptivity of unshaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
+  parameter Modelica.Units.SI.Emissivity epsConExtWinSha[NConExtWin]=
+      datConExtWin.glaSys.shade.absIR_a
     "Absorptivity of shaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.absIRFra
-    "Absorptivity of window frame";
-  parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.absIR_a
+  parameter Modelica.Units.SI.Emissivity epsConExtWinFra[NConExtWin]=
+      datConExtWin.glaSys.absIRFra "Absorptivity of window frame";
+  parameter Modelica.Units.SI.Emissivity epsConPar_a[NConPar]=datConPar.layers.absIR_a
     "Absorptivity of partition constructions surface a";
-  parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.absIR_b
+  parameter Modelica.Units.SI.Emissivity epsConPar_b[NConPar]=datConPar.layers.absIR_b
     "Absorptivity of partition constructions surface b";
-  parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.absIR_b
+  parameter Modelica.Units.SI.Emissivity epsConBou[NConBou]=datConBou.layers.absIR_b
     "Absorptivity of constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
+  parameter Modelica.Units.SI.Emissivity epsSurBou[NSurBou]=surBou.absIR
     "Absorptivity of surface models of constructions that are modeled outside of this room";
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
@@ -31,7 +34,7 @@ protected
                                       graphics={
         Text(
           extent={{-234,328},{242,244}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
         Documentation(info="<html>
 <p>

@@ -7,7 +7,6 @@ model ChimneyShaftWithVolume
   Buildings.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     redeclare package Medium = Medium,
     m_flow_nominal=0.05,

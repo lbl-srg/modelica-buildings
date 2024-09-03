@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Sources;
 model FixedTemperature "Fixed temperature boundary condition in Kelvin"
 
-  parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
+  parameter Modelica.Units.SI.Temperature T "Fixed temperature at port";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
             -10},{110,10}})));
 equation
@@ -13,10 +13,10 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-150,-110},{150,-140}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T=%T"),
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -26,7 +26,7 @@ equation
           fillPattern=FillPattern.Backward),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Line(
           points={{-52,0},{56,0}},
@@ -56,7 +56,7 @@ i.e., it defines a fixed temperature as a boundary condition.
           thickness=0.5),
         Text(
           extent={{0,0},{-100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="K"),
         Polygon(
           points={{52,-20},{52,20},{90,0},{52,-20}},

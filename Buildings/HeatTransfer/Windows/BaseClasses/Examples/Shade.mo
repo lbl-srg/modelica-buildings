@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model Shade "Test model for exterior shade heat transfer"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Area A=1 "Window surface area";
+  parameter Modelica.Units.SI.Area A=1 "Window surface area";
   parameter Boolean linearize = true "Set to true to linearize emissive power";
 
   Buildings.HeatTransfer.Windows.BaseClasses.ShadeRadiation extShaRad(

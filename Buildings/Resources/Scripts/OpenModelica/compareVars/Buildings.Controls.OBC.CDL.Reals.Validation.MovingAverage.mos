@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "sinInpNoDel.y",
+    "movAve1.y",
+    "movAve2.y",
+    "movAve3.y",
+    "movAve4.y",
+    "sinInp50sDel.y",
+    "movAve6.y",
+    "movAve7.y",
+    "sinInp100sDel.y",
+    "movAve8.y",
+    "movAve9.y"
+  };

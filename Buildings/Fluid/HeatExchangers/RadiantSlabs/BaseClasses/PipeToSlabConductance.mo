@@ -9,7 +9,7 @@ model PipeToSlabConductance
     heatTransfer=
     Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.HeatTransfer.EpsilonNTU
     "Model for heat transfer between fluid and slab";
-  parameter Modelica.SIunits.Area APip "Pipe inside surface area";
+  parameter Modelica.Units.SI.Area APip "Pipe inside surface area";
 
   parameter
     kc_overall_IN_con kc_IN_con "Parameters for convective heat transfer calculation"
@@ -24,12 +24,12 @@ model PipeToSlabConductance
     m_flow=m_flow) "Variables for convective heat transfer calculation"
     annotation (Placement(transformation(extent={{-90,68},{-78,80}})));
 
-  parameter Modelica.SIunits.ThermalResistance RFic
+  parameter Modelica.Units.SI.ThermalResistance RFic
     "Average fictitious thermal resistance between pipe surface and plane that contains pipe";
-  parameter Modelica.SIunits.ThermalResistance RWal
+  parameter Modelica.Units.SI.ThermalResistance RWal
     "Thermal resistance through the pipe wall";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput m_flow(unit="kg/s")
@@ -56,14 +56,14 @@ model PipeToSlabConductance
       Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{86,-10},{106,10}})));
 
-  Modelica.SIunits.TemperatureDifference dT "= solid.T - fluid.T";
+  Modelica.Units.SI.TemperatureDifference dT "= solid.T - fluid.T";
 
-  Modelica.SIunits.CoefficientOfHeatTransfer hCon
+  Modelica.Units.SI.CoefficientOfHeatTransfer hCon
     "Convective heat transfer coefficient";
-  Modelica.SIunits.ThermalResistance RTot
+  Modelica.Units.SI.ThermalResistance RTot
     "Thermal resistance between the fluid and the fictious plane of heat transfer";
 
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
+  Modelica.Units.SI.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
 
   // The records kc_overall_IN_con and kc_turbulent_IN_con are implemented
   // because in the Modelica Standard Library 3.2.2, they have a bug
@@ -118,8 +118,9 @@ record kc_turbulent_IN_con
     "Choice of considering surface roughness"
     annotation (Dialog(group="Choices"));
 
-  Modelica.SIunits.Length K=0 "Roughness (average height of surface asperities)" annotation (
-      Dialog(group="Straight pipe", enable=roughness == Modelica.Fluid.Dissipation.Utilities.Types.Roughness.Considered));
+    Modelica.Units.SI.Length K=0
+      "Roughness (average height of surface asperities)" annotation (Dialog(
+          group="Straight pipe", enable=roughness == Modelica.Fluid.Dissipation.Utilities.Types.Roughness.Considered));
 
 annotation (  Documentation(info="<html>
 <p>
@@ -150,8 +151,8 @@ end kc_turbulent_IN_con;
 
   Medium.ThermodynamicState fluSta = Medium.setState_pTX(p=Medium.p_default, T=fluid.T, X=Medium.X_default)
     "State of the medium";
-  Modelica.SIunits.SpecificHeatCapacity c_p = Medium.specificHeatCapacityCp(fluSta)
-    "Specific heat capacity of the fluid";
+  Modelica.Units.SI.SpecificHeatCapacity c_p=Medium.specificHeatCapacityCp(
+      fluSta) "Specific heat capacity of the fluid";
 equation
   hCon = Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC(
      IN_con=kc_IN_con, IN_var=kc_IN_var);
@@ -196,7 +197,7 @@ equation
         Line(points={{52,30},{72,20}}, color={191,0,0}),
         Text(
           extent={{-145,140},{155,100}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

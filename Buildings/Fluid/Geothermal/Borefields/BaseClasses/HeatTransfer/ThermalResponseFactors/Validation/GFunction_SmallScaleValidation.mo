@@ -6,12 +6,16 @@ model GFunction_SmallScaleValidation
   parameter Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Validation.BaseClasses.SmallScale_Borefield borFieDat
     "Record of borehole configuration data";
   parameter Integer nBor = borFieDat.conDat.nBor "Number of boreholes";
-  parameter Modelica.SIunits.Position cooBor[nBor, 2] = borFieDat.conDat.cooBor
+  parameter Modelica.Units.SI.Position cooBor[nBor,2]=borFieDat.conDat.cooBor
     "Coordinates of boreholes";
-  parameter Modelica.SIunits.Height hBor = borFieDat.conDat.hBor "Borehole length";
-  parameter Modelica.SIunits.Height dBor = borFieDat.conDat.dBor "Borehole buried depth";
-  parameter Modelica.SIunits.Radius rBor = borFieDat.conDat.rBor "Borehole radius";
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = borFieDat.soiDat.kSoi/(borFieDat.soiDat.dSoi*borFieDat.soiDat.cSoi)
+  parameter Modelica.Units.SI.Height hBor=borFieDat.conDat.hBor
+    "Borehole length";
+  parameter Modelica.Units.SI.Height dBor=borFieDat.conDat.dBor
+    "Borehole buried depth";
+  parameter Modelica.Units.SI.Radius rBor=borFieDat.conDat.rBor
+    "Borehole radius";
+  parameter Modelica.Units.SI.ThermalDiffusivity aSoi=borFieDat.soiDat.kSoi/(
+      borFieDat.soiDat.dSoi*borFieDat.soiDat.cSoi)
     "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
   parameter Integer nTimSho = 26 "Number of time steps in short time region";
@@ -21,21 +25,33 @@ model GFunction_SmallScaleValidation
   final parameter Integer nTimTot=nTimSho+nTimLon;
   final parameter Real[nTimTot] gFun(each fixed=false);
   final parameter Real[nTimTot] lntts(each fixed=false);
-  final parameter Modelica.SIunits.Time[nTimTot] tGFun(each fixed=false);
+  final parameter Modelica.Units.SI.Time[nTimTot] tGFun(each fixed=false);
   final parameter Real[nTimTot] dspline(each fixed=false);
 
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";
 
+  parameter Integer nClu=1 "Number of clusters to be generated";
+  parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
+  parameter Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
+
   discrete Integer k "Current interpolation interval";
-  discrete Modelica.SIunits.Time t1 "Previous value of time for interpolation";
-  discrete Modelica.SIunits.Time t2 "Next value of time for interpolation";
+  discrete Modelica.Units.SI.Time t1 "Previous value of time for interpolation";
+  discrete Modelica.Units.SI.Time t2 "Next value of time for interpolation";
   discrete Real gFun1 "Previous g-function value for interpolation";
   discrete Real gFun2 "Next g-function value for interpolation";
-  parameter Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Bore field characteristic time";
+  parameter Modelica.Units.SI.Time ts=hBor^2/(9*aSoi)
+    "Bore field characteristic time";
 
 initial equation
   // Evaluate g-function for the specified bore field configuration
+  (labels, cluSiz) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
+    nBor = nBor,
+    cooBor = cooBor,
+    hBor = hBor,
+    dBor = dBor,
+    rBor = rBor,
+    nClu = nClu);
   (tGFun,gFun) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
@@ -47,7 +63,10 @@ initial equation
       nSeg = nSeg,
       nTimSho = nTimSho,
       nTimLon = nTimLon,
-      ttsMax = ttsMax);
+      ttsMax = ttsMax,
+      nClu = nClu,
+      labels = labels,
+      cluSiz = cluSiz);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
   dspline = Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -97,6 +116,11 @@ g-functions of a small-scale geothermal borehole</i>. Geothermics 56: 60-71.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added parameters to define the number of clusters for the method of Prieto and
+Cimmino (2021).
+</li>
 <li>
 July 18, 2018, by Massimo Cimmino:<br/>
 First implementation.

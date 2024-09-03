@@ -2,7 +2,7 @@ within Buildings.ThermalZones.ReducedOrder.SolarGain;
 model CorrectionGDoublePane
   "Double pane window solar correction"
   extends BaseClasses.PartialCorrectionG;
-  import con = Modelica.SIunits.Conversions;
+  import con = Modelica.Units.Conversions;
 
   // Parameters for the transmission correction factor based on VDI 6007 Part 3
   // A0 to A6 are experimental constants VDI 6007 Part 3 page 20
@@ -20,65 +20,61 @@ protected
     "Constant 5 to calculate reference transmission";
   parameter Real A6=4.74*10^(-12)
     "Constant 6 to calculate reference transmission";
-  parameter Modelica.SIunits.TransmissionCoefficient g_dir0=0.7537
-    "Reference vertical parallel transmission coefficient for direct radiation
+  parameter Modelica.Units.SI.TransmissionCoefficient g_dir0=0.7537 "Reference vertical parallel transmission coefficient for direct radiation
     for double pane window";
-  parameter Modelica.SIunits.TransmissionCoefficient Ta_diff = 0.84
-    "Energetic degree of transmission for diffuse radiation for uniformly
+  parameter Modelica.Units.SI.TransmissionCoefficient Ta_diff=0.84 "Energetic degree of transmission for diffuse radiation for uniformly
     overcast sky";
-  parameter Modelica.SIunits.TransmissionCoefficient Tai_diff=0.903
+  parameter Modelica.Units.SI.TransmissionCoefficient Tai_diff=0.903
     "Pure degree of transmission for diffuse radiation";
-  parameter Modelica.SIunits.TransmissionCoefficient Ta1_diff= Ta_diff*Tai_diff
+  parameter Modelica.Units.SI.TransmissionCoefficient Ta1_diff=Ta_diff*Tai_diff
     "Degreee of transmission for single pane window";
-  parameter Modelica.SIunits.ReflectionCoefficient rho_T1_diff=1-(Ta_diff)
+  parameter Modelica.Units.SI.ReflectionCoefficient rho_T1_diff=1 - (Ta_diff)
     "Part of degree of transmission for single pane window related to Ta1_diff";
-  parameter Modelica.SIunits.ReflectionCoefficient rho_11_diff=rho_T1_diff/
-    (2-(rho_T1_diff))
-    "Part of degree of transmission for single pane window
+  parameter Modelica.Units.SI.ReflectionCoefficient rho_11_diff=rho_T1_diff/(2
+       - (rho_T1_diff)) "Part of degree of transmission for single pane window
     related to rho_T1_diff";
-  parameter Modelica.SIunits.ReflectionCoefficient rho_1_diff= rho_11_diff+
-    (((1-rho_11_diff)*Tai_diff)^2*rho_11_diff)/(1-(rho_11_diff*Tai_diff)^2)
+  parameter Modelica.Units.SI.ReflectionCoefficient rho_1_diff=rho_11_diff + ((
+      (1 - rho_11_diff)*Tai_diff)^2*rho_11_diff)/(1 - (rho_11_diff*Tai_diff)^2)
     "Degree of reflection for single pane window";
-  parameter Modelica.SIunits.ReflectionCoefficient XN2_diff=1-rho_1_diff^2
+  parameter Modelica.Units.SI.ReflectionCoefficient XN2_diff=1 - rho_1_diff^2
     "Calculation factor to simplify equations";
-  parameter Modelica.SIunits.TransmissionCoefficient Ta2_diff=(Ta1_diff^2)/
-    XN2_diff "Energetic dregree of transmission for second pane";
-  parameter Modelica.SIunits.Emissivity a1_diff=1-Ta1_diff-rho_1_diff
+  parameter Modelica.Units.SI.TransmissionCoefficient Ta2_diff=(Ta1_diff^2)/
+      XN2_diff "Energetic dregree of transmission for second pane";
+  parameter Modelica.Units.SI.Emissivity a1_diff=1 - Ta1_diff - rho_1_diff
     "Degree of absorption for single pane window";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer Q21_diff=
-    a1_diff*(1+(Ta1_diff*rho_1_diff/XN2_diff))*UWin/25
-    "Coefficient of heat transfer for exterior pane of double pane window";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer Q22_diff=
-    a1_diff*(Ta1_diff/XN2_diff)*(1-(UWin/7.7))
-    "Coefficient of heat transfer for interior pane of double pane window";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer Qsek2_diff=
-    Q21_diff+Q22_diff
-    "Overall coefficient of heat transfer for double pane window";
-  parameter Modelica.SIunits.TransmissionCoefficient CorG_diff=
-    (Ta2_diff+Qsek2_diff)/g_dir0
+  parameter Real Q21_diff=a1_diff*(1 + (
+      Ta1_diff*rho_1_diff/XN2_diff))*UWin/25
+    "Auxiliary parameter for heat transfer of exterior pane of double pane window";
+  parameter Real Q22_diff=a1_diff*(
+      Ta1_diff/XN2_diff)*(1 - (UWin/7.7))
+    "Auxiliary parameter for heat transfer of interior pane of double pane window";
+  parameter Real Qsek2_diff=Q21_diff + Q22_diff
+    "Overall auxiliary parameter for heat transfer of double pane window";
+  parameter Modelica.Units.SI.TransmissionCoefficient CorG_diff=(Ta2_diff +
+      Qsek2_diff)/g_dir0
     "Transmission coefficient correction factor for diffuse radiation";
-  parameter Modelica.SIunits.TransmissionCoefficient CorG_gr=
-    (Ta2_diff+Qsek2_diff)/g_dir0
+  parameter Modelica.Units.SI.TransmissionCoefficient CorG_gr=(Ta2_diff +
+      Qsek2_diff)/g_dir0
     "Transmission coefficient correction factor for irradiations from ground";
 
   //Calculating the correction factor for direct solar radiation
-  Modelica.SIunits.TransmissionCoefficient[n] Ta_dir
+  Modelica.Units.SI.TransmissionCoefficient[n] Ta_dir
     "Energetic degree of transmission for direct radiation";
-  Modelica.SIunits.TransmissionCoefficient[n] Tai_dir
+  Modelica.Units.SI.TransmissionCoefficient[n] Tai_dir
     "Pure degree of transmission for direct radiation";
-  Modelica.SIunits.TransmissionCoefficient[n] Ta1_dir
+  Modelica.Units.SI.TransmissionCoefficient[n] Ta1_dir
     "Pure degree of transmission for single pane window";
-  Modelica.SIunits.ReflectionCoefficient[n] rho_T1_dir
+  Modelica.Units.SI.ReflectionCoefficient[n] rho_T1_dir
     "Part of degree of transmission for single pane window related to Ta1_dir";
-  Modelica.SIunits.ReflectionCoefficient[n] rho_11_dir
+  Modelica.Units.SI.ReflectionCoefficient[n] rho_11_dir
     "Part of degree of transmission for single pane window related to T1_dir";
-  Modelica.SIunits.ReflectionCoefficient[n] rho_1_dir
+  Modelica.Units.SI.ReflectionCoefficient[n] rho_1_dir
     "Degree of reflection for single pane window";
-  Modelica.SIunits.ReflectionCoefficient[n] XN2_dir
+  Modelica.Units.SI.ReflectionCoefficient[n] XN2_dir
     "Calculation factor to simplify equations";
-  Modelica.SIunits.TransmissionCoefficient[n] Ta2_dir
+  Modelica.Units.SI.TransmissionCoefficient[n] Ta2_dir
     "Energetic dregree of transmission for second pane";
-  Modelica.SIunits.Emissivity[n] a1_dir
+  Modelica.Units.SI.Emissivity[n] a1_dir
     "Degree of absorption for single pane window";
   Real[n] Q21_dir
     "Coefficient of heat transfer for exterior pane of double pane window";
@@ -86,7 +82,7 @@ protected
     "Coefficient of heat transfer for interior pane of double pane window";
   Real[n] Qsek2_dir
     "Overall coefficient of heat transfer for double pane window";
-  Modelica.SIunits.TransmissionCoefficient[n] CorG_dir
+  Modelica.Units.SI.TransmissionCoefficient[n] CorG_dir
     "Transmission coefficient correction factor for direct radiation";
 
 equation

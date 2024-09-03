@@ -1,24 +1,32 @@
 within Buildings.Examples.VAVReheat.BaseClasses;
 model Floor "Model of a floor of the building"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-    final VRooCor=cor.AFlo * hRoo,
-    final VRooSou=sou.AFlo * hRoo,
-    final VRooNor=nor.AFlo * hRoo,
-    final VRooEas=eas.AFlo * hRoo,
-    final VRooWes=wes.AFlo * hRoo,
-    AFloCor = 2698/hRoo,
-    AFloSou = 568.77/hRoo,
-    AFloNor = 568.77/hRoo,
-    AFloEas = 360.0785/hRoo,
-    AFloWes = 360.0785/hRoo);
+    final VRooCor=cor.AFlo*hRoo,
+    final VRooSou=sou.AFlo*hRoo,
+    final VRooNor=nor.AFlo*hRoo,
+    final VRooEas=eas.AFlo*hRoo,
+    final VRooWes=wes.AFlo*hRoo,
+    AFloCor=2698/hRoo,
+    AFloSou=568.77/hRoo,
+    AFloNor=568.77/hRoo,
+    AFloEas=360.0785/hRoo,
+    AFloWes=360.0785/hRoo);
+
+  parameter Modelica.Units.SI.Length wExtSou=49.91
+    "South zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtNor=49.91
+    "North zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtEas=33.27
+    "East zone exterior wall width";
+  parameter Modelica.Units.SI.Length wExtWes=33.27
+    "West zone exterior wall width";
 
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
-  parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
-  parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
+  parameter Modelica.Units.SI.Length hWin=1.5 "Height of windows";
   parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{140,460},{160,480}})));
@@ -82,7 +90,7 @@ model Floor "Model of a floor of the building"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
 
-  constant Modelica.SIunits.Height hRoo=2.74 "Room height";
+  constant Modelica.Units.SI.Height hRoo=2.74 "Room height";
 
   parameter Boolean sampleModel = false
     "Set to true to time-sample the model, which can give shorter simulation time if there is already time sampling in the system model"
@@ -92,16 +100,15 @@ model Floor "Model of a floor of the building"
 
   Buildings.ThermalZones.Detailed.MixedAir sou(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloSou,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={49.91*hRoo},
+      A={wExtSou*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*49.91*hRoo},
+      wWin={winWalRat/hWin*wExtSou*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -124,16 +131,15 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Buildings.ThermalZones.Detailed.MixedAir eas(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloEas,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={33.27*hRoo},
+      A={wExtEas*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*33.27*hRoo},
+      wWin={winWalRat/hWin*wExtEas*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -161,16 +167,15 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
   Buildings.ThermalZones.Detailed.MixedAir nor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloNor,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={49.91*hRoo},
+      A={wExtNor*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*49.91*hRoo},
+      wWin={winWalRat/hWin*wExtNor*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -193,16 +198,15 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Buildings.ThermalZones.Detailed.MixedAir wes(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloWes,
     hRoo=hRoo,
     nConExt=0,
     nConExtWin=1,
     datConExtWin(
       layers={conExtWal},
-      A={33.27*hRoo},
+      A={wExtEas*hRoo},
       glaSys={glaSys},
-      wWin={winWalRat/hWin*33.27*hRoo},
+      wWin={winWalRat/hWin*wExtEas*hRoo},
       each hWin=hWin,
       fFra={0.1},
       til={Buildings.Types.Tilt.Wall},
@@ -230,7 +234,6 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
   Buildings.ThermalZones.Detailed.MixedAir cor(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFloCor,
     hRoo=hRoo,
     nConExt=0,
@@ -375,54 +378,24 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(multiplex5_1.y, TRooAir) annotation (Line(
-      points={{361,290},{372,290},{372,160},{390,160}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
-      points={{310,350},{328,350},{328,300},{338,300}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
-      points={{312,320},{324,320},{324,295},{338,295}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
-      points={{312,290},{338,290}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
-      points={{312,258},{324,258},{324,285},{338,285}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(temAirCor.T, multiplex5_1.u5[1]) annotation (Line(
-      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
-      points={{163,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
+      points={{163,-24},{224,-24},{224,100},{264,100},{264,320},{292,320}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(eas.heaPorAir, temAirEas.port) annotation (Line(
-      points={{323,76},{286,76},{286,320},{292,320}},
+      points={{323,76},{286,76},{286,290},{292,290}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nor.heaPorAir, temAirNor.port) annotation (Line(
-      points={{163,136},{164,136},{164,290},{292,290}},
+      points={{163,136},{164,136},{164,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(wes.heaPorAir, temAirWes.port) annotation (Line(
-      points={{31,56},{70,56},{70,114},{186,114},{186,258},{292,258}},
+      points={{31,56},{70,56},{70,114},{186,114},{186,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(cor.heaPorAir, temAirCor.port) annotation (Line(
-      points={{163,56},{162,56},{162,228},{294,228}},
+      points={{163,56},{162,56},{162,350},{290,350}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], portsSou[1]) annotation (Line(
@@ -602,7 +575,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+  annotation (
+  defaultComponentName="flo",
+  Diagram(coordinateSystem(preserveAspectRatio=true,
         extent={{-160,-100},{380,500}},
         initialScale=0.1)),     Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-80,-80},{380,180}}), graphics={
@@ -698,7 +673,24 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+October 4, 2021, by Michael Wetter:<br/>
+Refactored <a href=\"modelica://Buildings.Examples.VAVReheat\">Buildings.Examples.VAVReheat</a>
+and its base classes to separate building from HVAC model.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2652\">issue #2652</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
+September 3, 2021, by Michael Wetter:<br/>
+Updated documentation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2600\">issue #2600</a>.
+</li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
 Reformulated replaceable class and introduced floor areas in base class
@@ -723,11 +715,46 @@ to be parameters does not imply that the whole record has the variability of a p
 </html>", info="<html>
 <p>
 Model of a floor that consists
-of five thermal zones that are representative of one floor of the
+of five thermal zones.
+</p>
+<p>
+The five room model is representative of one floor of the
 new construction medium office building for Chicago, IL,
-as described in the set of DOE Commercial Building Benchmarks.
-There are four perimeter zones and one core zone.
+as described in the set of DOE Commercial Building Benchmarks
+(Deru et al, 2009). There are four perimeter zones and one core zone.
 The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+The thermal room model computes transient heat conduction through
+walls, floors and ceilings and long-wave radiative heat exchange between
+surfaces. The convective heat transfer coefficient is computed based
+on the temperature difference between the surface and the room air.
+There is also a layer-by-layer short-wave radiation,
+long-wave radiation, convection and conduction heat transfer model for the
+windows. The model is similar to the
+Window 5 model and described in TARCOG 2006.
+</p>
+<p>
+Each thermal zone can have air flow from the HVAC system,
+through leakages of the building envelope (except for the core zone)
+and through bi-directional air exchange through open doors that connect adjacent zones.
+The bi-directional air exchange is modeled based on the differences in
+static pressure between adjacent rooms at a reference height plus the
+difference in static pressure across the door height as a function of the difference in air density.
+Infiltration is a function of the
+flow imbalance of the HVAC system.
+</p>
+
+<h4>References</h4>
+<p>
+Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
+ M. Halverson, D. Winiarski, B. Liu, M. Rosenberg, J. Huang, M. Yazdanian, and D. Crawley.
+<i>DOE commercial building research benchmarks for commercial buildings</i>.
+Technical report, U.S. Department of Energy, Energy Efficiency and
+Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
+</p>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>"));
 end Floor;

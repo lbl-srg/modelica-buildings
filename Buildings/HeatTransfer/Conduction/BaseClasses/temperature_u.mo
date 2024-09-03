@@ -2,16 +2,16 @@ within Buildings.HeatTransfer.Conduction.BaseClasses;
 function temperature_u
   "Computes the temperature of a phase change material for a given specific internal energy"
 
-  input Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
+  input Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  input Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+  input Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
   input Real dT_du[:](each fixed=false, each unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 
-  input Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
+  input Modelica.Units.SI.SpecificInternalEnergy u "Specific internal energy";
 
-  output Modelica.SIunits.Temperature T "Resulting temperature";
+  output Modelica.Units.SI.Temperature T "Resulting temperature";
 protected
   Integer i "Integer to select data interval";
 algorithm

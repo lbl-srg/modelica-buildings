@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "HGloRoo.H",
+    "HGloWal.H",
+    "HGloFlo.H"
+  };

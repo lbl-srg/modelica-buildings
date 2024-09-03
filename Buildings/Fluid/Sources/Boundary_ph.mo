@@ -5,14 +5,14 @@ model Boundary_ph
 
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
     annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
 
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
@@ -125,6 +125,12 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 Juni 7, 2019, by Michael Wetter:<br/>
 Added constant boolean expressions to avoid a potential string comparison in an equation section.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\">#1148</a>.
@@ -170,14 +176,14 @@ Implementation is based on <code>Modelica.Fluid</code>.
         Text(
           visible=use_h_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="h"),
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="p"),
@@ -189,5 +195,5 @@ Implementation is based on <code>Modelica.Fluid</code>.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end Boundary_ph;

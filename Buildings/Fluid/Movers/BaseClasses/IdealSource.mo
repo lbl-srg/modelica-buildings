@@ -71,12 +71,12 @@ equation
         Text(
           visible=not control_m_flow,
           extent={{24,44},{80,24}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="dp"),
         Text(
           visible=control_m_flow,
           extent={{-80,44},{-24,24}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="m")}),
     Documentation(info="<html>
 <p>

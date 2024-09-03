@@ -29,11 +29,11 @@ model ACACTransformerDD "AC AC transformer simplified equivalent circuit (DD)"
       VHigh=VHigh,
       VLow=VLow,
       phi_1=2.6179938779915));
-  parameter Modelica.SIunits.Voltage VHigh
+  parameter Modelica.Units.SI.Voltage VHigh
     "Rms voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage VLow
+  parameter Modelica.Units.SI.Voltage VLow
     "Rms voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.ApparentPower VABase
+  parameter Modelica.Units.SI.ApparentPower VABase
     "Nominal power of the transformer";
   parameter Real XoverR
     "Ratio between the complex and real components of the impedance (XL/R)";
@@ -47,23 +47,23 @@ equation
  Icon(graphics={
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-130,60},{-70,20}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-130,100},{-70,60}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{70,100},{130,60}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,60},{130,20}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2"),
         Line(
           points={{-72,40},{-66,40},{-64,44},{-60,36},{-56,44},{-52,36},{-48,44},
@@ -165,11 +165,11 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-64,60},{-48,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="R"),
         Text(
           extent={{-20,60},{-4,48}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="L"),
         Line(
           points={{-50,-8},{-30,22},{-10,-8},{-50,-8}},

@@ -3,10 +3,10 @@ partial model PartialShade_weatherBus
   "Partial model to implement overhang and side fins with weather bus connector"
   extends Buildings.HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
   // Window dimensions
-  parameter Modelica.SIunits.Length hWin "Window height"
-    annotation(Dialog(tab="General",group="Window"));
-  parameter Modelica.SIunits.Length wWin "Window width"
-    annotation(Dialog(tab="General",group="Window"));
+  parameter Modelica.Units.SI.Length hWin "Window height"
+    annotation (Dialog(tab="General", group="Window"));
+  parameter Modelica.Units.SI.Length wWin "Window width"
+    annotation (Dialog(tab="General", group="Window"));
 
 protected
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi

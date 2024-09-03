@@ -6,7 +6,7 @@ model DewPointTemperatureDerivativeCheck
   Real y "Function value";
   Real y_comp "Function value for comparison";
   Real err "Integration error";
-  Modelica.SIunits.Temperature T "Temperature";
+  Modelica.Units.SI.Temperature T "Temperature";
 initial equation
   y=y_comp;
 equation

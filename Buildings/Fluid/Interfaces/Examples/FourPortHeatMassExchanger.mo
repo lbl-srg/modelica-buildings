@@ -3,7 +3,7 @@ model FourPortHeatMassExchanger
   "FourPortHeatMassExchanger example model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
   Buildings.Fluid.Interfaces.FourPortHeatMassExchanger fouPor(
@@ -72,7 +72,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=5),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/FourPortHeatMassExchanger.mos"
         "Simulate and plot"));
 end FourPortHeatMassExchanger;

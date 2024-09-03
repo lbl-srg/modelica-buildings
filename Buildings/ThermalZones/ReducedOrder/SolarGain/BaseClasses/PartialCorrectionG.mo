@@ -3,7 +3,7 @@ partial model PartialCorrectionG
   "Partial model for correction of the solar gain factor"
 
   parameter Integer n(min = 1) "Vector size for input and output";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UWin
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWin
     "Thermal transmission coefficient of whole window";
 
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](
@@ -43,7 +43,7 @@ partial model PartialCorrectionG
   fillColor={215,215,215},
   fillPattern=FillPattern.Solid), Text(
   extent={{-52,24},{62,-16}},
-  lineColor={0,0,0},
+  textColor={0,0,0},
   textString="%name")}),
   Documentation(info="<html>
   <p>Partial model for correction factors for transmitted solar radiation

@@ -31,8 +31,8 @@ block BlackBody "Calculate black body sky temperature"
     nominal=100) "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
-  Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
-  Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
+  Modelica.Units.SI.Temperature TDewPoiK "Dewpoint temperature";
+  Modelica.Units.SI.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover in [0, 10]";
 equation
   if calTSky == Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
@@ -105,29 +105,29 @@ First implementation.
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-50,44},{56,-40}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="T"),
         Text(
           extent={{-96,84},{-66,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDry"),
         Text(
           extent={{-90,36},{-66,24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDewPoi"),
         Text(
           extent={{-92,-74},{-62,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="radHorIR"),
         Text(
           extent={{16,-6},{54,-28}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="bs"),
         Text(
           extent={{-88,-24},{-64,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="nOpa")}));
 end BlackBody;

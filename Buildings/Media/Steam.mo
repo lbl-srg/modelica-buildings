@@ -2,21 +2,22 @@ within Buildings.Media;
 package Steam
   "Package with model for pure steam water vapor"
   extends Modelica.Media.Interfaces.PartialMedium(
-     mediumName="steam",
-     final substanceNames={"water"},
-     singleState = true,
-     reducedX = true,
-     fixedX = true,
-     FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
-     reference_T=273.15,
-     reference_p=101325,
-     reference_X={1},
-     AbsolutePressure(start=p_default),
-     Temperature(start=T_default),
-     SpecificEnthalpy(start=2.7e6, nominal=2.7e6),
-     Density(start=0.6, nominal=1),
-     T_default=Modelica.SIunits.Conversions.from_degC(100),
-     p_default=100000);
+    mediumName="steam",
+    final substanceNames={"water"},
+    singleState=true,
+    reducedX=true,
+    fixedX=true,
+    FluidConstants={Modelica.Media.IdealGases.Common.FluidData.H2O},
+    ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
+    reference_T=273.15,
+    reference_p=101325,
+    reference_X={1},
+    AbsolutePressure(start=p_default),
+    Temperature(start=T_default),
+    SpecificEnthalpy(start=2.7e6, nominal=2.7e6),
+    Density(start=0.6, nominal=1),
+    T_default=Modelica.Units.Conversions.from_degC(100),
+    p_default=100000);
   extends Modelica.Icons.Package;
 
   redeclare record ThermodynamicState
@@ -34,7 +35,7 @@ equation
     h = specificEnthalpy(state);
     d = density(state);
     u = h - p/d;
-    R = steam.R;
+    R_s = steam.R;
     state.p = p;
     state.T = T;
 end BaseProperties;
@@ -125,8 +126,8 @@ redeclare replaceable function extends specificEnthalpy
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (state.p - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -170,8 +171,8 @@ redeclare replaceable function extends specificEntropy
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (state.p - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -215,7 +216,7 @@ end specificInternalEnergy;
 redeclare replaceable function extends specificHeatCapacityCp
   "Specific heat capacity at constant pressure"
 
-protected
+  protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -239,7 +240,7 @@ end specificHeatCapacityCp;
 redeclare replaceable function extends specificHeatCapacityCv
   "Specific heat capacity at constant volume"
 
-protected
+  protected
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
@@ -474,27 +475,26 @@ protected
 record GasProperties
   "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
-  Modelica.SIunits.MolarMass MM "Molar mass";
-  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+    Modelica.Units.SI.MolarMass MM "Molar mass";
+    Modelica.Units.SI.SpecificHeatCapacity R "Gas constant";
 end GasProperties;
-constant GasProperties steam(
-  R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
-  MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
-  "Steam properties";
+  constant GasProperties steam(R=Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R_s,
+      MM=Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM)
+    "Steam properties";
 
 function g2 "Gibbs function for region 2: g(p,T)"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Pressure";
-  input Modelica.SIunits.Temperature T "Temperature (K)";
+    input Modelica.Units.SI.Pressure p "Pressure";
+    input Modelica.Units.SI.Temperature T "Temperature (K)";
   output Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
-protected
+  protected
   Real tau2 "Dimensionless temperature";
   Real[55] o "Vector of auxiliary variables";
 algorithm
   g.p := p;
   g.T := T;
-  g.R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
+    g.R_s := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
 //  assert(p > 0.0,
 //    "IF97 medium function g2 called with too low pressure\n" + "p = " +
 //    String(p) + " Pa <=  0.0 Pa");
@@ -729,7 +729,7 @@ function temperature_ph
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
+    Modelica.Units.SI.PressureDifference pHat;
 algorithm
   pHat := (p - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
@@ -774,8 +774,8 @@ function temperature_ps
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (p - pMean)/pSD;
   THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
@@ -819,10 +819,14 @@ function rho_pT "Density as function of temperature and pressure"
   Modelica.Media.Common.GibbsDerivs g
     "Dimensionless Gibbs function and derivatives w.r.t. pi and tau";
   SpecificHeatCapacity R "Specific gas constant of water vapor";
+  function g2_smooth
+    extends Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2;
+    annotation(smoothOrder=2);
+  end g2_smooth;
 algorithm
   R := Modelica.Media.Water.IF97_Utilities.BaseIF97.data.RH2O;
   // Region 2 properties
-  g := Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2(p, T);
+  g := g2_smooth(p, T);
   rho := p/(R*T*g.pi*g.gpi);
   annotation (
     Inline=true,
@@ -848,7 +852,6 @@ algorithm
         region=2);
   annotation (Inline=true);
 end pressure_dT;
-
   annotation (Icon(graphics={
       Line(
         points={{50,30},{30,10},{50,-10},{30,-30}},
@@ -874,7 +877,7 @@ computational efficiency and provide backward compatability.
 </p>
 <p>
 Detailed functions from <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
-Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for
+Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, except for
 <a href=\"modelica://Buildings.Media.Steam.specificEnthalpy\">Buildings.Media.Steam.specificEnthalpy</a> and
 <a href=\"modelica://Buildings.Media.Steam.specificEntropy\">Buildings.Media.Steam.specificEntropy</a>
 (both \"forward\" functions), as well as their \"backward\" inverse functions
@@ -887,7 +890,7 @@ Modelica.Media.Water.WaterIF97_R2pT</a> medium package:
 </p>
 <ol>
 <li>Analytic expressions for the derivatives are provided for all thermodynamic property functions.</li>
-<li>The implementation is generally simplier in order to increase the likelyhood
+<li>The implementation is generally simpler in order to increase the likelihood
 of more efficient simulations. </li>
 </ol>
 <h4>Limitations </h4>
@@ -914,8 +917,41 @@ steam heating processes involving low and medium pressure steam.
 properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 122, no.
 1, pp. 150&ndash;180, 2000.
 </p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Wangda Zuo. 2022.
+&ldquo;A Fast and Accurate Modeling Approach for Water and Steam
+Thermodynamics with Practical Applications in District Heating System Simulation,&rdquo;
+<i>Energy</i>, 254(A), pp. 124227.
+<a href=\"https://doi.org/10.1016/j.energy.2022.124227\">10.1016/j.energy.2022.124227</a>
+</p>
+<p>
+Kathryn Hinkelman, Saranya Anbarasu, Michael Wetter, Antoine Gautier, Baptiste Ravache, Wangda Zuo 2022.
+&ldquo;Towards Open-Source Modelica Models For Steam-Based District Heating Systems.&rdquo;
+<i>Proc. of the 1st International Workshop On Open Source Modelling And Simulation Of
+Energy Systems (OSMSES 2022)</i>, Aachen, German, April 4-5, 2022.
+<a href=\"https://doi.org/10.1109/OSMSES54027.2022.9769121\">10.1109/OSMSES54027.2022.9769121</a>
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2023, by Kathryn Hinkelman:<br/>
+Added publication references.
+</li>
+<li>
+March 10, 2023, by Saranya Anbarasu:<br/>
+Changed the variable type definition of <code>pHat</code> and <code>THat</code>
+from absolute to <code>Modelica.Units.SI.PressureDifference</code> and
+<code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max
+assertion errors during initilization.
+</li>
+<li>
+May 9, 2022, by David Blum:<br/>
+In function <code>rho_pT</code>, created and used new function extending
+<code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
+annotation <code>smoothOrder=2</code>. This is to specifically pass on the
+<code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to
+the <code>g2</code> function.
+</li>
 <li>
 April 13, 2021, by Kathryn Hinkelman:<br/>
 Changed pressure from constant to variable and reduced applicable

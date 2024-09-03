@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs;
-package BaseClasses
+package BaseClasses "Package with base classes for CHP models"
   extends Modelica.Icons.BasesPackage;
 
 annotation (preferredView="info", Documentation(info="<html>

@@ -3,11 +3,11 @@ model SkyRadiationExchange
   "Radiative heat exchange with the sky and the ambient"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Integer n(min=1) "Number of constructions";
-   parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
+  parameter Modelica.Units.SI.Area A[n] "Area of exterior constructions";
   parameter Real vieFacSky[n](
     each min=0,
     each max=1) "View factor to sky (=1 for roofs)";
-  parameter Modelica.SIunits.Emissivity absIR[n]
+  parameter Modelica.Units.SI.Emissivity absIR[n]
     "Infrared absorptivity of building surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat port"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -26,10 +26,10 @@ protected
   parameter Real k[n](
     each unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i] for i in 1:n}
     "Constant for radiative heat exchange";
-  Modelica.SIunits.Temperature TEnv[n] "Environment temperature";
+  Modelica.Units.SI.Temperature TEnv[n] "Environment temperature";
   Real TBlaSky4(unit="K4") "Auxiliary variable for radiative heat exchange";
   Real TOut4(unit="K4") "Auxiliary variable for radiative heat exchange";
-  Modelica.SIunits.CoefficientOfHeatTransfer h[n]
+  Modelica.Units.SI.CoefficientOfHeatTransfer h[n]
     "Radiative heat transfer coefficient";
 
 equation
@@ -77,15 +77,15 @@ equation
           thickness=0.5),
         Text(
           extent={{-128,12},{-78,-34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
           extent={{-130,96},{-80,50}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSky"),
         Text(
           extent={{86,52},{136,6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QIR_flow")}),
         Documentation(info = "<html>
 This model computes the infrared radiative heat flow

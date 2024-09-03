@@ -9,7 +9,7 @@ block OpenLoopBoilerReturn "Open loop controller for boiler return"
     final unit="1")
     "Valve control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=1)
     "Constant valve control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
@@ -31,13 +31,13 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,22},{-40,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TRet"),
         Text(
           extent={{40,24},{88,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="yVal"),
@@ -49,7 +49,7 @@ equation
           fillPattern=FillPattern.Solid,
           lineColor={0,0,0}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name")}),                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

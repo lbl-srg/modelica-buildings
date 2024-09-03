@@ -28,7 +28,7 @@ annotation (defaultComponentName="proSou",
         Text(
           visible=use_h_in,
           extent={{-90,98},{12,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="h")}),

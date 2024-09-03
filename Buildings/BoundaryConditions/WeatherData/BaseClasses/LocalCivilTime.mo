@@ -1,21 +1,22 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block LocalCivilTime "Converts the clock time to local civil time."
-  extends Modelica.Blocks.Icons.Block;
+  extends PartialConvertTime;
   Modelica.Blocks.Interfaces.RealInput cloTim(
     final quantity="Time",
     final unit="s") "Clock time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") "Time zone";
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") "Longitude";
   Modelica.Blocks.Interfaces.RealOutput locTim(
     final quantity="Time",
     final unit="s") "Local civil time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  final parameter Modelica.SIunits.Time diff = - timZon + lon*43200/Modelica.Constants.pi
+  final parameter Modelica.Units.SI.Time diff=-timZon + lon*43200/Modelica.Constants.pi
     "Difference between local and clock time";
 equation
-  locTim = cloTim + diff;
+  modTimAux = cloTim;
+  locTim = calTimAux + diff;
 
   annotation (
     defaultComponentName="locTim",
@@ -34,6 +35,11 @@ The formula is based on Michael Wetter's thesis (A4.1):
 </html>", revisions="<html>
 <ul>
 <li>
+March 27, 2023, by Ettore Zanetti:<br/>
+Updated to use partial class for conversion from simulation time to calendar time.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
+</li>
+<li>
 November 14, 2015, by Michael Wetter:<br/>
 Introduced <code>diff</code>.
 </li>
@@ -46,9 +52,9 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-98,6},{-60,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="cloTim"), Text(
           extent={{74,6},{98,-4}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="calTim")}));
 end LocalCivilTime;

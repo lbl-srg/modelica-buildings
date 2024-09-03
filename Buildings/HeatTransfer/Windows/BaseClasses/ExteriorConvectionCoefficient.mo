@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ExteriorConvectionCoefficient
   "Model for the heat transfer coefficient at the outside of the window"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
 
   Modelica.Blocks.Interfaces.RealOutput GCon(unit="W/K")
     "Convective thermal conductance"
@@ -15,11 +15,11 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{-92,22},{-50,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="v"),
         Text(
           extent={{40,26},{92,-20}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="GCon")}),
            Documentation(info="<html>
 Model for the convective heat transfer coefficient at the outside of a window.

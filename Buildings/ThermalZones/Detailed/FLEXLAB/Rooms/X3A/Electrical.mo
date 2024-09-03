@@ -3,7 +3,6 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   extends Buildings.ThermalZones.Detailed.MixedAir(
   hRoo = 3.6576,
   AFlo = 2.39,
-  lat = 0.66098585832754,
   nSurBou = 2,
   nConExt=4,
   nConExtWin=0,
@@ -25,7 +24,8 @@ model Electrical "Model of the electrical room attached to test cell X3A"
      til = {Buildings.Types.Tilt.Floor},
      azi = {Buildings.Types.Azimuth.N},
      each stateAtSurface_a = false));
-  replaceable
+
+  replaceable parameter
     Data.Constructions.OpaqueConstructions.ExteriorConstructions.Construction3
     eleExt "Construction describing the exterior walls in the electrical room"
     annotation (Placement(transformation(extent={{430,-210},{450,-190}})));
@@ -135,10 +135,19 @@ model Electrical "Model of the electrical room attached to test cell X3A"
   </html>",
   revisions = "<html>
   <ul>
-  <li>Setp 16, 2013 by Peter Grant:<br/>
-  Added a model representing the floor.</li>
-  <li>July 26, 2013 by Peter Grant:<br/>
-  First implementation.</li>
+  <li>
+  October 13, 2021, by Michael Wetter:<br/>
+  Added missing <code>parameter</code> keyword.<br/>
+  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2669\">issue 2669</a>.
+  </li>
+  <li>
+  September 16, 2013 by Peter Grant:<br/>
+  Added a model representing the floor.
+  </li>
+  <li>
+  July 26, 2013 by Peter Grant:<br/>
+  First implementation.
+  </li>
   </ul>
   </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={
@@ -166,25 +175,25 @@ model Electrical "Model of the electrical room attached to test cell X3A"
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-138,-82},{-96,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));

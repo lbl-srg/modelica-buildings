@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.Boreholes.BaseClasses;
 class ExtendableArray
   "class used to create the external object: ExtendableArray"
 extends ExternalObject;
-    function constructor
+    pure function constructor
     "Construct an extendable array that can be used to store double values"
     output ExtendableArray table;
     external "C" table = initArray()
@@ -33,7 +33,7 @@ First implementation.
 </html>"));
     end constructor;
 
-  function destructor "Release storage of table and close the external object"
+  pure function destructor "Release storage of table and close the external object"
     input ExtendableArray  table;
     external "C" freeArray(table)
     annotation(Include=" #include <freeArray.c>",

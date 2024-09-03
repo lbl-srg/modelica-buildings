@@ -6,7 +6,7 @@ partial model PartialOpenLoop
     "Buildings library air media package with CO2";
   package MediumW = Buildings.Media.Water
     "Buildings library air media package";
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
   Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer hvac(
@@ -21,8 +21,7 @@ partial model PartialOpenLoop
     annotation (Placement(transformation(extent={{-40,-20},{0,20}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.Room zon(
     redeclare package MediumA = MediumA,
-      mAir_flow_nominal=0.75,
-      lat=weaDat.lat)
+      mAir_flow_nominal=0.75)
     "Thermal envelope of single zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -98,6 +97,12 @@ economizer.  See documentation for the specific models for more information.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 November 27, 2019, by David Blum:<br/>
 Removed <code>experiment</code> annotation.

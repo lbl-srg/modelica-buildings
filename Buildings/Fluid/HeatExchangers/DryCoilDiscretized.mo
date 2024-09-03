@@ -19,9 +19,9 @@ model DryCoilDiscretized
     "Set to false to make air-side hA independent of temperature"
     annotation(Dialog(tab="Heat transfer"));
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Integer nReg(min=2)=2 "Number of registers"
      annotation(Dialog(group = "Geometry"),
       Evaluate=true,
@@ -45,29 +45,26 @@ model DryCoilDiscretized
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  parameter Modelica.SIunits.Length dh1=0.025
-    "Hydraulic diameter for a single pipe"
-     annotation(Dialog(group = "Geometry",
-                enable = use_dh1 and not linearizeFlowResistance1));
+  parameter Modelica.Units.SI.Length dh1=0.025
+    "Hydraulic diameter for a single pipe" annotation (Dialog(group="Geometry",
+        enable=use_dh1 and not linearizeFlowResistance1));
   parameter Real ReC_1=4000
-    "Reynolds number where transition to turbulent starts inside pipes"
+    "Reynolds number where transition to turbulence starts inside pipes"
      annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
   parameter Real ReC_2=4000
-    "Reynolds number where transition to turbulent starts inside ducts"
+    "Reynolds number where transition to turbulence starts inside ducts"
      annotation(Dialog(enable = use_dh2 and not linearizeFlowResistance2, tab="Advanced"));
-  parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct"
-      annotation(Dialog(group = "Geometry"));
-  parameter Modelica.SIunits.Time tau1=20
-    "Time constant at nominal flow for medium 1"
-    annotation (Dialog(group="Nominal condition",
-                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tau2=10
-    "Time constant at nominal flow for medium 2"
-    annotation (Dialog(group="Nominal condition",
-                       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tau_m=20
+  parameter Modelica.Units.SI.Length dh2=1 "Hydraulic diameter for duct"
+    annotation (Dialog(group="Geometry"));
+  parameter Modelica.Units.SI.Time tau1=20
+    "Time constant at nominal flow for medium 1" annotation (Dialog(group=
+          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tau2=10
+    "Time constant at nominal flow for medium 2" annotation (Dialog(group=
+          "Nominal condition", enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tau_m=20
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean waterSideFlowDependent = false
@@ -79,16 +76,16 @@ model DryCoilDiscretized
   parameter Boolean waterSideTemperatureDependent = false
     "Set to false to make water-side hA independent of temperature"
     annotation(Dialog(tab="Heat transfer"));
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
-    annotation(Dialog(tab="General", group="Initialization"));
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a2=m2_flow_nominal
+    annotation (Dialog(tab="General", group="Initialization"));
+  parameter Modelica.Units.SI.MassFlowRate mStart_flow_a2=m2_flow_nominal
     "Guess value for mass flow rate at port_a2"
-    annotation(Dialog(tab="General", group="Initialization"));
+    annotation (Dialog(tab="General", group="Initialization"));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow = sum(hexReg[i].Q1_flow for i in 1:nReg)
+  Modelica.Units.SI.HeatFlowRate Q1_flow=sum(hexReg[i].Q1_flow for i in 1:nReg)
     "Heat transferred from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = sum(hexReg[i].Q2_flow for i in 1:nReg)
+  Modelica.Units.SI.HeatFlowRate Q2_flow=sum(hexReg[i].Q2_flow for i in 1:nReg)
     "Heat transferred from solid into medium 2";
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
@@ -99,7 +96,7 @@ model DryCoilDiscretized
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final m1_flow_nominal=m1_flow_nominal/nPipPar,
-    each final m2_flow_nominal=m1_flow_nominal/nPipPar/nPipSeg,
+    each final m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
@@ -222,8 +219,8 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal1) if
-      nReg > 1 "Pipe header to redirect flow into next register"
+      each allowFlowReversal=allowFlowReversal1)
+   if nReg > 1 "Pipe header to redirect flow into next register"
     annotation (Placement(transformation(
         origin={50,6},
         extent={{-10,-10},{10,10}},
@@ -232,8 +229,8 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal1) if
-      nReg > 2 "Pipe header to redirect flow into next register"
+      each allowFlowReversal=allowFlowReversal1)
+   if nReg > 2 "Pipe header to redirect flow into next register"
       annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Modelica.Blocks.Math.Gain gai_1(k=1/nReg)
     "Gain medium-side 1 to take discretization into account"
@@ -272,13 +269,15 @@ protected
     "Temperature used for convective heat transfer calculation for medium 2 (air-side)"
     annotation (Placement(transformation(extent={{-80,72},{-66,82}})));
 
-  parameter Modelica.SIunits.ThermalConductance GDif1 = 1E-2*UA_nominal/(nPipPar*max(1, nPipSeg-1)*nReg)
+  parameter Modelica.Units.SI.ThermalConductance GDif1=1E-2*UA_nominal/(nPipPar
+      *max(1, nPipSeg - 1)*nReg)
     "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
-    annotation(Dialog(tab="Experimental"));
+    annotation (Dialog(tab="Experimental"));
 
-  parameter Modelica.SIunits.ThermalConductance GDif2 = 1E-2*UA_nominal/(nPipPar*nPipSeg*max(1, nReg-1))
+  parameter Modelica.Units.SI.ThermalConductance GDif2=1E-2*UA_nominal/(nPipPar
+      *nPipSeg*max(1, nReg - 1))
     "Thermal conductance to approximate diffusion (which improves model at near-zero flow rates)"
-    annotation(Dialog(tab="Experimental"));
+    annotation (Dialog(tab="Experimental"));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon1[nReg, nPipPar, nPipSeg-1](
     each final G=GDif1)
@@ -448,6 +447,12 @@ rather may be considered as approximated by these heat conductors.
 </html>", revisions="<html>
 <ul>
 <li>
+June 22, 2023 by Hongxiang Fu:<br/>
+Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
+</li>
+<li>
 November 4, 2017, by Michael wetter:<br/>
 Added approximation of diffusion.<br/>
 This is for
@@ -606,9 +611,9 @@ First implementation.
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={Text(
           extent={{60,72},{84,58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="water-side"), Text(
           extent={{42,-22},{66,-36}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="air-side")}));
 end DryCoilDiscretized;

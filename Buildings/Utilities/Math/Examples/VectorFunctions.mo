@@ -5,12 +5,11 @@ model VectorFunctions "Test model for functions that take a vector as argument"
   Buildings.Utilities.Math.Min minVec(
                    nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=6)
+  Modelica.Blocks.Sources.Sine sine(f=6)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Sine sine1(
-                                    freqHz=8)
+  Modelica.Blocks.Sources.Sine sine1(f=8)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Blocks.Sources.Sine sine2(freqHz=10)
+  Modelica.Blocks.Sources.Sine sine2(f=10)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Utilities.Math.Max maxVec(
                    nin=3)

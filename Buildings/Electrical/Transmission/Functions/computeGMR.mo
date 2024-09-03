@@ -1,9 +1,9 @@
 within Buildings.Electrical.Transmission.Functions;
 function computeGMR
   "This function computes the geometric mean radius of a cable with 1 to 4 conductors"
-  input Modelica.SIunits.Length d "Diameter of the conductor";
+  input Modelica.Units.SI.Length d "Diameter of the conductor";
   input Integer N = 1 "Number of conductors";
-  output Modelica.SIunits.Length GMR "Geometric Mean Radius";
+  output Modelica.Units.SI.Length GMR "Geometric Mean Radius";
 algorithm
   assert(N > 0 and N < 5,
     "The number of conductors N must be between 1 and 4, received N=" + String(N) + ".");

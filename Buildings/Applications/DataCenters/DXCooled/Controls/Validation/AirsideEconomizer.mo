@@ -5,7 +5,7 @@ model AirsideEconomizer
   extends Modelica.Icons.Example;
   replaceable package Medium =
       Buildings.Media.Air;
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal=0.43
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=0.43
     "Nominal air flowrate";
   Buildings.Applications.DataCenters.DXCooled.Controls.AirsideEconomizer con(
     minOAFra= 0,
@@ -94,7 +94,7 @@ equation
   connect(cooMod.y[1], reaToInt.u)
     annotation (Line(points={{-59,44},{-42,44}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/AirsideEconomizer.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/DXCooled/Controls/Validation/AirsideEconomizer.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <P>

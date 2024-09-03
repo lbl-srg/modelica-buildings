@@ -50,8 +50,7 @@ model NaturalConvection "Tutorial for Natural Convection case"
    nConBou = nConBou,
    nSurBou = nSurBou,
    samplePeriod = 60,
-    lat=0.012787839282646,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+   massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
   annotation (Placement(transformation(extent={{60,-58},{100,-18}})));
   HeatTransfer.Sources.FixedTemperature           TWesWal(T=274.15)
     "Boundary condition for the west wall" annotation (Placement(transformation(
@@ -80,12 +79,12 @@ equation
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
-      points={{120,-70},{76.2,-70},{76.2,-52}},
+      points={{120,-70},{76.2,-70},{76.2,-52.4167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TWesWal.port, roo.surf_surBou[2])
     annotation (Line(
-      points={{120,-110},{76.2,-110},{76.2,-52}},
+      points={{120,-110},{76.2,-110},{76.2,-52.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
@@ -97,7 +96,7 @@ equation
           preserveAspectRatio=false)),
           __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-06, StopTime=7200),
+        experiment(Tolerance=1e-06, StopTime=3600),
        Documentation(info="<html>
 <p>
 This tutorial gives step by step instructions for building and simulating a natural convection model.
@@ -232,7 +231,6 @@ surBou(
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
     Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate}),
-  lat = 0.012787839282646,
   AFlo = 1*1,
   hRoo = 1,
   linearizeRadiation = false,
@@ -320,7 +318,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
+Set simulation the stop time of the Modelica model <code>3600</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -334,6 +332,12 @@ Note: Tecplot is needed for this.
 </ol>
 </html>",revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 September 07, 2017, by Thierry Nouidui:<br/>
 Refactored the FFD C-code and revised the documentation.

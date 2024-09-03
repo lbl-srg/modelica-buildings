@@ -92,7 +92,7 @@ equation
         smooth=Smooth.Bezier),
         Text(
           extent={{50,-70},{76,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           textString="t"),
@@ -115,7 +115,7 @@ There can be multiple instances of this block.
 If they share the same value for <code>fileName</code>,
 then they will add their plot to the same output file.
 For convenience, we recommend to drag an instance of
-<a href=\"Buildings.Utilities.Plotters.Configuration\">Buildings.Utilities.Plotters.Configuration</a>
+<a href=\"modelica://Buildings.Utilities.Plotters.Configuration\">Buildings.Utilities.Plotters.Configuration</a>
 at the top-level of your model. This instance can then
 be used to globally set the <code>fileName</code> and
 the <code>samplePeriod</code> for all plotters.

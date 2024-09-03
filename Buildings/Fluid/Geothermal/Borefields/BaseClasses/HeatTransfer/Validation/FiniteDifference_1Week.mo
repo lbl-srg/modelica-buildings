@@ -3,7 +3,7 @@ model FiniteDifference_1Week
   "Short term validation of ground temperature response model"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature T_start = 283.15
+  parameter Modelica.Units.SI.Temperature T_start=283.15
     "Initial soil temperature";
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.Cylindrical soi(
     final steadyStateInitial=false,
@@ -47,11 +47,12 @@ model FiniteDifference_1Week
     annotation (Placement(transformation(extent={{-90,-88},{-70,-68}})));
 
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/(24*3600),
+    f=1/(24*3600),
     startTime=21600,
     amplitude=1e8) "Heat flow signal"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
+    nSeg=12,
     borFieDat=borFieDat,
     nCel=5,
     tLoaAgg=30) "Heat conduction in the soil"
@@ -90,7 +91,7 @@ equation
     annotation (Line(points={{50,60},{60,60},{60,88},{-66,88},{-66,-36},{-73,
           -36}},                                             color={0,0,127}));
   connect(temSenDis.T, deltaT.u1)
-    annotation (Line(points={{10,20},{20,20},{20,6},{28,6}}, color={0,0,127}));
+    annotation (Line(points={{11,20},{20,20},{20,6},{28,6}}, color={0,0,127}));
   connect(soi.port_a, temSenDis.port) annotation (Line(points={{-12,60},{-20,60},
           {-20,20},{-10,20}}, color={191,0,0}));
 

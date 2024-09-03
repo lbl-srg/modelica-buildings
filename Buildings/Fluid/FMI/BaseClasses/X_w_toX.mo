@@ -6,8 +6,8 @@ block X_w_toX "Conversion from Xi to X"
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
-  Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg") if
-        Medium.nXi > 0 "Water mass fraction per total air mass"
+  Modelica.Blocks.Interfaces.RealInput X_w(final unit="kg/kg")
+     if Medium.nXi > 0 "Water mass fraction per total air mass"
      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](
     each final unit="kg/kg",

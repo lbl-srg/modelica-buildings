@@ -7,14 +7,14 @@ model TWetBul_TDryBulPhi
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
      "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-10,46},{10,66}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p(k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-90,-34},{-70,-14}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"
     annotation (Placement(transformation(extent={{-90,6},{-70,26}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-90,46},{-70,66}})));
 
@@ -31,10 +31,10 @@ model TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-32,-30},{-20,-18}})));
   // ===================================================================
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,6},{60,26}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,-34},{60,-14}})));
 equation
@@ -76,18 +76,16 @@ equation
   connect(TDryBul.y, x_pTphi.T)
     annotation (Line(points={{-68,56},{-40,56},{-40,-24},{-33.2,-24}},
       color={0,0,127}));
-  connect(wetBulPhi.TWetBul, add.u1)
-    annotation (Line(points={{12,56},{22,56},{22,22},{38,22}},
-      color={0,0,127}));
-  connect(wetBulPhi_BuiLib.TWetBul, add.u2)
+  connect(wetBulPhi_BuiLib.TWetBul, sub.u2)
     annotation (Line(points={{11,16},{28,16},{28,10},{38,10}},
       color={0,0,127}));
-  connect(add1.u1, add.u1)
-    annotation (Line(points={{38,-18},{22,-18},{22,30},{22,30},{22,22},{38,22}},
-      color={0,0,127}));
-  connect(wetBulXi.TWetBul, add1.u2)
+  connect(wetBulXi.TWetBul, sub1.u2)
     annotation (Line(points={{11,-24},{28,-24},{28,-30},{38,-30}},
       color={0,0,127}));
+  connect(wetBulPhi.TWetBul, sub.u1)
+    annotation (Line(points={{12,56},{20,56},{20,22},{38,22}}, color={0,0,127}));
+  connect(wetBulPhi.TWetBul, sub1.u1)
+    annotation (Line(points={{12,56},{20,56},{20,-18},{38,-18}}, color={0,0,127}));
 
 annotation (experiment(StopTime=1.0,Tolerance = 1e-06),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Psychrometrics/Validation/TWetBul_TDryBulPhi.mos"

@@ -1,15 +1,16 @@
 within Buildings.Fluid.BaseClasses.FlowModels.Validation;
 model InverseFlowFunctions "Test model for flow function and its inverse"
   extends Modelica.Icons.Example;
- Modelica.SIunits.MassFlowRate m_flow;
- Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure difference";
- Modelica.SIunits.PressureDifference dpCalc(displayUnit="Pa")
+  Modelica.Units.SI.MassFlowRate m_flow;
+  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
+    "Pressure difference";
+  Modelica.Units.SI.PressureDifference dpCalc(displayUnit="Pa")
     "Pressure difference computed by the flow functions";
- Modelica.SIunits.Pressure deltaDp(displayUnit="Pa")
+  Modelica.Units.SI.Pressure deltaDp(displayUnit="Pa")
     "Pressure difference between input and output to the functions";
- Modelica.SIunits.Time dTime= 2;
+  Modelica.Units.SI.Time dTime=2;
  parameter Real k = 0.5;
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1 "Nominal flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1 "Nominal flow rate";
 equation
   dp = (time-0.5)/dTime * 20;
   m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_nominal*0.3);

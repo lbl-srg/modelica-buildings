@@ -9,7 +9,7 @@ model CFDFluidInterface
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
@@ -18,10 +18,10 @@ model CFDFluidInterface
   // Parameters for the model
   parameter Integer nPorts(min=0)=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Modelica.SIunits.Density rho_start
+  parameter Modelica.Units.SI.Density rho_start
     "Density, used to compute fluid mass";
-  parameter Modelica.SIunits.Volume V "Volume";
-  final parameter Modelica.SIunits.Mass m_start = rho_start * V
+  parameter Modelica.Units.SI.Volume V "Volume";
+  final parameter Modelica.Units.SI.Mass m_start=rho_start*V
     "Initial mass of air inside the room.";
 
   Modelica.Blocks.Interfaces.RealInput T_outflow[nPorts](
@@ -66,13 +66,13 @@ model CFDFluidInterface
   Modelica.Blocks.Interfaces.RealOutput Xi_inflow[nPorts*Medium.nXi](
   each min=0,
   each max=1,
-  each unit="1") if
-     Medium.nXi > 0 "Species concentration if m_flow >= 0"
+  each unit="1")
+  if Medium.nXi > 0 "Species concentration if m_flow >= 0"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Blocks.Interfaces.RealOutput C_inflow[nPorts*Medium.nC](
-  each min=0) if
-     Medium.nC > 0 "Trace substances if m_flow >= 0"
+  each min=0)
+  if Medium.nC > 0 "Trace substances if m_flow >= 0"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
   // Fluid port
@@ -98,9 +98,9 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_outflow_internal[max(nPorts, nPorts*Medium.nC)](
   each min=0) "Trace substances if m_flow < 0";
 
-  Modelica.SIunits.MassFlowRate[Medium.nXi] mbXi_flow
+  Modelica.Units.SI.MassFlowRate[Medium.nXi] mbXi_flow
     "Substance mass flows across boundaries";
-  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
+  Modelica.Units.SI.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
 
 initial equation
   //Disable it for shoebox model test
@@ -169,9 +169,9 @@ equation
    for i in 1:nPorts loop
      m_flow[i] = ports[i].m_flow;
      T_inflow[i] = Medium.temperature(Medium.setState_phX(
-       p=  p,
-       h=  inStream(ports[i].h_outflow),
-       X=  inStream(ports[i].Xi_outflow)));
+       p = p,
+       h = inStream(ports[i].h_outflow),
+       X = inStream(ports[i].Xi_outflow)));
 
      for j in 1:Medium.nXi loop
        Xi_inflow_internal[(i-1)*Medium.nXi+j] = inStream(ports[i].Xi_outflow[j]);

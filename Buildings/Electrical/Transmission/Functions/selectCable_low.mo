@@ -1,12 +1,13 @@
 within Buildings.Electrical.Transmission.Functions;
 function selectCable_low "This function is used to automatically select the
     type of cable for low voltages"
-  input Modelica.SIunits.Power P_nominal = 0 "Rated power";
-  input Modelica.SIunits.Voltage V_nominal = 0 "Rated voltage";
+  input Modelica.Units.SI.Power P_nominal=0 "Rated power";
+  input Modelica.Units.SI.Voltage V_nominal=0 "Rated voltage";
   output Buildings.Electrical.Transmission.LowVoltageCables.Generic cable "Cable";
 protected
   parameter Real safety_factor = 1.2;
-  Modelica.SIunits.Current I_nominal "Nominal current flowing through the line";
+  Modelica.Units.SI.Current I_nominal
+    "Nominal current flowing through the line";
   Buildings.Electrical.Transmission.LowVoltageCables.Cu10 cu10;
   Buildings.Electrical.Transmission.LowVoltageCables.Cu20 cu20;
   Buildings.Electrical.Transmission.LowVoltageCables.Cu25 cu25;

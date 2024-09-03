@@ -2,22 +2,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Thermodynamic properties of heat carrier fluids &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,9 +28,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -133,17 +134,17 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="module-PythonModel.fluids">
+  <section id="module-PythonModel.fluids">
 <span id="thermodynamic-properties-of-heat-carrier-fluids"></span><h1>Thermodynamic properties of heat carrier fluids<a class="headerlink" href="#module-PythonModel.fluids" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="PythonModel.fluids.ConstantPropertyWater">
-<em class="property">class </em><code class="sig-prename descclassname">PythonModel.fluids.</code><code class="sig-name descname">ConstantPropertyWater</code><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.fluids.</span></span><span class="sig-name descname"><span class="pre">ConstantPropertyWater</span></span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for the evaluation of thermal properties of heat transfer fluid
 Water.</p>
-<dl class="method">
-<dt id="PythonModel.fluids.ConstantPropertyWater.get_Density">
-<code class="sig-name descname">get_Density</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_Density" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_Density">
+<span class="sig-name descname"><span class="pre">get_Density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_Density" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the density of water.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -151,7 +152,7 @@ Water.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_Density</span><span class="p">()</span>
 <span class="go">&#39;998.21&#39;</span>
 </pre></div>
@@ -160,9 +161,9 @@ Water.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity">
-<code class="sig-name descname">get_SpecificIsobaricHeatCapacity</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity">
+<span class="sig-name descname"><span class="pre">get_SpecificIsobaricHeatCapacity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificIsobaricHeatCapacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the specific isobaric heat capacity of water.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -170,7 +171,7 @@ Water.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificIsobaricHeatCapacity</span><span class="p">()</span>
 <span class="go">&#39;4184.05&#39;</span>
 </pre></div>
@@ -179,9 +180,9 @@ Water.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume">
-<code class="sig-name descname">get_SpecificVolume</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume">
+<span class="sig-name descname"><span class="pre">get_SpecificVolume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.get_SpecificVolume" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the specific volume of water.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -189,7 +190,7 @@ Water.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">flu</span><span class="o">.</span><span class="n">get_SpecificVolume</span><span class="p">()</span>
 <span class="go">&#39;0.00100180&#39;</span>
 </pre></div>
@@ -198,9 +199,9 @@ Water.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.fluids.ConstantPropertyWater.modelicaModelPath">
-<code class="sig-name descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.fluids.ConstantPropertyWater.modelicaModelPath">
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.fluids.ConstantPropertyWater.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the full path to the water model in the Buildings library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -213,7 +214,7 @@ Water.</p>
 model from failing.</p>
 </div>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span> <span class="o">=</span> <span class="n">ConstantPropertyWater</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">flu</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Modelica.Media.Water.ConstantPropertyLiquidWater(T_min=223.15)&#39;</span>
 </pre></div>
@@ -224,7 +225,7 @@ model from failing.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -242,8 +243,8 @@ model from failing.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

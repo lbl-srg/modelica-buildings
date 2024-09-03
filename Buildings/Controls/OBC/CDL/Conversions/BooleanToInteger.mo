@@ -5,16 +5,15 @@ block BooleanToInteger
     "Output signal for true Boolean input";
   parameter Integer integerFalse=0
     "Output signal for false Boolean input";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u then
+  y=if u then
       integerTrue
     else
       integerFalse;
@@ -23,8 +22,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs the <code>Boolean</code>
-equivalent of the <code>Integer</code> input.
+Block that outputs the <code>Integer</code>
+equivalent of the <code>Boolean</code> input.
 </p>
 <pre>
   y = if u then integerTrue else integerFalse;
@@ -37,6 +36,12 @@ and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 17, 2022, by Hongxiang Fu:<br/>
+Corrected documentation texts where the variables were described with wrong types.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the
@@ -57,7 +62,7 @@ Modelica Standard Library.
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-86,78},{-34,26}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="B"),
         Polygon(
           points={{28,48},{8,68},{8,58},{-24,58},{-24,38},{8,38},{8,28},{28,48}},
@@ -66,7 +71,7 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{34,82},{86,24}},
-          lineColor={255,170,85},
+          textColor={255,170,85},
           textString="I"),
         Ellipse(
           extent={{-71,7},{-85,-7}},
@@ -84,13 +89,13 @@ Modelica Standard Library.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-74,-28},{64,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%integerTrue"),
         Text(
           extent={{-74,-90},{64,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%integerFalse")}));
 end BooleanToInteger;

@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx;
-model Case960 "Case 600, but with an unconditioned sun-space"
+model Case960 "Case 900, but with an unconditioned sun-space"
   extends Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case600(
     roo(
     nConExt=4,
@@ -18,15 +18,18 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       each til=Buildings.Types.Tilt.Wall)),
     souInf(nPorts=2),
     staRes(
-      annualHea(Min=2.311*3.6e9, Max=3.373*3.6e9, Mean=2.846*3.6e9),
-      annualCoo(Min=-0.411*3.6e9, Max=-0.803*3.6e9, Mean=-0.618*3.6e9),
-      peakHea(Min=2.410*1000, Max=2.863*1000, Mean=2.701*1000),
-      peakCoo(Min=-0.953*1000, Max=-1.404*1000, Mean=-1.212*1000)));
+      annualHea(Min=2.522*3.6e9, Max=2.860*3.6e9, Mean=2.693*3.6e9),
+      annualCoo(Min=-0.789*3.6e9, Max=-0.950*3.6e9, Mean=-0.896*3.6e9),
+      peakHea(Min=2.085*1000, Max=2.300*1000, Mean=2.196*1000),
+      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)),
+   heaCri(lowerLimit=2*3.6e9, upperLimit=3.4*3.6e9),
+   cooCri(lowerLimit=-0.62*3.6e9, upperLimit=-1.81*3.6e9));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
     stateAtSurface_a=true,
-    stateAtSurface_b=true)          "Partition wall between the two rooms"
+    stateAtSurface_b=true)
+    "Partition wall between the two rooms"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={120,-42})));
@@ -83,8 +86,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
       layers={floorCase900},
       each A=2*8,
       each til=F_),
-    AFlo=16,
-    lat=0.69464104229374) "Room model for sun-space"
+    AFlo=16) "Room model for sun-space"
     annotation (Placement(transformation(extent={{154,-30},{184,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow1(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{80,16},{88,24}})));
@@ -94,16 +96,6 @@ model Case960 "Case 600, but with an unconditioned sun-space"
     annotation (Placement(transformation(extent={{108,16},{116,24}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow1(k=0) "Latent heat gain"
     annotation (Placement(transformation(extent={{92,8},{100,16}})));
-  Buildings.HeatTransfer.Conduction.SingleLayer soiSunSpa(
-    material=soil,
-    steadyStateInitial=true,
-    A=16,
-    T_a_start=283.15,
-    T_b_start=283.75) "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(
-        extent={{5,-5},{-3,3}},
-        rotation=-90,
-        origin={175,-35})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf2(
     redeclare package Medium = MediumA,
     m_flow=1,
@@ -113,31 +105,43 @@ model Case960 "Case 600, but with an unconditioned sun-space"
     use_C_in=false,
     nPorts=1) "Sink model for sunspace infiltration"
     annotation (Placement(transformation(extent={{124,-144},{136,-132}})));
-  Modelica.Blocks.Sources.Constant InfiltrationRate1(k=-16*2.7*0.5/3600)
-    "0.41 ACH adjusted for the altitude (0.5 at sea level)"
+  Modelica.Blocks.Sources.Constant InfiltrationRate1(k=-16*2.7*0.414/3600)
+    "0.414 ACH adjusted for the altitude (0.5 at sea level)"
     annotation (Placement(transformation(extent={{54,-134},{62,-126}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{74,-138},{84,-128}})));
-  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA)
+  Buildings.Fluid.Sensors.Density density1(redeclare package Medium = MediumA,
+      warnAboutOnePortConnection=false)
     "Air density inside the building"
     annotation (Placement(transformation(extent={{84,-162},{74,-152}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoiSunSpa[nConBou](
-      each T=283.15) "Boundary condition for construction" annotation (
-      Placement(transformation(
-        extent={{0,0},{-8,8}},
-        origin={194,-52})));
-  Fluid.FixedResistances.PressureDrop heaCoo1(
+  Buildings.Fluid.FixedResistances.PressureDrop heaCoo1(
     redeclare package Medium = MediumA,
-    allowFlowReversal=false,
     m_flow_nominal=48*2.7*0.41/3600*1.2,
     dp_nominal=1,
     linearized=true,
     from_dp=true) "Heater and cooler"
     annotation (Placement(transformation(extent={{124,-120},{136,-108}})));
+  Buildings.HeatTransfer.Convection.Exterior conOpa1(
+    A=16,
+    hFixed=0.8,
+    roughness=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough,
+    final til=Buildings.Types.Tilt.Floor,
+    final azi=0,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind)
+    "Convection model for opaque part of the wall"
+    annotation (Placement(transformation(extent={{170,-64},{180,-54}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSunSpaAir
+    "Sun space room air temperature"
+    annotation (Placement(transformation(extent={{5,-5},{-5,5}},
+        rotation=0, origin={107,-11})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaHou(delta=3600)
+    "Hourly averaged room air temperature"
+    annotation (Placement(transformation(extent={{88,-28},{96,-20}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSunSpaAnn(delta=86400*365)
+    "Annual averaged room air temperature"
+    annotation (Placement(transformation(extent={{88,-40},{96,-32}})));
 equation
-  connect(sunSpa.uSha, replicator.y)
-                                  annotation (Line(
+  connect(sunSpa.uSha, replicator.y) annotation (Line(
       points={{152.8,-1.5},{122,-1.5},{122,80},{-3.6,80}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -150,17 +154,9 @@ equation
       points={{130,-42},{166,-42},{166,-25.5},{166.15,-25.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sunSpa.surf_conBou[1], soiSunSpa.port_b) annotation (Line(
-      points={{173.5,-27},{173.5,-29.5},{174,-29.5},{174,-32}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TSoiSunSpa[1].port, soiSunSpa.port_a) annotation (Line(
-      points={{186,-48},{174,-48},{174,-40}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, sunSpa.weaBus)
                                      annotation (Line(
-      points={{86,-88},{80,-88},{80,-1.575},{182.425,-1.575}},
+      points={{86,-92},{80,-92},{80,-1.575},{182.425,-1.575}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -190,12 +186,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(product1.y, sinInf2.m_flow_in)       annotation (Line(
-      points={{84.5,-133},{103.25,-133},{103.25,-133.2},{124,-133.2}},
+      points={{84.5,-133},{103.25,-133},{103.25,-133.2},{122.8,-133.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCoo1.port_b, sunSpa.ports[1])
                                         annotation (Line(
-      points={{136,-114},{144,-114},{144,-24.5},{157.75,-24.5}},
+      points={{136,-114},{144,-114},{144,-23.5},{157.75,-23.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sinInf2.ports[1], sunSpa.ports[2])    annotation (Line(
@@ -204,13 +200,27 @@ equation
       smooth=Smooth.None));
   connect(density1.port, sunSpa.ports[3])
                                        annotation (Line(
-      points={{79,-162},{152,-162},{152,-20.5},{157.75,-20.5}},
+      points={{79,-162},{152,-162},{152,-21.5},{157.75,-21.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(souInf.ports[2], heaCoo1.port_a) annotation (Line(
       points={{-12,-28},{-10,-28},{-10,-114},{124,-114}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(zerWin.y, conOpa1.v) annotation (Line(points={{28.4,-70},{36,-70},{36,
+          -54},{169,-54}}, color={0,0,127}));
+  connect(zerDir.y, conOpa1.dir) annotation (Line(points={{28.4,-84},{40,-84},{40,
+          -56.5},{169,-56.5}}, color={0,0,127}));
+  connect(TAirConExt.port, conOpa1.fluid) annotation (Line(points={{64,-75},{60,
+          -75},{60,-66},{188,-66},{188,-59},{180,-59}}, color={191,0,0}));
+  connect(conOpa1.solid, sunSpa.surf_conBou[1]) annotation (Line(points={{170,-59},
+          {164,-59},{164,-46},{173.5,-46},{173.5,-27}}, color={191,0,0}));
+  connect(TSunSpaAir.port, sunSpa.heaPorAir) annotation (Line(points={{112,-11},
+          {140,-11},{140,-16},{168.25,-16},{168.25,-15}}, color={191,0,0}));
+  connect(TSunSpaAir.T, TSunSpaHou.u) annotation (Line(points={{101.5,-11},{74,-11},
+          {74,-24},{87.2,-24}}, color={0,0,127}));
+  connect(TSunSpaAir.T, TSunSpaAnn.u) annotation (Line(points={{101.5,-11},{74,-11},
+          {74,-36},{87.2,-36}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case960.mos"
         "Simulate and plot"),
       experiment(
@@ -220,13 +230,31 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
             120}}), graphics={Text(
           extent={{106,-200},{252,-220}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="SunZone"), Text(
           extent={{-12,-202},{134,-222}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3731\">#3731</a>
+</li>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Corrected assignment of soil properties to avoid an error when checking

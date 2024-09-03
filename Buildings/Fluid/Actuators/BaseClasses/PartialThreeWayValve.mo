@@ -7,7 +7,6 @@ partial model PartialThreeWayValve "Partial three way valve"
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1
         constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
           deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
           from_dp=from_dp,
           final linearized=linearized[1],
           final homotopyInitialization=homotopyInitialization,
@@ -15,14 +14,14 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal,
           final dpFixed_nominal=dpFixed_nominal[1],
-          final use_inputFilter=false),
+          final use_inputFilter=false,
+          final riseTime=riseTime),
       redeclare FixedResistances.LosslessPipe res2(
         m_flow_nominal=m_flow_nominal),
       redeclare replaceable
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res3
         constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
           deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
           from_dp=from_dp,
           final linearized=linearized[2],
           final homotopyInitialization=homotopyInitialization,
@@ -30,7 +29,8 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal/fraK^2,
           final dpFixed_nominal=dpFixed_nominal[2],
-          final use_inputFilter=false));
+          final use_inputFilter=false,
+          final riseTime=riseTime));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -38,10 +38,11 @@ partial model PartialThreeWayValve "Partial three way valve"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
-                                                         each min=0) = {0, 0}
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal[2](
+    each displayUnit="Pa",
+    each min=0) = {0,0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
@@ -150,6 +151,18 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Michael Wetter:<br/>
+Removed start value for <code>dp</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3231\">Buildings, #3231</a>.
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
+but it will show in the result file. Having a consistent value for all these parameters in the result filter
+helps during debugging.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

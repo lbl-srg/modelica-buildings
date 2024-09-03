@@ -2,14 +2,14 @@ within Buildings.Examples.DualFanDualDuct.Controls;
 block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_min "Minimum mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  parameter Modelica.Units.SI.MassFlowRate m_flow_min "Minimum mass flow rate";
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseActing=false,
     Td=60,
@@ -30,7 +30,11 @@ block RoomMixingBox "Controller for room mixing box"
     "Measured air mass flow rate into the room"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conFloRat(
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
+    "Fan operation, true if fan is running"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Reals.PID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
@@ -40,7 +44,7 @@ block RoomMixingBox "Controller for room mixing box"
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{38,38},{58,58}})));
   Modelica.Blocks.Interfaces.RealInput TRooSetHea(unit="K")
@@ -56,30 +60,26 @@ block RoomMixingBox "Controller for room mixing box"
     annotation (Placement(transformation(extent={{8,12},{28,32}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{8,-44},{28,-24}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxCoo
+  Buildings.Controls.OBC.CDL.Reals.Max maxCoo
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{40,-26},{60,-6}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTSet(k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTSet
     "Difference in set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTRooHea(k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTRooHea
     "Difference in room air temperature compared to heating setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter gaiCoo(uMax=1, uMin=0)
+  Buildings.Controls.OBC.CDL.Reals.Limiter gaiCoo(uMax=1, uMin=0)
     "Gain of cooling"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division gaiCooUnl
+  Buildings.Controls.OBC.CDL.Reals.Divide gaiCooUnl
     "Gain of cooling, unlimited"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiHot "Switch for heating"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHot "Switch for heating"
     annotation (Placement(transformation(extent={{74,30},{94,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swiCoo "Switch for cooling"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiCoo "Switch for cooling"
     annotation (Placement(transformation(extent={{72,-60},{92,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput yFan
-    "Fan operation, true if fan is running" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero signal"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{34,-68},{54,-48}})));
 equation
   connect(mAir_flow, conFloRat.u_m) annotation (Line(
@@ -168,31 +168,31 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{-86,92},{-38,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRoo"),
         Text(
           extent={{-88,-28},{-40,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{42,52},{90,28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yHea"),
         Text(
           extent={{46,-36},{94,-60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yCoo"),
         Text(
           extent={{-84,52},{-36,28}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetH"),
         Text(
           extent={{-84,10},{-36,-14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSetC"),
         Text(
           extent={{-86,-64},{-38,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yFan")}),
     Documentation(info="<html>
 This controller outputs the control signal for the air damper for the hot deck and the cold deck.

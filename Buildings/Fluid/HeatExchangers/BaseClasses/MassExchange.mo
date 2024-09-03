@@ -42,8 +42,9 @@ public
 protected
  parameter Medium.ThermodynamicState sta_default = Medium.setState_phX(h=Medium.h_default,
        p=Medium.p_default, X=Medium.X_default);
- parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
-    "Density, used to compute fluid volume";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(sta_default)
+    "Specific heat capacity";
  parameter Real cpLe_default(unit="J/(kg.K)") = cp_default * Le^(1-n);
 equation
   connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
@@ -76,25 +77,25 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,96},{-48,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TSur"),
         Text(
           extent={{-96,22},{-48,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="XMed"),
         Text(
           extent={{-90,-66},{-58,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Gc"),
         Text(
           extent={{54,10},{94,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m"),

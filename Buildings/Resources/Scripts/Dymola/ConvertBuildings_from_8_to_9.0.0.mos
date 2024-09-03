@@ -1,6 +1,0 @@
-//  Conversion script for Buildings library
-//  from: Version 8
-//  to:   Version 9.0.0
-clear
-
-convertClear();

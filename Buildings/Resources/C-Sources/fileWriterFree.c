@@ -2,9 +2,15 @@
  *
  * Michael Wetter, LBNL                     2018-05-12
  */
-#include "fileWriterStructure.h"
+
+#ifndef IBPSA_FILEWRITERFree_c
+#define IBPSA_FILEWRITERFree_c
+
 #include <stdlib.h>
 #include <stdio.h>
+#include "ModelicaUtilities.h"
+
+#include "fileWriterStructure.h"
 
 void prependString(const char* fileName, const char* string){
   char *origString;
@@ -20,7 +26,7 @@ void prependString(const char* fileName, const char* string){
   if(fseek(fr, 0, SEEK_SET)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
 
-  origString = malloc(fsize + 1);
+  origString = (char *)malloc((fsize + 1) * sizeof(char));
   if ( origString == NULL ){
     /* not enough memory is available: file too large */
     ModelicaError("Not enough memory in fileWriterInit.c for prepending string.");
@@ -60,3 +66,5 @@ void fileWriterFree(void* ptrFileWriter){
 
   return;
 }
+
+#endif

@@ -4,12 +4,14 @@ model InternalResistancesTwoUTube
   extends
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.PartialInternalResistances;
 
-  parameter Modelica.SIunits.ThermalResistance Rgg1_val
+  parameter Modelica.Units.SI.ThermalResistance Rgg1_val
     "Thermal resistance between two neightbouring grout capacities, as defined by Bauer et al (2010)";
-  parameter Modelica.SIunits.ThermalResistance Rgg2_val
+  parameter Modelica.Units.SI.ThermalResistance Rgg2_val
     "Thermal resistance between two  grout capacities opposite to each other, as defined by Bauer et al (2010)";
-  parameter Modelica.SIunits.HeatCapacity Co_fil=borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi
-    *(borFieDat.conDat.rBor^2 - 4*borFieDat.conDat.rTub^2)
+  parameter Modelica.Units.SI.HeatCapacity Co_fil=
+     if borFieDat.filDat.steadyState then 0
+     else borFieDat.filDat.dFil*borFieDat.filDat.cFil*hSeg*Modelica.Constants.pi*
+          (borFieDat.conDat.rBor^2 - 4*borFieDat.conDat.rTub^2)
     "Heat capacity of the whole filling material";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_3
@@ -91,7 +93,7 @@ model InternalResistancesTwoUTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4)  if not borFieDat.filDat.steadyState "Heat capacity of the filling material"
                                             annotation (Placement(transformation(extent={{-8,-8},
             {8,8}},
         rotation=90,
@@ -99,13 +101,13 @@ model InternalResistancesTwoUTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4)  if not borFieDat.filDat.steadyState "Heat capacity of the filling material"
                                             annotation (Placement(transformation(extent={{58,8},{
             74,24}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil3(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4)  if not borFieDat.filDat.steadyState "Heat capacity of the filling material"
                                             annotation (Placement(transformation(extent={{-8,-8},
             {8,8}},
         rotation=90,
@@ -113,7 +115,7 @@ model InternalResistancesTwoUTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil4(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4)  if not borFieDat.filDat.steadyState "Heat capacity of the filling material"
                                             annotation (Placement(transformation(extent={{-82,20},
             {-66,36}})));
 equation
@@ -211,7 +213,7 @@ equation
           rotation=135,
           thickness=0.5),        Text(
           extent={{-100,144},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),                                 Diagram(
@@ -219,16 +221,16 @@ equation
         Documentation(info="<html>
 <p>
 This model simulates the internal thermal resistance network of a borehole segment in
-the case of a double U-tube borehole using the method of Bauer et al. (2011) 
-and computing explicitely the fluid-to-ground thermal resistance 
-<i>R<sub>b</sub></i> and the 
+the case of a double U-tube borehole using the method of Bauer et al. (2011)
+and computing explicitely the fluid-to-ground thermal resistance
+<i>R<sub>b</sub></i> and the
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Claesson and Hellstrom (2011)
-using the multipole method. 
+using the multipole method.
 </p>
 <h4>References</h4>
-<p>J. Claesson and G. Hellstrom. 
-<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+<p>J. Claesson and G. Hellstrom.
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger.
 </i>
 HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
@@ -241,6 +243,12 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 July 5, 2018, by Alex Laferri&egrave;re:<br/>
 Extended the model from a partial class.

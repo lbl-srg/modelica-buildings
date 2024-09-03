@@ -8,9 +8,10 @@ model TwoPortRL
     redeclare replaceable Interfaces.Terminal_n terminal_n,
     redeclare replaceable Interfaces.Terminal_p terminal_p,
     final C=0);
-  parameter Modelica.SIunits.Current i_start[PhaseSystem_p.n] = zeros(PhaseSystem_p.n)
+  parameter Modelica.Units.SI.Current i_start[PhaseSystem_p.n]=zeros(
+      PhaseSystem_p.n)
     "Initial current phasor of the line (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic)=
@@ -18,11 +19,11 @@ model TwoPortRL
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 protected
-  Modelica.SIunits.Current i_p[2](start = i_start, each stateSelect=StateSelect.prefer)
+  Modelica.Units.SI.Current i_p[2](start=i_start, each stateSelect=StateSelect.prefer)
     "Current phasor at terminal p";
-  Modelica.SIunits.AngularVelocity omega
+  Modelica.Units.SI.AngularVelocity omega
     "Frequency of the quasi-stationary sine waves";
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 
 initial equation
   if mode==Buildings.Electrical.Types.Load.FixedZ_dynamic then
@@ -61,7 +62,7 @@ Diagram(graphics={
                                                                   graphics={
           Text(
             extent={{-140,80},{140,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

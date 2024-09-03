@@ -3,26 +3,25 @@ model EquivalentHeatCapacity
   "Validation model for the equivalent heat capacity calculation"
   extends Modelica.Icons.Example;
 
-  Modelica.SIunits.TemperatureDifference deltaT
+  Modelica.Units.SI.TemperatureDifference deltaT
     "Change in temperature of the air entering and leaving the cooling tower";
 
-  Modelica.SIunits.Temperature TIn[1,5]=
-    [283.15, 288.15, 293.15, 298.15, 303.15]
-     "Inlet temperatures";
+  Modelica.Units.SI.Temperature TIn[1,5]=[283.15,288.15,293.15,298.15,303.15]
+    "Inlet temperatures";
 
-  Modelica.SIunits.Temperature TOut[1,5]=
-    [TIn[1,1]+deltaT,TIn[1,2]+deltaT, TIn[1,3]+deltaT, TIn[1,4]+deltaT, TIn[1,5]+deltaT]
-     "Outlet temperatures";
+  Modelica.Units.SI.Temperature TOut[1,5]=[TIn[1, 1] + deltaT,TIn[1, 2] +
+      deltaT,TIn[1, 3] + deltaT,TIn[1, 4] + deltaT,TIn[1, 5] + deltaT]
+    "Outlet temperatures";
 
-  Modelica.SIunits.SpecificHeatCapacity cpe10
+  Modelica.Units.SI.SpecificHeatCapacity cpe10
     "Equivalent specific heat capacity with 10 degC inlet temperature";
-  Modelica.SIunits.SpecificHeatCapacity cpe15
+  Modelica.Units.SI.SpecificHeatCapacity cpe15
     "Equivalent specific heat capacity with 15 degC inlet temperature";
-  Modelica.SIunits.SpecificHeatCapacity cpe20
+  Modelica.Units.SI.SpecificHeatCapacity cpe20
     "Equivalent specific heat capacity with 20 degC inlet temperature";
-  Modelica.SIunits.SpecificHeatCapacity cpe25
+  Modelica.Units.SI.SpecificHeatCapacity cpe25
     "Equivalent specific heat capacity with 25 degC inlet temperature";
-  Modelica.SIunits.SpecificHeatCapacity cpe30
+  Modelica.Units.SI.SpecificHeatCapacity cpe30
     "Equivalent specific heat capacity with 30 degC inlet temperature";
 
 protected

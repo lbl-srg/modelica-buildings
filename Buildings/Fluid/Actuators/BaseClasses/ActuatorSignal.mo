@@ -2,18 +2,21 @@ within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
+  constant Integer order(min=1) = 2 "Order of filter";
+
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Integer order(min=1) = 2 "Order of filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
-  parameter Real y_start=1 "Initial value of output"
+  parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
@@ -31,6 +34,9 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
+  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
+      riseTime) "Cut-off frequency of filter";
+
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"
     annotation(Evaluate=true);
@@ -41,30 +47,23 @@ protected
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Modelica.Blocks.Continuous.Filter filter(
-     final order=order,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=y_start,
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always,
-       each start=0)) if
-        use_inputFilter
-    "Second order filter to approximate valve opening time, and to improve numerics"
+  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
+    final n=order,
+    final f=fCut,
+    final normalized=true,
+    final initType=init,
+    final y_start=y_start) if use_inputFilter
+    "Second order filter to approximate actuator opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 
 equation
- connect(filter.y, y_filtered) annotation (Line(
-      points={{20.7,88},{50,88}},
-      color={0,0,127}));
+  connect(filter.y, y_filtered)
+    annotation (Line(points={{20.7,88},{50,88}}, color={0,0,127}));
   if use_inputFilter then
-  connect(y, filter.u) annotation (Line(
-      points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
-      color={0,0,127}));
-  connect(filter.y, y_internal) annotation (Line(
-      points={{20.7,88},{30,88},{30,70},{50,70}},
-      color={0,0,127}));
+    connect(y, filter.u) annotation (Line(points={{1.11022e-15,120},{1.11022e-15,
+            88},{4.6,88}}, color={0,0,127}));
+    connect(filter.y, y_internal) annotation (Line(points={{20.7,88},{30,88},{30,
+            70},{50,70}}, color={0,0,127}));
   else
     connect(y, y_internal) annotation (Line(
       points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
@@ -94,14 +93,14 @@ equation
         Text(
           visible=use_inputFilter,
           extent={{-20,94},{22,48}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
           textStyle={TextStyle.Bold}),
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("", String(y, format=".2f")))}),
 Documentation(info="<html>
 <p>
@@ -112,10 +111,6 @@ Models that extend this model use the signal
 current position of the actuator.
 </p>
 <p>
-The filter order can be changed to modify the transient response
-of the actuator.
-</p>
-<p>
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
 Buildings.Fluid.Actuators.UsersGuide</a>
@@ -123,6 +118,13 @@ for a description of the filter.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 April 6, 2020, by Antoine Gautier:<br/>
 Add the boolean parameter <code>casePreInd</code>.<br/>

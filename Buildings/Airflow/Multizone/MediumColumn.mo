@@ -7,7 +7,7 @@ model MediumColumn
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
-  parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
+  parameter Modelica.Units.SI.Length h(min=0) = 3 "Height of shaft";
   parameter Buildings.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
 
@@ -24,13 +24,13 @@ model MediumColumn
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
-  Modelica.SIunits.VolumeFlowRate V_flow
+  Modelica.Units.SI.VolumeFlowRate V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Modelica.SIunits.MassFlowRate m_flow
+  Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+  Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b";
-  Modelica.SIunits.Density rho "Density in medium column";
+  Modelica.Units.SI.Density rho "Density in medium column";
 protected
   Medium.ThermodynamicState sta_a=Medium.setState_phX(
       port_a.p,
@@ -102,15 +102,17 @@ equation
           points={{0,100},{0,-100},{0,-98}}),
         Text(
           extent={{24,-78},{106,-100}},
-          lineColor={0,0,127},
-          textString="Bottom"),
+          textColor={0,0,127},
+          textString="Bottom",
+          fontSize=36),
         Text(
           extent={{32,104},{98,70}},
-          lineColor={0,0,127},
-          textString="Top"),
+          textColor={0,0,127},
+          textString="Top",
+          fontSize=36),
         Text(
           extent={{36,26},{88,-10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="h=%h"),
@@ -128,8 +130,8 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{-50.5,20.5},{50.5,-20.5}},
-          lineColor={0,0,127},
-          origin={-72.5,-12.5},
+          textColor={0,0,127},
+          origin={-72.5,-0.5},
           rotation=90,
           textString="%name"),
         Rectangle(
@@ -141,7 +143,7 @@ equation
           lineColor={0,0,0}),
         Rectangle(
           visible=densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
-          extent={{-16,0},{16,-82}},
+          extent={{-16,0},{16,-80}},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,

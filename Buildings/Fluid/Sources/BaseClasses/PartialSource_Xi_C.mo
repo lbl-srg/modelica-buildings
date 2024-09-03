@@ -5,13 +5,13 @@ partial model PartialSource_Xi_C
 
   parameter Boolean use_X_in = false
     "Get the composition (all fractions) from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean use_Xi_in = false
     "Get the composition (independent fractions) from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.MassFraction X[Medium.nX](
     final quantity=Medium.substanceNames) = Medium.X_default
     "Fixed value of composition"
@@ -92,21 +92,21 @@ equation
         Text(
           visible=use_X_in,
           extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="X"),
         Text(
           visible=use_Xi_in,
           extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C")}),
@@ -119,6 +119,12 @@ Otherwise the parameter value is used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
 <li>
 September 19, 2019, by Michael Wetter:<br/>
 Refactored handling of mass fractions which was needed to handle media such as

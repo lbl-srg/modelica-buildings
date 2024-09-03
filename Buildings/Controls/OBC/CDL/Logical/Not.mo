@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Not
   "Logical not"
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -26,7 +26,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-56,28},{72,-24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="not"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -43,7 +43,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>

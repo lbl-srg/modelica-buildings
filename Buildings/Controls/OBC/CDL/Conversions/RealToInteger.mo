@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block RealToInteger
   "Convert Real to Integer signal"
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if(u > 0) then
+  y=if
+      (u > 0) then
       integer(
         floor(
           u+0.5))
@@ -31,11 +31,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           extent={{-100.0,-40.0},{0.0,40.0}},
           textString="R"),
         Text(
-          lineColor={255,127,0},
+          textColor={255,127,0},
           extent={{20.0,-40.0},{120.0,40.0}},
           textString="I"),
         Polygon(
@@ -46,7 +46,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>
@@ -57,8 +57,8 @@ as the nearest integer value of the input <code>u</code>.
 The block outputs
 </p>
 <pre>
-    y = integer( floor( u + 0.5 ) )  for  u &gt; 0,
-    y = integer( ceil ( u - 0.5 ) )  for  u &lt; 0.
+    y = integer( floor( u + 0.5 ) )  if u &gt; 0,
+    y = integer( ceil ( u - 0.5 ) )  otherwise.
 </pre>
 </html>",
       revisions="<html>

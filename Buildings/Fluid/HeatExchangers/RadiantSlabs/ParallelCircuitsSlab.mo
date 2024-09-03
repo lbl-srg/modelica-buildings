@@ -27,22 +27,22 @@ model ParallelCircuitsSlab
   parameter Integer nSeg(min=1) = if heatTransfer==Types.HeatTransfer.EpsilonNTU then 1 else 5
     "Number of volume segments in each circuit (along flow path)";
 
-  parameter Modelica.SIunits.Area A
+  parameter Modelica.Units.SI.Area A
     "Surface area of radiant slab (all circuits combined)"
-  annotation(Dialog(group="Construction"));
-  parameter Modelica.SIunits.Length length = A/disPip/nCir
+    annotation (Dialog(group="Construction"));
+  parameter Modelica.Units.SI.Length length=A/disPip/nCir
     "Length of the pipe of a single circuit";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of all circuits combined"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal)
     "Small mass flow rate of all circuits combined for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
 
-  final parameter Modelica.SIunits.Velocity v_nominal=
-    4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_default/nCir
-    "Velocity at m_flow_nominal";
+  final parameter Modelica.Units.SI.Velocity v_nominal=4*m_flow_nominal/pipe.dIn
+      ^2/Modelica.Constants.pi/rho_default/nCir "Velocity at m_flow_nominal";
 
   // Parameters used for the fluid model implementation
 
@@ -55,9 +55,11 @@ model ParallelCircuitsSlab
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
+  Modelica.Units.SI.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction) for all circuits combined";
-  Modelica.SIunits.PressureDifference dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
+  Modelica.Units.SI.PressureDifference dp(
+    start=0,
+    displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
@@ -69,8 +71,8 @@ model ParallelCircuitsSlab
     else
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow))) if
-         show_T "Medium properties in port_a";
+                          noEvent(actualStream(port_a.Xi_outflow)))
+      if show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=if homotopyInitialization then
       Medium.setState_phX(port_b.p,
@@ -81,8 +83,8 @@ model ParallelCircuitsSlab
     else
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow))) if
-          show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow)))
+       if show_T "Medium properties in port_b";
 
   Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab sla(
     redeclare final package Medium = Medium,
@@ -122,8 +124,9 @@ protected
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Start state";
-  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
-  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(state_default);
+  parameter Modelica.Units.SI.DynamicViscosity mu_default=
+      Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul_a(
@@ -192,7 +195,7 @@ equation
 This is a model of a radiant slab with pipes or a capillary heat exchanger
 embedded in the construction.
 The model is a composition of multiple models of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 that are arranged in a parallel.
 </p>
@@ -204,7 +207,7 @@ port variables for the heat port at the two surfaces, and for the flow inlet and
 <p>
 A typical model application is as follows: Suppose a large room has a radiant slab with two parallel circuits
 with the same pipe spacing and pipe length. Then, rather than using two instances of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 this system can be modeled using one instance of this model in order to reduce computing effort.
 See
@@ -214,10 +217,10 @@ that shows that the models give identical results.
 </p>
 <p>
 Since this model is a parallel arrangment of <code>nCir</code> models of
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>,
 we refer to
-<a href=\"Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab\">
 Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</a>
 for the model documentation.
 </p>

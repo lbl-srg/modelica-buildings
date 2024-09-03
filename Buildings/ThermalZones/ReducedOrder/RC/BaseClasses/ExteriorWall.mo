@@ -2,21 +2,18 @@ within Buildings.ThermalZones.ReducedOrder.RC.BaseClasses;
 model ExteriorWall "Exterior wall consisting of variable number of RC elements"
 
   parameter Integer n(min = 1) "Number of RC-elements";
-  parameter Modelica.SIunits.ThermalResistance RExt[n](
-    each min=Modelica.Constants.small)
+  parameter Modelica.Units.SI.ThermalResistance RExt[n](each min=Modelica.Constants.small)
     "Vector of resistors, from port_a to port_b"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.ThermalResistance RExtRem(
-    min=Modelica.Constants.small)
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.ThermalResistance RExtRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RExtRem between capacitor n and port_b"
-     annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.HeatCapacity CExt[n](
-    each min=Modelica.Constants.small)
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.HeatCapacity CExt[n](each min=Modelica.Constants.small)
     "Vector of heat capacities, from port_a to port_b"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Temperature T_start
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.Temperature T_start
     "Initial temperature of capacities"
-    annotation(Dialog(group="Thermal mass"));
+    annotation (Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
     iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -134,8 +131,10 @@ equation
    Line(points = {{-18, -32}, {16, -32}}, pattern = LinePattern.None,
    thickness = 0.5, smooth = Smooth.None), Line(points = {{-18, -44}, {16, -44}},
    pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None),
-   Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255},
-   textString = "%name"),
+   Text(
+     extent = {{-90, 142}, {90, 104}},
+     textColor = {0, 0, 255},
+     textString = "%name"),
    Line(points = {{18, -32}, {-20, -32}}, color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None),
    Line(points = {{14, -44}, {-15, -44}}, color = {0, 0, 0}, thickness = 0.5,

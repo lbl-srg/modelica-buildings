@@ -8,7 +8,7 @@ model CalendarTimeMonths "Validation model for the calendar time model"
 equation
 
   annotation (
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Time/Validation/CalendarTimeMonths.mos"
         "Simulate and plot"),
   Documentation(
     info="<html>

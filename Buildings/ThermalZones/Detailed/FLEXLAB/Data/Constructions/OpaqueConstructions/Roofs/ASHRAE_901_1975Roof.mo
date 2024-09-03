@@ -6,7 +6,7 @@ record ASHRAE_901_1975Roof =
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127)},
     final nLay=3) "Construction model for a roof minimally compliant with ASHRAE 90.1-1975.
       Used in test cells X1A and X1B"
-    annotation(
+    annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="datOpaCon",
 Documentation(info="<html>

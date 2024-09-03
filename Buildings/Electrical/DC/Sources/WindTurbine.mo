@@ -24,11 +24,11 @@ equation
         graphics={
         Text(
           extent={{-150,70},{-50,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{-150,-12},{-50,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-")}),
     Documentation(info="<html>
 <p>

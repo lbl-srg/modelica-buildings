@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs;
-model ThermalElectricalFollowing
+model ThermalElectricalFollowing "CHP model that can be thermal or electrical load following"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare Buildings.Fluid.MixingVolumes.MixingVolume vol(
       final V=per.capHeaRec/rhoWat/cWat),
@@ -12,9 +12,9 @@ model ThermalElectricalFollowing
 
   parameter Boolean switchThermalElectricalFollowing = true
     "Set to true for switching between thermal and electrical following, to false for electrical following only";
-  parameter Modelica.SIunits.Temperature TEngIni = Medium.T_default
+  parameter Modelica.Units.SI.Temperature TEngIni=Medium.T_default
     "Initial engine temperature";
-  parameter Modelica.SIunits.Time waitTime=60
+  parameter Modelica.Units.SI.Time waitTime=60
     "Wait time before transition from pump-on mode fires"
     annotation (Dialog(tab="Dynamics"));
   parameter Controls.OBC.CDL.Types.SimpleController watOutCon=
@@ -25,16 +25,14 @@ model ThermalElectricalFollowing
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(group="Cooling water outlet temperature controller",
       enable=switchThermalElectricalFollowing));
-  parameter Modelica.SIunits.Time Ti=0.5 "Time constant of integrator block"
+  parameter Modelica.Units.SI.Time Ti=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=switchThermalElectricalFollowing and
-      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Modelica.SIunits.Time Td=0.1 "Time constant of derivative block"
+        enable=switchThermalElectricalFollowing and (watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Modelica.Units.SI.Time Td=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Cooling water outlet temperature controller",
-      enable=switchThermalElectricalFollowing and
-      (watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-       watOutCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+        enable=switchThermalElectricalFollowing and (watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or watOutCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TWatOutSet(
     final unit="K",
     displayUnit="degC") if switchThermalElectricalFollowing
@@ -60,7 +58,8 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{-190,-150},{-170,-130}}),
       iconTransformation(extent={{-110,-80},{-90,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mWatSet_flow(
-    final unit="kg/s", final quantity="MassFlowRate") if per.compute_coolingWaterFlowRate
+    final unit="kg/s",
+    final quantity="MassFlowRate") if per.compute_coolingWaterFlowRate
     "Water mass flow rate set point based on internal control"
     annotation (
       Placement(transformation(extent={{180,120},{220,160}}),
@@ -83,11 +82,11 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{180,0},{220,40}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QWat_flow(
-    final unit="W", final quantity="HeatFlowRate")
+    final unit="W",
+    final quantity="HeatFlowRate")
     "Heat transfer rate to the water control volume"
-    annotation (Placement(
-      transformation(extent={{180,-120},{220,-80}}), iconTransformation(
-        extent={{100,-90},{140,-50}})));
+    annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
+      iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversion eneCon(
     final per = per) "Energy conversion"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -103,7 +102,7 @@ model ThermalElectricalFollowing
     annotation (Placement(transformation(extent={{50,150},{70,170}})));
   Buildings.Controls.OBC.CDL.Logical.And runSig "Run if avaFlag and PEleDem non zero"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=per.PEleMax/2*10^(-3),
     final uHigh=per.PEleMax*10^(-3)) "Determine if demand larger than zero"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
@@ -114,8 +113,8 @@ model ThermalElectricalFollowing
     final dPEleMax=per.dPEleMax)
     "Power after applied constraints"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per) if
-    per.compute_coolingWaterFlowRate
+  Buildings.Fluid.CHPs.BaseClasses.WaterFlowControl conWat(final per=per)
+    if per.compute_coolingWaterFlowRate
     "Internal controller for water mass flow rate"
     annotation (Placement(transformation(extent={{120,130},{140,150}})));
   Modelica.Blocks.Sources.RealExpression mWat_flow(
@@ -144,30 +143,30 @@ model ThermalElectricalFollowing
     "Heat transfer to the surrounding"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=180, origin={-60,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooWatCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooWatCon(
     final controllerType=watOutCon,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=1,
     final yMin=0) if switchThermalElectricalFollowing
-    "Cooling water outplet controller"
+    "Cooling water outlet controller"
     annotation (Placement(transformation(extent={{-60,340},{-40,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain elePowDem(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter elePowDem(
     final k=per.PEleMax) if switchThermalElectricalFollowing
     "Electric power demand if thermal following"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between thermal and electrical following"
     annotation (Placement(transformation(extent={{100,250},{120,270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant optFol(
     final k=false) if not switchThermalElectricalFollowing
     "Feed false to switch block if no optional following"
     annotation (Placement(transformation(extent={{40,230},{60,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=0) if not switchThermalElectricalFollowing "Constant zero"
     annotation (Placement(transformation(extent={{40,270},{60,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(final k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=-1)
     "Heat transfer to the water control volume"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
@@ -176,30 +175,26 @@ model ThermalElectricalFollowing
     "Room temperature"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 protected
-  constant Modelica.SIunits.Density rhoWat=1000 "Water density";
-  constant Modelica.SIunits.SpecificHeatCapacity cWat=4180 "Water specific heat";
+  constant Modelica.Units.SI.Density rhoWat=1000 "Water density";
+  constant Modelica.Units.SI.SpecificHeatCapacity cWat=4180
+    "Water specific heat";
 equation
   connect(fil.PEle, hys.u) annotation (Line(points={{-118,90},{-80,90},{-80,110},
           {-62,110}}, color={0,0,127}));
   connect(runSig.y, opeMod.runSig) annotation (Line(points={{2,130},{10,130},{
-          10,164},{48,164}},
-                          color={255,0,255}));
+          10,164},{48,164}}, color={255,0,255}));
   connect(conWat.PEle, fil.PEle) annotation (Line(points={{118,140},{90,140},{90,
           90},{-118,90}},  color={0,0,127}));
   connect(mWat_flow.y, eneCon.mWat_flow) annotation (Line(points={{-119,40},{
-          -100,40},{-100,32},{-62,32}},
-                                   color={0,0,127}));
+          -100,40},{-100,32},{-62,32}}, color={0,0,127}));
   connect(eng.TEng, eneCon.TEng) annotation (Line(points={{22,-130},{30,-130},{
-          30,-40},{-80,-40},{-80,23},{-62,23}},
-                                             color={0,0,127}));
+          30,-40},{-80,-40},{-80,23},{-62,23}}, color={0,0,127}));
   connect(mWat_flow.y, opeMod.mWat_flow) annotation (Line(points={{-119,40},{
-          -100,40},{-100,68},{20,68},{20,161},{48,161}},
-                                                      color={0,0,127}));
+          -100,40},{-100,68},{20,68},{20,161},{48,161}}, color={0,0,127}));
   connect(TWatIn.y, conWat.TWatIn) annotation (Line(points={{-119,60},{100,60},{
           100,133},{118,133}},color={0,0,127}));
   connect(eneCon.TWatIn, TWatIn.y) annotation (Line(points={{-62,29},{-90,29},{
-          -90,60},{-119,60}},
-                          color={0,0,127}));
+          -90,60},{-119,60}}, color={0,0,127}));
   connect(conWat.mWatSet_flow, mWatSet_flow)
     annotation (Line(points={{142,140},{200,140}}, color={0,0,127}));
   connect(hys.y, runSig.u2) annotation (Line(points={{-38,110},{-30,110},{-30,122},
@@ -207,14 +202,12 @@ equation
   connect(opeMod.opeMod, eneCon.opeMod) annotation (Line(points={{71,160},{80,160},
           {80,80},{-70,80},{-70,35},{-61,35}},   color={0,127,0}));
   connect(opeMod.avaSig, avaSig) annotation (Line(points={{48,167},{-30,167},{
-          -30,140},{-200,140}},
-                            color={255,0,255}));
+          -30,140},{-200,140}}, color={255,0,255}));
   connect(runSig.u1, avaSig) annotation (Line(points={{-22,130},{-30,130},{-30,140},
           {-200,140}}, color={255,0,255}));
   connect(conWat.opeMod, opeMod.opeMod) annotation (Line(points={{119,147},{80,
-          147},{80,160},{71,160}},
-                              color={0,127,0}));
-  connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{80,-60},{118,-60}},
+          147},{80,160},{71,160}}, color={0,127,0}));
+  connect(TWatOut.T, assWatTem.TWat) annotation (Line(points={{81,-60},{118,-60}},
           color={0,0,127}));
   connect(eneCon.mFue_flow, mFue_flow) annotation (Line(points={{-38,33},{160,33},
           {160,20},{200,20}},color={0,0,127}));
@@ -223,8 +216,7 @@ equation
   connect(TWatOut.port, vol.heatPort) annotation (Line(points={{60,-60},{-20,
           -60},{-20,-10},{-9,-10}}, color={191,0,0}));
   connect(powCon.opeMod, opeMod.opeMod) annotation (Line(points={{119,100},{80,
-          100},{80,160},{71,160}},
-                              color={0,127,0}));
+          100},{80,160},{71,160}}, color={0,127,0}));
   connect(powCon.PCon, PCon) annotation (Line(points={{142,100},{200,100}},
           color={0,0,127}));
   connect(TRoo, QLos.port_b) annotation (Line(points={{-180,-140},{-70,-140}},
@@ -240,27 +232,23 @@ equation
   connect(eneCon.QGen_flow, eng.QGen_flow) annotation (Line(points={{-38,22},{-20,22},{-20,
           -8},{-40,-8},{-40,-130},{-2,-130}}, color={0,0,127}));
   connect(eng.TEng, opeMod.TEng) annotation (Line(points={{22,-130},{24,-130},{
-          24,158},{48,158}},
-                          color={0,0,127}));
+          24,158},{48,158}}, color={0,0,127}));
   connect(TWatOutSet, cooWatCon.u_s) annotation (Line(points={{-200,350},{-62,
-          350}},
-          color={0,0,127}));
+          350}}, color={0,0,127}));
   connect(cooWatCon.y, elePowDem.u) annotation (Line(points={{-38,350},{-2,350}},
           color={0,0,127}));
   connect(theFol, swi.u2) annotation (Line(points={{-200,260},{98,260}},
           color={255,0,255}));
   connect(PEleDem, swi.u3) annotation (Line(points={{-200,200},{90,200},{90,252},
           {98,252}}, color={0,0,127}));
-  connect(TWatOut.T, cooWatCon.u_m) annotation (Line(points={{80,-60},{100,-60},
+  connect(TWatOut.T, cooWatCon.u_m) annotation (Line(points={{81,-60},{100,-60},
           {100,-80},{-150,-80},{-150,330},{-50,330},{-50,338}}, color={0,0,127}));
-  connect(watHea.Q_flow, gai.u) annotation (Line(points={{-10,-100},{118,-100}},
+  connect(watHea.Q_flow, gai.u) annotation (Line(points={{-9,-100},{118,-100}},
           color={0,0,127}));
   connect(gai.y, QWat_flow)
     annotation (Line(points={{142,-100},{200,-100}}, color={0,0,127}));
-
   connect(zer1.y, swi.u1) annotation (Line(points={{62,280},{80,280},{80,268},{
-          98,268}},
-                 color={0,0,127}));
+          98,268}}, color={0,0,127}));
   connect(optFol.y, swi.u2) annotation (Line(points={{62,240},{80,240},{80,260},
           {98,260}}, color={255,0,255}));
   connect(swi.y, fil.PEleDem) annotation (Line(points={{122,260},{160,260},{160,
@@ -271,12 +259,13 @@ equation
           40,152},{48,152}}, color={0,0,127}));
   connect(TRoo, TRooSen.port) annotation (Line(points={{-180,-140},{-160,-140},
           {-160,-120},{-140,-120}}, color={191,0,0}));
-  connect(TRooSen.T, eneCon.TRoo) annotation (Line(points={{-120,-120},{-90,
-          -120},{-90,26},{-62,26}}, color={0,0,127}));
+  connect(TRooSen.T, eneCon.TRoo) annotation (Line(points={{-119,-120},{-90,-120},
+          {-90,26},{-62,26}},       color={0,0,127}));
   connect(theFol, cooWatCon.trigger) annotation (Line(points={{-200,260},{-56,260},
           {-56,338}}, color={255,0,255}));
   connect(elePowDem.y, swi.u1) annotation (Line(points={{22,350},{80,350},{80,
           268},{98,268}}, color={0,0,127}));
+
 annotation (
   defaultComponentName="eleFol",
   Diagram(coordinateSystem(extent={{-180,-160},{180,380}})),

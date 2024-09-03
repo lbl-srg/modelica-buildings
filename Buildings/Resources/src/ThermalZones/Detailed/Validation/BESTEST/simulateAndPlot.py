@@ -17,6 +17,9 @@ DO_SIMULATIONS = True
 CLEAN_MAT = True
 # If true, temporary directories will be deleted.
 DelTemDir = True
+# If true, export MBL results to results file.
+# It will not update the plots and the html.
+ExportData = False
 
 CWD = os.getcwd()
 
@@ -24,14 +27,16 @@ CWD = os.getcwd()
 # The working branch makes the communication points ('ncp') of jmodelica or optimica to be 8761,
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
-# simulator, JModelica and optimica are supported
+# simulator, dymola and optimica are supported
 TOOL = 'optimica'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
 PACKAGE = 'Buildings.ThermalZones.Detailed.Validation.BESTEST'
 CASES = ['Case600', 'Case600FF', 'Case610', 'Case620', 'Case630', 'Case640', 'Case650', 'Case650FF', \
-         'Case900', 'Case900FF', 'Case920', 'Case940', 'Case950', 'Case950FF', 'Case960']
+         'Case660', 'Case670', 'Case680', 'Case680FF', 'Case685', 'Case695', \
+         'Case900', 'Case900FF', 'Case910', 'Case920', 'Case930', 'Case940', 'Case950', 'Case950FF', \
+         'Case960', 'Case980', 'Case980FF', 'Case985', 'Case995']
 
 plt.rc('axes', labelsize=9)
 plt.rc('xtick', labelsize=9)
@@ -141,12 +146,17 @@ def _move_results(resultDirs):
 
     for resultDir in resultDirs:
         haveMat = False
-        for file in os.listdir(resultDir):
+        if (TOOL == 'optimica'):
+            resultsFolder = resultDir
+        else:
+            resultsFolder = os.path.join(resultDir, 'Buildings')
+        for file in os.listdir(resultsFolder):
             if file.endswith('.mat'):
                 haveMat = True
-                source = os.path.join(resultDir, file)
+                source = os.path.join(resultsFolder, file)
                 destination = os.path.join(mat_dir, file)
                 shutil.copyfile(source, destination)
+        
         if not haveMat:
             raise ValueError("*** There is no result file in tmp folder: {}. Check the simulation. ***".format(resultDir))
 
@@ -178,7 +188,10 @@ def _organize_cases(mat_dir):
         for case in CASES:
             temp = {'case': case}
             for matFile in matFiles:
-                tester = '_{}_'.format(case)
+                if (TOOL == 'optimica'):
+                    tester = '{}_'.format(case)
+                else:
+                    tester = '{}.'.format(case)
                 if tester in matFile:
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
@@ -253,6 +266,9 @@ def get_time_series_result():
         if 'FF' in case['case']:
             # free floating cases
             resVal = ['TRooHou.y', 'TRooAnn.y']
+        elif (case['case'] == 'Case960'):
+            # case with sun space: back zone is conditioned and sun space is free floating
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TSunSpaHou.y', 'TSunSpaAnn.y']
         else:
             # cases with heating and cooling
             resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y']
@@ -263,6 +279,45 @@ def get_time_series_result():
     if CLEAN_MAT:
         shutil.rmtree('mat')
     return results
+
+def get_export_data():
+    """
+    Extract time series data for recording in ASHRAE 140 portal
+    """
+    mat_dir = os.path.join(CWD, 'mat')
+    # case name and the corresponded mat file path
+    cases = _organize_cases(mat_dir)
+
+    results = list()
+    for case in cases:
+        temp = {'case': case['case']}
+        if (case['case'] == 'Case600'):
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TSkyTemHou.y', 'TSkyTemAnn.y',
+                      'roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y', 'roo.HGlo[1]', 'gloSou.y', 'hGloHor.y', 'gloHor.y']
+        elif (case['case'] == 'Case610' or case['case'] == 'Case630'):
+            resVal = ['roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y']
+        elif (case['case'] == 'Case620'):
+            resVal = ['roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y', 'roo.HGlo[1]', 'gloSou.y', 'roo.HGlo[2]', 'gloEas.y']
+        elif (case['case'] == 'Case640' or case['case'] == 'Case940'):
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'TRooHou.y']
+        elif (case['case'] == 'Case660' or case['case'] == 'Case670'):
+            resVal = ['PCoo.y', 'PHea.y', 'ECoo.y', 'EHea.y', 'roo.QTraGlo[1]', 'roo.conExtWinRad[1].AWin', 'traSol.y']
+        elif (case['case'] == 'Case680' or case['case'] == 'Case685'
+              or case['case'] == 'Case695' or case['case'] == 'Case900'
+              or case['case'] == 'Case980' or case['case'] == 'Case985'
+              or case['case'] == 'Case995'):
+            resVal = ['PCoo.y', 'PHea.y']
+        else:
+            # for free floating cases
+            resVal = ['TRooHou.y', 'TRooAnn.y']
+        # extract time and value of the variables
+        time_series_data = _extract_data(case['matFile'], resVal)
+        temp['result'] = time_series_data
+        results.append(temp)
+    if CLEAN_MAT:
+        shutil.rmtree('mat')
+    return results
+
 # --------------------------------------------------------------------------------------------------
 
 # --------------------------------------------------------------------------------------------------
@@ -399,6 +454,227 @@ def _find_data_bin(dataSet):
         results[i] = '{}'.format(int(counter))
     return results
 
+def export_data(data_set):
+    kWh = 3600*1e3
+    results = list()
+    for k in range(len(data_set)):
+        data = data_set[k]
+        if 'FF' in data['case']:
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'TRooHou.y':
+                    annual = varVal['value']
+                    Feb1 = annual[745:769]
+                    Jul14 = annual[4657:4681]
+                elif varVal['variable'] == 'TRooAnn.y':
+                    annAve = varVal['value'][-1]
+            temp1 = {'Feb1_TZon': ['{:.2f}'.format(ele - 273.15) for ele in Feb1],
+                     'Jul14_TZon': ['{:.2f}'.format(ele - 273.15) for ele in Jul14],
+                     'AnnAve_TZon': '{:.2f}'.format(annAve - 273.15)}
+            if ('900FF' in data['case']):
+                temp1['annual_TZon'] = ['{:.2f}'.format(ele - 273.15) for ele in annual[1:]] 
+        elif 'Case600' in data['case']:
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'TSkyTemHou.y':
+                    Annual_TSky = varVal['value']
+                    Feb1_TSky = Annual_TSky[745:769]
+                    May4_TSky = Annual_TSky[2953:2977]
+                    Jul14_TSky = Annual_TSky[4657:4681]
+                    peaMax = _find_peak(varVal, True, 'max')
+                    peaMin = _find_peak(varVal, True, 'min')
+                elif varVal['variable'] == 'TSkyTemAnn.y':
+                    TSkyTemAnn = varVal['value'][-1]
+                elif varVal['variable'] == 'traSol.y':
+                    traSol = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.QTraGlo[1]':
+                    Feb1_hTra = varVal['value'][745:769]
+                    May4_hTra = varVal['value'][2953:2977]
+                    Jul14_hTra = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'PCoo.y':
+                    PCoo = varVal['value']
+                    Feb1_PCoo = PCoo[745:769]
+                    Jul14_PCoo = PCoo[4657:4681]
+                elif varVal['variable'] == 'PHea.y':
+                    PHea = varVal['value']
+                    Feb1_PHea = PHea[745:769]
+                    Jul14_PHea = PHea[4657:4681]
+                elif varVal['variable'] == 'hGloHor.y':
+                    May4_hGloHor = varVal['value'][2953:2977]
+                    Jul14_hGloHor = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'roo.HGlo[1]':
+                    May4_hGloSou = varVal['value'][2953:2977]
+                    Jul14_hGloSou = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'gloSou.y':
+                    gloSou = varVal['value'][-1]
+                elif varVal['variable'] == 'gloHor.y':
+                    gloHor = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
+            Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
+            for i in range(len(Feb1_PCoo)):
+                Feb1_Load[i] = (Feb1_PCoo[i] + Feb1_PHea[i]) / 1000
+                Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
+            Ann_Load = ['0' for i in range(len(PCoo))]
+            for i in range(len(PCoo)):
+                Ann_Load[i] = (PHea[i] + PCoo[i]) / 1000
+            temp1 = {'Feb1_TSky': ['{:.2f}'.format(ele - 273.15) for ele in Feb1_TSky],
+                     'May4_TSky': ['{:.2f}'.format(ele - 273.15) for ele in May4_TSky],
+                     'Jul14_TSky': ['{:.2f}'.format(ele - 273.15) for ele in Jul14_TSky],
+                     'Annual_Hourly_TSky': ['{:.2f}'.format(ele - 273.15) for ele in Annual_TSky[1:]],
+                     'Annual_TSky': '{:.2f}'.format(TSkyTemAnn-273.15),
+                     'Max_TSky': peaMax['value'] + ', ' + peaMax['hour'],
+                     'Min_TSky': peaMin['value'] + ', ' + peaMin['hour'],
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
+                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Feb1_hTra],
+                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in May4_hTra],
+                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Jul14_hTra],
+                     'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
+                     'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
+                     'Ann_Load': ['{:.2f}'.format(ele) for ele in Ann_Load[1:]],
+                     'May4_Global_Horizontal_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloHor],
+                     'Jul14_Global_Horizontal_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloHor],
+                     'May4_Global_South_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloSou],
+                     'Jul14_Global_South_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloSou],
+                     'Annual_Global_South_Solar': '{:.2f}'.format(gloSou/kWh),
+                     'Annual_Global_Horizontal_Solar': '{:.2f}'.format(gloHor/kWh)}
+        elif ('Case640' in data['case']) or ('Case940' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'TRooHou.y':
+                    Feb1_TZon = varVal['value'][745:769]
+                elif varVal['variable'] == 'PCoo.y':
+                    Feb1_PCoo = varVal['value'][745:769]
+                    Jul14_PCoo = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'PHea.y':
+                    Feb1_PHea = varVal['value'][745:769]
+                    Jul14_PHea = varVal['value'][4657:4681]
+            Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
+            Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
+            for i in range(len(Feb1_PCoo)):
+                Feb1_Load[i] = (Feb1_PCoo[i] + Feb1_PHea[i]) / 1000
+                Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
+            temp1 = {'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
+                     'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
+                     'Feb1_TZon': ['{:.2f}'.format(ele - 273.15) for ele in Feb1_TZon]}
+        elif ('Case660' in data['case']) or ('Case670' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'roo.QTraGlo[1]':
+                    Feb1_hTra = varVal['value'][745:769]
+                    May4_hTra = varVal['value'][2953:2977]
+                    Jul14_hTra = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'PCoo.y':
+                    Feb1_PCoo = varVal['value'][745:769]
+                    Jul14_PCoo = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'PHea.y':
+                    Feb1_PHea = varVal['value'][745:769]
+                    Jul14_PHea = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'traSol.y':
+                    traSol = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
+            Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
+            for i in range(len(Feb1_PCoo)):
+                Feb1_Load[i] = (Feb1_PCoo[i] + Feb1_PHea[i]) / 1000
+                Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
+            temp1 = {'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
+                     'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],
+                     'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
+                     'Feb1_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Feb1_hTra],
+                     'May4_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in May4_hTra],
+                     'Jul14_Transmitted_Solar': ['{:.2f}'.format(ele/AWin) for ele in Jul14_hTra]}
+        elif ('Case680' in data['case']) or ('Case685' in data['case']) or \
+             ('Case695' in data['case']) or ('Case900' in data['case']) or \
+             ('Case980' in data['case']) or ('Case985' in data['case']) or \
+             ('Case995' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'PCoo.y':
+                    PCoo = varVal['value']
+                    Feb1_PCoo = PCoo[745:769]
+                    Jul14_PCoo = PCoo[4657:4681]
+                elif varVal['variable'] == 'PHea.y':
+                    PHea = varVal['value']
+                    Feb1_PHea = PHea[745:769]
+                    Jul14_PHea = PHea[4657:4681]
+            Feb1_Load = ['0' for i in range(len(Feb1_PCoo))]
+            Jul14_Load = ['0' for i in range(len(Feb1_PCoo))]
+            for i in range(len(Feb1_PCoo)):
+                Feb1_Load[i] = (Feb1_PCoo[i] + Feb1_PHea[i]) / 1000
+                Jul14_Load[i] = (Jul14_PCoo[i] + Jul14_PHea[i]) / 1000
+            Ann_Load = ['0' for i in range(len(PCoo))]
+            for i in range(len(PCoo)):
+                Ann_Load[i] = (PHea[i] + PCoo[i]) / 1000
+            temp1 = {'Feb1_Load': ['{:.2f}'.format(ele) for ele in Feb1_Load],
+                     'Jul14_Load': ['{:.2f}'.format(ele) for ele in Jul14_Load],}
+            if ('Case900' in data['case']):
+                temp1['Ann_Load'] = ['{:.2f}'.format(ele) for ele in Ann_Load[1:]]
+        elif ('Case610' in data['case']) or ('Case630' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'traSol.y':
+                    traSol = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh)}
+        elif ('Case960' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'TRooAnn.y':
+                    annAve = varVal['value'][-1]
+            temp1 = {'AnnAve_TZon': '{:.2f}'.format(annAve - 273.15)}
+        elif ('Case620' in data['case']):
+            temp = {'case': data['case']}
+            for varVal in data['result']:
+                if varVal['variable'] == 'traSol.y':
+                    traSol = varVal['value'][-1]
+                elif varVal['variable'] == 'gloSou.y':
+                    gloWes = varVal['value'][-1]
+                elif varVal['variable'] == 'gloEas.y':
+                    gloEas = varVal['value'][-1]
+                elif varVal['variable'] == 'roo.HGlo[1]':
+                    May4_hGloWes = varVal['value'][2953:2977]
+                    Jul14_hGloWes = varVal['value'][4657:4681]
+                elif varVal['variable'] == 'roo.conExtWinRad[1].AWin':
+                    AWin = varVal['value'][-1]
+            temp1 = {'Total_Transmitted_Solar': '{:.2f}'.format(traSol/AWin/kWh),
+                     'Annual_Global_West_Solar': '{:.2f}'.format(gloWes/kWh),
+                     'Annual_Global_East_Solar': '{:.2f}'.format(gloEas/kWh),
+                     'May4_Global_West_Solar': ['{:.2f}'.format(ele) for ele in May4_hGloWes],
+                     'Jul14_Global_West_Solar': ['{:.2f}'.format(ele) for ele in Jul14_hGloWes]}
+        temp['extData'] = temp1
+        results.append(temp)
+    _write_data_file(results)
+
+def _write_data_file(data_set):
+    """
+    write needed  data to a file, for adding them to ASHRAE 140 portal
+
+    :param data_set: data list
+    """
+    with open('mbl_data.csv', 'w') as f:
+        for i in range(len(data_set)):
+            data = data_set[i]
+            f.write(os.linesep + os.linesep)
+            f.write('====================================' + os.linesep)
+            f.write('Case name: %s' % data['case'] + os.linesep)
+            extData = data['extData']
+            for key in extData:
+                f.write('------------------------------------' + os.linesep)
+                f.write('******* %s' % key + ' *******' + os.linesep)
+                ele = extData[key]
+                if (isinstance(ele, list)):
+                    dataLine = '%s' % ele[0]
+                    for i in range(1,len(ele)):
+                        dataLine += ', %s'%ele[i]
+                    f.write(dataLine)
+                else:
+                    f.write('%s'%ele)
+                f.write(os.linesep)
+
 def get_mo_data(data_set):
     MWh = 3600*1e6
     results = list()
@@ -412,31 +688,47 @@ def get_mo_data(data_set):
                 else:
                     peaMax = _find_peak(varVal, True, 'max')
                     peaMin = _find_peak(varVal, True, 'min')
-                    Jan4 = varVal['value'][73:97]
-                    Jul27 = varVal['value'][4969:4993]
+                    Feb1 = varVal['value'][745:769]
+                    Jul14 = varVal['value'][4657:4681]
                     binData = _find_data_bin(varVal['value'])
             temp1 = {'annAveTem': '{:.1f}'.format(annAveTemp-273.15),
                      'peaMax': peaMax,
                      'peaMin': peaMin,
-                     'Jan4': ['{:.2f}'.format(ele - 273.15) for ele in Jan4],
-                     'Jul27': ['{:.2f}'.format(ele - 273.15) for ele in Jul27],
+                     'Feb1': ['{:.2f}'.format(ele - 273.15) for ele in Feb1],
+                     'Jul14': ['{:.2f}'.format(ele - 273.15) for ele in Jul14],
                      'binData': binData}
         else:
             for varVal in data['result']:
+                if (data['case'] == 'Case960'):
+                    if varVal['variable'] == 'TSunSpaAnn.y':
+                        annAveTemp1 = varVal['value'][-1]
+                    elif varVal['variable'] == 'TSunSpaHou.y':
+                        peaMax1 = _find_peak(varVal, True, 'max')
+                        peaMin1 = _find_peak(varVal, True, 'min')
                 if varVal['variable'] == 'PCoo.y':
                     pCoo = _find_peak(varVal, False, 'min')
                 elif varVal['variable'] == 'PHea.y':
                     pHea = _find_peak(varVal, False, 'max')
                 elif varVal['variable'] == 'ECoo.y':
                     eCoo = varVal['value'][-1]
-                else:
+                elif varVal['variable'] == 'EHea.y':
                     eHea = varVal['value'][-1]
             load = _find_load(data['result'])
-            temp1 = {'peaCoo': pCoo,
-                     'peaHea': pHea,
-                     'Jan4': ['{:.2f}'.format(ele / 1000) for ele in load[73:97]],
-                     'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
-                     'eHea': '{:.3f}'.format(abs(eHea / MWh))}
+            if (data['case'] == 'Case960'):
+                temp1 = {'annAveTem': '{:.1f}'.format(annAveTemp1-273.15),
+                         'peaMax': peaMax1,
+                         'peaMin': peaMin1,
+                         'peaCoo': pCoo,
+                         'peaHea': pHea,
+                         'Feb1': ['{:.2f}'.format(ele / 1000) for ele in load[745:769]],
+                         'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
+                         'eHea': '{:.3f}'.format(abs(eHea / MWh))}
+            else:
+                temp1 = {'peaCoo': pCoo,
+                         'peaHea': pHea,
+                         'Feb1': ['{:.2f}'.format(ele / 1000) for ele in load[745:769]],
+                         'eCoo': '{:.3f}'.format(abs(eCoo / MWh)),
+                         'eHea': '{:.3f}'.format(abs(eHea / MWh))}
         temp['extData'] = list()
         temp['extData'].append(temp1)
         results.append(temp)
@@ -494,10 +786,7 @@ def get_data_list():
     """
     Return structure of the standard data list
     """
-    allTool = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-               'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
-    lessTool = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-                'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND']
+    allTool = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS']
     dataList = list()
     dataList.append({'data_set': 'annual_heating', \
                      'data_head': '# Table B8-1. Annual Heating Loads (MWh)', \
@@ -507,37 +796,37 @@ def get_data_list():
                      'tools': allTool})
     dataList.append({'data_set': 'peak_heating', \
                      'data_head': '# Table B8-3. Annual Hourly Integrated Peak Heating Loads (kW)', \
-                     'tools': lessTool})
+                     'tools': allTool})
     dataList.append({'data_set': 'peak_cooling', \
                      'data_head': '# Table B8-4. Annual Hourly Integrated Peak Sensible Cooling Loads (kW)', \
-                     'tools': lessTool})
+                     'tools': allTool})
     dataList.append({'data_set': 'max_temperature', \
                      'data_head': '# MAXIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE', \
-                     'tools': lessTool})
+                     'tools': allTool})
     dataList.append({'data_set': 'min_temperature', \
                      'data_head': '# MINIMUM ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE', \
-                     'tools': lessTool})
+                     'tools': allTool})
     dataList.append({'data_set': 'ave_temperature', \
                      'data_head': '# AVERAGE ANNUAL HOURLY INTEGRATED ZONE TEMPERATURE', \
                      'tools': allTool})
-    dataList.append({'data_set': 'FF_temperature_600FF_Jan4', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 600FF, JAN 4', \
-                     'tools': lessTool})
-    dataList.append({'data_set': 'FF_temperature_900FF_Jan4', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 900FF, JAN 4', \
-                     'tools': lessTool})
-    dataList.append({'data_set': 'FF_temperature_650FF_Jul27', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 650FFV, JULY 27', \
-                     'tools': lessTool})
-    dataList.append({'data_set': 'FF_temperature_950FF_Jul27', \
-                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 950FFV, JULY 27', \
-                     'tools': lessTool})
-    dataList.append({'data_set': 'hourly_load_600_Jan4', \
-                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 600 JAN 4', \
-                     'tools': lessTool})
-    dataList.append({'data_set': 'hourly_load_900_Jan4', \
-                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 900 JAN 4', \
-                     'tools': lessTool})
+    dataList.append({'data_set': 'FF_temperature_600FF_Feb1', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 600FF, FEB 1', \
+                     'tools': allTool})
+    dataList.append({'data_set': 'FF_temperature_900FF_Feb1', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 900FF, FEB 1', \
+                     'tools': allTool})
+    dataList.append({'data_set': 'FF_temperature_650FF_Jul14', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 650FFV, JULY 14', \
+                     'tools': allTool})
+    dataList.append({'data_set': 'FF_temperature_950FF_Jul14', \
+                     'data_head': '# HOURLY FREE FLOAT TEMPERATURE DATA (degC): CASE 950FFV, JULY 14', \
+                     'tools': allTool})
+    dataList.append({'data_set': 'hourly_load_600_Feb1', \
+                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 600 FEB 1', \
+                     'tools': allTool})
+    dataList.append({'data_set': 'hourly_load_900_Feb1', \
+                     'data_head': '# HOURLY HEATING & COOLING LOAD DATA (kWh): CASE 900 FEB 1', \
+                     'tools': allTool})
     dataList.append({'data_set': 'bin_temperature_900FF', \
                      'data_head': '# HOURLY ANNUAL ZONE TEMPERATURE BIN DATA (hours): CASE 900FF', \
                      'tools': allTool})
@@ -594,8 +883,8 @@ def get_line_data(line, table):
     # it should also have entries of 'hour' or when it happens
     elif 'peak_' in data_set or 'max_' in data_set or 'min_' in data_set:
         temp = {'firstCol': 'Case{}'.format(lineList[0])}
-        # remove the 5th item
-        lineList.pop(5)
+        # # remove the 5th item
+        # lineList.pop(5)
         resultsList = lineList[1:]
         valueHour = _value_and_hour(resultsList)
         temp['value'] = valueHour['value']
@@ -603,7 +892,7 @@ def get_line_data(line, table):
     # 24-hour profile of free-floating temperature, or load
     elif 'FF_temperature' in data_set or 'hourly_load' in data_set:
         temp = {'firstCol': lineList[0]}
-        lineList.pop(5)
+        # lineList.pop(5)
         temp['value'] = lineList[1:]
     # hourly temperature bin data
     else:
@@ -626,8 +915,9 @@ def _refactor_data_structure(dataList):
         col_5 = list()
         col_6 = list()
         col_7 = list()
-        col_8 = list()
-        col_9 = list()
+        lowerLimit = list()
+        upperLimit = list()
+        have_limits = False
 
         col_1_hr = list()
         col_2_hr = list()
@@ -635,10 +925,7 @@ def _refactor_data_structure(dataList):
         col_4_hr = list()
         col_5_hr = list()
         col_6_hr = list()
-        col_7_hr = list()
-        col_8_hr = list()
         haveHour = False
-        allTool = False
         for row in data:
             col_1.append(row['firstCol'])
             col_2.append(row['value'][0])
@@ -647,10 +934,10 @@ def _refactor_data_structure(dataList):
             col_5.append(row['value'][3])
             col_6.append(row['value'][4])
             col_7.append(row['value'][5])
-            col_8.append(row['value'][6])
-            if len(row['value']) > 7:
-                allTool = True
-                col_9.append(row['value'][7])
+            if (len(row['value']) > 6):
+                have_limits = True
+                lowerLimit.append(row['value'][6])
+                upperLimit.append(row['value'][7])
             if 'hour' in row:
                 haveHour = True
                 col_1_hr.append(row['hour'][0])
@@ -659,38 +946,24 @@ def _refactor_data_structure(dataList):
                 col_4_hr.append(row['hour'][3])
                 col_5_hr.append(row['hour'][4])
                 col_6_hr.append(row['hour'][5])
-                col_7_hr.append(row['hour'][6])
-                if allTool:
-                    col_8_hr.append(row['hour'][7])
         ele['data'] = list()
         temp = {'firstCol': col_1}
-        temp['ESP/DMU'] = col_2
-        temp['BLAST/US-IT'] = col_3
-        temp['DOE21D/NREL'] = col_4
-        temp['SRES-SUN/NREL'] = col_5
-        if allTool:
-            temp['SRES/BRE'] = col_6
-            temp['S3PAS/SPAIN'] = col_7
-            temp['TSYS/BEL-BRE'] = col_8
-            temp['TASE/FINLAND'] = col_9
-        else:
-            temp['S3PAS/SPAIN'] = col_6
-            temp['TSYS/BEL-BRE'] = col_7
-            temp['TASE/FINLAND'] = col_8
+        if have_limits:
+            temp['lowerLimits'] = lowerLimit
+            temp['upperLimits'] = upperLimit
+        temp['BSIMAC'] = col_2
+        temp['CSE'] = col_3
+        temp['DeST'] = col_4
+        temp['EnergyPlus'] = col_5
+        temp['ESP-r'] = col_6
+        temp['TRNSYS'] = col_7
         if haveHour:
-            temp['ESP/DMU_hour'] = col_1_hr
-            temp['BLAST/US-IT_hour'] = col_2_hr
-            temp['DOE21D/NREL_hour'] = col_3_hr
-            temp['SRES-SUN/NREL_hour'] = col_4_hr
-            if allTool:
-                temp['SRES/BRE_hour'] = col_5_hr
-                temp['S3PAS/SPAIN_hour'] = col_6_hr
-                temp['TSYS/BEL-BRE_hour'] = col_7_hr
-                temp['TASE/FINLAND_hour'] = col_8_hr
-            else:
-                temp['S3PAS/SPAIN_hour'] = col_5_hr
-                temp['TSYS/BEL-BRE_hour'] = col_6_hr
-                temp['TASE/FINLAND_hour'] = col_7_hr
+            temp['BSIMAC_hour'] = col_1_hr
+            temp['CSE_hour'] = col_2_hr
+            temp['DeST_hour'] = col_3_hr
+            temp['EnergyPlus_hour'] = col_4_hr
+            temp['ESP-r_hour'] = col_5_hr
+            temp['TRNSYS_hour'] = col_6_hr
         ele['data'].append(temp)
 
 def _filter_data_set(dataList):
@@ -722,7 +995,7 @@ def combine_data(standard_data, moData):
     :param standard_data: data set from ASHRAE-140
     :param moData: data set extract from Modelica simulation
     """
-    tool = 'MBL/LBNL'
+    tool = 'MBL'
     temp = list()
     for i in range(len(standard_data)):
         ithData = standard_data[i]
@@ -741,14 +1014,14 @@ def combine_data(standard_data, moData):
             temp.append(_add_to_standard('peaMin', moData, ithData, tool, True))
         if 'ave_temperature' in data_set:
             temp.append(_add_to_standard('annAveTem', moData, ithData, tool, False))
-        if 'FF_temperature_600FF_Jan4' in data_set or \
-           'FF_temperature_900FF_Jan4' in data_set or \
-           'hourly_load_600_Jan4' in data_set or \
-           'hourly_load_900_Jan4' in data_set:
-            temp.append(_addSingleCase_to_standard('Jan4', data_set, moData, ithData, tool))
-        if 'FF_temperature_650FF_Jul27' in data_set or \
-           'FF_temperature_950FF_Jul27' in data_set:
-            temp.append(_addSingleCase_to_standard('Jul27', data_set, moData, ithData, tool))
+        if 'FF_temperature_600FF_Feb1' in data_set or \
+           'FF_temperature_900FF_Feb1' in data_set or \
+           'hourly_load_600_Feb1' in data_set or \
+           'hourly_load_900_Feb1' in data_set:
+            temp.append(_addSingleCase_to_standard('Feb1', data_set, moData, ithData, tool))
+        if 'FF_temperature_650FF_Jul14' in data_set or \
+           'FF_temperature_950FF_Jul14' in data_set:
+            temp.append(_addSingleCase_to_standard('Jul14', data_set, moData, ithData, tool))
         if 'bin_temperature_900FF' in data_set:
             temp.append(_addSingleCase_to_standard('binData', data_set, moData, ithData, tool))
     return temp
@@ -803,8 +1076,7 @@ def _addSingleCase_to_standard(keyWord, table_name, moData, oneSet, tool):
 def bar_compare(data, yLabel, minimum, maximum):
     import numpy as np
 
-    tools = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-             'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND', 'MBL/LBNL']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'MBL']
     fillColor = plt.get_cmap('tab20c')
     yLim = [minimum, maximum]
     pltName = data['data_set']
@@ -849,10 +1121,9 @@ def bar_compare(data, yLabel, minimum, maximum):
 
 def plot_lines(data, xLabel, yLabel, xMin, xMax, dx, yMin, yMax):
     import numpy as np
-    tools = ['ESP/DMU', 'BLAST/US-IT', 'DOE21D/NREL', 'SRES-SUN/NREL', \
-             'SRES/BRE', 'S3PAS/SPAIN', 'TSYS/BEL-BRE', 'TASE/FINLAND', 'MBL/LBNL']
+    tools = ['BSIMAC', 'CSE', 'DeST', 'EnergyPlus', 'ESP-r', 'TRNSYS', 'MBL']
     lineColor = plt.get_cmap('tab20c')
-    lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x', '+', 'd']
+    lineMarker = ['.', ',', 'o', 's', 'p', '*', 'x']
     pltName = data['data_set']
     plt.clf()
     _,ax = plt.subplots(figsize=(10,5))
@@ -888,18 +1159,18 @@ def plot_figures(comDat):
     barPlot_yLabel = ['Annual Heating Load [MWh]', 'Annual Cooling Load [MWh]', 'Peak Heating Load [kW]', 'Peak Cooling Load [kW]', \
                       'Maximum Temperature [degC]', 'Minimum Temperature [degC]', 'Average Temperature [degC]']
     barPlot_yMin = [0, 0, 0, 0, 0, -25, 0]
-    barPlot_yMax = [8, 9, 8, 8, 80, 10, 35]
-    line_variable = ['FF_temperature_600FF_Jan4', 'FF_temperature_900FF_Jan4', 'FF_temperature_650FF_Jul27', \
-                     'FF_temperature_950FF_Jul27', 'hourly_load_600_Jan4', 'hourly_load_900_Jan4', 'bin_temperature_900FF']
-    line_xLable = ['Hour of Day (Case600FF, Jan4)', 'Hour of Day (Case900FF, Jan4)', 'Hour of Day (Case650FF, Jul27)', \
-                   'Hour of Day (Case950FF, Jul27)', 'Hour of Day (Case600, Jan4)', 'Hour of Day (Case900, Jan4)', 'Temperature Bins [degC] (Case900FF)']
+    barPlot_yMax = [8, 10, 8, 8, 80, 10, 35]
+    line_variable = ['FF_temperature_600FF_Feb1', 'FF_temperature_900FF_Feb1', 'FF_temperature_650FF_Jul14', \
+                     'FF_temperature_950FF_Jul14', 'hourly_load_600_Feb1', 'hourly_load_900_Feb1', 'bin_temperature_900FF']
+    line_xLable = ['Hour of Day (Case600FF, Feb1)', 'Hour of Day (Case900FF, Feb1)', 'Hour of Day (Case650FF, Jul14)', \
+                   'Hour of Day (Case950FF, Jul14)', 'Hour of Day (Case600, Feb1)', 'Hour of Day (Case900, Feb1)', 'Temperature Bins [degC] (Case900FF)']
     line_yLable = ['Temperature [degC]', 'Temperature [degC]', 'Temperature [degC]', 'Temperature [degC]', \
                    'Heating or Cooling Load [kW]', 'Heating or Cooling Load [kW]', 'Number of Occurrences']
     line_xMin = [1, 1, 1, 1, 1, 1, -10]
     line_xMax = [24, 24, 24, 24, 24, 24, 50]
     line_dx = [1, 1, 1, 1, 1, 1, 5]
-    line_yMin = [-30, -30, 0, 0, -4, 0, 0]
-    line_yMax = [40, 40, 60, 60, 5, 4, 500]
+    line_yMin = [-10, -10, 10, 10, -6, -2, 0]
+    line_yMax = [50, 50, 50, 50, 4, 2, 500]
 
     for i in range(len(comDat)):
         data = comDat[i]
@@ -920,27 +1191,24 @@ def update_html_tables(comDat):
     allTools = '''
 <tr>
 <th>Case</th>
-<th>ESP/DMU</th>
-<th>BLAST/US-IT</th>
-<th>DOE21D/NREL</th>
-<th>SRES-SUN/NREL</th>
-<th>SRES/BRE</th>
-<th>S3PAS/SPAIN</th>
-<th>TSYS/BEL-BRE</th>
-<th>TASE/FINLAND</th>
-<th>MBL/LBNL</th>
+<th>BSIMAC</th>
+<th>CSE</th>
+<th>DeST</th>
+<th>EnergyPlus</th>
+<th>ESP-r</th>
+<th>TRNSYS</th>
+<th>MBL</th>
 </tr>'''
     lessTools = '''
 <tr>
 <th rowspan=\\"2\\">Case</th>
-<th colspan=\\"2\\">ESP/DMU</th>
-<th colspan=\\"2\\">BLAST/US-IT</th>
-<th colspan=\\"2\\">DOE21D/NREL</th>
-<th colspan=\\"2\\">SRES-SUN/NREL</th>
-<th colspan=\\"2\\">S3PAS/SPAIN</th>
-<th colspan=\\"2\\">TSYS/BEL-BRE</th>
-<th colspan=\\"2\\">TASE/FINLAND</th>
-<th colspan=\\"2\\">MBL/LBNL</th>
+<th colspan=\\"2\\">BSIMAC</th>
+<th colspan=\\"2\\">CSE</th>
+<th colspan=\\"2\\">DeST</th>
+<th colspan=\\"2\\">EnergyPlus</th>
+<th colspan=\\"2\\">ESP-r</th>
+<th colspan=\\"2\\">TRNSYS</th>
+<th colspan=\\"2\\">MBL</th>
 </tr>'''
     loadContent = _generate_load_tables(comDat, allTools, lessTools)
     ffContent = _generate_ff_tables(comDat, lessTools)
@@ -975,11 +1243,26 @@ def update_html_tables(comDat):
         f.write(newMoContent)
 
 def _generate_load_tables(comDat, allTools, lessTools):
+    withLimits = '''
+<tr>
+<th>Case</th>
+<th>Lower limit</th>
+<th>Upper limit</th>
+<th>BSIMAC</th>
+<th>CSE</th>
+<th>DeST</th>
+<th>EnergyPlus</th>
+<th>ESP-r</th>
+<th>TRNSYS</th>
+<th>MBL</th>
+</tr>'''
     for ele in comDat:
         setName = ele['data_set']
         if setName == 'annual_cooling':
+            allTools = withLimits
             annCoo = ele
         if setName == 'annual_heating':
+            allTools = withLimits
             annHea = ele
         if setName == 'peak_cooling':
             peaCoo = ele
@@ -988,12 +1271,12 @@ def _generate_load_tables(comDat, allTools, lessTools):
     tableText = '''<table border = \\"1\\" summary=\\"Annual load\\">
 <tr><td colspan=\\"10\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
     # add annual heating load data
-    annHeaLoa = _write_table_content(annHea)
+    annHeaLoa = _write_table_content(annHea, True)
     tableText = tableText + annHeaLoa
     # add annual cooling load data
     tableText = tableText + '''<tr><td colspan=\\"10\\"><b>Annual cooling load (MWh)</b></td></tr>'''
     tableText = tableText + allTools
-    annCooLoa = _write_table_content(annCoo)
+    annCooLoa = _write_table_content(annCoo, True)
     tableText = tableText + annCooLoa + '''</table>
 <br/>'''
 
@@ -1006,17 +1289,16 @@ def _generate_load_tables(comDat, allTools, lessTools):
 <td>kW</td><td>hour</td>
 <td>kW</td><td>hour</td>
 <td>kW</td><td>hour</td>
-<td>kW</td><td>hour</td>
 </tr>'''
     # add peak heating load data
     tableText = tableText + '''
 <table border = \\"1\\" summary=\\"Peak load\\">
-<tr><td colspan=\\"17\\"><b>Peak heating load (kW)</b></td></tr>'''
+<tr><td colspan=\\"15\\"><b>Peak heating load (kW)</b></td></tr>'''
     tableText = tableText + lessTools + peakUnits
     peaHeaLoa = _write_table_content(peaHea)
     tableText = tableText + peaHeaLoa
     # add peak cooling load data
-    tableText = tableText + '''<tr><td colspan=\\"17\\"><b>Peak cooling load (kW)</b></td></tr>'''
+    tableText = tableText + '''<tr><td colspan=\\"15\\"><b>Peak cooling load (kW)</b></td></tr>'''
     tableText = tableText + lessTools + peakUnits
     peaCooLoa = _write_table_content(peaCoo)
     tableText = tableText + peaCooLoa + '''</table>
@@ -1040,15 +1322,14 @@ def _generate_ff_tables(comDat, lessTools):
 <td>&deg;C</td><td>hour</td>
 <td>&deg;C</td><td>hour</td>
 <td>&deg;C</td><td>hour</td>
-<td>&deg;C</td><td>hour</td>
 </tr>'''
     tableText = '''<table border = \\"1\\" summary=\\"Peak temperature\\">
-<tr><td colspan=\\"17\\"><b>Maximum temperature (&deg;C)</b></td></tr>''' + lessTools + peakUnits
+<tr><td colspan=\\"15\\"><b>Maximum temperature (&deg;C)</b></td></tr>''' + lessTools + peakUnits
     # add maximum temperature data
     maxTemData = _write_table_content(maxTem)
     tableText = tableText + maxTemData
     # add minimum temperature data
-    tableText = tableText + '''<tr><td colspan=\\"17\\"><b>Minimum temperature (&deg;C)</b></td></tr>'''
+    tableText = tableText + '''<tr><td colspan=\\"15\\"><b>Minimum temperature (&deg;C)</b></td></tr>'''
     tableText = tableText + lessTools + peakUnits
     minTemData = _write_table_content(minTem)
     tableText = tableText + minTemData + '''</table>
@@ -1056,7 +1337,7 @@ def _generate_ff_tables(comDat, lessTools):
 '''
     return tableText
 
-def _write_table_content(dataSet):
+def _write_table_content(dataSet, have_limits=False):
     setName = dataSet['data_set']
     data = dataSet['data'][0]
     tools = dataSet['tools']
@@ -1064,9 +1345,24 @@ def _write_table_content(dataSet):
     for i in range(len(data['firstCol'])):
         temp = "<tr>" + os.linesep
         temp = temp + "<td>{}</td>".format(data['firstCol'][i]) + os.linesep
+        if have_limits:
+            temp = temp + "<td>{}</td>".format(data['lowerLimits'][i]) + os.linesep
+            temp = temp + "<td>{}</td>".format(data['upperLimits'][i]) + os.linesep
+            lim1 = float(data['lowerLimits'][i])
+            lim2 = float(data['upperLimits'][i])
+            lowLim = lim1 if lim1 < lim2 else lim2
+            uppLim = lim2 if lim1 < lim2 else lim1
         for j in range(len(tools)):
             tool = tools[j]
-            temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
+            if have_limits:
+                tooVal = float(data[tool][i])
+                if ((tooVal > uppLim or tooVal < lowLim) and tooVal > 0.0):
+                    temp = temp + '''<td bgcolor=\\"#FF4500\\">''' + "{}</td>".format(tooVal) + os.linesep
+                else:
+                    # temp = temp + '''<td bgcolor=\\"#90EE90\\">''' + "{}</td>".format(tooVal) + os.linesep
+                    temp = temp + "<td>{}</td>".format(tooVal) + os.linesep
+            else:
+                temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
             if 'peak_' in setName or 'max_' in setName or 'min_' in setName:
                 toolHour = '{}_hour'.format(tool)
                 temp = temp + "<td>{}</td>".format(data[toolHour][i]) + os.linesep
@@ -1094,19 +1390,29 @@ if __name__=="__main__":
         # move the mat files to current working directory
         _move_results(resultDirs)
 
-    # get time series data from the mat file
-    time_series_data = get_time_series_result()
+    if ExportData:
+        # get time series data from the mat file
+        export_data_series = get_export_data()
 
-    # from the time series data, get the datas used for comparison
-    moData = get_mo_data(time_series_data)
+        # write the needed data to files
+        export_data(export_data_series)
 
-    # parse standard data
-    standard_data = parse_standard_data()
+    else:
+        # get time series data from the mat file
+        time_series_data = get_time_series_result()
 
-    # add data simulated with modelica buildings library, to the standard data
-    comDat = combine_data(standard_data, moData)
+        # from the time series data, get the datas used for comparison
+        moData = get_mo_data(time_series_data)
 
-    plot_figures(comDat)
+        # parse standard data
+        standard_data = parse_standard_data()
 
-    # write html tables to mo file
-    update_html_tables(comDat)
+        # add data simulated with modelica buildings library, to the standard data
+        comDat = combine_data(standard_data, moData)
+
+        plot_figures(comDat)
+
+        # write html tables to mo file
+        update_html_tables(comDat)
+
+    

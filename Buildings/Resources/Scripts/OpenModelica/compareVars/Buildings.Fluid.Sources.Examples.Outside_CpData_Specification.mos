@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "winDir.y",
+    "nor.pWin",
+    "weaDat.winSpe"
+  };

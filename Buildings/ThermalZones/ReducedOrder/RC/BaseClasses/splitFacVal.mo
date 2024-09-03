@@ -5,12 +5,12 @@ function splitFacVal
 
   input Integer nRow "Number of rows";
   input Integer nCol "Number of columns";
-  input Modelica.SIunits.Area[:] AArray "Vector of areas";
-  input Modelica.SIunits.Area[nCol] AExt "Vector of exterior wall areas";
-  input Modelica.SIunits.Area[nCol] AWin "Vector of window areas";
+  input Modelica.Units.SI.Area[:] AArray "Vector of areas";
+  input Modelica.Units.SI.Area[nCol] AExt "Vector of exterior wall areas";
+  input Modelica.Units.SI.Area[nCol] AWin "Vector of window areas";
   output Real[nRow,nCol] splitFacValues "Split factor values for ThermSplitter";
 protected
-  Modelica.SIunits.Area ATot=sum(AArray) "Total area";
+  Modelica.Units.SI.Area ATot=sum(AArray) "Total area";
   Integer j=1 "Row counter";
   Integer k=1 "Column counter";
   Integer l=1 "AArray counter";
@@ -50,7 +50,7 @@ algorithm
   <code>AArray</code> and each column for one orientation in
   <code>AExt</code> and <code>AWin</code>. The function is used to
   calculate the split factors for
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter</a>.</p>
   For internal gains, the calculation is:
   <p align=\"center\" style=\"font-style:italic;\">

@@ -1,45 +1,20 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch
-  "Maintains a true signal until change condition"
-  Interfaces.BooleanInput u
+  "Maintains a true signal until cleared"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Latch input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput clr
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-initial equation
-  pre(y)=false;
-  pre(u)=false;
-  pre(clr)=false;
-
 equation
   when initial() then
-    //scenario = 1;
-    y=
-      if clr then
-        false
-      else
-        u;
-  elsewhen(not clr) and change(u) and(pre(u) == false) then
-    //scenario = 2;
-    y=not clr;
-  elsewhen(not clr) and change(u) and(pre(u) == true) then
-    //scenario = 3;
-    y=
-      if clr then
-        false
-      else
-        pre(y);
-  elsewhen change(clr) and(pre(clr) == true) and(not u) then
-    //scenario = 4;
-    y=false;
-  elsewhen clr then
-    //scenario = 5;
-    y=false;
+    y=not clr and u;
+  elsewhen {clr, u} then
+    y=not clr and u;
   end when;
   annotation (
     defaultComponentName="lat",
@@ -83,12 +58,12 @@ equation
         Ellipse(
           extent={{-73,-53},{-87,-67}},
           lineColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
@@ -101,27 +76,27 @@ equation
           color={255,0,255}),
         Text(
           extent={{-14,-8},{14,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear"),
         Text(
           extent={{-16,72},{24,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Latch input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(
       info="<html>
 <p>
-Block that generates a <code>true</code> output when the latch input <code>u</code> 
-rises from <code>false</code> to <code>true</code>, provided that the clear input 
+Block that generates a <code>true</code> output when the latch input <code>u</code>
+rises from <code>false</code> to <code>true</code>, provided that the clear input
 <code>clr</code> is <code>false</code> or also became at the same time <code>false</code>.
-The output remains <code>true</code> until the clear input <code>clr</code> rises 
+The output remains <code>true</code> until the clear input <code>clr</code> rises
 from <code>false</code> to <code>true</code>.
 </p>
 <p>
@@ -130,8 +105,8 @@ switches to <code>false</code> (if it was <code>true</code>) and it remains <cod
 regardless of the value of the latch input <code>u</code>.
 </p>
 <p>
-At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = u</code>. Otherwise it will be <code>y=false</code> 
+At initial time, if <code>clr = false</code>, then the output will be
+<code>y = u</code>. Otherwise it will be <code>y=false</code>
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -144,6 +119,11 @@ At initial time, if <code>clr = false</code>, then the output will be
       revisions="<html>
 <ul>
 <li>
+April 15, 2024, by Antoine Gautier:<br/>
+Simplified the implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">issue 3796</a>.
+</li>
+<li>
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to latch input when the clear input is <code>false</code>.<br/>
@@ -155,7 +135,7 @@ Simplified implementation, and made model work with OpenModelica.
 </li>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
-Corrected implementation that causes wrong output at initial stage. 
+Corrected implementation that causes wrong output at initial stage.
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
 </li>
 <li>

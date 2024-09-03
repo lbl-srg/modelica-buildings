@@ -9,12 +9,11 @@ model BoreholeTwoUTube "Test for the double U-tube borehole model"
           borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel)));
 
   annotation (experiment(Tolerance=1e-6, StopTime=360000),
-        __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeTwoUTube.mos"
+        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/BaseClasses/Boreholes/Examples/BoreholeTwoUTube.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
 <p>
-This example illustrates the use of the 
+This example illustrates the use of the
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.TwoUTube</a>
 model. It simulates the behavior of a borehole with a prescribed

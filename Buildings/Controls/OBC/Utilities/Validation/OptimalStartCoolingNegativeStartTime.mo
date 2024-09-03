@@ -11,41 +11,38 @@ model OptimalStartCoolingNegativeStartTime
     y_start=24+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOcc(
     k=24+273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=5,
     freqHz=1/86400,
     offset=28+273.15,
     startTime(
       displayUnit="s")=-691200)
     "Outdoor dry bulb temperature to test cooling system"
-    annotation (Placement(transformation(extent={{-194,-20},{-174,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain UA(
-    k=100)
+    annotation (Placement(transformation(extent={{-194,50},{-174,70}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter UA(k=100)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dT(
-    k1=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTdt
+  Buildings.Controls.OBC.CDL.Reals.Add dTdt
     "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QCoo(
-    k=-2000)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter QCoo(k=-2000)
     "Heat extraction in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=-6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add
+  Buildings.Controls.OBC.CDL.Reals.Add add
     "Reset setpoint from unoccupied to occupied during optimal start period"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1,
     reverseActing=false)
@@ -59,8 +56,7 @@ model OptimalStartCoolingNegativeStartTime
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal TSetCoo(
     realTrue=273.15+24,
     realFalse=273.15+30,
-    y(
-      final unit="K",
+    y(final unit="K",
       displayUnit="degC"))
     "Room temperature set point for cooling"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
@@ -68,18 +64,14 @@ model OptimalStartCoolingNegativeStartTime
 equation
   connect(dT.y,UA.u)
     annotation (Line(points={{-138,10},{-122,10}},color={0,0,127}));
-  connect(TOut.y,dT.u2)
-    annotation (Line(points={{-172,-10},{-166,-10},{-166,4},{-162,4}},color={0,0,127}));
   connect(dTdt.y,TRoo.u)
     annotation (Line(points={{-58,10},{-42,10}},color={0,0,127}));
   connect(QCoo.y,dTdt.u2)
     annotation (Line(points={{-98,-50},{-88,-50},{-88,4},{-82,4}},color={0,0,127}));
   connect(TRoo.y,optStaCoo.TZon)
-    annotation (Line(points={{-19,10},{-8,10},{-8,7},{18,7}},color={0,0,127}));
-  connect(TRoo.y,dT.u1)
-    annotation (Line(points={{-19,10},{-14,10},{-14,36},{-166,36},{-166,16},{-162,16}},color={0,0,127}));
+    annotation (Line(points={{-19,10},{-8,10},{-8,6},{18,6}},color={0,0,127}));
   connect(TSetCooOcc.y,optStaCoo.TSetZonCoo)
-    annotation (Line(points={{-18,80},{0,80},{0,13},{18,13}},color={0,0,127}));
+    annotation (Line(points={{-18,80},{0,80},{0,14},{18,14}},color={0,0,127}));
   connect(UA.y,dTdt.u1)
     annotation (Line(points={{-98,10},{-90,10},{-90,16},{-82,16}},color={0,0,127}));
   connect(optStaCoo.optOn,booToRea.u)
@@ -98,11 +90,17 @@ equation
     annotation (Line(points={{82,-50},{110,-50},{110,4},{118,4}},color={0,0,127}));
   connect(booToRea.y,add.u1)
     annotation (Line(points={{82,10},{86,10},{86,16},{118,16}},color={0,0,127}));
+  connect(TRoo.y, dT.u2)
+    annotation (Line(points={{-19,10},{-14,10},{-14,-20},{-166,-20},{-166,4},{-162,4}},
+      color={0,0,127}));
+  connect(TOut.y, dT.u1)
+    annotation (Line(points={{-172,60},{-166,60},{-166,16},{-162,16}}, color={0,0,127}));
+
   annotation (
     experiment(
       StartTime=-660000,
       StopTime=0,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartCoolingNegativeStartTime.mos" "Simulate and plot"),
     Documentation(

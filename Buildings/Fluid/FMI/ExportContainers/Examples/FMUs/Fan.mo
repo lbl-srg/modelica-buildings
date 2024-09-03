@@ -3,15 +3,16 @@ block Fan "Declaration of an FMU that exports a fan"
    extends Buildings.Fluid.FMI.ExportContainers.ReplaceableTwoPort(
      redeclare replaceable package Medium =  Buildings.Media.Air,
      redeclare final Movers.FlowControlled_dp com(
+      nominalValuesDefineDefaultPressureCurve=true,
       final m_flow_nominal=m_flow_nominal,
       final use_inputFilter=
                           false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=500
-    "Pressure drop at nominal mass flow rate";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 500 "Pressure drop at nominal mass flow rate";
 
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")
     "Prescribed pressure rise"
@@ -43,6 +44,13 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

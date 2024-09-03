@@ -92,10 +92,6 @@ equation
     annotation (Line(
       points={{-299,110},{-216,110}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-216,114}},
-      color={255,204,51},thickness=0.5));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
       points={{80,0},{40,0},{40,24},{20,24}},
@@ -131,8 +127,13 @@ equation
           {-190,110},{-190,182.444},{-172,182.444}}, color={255,127,0}));
   connect(cooModCon.y, CWPumCon.cooMod) annotation (Line(points={{-193,110},{
           -190,110},{-190,75},{-174,75}}, color={255,127,0}));
+  connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{-224,200},{-224,114},{-216,114}},
+      color={255,204,51},
+      thickness=0.5));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-360,-200},{300,220}})),
+    extent={{-360,-200},{320,260}})),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimaryLoadSideEconomizer.mos"
   "Simulate and plot"),
@@ -191,8 +192,8 @@ For constant speed pumps, the number of running pumps equals to the number of ru
 <p>
 For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate.
 Details are shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. The speed is
+<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>. The speed is
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>
@@ -229,6 +230,18 @@ are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected control to avoid cooling tower pumps to operate when plant is off, because
+shut-off valves are off when plant is off.
+</li>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
+<li>
 December 1, 2017, by Yangyang Fu:<br/>
 Removed redundant connection <code>connect(dpSet.y, pumSpe.u_s)</code>
 </li>
@@ -241,5 +254,6 @@ First implementation.
 experiment(
       StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IntegratedPrimaryLoadSideEconomizer;

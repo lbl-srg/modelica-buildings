@@ -1,7 +1,0 @@
-simulateModel("Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.Guideline36Winter", startTime=432000, stopTime=864000, method="cvode", tolerance=1e-07, resultFile="Guideline36Winter");
-createPlot(id=1, position={26, 33, 1068, 1127}, y={"flo.sou.TAir", "flo.eas.TAir", "flo.nor.TAir", "flo.wes.TAir", "flo.cor.TAir", "TZonSet[1].TZonCooSet", "TZonSet[1].TZonHeaSet"}, range={195.0, 200.0, 10.0, 35.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33},
-{244,125,35}}, timeUnit="d");
-createPlot(id=1, position={26, 33, 1068, 1127}, y={"fanSup.y", "cor.vav.y_actual", "sou.vav.y_actual", "eas.vav.y_actual", "nor.vav.y_actual", "wes.vav.y_actual", "damOut.y"}, range={85.0, 90.0, -0.2, 1.2000000000000002}, grid=true, subPlot=102, colors={{162,29,33}, {238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}, {0,0,0}, {244,125,35}}, thicknesses={0.5, 0.25, 0.25, 0.25, 0.25, 0.25, 0.5}, timeUnit="d", displayUnits={"1", "", "", "", "", "", "1"});
-createPlot(id=1, position={26, 33, 1068, 1127}, y={"sou.TSup", "eas.TSup", "nor.TSup", "wes.TSup", "cor.TSup"}, range={195.0, 200.0, 6.0, 22.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC", "degC"});
-createPlot(id=1, position={26, 33, 1068, 1127}, y={"res.EFan", "res.EHea", "res.ECoo"}, range={195.0, 200.0, -10000000.0, 2000000.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}, {0,0,0}}, timeUnit="d", displayUnits={"J/m2", "J/m2", "J/m2"});
-

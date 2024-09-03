@@ -3,7 +3,7 @@ block Constant
   "Output constant signal of type Integer"
   parameter Integer k
     "Constant output value";
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -19,7 +19,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={255,127,0},
@@ -45,7 +45,7 @@ equation
           points={{-80,0},{80,0}}),
         Text(
           extent={{-150,-150},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k")}),
     Documentation(
       info="<html>

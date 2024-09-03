@@ -16,29 +16,31 @@ partial model Door
       annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
-  parameter Modelica.SIunits.Length wOpe=0.9 "Width of opening"
+  parameter Modelica.Units.SI.Length wOpe=0.9 "Width of opening"
     annotation (Dialog(group="Geometry"));
-  parameter Modelica.SIunits.Length hOpe=2.1 "Height of opening"
+  parameter Modelica.Units.SI.Length hOpe=2.1 "Height of opening"
     annotation (Dialog(group="Geometry"));
 
-  parameter Modelica.SIunits.PressureDifference dp_turbulent(
+  parameter Modelica.Units.SI.PressureDifference dp_turbulent(
     min=0,
     displayUnit="Pa") = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide"
-    annotation(Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced"));
 
-  Modelica.SIunits.VolumeFlowRate VAB_flow(nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VAB_flow(nominal=0.001)
     "Volume flow rate from A to B if positive";
-  Modelica.SIunits.VolumeFlowRate VBA_flow(nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VBA_flow(nominal=0.001)
     "Volume flow rate from B to A if positive";
 
-  input Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
-  input Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
+  input Modelica.Units.SI.Velocity vAB(nominal=0.01)
+    "Average velocity from A to B";
+  input Modelica.Units.SI.Velocity vBA(nominal=0.01)
+    "Average velocity from B to A";
 
 protected
-  final parameter Modelica.SIunits.Area AOpe = wOpe*hOpe "Open aperture area";
+  final parameter Modelica.Units.SI.Area AOpe=wOpe*hOpe "Open aperture area";
 
-  constant Real conTP = Buildings.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R
+  constant Real conTP = Buildings.Media.Air.dStp*Modelica.Media.IdealGases.Common.SingleGasesData.Air.R_s
     "Conversion factor for converting temperature difference to pressure difference";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -46,12 +48,12 @@ protected
       p=Medium.p_default,
       X=Medium.X_default);
 
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density";
 
-  Modelica.SIunits.VolumeFlowRate VABp_flow(nominal=0.001)
+  Modelica.Units.SI.VolumeFlowRate VABp_flow(nominal=0.001)
     "Volume flow rate from A to B if positive due to static pressure difference";
-  Modelica.SIunits.MassFlowRate mABt_flow(nominal=0.001)
+  Modelica.Units.SI.MassFlowRate mABt_flow(nominal=0.001)
     "Mass flow rate from A to B if positive due to buoyancy";
 
 equation

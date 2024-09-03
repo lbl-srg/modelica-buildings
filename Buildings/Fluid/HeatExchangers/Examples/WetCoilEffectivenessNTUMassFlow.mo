@@ -64,19 +64,17 @@ equation
 <ul>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
+First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This example is similar to 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow\">
-Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowMassFlow</a>
-except that the coil model 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
+This example is similar to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.DryCoilEffectivenessNTUMassFlow\">
+Buildings.Fluid.HeatExchangers.Examples.DryCoilEffectivenessNTUMassFlow</a>
+except that the coil model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>
 is replaced here by
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
 Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>.

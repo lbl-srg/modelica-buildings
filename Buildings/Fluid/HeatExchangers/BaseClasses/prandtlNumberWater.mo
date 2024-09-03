@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function prandtlNumberWater "Returns the Prandtl number for water"
-    input Modelica.SIunits.Temperature T "Thermodynamic state record";
+  input Modelica.Units.SI.Temperature T "Thermodynamic state record";
     output Real Pr "Prandtl number";
 algorithm
         Pr := ((2.55713*10^(-7))*T^4-0.000350293*T^3+0.180259651*T^2-

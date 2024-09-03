@@ -7,9 +7,9 @@ model GetTimeSpanTMY3LongHeader
   "modelica://Buildings/Resources/Data/BoundaryConditions/WeatherData/BaseClasses/Examples/weatherWithLongHeader.mos")
    "Name of weather data file";
 
-    final parameter Modelica.SIunits.Time[2] timeSpan=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam, "tab1")
-  "Start time, end time of weather data";
+  final parameter Modelica.Units.SI.Time[2] timeSpan=
+      Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(filNam,
+      "tab1") "Start time, end time of weather data";
 
 initial equation
   assert(abs(timeSpan[2]-14400) < 0.1, "Error in getting time span.");

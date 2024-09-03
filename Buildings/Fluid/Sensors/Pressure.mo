@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model Pressure "Ideal pressure sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
     final warnAboutOnePortConnection = false);
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="AbsolutePressure",
                                           final unit="Pa",
                                           min=0) "Pressure at port"
@@ -19,16 +19,16 @@ equation
         Text(
           extent={{-150,80},{150,120}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{151,-20},{57,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p"),
         Line(points={{70,0},{100,0}}, color={0,0,127}),
         Text(
           extent={{180,90},{60,40}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(p, leftjustified=false, significantDigits=5)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(p, leftJustified=false, significantDigits=5)))}),
     Documentation(info="<html>
 <p>
 This model outputs the absolute pressure of the fluid connected to its port.

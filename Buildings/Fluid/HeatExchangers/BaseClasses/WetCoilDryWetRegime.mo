@@ -2,19 +2,19 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model WetCoilDryWetRegime
   "Model implementing the switching algorithm of the TK-fuzzy model for cooling coil application"
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(min=0)
     "Nominal mass flow rate for water"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal(min=0)
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(min=0)
     "Nominal mass flow rate for air"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   input Real Qfac(final unit="1")
-    "a smoothing factor to prevent division-by-zero";
+    "Smoothing factor to prevent division-by-zero";
 
   input Buildings.Fluid.Types.HeatExchangerFlowRegime cfg=
     Buildings.Fluid.Types.HeatExchangerFlowRegime.CounterFlow
-      "heat exchanger configuration";
+    "Heat exchanger configuration";
 
   // -- Water
   Modelica.Blocks.Interfaces.RealInput UAWat(
@@ -118,7 +118,7 @@ model WetCoilDryWetRegime
       Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={150,-60})));
-  Modelica.SIunits.HeatFlowRate QLat_flow  "Latent heat transfer rate";
+  Modelica.Units.SI.HeatFlowRate QLat_flow "Latent heat transfer rate";
 
   Modelica.Blocks.Interfaces.RealOutput mCon_flow(
     quantity="MassFlowRate",
@@ -163,20 +163,18 @@ model WetCoilDryWetRegime
   Real dryFra(final unit="1", min=0, max=1)
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
 protected
-  Modelica.SIunits.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps)=
+  Modelica.Units.SI.MassFlowRate mAirNonZer_flow(min=Modelica.Constants.eps) =
     Buildings.Utilities.Math.Functions.smoothMax(
-      x1=mAir_flow,
-      x2=1E-3       *mAir_flow_nominal,
-      deltaX=0.25E-3*mAir_flow_nominal)
-    "Mass flow rate of air";
-  Modelica.SIunits.MassFlowRate mWatNonZer_flow(min=Modelica.Constants.eps)=
+    x1=mAir_flow,
+    x2=1E-3*mAir_flow_nominal,
+    deltaX=0.25E-3*mAir_flow_nominal) "Mass flow rate of air";
+  Modelica.Units.SI.MassFlowRate mWatNonZer_flow(min=Modelica.Constants.eps) =
     Buildings.Utilities.Math.Functions.smoothMax(
-      x1=mWat_flow,
-      x2=1E-3       *mWat_flow_nominal,
-      deltaX=0.25E-3*mWat_flow_nominal)
-    "Mass flow rate of water";
+    x1=mWat_flow,
+    x2=1E-3*mWat_flow_nominal,
+    deltaX=0.25E-3*mWat_flow_nominal) "Mass flow rate of water";
 
-  Modelica.SIunits.Temperature TAirInDewPoi
+  Modelica.Units.SI.Temperature TAirInDewPoi
     "Dew point temperature of incoming air";
 
   Buildings.Utilities.Psychrometrics.pW_X pWIn(
@@ -196,14 +194,14 @@ equation
   TAirInDewPoi=TDewIn.T;
 
   mu_FW= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=0,neg=1,x=fullyWet.TSurAirIn-TAirInDewPoi,
+    deltax=Buildings.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   mu_FD= Buildings.Utilities.Math.Functions.spliceFunction(
-  pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
-  deltax=Buildings.Utilities.Math.Functions.smoothMax(abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
-  //max(abs(fullyDry.TSurAirOut- fullyWet.TSurAirIn),1e-3));
+    pos=1,neg=0,x=fullyDry.TSurAirOut-TAirInDewPoi,
+    deltax=Buildings.Utilities.Math.Functions.smoothMax(
+      abs(fullyDry.TSurAirOut-fullyWet.TSurAirIn), 1e-2,1e-3));
 
   w_FW=mu_FW/(mu_FW+mu_FD);
   w_FD=mu_FD/(mu_FW+mu_FD);
@@ -233,7 +231,7 @@ equation
           textStyle={TextStyle.Bold},
           pattern=LinePattern.None,
           textString="WET",
-          lineColor={0,0,0}),
+          textColor={0,0,0}),
         Line(
           points={{20,0},{120,0}},
           color={28,108,200},
@@ -296,90 +294,90 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-22,60},{58,40}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={170,170,255},
           fillPattern=FillPattern.Forward,
           textString="Water",
           textStyle={TextStyle.Italic}),
         Text(
           extent={{-20,-40},{60,-60}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           fillColor={170,170,255},
           fillPattern=FillPattern.Forward,
           textString="Air",
           textStyle={TextStyle.Italic}),
         Text(
           extent={{-116,-104},{-116,-116}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="hA"),
         Text(
           extent={{-116,116},{-116,104}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="hA"),
         Text(
           extent={{-116,96},{-116,84}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="masFlo"),
         Text(
           extent={{-116,76},{-116,64}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="cp"),
         Text(
           extent={{-116,56},{-116,44}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="T_in"),
         Text(
           extent={{-116,-84},{-116,-96}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="masFlo"),
         Text(
           extent={{-116,-64},{-116,-76}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="cp"),
         Text(
           extent={{-116,-44},{-116,-56}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="T_in"),
         Text(
           extent={{-116,-24},{-116,-36}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="h_in"),
         Text(
           extent={{-116,-4},{-116,-16}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="p_in"),
         Text(
           extent={{-116,16},{-116,4}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           horizontalAlignment=TextAlignment.Left,
           textString="w_in"),
         Text(
           extent={{120,-12},{120,-24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="QTot_flow"),
         Text(
           extent={{104,-94},{104,-106}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="mCon_flow"),
         Text(
           extent={{118,-52},{118,-64}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="QSen")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{140,120}})),
     Documentation(revisions="<html>
 <ul>
-<li>Jan 21, 2021, by Donghun Kim:<br/>First implementation of the fuzzy model.
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">issue 622</a> for more information.
+<li>
+Jan 21, 2021, by Donghun Kim:<br/>First implementation.
 </li>
 </ul>
 </html>", info="<html>

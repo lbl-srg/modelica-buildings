@@ -2,23 +2,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>User Guide &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,9 +27,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -82,10 +82,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#unstable-control-loops">3.1. Unstable control loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.2. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.3. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.4. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.5. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -159,9 +160,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="user-guide">
+  <section id="user-guide">
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
-<p>This user guide provides instructions for how to use the free open-source Modelica <a class="reference external" href="https://simulationresearch.lbl.gov/modelica">Buildings</a> library.
+<p>This user guide provides instructions for how to use the free open-source
+Modelica <a class="reference external" href="https://simulationresearch.lbl.gov/modelica">Buildings</a> Library.
 The user guide covers how to</p>
 <ul class="simple">
 <li><p>get started,</p></li>
@@ -171,12 +173,17 @@ The user guide covers how to</p>
 <li><p>develop and contribute new models to the library, and</p></li>
 <li><p>get help.</p></li>
 </ul>
-<p>The following information can be found in the Modelica files rather than in this documentation:</p>
+<p>The following information can be found in the Modelica library documentation rather than in this documentation:</p>
 <ul class="simple">
-<li><p>The physical assumptions and the equations that the models are based on.</p></li>
-<li><p>Advice as to which models may be used if multiple models may be available for similar equipment or physical phenomena.</p></li>
+<li><p>User guides for individual packages of models, see <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html">https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html</a>
+for the available user guides.</p></li>
+<li><p>The physical assumptions and the equations that the models are based on.
+See the respective model documentation.</p></li>
+<li><p>Advice as to which models may be used if multiple models may be available for similar equipment or physical phenomena.
+This is typically explained in the documentation of the model, the documentation of the package that contains the model,
+or the user guide of the respective package.</p></li>
 </ul>
-<div class="section" id="contents">
+<section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
@@ -205,20 +212,21 @@ The user guide covers how to</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">3. Simulation Performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.2. Fluid flow systems</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#breaking-algebraic-loops">3.2.1. Breaking algebraic loops</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.2.2. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#prescribed-mass-flow-rate">3.2.3. Prescribed mass flow rate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#avoiding-events">3.2.4. Avoiding events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#unstable-control-loops">3.1. Unstable control loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#control-input-signal-of-equipment">3.2. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#fluid-flow-systems">3.3. Fluid flow systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#breaking-algebraic-loops">3.3.1. Breaking algebraic loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3.2. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#prescribed-mass-flow-rate">3.3.3. Prescribed mass flow rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#avoiding-events">3.3.4. Avoiding events</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#state-events">3.3.1. State events</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#state-variables-that-dominate-the-error-control">3.3.2. State variables that dominate the error control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#examples-for-how-to-debug-and-correct-slow-simulations">3.4. Examples for how to debug and correct slow simulations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#state-events">3.4.1. State events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#state-variables-that-dominate-the-error-control">3.4.2. State variables that dominate the error control</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.4. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#numerical-solvers">3.5. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -250,16 +258,16 @@ The user guide covers how to</p>
 <li class="toctree-l1"><a class="reference internal" href="legal.html">10. Copyright and License</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
+</section>
+<section id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -277,8 +285,8 @@ The user guide covers how to</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

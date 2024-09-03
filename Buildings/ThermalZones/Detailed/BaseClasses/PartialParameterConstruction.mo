@@ -11,11 +11,11 @@ record PartialParameterConstruction "Partial record for constructions"
                choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
 
-  parameter Modelica.SIunits.Angle til "Surface tilt";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
-  final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
+  parameter Modelica.Units.SI.Angle til "Surface tilt";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
+  final parameter Boolean is_floor=til > 2.74889125 and til < 3.53428875
     "Flag, true if construction is a floor" annotation (Evaluate=true);
-  final parameter Boolean isCeiling=til > -0.392699 and til < 0.392699
+  final parameter Boolean is_ceiling=til > -0.392699 and til < 0.392699
     "Flag, true if construction is a floor" annotation (Evaluate=true);
 //  final parameter Integer nLay(min=1, fixed=true) = size(layers.material, 1)
 //    "Number of layers";
@@ -24,10 +24,10 @@ record PartialParameterConstruction "Partial record for constructions"
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
         annotation (Dialog(group="Initialization"), Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
+  parameter Modelica.Units.SI.Temperature T_a_start=293.15
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
+  parameter Modelica.Units.SI.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
@@ -59,6 +59,12 @@ Buildings.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 December 8, 2016, by Michael Wetter:<br/>
 Added parameters <code>stateAtSurface_a</code> and

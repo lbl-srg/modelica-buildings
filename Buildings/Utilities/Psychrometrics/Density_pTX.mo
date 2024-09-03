@@ -64,7 +64,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-70,84},{-48,66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -79,13 +79,13 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-80},{86,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
         Text(
           extent={{24,-14},{78,-32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="density"),

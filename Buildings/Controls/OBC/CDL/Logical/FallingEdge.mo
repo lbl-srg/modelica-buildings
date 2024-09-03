@@ -3,10 +3,10 @@ block FallingEdge
   "Output y is true, if the input u has a falling edge (y = edge(not u))"
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -35,7 +35,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-62,64},{56,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="falling"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -53,7 +53,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

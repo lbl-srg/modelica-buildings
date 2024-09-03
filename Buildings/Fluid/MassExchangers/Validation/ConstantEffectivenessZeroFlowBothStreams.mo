@@ -18,12 +18,11 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
 </ul>
 </html>", info="<html>
 <p>
-This model tests whether 
+This model tests whether
 <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 works correctly at zero flow if both streams are zero.
 </p>
 </html>"), experiment(Tolerance=1e-06, StopTime=1),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlowBothStreams.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Validation/ConstantEffectivenessZeroFlowBothStreams.mos"
         "Simulate and plot"));
 end ConstantEffectivenessZeroFlowBothStreams;

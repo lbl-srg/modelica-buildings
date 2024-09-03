@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-record LumpedVolumeDeclarations "Declarations for lumped volumes"
+block LumpedVolumeDeclarations "Declarations for lumped volumes"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
@@ -14,16 +14,16 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
+    annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
   final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
     "Type of independent mass fraction balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
     "Type of trace substance balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -48,6 +48,22 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
     "Factor for scaling the sensible thermal mass of the volume"
     annotation(Dialog(tab="Dynamics"));
 
+protected
+  // The parameter below is evaluated by OCT during compilation, and
+  // if false, the assert statement won't be optimized away during
+  // code generation.
+  final parameter Boolean wrongEnergyMassBalanceConfiguration=
+    not (energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "True if configuration of energy and mass balance is wrong."
+    annotation(Evaluate=true);
+initial equation
+  if wrongEnergyMassBalanceConfiguration then
+  assert(not wrongEnergyMassBalanceConfiguration,
+         "In " + getInstanceName() +
+         ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
+  end if;
+
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
@@ -67,6 +83,14 @@ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion for correct combination of energy and mass dynamics and
+changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

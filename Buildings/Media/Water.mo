@@ -18,40 +18,39 @@ package Water "Package with model for liquid water with constant density"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.SIunits.Density d=d_const "Density of medium";
-    Temperature T(stateSelect=
-      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    Modelica.Units.SI.Density d=d_const "Density of medium";
+    Temperature T(
+      start=293.15,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.SIunits.SpecificInternalEnergy u
+    Modelica.Units.SI.SpecificInternalEnergy u
       "Specific internal energy of medium";
 
-    Modelica.SIunits.MassFraction[nX] X={1}
+    Modelica.Units.SI.MassFraction[nX] X={1}
       "Mass fractions (= (component mass)/total mass  m_i/m)";
-    final Modelica.SIunits.SpecificHeatCapacity R=0
+    final Modelica.Units.SI.SpecificHeatCapacity R_s=0
       "Gas constant (of mixture if applicable)";
-    final Modelica.SIunits.MolarMass MM=MM_const
+    final Modelica.Units.SI.MolarMass MM=MM_const
       "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
 
 
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-        Modelica.SIunits.Conversions.to_degC(T)
-      "Temperature of medium in [degC]";
-    Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
-        Modelica.SIunits.Conversions.to_bar(p)
+    Modelica.Units.NonSI.Temperature_degC T_degC=
+        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
+    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
-    connector InputAbsolutePressure = input Modelica.SIunits.AbsolutePressure
+    connector InputAbsolutePressure = input Modelica.Units.SI.AbsolutePressure
       "Pressure as input signal connector";
-    connector InputSpecificEnthalpy = input Modelica.SIunits.SpecificEnthalpy
+    connector InputSpecificEnthalpy = input Modelica.Units.SI.SpecificEnthalpy
       "Specific enthalpy as input signal connector";
-    connector InputMassFraction = input Modelica.SIunits.MassFraction
+    connector InputMassFraction = input Modelica.Units.SI.MassFraction
       "Mass fraction as input signal connector";
 
   equation
@@ -119,8 +118,8 @@ This model provides equation for the following thermodynamic properties:
 
 function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature T "Temperature";
-  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+    input Modelica.Units.SI.Temperature T "Temperature";
+    output Modelica.Units.SI.SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := cp_const*(T-reference_T);
 annotation (
@@ -176,6 +175,12 @@ There are no phase changes.
 </html>", revisions="<html>
 <ul>
 <li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
 September 28, 2020, by Michael Wetter:<br/>
 Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>
 This is for
@@ -208,10 +213,10 @@ This fixes
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Changed type of <code>BaseProperties.T</code> from
-<code>Modelica.SIunits.Temperature</code> to <code>Temperature</code>.
+<code>Modelica.Units.SI.Temperature</code> to <code>Temperature</code>.
 Otherwise, it has a different start value than <code>Medium.T</code>, which
 causes an error if
-<a href=\"Buildings.Media.Examples.WaterProperties\">
+<a href=\"modelica://Buildings.Media.Examples.WaterProperties\">
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
@@ -253,7 +258,7 @@ to fail with the error message
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Reimplemented media based on
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Buildings/Media/Water.mo\">446aa83</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Annex60/Media/Water.mo\">446aa83</a>.
 </li>
 <li>
 November 15, 2013, by Michael Wetter:<br/>

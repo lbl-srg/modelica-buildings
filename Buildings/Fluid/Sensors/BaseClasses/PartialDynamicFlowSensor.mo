@@ -3,7 +3,7 @@ partial model PartialDynamicFlowSensor
   "Partial component to model sensors that measure flow properties using a dynamic model"
   extends PartialFlowSensor;
 
-  parameter Modelica.SIunits.Time tau(min=0) = 1
+  parameter Modelica.Units.SI.Time tau(min=0) = 1
     "Time constant at nominal flow rate (use tau=0 for steady-state sensor, but see user guide for potential problems)";
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (InitialState and InitialOutput are identical)"
@@ -29,7 +29,7 @@ equation
     k = 1;
   end if;
   annotation (Icon(graphics={
-        Line(visible=(tau <> 0),
+        Line(visible=(tau > 0),
         points={{52,60},{58,74},{66,86},{76,92},{88,96},{98,96}}, color={0,
               0,127})}), Documentation(info="<html>
 <p>
@@ -43,6 +43,13 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2022, by Michael Wetter:<br/>
+Corrected annotation to avoid comparing a real-valued parameter
+for equality.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1671\">IBPSA, #1671</a>.
+</li>
 <li>
 August 9, 2016, by Michael Wetter:<br/>
 Improved documentation for <code>tau</code>.

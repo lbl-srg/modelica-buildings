@@ -3,7 +3,7 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22.09
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 22.09
     "Initial temperature of the sandbox";
 
   // mSenFac is set to its numerical value because it is a constant in the borehole model.
@@ -31,10 +31,10 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    dp_nominal=60E3) "Circulation pump"
     annotation (Placement(transformation(extent={{-20,-10},{0,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TBorFieIn(
     redeclare package Medium = Medium,
@@ -93,8 +93,7 @@ equation
           -14},{-52,-14}},
                         color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=186360),
-  __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/Sandbox.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Validation/Sandbox.mos"
         "Simulate and Plot"),
 Documentation(info="<html>
 <p>
@@ -129,6 +128,12 @@ spectral method to simulate borehole heat exchanger</i>. Geothermics 51:
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Set proper head for pump.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, issue 1659</a>.
+</li>
 <li>
 April 8, 2021, by Michael Wetter:<br/>
 Added missing <code>parameter</code> keyword.<br/>

@@ -5,14 +5,14 @@ model Boundary_pT
 
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
     annotation (Dialog(enable = not use_p_in, group="Fixed inputs"));
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true,Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.Temperature T = Medium.T_default
     "Fixed value of temperature"
     annotation (Dialog(enable = not use_T_in,group="Fixed inputs"));
@@ -130,6 +130,12 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
 This is for
@@ -181,21 +187,21 @@ Implementation is based on <code>Modelica.Fluid</code>.
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="p"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -205,6 +211,6 @@ Implementation is based on <code>Modelica.Fluid</code>.
             min(1, max(0, ((if use_T_in then T_in else T)-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String((if use_T_in then T_in else T)-273.15, format=".1f")))}));
 end Boundary_pT;

@@ -5,16 +5,16 @@ model ControllerChillerDXHeatingEconomizer
 
   Modelica.Blocks.Sources.Sine mixAirTem(
     amplitude=7.5,
-    freqHz=1/86400,
+    f=1/86400,
     offset=20 + 273.15) "Mixed air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Sine retAirTem(
     amplitude=10,
-    freqHz=1/86400,
+    f=1/86400,
     offset=21 + 273.15) "Return air temperature"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Sources.Sine outAirTem(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=6,
     offset=18 + 273.15) "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -26,7 +26,7 @@ model ControllerChillerDXHeatingEconomizer
     minOAFra=0.4,
     TSetSupAir=286.15) "Controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable  TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.TimeTable  TSetRooHea(
     table=[
       0,      15 + 273.15;
       8*3600, 20 + 273.15;
@@ -36,7 +36,7 @@ model ControllerChillerDXHeatingEconomizer
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
+  Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooCoo(
     table=[
        0,      30 + 273.15;
        8*3600, 25 + 273.15;
@@ -51,7 +51,7 @@ model ControllerChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Sine supAirTem(
     amplitude=7,
-    freqHz=1/86400,
+    f=1/86400,
     offset=13 + 273.15) "Supply air temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation

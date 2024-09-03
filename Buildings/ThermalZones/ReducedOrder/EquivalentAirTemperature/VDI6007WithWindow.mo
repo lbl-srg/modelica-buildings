@@ -3,7 +3,7 @@ model VDI6007WithWindow
   "Equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
   extends BaseClasses.PartialVDI6007;
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hConWinOut
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hConWinOut
     "Windows' convective coefficient of heat transfer (outdoor)";
 
   Modelica.Blocks.Interfaces.RealOutput TEqAirWin(final unit="K")
@@ -21,10 +21,16 @@ initial equation
 
 equation
   delTEqLWWin=(TBlaSky - TDryBul)*hRad/(hRad + hConWinOut);
-  TEqAir = TEqWall*wfWall + TGro*wfGro;
+  TEqAir = TEqWall*wfWall +  TGroSouSel.y*wfGro;
   TEqAirWin = TEqWin*wfWin;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
+  <li>
+  May 5, 2023, by Philip Groesdonk:<br/>
+  Added an option for non-constant ground temperature from an input connector.
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">#1744</a>.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWinOut</code> to <code>hConWinOut</code>

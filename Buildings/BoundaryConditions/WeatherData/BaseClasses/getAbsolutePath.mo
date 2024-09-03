@@ -1,11 +1,10 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-function getAbsolutePath "Gets the absolute path of a URI"
+pure function getAbsolutePath "Gets the absolute path of a URI"
   extends Modelica.Icons.Function;
   input String uri "A URI";
   output String path "The absolute path of the file pointed to by the URI";
 algorithm
   path := Modelica.Utilities.Files.loadResource(uri);
-  assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.");
   annotation (Documentation(info="<html>
 <p>
 The function returns the absolute path of a
@@ -22,6 +21,14 @@ being able to read the files.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Removed assertion if file does not exist. This has been removed because it
+makes the function impure, and then the test
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetAbsolutePath\">
+Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetAbsolutePath</a>
+fails.
+</li>
 <li>
 July 07, 2016, by Thierry S. Nouidui:<br/>
 Removed the use of <code>Modelica.Utilities.Files.fullPathName</code>

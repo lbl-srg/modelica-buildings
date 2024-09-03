@@ -31,7 +31,7 @@ protected
   constant Integer watIdx = 1 "Index of water";
   constant Integer othIdx = 2 "Index of other species";
   constant Real phiSat(min=0, max=1) = 1 "Saturation relative humidity";
-  Modelica.SIunits.AbsolutePressure pSat
+  Modelica.Units.SI.AbsolutePressure pSat
     "Saturation pressure of water vapor in air at TSat";
   Real XSat[2]
     "Mass fractions of water and air in moist air at saturation";
@@ -48,9 +48,7 @@ equation
 <ul>
 <li>
 March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
+First implementation.
 </li>
 </ul>
 </html>", info="<html>

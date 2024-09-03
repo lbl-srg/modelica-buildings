@@ -3,7 +3,7 @@ model PumpsSeries "Two flow machines in series"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
   Buildings.Fluid.Movers.SpeedControlled_y floMac1(
@@ -24,8 +24,8 @@ model PumpsSeries "Two flow machines in series"
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass";
+  parameter Modelica.Units.SI.Density rho_nominal=Medium.density(state_start)
+    "Density, used to compute fluid mass";
 
   Buildings.Fluid.Movers.SpeedControlled_y floMac2(
     redeclare package Medium = Medium,

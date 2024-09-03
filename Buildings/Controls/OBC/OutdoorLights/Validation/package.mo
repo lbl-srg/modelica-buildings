@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.OutdoorLights;
-package Validation
-  "Collection of models that validate the outdoor lighting controllers"
+package Validation "Collection of models that validate the outdoor lighting controllers"
   annotation (
     Documentation(
       info="<html>

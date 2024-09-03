@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "winDir.y",
+    "nor.pWin",
+    "eas.pWin",
+    "sou.pWin",
+    "wes.pWin",
+    "nor.alpha",
+    "eas.alpha",
+    "sou.alpha",
+    "wes.alpha"
+  };

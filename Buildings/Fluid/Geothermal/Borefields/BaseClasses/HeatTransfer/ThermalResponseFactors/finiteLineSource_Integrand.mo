@@ -4,11 +4,11 @@ function finiteLineSource_Integrand
   extends Modelica.Icons.Function;
 
   input Real u(unit="1/m") "Integration variable";
-  input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
-  input Modelica.SIunits.Height len1 "Length of emitting borehole";
-  input Modelica.SIunits.Height burDep1 "Buried depth of emitting borehole";
-  input Modelica.SIunits.Height len2 "Length of receiving borehole";
-  input Modelica.SIunits.Height burDep2 "Buried depth of receiving borehole";
+  input Modelica.Units.SI.Distance dis "Radial distance between borehole axes";
+  input Modelica.Units.SI.Height len1 "Length of emitting borehole";
+  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting borehole";
+  input Modelica.Units.SI.Height len2 "Length of receiving borehole";
+  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving borehole";
   input Boolean includeRealSource = true "true if contribution of real source is included";
   input Boolean includeMirrorSource = true "true if contribution of mirror source is included";
 
@@ -47,7 +47,7 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-Integrand of the cylindrical heat source solution for use in
+Integrand of the finite line source solution for use in
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource</a>.
 </p>

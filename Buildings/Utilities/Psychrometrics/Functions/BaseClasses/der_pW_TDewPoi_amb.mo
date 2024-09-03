@@ -1,14 +1,14 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_pW_TDewPoi_amb "Derivative of function pW_TDewPoi_amb"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature T "Dew point temperature";
+  input Modelica.Units.SI.Temperature T "Dew point temperature";
   input Real dT;
   output Real dp_w "Differential of water vapor partial pressure";
 protected
-  constant Modelica.SIunits.Temperature T1=283.15 "First support point";
-  constant Modelica.SIunits.Temperature T2=293.15 "Second support point";
-  constant Modelica.SIunits.Pressure p1=1227.97 "First support point";
-  constant Modelica.SIunits.Pressure p2=2338.76 "Second support point";
+  constant Modelica.Units.SI.Temperature T1=283.15 "First support point";
+  constant Modelica.Units.SI.Temperature T2=293.15 "Second support point";
+  constant Modelica.Units.SI.Pressure p1=1227.97 "First support point";
+  constant Modelica.Units.SI.Pressure p2=2338.76 "Second support point";
 
   constant Real a1=(Modelica.Math.log(p2) - Modelica.Math.log(p1)*T2/T1)/(1 -
       T2/T1);

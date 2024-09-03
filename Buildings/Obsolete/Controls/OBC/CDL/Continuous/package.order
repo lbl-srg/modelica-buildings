@@ -1,5 +1,8 @@
+Add
+AddParameter
 ChangeSign
 Derivative
+Feedback
 GreaterEqual
 GreaterEqualThreshold
 HysteresisWithHold

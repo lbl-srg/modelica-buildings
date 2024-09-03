@@ -11,12 +11,11 @@ model WetCoilCounterFlow
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
     annotation(HideResult=true);
 
-  Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
+  Modelica.Units.SI.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
-    "Latent heat input into air (negative if air is dehumidified)";
+  Modelica.Units.SI.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
+      *mWat_flow "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
     min=0,
@@ -25,8 +24,8 @@ model WetCoilCounterFlow
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
        "Sensible to total heat ratio";
 
-  Modelica.SIunits.MassFlowRate mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle)
-    "Water flow rate";
+  Modelica.Units.SI.MassFlowRate mWat_flow=sum(ele[i].vol2.mWat_flow for i in 1
+      :nEle) "Water flow rate";
 
  annotation (
 defaultComponentName="cooCoi",
@@ -77,6 +76,21 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 5, 2022, by Antoine Gautier:<br/>
+Restored the addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+</li>
+<li>
+May 26, 2022, by Michael Wetter:<br/>
+Removed addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>
+to correct latent heat exchange calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+</li>
 <li>
 March 12, 2021, by Michael Wetter:<br/>
 Removed <code>final</code> declaration in redeclaration.<br/>
@@ -184,11 +198,5 @@ First implementation.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
-          extent={{60,72},{84,58}},
-          lineColor={0,0,255},
-          textString="water-side"), Text(
-          extent={{50,-32},{90,-38}},
-          lineColor={0,0,255},
-          textString="air-side")}));
+        initialScale=0.5)));
 end WetCoilCounterFlow;

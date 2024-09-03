@@ -6,7 +6,6 @@ model PVSimpleOriented
                                                pv(A=10,
     V_nominal=12,
     til=0.34906585039887,
-    lat=0.65798912800186,
     azi=-0.78539816339745) "PV module"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -70,6 +69,12 @@ In actual systems, the voltage source may be an AC/DC converter.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 31, 2013, by Marco Bonvini:<br/>
 First implementation.

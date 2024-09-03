@@ -3,7 +3,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.ThermalZones.Detailed.BaseClasses.RoomHeatMassBalance(
   redeclare Buildings.ThermalZones.Detailed.BaseClasses.MixedAirHeatMassBalance air(
     final energyDynamics=energyDynamics,
-    final massDynamics = massDynamics,
+    final massDynamics = energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -46,15 +46,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance for zone air: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
-    "Type of independent mass fraction balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
-  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
-    "Type of trace substance balance for zone air: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Zone air"));
 
   parameter Real mSenFac(min=1)=1
     "Factor for scaling the sensible thermal mass of the zone air volume"
@@ -82,8 +73,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
 
   ////////////////////////////////////////////////////////////////////////////
   // Input connectors
-  Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
-       haveShade
+  Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1)
+    if haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
         iconTransformation(extent={{-232,164},{-200,196}})));
@@ -92,6 +83,35 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Trace substance mass flow rate added to the room air. Enable if use_C_flow = true"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
         iconTransformation(extent={{-232,12},{-200,44}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput HGlo[NConExtWin](
+    final unit=fill("W/m2",NConExtWin))
+    "Global solar irradiance"
+    annotation (Placement(transformation(extent={{460,-130},{500,-90}}),
+      iconTransformation(extent={{200,-120},{240,-80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QTraGlo[NConExtWin](
+    final unit=fill("W",NConExtWin)) "Transmitted global solar radiation"
+    annotation (Placement(transformation(extent={{460,-170},{500,-130}}),
+      iconTransformation(extent={{200,-160},{240,-120}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Add gloSol[NConExtWin] if haveConExtWin
+    "Global solar irradiance"
+    annotation (Placement(transformation(extent={{400,-120},{420,-100}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Add traSol[NConExtWin] if haveConExtWin
+    "Transmitted solar radiation"
+    annotation (Placement(transformation(extent={{400,-160},{420,-140}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[NConExtWin](
+    final k=fill(0,NConExtWin),
+    y(unit=fill("W",NConExtWin))) if not haveConExtWin "Constant zero"
+    annotation (Placement(transformation(extent={{400,-200},{420,-180}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[NConExtWin](
+    final k=fill(0, NConExtWin),
+    y(unit=fill("W/m2", NConExtWin))) if not haveConExtWin
+    "Constant zero"
+    annotation (Placement(transformation(extent={{400,-80},{420,-60}})));
 
 equation
   connect(uSha, conExtWin.uSha) annotation (Line(
@@ -126,6 +146,27 @@ equation
   connect(C_flow, air.C_flow) annotation (Line(points={{-280,-110},{-200,-110},{
           -200,-114},{-200,-114},{-200,-202},{-18,-202},{-18,-141},{39,-141}},
         color={0,0,127}));
+  connect(conExtWinRad.HDir, gloSol.u2) annotation (Line(points={{321.5,-10},{340,
+          -10},{340,-116},{398,-116}},
+                                     color={0,0,127}));
+  connect(conExtWinRad.HDif, gloSol.u1) annotation (Line(points={{321.5,-6},{350,
+          -6},{350,-104},{398,-104}},
+                                    color={0,0,127}));
+  connect(gloSol.y, HGlo)
+    annotation (Line(points={{422,-110},{480,-110}},
+                                                   color={0,0,127}));
+  connect(conExtWinRad.QTraDif_flow, traSol.u2) annotation (Line(points={{299,-20},
+          {292,-20},{292,-156},{398,-156}}, color={0,0,127}));
+  connect(conExtWinRad.QTraDir_flow, traSol.u1) annotation (Line(points={{299,-23},
+          {296,-23},{296,-144},{398,-144}},
+                                          color={0,0,127}));
+  connect(traSol.y, QTraGlo)
+    annotation (Line(points={{422,-150},{480,-150}}, color={0,0,127}));
+  connect(con.y, QTraGlo) annotation (Line(points={{422,-190},{440,-190},{440,
+          -150},{480,-150}},
+                       color={0,0,127}));
+  connect(con1.y, HGlo) annotation (Line(points={{422,-70},{440,-70},{440,-110},
+          {480,-110}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -139,6 +180,18 @@ for detailed explanations.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Made <code>massDynamics</code> final.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 April 8, 2019, by Michael Wetter:<br/>
 Propagated parameter <code>mSenFac</code>.<br/>
@@ -243,11 +296,11 @@ First implementation.
             {200,200}}), graphics={
         Text(
           extent={{-198,198},{-122,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uSha"),
         Text(
           extent={{-190,44},{-128,14}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C_flow",
           visible=use_C_flow)}));
 end MixedAir;

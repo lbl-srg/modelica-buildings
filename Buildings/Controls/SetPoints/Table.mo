@@ -16,14 +16,13 @@ protected
                         size(table,1) "Number of rows";
   final parameter Real[nRow,2] offsetVector = [zeros(nRow), offset*ones(nRow)]
     "Vector to take offset of output signal into account";
-  Modelica.Blocks.Tables.CombiTable1D tab(
-    tableOnFile=false,
-    final table= (if constantExtrapolation then
-                    cat(1, [table[1,1]-1, table[1,2]],
-                           table,
-                           [table[end,1]+1, table[end,2]]) else
-                    table)
-                  +offsetVector) "Table used for interpolation"
+  Modelica.Blocks.Tables.CombiTable1Dv tab(tableOnFile=false, final table=(if
+        constantExtrapolation then cat(
+        1,
+        [table[1, 1] - 1,table[1, 2]],
+        table,
+        [table[end, 1] + 1,table[end, 2]]) else table) + offsetVector)
+    "Table used for interpolation"
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 equation
   connect(u, tab.u[1]) annotation (Line(
@@ -91,7 +90,7 @@ First implementation.
     Icon(graphics={
     Text(
       extent={{-78,-45},{-40,-56}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="offset"),
     Line(
       points={{-42,-24},{-42,-74}},
@@ -105,7 +104,7 @@ First implementation.
     Line(points={{-82,64},{-82,-84}}, color={95,95,95}),
     Text(
       extent={{-80,88},{-39,68}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="y"),
     Polygon(
       points={{-82,86},{-88,64},{-76,64},{-82,86}},
@@ -120,7 +119,7 @@ First implementation.
     Line(points={{-92,-74},{80,-74}}, color={95,95,95}),
     Text(
       extent={{68,-84},{92,-95}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
           textString="u"),
     Polygon(
       points={{-42,-24},{-44,-34},{-39,-34},{-42,-24}},

@@ -4,14 +4,14 @@ model Cylindrical
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Soil.Template soiDat
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  parameter Modelica.SIunits.Height h "Height of the cylinder";
-  parameter Modelica.SIunits.Radius r_a "Internal radius";
-  parameter Modelica.SIunits.Radius r_b "External radius";
+  parameter Modelica.Units.SI.Height h "Height of the cylinder";
+  parameter Modelica.Units.SI.Radius r_a "Internal radius";
+  parameter Modelica.Units.SI.Radius r_b "External radius";
   parameter Integer nSta(min=1) = 10 "Number of state variables";
-  parameter Modelica.SIunits.Temperature TInt_start
+  parameter Modelica.Units.SI.Temperature TInt_start
     "Initial temperature at port_a, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  parameter Modelica.SIunits.Temperature TExt_start
+  parameter Modelica.Units.SI.Temperature TExt_start
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Boolean steadyStateInitial=false
@@ -20,8 +20,8 @@ model Cylindrical
 
   parameter Real gridFac(min=1) = 2 "Grid factor for spacing";
 
-  parameter Modelica.SIunits.Radius r[nSta + 1](each fixed=false)
-   "Radius to the boundary of the i-th domain";
+  parameter Modelica.Units.SI.Radius r[nSta + 1](each fixed=false)
+    "Radius to the boundary of the i-th domain";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TInt_start))
     "Heat port at surface a" annotation (Placement(transformation(extent={{-110,
@@ -30,31 +30,30 @@ model Cylindrical
     "Heat port at surface b" annotation (Placement(transformation(extent={{90,-10},
             {110,10}},rotation=0)));
 
-  Modelica.SIunits.Temperature T[nSta](
-    start={TInt_start +
-      (TExt_start - TInt_start)/Modelica.Math.log(r_b/r_a)*
-      Modelica.Math.log((r_a + (r_b - r_a)/(nSta)*(i - 0.5))/r_a) for i in 1:nSta})
+  Modelica.Units.SI.Temperature T[nSta](start={TInt_start + (TExt_start -
+        TInt_start)/Modelica.Math.log(r_b/r_a)*Modelica.Math.log((r_a + (r_b -
+        r_a)/(nSta)*(i - 0.5))/r_a) for i in 1:nSta})
     "Temperature of the states";
 
-  Modelica.SIunits.TemperatureDifference dT "port_a.T - port_b.T";
+  Modelica.Units.SI.TemperatureDifference dT "port_a.T - port_b.T";
 
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
+  Modelica.Units.SI.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
 
 protected
-  parameter Modelica.SIunits.Radius rC[nSta](each fixed=false)
+  parameter Modelica.Units.SI.Radius rC[nSta](each fixed=false)
     "Radius to the center of the i-th domain";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity c=soiDat.cSoi
+  final parameter Modelica.Units.SI.SpecificHeatCapacity c=soiDat.cSoi
     "Specific heat capacity";
-  final parameter Modelica.SIunits.ThermalConductivity k=soiDat.kSoi
+  final parameter Modelica.Units.SI.ThermalConductivity k=soiDat.kSoi
     "Thermal conductivity of the material";
-  final parameter Modelica.SIunits.Density d=soiDat.dSoi
+  final parameter Modelica.Units.SI.Density d=soiDat.dSoi
     "Density of the material";
 
-  parameter Modelica.SIunits.ThermalConductance G[nSta + 1](each fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance G[nSta + 1](each fixed=false)
     "Heat conductance between the temperature nodes";
-  parameter Modelica.SIunits.HeatCapacity C[nSta](each fixed=false)
+  parameter Modelica.Units.SI.HeatCapacity C[nSta](each fixed=false)
     "Heat capacity of each state";
 
   parameter Real gridFac_sum(fixed=false);
@@ -170,15 +169,15 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,-74},{-26,-86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_a"),
         Text(
           extent={{-22,-62},{20,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%nSta"),
         Text(
           extent={{16,-76},{102,-88}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%r_b"),
         Polygon(
           points={{-50,60},{-38,34},{-32,0},{-36,-30},{-50,-60},{-62,-60},{-48,
@@ -196,7 +195,7 @@ equation
           fillColor={175,175,175}),
         Text(
           extent={{-100,100},{100,60}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     defaultComponentName="lay",
     Documentation(info="<html>

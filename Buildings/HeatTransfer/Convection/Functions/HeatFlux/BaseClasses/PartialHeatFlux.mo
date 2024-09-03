@@ -2,9 +2,9 @@ within Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses;
 partial function PartialHeatFlux "Partial function for convective heat flux"
   extends Modelica.Icons.Function;
 
- input Modelica.SIunits.TemperatureDifference dT
+  input Modelica.Units.SI.TemperatureDifference dT
     "Temperature difference solid minus fluid";
- output Modelica.SIunits.HeatFlux q_flow
+  output Modelica.Units.SI.HeatFlux q_flow
     "Convective heat flux from solid to fluid";
 annotation (Documentation(info=
 "<html>

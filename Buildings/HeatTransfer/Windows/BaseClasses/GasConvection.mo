@@ -13,14 +13,14 @@ model GasConvection
   parameter Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Area h(min=0) = sqrt(A) "Height of window";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area h(min=0) = sqrt(A) "Height of window";
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (only 0, 90 and 180 degrees are implemented)";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
 
-  parameter Modelica.SIunits.Temperature T0 = 293.15
+  parameter Modelica.Units.SI.Temperature T0=293.15
     "Temperature used to compute thermophysical properties";
 
   Modelica.Blocks.Interfaces.RealInput u
@@ -28,18 +28,18 @@ model GasConvection
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 
-  Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0, start=3)
+  Modelica.Units.SI.CoefficientOfHeatTransfer hCon(min=0, start=3)
     "Convective heat transfer coefficient";
-  Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
+  Modelica.Units.SI.HeatFlux q_flow "Convective heat flux";
   Real Nu(min=0) "Nusselt number";
   Real Ra(min=0) "Rayleigh number";
 
 protected
-  Modelica.SIunits.Temperature T_a
+  Modelica.Units.SI.Temperature T_a
     "Temperature used for thermophysical properties at port_a";
-  Modelica.SIunits.Temperature T_b
+  Modelica.Units.SI.Temperature T_b
     "Temperature used for thermophysical properties at port_b";
-  Modelica.SIunits.Temperature T_m
+  Modelica.Units.SI.Temperature T_m
     "Temperature used for thermophysical properties";
 
   Real deltaNu(min=0.01) = 0.1
@@ -54,7 +54,7 @@ protected
     "Flag, true if the window is horizontal";
   // Quantities that are only used in linearized model
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hCon0(fixed=false)
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hCon0(fixed=false)
     "Convective heat transfer coefficient";
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Rayleigh number";
@@ -141,7 +141,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-51,42},{-21,20}},
-          lineColor={127,0,0},
+          textColor={127,0,0},
           textString="Q_flow"),
         Line(points={{-68,20},{68,20}}, color={191,0,0}),
         Line(points={{-68,-20},{68,-20}}, color={191,0,0}),
@@ -171,7 +171,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-100,86},{-86,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 Model for convective heat tranfer in a single layer of window gas.

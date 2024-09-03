@@ -4,12 +4,13 @@ model GFunction_1borehole_5meters
   extends Modelica.Icons.Example;
 
   parameter Integer nBor = 1 "Number of boreholes";
-  parameter Modelica.SIunits.Position cooBor[nBor, 2] = {{5.*mod(i-1,3), 5.*floor((i-1)/3)} for i in 1:nBor}
-    "Coordinates of boreholes";
-  parameter Modelica.SIunits.Height hBor = 5 "Borehole length";
-  parameter Modelica.SIunits.Height dBor = 1 "Borehole buried depth";
-  parameter Modelica.SIunits.Radius rBor = 0.075 "Borehole radius";
-  parameter Modelica.SIunits.ThermalDiffusivity aSoi = 1e-6 "Ground thermal diffusivity used in g-function evaluation";
+  parameter Modelica.Units.SI.Position cooBor[nBor,2]={{5.*mod(i - 1, 3),5.*
+      floor((i - 1)/3)} for i in 1:nBor} "Coordinates of boreholes";
+  parameter Modelica.Units.SI.Height hBor=5 "Borehole length";
+  parameter Modelica.Units.SI.Height dBor=1 "Borehole buried depth";
+  parameter Modelica.Units.SI.Radius rBor=0.075 "Borehole radius";
+  parameter Modelica.Units.SI.ThermalDiffusivity aSoi=1e-6
+    "Ground thermal diffusivity used in g-function evaluation";
   parameter Integer nSeg = 12 "Number of line source segments per borehole";
   parameter Integer nTimSho = 26 "Number of time steps in short time region";
   parameter Integer nTimLon = 50 "Number of time steps in long time region";
@@ -18,21 +19,33 @@ model GFunction_1borehole_5meters
   final parameter Integer nTimTot=nTimSho+nTimLon;
   final parameter Real[nTimTot] gFun(each fixed=false);
   final parameter Real[nTimTot] lntts(each fixed=false);
-  final parameter Modelica.SIunits.Time[nTimTot] tGFun(each fixed=false);
+  final parameter Modelica.Units.SI.Time[nTimTot] tGFun(each fixed=false);
   final parameter Real[nTimTot] dspline(each fixed=false);
+
+  parameter Integer nClu=1 "Number of clusters to be generated";
+  parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
+  parameter Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
 
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";
 
   discrete Integer k "Current interpolation interval";
-  discrete Modelica.SIunits.Time t1 "Previous value of time for interpolation";
-  discrete Modelica.SIunits.Time t2 "Next value of time for interpolation";
+  discrete Modelica.Units.SI.Time t1 "Previous value of time for interpolation";
+  discrete Modelica.Units.SI.Time t2 "Next value of time for interpolation";
   discrete Real gFun1 "Previous g-function value for interpolation";
   discrete Real gFun2 "Next g-function value for interpolation";
-  parameter Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Bore field characteristic time";
+  parameter Modelica.Units.SI.Time ts=hBor^2/(9*aSoi)
+    "Bore field characteristic time";
 
 initial equation
   // Evaluate g-function for the specified bore field configuration
+  (labels, cluSiz) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
+    nBor = nBor,
+    cooBor = cooBor,
+    hBor = hBor,
+    dBor = dBor,
+    rBor = rBor,
+    nClu = nClu);
   (tGFun,gFun) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
@@ -44,7 +57,10 @@ initial equation
       nSeg = nSeg,
       nTimSho = nTimSho,
       nTimLon = nTimLon,
-      ttsMax = ttsMax);
+      ttsMax = ttsMax,
+      nClu = nClu,
+      labels = labels,
+      cluSiz = cluSiz);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
   dspline = Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -88,6 +104,11 @@ g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added parameters to define the number of clusters for the method of Prieto and
+Cimmino (2021).
+</li>
 <li>
 March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.

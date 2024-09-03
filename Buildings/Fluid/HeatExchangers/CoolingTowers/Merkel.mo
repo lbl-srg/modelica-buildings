@@ -1,32 +1,22 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model Merkel "Cooling tower model based on Merkel's theory"
-  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
+  extends
+    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
+  final fanRelPowDer=
+    Buildings.Utilities.Math.Functions.splineDerivatives(
+      x=fanRelPow.r_V,
+      y=fanRelPow.r_P,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
+        x=fanRelPow.r_P,
+        strict=false)));
 
-  import cha =
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Characteristics;
-
-  final parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    m_flow_nominal/ratWatAir_nominal
-    "Nominal mass flow rate of air"
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
 
   parameter Real ratWatAir_nominal(min=0, unit="1") = 1.2
     "Water-to-air mass flow rate ratio at design condition"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
-    "Nominal outdoor (air inlet) wetbulb temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatOut_nominal
-    "Nominal water outlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-
-  parameter Real fraFreCon(min=0, max=1, final unit="1") = 0.125
-    "Fraction of tower capacity in free convection regime"
-    annotation (Dialog(group="Heat transfer"));
 
   replaceable parameter Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel UACor
     constrainedby Buildings.Fluid.HeatExchangers.CoolingTowers.Data.UAMerkel
@@ -36,70 +26,16 @@ model Merkel "Cooling tower model based on Merkel's theory"
       choicesAllMatching=true,
       Placement(transformation(extent={{18,70},{38,90}})));
 
-  parameter Real fraPFan_nominal(unit="W/(kg/s)") = 275/0.15
-    "Fan power divided by water mass flow rate at design condition"
-    annotation (Dialog(group="Fan"));
-  parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
-    "Fan power"
-    annotation (Dialog(group="Fan"));
-
-  parameter Real yMin(min=0.01, max=1, final unit="1") = 0.3
-    "Minimum control signal until fan is switched off (used for smoothing
-    between forced and free convection regime)"
-    annotation (Dialog(group="Fan"));
-
-  replaceable parameter cha.fan fanRelPow(
-       r_V = {0, 0.1,   0.3,   0.6,   1},
-       r_P = {0, 0.1^3, 0.3^3, 0.6^3, 1})
-    constrainedby cha.fan
-    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
-    annotation (
-    choicesAllMatching=true,
-    Placement(transformation(extent={{58,70},{78,90}})),
-    Dialog(group="Fan"));
-
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=per.Q_flow_nominal
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = per.Q_flow_nominal
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=per.UA_nominal
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=per.UA_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=per.eps_nominal
     "Nominal heat transfer effectiveness";
   final parameter Real NTU_nominal(min=0)=per.NTU_nominal
     "Nominal number of transfer units";
 
-  Modelica.Blocks.Interfaces.RealInput TAir(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
-    "Entering air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-
-  Modelica.Blocks.Interfaces.RealInput y(unit="1") "Fan control signal"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PFan(
-    final quantity="Power",
-    final unit="W")=
-    Buildings.Utilities.Math.Functions.spliceFunction(
-        pos=cha.normalizedPower(per=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal,
-        neg=0,
-        x=y-yMin+yMin/20,
-        deltax=yMin/20)
-    "Electric power consumed by fan"
-    annotation (Placement(transformation(extent={{100,70},{120,90}}),
-        iconTransformation(extent={{100,70},{120,90}})));
-
 protected
-  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)]=
-    Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=fanRelPow.r_V,
-      y=fanRelPow.r_P,
-      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(
-        x=fanRelPow.r_P,
-        strict=false))
-    "Coefficients for fan relative power consumption as a function
-    of control signal";
-
   Modelica.Blocks.Sources.RealExpression TWatIn(
     final y=Medium.temperature(
       Medium.setState_phX(
@@ -124,20 +60,6 @@ protected
     final yMin=yMin) "Model for thermal performance"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-initial equation
-  // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
-    "The fan relative power consumption must be non-negative for y=0."
-  + "\n   Obtained fanRelPow(0) = "
-  + String(cha.normalizedPower(per=fanRelPow, r_V=yMin, d=fanRelPowDer))
-  + "\n   You need to choose different values for the parameter fanRelPow.");
-  assert(abs(1-cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4,
-  "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = "
-  + String(cha.normalizedPower(per=fanRelPow, r_V=1, d=fanRelPowDer))
-  + "\n   You need to choose different values for the parameter fanRelPow."
-  + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
-
 equation
   connect(per.y, y) annotation (Line(points={{-22,58},{-40,58},{-40,80},{-120,
           80}},
@@ -155,11 +77,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-98,100},{-86,84}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="y"),
         Text(
           extent={{-104,70},{-70,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWB"),
         Rectangle(
           extent={{-100,81},{-70,78}},
@@ -169,7 +91,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,6},{58,-114}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),
@@ -203,24 +125,8 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{64,114},{98,76}},
-          lineColor={0,0,127},
-          textString="PFan"),
-        Rectangle(
-          extent={{78,-60},{82,-4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{70,-58},{104,-96}},
-          lineColor={0,0,127},
-          textString="TLvg"),
-        Rectangle(
-          extent={{78,-58},{102,-62}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          textColor={0,0,127},
+          textString="PFan")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(
 info="<html>

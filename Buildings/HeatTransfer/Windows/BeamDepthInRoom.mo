@@ -9,32 +9,32 @@ block BeamDepthInRoom "Depth of solar beam in the room"
         caption="Select weather file"),
         group="Location"));
 
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  parameter Modelica.Units.SI.Angle lon(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     absFilNam) "Longitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+  parameter Modelica.Units.SI.Angle lat(displayUnit="deg") =
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
     absFilNam) "Latitude" annotation (Evaluate=true, Dialog(group="Location"));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(absFilNam)
-    "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
+  parameter Modelica.Units.SI.Time timZon(displayUnit="h") =
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(
+    absFilNam) "Time zone" annotation (Evaluate=true, Dialog(group="Location"));
 
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.Units.SI.Angle azi "Surface azimuth";
 
-  parameter Modelica.SIunits.Length hWorPla = 0.75
+  parameter Modelica.Units.SI.Length hWorPla=0.75
     "Height of workplane above ground";
 
-  parameter Modelica.SIunits.Length hApe
+  parameter Modelica.Units.SI.Length hApe
     "Upper height of aperature above ground"
     annotation (Dialog(group="Aperture"));
-  parameter Modelica.SIunits.Length depApe = 0.15
+  parameter Modelica.Units.SI.Length depApe=0.15
     "Depth of outer corner of aperture, measured from interior surface"
     annotation (Dialog(group="Aperture"));
 
-  parameter Modelica.SIunits.Length depOve = 0
+  parameter Modelica.Units.SI.Length depOve=0
     "Depth of overhang, meausured from other exterior surface of aperature (set to 0 if no overhang)"
     annotation (Dialog(group="Overhang"));
-  parameter Modelica.SIunits.Length gapOve = 0
+  parameter Modelica.Units.SI.Length gapOve=0
     "Gap between upper height of aperature and lower height of overhang (set to 0 if no overhang)"
     annotation (Dialog(group="Overhang"));
 
@@ -48,9 +48,9 @@ protected
   final parameter String absFilNam = Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam)
     "Absolute name of the file";
 
-  parameter Modelica.SIunits.Length dep = depApe + depOve
+  parameter Modelica.Units.SI.Length dep=depApe + depOve
     "Depth of outer corner that throws the shade, measured from interior surface";
-  parameter Modelica.SIunits.Length h = hApe - hWorPla + gapOve
+  parameter Modelica.Units.SI.Length h=hApe - hWorPla + gapOve
     "Height of outer corner that throws the shade measure from the workplane height";
 
   BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLen(

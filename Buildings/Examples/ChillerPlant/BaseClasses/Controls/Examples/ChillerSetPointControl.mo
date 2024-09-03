@@ -5,12 +5,12 @@ model ChillerSetPointControl
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Water;
   package MediumAir = Buildings.Media.Air "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=61.6*2
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=61.6*2
     "Nominal mass flow rate at fan";
   parameter Real COPc_nominal=3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=15.2
+  parameter Modelica.Units.SI.MassFlowRate mCHW_flow_nominal=15.2
     "Nominal mass flow rate at chilled water";
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=mCHW_flow_nominal/
+  parameter Modelica.Units.SI.MassFlowRate mCW_flow_nominal=mCHW_flow_nominal/
       COPc_nominal*(COPc_nominal + 1)
     "Nominal mass flow rate at condenser water";
   parameter Real QRoo=100;
@@ -78,6 +78,7 @@ model ChillerSetPointControl
         MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
@@ -112,9 +113,8 @@ model ChillerSetPointControl
   Modelica.Blocks.Sources.Sine sine(
     amplitude=5,
     offset=273.15 + 25,
-    freqHz=1/20000) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={130,-94})));
+    f=1/20000) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+          origin={130,-94})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(y_start=273.15 + 10, T=chi.tau1
         /2,
     initType=Modelica.Blocks.Types.Init.InitialState)
@@ -214,6 +214,13 @@ equation
       Tolerance=1e-6),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 August 16, 2019, by Michael Wetter:<br/>
 Changed initialization of PI controller for Dymola 2020.

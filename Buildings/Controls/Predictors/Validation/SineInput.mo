@@ -7,7 +7,7 @@ model SineInput
   Modelica.Blocks.Sources.Cosine PBas(
     amplitude=0.5,
     offset=0.5,
-    freqHz=1/tPeriod,
+    f=1/tPeriod,
     phase=3.1415926535898) "Measured power consumption"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Sampler P(samplePeriod=tSample)

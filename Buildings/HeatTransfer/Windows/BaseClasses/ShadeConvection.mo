@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 model ShadeConvection
   "Model for convective heat balance of a layer that may or may not have a shade"
 
-  parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.Units.SI.Area A "Heat transfer area";
   parameter Boolean thisSideHasShade
     "Set to true if this side of the window has a shade";
 
@@ -67,7 +67,7 @@ equation
                                         Text(
         extent={{-100,132},{100,102}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Polygon(
           points={{-20,54},{-20,46},{20,58},{20,66},{-20,54}},
           lineColor={0,0,0},
@@ -123,7 +123,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,52},{-66,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Gc"),
         Rectangle(
           extent={{88,100},{100,-100}},
@@ -132,11 +132,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-68,-80},{-34,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsNet"),
         Text(
           extent={{42,-82},{76,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T")}),
     Documentation(info="<html>
 <p>

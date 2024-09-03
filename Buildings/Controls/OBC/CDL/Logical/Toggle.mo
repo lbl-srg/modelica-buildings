@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Toggle
   "Toggles output value whenever its input turns true"
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Toggle input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput clr
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -19,18 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=
-      if clr then
+    y=if clr then
         false
       else
         u;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == false) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == false) then
     //scenario = 2
     y=true;
-  elsewhen(not clr) and change(u) and(pre(u) == false) and(pre(y) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) and
+                                                          (pre(y) == true) then
     //scenario = 3
     y=false;
-  elsewhen(not clr) and change(u) and(pre(u) == true) then
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
     //scenario = 4
     y=pre(y);
   elsewhen clr then
@@ -66,12 +73,12 @@ equation
         Ellipse(
           extent={{-73,-53},{-87,-67}},
           lineColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
@@ -84,13 +91,13 @@ equation
           color={255,0,255}),
         Text(
           extent={{-22,72},{28,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Toggle input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -107,16 +114,16 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-14,-10},{14,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear")}),
     Documentation(
       info="<html>
 <p>
-Block that generates a <code>true</code> output when toggle input <code>u</code> 
+Block that generates a <code>true</code> output when toggle input <code>u</code>
 rises from <code>false</code> to <code>true</code>, provided that the clear input
-<code>clr</code> is <code>false</code> or also became at the same time 
+<code>clr</code> is <code>false</code> or also became at the same time
 <code>false</code>. The output remains <code>true</code> until
 </p>
 <ul>
@@ -134,8 +141,8 @@ regardless of the value of the toggle input <code>u</code>.
 </p>
 
 <p>
-At initial time, if <code>clr = false</code>, then the output will be 
-<code>y = u</code>. Otherwise it will be <code>y=false</code> 
+At initial time, if <code>clr = false</code>, then the output will be
+<code>y = u</code>. Otherwise it will be <code>y=false</code>
 (because the clear input <code>clr</code> is <code>true</code>).
 </p>
 
@@ -159,7 +166,7 @@ Simplified implementation, and made model work with OpenModelica.
 </li>
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
-Corrected implementation that causes wrong output at initial stage. 
+Corrected implementation that causes wrong output at initial stage.
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
 </li>
 <li>

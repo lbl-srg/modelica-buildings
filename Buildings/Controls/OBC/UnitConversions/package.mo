@@ -11,6 +11,11 @@ Package with blocks for unit conversions.
 revisions="<html>
 <ul>
 <li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
+<li>
 August 1, 2018, by Milica Grahovac:<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>
 First implementation.
@@ -36,6 +41,6 @@ First implementation.
             color={191,0,0}),
         Text(
           extent={{-72,78},{72,6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
         textString="SI")}));
 end UnitConversions;

@@ -3,16 +3,17 @@ partial model PartialTwoPortRLC
   "Partial model of an RLC element that links two electrical connectors"
   extends Buildings.Electrical.Interfaces.PartialTwoPort;
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref"
-                                      annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature";
-  parameter Modelica.SIunits.Temperature M = 507.65
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature";
+  parameter Modelica.Units.SI.Temperature M=507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))";
-  parameter Modelica.SIunits.Capacitance C "Capacity";
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start = 110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Dialog(group="Nominal conditions"));
-  Modelica.SIunits.Resistance R_actual
+  parameter Modelica.Units.SI.Capacitance C "Capacity";
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (Dialog(group="Nominal conditions"));
+  Modelica.Units.SI.Resistance R_actual
     "Actual resistance = R*(M + T_heatPort)/(M + T_ref) ";
 equation
   Connections.branch(terminal_p.theta, terminal_n.theta);
@@ -21,8 +22,8 @@ equation
   assert(R_actual>=0,
    "The value of R_actual must be positive, check reference and actual temperatures");
 
-  R_actual = R*(M + Modelica.SIunits.Conversions.to_degC(T_heatPort))/
-    (M + Modelica.SIunits.Conversions.to_degC(T_ref));
+  R_actual =R*(M + Modelica.Units.Conversions.to_degC(T_heatPort))/(M +
+    Modelica.Units.Conversions.to_degC(T_ref));
 
   annotation (Diagram(graphics={
           Rectangle(extent={{-70,30},{70,-30}}, lineColor={0,0,255}),
@@ -32,7 +33,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-148,-28},{138,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-90,0},{-70,0}}, color={0,0,0}),
           Line(points={{70,0},{90,0}}, color={0,0,0}),
@@ -97,7 +98,7 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-142,-56},{144,-88}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="C=%C")}),
     Documentation(revisions="<html>
 <ul>

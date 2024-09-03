@@ -4,7 +4,9 @@ Junction
 LosslessPipe
 Pipe
 PlugFlowPipe
+PlugFlowPipeDiscretized
 PressureDrop
+BuriedPipes
 Examples
 Validation
 BaseClasses

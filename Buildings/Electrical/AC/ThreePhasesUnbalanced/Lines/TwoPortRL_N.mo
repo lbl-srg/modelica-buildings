@@ -3,25 +3,25 @@ model TwoPortRL_N
   "Model of a resistive-inductive element with two electrical ports and neutral line cable"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Resistance Rn
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
+  parameter Modelica.Units.SI.Resistance Rn
     "Resistance of neutral cable at temperature T_ref";
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature M = 507.65
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature M=507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Inductance Ln "Inductance of neutral cable";
-  parameter Modelica.SIunits.Current i1_start[2] = {0,0}
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Inductance Ln "Inductance of neutral cable";
+  parameter Modelica.Units.SI.Current i1_start[2]={0,0}
     "Initial current phasor of phase 1 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Current i2_start[2] = {0,0}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Current i2_start[2]={0,0}
     "Initial current phasor of phase 2 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Current i3_start[2] = {0,0}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Current i3_start[2]={0,0}
     "Initial current phasor of phase 3 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
@@ -124,7 +124,7 @@ equation
                                                graphics={
           Text(
             extent={{-150,-28},{136,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
@@ -165,7 +165,7 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

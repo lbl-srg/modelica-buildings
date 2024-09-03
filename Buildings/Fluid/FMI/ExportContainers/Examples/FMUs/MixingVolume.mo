@@ -3,8 +3,8 @@ block MixingVolume "Declaration of an FMU that exports a control volume"
   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
     redeclare package Medium = Buildings.Media.Air);
 
-  parameter Modelica.SIunits.Volume V=1 "Volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.Volume V=1 "Volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
 
 protected

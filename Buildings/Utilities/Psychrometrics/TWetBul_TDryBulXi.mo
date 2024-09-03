@@ -31,14 +31,16 @@ block TWetBul_TDryBulXi
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
+  constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
+
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
 
-  Modelica.SIunits.MassFraction XiSat(start=0.01,
-                                      nominal=0.01)
+  Modelica.Units.SI.MassFraction XiSat(start=0.01, nominal=0.01)
     "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
+  Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
  parameter Integer iWat = sum({(
@@ -56,11 +58,12 @@ equation
          Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
          *Xi[iWat]/(Xi[iWat] +
          Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
-    TWetBul      = 273.15 + TDryBul_degC
+    TWetBul      = 273.15 + uniCon1 * TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
-       + Modelica.Math.atan(TDryBul_degC + rh_per)
-       - Modelica.Math.atan(rh_per-1.676331)
-       + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
+       + uniConK * ( Modelica.Math.atan(TDryBul_degC + rh_per)
+         - Modelica.Math.atan(rh_per-1.676331)
+         + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per))
+       - 4.686035;
     XiSat = 0;
     XiSatRefIn=0;
   else
@@ -87,24 +90,24 @@ annotation (
             100}}), graphics={
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-86,14},{-72,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Xi"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -118,7 +121,7 @@ annotation (
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -171,6 +174,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised computation of <code>iWat</code>

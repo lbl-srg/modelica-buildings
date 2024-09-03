@@ -1,11 +1,10 @@
 within Buildings.Controls.DemandResponse;
 model Client "Demand response client"
-  extends Modelica.Blocks.Icons.Block;
+  extends Modelica.Blocks.Icons.DiscreteBlock;
 
-  final parameter Modelica.SIunits.Time tPeriod = 24*3600
+  final parameter Modelica.Units.SI.Time tPeriod=24*3600
     "Period, generally one day";
-  final parameter Modelica.SIunits.Time tSample=tPeriod/nSam
-    "Sample period, generally 900 or 3600 seconds";
+
   parameter Integer nSam
     "Number of samples in a day. For 1 hour sampling, set to 24";
   parameter Integer nPre(min=1) = 1
@@ -65,160 +64,74 @@ model Client "Demand response client"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
 protected
-  Modelica.StateGraph.InitialStep initialStep(nIn=0)
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.StateGraph.Transition transition
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+  OBC.CDL.Reals.Multiply she "Outputs load taking shed signal into account"
+    annotation (Placement(transformation(extent={{30,20},{50,40}})));
+  OBC.CDL.Routing.RealExtractor extIndRea
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+  OBC.CDL.Integers.Sources.Constant conInt(k=1)
+    "Outputs 1 to extract the first signal of the demand prediction array"
+    annotation (Placement(transformation(extent={{-32,20},{-12,40}})));
   BaseClasses.BaselinePrediction comBasLin(
     final nSam=nSam,
     final nHis=nHis,
     final nPre=nPre,
-    final predictionModel=predictionModel,
-    nIn=3) "Baseline prediction"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Modelica.StateGraph.Transition t1 "State transition" annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={60,20})));
-  BaseClasses.NormalOperation norOpe(nOut=2) "Normal operation"
-    annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 t2(enableTimer=false) "State transition"
-                       annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={10,20})));
-  Modelica.StateGraph.TransitionWithSignal t3 "State transition"
-                       annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        origin={-2,-30})));
-  BaseClasses.ShedOperation she "Operation during load shedding"
-    annotation (Placement(transformation(extent={{-10,-40},{-30,-20}})));
-  Modelica.StateGraph.TransitionWithSignal
-                                 t4(enableTimer=false) "State transition"
-                       annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-40,10})));
-  Modelica.Blocks.Sources.SampleTrigger tri(period=tSample) "Sample trigger"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
+    final predictionModel=predictionModel)
+           "Baseline prediction"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+
   Modelica.Blocks.Logical.Switch switch
     "Switch to select normal or shedded load"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 equation
-  connect(initialStep.outPort[1], transition.inPort) annotation (Line(
-      points={{-59.5,80},{-34,80}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(transition.outPort, comBasLin.inPort[1]) annotation (Line(
-      points={{-28.5,80},{6,80},{6,50.5},{19,50.5},{19,50.6667}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(t1.inPort, comBasLin.outPort[1]) annotation (Line(
-      points={{60,24},{60,50},{40.5,50}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(t1.outPort, norOpe.inPort[1]) annotation (Line(
-      points={{60,18.5},{60,-30},{41,-30}},
-      color={0,0,0},
-      smooth=Smooth.None));
   connect(comBasLin.ECon, ECon) annotation (Line(
-      points={{19,48},{-64,48},{-64,36},{-94,36},{-94,4.44089e-16},{-110,4.44089e-16}},
+      points={{-61,68},{-80,68},{-80,0},{-110,0}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(comBasLin.PPre[1], norOpe.PCon) annotation (Line(
-      points={{41,42},{80,42},{80,-38},{42,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(t2.outPort, comBasLin.inPort[2]) annotation (Line(
-      points={{10,21.5},{10,50},{19,50}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(t3.outPort, she.inPort[1]) annotation (Line(
-      points={{-3.5,-30},{-9,-30}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(t4.inPort, she.outPort[1]) annotation (Line(
-      points={{-40,6},{-40,-30},{-30.5,-30}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(t4.outPort, comBasLin.inPort[3]) annotation (Line(
-      points={{-40,11.5},{-40,50},{-20,50},{-20,49.3333},{19,49.3333}},
-      color={0,0,0},
       smooth=Smooth.None));
 
-  connect(t4.condition, tri.y) annotation (Line(
-      points={{-52,10},{-66,10},{-66,20},{-69,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(t2.condition, tri.y) annotation (Line(
-      points={{-2,20},{-69,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(norOpe.PPre, she.PCon) annotation (Line(
-      points={{19,-38},{6,-38},{6,-39},{-8,-39}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(norOpe.active, switch.u2) annotation (Line(
-      points={{30,-41},{30,-70},{38,-70}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(norOpe.outPort[1], t2.inPort) annotation (Line(
-      points={{19.5,-29.75},{10,-29.75},{10,16}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(norOpe.outPort[2], t3.inPort) annotation (Line(
-      points={{19.5,-30.25},{12,-30.25},{12,-30},{2,-30}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(shed, t3.condition) annotation (Line(
-      points={{-110,-30},{-80,-30},{-80,-10},{-2,-10},{-2,-18}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(switch.u1, she.PCon) annotation (Line(
-      points={{38,-62},{10,-62},{10,-39},{-8,-39}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(switch.u3, she.PPre) annotation (Line(
-      points={{38,-78},{-40,-78},{-40,-38},{-31,-38}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(isEventDay, comBasLin.isEventDay) annotation (Line(
-      points={{-110,40},{-90,40},{-90,54},{19,54}},
+      points={{-110,40},{-88,40},{-88,74},{-61,74}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(comBasLin.TOut, TOut) annotation (Line(
-      points={{19,45},{-60,45},{-60,-70},{-110,-70}},
+      points={{-61,65},{-74,65},{-74,-70},{-110,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(typeOfDay, comBasLin.typeOfDay) annotation (Line(
-      points={{-110,80},{-90,80},{-90,58},{19,58}},
+      points={{-110,80},{-86,80},{-86,78},{-61,78}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(comBasLin.TOutFut, TOutFut) annotation (Line(
-      points={{19,41},{-56,41},{-56,-90},{-110,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(yShed, she.yShed) annotation (Line(
-      points={{-110,-50},{-48,-50},{-48,-14},{-6,-14},{-6,-32},{-9,-32}},
+      points={{-61,61},{-72,61},{-72,-90},{-110,-90}},
       color={0,0,127},
       smooth=Smooth.None));
   // Only PPre[1] will take into account the shedded load.
   connect(switch.y, PPre) annotation (Line(
-      points={{61,-70},{90,-70},{90,0},{110,0}},
+      points={{89,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(comBasLin.PPre, PPreNoShe) annotation (Line(
-      points={{41,42},{80,42},{80,50},{110,50}},
+      points={{-39,70},{-20,70},{-20,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(switch.u1, she.y)
+    annotation (Line(points={{66,8},{60,8},{60,30},{52,30}}, color={0,0,127}));
+  connect(yShed, she.u2) annotation (Line(points={{-110,-50},{24,-50},{24,24},{28,
+          24}}, color={0,0,127}));
+  connect(shed, switch.u2) annotation (Line(points={{-110,-30},{-12,-30},{-12,0},
+          {66,0}}, color={255,0,255}));
+  connect(comBasLin.PPre, extIndRea.u)
+    annotation (Line(points={{-39,70},{-12,70}}, color={0,0,127}));
+  connect(conInt.y, extIndRea.index)
+    annotation (Line(points={{-10,30},{0,30},{0,58}}, color={255,127,0}));
+  connect(switch.u3, extIndRea.y) annotation (Line(points={{66,-8},{20,-8},{20,70},
+          {12,70}}, color={0,0,127}));
+  connect(extIndRea.y, she.u1) annotation (Line(points={{12,70},{20,70},{20,36},
+          {28,36}}, color={0,0,127}));
   annotation (
-    Icon(graphics={                      Text(
+    Icon(graphics={
+      Text(
           extent={{-70,54},{74,-64}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="DR")}),
     Documentation(info="<html>
 <p>
@@ -259,6 +172,12 @@ The baseline prediction is computed in
 Buildings.Controls.Predictors.ElectricalLoad</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2024, by Michael Wetter:<br/>
+Refactored implementation to avoid an infinite event iteration in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3754\">#3754</a>.
+</li>
 <li>
 October 29, 2014, by Michael Wetter:<br/>
 Revised implementation.

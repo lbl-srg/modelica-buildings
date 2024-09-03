@@ -17,6 +17,6 @@ Implementation based on Functions.inverseXRegularized.
 </ul>
 </html>"), Icon(graphics={   Text(
           extent={{-90,36},{90,-36}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="inverseXRegularized()")}));
 end InverseXRegularized;

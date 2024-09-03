@@ -1,8 +1,33 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 block BaselinePrediction "Predicts the baseline consumption"
-  extends Buildings.Controls.DemandResponse.BaseClasses.PartialDemandResponse;
+  extends Modelica.Blocks.Icons.DiscreteBlock;
+
+  parameter Integer nSam
+    "Number of intervals in a day for which baseline is computed";
+
+  parameter Integer nPre(min=1)
+    "Number of intervals for which future load need to be predicted (set to one to only predict current time, or to nSam to predict one day)";
+
+  parameter Buildings.Controls.Predictors.Types.PredictionModel predictionModel
+    "Load prediction model";
 
   parameter Integer nHis(min=1) = 10 "Number of history terms to be stored";
+
+  Modelica.Blocks.Interfaces.RealInput ECon(unit="J")
+    "Consumed electrical energy"
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-120,-30},{-100,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput PPre[nPre](each unit="W")
+    "Predicted power consumption for the current time interval"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+    "Future outside air temperatures"
+    annotation (Placement(
+      transformation(extent={{-140,-110},{-100,-70}}),
+      iconTransformation(extent={{-120,-100},{-100,-80}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(unit="K", displayUnit="degC")
   if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
@@ -40,7 +65,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(basLin.PPre, PPre) annotation (Line(
-      points={{11,0},{40,0},{40,-80},{110,-80}},
+      points={{11,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(stoHis.u, isEventDay) annotation (Line(
@@ -63,7 +88,7 @@ equation
             {100,100}}),
                    graphics={Text(
           extent={{-70,64},{74,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BL")}),
     Documentation(info="<html>
 <p>
@@ -91,6 +116,12 @@ the current type of day, then the predicted power consumption
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2024, by Michael Wetter:<br/>
+Refactored implementation to avoid an infinite event iteration in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3754\">#3754</a>.
+</li>
 <li>
 March 20, 2014 by Michael Wetter:<br/>
 First implementation.

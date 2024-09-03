@@ -1,5 +1,0 @@
-old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
-Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.ThermalZones.EnergyPlus.Validation.ThermalZone.RefBldgSmallOffice", stopTime=604800, method="Cvode", tolerance=1e-06, resultFile="RefBldgSmallOffice");
-Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
-createPlot(id=1, position={55, 50, 1783, 995}, y={"building.weaBus.TDryBul", "att.TAir", "cor.TAir", "sou.TAir", "eas.TAir", "nor.TAir", "wes.TAir", "TOutEP", "TAttEP", "TCorEP", "TSouEP", "TEasEP", "TNorEP", "TWesEP"}, range={0.0, 620000.0, -30.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}, {244,125,35}, {102,44,145}, {28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, patterns={LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,  LinePattern.Solid, LinePattern.Solid, LinePattern.Solid, LinePattern.Solid,  LinePattern.Dash, LinePattern.Dash, LinePattern.Dash, LinePattern.Dash,  LinePattern.Dash, LinePattern.Dash});

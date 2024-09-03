@@ -5,9 +5,9 @@ partial model FlowMachine_ZeroFlow
   replaceable package Medium = Buildings.Media.Air
       constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 500
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Ramp y(
@@ -98,6 +98,9 @@ This is the base class for examples that demonstrates the use of a flow machine 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
@@ -107,14 +110,9 @@ for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
 <li>
 September 20, 2014, by Michael Wetter:<br/>
 Added <code>constrainedby</code> declaration for medium.
-Otherwise, the pedantic model check of
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data\">
-Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
-fails because water does not implemented the function
+Otherwise, a pedantic model check
+fails because water does not implement the function
 <code>Xsaturation</code>.
-</li>
-<li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 March 24 2010, by Michael Wetter:<br/>

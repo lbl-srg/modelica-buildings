@@ -1,0 +1,25 @@
+simulateModel("Buildings.Applications.BaseClasses.Equipment.Validation.PumpParallel", stopTime=360, tolerance= 1e-6, method="Cvode", resultFile="PumpParallel");
+createPlot(id=1,
+ position={0, 0, 863, 526},
+ y={"pumPar1.m_flow", "pumPar2.m_flow"},
+ range={0.0, 360.0, -0.002, 0.008},
+ erase=false,
+ grid=true,
+ filename="PumpParallel.mat",
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={0, 0, 863, 172},
+ y={"pumPar1.val[1].y", "pumPar1.val[1].y_actual"},
+ range={0.0, 360.0, -0.5, 1.5},
+ erase=false,
+ grid=true,
+ subPlot=2,
+ colors={{28,108,200}, {238,46,47}});
+createPlot(id=1,
+ position={0, 0, 863, 173},
+ y={"pumPar2.val[1].y", "pumPar2.val[1].y_actual"},
+ range={0.0, 360.0, -0.5, 1.5},
+ erase=false,
+ grid=true,
+ subPlot=3,
+ colors={{28,108,200}, {238,46,47}});

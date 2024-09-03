@@ -6,24 +6,24 @@ partial model PartialDataCenter
 
   // Chiller parameters
   parameter Integer numChi=2 "Number of chillers";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_chi_nominal= 34.7
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_chi_nominal=34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_chi_nominal= 18.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_chi_nominal=18.3
     "Nominal mass flow rate at evaporator water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dp1_chi_nominal = 46.2*1000
+  parameter Modelica.Units.SI.PressureDifference dp1_chi_nominal=46.2*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dp2_chi_nominal = 44.8*1000
+  parameter Modelica.Units.SI.PressureDifference dp2_chi_nominal=44.8*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.Power QEva_nominal = m2_flow_chi_nominal*4200*(6.67-18.56)
-    "Nominal cooling capaciaty(Negative means cooling)";
+  parameter Modelica.Units.SI.Power QEva_nominal=m2_flow_chi_nominal*4200*(6.67
+       - 18.56) "Nominal cooling capaciaty(Negative means cooling)";
  // WSE parameters
-  parameter Modelica.SIunits.MassFlowRate m1_flow_wse_nominal= 34.7
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_wse_nominal=34.7
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_wse_nominal= 35.3
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_wse_nominal=35.3
     "Nominal mass flow rate at condenser water in the chillers";
-  parameter Modelica.SIunits.PressureDifference dp1_wse_nominal = 33.1*1000
+  parameter Modelica.Units.SI.PressureDifference dp1_wse_nominal=33.1*1000
     "Nominal pressure";
-  parameter Modelica.SIunits.PressureDifference dp2_wse_nominal = 34.5*1000
+  parameter Modelica.Units.SI.PressureDifference dp2_wse_nominal=34.5*1000
     "Nominal pressure";
 
   parameter Buildings.Fluid.Movers.Data.Generic[numChi] perPumCW(
@@ -32,28 +32,28 @@ partial model PartialDataCenter
           V_flow=m1_flow_chi_nominal/1000*{0.2,0.6,1.0,1.2},
           dp=(dp1_chi_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps";
-  parameter Modelica.SIunits.Time tWai=1200 "Waiting time";
+  parameter Modelica.Units.SI.Time tWai=1200 "Waiting time";
 
   // AHU
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=numChi*QEva_nominal/
-     Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        6.67,
-        11.56,
-        12,
-        25)
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=numChi*QEva_nominal
+      /Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+      6.67,
+      11.56,
+      12,
+      25)
     "Thermal conductance at nominal flow for sensible heat, used to compute time constant";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal = 161.35
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=161.35
     "Nominal air mass flowrate";
   parameter Real yValMinAHU(min=0,max=1,unit="1")=0.1
     "Minimum valve openning position";
   // Set point
-  parameter Modelica.SIunits.Temperature TCHWSet = 273.15 + 8
+  parameter Modelica.Units.SI.Temperature TCHWSet=273.15 + 8
     "Chilled water temperature setpoint";
-  parameter Modelica.SIunits.Temperature TSupAirSet = TCHWSet + 10
+  parameter Modelica.Units.SI.Temperature TSupAirSet=TCHWSet + 10
     "Supply air temperature setpoint";
-  parameter Modelica.SIunits.Temperature TRetAirSet = 273.15 + 25
+  parameter Modelica.Units.SI.Temperature TRetAirSet=273.15 + 25
     "Supply air temperature setpoint";
-  parameter Modelica.SIunits.Pressure dpSetPoi = 80000
+  parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
   replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
@@ -234,7 +234,7 @@ partial model PartialDataCenter
   Modelica.Blocks.Sources.Constant TAirSupSet(k=TSupAirSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage varSpeCon(
+  Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage varSpeCon(
     tWai=tWai,
     m_flow_nominal=m2_flow_chi_nominal,
     deaBanSpe=0.45)
@@ -283,6 +283,17 @@ partial model PartialDataCenter
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Modelica.Blocks.Math.Gain gai1(k=1/dpSetPoi) "Gain effect"
     annotation (Placement(transformation(extent={{-200,-70},{-220,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[numChi]
+    "Switch to assign pump signal if plant is on"
+    annotation (Placement(transformation(extent={{-120,230},{-100,250}})));
+  Buildings.Controls.OBC.CDL.Logical.Or plaOn "Output true if plant is on"
+    annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[numChi](each final
+            k=0) "Outputs zero"
+    annotation (Placement(transformation(extent={{-220,230},{-200,250}})));
+  Modelica.Blocks.MathBoolean.Or chiOnSta(nu=numChi)
+    "Output true if at least one chiller is on"
+    annotation (Placement(transformation(extent={{-102,122},{-90,134}})));
 equation
   connect(chiWSE.port_b2, TCHWSup.port_a)
     annotation (Line(
@@ -295,11 +306,6 @@ equation
       color={0,127,255},
       thickness=0.5));
   for i in 1:numChi loop
-    connect(cooTow[i].TAir, weaBus.TWetBul.TWetBul)
-      annotation (Line(points={{22,144},{44,144},{44,200},{-340,200},{-340,-20},
-            {-328,-20}},
-            color={255,204,51},
-        thickness=0.5));
     connect(TCWSup.port_a, cooTow[i].port_b)
       annotation (Line(
         points={{-22,140},{0,140}},
@@ -314,6 +320,14 @@ equation
             60},{110,140},{70,140}},
             color={0,127,255},
             thickness=0.5));
+  connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   end for;
   connect(senRelPre.port_b, ahu.port_b1)
     annotation (Line(points={{18,-96},{30,-96},{30,-114},{20,-114}},
@@ -338,14 +352,6 @@ equation
       points={{0,24},{-8,24},{-8,0},{-16,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(weaData.weaBus, weaBus.TWetBul)
-    annotation (Line(
-      points={{-340,-70},{-328,-70},{-328,-20}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      textString="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(chiWSE.port_b1, TCWRet.port_a)
     annotation (Line(
       points={{20,36},{40,36},{40,60},{82,60}},
@@ -387,10 +393,6 @@ equation
     annotation (Line(
       points={{-151,70},{-132,70}},
       color={0,0,127}));
-  connect(gai.y, pumCW.m_flow_in)
-    annotation (Line(
-      points={{-109,70},{-68,70},{-68,100},{-62,100}},
-      color={0,0,127}));
   connect(TCWSupSet.y, cooTowSpeCon.TCWSupSet)
     annotation (Line(
       points={{-239,186},{-172,186}},
@@ -413,7 +415,7 @@ equation
       color={0,0,127}));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(
-      points={{-199,4},{-170,4}},
+      points={{-199,4},{-194,4},{-194,0},{-170,0}},
       color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
     annotation (Line(
@@ -422,7 +424,7 @@ equation
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig)
     annotation (Line(
-      points={{-225,-20},{-196,-20},{-196,0},{-170,0}},
+      points={{-225,-20},{-196,-20},{-196,-4},{-170,-4}},
       color={0,0,127}));
   connect(dpSetSca.y, pumSpe.u_s)
     annotation (Line(points={{-259,-20},{-248,-20}}, color={0,0,127}));
@@ -519,8 +521,38 @@ equation
           -236,-32}}, color={0,0,127}));
   connect(gai1.u, senRelPre.p_rel)
     annotation (Line(points={{-198,-60},{8,-60},{8,-87}}, color={0,0,127}));
+  connect(weaData.weaBus, weaBus) annotation (Line(
+      points={{-340,-70},{-328,-70},{-328,-20}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+
+  connect(chiOnSta.u, chiOn.y) annotation (Line(points={{-102,128},{-106,128},{-106,
+          140},{-109,140}}, color={255,0,255}));
+  connect(chiOnSta.y, plaOn.u1) annotation (Line(points={{-89.1,128},{-84,128},
+          {-84,222},{-174,222},{-174,240},{-162,240}},color={255,0,255}));
+  connect(wseOn.y, plaOn.u2) annotation (Line(points={{-109,110},{-109,112},{
+          -82,112},{-82,224},{-168,224},{-168,232},{-162,232}},
+                                                  color={255,0,255}));
+  connect(zer.y, swi.u3) annotation (Line(points={{-198,240},{-184,240},{-184,
+          226},{-130,226},{-130,232},{-122,232}},
+                                             color={0,0,127}));
+  for i in 1:numChi loop
+    connect(plaOn.y, swi[i].u2)
+    annotation (Line(points={{-138,240},{-122,240}}, color={255,0,255}));
+  end for;
+  connect(swi.y, pumCW.m_flow_in) annotation (Line(points={{-98,240},{-92,240},
+          {-92,158},{-68,158},{-68,100},{-62,100}},
+                               color={0,0,127}));
+  connect(gai.y, swi.u1) annotation (Line(points={{-109,70},{-86,70},{-86,226},
+          {-126,226},{-126,248},{-122,248}},color={0,0,127}));
+  connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-360,-200},{160,220}})),
+    extent={{-360,-200},{160,260}})),
     Documentation(info="<html>
 <p>
 This is a partial model that describes the chilled water cooling system in a data center. The sizing data
@@ -534,6 +566,23 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2022, by Kathryn Hinkelman:<br/>
+Passed the <code>plaOn</code> signal to the chilled water pump control
+to turn them off when the plant is off.
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected control to avoid cooling tower pumps to operate when plant is off, because
+shut-off valves are off when plant is off.
+</li>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
 <li>
 October 6, 2020, by Michael Wetter:<br/>
 Set <code>val.use_inputFilter=false</code> because pump worked against closed valve at <i>t=60</i> seconds,
@@ -557,5 +606,6 @@ July 30, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-360,-200},{160,260}})));
 end PartialDataCenter;

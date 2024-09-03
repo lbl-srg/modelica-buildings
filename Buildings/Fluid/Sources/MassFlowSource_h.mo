@@ -5,14 +5,14 @@ model MassFlowSource_h
 
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in,group="Fixed inputs"));
+    annotation (Dialog(enable=not use_m_flow_in, group="Fixed inputs"));
 
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
     annotation (Dialog(enable = not use_h_in, group="Fixed inputs"));
@@ -101,6 +101,12 @@ with exception of boundary flow rate, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 February 2nd, 2018 by Filip Jorissen<br/>
 Made <code>medium</code> conditional and refactored inputs.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">#882</a>.
@@ -131,14 +137,14 @@ Implemenation is based on <code>Modelica.Fluid</code>.
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_h_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="h"),
@@ -159,7 +165,7 @@ Implemenation is based on <code>Modelica.Fluid</code>.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -171,5 +177,5 @@ Implemenation is based on <code>Modelica.Fluid</code>.
                                   Text(
           extent={{-161,110},{139,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end MassFlowSource_h;

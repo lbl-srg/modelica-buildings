@@ -4,26 +4,26 @@ model Add
   Buildings.Controls.OBC.CDL.Integers.Add add1
     "Block that outputs the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=1,
     offset=-0.5,
     height=7.0)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
@@ -33,17 +33,17 @@ model Add
 
 equation
   connect(ramp1.y,round1.u)
-    annotation (Line(points={{-59,20},{-42,20}},color={0,0,127}));
+    annotation (Line(points={{-58,20},{-42,20}},color={0,0,127}));
   connect(ramp2.y,round2.u)
-    annotation (Line(points={{-59,-20},{-42,-20}},color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-42,-20}},color={0,0,127}));
   connect(round2.y,reaToInt1.u)
-    annotation (Line(points={{-19,-20},{-2,-20}},color={0,0,127}));
+    annotation (Line(points={{-18,-20},{-2,-20}},color={0,0,127}));
   connect(round1.y,reaToInt.u)
-    annotation (Line(points={{-19,20},{-2,20}},color={0,0,127}));
+    annotation (Line(points={{-18,20},{-2,20}},color={0,0,127}));
   connect(reaToInt.y,add1.u1)
-    annotation (Line(points={{21,20},{40,20},{40,6},{58,6}},color={255,127,0}));
+    annotation (Line(points={{22,20},{40,20},{40,6},{58,6}},color={255,127,0}));
   connect(reaToInt1.y,add1.u2)
-    annotation (Line(points={{21,-20},{40,-20},{40,-6},{58,-6}},color={255,127,0}));
+    annotation (Line(points={{22,-20},{40,-20},{40,-6},{58,-6}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,

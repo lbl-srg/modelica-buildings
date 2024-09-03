@@ -3,23 +3,22 @@ partial record HeatPumps
   "Base record for calibrated heat pump models"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Efficiency etaEle
+  parameter Modelica.Units.SI.Efficiency etaEle
     "Electro-mechanical efficiency of the compressor"
     annotation (Dialog(group="Compressor"));
 
-  parameter Modelica.SIunits.Power PLos(min = 0)
+  parameter Modelica.Units.SI.Power PLos(min=0)
     "Constant part of the compressor power losses"
     annotation (Dialog(group="Compressor"));
 
-  parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
-    "Superheating at compressor suction"
-    annotation (Dialog(group="Evaporator"));
+  parameter Modelica.Units.SI.TemperatureDifference dTSup(min=0)
+    "Superheating at compressor suction" annotation (Dialog(group="Evaporator"));
 
-  parameter Modelica.SIunits.ThermalConductance UACon
+  parameter Modelica.Units.SI.ThermalConductance UACon
     "Thermal conductance of condenser between water and refrigerant"
     annotation (Dialog(group="Condenser"));
 
-  parameter Modelica.SIunits.ThermalConductance UAEva
+  parameter Modelica.Units.SI.ThermalConductance UAEva
     "Thermal conductance of evaporator between water and refrigerant"
     annotation (Dialog(group="Evaporator"));
 
@@ -42,14 +41,14 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{-95,53},{-12,-2}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="etaEle"),
         Text(
           extent={{-95,-9},{-48,-48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="PLos"),
         Text(
           extent={{-95,-49},{-12,-104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="dTSup")}));
 end HeatPumps;

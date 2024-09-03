@@ -15,29 +15,24 @@ partial model ValvesParameters "Model with parameters for multiple valves"
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
     annotation(Dialog(group = "Two-way valve",
       enable = (CvData==Buildings.Fluid.Types.CvTypes.Cv)));
-  parameter Modelica.SIunits.Area[numVal] Av(
-    each fixed= if CvData==Buildings.Fluid.Types.CvTypes.Av then true else false)
-   "Av (metric) flow coefficient"
-   annotation(Dialog(group = "Two-way valve",
-     enable = (CvData==Buildings.Fluid.Types.CvTypes.Av)));
+  parameter Modelica.Units.SI.Area[numVal] Av(each fixed=if CvData == Buildings.Fluid.Types.CvTypes.Av
+         then true else false) "Av (metric) flow coefficient" annotation (
+      Dialog(group="Two-way valve", enable=(CvData == Buildings.Fluid.Types.CvTypes.Av)));
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Modelica.SIunits.MassFlowRate[numVal] m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Two-way valve"));
-  parameter Modelica.SIunits.PressureDifference[numVal] dpValve_nominal(
-     each displayUnit="Pa",
-     each min=0,
-     each fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false)=
-       fill(6000,numVal)
-    "Nominal pressure drop of fully open valve, used if
-    CvData=Buildings.Fluid.Types.CvTypes.OpPoint"
-    annotation(Dialog(group="Two-way valve",
-      enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));
-  parameter Modelica.SIunits.Density[numVal] rhoStd
+  parameter Modelica.Units.SI.MassFlowRate[numVal] m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Two-way valve"));
+  parameter Modelica.Units.SI.PressureDifference[numVal] dpValve_nominal(
+    each displayUnit="Pa",
+    each min=0,
+    each fixed=if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then true
+         else false) = fill(6000, numVal) "Nominal pressure drop of fully open valve, used if
+    CvData=Buildings.Fluid.Types.CvTypes.OpPoint" annotation (Dialog(group=
+          "Two-way valve", enable=(CvData == Buildings.Fluid.Types.CvTypes.OpPoint)));
+  parameter Modelica.Units.SI.Density[numVal] rhoStd
     "Inlet density for which valve coefficients are defined"
-    annotation(Dialog(group="Two-way valve", tab="Advanced"));
+    annotation (Dialog(group="Two-way valve", tab="Advanced"));
 protected
   parameter Real[numVal] Kv_SI(
     each min=0,

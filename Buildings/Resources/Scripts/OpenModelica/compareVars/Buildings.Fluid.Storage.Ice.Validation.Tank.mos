@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "TSet.y",
+    "iceTan.T",
+    "TSou.y[1]",
+    "iceTan.SOC",
+    "iceTanUnc.SOC",
+    "iceTan.mIce",
+    "iceTan.Q_flow",
+    "iceTanUnc.Q_flow"
+  };

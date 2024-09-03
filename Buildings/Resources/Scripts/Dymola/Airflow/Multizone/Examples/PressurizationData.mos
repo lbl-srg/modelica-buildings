@@ -1,0 +1,7 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.PressurizationData", method="Cvode", stopTime=2592000, numberOfIntervals=0, outputInterval=600, tolerance=1e-06, resultFile="PressurizationData");
+createPlot(id=1, position={40, 72, 1187, 361}, y=fill("", 0), range={0.0, 720.0, -60.0, 60.0}, grid=true, timeUnit="h");
+createPlot(id=1, position={40, 72, 1187, 361}, x="pow_1dat.dp", y=fill("", 0), range={-24.0, 24.0, -60.0, 60.0}, grid=true, subPlot=102, timeUnit="Pa");
+createPlot(id=1, position={40, 72, 1187, 361}, y=fill("", 0), range={0.0, 720.0, -60.0, 60.0}, erase=false, grid=true, timeUnit="h");
+createPlot(id=1, position={40, 72, 1187, 361}, x="pow_1dat.dp", y=fill("", 0), range={-24.0, 24.0, -60.0, 60.0}, erase=false, grid=true, subPlot=102, timeUnit="Pa");
+createPlot(id=1, position={40, 72, 1187, 361}, y={"pow_1dat1.V_flow", "pow_1dat.V_flow", "pow_1dat1.dp", "pow_1dat.dp"}, range={0.0, 720.0, -60.0, 60.0}, erase=false, grid=true, filename="PressurizationData.mat", colors={{244,125,35}, {238,46,47}, {217,67,180}, {0,140,72}}, timeUnit="h", displayUnits={"m3/s", "m3/s", "Pa", "Pa"});
+createPlot(id=1, position={40, 72, 1187, 361}, x="pow_1dat.dp", y={"pow_1dat.V_flow", "pow_1dat.dp"}, range={-24.0, 24.0, -60.0, 60.0}, erase=false, grid=true, subPlot=102, colors={{238,46,47}, {0,140,72}}, patterns={LinePattern.None, LinePattern.None}, markers={MarkerStyle.Dot, MarkerStyle.SmallSquare}, timeUnit="Pa", displayUnits={"m3/s", "Pa"});

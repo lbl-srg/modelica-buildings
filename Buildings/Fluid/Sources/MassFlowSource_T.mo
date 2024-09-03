@@ -5,13 +5,13 @@ model MassFlowSource_T
 
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, Dialog(group="Conditional inputs"));
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow=0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Dialog(enable = not use_m_flow_in,group="Fixed inputs"));
+    annotation (Dialog(enable=not use_m_flow_in, group="Fixed inputs"));
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true,Dialog(group="Conditional inputs"));
+    annotation(Evaluate=true, Dialog(group="Conditional inputs"));
   parameter Medium.Temperature T = Medium.T_default
     "Fixed value of temperature"
     annotation (Dialog(enable = not use_T_in,group="Fixed inputs"));
@@ -105,6 +105,12 @@ with exception of boundary flow rate, do not have an effect.
 revisions="<html>
 <ul>
 <li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
 January 25, 2019, by Michael Wetter:<br/>
 Refactored use of base classes.<br/>
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\">#1072</a>.
@@ -135,14 +141,14 @@ First implementation.
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="m_flow"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -163,7 +169,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -175,5 +181,5 @@ First implementation.
                                   Text(
           extent={{-161,110},{139,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end MassFlowSource_T;

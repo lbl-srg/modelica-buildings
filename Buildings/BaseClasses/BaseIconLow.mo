@@ -3,7 +3,7 @@ block BaseIconLow "Base icon with model name below the icon"
 
   annotation (Icon(graphics={Text(
           extent={{-46,-94},{52,-142}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
                "%name")}),
 Documentation(

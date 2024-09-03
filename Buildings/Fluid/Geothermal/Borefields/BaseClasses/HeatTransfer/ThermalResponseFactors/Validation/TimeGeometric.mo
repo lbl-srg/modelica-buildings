@@ -3,11 +3,12 @@ model TimeGeometric
   "Test case for geometric expansion of time vector"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Duration dt = 2.0 "Minimum time step";
-  parameter Modelica.SIunits.Time t_max = 20.0 "Maximum value of time";
+  parameter Modelica.Units.SI.Duration dt=2.0 "Minimum time step";
+  parameter Modelica.Units.SI.Time t_max=20.0 "Maximum value of time";
   parameter Integer nTim = 5 "Number of time values";
 
-  final parameter Modelica.SIunits.Time[nTim] t(each fixed=false) "Time vector";
+  final parameter Modelica.Units.SI.Time[nTim] t(each fixed=false)
+    "Time vector";
 
 initial equation
   t = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.timeGeometric(

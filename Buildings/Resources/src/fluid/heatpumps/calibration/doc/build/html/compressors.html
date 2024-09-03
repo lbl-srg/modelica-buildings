@@ -2,22 +2,23 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Compressor models &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,9 +28,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -133,11 +134,11 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="module-PythonModel.compressors">
+  <section id="module-PythonModel.compressors">
 <span id="compressor-models"></span><h1>Compressor models<a class="headerlink" href="#module-PythonModel.compressors" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="PythonModel.compressors.ReciprocatingCompressor">
-<em class="property">class </em><code class="sig-prename descclassname">PythonModel.compressors.</code><code class="sig-name descname">ReciprocatingCompressor</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.compressors.</span></span><span class="sig-name descname"><span class="pre">ReciprocatingCompressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for reciprocating compressor model based on Jin (2002):
 H. Jin. Parameter estimation based models of water source heat pumps.
@@ -154,9 +155,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure">
-<code class="sig-name descname">get_DischargePressure</code><span class="sig-paren">(</span><em class="sig-param">pCon</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure">
+<span class="sig-name descname"><span class="pre">get_DischargePressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pCon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the discharge pressure (Pa).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -167,7 +168,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
 <span class="go">&#39;1978290.0&#39;</span>
 </pre></div>
@@ -176,9 +177,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.get_Power">
-<code class="sig-name descname">get_Power</code><span class="sig-paren">(</span><em class="sig-param">vSuc</em>, <em class="sig-param">ref</em>, <em class="sig-param">pDis</em>, <em class="sig-param">pSuc</em>, <em class="sig-param">TSuc</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.get_Power">
+<span class="sig-name descname"><span class="pre">get_Power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSuc</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the power input to the compressor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -195,7 +196,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
@@ -206,9 +207,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate">
-<code class="sig-name descname">get_RefrigerantMassFlowRate</code><span class="sig-paren">(</span><em class="sig-param">vSuc</em>, <em class="sig-param">ref</em>, <em class="sig-param">pDis</em>, <em class="sig-param">pSuc</em>, <em class="sig-param">TSuc</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate">
+<span class="sig-name descname"><span class="pre">get_RefrigerantMassFlowRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSuc</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the refrigerant mass flow rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -225,7 +226,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.8f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.0288</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1978290.0</span><span class="p">,</span> <span class="mf">983710.0</span><span class="p">,</span> <span class="mf">292.97</span><span class="p">)</span>
@@ -236,9 +237,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure">
-<code class="sig-name descname">get_SuctionPressure</code><span class="sig-paren">(</span><em class="sig-param">pEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure">
+<span class="sig-name descname"><span class="pre">get_SuctionPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pEva</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the suction pressure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -249,7 +250,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;983710.0&#39;</span>
 </pre></div>
@@ -258,9 +259,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature">
-<code class="sig-name descname">get_SuctionTemperature</code><span class="sig-paren">(</span><em class="sig-param">TEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature">
+<span class="sig-name descname"><span class="pre">get_SuctionTemperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TEva</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the suction temperature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -271,7 +272,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;292.97&#39;</span>
 </pre></div>
@@ -280,9 +281,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters">
-<code class="sig-name descname">initialGuessParameters</code><span class="sig-paren">(</span><em class="sig-param">Q_nominal</em>, <em class="sig-param">P_nominal</em>, <em class="sig-param">TSou_nominal</em>, <em class="sig-param">TLoa_nominal</em>, <em class="sig-param">ref</em>, <em class="sig-param">CoolingMode</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters">
+<span class="sig-name descname"><span class="pre">initialGuessParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSou_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TLoa_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -305,9 +306,9 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath">
-<code class="sig-name descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath">
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the full path to the compressor model in the Buildings</dt><dd><p>library.</p>
 </dd>
@@ -318,7 +319,7 @@ routine.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ReciprocatingCompressor</span><span class="p">([</span><span class="mf">0.00162</span><span class="p">,</span> <span class="mf">0.069</span><span class="p">,</span> <span class="mf">0.696</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">99.29e3</span><span class="p">,</span> <span class="mf">9.82</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ReciprocatingCompressor&#39;</span>
 </pre></div>
@@ -327,15 +328,15 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.printParameters">
-<code class="sig-name descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.printParameters">
+<span class="sig-name descname"><span class="pre">printParameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the value of the model parameters.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters">
-<code class="sig-name descname">reinitializeParameters</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters">
+<span class="sig-name descname"><span class="pre">reinitializeParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ReciprocatingCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reinitializes the compressor using new parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -353,9 +354,9 @@ routine.</p>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="PythonModel.compressors.ScrollCompressor">
-<em class="property">class </em><code class="sig-prename descclassname">PythonModel.compressors.</code><code class="sig-name descname">ScrollCompressor</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PythonModel.compressors.</span></span><span class="sig-name descname"><span class="pre">ScrollCompressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Object for scroll compressor model based on Jin (2002):
 H. Jin. Parameter estimation based models of water source heat pumps.
@@ -372,9 +373,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.get_DischargePressure">
-<code class="sig-name descname">get_DischargePressure</code><span class="sig-paren">(</span><em class="sig-param">pCon</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.get_DischargePressure">
+<span class="sig-name descname"><span class="pre">get_DischargePressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pCon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_DischargePressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the discharge pressure (Pa).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -385,7 +386,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_DischargePressure</span><span class="p">(</span><span class="mf">1.879e6</span><span class="p">)</span>
 <span class="go">&#39;1879000.0&#39;</span>
 </pre></div>
@@ -394,9 +395,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.get_Power">
-<code class="sig-name descname">get_Power</code><span class="sig-paren">(</span><em class="sig-param">vSuc</em>, <em class="sig-param">ref</em>, <em class="sig-param">pDis</em>, <em class="sig-param">pSuc</em>, <em class="sig-param">TSuc</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.get_Power">
+<span class="sig-name descname"><span class="pre">get_Power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSuc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_Power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the power input to the compressor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -413,7 +414,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">refrigerants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ref</span> <span class="o">=</span> <span class="n">refrigerants</span><span class="o">.</span><span class="n">R410A</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_Power</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">,</span> <span class="mf">289.64</span><span class="p">)</span>
@@ -424,9 +425,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate">
-<code class="sig-name descname">get_RefrigerantMassFlowRate</code><span class="sig-paren">(</span><em class="sig-param">vSuc</em>, <em class="sig-param">pDis</em>, <em class="sig-param">pSuc</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate">
+<span class="sig-name descname"><span class="pre">get_RefrigerantMassFlowRate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vSuc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pSuc</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_RefrigerantMassFlowRate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the refrigerant mass flow rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -442,7 +443,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_RefrigerantMassFlowRate</span><span class="p">(</span><span class="mf">0.025</span><span class="p">,</span> <span class="mf">1.879e6</span><span class="p">,</span> <span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;0.107687&#39;</span>
 </pre></div>
@@ -451,9 +452,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.get_SuctionPressure">
-<code class="sig-name descname">get_SuctionPressure</code><span class="sig-paren">(</span><em class="sig-param">pEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.get_SuctionPressure">
+<span class="sig-name descname"><span class="pre">get_SuctionPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pEva</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionPressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the suction pressure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -464,7 +465,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionPressure</span><span class="p">(</span><span class="mf">1.083e6</span><span class="p">)</span>
 <span class="go">&#39;1083000.0&#39;</span>
 </pre></div>
@@ -473,9 +474,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.get_SuctionTemperature">
-<code class="sig-name descname">get_SuctionTemperature</code><span class="sig-paren">(</span><em class="sig-param">TEva</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.get_SuctionTemperature">
+<span class="sig-name descname"><span class="pre">get_SuctionTemperature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TEva</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.get_SuctionTemperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the suction temperature.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -486,7 +487,7 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">get_SuctionTemperature</span><span class="p">(</span><span class="mf">283.15</span><span class="p">)</span>
 <span class="go">&#39;289.64&#39;</span>
 </pre></div>
@@ -495,9 +496,9 @@ PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.initialGuessParameters">
-<code class="sig-name descname">initialGuessParameters</code><span class="sig-paren">(</span><em class="sig-param">Q_nominal</em>, <em class="sig-param">P_nominal</em>, <em class="sig-param">TSou_nominal</em>, <em class="sig-param">TLoa_nominal</em>, <em class="sig-param">ref</em>, <em class="sig-param">CoolingMode</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.initialGuessParameters">
+<span class="sig-name descname"><span class="pre">initialGuessParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Q_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TSou_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TLoa_nominal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CoolingMode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.initialGuessParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize guess parameters for calibration of the heat pump model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -520,9 +521,9 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.modelicaModelPath">
-<code class="sig-name descname">modelicaModelPath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.modelicaModelPath">
+<span class="sig-name descname"><span class="pre">modelicaModelPath</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.modelicaModelPath" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Returns the full path to the compressor model in the Buildings</dt><dd><p>library.</p>
 </dd>
@@ -533,7 +534,7 @@ routine.</p>
 </dd>
 </dl>
 <dl>
-<dt>Usage: Type</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
+<dt>Usage: Type</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">com</span> <span class="o">=</span> <span class="n">ScrollCompressor</span><span class="p">([</span><span class="mf">2.362</span><span class="p">,</span> <span class="mf">0.00287</span><span class="p">,</span> <span class="mf">0.0041</span><span class="p">,</span> <span class="mf">0.922</span><span class="p">,</span> <span class="mf">398.7</span><span class="p">,</span> <span class="mf">6.49</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">com</span><span class="o">.</span><span class="n">modelicaModelPath</span><span class="p">()</span>
 <span class="go">&#39;Buildings.Fluid.HeatPumps.Compressors.ScrollCompressor&#39;</span>
 </pre></div>
@@ -542,15 +543,15 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.printParameters">
-<code class="sig-name descname">printParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.printParameters">
+<span class="sig-name descname"><span class="pre">printParameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.printParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the value of the model parameters.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.reinitializeParameters">
-<code class="sig-name descname">reinitializeParameters</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.reinitializeParameters">
+<span class="sig-name descname"><span class="pre">reinitializeParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.reinitializeParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reinitializes the compressor using new parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -566,9 +567,9 @@ routine.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="PythonModel.compressors.ScrollCompressor.set_ModelicaParameters">
-<code class="sig-name descname">set_ModelicaParameters</code><span class="sig-paren">(</span><em class="sig-param">simulator</em>, <em class="sig-param">suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="PythonModel.compressors.ScrollCompressor.set_ModelicaParameters">
+<span class="sig-name descname"><span class="pre">set_ModelicaParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PythonModel.compressors.ScrollCompressor.set_ModelicaParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set parameter values for simulation in dymola.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -585,7 +586,7 @@ routine.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -603,8 +604,8 @@ routine.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

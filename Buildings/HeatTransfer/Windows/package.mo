@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer;
 package Windows "Package with models for windows"
   extends Modelica.Icons.VariantsPackage;
+
   annotation (
 preferredView="info", Documentation(info="<html>
 <p>

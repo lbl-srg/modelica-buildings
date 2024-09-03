@@ -33,8 +33,7 @@ block AbsorbedRadiation "Absorbed radiation by window"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
         iconTransformation(extent={{100,-50},{120,-30}})));
 
-  output Modelica.SIunits.Power absRad[2, N + 2, NSta]
-    "Absorbed interior and exterior radiation.
+  output Modelica.Units.SI.Power absRad[2,N + 2,NSta] "Absorbed interior and exterior radiation.
       (absRad[2,1,iSta]: exterior shading device,
       absRad[1,2 to N+1,iSta]: glass (unshaded part),
       absRad[2,2 to N+1,iSta]: glass (shaded part),
@@ -334,22 +333,22 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{26,86},{102,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsExtSha"),
         Text(
           extent={{-101,-73},{-54,-82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="HRoo"),
         Text(
           extent={{24,-68},{102,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsIntSha"),
         Text(
           extent={{34,46},{94,32}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaUns"),
         Text(
           extent={{30,-32},{104,-44}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QAbsGlaSha")}));
 end AbsorbedRadiation;

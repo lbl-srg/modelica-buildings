@@ -55,7 +55,7 @@ First implementation.
     Text(
       extent={{-150,-150},{150,-110}},
           textString="%uMin <= u <= %uMax",
-          lineColor={0,0,0})}),
+          textColor={0,0,0})}),
     Diagram(coordinateSystem(
     preserveAspectRatio=true,
     extent={{-100,-100},{100,100}})));

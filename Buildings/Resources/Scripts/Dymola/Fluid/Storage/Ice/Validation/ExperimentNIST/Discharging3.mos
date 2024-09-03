@@ -1,0 +1,6 @@
+simulateModel("Buildings.Fluid.Storage.Ice.Validation.ExperimentNIST.Discharging3", startTime=0, stopTime=19950, method="cvode", tolerance=1e-06, resultFile="Discharging3");
+createPlot(id=1, position={0, 0, 1609, 695}, y={"dat.y[1]", "TIn.Celsius"}, range={0.0, 20000.0, 10.0, 14.0}, erase=false, grid=true, filename="Discharging3.mat", colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=1, position={0, 0, 1609, 695}, y={"dat.y[2]", "TOut.T"}, range={0.0, 20000.0, 0.0, 6.0}, erase=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "degC"});
+createPlot(id=1, position={0, 0, 1609, 695}, y={"dat.y[3]", "iceTan.m_flow"}, range={0.0, 20000.0, 0.8, 0.95}, erase=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "kg/s"});
+createPlot(id=1, position={0, 0, 1609, 695}, y={"dat.y[4]", "iceTan.SOC"}, range={0.0, 20000.0, 0.0, 1.0}, erase=false, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, displayUnits={"", "1"});
+

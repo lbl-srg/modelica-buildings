@@ -22,11 +22,12 @@ package Resistances "Package with thermal resistances"
             fillPattern=FillPattern.Solid,
             lineColor={0,0,255}), Text(
             extent={{-98,-72},{96,-94}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="R=%R")}),
-defaultComponentPrefixes="parameter",
-defaultComponentName="datTheRes",
-Documentation(info="<html>
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datTheRes",
+      Documentation(info=
+                   "<html>
 Generic record for thermal properties of
 heat resistances.
 </html>",
@@ -41,7 +42,7 @@ First implementation.
   end Generic;
 
   record Carpet = Buildings.HeatTransfer.Data.Resistances.Generic (R=0.2165) "Carpet"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datTheRes");
 

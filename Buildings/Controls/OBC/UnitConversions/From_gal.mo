@@ -15,7 +15,7 @@ block From_gal "Block that converts volume from gallon to cubic meter"
 protected
   constant Real k = 0.003785412 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain conv(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter conv(
     final k = k) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -34,16 +34,16 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{20,58}}, color={28,108,200}),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
           extent={{-80,50},{0,10}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="gal"),
         Text(
           extent={{10,-70},{90,-30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m3"),
         Polygon(
         points={{90,0},{30,20},{30,-20},{90,0}},
@@ -57,6 +57,11 @@ Converts volume given in gallon [gal] to cubic meter [m3].
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
 <li>
 July 05, 2018, by Milica Grahovac:<br/>
 Generated with <code>Buildings/Resources/src/Controls/OBC/UnitConversions/unit_converters.py</code>.<br/>

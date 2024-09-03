@@ -2,7 +2,8 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation;
 model IntegratedPrimaryLoadSide
   "Integrated WSE on the load side in a primary-only chilled water system"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.BaseClasses.PartialPlant(
     sou1(nPorts=2),
     sin1(nPorts=2),
     TSet(k=273.15 + 5.56),
@@ -44,14 +45,6 @@ model IntegratedPrimaryLoadSide
     y=if not onChi.y and onWSE.y then 1 else 0)
     "On/off signal for valve 6"
     annotation (Placement(transformation(extent={{40,50},{20,70}})));
-  Modelica.Blocks.Sources.BooleanStep onChi(startTime(displayUnit="h") = 7200)
-    "On and off signal for the chiller"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.BooleanStep onWSE(
-    startTime(displayUnit="h") = 14400,
-    startValue=true)
-    "On and off signal for the WSE"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou2(
     redeclare package Medium = MediumCHW,
     nPorts=2,
@@ -97,10 +90,6 @@ model IntegratedPrimaryLoadSide
         1.0,0.6})) "Pump performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 equation
-  connect(onChi.y, intWSEPri1.on[1]) annotation (Line(points={{-79,90},{-26,90},
-          {-26,-30.4},{-11.6,-30.4}}, color={255,0,255}));
-  connect(onWSE.y, intWSEPri1.on[2]) annotation (Line(points={{-79,60},{-26,60},
-          {-26,-30.4},{-11.6,-30.4}}, color={255,0,255}));
   connect(TSet.y, intWSEPri1.TSet) annotation (Line(points={{-79,30},{-28,30},{-28,
           -27.2},{-11.6,-27.2}}, color={0,0,127}));
   connect(yVal5.y, intWSEPri1.yVal5) annotation (Line(points={{19,80},{-24,80},{
@@ -115,24 +104,20 @@ equation
     annotation (Line(points={{-10,-44},{-40,-44}}, color={0,127,255}));
   connect(intWSEPri1.port_b1, sin1.ports[1]) annotation (Line(points={{10,-32},{
           22,-32},{22,-4},{70,-4}}, color={0,127,255}));
-  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},{
-          26,-44},{26,-72},{40,-72}}, color={0,127,255}));
+  connect(intWSEPri1.port_a2, sou2.ports[1]) annotation (Line(points={{10,-44},
+          {26,-44},{26,-75},{40,-75}},color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-70},{62,-70}},          color={0,0,127}));
   connect(TSup2.port_a, intWSEPri2.port_b2)
     annotation (Line(points={{-40,-126},{-10,-126}}, color={0,127,255}));
   connect(intWSEPri2.port_a2, sou2.ports[2]) annotation (Line(points={{10,-126},
-          {26,-126},{26,-76},{40,-76}}, color={0,127,255}));
+          {26,-126},{26,-73},{40,-73}}, color={0,127,255}));
   connect(intWSEPri2.port_b1, sin1.ports[2]) annotation (Line(points={{10,-114},
           {22,-114},{22,-4},{70,-4}}, color={0,127,255}));
   connect(intWSEPri2.port_a1, sou1.ports[2]) annotation (Line(points={{-10,-114},
           {-32,-114},{-32,-4},{-40,-4}}, color={0,127,255}));
   connect(TSup2.port_b, sin2.ports[2]) annotation (Line(points={{-60,-126},{-64,
           -126},{-64,-70},{-70,-70}}, color={0,127,255}));
-  connect(onChi.y, intWSEPri2.on[1]) annotation (Line(points={{-79,90},{-26,90},
-          {-26,-112.4},{-11.6,-112.4}}, color={255,0,255}));
-  connect(onWSE.y, intWSEPri2.on[2]) annotation (Line(points={{-79,60},{-26,60},
-          {-26,-112.4},{-11.6,-112.4}}, color={255,0,255}));
   connect(TSet.y, intWSEPri2.TSet) annotation (Line(points={{-79,30},{-28,30},{-28,
           -109.2},{-11.6,-109.2}}, color={0,0,127}));
   connect(yVal5.y, intWSEPri2.yVal5) annotation (Line(points={{19,80},{-24,80},{
@@ -143,6 +128,14 @@ equation
           {-20,-124.4},{-11.6,-124.4}}, color={0,0,127}));
   connect(tri.y, intWSEPri2.trigger) annotation (Line(points={{-79,-150},{-6,-150},
           {-6,-130}}, color={255,0,255}));
+  connect(intWSEPri2.on[1], onChi.y) annotation (Line(points={{-11.6,-112.4},{
+          -26,-112.4},{-26,90},{-79,90}}, color={255,0,255}));
+  connect(intWSEPri2.on[2], onWSE.y) annotation (Line(points={{-11.6,-112.4},{
+          -26,-112.4},{-26,60},{-79,60}}, color={255,0,255}));
+  connect(intWSEPri1.on[1], onChi.y) annotation (Line(points={{-11.6,-30.4},{
+          -26,-30.4},{-26,90},{-79,90}}, color={255,0,255}));
+  connect(intWSEPri1.on[2], onWSE.y) annotation (Line(points={{-11.6,-30.4},{
+          -26,-30.4},{-26,60},{-79,60}}, color={255,0,255}));
   annotation (__Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Equipment/Validation/IntegratedPrimaryLoadSide.mos"
         "Simulate and plot"),
@@ -158,6 +151,12 @@ is reset every 1800s.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 14, 2022, by Michael Wetter:<br/>
+Avoided duplicate model instances with different declarations.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2963\">issue 2963</a>.
+</li>
 <li>
 January 28, 2019, by Yangyang Fu:<br/>
 Added test case for PI controller reset.

@@ -10,7 +10,6 @@ record ClimateMaster_TMW170_48kW_4_30COP_R410A =
     UACon = 7127.67902377,
     UAEva = 6702.69056458)
     "Calibrated parameters for ClimateMaster TMW170"
-
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

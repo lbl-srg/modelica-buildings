@@ -43,16 +43,16 @@ equation
           {-40,-80},{14,-80},{14,-16},{16,-16}},color={0,127,255}));
   connect(vol[nSeg].ports[2], H_b_flow.port_a) annotation (Line(points={{16,-16},
           {14,-16},{14,-80},{50,-80}}, color={0,127,255}));
-  connect(H_b_flow.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{80,
-          0},{100,0}}, color={0,127,255}));
+  connect(H_b_flow.port_b, port_b) annotation (Line(points={{70,-80},{80,-80},{
+          80,-100},{0,-100}}, color={0,127,255}));
   for i in 1:(nSeg-1) loop
     connect(vol[i].ports[2], H_vol_flow[i].port_a) annotation (Line(points={{16,
             -16},{16,-20},{-28,-20},{-28,-40},{-20,-40}}, color={0,127,255}));
     connect(H_vol_flow[i].port_b, vol[i + 1].ports[1]) annotation (Line(points={{0,-40},
             {4,-40},{4,-16},{16,-16}},         color={0,127,255}));
   end for;
-  connect(port_a, H_a_flow.port_a) annotation (Line(points={{-100,0},{
-          -80,0},{-80,-80},{-60,-80}}, color={0,127,255}));
+  connect(port_a, H_a_flow.port_a) annotation (Line(points={{0,100},{-96,100},{
+          -96,-80},{-60,-80}}, color={0,127,255}));
 
   connect(vol[1:nSeg].ports[3], str.fluidPort[2:nSeg+1])
    annotation (Line(points={{16,-16},{16,-18},{-66,-18},{-66,-40},{-60,-40}},
@@ -69,10 +69,10 @@ equation
                                                   color={0,0,127}));
   connect(str.heatPort, vol.heatPort)    annotation (Line(points={{-40,-40},{
           -32,-40},{-32,10},{6,10},{6,-6}},      color={191,0,0}));
-  connect(port_a, str.fluidPort[1]) annotation (Line(points={{-100,5.55112e-16},
-          {-100,0},{-72,0},{-72,-40},{-60,-40}}, color={0,127,255}));
-  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{100,
-          5.55112e-16},{100,0},{80,0},{80,-88},{-72,-88},{-72,-40},{-60,-40}},
+  connect(port_a, str.fluidPort[1]) annotation (Line(points={{0,100},{0,92},{
+          -72,92},{-72,-40},{-60,-40}},          color={0,127,255}));
+  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{0,-100},{
+          -72,-100},{-72,-40},{-60,-40}},
                            color={0,127,255}));
   connect(mTan_flow.y, str.m_flow) annotation (Line(points={{-73,-32},{-68.5,
           -32},{-68.5,-31.8},{-62,-31.8}}, color={0,0,127}));
@@ -94,6 +94,12 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 June 7, 2018 by Filip Jorissen:<br/>
 Copied model from Buildings and update the model accordingly.

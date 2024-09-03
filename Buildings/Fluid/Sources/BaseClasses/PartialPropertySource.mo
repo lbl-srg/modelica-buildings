@@ -80,14 +80,14 @@ equation
         Text(
           visible=use_Xi_in,
           extent={{-48,98},{54,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-10,98},{92,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),

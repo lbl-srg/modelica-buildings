@@ -12,14 +12,14 @@ model InternalHEXOneUTube
     final tau2=VTubSeg*rho2_nominal/m2_flow_nominal,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol1(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m1_flow_small,
       final V=VTubSeg,
       final mSenFac=mSenFac),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
+      final massDynamics=energyDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
       final V=VTubSeg,
@@ -56,7 +56,6 @@ public
 
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.InternalResistancesOneUTube
     intResUTub(
-      dynFil=dynFil,
       hSeg=hSeg,
       energyDynamics=energyDynamics,
       Rgb_val=Rgb_val,
@@ -93,11 +92,11 @@ initial equation
       muMed=muMed,
       cpMed=cpMed,
       m_flow_nominal=m1_flow_nominal,
-      printDebug=false);
+      instanceName=getInstanceName());
 
 equation
     assert(borFieDat.conDat.borCon == Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube,
-  "This model should be used for single U-type borefield, not double U-type. 
+  "This model should be used for single U-type borefield, not double U-type.
   Check that the conDat record has been correctly parametrized");
   connect(RVol2.y, RConv2.Rc) annotation (Line(points={{-79,-8},{-60,-8},{-40,
           -8},{-40,-28},{-12,-28}},
@@ -130,23 +129,23 @@ equation
     Documentation(info="<html>
 <p>
 Model for the heat transfer between the fluid and within the borehole filling
-for a single borehole segment. 
-This model computes the dynamic response of the fluid in the tubes, 
-the heat transfer between the fluid and the borehole filling, 
+for a single borehole segment.
+This model computes the dynamic response of the fluid in the tubes,
+the heat transfer between the fluid and the borehole filling,
 and the heat storage within the fluid and the borehole filling.
 </p>
 <p>
-This model computes the different thermal resistances present 
-in a single-U-tube borehole using the method of Bauer et al. (2011) 
-and computing explicitely the fluid-to-ground thermal resistance 
-<i>R<sub>b</sub></i> and the 
+This model computes the different thermal resistances present
+in a single-U-tube borehole using the method of Bauer et al. (2011)
+and computing explicitely the fluid-to-ground thermal resistance
+<i>R<sub>b</sub></i> and the
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Claesson and Hellstrom (2011)
-using the multipole method. 
+using the multipole method.
 </p>
 <h4>References</h4>
-<p>J. Claesson and G. Hellstrom. 
-<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+<p>J. Claesson and G. Hellstrom.
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger.
 </i>
 HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
@@ -159,6 +158,33 @@ International Journal Of Energy Research, 35:312-320, 2011.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
+<li>
+November 22, 2023, by Michael Wetter:<br/>
+Corrected use of <code>getInstanceName()</code> which was called inside a function which
+is not allowed.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>.
+</li>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
+February 28, 2022, by Massimo Cimmino:<br/>
+Removed <code>printDebug</code> parameter from call to
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.internalResistancesOneUTube</a>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
 <li>
 July 10, 2018, by Alex Laferri&egrave;re:<br/>
 Updated documentation following major changes to the Buildings.Fluid.HeatExchangers.Ground package.
@@ -175,7 +201,7 @@ Removed unused parameters <code>B0</code> and <code>B1</code>.
 </li>
 <li>
 January 24, 2014, by Michael Wetter:<br/>
-Revised implementation, added comments, replaced 
+Revised implementation, added comments, replaced
 <code>HeatTransfer.Windows.BaseClasses.ThermalConductor</code>
 with resistance models from the Modelica Standard Library.
 </li>

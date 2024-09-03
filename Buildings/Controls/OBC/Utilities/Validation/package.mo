@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities;
-package Validation
-  "Collection of validation models"
+package Validation "Collection of validation models"
   annotation (
     preferredView="info",
     Documentation(

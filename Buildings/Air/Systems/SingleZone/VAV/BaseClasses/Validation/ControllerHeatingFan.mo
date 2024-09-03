@@ -7,22 +7,19 @@ model ControllerHeatingFan "Validate the block ControllerHeatingFan"
     "Controller for heating and cooling"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Sine zonHeaSet(
-    freqHz=1/86400,
+    f=1/86400,
     offset=20 + 273.15,
-    amplitude=1)
-    "Zone heating setpoint"
+    amplitude=1) "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Sine zonCooSet(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=2,
-    offset=25 + 273.15)
-    "Zone cooling setpoint"
+    offset=25 + 273.15) "Zone cooling setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.Sine zonTem(
     amplitude=4,
-    freqHz=1/86400,
-    offset=21 + 273.15)
-    "Zone temperature"
+    f=1/86400,
+    offset=21 + 273.15) "Zone temperature"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation

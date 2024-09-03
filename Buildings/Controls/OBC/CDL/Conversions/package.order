@@ -1,8 +1,5 @@
 BooleanToInteger
 BooleanToReal
 IntegerToReal
-IsHoliday
-IsNonWorkingDay
-IsWorkingDay
 RealToInteger
 Validation

@@ -2,9 +2,7 @@ within Buildings.BoundaryConditions.Validation.BESTEST;
 model WD600
   "Test model for BESTEST weather data: ground reflectance"
   extends WD100(
-    lat=0.6952170009469,
     rho=0.2,
-    alt=1650,
     weaDatHHorIR(
       filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/BoundaryConditions/Validation/BESTEST/WD600.mos")),
@@ -21,6 +19,12 @@ model WD600
     Documentation(
       revisions="<html>
 <ul>
+<li>
+September 6, 2021, by Ettore Zanetti:<br/>
+Removed parameter <code>lat</code> as it is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 March 11, 2020, by Ettore Zanetti:<br/>
 First implementation.
@@ -50,7 +54,7 @@ Rework after comments from pull request
 </tr>
 <tr>
 <td><p>Time Zone</p></td>
-<td><p>7</p></td>
+<td><p>-7</p></td>
 </tr>
 </table>
 </html>"));

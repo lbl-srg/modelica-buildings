@@ -15,7 +15,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     "Room air temperature at which supply water temperature is at TSupMax";
 
   parameter Real k=0.1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=120 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=120 "Time constant of integrator block";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRoo(
     final unit="K",
@@ -33,7 +33,7 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     final unit="1")
     "Valve control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDRad(
     final k=k,
     final Ti=Ti,
     final yMax=1,
@@ -41,18 +41,18 @@ block RadiatorSupply "Controller for mixing valve in radiator loop"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
     "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
+  Buildings.Controls.OBC.CDL.Reals.Line TSetSup
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMinSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinSup(
     final k=TSupMin)
     "Minimum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMaxSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMaxSup(
     final k=TSupMax)
     "Maximum heating supply temperature"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMinRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMinRoo(
     final k=TRooMin)
     "Minimum room air temperature"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
@@ -83,24 +83,24 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,82},{-42,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TRoo"),
         Text(
           extent={{40,24},{88,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="yVal"),
         Text(
           extent={{-92,-40},{-44,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TSup"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-154,104},{146,144}},
           textString="%name"),
     Polygon(

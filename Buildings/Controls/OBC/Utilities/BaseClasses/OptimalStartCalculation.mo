@@ -25,25 +25,30 @@ block OptimalStartCalculation
     final quantity="TemperatureDifference",
     final unit="K")
     "Difference between zone setpoint and measured temperature, must be bigger than zero for heating and cooling if setpoint is not yet reached"
-    annotation (Placement(transformation(extent={{-320,100},{-280,140}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-320,100},{-280,140}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput staCal
     "Start calculation"
-    annotation (Placement(transformation(extent={{-320,20},{-280,60}}),iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-320,20},{-280,60}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time until next occupancy"
-    annotation (Placement(transformation(extent={{-320,-160},{-280,-120}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-320,-160},{-280,-120}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOpt(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Optimal start time of HVAC system"
-    annotation (Placement(transformation(extent={{440,40},{480,80}}),iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{440,40},{480,80}}),
+      iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput optOn
     "Optimal start boolean output"
-    annotation (Placement(transformation(extent={{440,-80},{480,-40}}),iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{440,-80},{480,-40}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
   constant Real tReaMin(
@@ -55,7 +60,7 @@ protected
     final quantity="TemperatureSlope",
     final unit="K/s")=1/3600
     "Minimum value for temperature slope (used to avoid division by zero)";
-  CDL.Logical.Sources.SampleTrigger samTri(
+  Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(
     final period=86400,
     final shift=0)
     "Trigger that triggers each midnight"
@@ -70,15 +75,15 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler dTHVACOn
     "Get the temperature difference when the HVAC system starts"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Deadband case"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant timReaMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant timReaMin(
     final k=tReaMin)
     "Minimum time to reach set point (used to avoid division by zero)"
     annotation (Placement(transformation(extent={{-80,-42},{-60,-22}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant defTemSlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant defTemSlo(
     final k=temSloDef)
     "Default temperature slope in case of zero division"
     annotation (Placement(transformation(extent={{88,-40},{108,-20}})));
@@ -88,50 +93,47 @@ protected
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "The instant when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=uLow,
     final uHigh=uHigh)
     "Comparing zone temperature with zone setpoint"
     annotation (Placement(transformation(extent={{-260,64},{-240,84}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpt(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOpt(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the optimal start"
     annotation (Placement(transformation(extent={{320,-90},{340,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxStaTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxStaTim(
     final k=tOptMax)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{210,-40},{230,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
-    final duration=tOptMax+11*3600)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final falseHoldDuration=0,
+    final trueHoldDuration=tOptMax + 11*3600)
     "Hold the start time for timer"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division temSlo
+  Buildings.Controls.OBC.CDL.Reals.Divide temSlo
     "Calculate temperature slope"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Break algebraic loops"
     annotation (Placement(transformation(extent={{390,-16},{410,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=+1,
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate the time duration to reach the setpoint"
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=+1,
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{280,-90},{300,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min
+  Buildings.Controls.OBC.CDL.Reals.Min min
     "Get the final optimal start time"
     annotation (Placement(transformation(extent={{240,-16},{260,4}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "The instant when the zone temperature reaches setpoint with maximum time cutoff"
-    annotation (Placement(transformation(extent={{-128,0},{-108,20}})));
+    annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam1
     "Record the start time when the HVAC system is turned on"
-    annotation (Placement(transformation(extent={{-128,-60},{-108,-40}})));
+    annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Stop calculation when the zone temperature reaches setpoint"
     annotation (Placement(transformation(extent={{-188,70},{-168,90}})));
@@ -141,42 +143,42 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Becomes true when the setpoint is reached"
     annotation (Placement(transformation(extent={{-220,64},{-200,84}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division tOptCal
+  Buildings.Controls.OBC.CDL.Reals.Divide tOptCal
     "Calculate optimal start time using the averaged previous temperature slope"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTimOpt
     "Get the sampled optimal start time at the same time each day"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=thrOptOn)
     "The threshold for optOn signal becomes true"
     annotation (Placement(transformation(extent={{320,-16},{340,4}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical and"
     annotation (Placement(transformation(extent={{360,-16},{380,4}})));
-  CDL.Continuous.Max timRea
+  Buildings.Controls.OBC.CDL.Reals.Max timRea
     "Time required to reach the set point"
     annotation (Placement(transformation(extent={{-40,-16},{-20,4}})));
-  CDL.Continuous.Max temSloAve
+  Buildings.Controls.OBC.CDL.Reals.Max temSloAve
     "Temperature slope during heat up or cool down over the past sampled days"
     annotation (Placement(transformation(extent={{120,-16},{140,4}})));
-  CDL.Logical.Switch dTUse
+  Buildings.Controls.OBC.CDL.Reals.Switch dTUse
     "dT used in the calculations (to avoid negative dT)"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  CDL.Continuous.GreaterThreshold reqStaUp(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold reqStaUp(
     final t=0,
     final h=0)
     "Output true if optimal startup is needed"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
-  CDL.Logical.And triAve
+  Buildings.Controls.OBC.CDL.Logical.And triAve
     "Trigger sampling but only if optimal start up is needed"
     annotation (Placement(transformation(extent={{40,-42},{60,-22}})));
 
 equation
   connect(tim.y,triSam.u)
-    annotation (Line(points={{-188,10},{-130,10}},color={0,0,127}));
+    annotation (Line(points={{-188,10},{-132,10}},color={0,0,127}));
   connect(falEdg.y,triSam.trigger)
-    annotation (Line(points={{-126,-20},{-118,-20},{-118,-1.8}},color={255,0,255}));
+    annotation (Line(points={{-126,-20},{-120,-20},{-120,-1.8}},color={255,0,255}));
   connect(not1.y,lat.clr)
     annotation (Line(points={{-198,74},{-190,74}},color={255,0,255}));
   connect(temSlo.y,samTemSloAve.u)
@@ -192,25 +194,25 @@ equation
   connect(pre.y,lat.u)
     annotation (Line(points={{412,-6},{420,-6},{420,150},{-190,150},{-190,80}},color={255,0,255}));
   connect(edg.y,triSam1.trigger)
-    annotation (Line(points={{-126,-80},{-118,-80},{-118,-61.8}},color={255,0,255}));
-  connect(triSam1.y,add1.u2)
-    annotation (Line(points={{-106,-50},{-100,-50},{-100,-6},{-90,-6}},color={0,0,127}));
-  connect(triSam.y,add1.u1)
-    annotation (Line(points={{-106,10},{-100,10},{-100,6},{-90,6}},color={0,0,127}));
+    annotation (Line(points={{-126,-80},{-120,-80},{-120,-61.8}},color={255,0,255}));
+  connect(triSam1.y,sub1.u2)
+    annotation (Line(points={{-108,-50},{-100,-50},{-100,-6},{-90,-6}},color={0,0,127}));
+  connect(triSam.y,sub1.u1)
+    annotation (Line(points={{-108,10},{-100,10},{-100,6},{-90,6}},color={0,0,127}));
   connect(TDif,dTCalOn.u)
     annotation (Line(points={{-300,120},{-140,120},{-140,80},{-42,80}},color={0,0,127}));
-  connect(tNexOcc,add2.u2)
+  connect(tNexOcc,sub2.u2)
     annotation (Line(points={{-300,-140},{272,-140},{272,-86},{278,-86}},color={0,0,127}));
-  connect(add2.y,hysOpt.u)
+  connect(sub2.y,hysOpt.u)
     annotation (Line(points={{302,-80},{318,-80}},color={0,0,127}));
-  connect(min.y,add2.u1)
+  connect(min.y,sub2.u1)
     annotation (Line(points={{262,-6},{270,-6},{270,-74},{278,-74}},color={0,0,127}));
   connect(staCal,truHol.u)
     annotation (Line(points={{-300,40},{-260,40},{-260,10},{-242,10}},color={255,0,255}));
   connect(truHol.y,tim.u)
     annotation (Line(points={{-218,10},{-212,10}},color={255,0,255}));
   connect(tim.y,triSam1.u)
-    annotation (Line(points={{-188,10},{-168,10},{-168,-50},{-130,-50}},color={0,0,127}));
+    annotation (Line(points={{-188,10},{-168,10},{-168,-50},{-132,-50}},color={0,0,127}));
   connect(min.y,tOpt)
     annotation (Line(points={{262,-6},{270,-6},{270,60},{460,60}},color={0,0,127}));
   connect(not1.u,hys.y)
@@ -237,10 +239,8 @@ equation
     annotation (Line(points={{412,-6},{420,-6},{420,-60},{460,-60}},color={255,0,255}));
   connect(timRea.y,temSlo.u2)
     annotation (Line(points={{-18,-6},{-2,-6}},color={0,0,127}));
-  connect(timRea.u1,add1.y)
+  connect(timRea.u1,sub1.y)
     annotation (Line(points={{-42,0},{-66,0}},color={0,0,127}));
-  connect(timRea.u2,timReaMin.y)
-    annotation (Line(points={{-42,-12},{-42,-32},{-58,-32}},color={0,0,127}));
   connect(temSloAve.y,tOptCal.u2)
     annotation (Line(points={{142,-6},{158,-6}},color={0,0,127}));
   connect(temSloAve.u1,samTemSloAve.y)
@@ -267,6 +267,8 @@ equation
     annotation (Line(points={{32,80},{36,80},{36,-32},{38,-32}},color={255,0,255}));
   connect(triAve.y,samTemSloAve.trigger)
     annotation (Line(points={{62,-32},{70,-32},{70,-12}},color={255,0,255}));
+  connect(timReaMin.y, timRea.u2) annotation (Line(points={{-58,-32},{-50,-32},
+          {-50,-12},{-42,-12}}, color={0,0,127}));
   annotation (
     defaultComponentName="optStaCal",
     Documentation(
@@ -308,7 +310,7 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}));
 end OptimalStartCalculation;

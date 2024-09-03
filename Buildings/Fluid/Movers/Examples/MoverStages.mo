@@ -2,22 +2,20 @@ within Buildings.Fluid.Movers.Examples;
 model MoverStages
   "Example model of movers using an integer input for setting the stage"
   extends Buildings.Fluid.Movers.Examples.MoverParameter(
-    pump_Nrpm(inputType=Buildings.Fluid.Types.InputType.Stages),
     pump_m_flow(inputType=Buildings.Fluid.Types.InputType.Stages),
     pump_y(inputType=Buildings.Fluid.Types.InputType.Stages),
     pump_dp(inputType=Buildings.Fluid.Types.InputType.Stages));
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=2
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=2
     "Nominal mass flow rate";
 
   Modelica.Blocks.Sources.IntegerTable integerTable(table=[0,1; 0.3,2; 0.6,3])
     "Integer step input, 1 is off, 2 is on"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  parameter Modelica.SIunits.PressureDifference dp_nominal=10000 "Nominal pressure raise";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
+    "Nominal pressure raise";
 equation
-  connect(integerTable.y, pump_Nrpm.stage)
-    annotation (Line(points={{-39,80},{0,80},{0,52}}, color={255,127,0}));
   connect(integerTable.y, pump_m_flow.stage)
     annotation (Line(points={{-39,80},{-30,80},{-30,20},{-30,20},{-30,20},{0,20},
           {0,12}},                                    color={255,127,0}));
@@ -40,6 +38,12 @@ input <i>0</i> switches the mover off.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Deleted the mover with <code>Nrpm</code> signal.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

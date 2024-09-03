@@ -26,8 +26,8 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
                 annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
-     use_p_in "Pressure"
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p
+  if use_p_in "Pressure"
   annotation (
       Placement(
       transformation(
@@ -35,14 +35,14 @@ model Inlet "Adaptor for connecting a fluid inlet to the FMI interface"
         rotation=270,
         origin={0,-110})));
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  output Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
+  output Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal
     "Internal connector for mass fraction of backward flow properties";
 initial equation
    assert(Medium.nXi < 2,
@@ -107,7 +107,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-100,0},{-60,0}},
           color={0,0,255}),
@@ -128,7 +128,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-20,6},{14,-12}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           textString="m"),
@@ -139,14 +139,14 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,34},{-98,16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="inlet"),
         Line(
           points={{0,-100},{0,-60}},
           color={0,127,127}),
         Text(
           extent={{2,-76},{24,-94}},
-          lineColor={0,127,127},
+          textColor={0,127,127},
           visible=use_p_in,
           textString="p")}),
     Documentation(info="<html>
@@ -169,6 +169,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air and water.

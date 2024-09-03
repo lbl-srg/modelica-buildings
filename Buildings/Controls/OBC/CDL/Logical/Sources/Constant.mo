@@ -3,7 +3,7 @@ block Constant
   "Output constant signal of type Boolean"
   parameter Boolean k
     "Constant output value";
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -19,7 +19,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
@@ -59,7 +59,7 @@ equation
           points={{-80,0},{64,0}}),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%k")}),
     Documentation(
       info="<html>

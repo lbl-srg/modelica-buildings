@@ -63,7 +63,7 @@ The example use interpolation with two different settings: One settings
 produces a monotone cubic hermite, whereas the other setting
 does not enforce monotonicity.
 The resulting plot should look as shown below, where for better visibility, the support points have been marked with black dots.
-Notice that the red curve is monotone increasing.
+Notice that the red curve is monotonically increasing.
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
 <p>

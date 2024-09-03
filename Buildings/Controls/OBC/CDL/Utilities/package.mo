@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Utilities
-  "Package with utility functions"
+package Utilities "Package with utility functions"
   annotation (
     preferredView="info",
     Documentation(

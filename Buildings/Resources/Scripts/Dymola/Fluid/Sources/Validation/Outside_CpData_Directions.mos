@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Sources.Validation.Outside_CpData_Directions", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="Outside_CpData_Directions");
+createPlot(id=1, position={15, 15, 1140, 1003}, y={"winDir.y"}, range={0.0, 1.0, -100.0, 400.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="d", displayUnits={"deg"});
+createPlot(id=1, position={15, 15, 1140, 1003}, y={"nor.pWin", "eas.pWin", "sou.pWin", "wes.pWin"}, range={0.0, 1.0, -0.2, 0.8}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"Pa", "Pa", "Pa", "Pa"});
+createPlot(id=1, position={15, 15, 1140, 1003}, y={"nor.alpha", "eas.alpha", "sou.alpha", "wes.alpha"}, range={0.0, 1.0, -200.0, 800.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"deg", "deg", "deg", "deg"});

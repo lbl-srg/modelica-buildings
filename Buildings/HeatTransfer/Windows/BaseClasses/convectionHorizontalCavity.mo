@@ -1,25 +1,27 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 function convectionHorizontalCavity "Free convection in horizontal cavity"
+  extends Modelica.Icons.Function;
+
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
   input Real Ra(min=0) "Rayleigh number";
-  input Modelica.SIunits.Temperature T_m
+  input Modelica.Units.SI.Temperature T_m
     "Temperature used for thermophysical properties";
-  input Modelica.SIunits.TemperatureDifference dT
+  input Modelica.Units.SI.TemperatureDifference dT
     "Temperature difference used to compute q_flow = h*dT";
-  input Modelica.SIunits.Angle til "Window tilt";
+  input Modelica.Units.SI.Angle til "Window tilt";
   input Real sinTil "Sine of window tilt";
   input Real cosTil "Cosine of the window tilt";
-  input Modelica.SIunits.Area h(min=0) = 1.5 "Height of window";
+  input Modelica.Units.SI.Area h(min=0) = 1.5 "Height of window";
   input Real deltaNu(min=0.01) = 0.1
     "Small value for Nusselt number, used for smoothing";
   input Real deltaRa(min=0.01) = 1E3
     "Small value for Rayleigh number, used for smoothing";
   output Real Nu(min=0) "Nusselt number";
-  output Modelica.SIunits.CoefficientOfHeatTransfer hCon(min=0)
+  output Modelica.Units.SI.CoefficientOfHeatTransfer hCon(min=0)
     "Convective heat transfer coefficient";
-  output Modelica.SIunits.HeatFlux q_flow "Convective heat flux";
+  output Modelica.Units.SI.HeatFlux q_flow "Convective heat flux";
 protected
   Real Nu_1(min=0) "Nusselt number";
   Real Nu_2(min=0) "Nusselt number";

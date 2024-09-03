@@ -11,14 +11,14 @@ model System2
 //-------------------------------------------------------------------------//
 
 //------------------------Step 4: Design conditions------------------------//
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=20000
     "Nominal heat flow rate of radiator";
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal=273.15 + 50
     "Radiator nominal supply water temperature";
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+40
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal=273.15 + 40
     "Radiator nominal return water temperature";
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=
-    Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=Q_flow_nominal/
+      4200/(TRadSup_nominal - TRadRet_nominal)
     "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------//
 
@@ -31,10 +31,10 @@ model System2
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=4000
     "Internal heat gains of the room";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
     "Outside temperature"
@@ -45,7 +45,7 @@ model System2
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -84,6 +84,7 @@ model System2
 Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -102,7 +103,7 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
         origin={-50,-110})));
 
 //--------------------------Step 6: Pump control--------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -260,13 +261,13 @@ the design conditions a supply water temperature of
 Thus, we define the radiator mass flow rate as
 </p>
 <pre>
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = 20000
     \"Nominal heat flow rate of radiator\";
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal = 273.15+50
     \"Radiator nominal supply water temperature\";
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+40
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal = 273.15+40
     \"Radiator nominal return water temperature\";
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal =
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal =
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     \"Radiator nominal mass flow rate\";
 </pre>
@@ -312,12 +313,12 @@ we implemented the control blocks as shown in the figure below.
 <p>
 In this control sequence, the first block is a hysteresis element,
 which is modeled by
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
-Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Hysteresis\">
+Buildings.Controls.OBC.CDL.Reals.Hysteresis</a>.
 It is configured as
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     \"Pump hysteresis\";
@@ -388,6 +389,13 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 6, 2017, by Michael Wetter:<br/>
 Added missing density to computation of air mass flow rate.<br/>

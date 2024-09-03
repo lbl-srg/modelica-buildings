@@ -1,7 +1,7 @@
 within Buildings.Utilities.IO.Files.Examples.BaseClasses;
 model PartialCSV "Base model for CSV reader and writer example"
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.Cosine cos(freqHz=0.345) "Cosine"
+  Modelica.Blocks.Sources.Cosine cos(f=0.345) "Cosine"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Step step(startTime=5) "Step function"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));

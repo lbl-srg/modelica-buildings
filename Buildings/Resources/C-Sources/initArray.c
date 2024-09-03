@@ -10,14 +10,15 @@
  * Pierre Vigouroux, LBNL                  7/18/2011
  */
 
-#include "externalObjectStructure.h"
-#include <ModelicaUtilities.h>
 #include <stdlib.h>
+#include "ModelicaUtilities.h"
+
+#include "externalObjectStructure.h"
 
 /* Create the structure "table" and return pointer to "table". */
 void* initArray()
 {
-  ExternalObjectStructure* table = malloc(sizeof(ExternalObjectStructure));
+  ExternalObjectStructure* table = (ExternalObjectStructure *)malloc(sizeof(ExternalObjectStructure));
   if ( table == NULL )
     ModelicaError("Not enough memory in initArray.c.");
   /* Number of elements in the array */

@@ -19,7 +19,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=1000),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified3.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/FlowSystem/Simplified3.mos"
         "Simulate and plot"));
 end Simplified3;

@@ -3,10 +3,10 @@ function efficiency "Flow vs. efficiency characteristics for fan or pump"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters per
     "Efficiency performance data";
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  input Modelica.Units.SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real d[:] "Derivatives at support points for spline interpolation";
-  input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Real delta "Small value for switching implementation around zero rpm";
+  input Real r_N(unit="1") "Relative speed";
+  input Real delta "Small value for switching implementation around zero speed";
   output Real eta(unit="1", final quantity="Efficiency") "Efficiency";
 
 protected
@@ -17,8 +17,8 @@ algorithm
   if n == 1 then
     eta := per.eta[1];
   else
-    // The use of the max function to avoids problems for low speeds
-    // and turned off pumps
+    // The use of the max function avoids problems with low speeds
+    // and turned-off pumps
     rat:=V_flow/
             Buildings.Utilities.Math.Functions.smoothMax(
               x1=r_N,

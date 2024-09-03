@@ -6,6 +6,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
     final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics,
     final mSenFac=1,
     redeclare final package Medium=Medium2);
   extends
@@ -14,16 +15,20 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1,start=0.8)
-    "constant effectiveness";
+  parameter Modelica.Units.SI.Efficiency eta(
+    min=0,
+    max=1,
+    start=0.8) "constant effectiveness";
 
    // Filter opening
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
-  parameter Modelica.SIunits.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
       enable=(activate_ThrWayVal and use_inputFilter)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
@@ -33,24 +38,28 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     "Initial value of output from the filter in the bypass valve"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
       enable=(activate_ThrWayVal and use_inputFilter)));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal(
-     displayUnit="Pa",
-     min=0,
-     fixed=true)= 6000
-    "Nominal pressure drop of fully open valve"
-    annotation(Dialog(group="Three-way Valve",
-      enable=activate_ThrWayVal));
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa",
+    min=0,
+    fixed=true) = 6000 "Nominal pressure drop of fully open valve"
+    annotation (Dialog(group="Three-way Valve", enable=activate_ThrWayVal));
 
  // Time constant
-   parameter Modelica.SIunits.Time tauThrWayVal=10
+  parameter Modelica.Units.SI.Time tauThrWayVal=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Nominal condition",
-               enable=(activate_ThrWayVal and not energyDynamics ==
-               Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=(activate_ThrWayVal and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   // Advanced
-  parameter Modelica.SIunits.Density rhoStd = Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)
-    "Inlet density for which valve coefficients are defined"
-    annotation(Dialog(group="Nominal condition", tab="Advanced",enable=activate_ThrWayVal));
+  parameter Modelica.Units.SI.Density rhoStd=Medium2.density_pTX(
+      101325,
+      273.15 + 4,
+      Medium2.X_default)
+    "Inlet density for which valve coefficients are defined" annotation (Dialog(
+      group="Nominal condition",
+      tab="Advanced",
+      enable=activate_ThrWayVal));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
     redeclare package Medium = Medium2,
@@ -66,7 +75,6 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final fraK=fraK_ThrWayVal,
     final dpFixed_nominal={dp2_nominal,0},
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final C_start=C_start,
@@ -225,6 +233,10 @@ This module simulates a heat exchanger with a three-way bypass used to modulate 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed <code>riseTime</code> of valve to be <i>30</i> seconds to make it the same as the rise time of pumps.
+</li>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
 Added <code>dpValve_nominal</code> to avoid redundant declaration of <code>dp2_nominal</code>.

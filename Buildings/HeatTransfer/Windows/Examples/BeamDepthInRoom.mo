@@ -1,11 +1,11 @@
 within Buildings.HeatTransfer.Windows.Examples;
 model BeamDepthInRoom "Test model for the depth of the solar beam in the room"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Length hApe = 2.0
+  parameter Modelica.Units.SI.Length hApe=2.0
     "Upper height of aperature above ground";
-  parameter Modelica.SIunits.Length depOve=1.0
+  parameter Modelica.Units.SI.Length depOve=1.0
     "Depth of overhang, meausured from other exterior surface of aperature (set to 0 if no overhang)";
-  parameter Modelica.SIunits.Length gapOve=0.5
+  parameter Modelica.Units.SI.Length gapOve=0.5
     "Gap between upper height of aperature and lower height of overhang (set to 0 if no overhang)";
   Buildings.HeatTransfer.Windows.BeamDepthInRoom winEas(
     azi=Buildings.Types.Azimuth.E,

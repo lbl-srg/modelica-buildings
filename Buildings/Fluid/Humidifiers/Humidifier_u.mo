@@ -7,7 +7,7 @@ model Humidifier_u
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     final prescribedHeatFlowRate=true));
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
 
   Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
@@ -45,7 +45,7 @@ equation
           extent={{-52,-60},{58,-120}},
           textString="m=%m_flow_nominal",
           pattern=LinePattern.None,
-          lineColor={0,0,127}),
+          textColor={0,0,127}),
         Rectangle(
           extent={{-100,61},{-70,58}},
           lineColor={0,0,255},
@@ -54,15 +54,8 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-114,104},{-70,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
-        Rectangle(
-          visible=use_T_in,
-          extent={{-100,-59},{-70,-62}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={191,0,0},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,5},{101,-5}},
           lineColor={0,0,255},
@@ -94,7 +87,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{30,112},{96,58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Polygon(
           points={{42,10},{54,2},{54,2},{42,-4},{42,-2},{50,2},{50,2},{42,8},{
@@ -107,6 +100,12 @@ equation
               {42,-28},{42,-26}},
           lineColor={255,255,255},
           fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-98,-57},{-70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="hum",
 Documentation(info="<html>
@@ -136,6 +135,19 @@ is adiabatic. To change the enthalpy of the air, add heat flow to the connector
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 9, 2023, by Michael Wetter:<br/>
+Removed access to parameter <code>use_T_in</code> which does not exist
+in this model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1697\">#1697</a>.
+</li>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed parameters <code>use_T_in</code> and <code>T</code>.

@@ -10,7 +10,6 @@ record Trane_EXW240_76kW_4_10COP_R410A =
     UACon = 14814.6977543,
     UAEva = 97189.7265209)
     "Calibrated parameters for Trane EXW240"
-
   annotation (
     defaultComponentPrefixes = "parameter",
     defaultComponentName="datHeaPum",

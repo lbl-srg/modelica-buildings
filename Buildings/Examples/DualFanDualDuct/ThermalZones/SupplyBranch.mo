@@ -20,18 +20,18 @@ model SupplyBranch "Supply branch of a dual duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Mass flow rate cold air deck";
-  parameter Modelica.SIunits.MassFlowRate mAirHot_flow_nominal = 0.3*m_flow_nominal
-    "Mass flow rate hot air deck";
-  parameter Modelica.SIunits.MassFlowRate mAirCol_flow_nominal = m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAirHot_flow_nominal=0.3*
+      m_flow_nominal "Mass flow rate hot air deck";
+  parameter Modelica.Units.SI.MassFlowRate mAirCol_flow_nominal=m_flow_nominal
     "Mass flow rate cold air deck";
 
-  parameter Modelica.SIunits.Volume VRoo "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo "Room volume";
   Controls.RoomMixingBox con(m_flow_min=VRoo*3*1.2/3600)
     "Room temperature controller"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  VAVReheat.Controls.ControlBus controlBus
+  VAVReheat.BaseClasses.Controls.ControlBus controlBus
                                  annotation (Placement(transformation(extent={{
             -110,-50},{-90,-30}}), iconTransformation(extent={{-110,-38},{-90,-18}})));
   Buildings.Fluid.Actuators.Dampers.Exponential vavHot(
@@ -220,7 +220,7 @@ equation
           rotation=90),
         Text(
           extent={{-78,198},{24,156}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-85.6,-32.2572},{74.4,-40.2572}},

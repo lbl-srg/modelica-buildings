@@ -12,26 +12,24 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
               X_a=0.40)
               "Propylene glycol water, 40% mass fraction")));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate of water"
     annotation (Dialog(group="Nominal condition"));
 
-  final parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=
-    m_flow_nominal/ratWatAir_nominal
-    "Nominal mass flow rate of air"
+  final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
+      m_flow_nominal/ratWatAir_nominal "Nominal mass flow rate of air"
     annotation (Dialog(group="Fan"));
 
   parameter Real ratWatAir_nominal(min=0, unit="1")
     "Water-to-air mass flow rate ratio at design condition"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature TAirInWB_nominal
+  parameter Modelica.Units.SI.Temperature TAirInWB_nominal
     "Nominal outdoor (air inlet) wetbulb temperature"
     annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatIn_nominal
-    "Nominal water inlet temperature"
-    annotation (Dialog(group="Heat transfer"));
-  parameter Modelica.SIunits.Temperature TWatOut_nominal
+  parameter Modelica.Units.SI.Temperature TWatIn_nominal
+    "Nominal water inlet temperature" annotation (Dialog(group="Heat transfer"));
+  parameter Modelica.Units.SI.Temperature TWatOut_nominal
     "Nominal water outlet temperature"
     annotation (Dialog(group="Heat transfer"));
 
@@ -52,11 +50,11 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
     between forced and free convection regime)"
     annotation (Dialog(group="Fan"));
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(max=0)=
-    -m_flow_nominal*cpWat_nominal*(TWatIn_nominal-TWatOut_nominal)
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0) = -
+    m_flow_nominal*cpWat_nominal*(TWatIn_nominal - TWatOut_nominal)
     "Nominal heat transfer, (negative)";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    NTU_nominal*CMin_flow_nominal
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=NTU_nominal*
+      CMin_flow_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity";
   final parameter Real eps_nominal=
     Q_flow_nominal/((TAirInWB_nominal - TWatIn_nominal) * CMin_flow_nominal)
@@ -87,35 +85,32 @@ block Merkel "Model for thermal performance of Merkel cooling tower"
     displayUnit="degC")
     "Entering air wet bulb temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.SIunits.Temperature TAirOut(
-    displayUnit="degC")
+  Modelica.Units.SI.Temperature TAirOut(displayUnit="degC")
     "Outlet air temperature";
 
-  Modelica.SIunits.MassFlowRate mAir_flow
-   "Air mass flow rate";
+  Modelica.Units.SI.MassFlowRate mAir_flow "Air mass flow rate";
 
-  Modelica.SIunits.MassFraction FRWat
+  Modelica.Units.SI.MassFraction FRWat
     "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir
+  Modelica.Units.SI.MassFraction FRAir
     "Ratio actual over design air mass flow ratio";
 
   Real eps(min=0, max=1, unit="1") "Heat exchanger effectiveness";
 
-  Modelica.SIunits.SpecificHeatCapacity cpWat "Heat capacity of water";
+  Modelica.Units.SI.SpecificHeatCapacity cpWat "Heat capacity of water";
 
-  Modelica.SIunits.ThermalConductance CAir_flow
+  Modelica.Units.SI.ThermalConductance CAir_flow
     "Heat capacity flow rate of air";
-  Modelica.SIunits.ThermalConductance CWat_flow
+  Modelica.Units.SI.ThermalConductance CWat_flow
     "Heat capacity flow rate of water";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
+  Modelica.Units.SI.ThermalConductance CMin_flow(min=0)
     "Minimum heat capacity flow rate";
 
-  Modelica.SIunits.HeatFlowRate QMax_flow
-    "Maximum heat flow rate into air";
+  Modelica.Units.SI.HeatFlowRate QMax_flow "Maximum heat flow rate into air";
 
-  Modelica.SIunits.ThermalConductance UAe(min=0)
+  Modelica.Units.SI.ThermalConductance UAe(min=0)
     "Thermal conductance for equivalent fluid";
-  Modelica.SIunits.ThermalConductance UA "Thermal conductance";
+  Modelica.Units.SI.ThermalConductance UA "Thermal conductance";
 
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow "Heat removed from water"
@@ -135,36 +130,33 @@ protected
 
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cpe_nominal=
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
-      TIn = TAirInWB_nominal,
-      TOut = TAirOutWB_nominal)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpe_nominal=
+      Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.Functions.equivalentHeatCapacity(
+      TIn=TAirInWB_nominal, TOut=TAirOutWB_nominal)
     "Specific heat capacity of the equivalent medium on medium 1 side";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
-    Air.specificHeatCapacityCp(staAir_default)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpAir_nominal=
+      Air.specificHeatCapacityCp(staAir_default)
     "Specific heat capacity of air at nominal condition";
-  parameter Modelica.SIunits.SpecificHeatCapacity cpWat_nominal=
-    Medium.specificHeatCapacityCp(staWat_default)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpWat_nominal=
+      Medium.specificHeatCapacityCp(staWat_default)
     "Specific heat capacity of water at nominal condition";
 
-  parameter Modelica.SIunits.ThermalConductance CAir_flow_nominal=
-    mAir_flow_nominal*cpe_nominal
-    "Nominal capacity flow rate of air";
-  parameter Modelica.SIunits.ThermalConductance CWat_flow_nominal=
-    m_flow_nominal*cpWat_nominal
-    "Nominal capacity flow rate of water";
-  parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal=
-    min(CAir_flow_nominal, CWat_flow_nominal)
+  parameter Modelica.Units.SI.ThermalConductance CAir_flow_nominal=
+      mAir_flow_nominal*cpe_nominal "Nominal capacity flow rate of air";
+  parameter Modelica.Units.SI.ThermalConductance CWat_flow_nominal=
+      m_flow_nominal*cpWat_nominal "Nominal capacity flow rate of water";
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=min(
+      CAir_flow_nominal, CWat_flow_nominal)
     "Minimal capacity flow rate at nominal condition";
-  parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal=
-    max(CAir_flow_nominal, CWat_flow_nominal)
+  parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal=max(
+      CAir_flow_nominal, CWat_flow_nominal)
     "Maximum capacity flow rate at nominal condition";
   parameter Real Z_nominal(
     min=0,
     max=1) = CMin_flow_nominal/CMax_flow_nominal
     "Ratio of capacity flow rate at nominal condition";
 
-  parameter  Modelica.SIunits.Temperature TAirOutWB_nominal(fixed=false)
+  parameter Modelica.Units.SI.Temperature TAirOutWB_nominal(fixed=false)
     "Nominal leaving air wetbulb temperature";
 
   Real UA_FAir "UA correction factor as function of air flow ratio";
@@ -173,7 +165,7 @@ protected
     "UA correction factor as function of differential wetbulb temperature";
   Real corFac_FAir "Smooth factor as function of air flow ratio";
   Real corFac_FWat "Smooth factor as function of water flow ratio";
-  Modelica.SIunits.SpecificHeatCapacity cpEqu
+  Modelica.Units.SI.SpecificHeatCapacity cpEqu
     "Specific heat capacity of the equivalent fluid";
 
 initial equation
@@ -273,7 +265,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,-10},{58,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="Merkel"),

@@ -2,17 +2,14 @@ within Buildings.Media.Refrigerants.R410A;
 function dPressureVap_dSpecificVolume_Tv
   "Derivative of the Martin-Hou equation of state with regards to specific volume"
 
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  input Modelica.SIunits.SpecificVolume v
-    "Specific volume of refrigerant";
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  input Modelica.Units.SI.SpecificVolume v "Specific volume of refrigerant";
   output Real dpdv(
     final unit="Pa.kg/m3")
      "Derivative of pressure with regards to specific volume";
 
 protected
-  Modelica.SIunits.SpecificVolume v_abs
-    "Smoothed specific volume";
+  Modelica.Units.SI.SpecificVolume v_abs "Smoothed specific volume";
 
 algorithm
 

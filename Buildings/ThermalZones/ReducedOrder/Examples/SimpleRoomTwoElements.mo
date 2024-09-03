@@ -13,14 +13,12 @@ model SimpleRoomTwoElements
     each outSkyCon=true,
     each outGroCon=true,
     each til=1.5707963267949,
-    each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
     each til(displayUnit="deg") = 1.5707963267949,
-    each lat=0.87266462599716,
-    azi={3.1415926535898,4.7123889803847})
+    azi={3.1415926535898, 4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
   SolarGain.CorrectionGDoublePane corGDouPan(n=2, UWin=2.1)
@@ -234,13 +232,13 @@ equation
     0,127}));
   annotation ( Documentation(info="<html>
   <p>This example shows the application of
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
   Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>
   in combination with
-  <a href=\"Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow\">
  Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.VDI6007WithWindow</a>
   and
-  <a href=\"Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane\">
   Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane</a>.
   Solar radiation on tilted surface is calculated using models of
   Buildings. The thermal zone is a simple room defined in Guideline
@@ -259,6 +257,12 @@ equation
   rooms and buildings - modelling of rooms.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  September 6, 2021, by Ettore Zanetti:<br/>
+  Changed <code>lat</code> from being a parameter to an input from weather bus.<br/>
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+  </li>
   <li>
   July 11, 2019, by Katharina Brinkmann:<br/>
   Renamed <code>alphaWall</code> to <code>hConWall</code>,

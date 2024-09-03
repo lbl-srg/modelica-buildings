@@ -7,12 +7,12 @@ model GetTimeSpanTMY3 "Test model to get the time span of a weather file"
     "Name of weather data file";
   parameter String tabNam = "tab1" "Name of table on weather file";
 
-  parameter Modelica.SIunits.Time[2] timeSpan(each fixed=false)
+  parameter Modelica.Units.SI.Time[2] timeSpan(each fixed=false)
     "Start time, end time of weather data";
 
 protected
-  constant Modelica.SIunits.Time endTim = 365*24*3600.;
-  constant Modelica.SIunits.Time staTim = 0.;
+  constant Modelica.Units.SI.Time endTim=365*24*3600.;
+  constant Modelica.Units.SI.Time staTim=0.;
 
 initial equation
   timeSpan = Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeSpanTMY3(

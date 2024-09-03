@@ -4,7 +4,7 @@ partial model PartialBorehole "Partial model for borehole example models"
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature T_start = 273.15 + 22
+  parameter Modelica.Units.SI.Temperature T_start=273.15 + 22
     "Initial soil temperature";
 
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example

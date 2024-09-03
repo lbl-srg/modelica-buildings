@@ -57,12 +57,13 @@ model IntegratedPrimarySecondaryEconomizer
     y=-chiWSE.port_a2.m_flow*4180*(chiWSE.TCHWSupWSE - TCHWSupSet.y))
     "Cooling load in chillers"
     annotation (Placement(transformation(extent={{-260,122},{-240,142}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y secPum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y secPum(
     redeclare package Medium = MediumW,
     dpValve_nominal=6000,
     per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=m2_flow_chi_nominal,
+    use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Secondary pumps"
     annotation (Placement(transformation(
@@ -113,11 +114,6 @@ equation
     annotation (Line(
       points={{-307,110},{-210,110}},
       color={0,0,127}));
-  connect(weaBus.TWetBul.TWetBul, cooModCon.TWetBul)
-    annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
-      color={255,204,51},
-      thickness=0.5));
   connect(TCHWRet.port_b, chiWSE.port_a2)
     annotation (Line(
       points={{80,0},{76,0},{76,24},{20,24}},
@@ -176,8 +172,13 @@ equation
           32},{-114,26},{-106,26}}, color={0,0,127}));
   connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
           {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
+  connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
+      points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
+      color={255,204,51},
+      thickness=0.5));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
-    extent={{-360,-200},{300,220}})),
+    extent={{-360,-200},{320,260}})),
   __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Applications/DataCenters/ChillerCooled/Examples/IntegratedPrimarySecondaryEconomizer.mos"
     "Simulate and plot"),
@@ -232,8 +233,8 @@ For constant speed pumps, the number of running pumps equals to the number of ru
 <p>
 For variable speed pumps, the number of running pumps is controlled by the speed signal and the mass flow rate.
 Details are shown in
-<a href=\"modelica://Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage\">
-Buildings.Applications.DataCenters.ChillerCooled.Controls.VariableSpeedPumpStage</a>. And the speed is
+<a href=\"modelica://Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage\">
+Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>. And the speed is
 controlled by maintaining a fixed differential pressure between the outlet and inlet on the waterside
 of the Computer Room Air Handler (CRAH).
 </p>
@@ -270,6 +271,18 @@ differential pressure reset control are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected control to avoid cooling tower pumps to operate when plant is off, because
+shut-off valves are off when plant is off.
+</li>
+<li>
+November 1, 2021, by Michael Wetter:<br/>
+Corrected weather data bus connection which was structurally incorrect
+and did not parse in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2706\">issue 2706</a>.
+</li>
+<li>
 November 29, 2017, by Michael Wetter:<br/>
 Corrected conversion of enumeration.<br/>
 This is for
@@ -282,7 +295,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IntegratedPrimarySecondaryEconomizer;

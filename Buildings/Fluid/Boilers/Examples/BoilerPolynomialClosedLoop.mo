@@ -1,12 +1,13 @@
 within Buildings.Fluid.Boilers.Examples;
-model BoilerPolynomialClosedLoop "Boiler with closed loop control"
+model BoilerPolynomialClosedLoop
+ "Boilers with efficiency specified by polynomial and with open loop control"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.Water "Medium model";
- parameter Modelica.SIunits.Power Q_flow_nominal = 20000 "Nominal power";
- parameter Modelica.SIunits.Temperature dT_nominal = 20
+  parameter Modelica.Units.SI.Power Q_flow_nominal=20000 "Nominal power";
+  parameter Modelica.Units.SI.Temperature dT_nominal=20
     "Nominal temperature difference";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
-    "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=Q_flow_nominal/
+      dT_nominal/4200 "Nominal mass flow rate";
 
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
@@ -35,6 +36,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         origin={0,40})));
   Movers.FlowControlled_m_flow pumLoa(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=2*m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heating load" annotation (Placement(transformation(
@@ -43,6 +45,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         origin={0,110})));
   Movers.FlowControlled_m_flow pumBoi(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for boiler loop" annotation (Placement(transformation(
@@ -200,7 +203,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-59,-20},{-12,-20},{-12,-20.2}},
+      points={{-59,-20},{-12,-20},{-12,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[1], spl3.port_1) annotation (Line(
@@ -216,7 +219,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(gain.y, pumLoa.m_flow_in) annotation (Line(
-      points={{-19,110},{-13.6,110},{-13.6,109.8},{-12,109.8}},
+      points={{-19,110},{-13.6,110},{-13.6,110},{-12,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, gain.u) annotation (Line(
@@ -268,6 +271,13 @@ and it is used to accommodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code>.

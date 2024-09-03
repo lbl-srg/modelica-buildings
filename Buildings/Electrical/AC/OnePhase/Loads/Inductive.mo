@@ -6,7 +6,7 @@ model Inductive "Model of an inductive and resistive load"
     V_nominal(start = 110));
 
 protected
-  Modelica.SIunits.Angle theRef "Absolute angle of rotating reference system";
+  Modelica.Units.SI.Angle theRef "Absolute angle of rotating reference system";
 
 initial equation
   if mode == Buildings.Electrical.Types.Load.FixedZ_dynamic then
@@ -91,7 +91,7 @@ equation
           rotation=180),
         Text(
           extent={{-120,80},{120,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),    Documentation(info="<html>
 
 <p>

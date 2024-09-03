@@ -1,11 +1,11 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-function getLatitudeTMY3 "Gets the latitude from a TMY3 weather data file"
+impure function getLatitudeTMY3 "Gets the latitude from a TMY3 weather data file"
   extends Modelica.Icons.Function;
  input String filNam "Name of weather data file"
  annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
- output Modelica.SIunits.Angle lat "Latitude from the weather file";
+  output Modelica.Units.SI.Angle lat "Latitude from the weather file";
 protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";
@@ -33,6 +33,10 @@ algorithm
 This function returns the latitude of the TMY3 weather data file.
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 September 24, 2015, by Marcus Fuchs:<br/>
 Replace Dymola specific annotation by <code>loadSelector</code>

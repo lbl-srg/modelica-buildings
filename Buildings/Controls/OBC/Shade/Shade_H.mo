@@ -21,7 +21,7 @@ block Shade_H
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  CDL.Continuous.Hysteresis hys(
+  CDL.Reals.Hysteresis hys(
     final uLow=HLow,
     final uHigh=HHigh)
     "Hysteresis block"
@@ -50,7 +50,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-164,144},{164,106}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name"),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
@@ -86,11 +86,11 @@ equation
           points={{-49,51},{-49,-29}}),
         Text(
           extent={{-92,-49},{-9,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%HLow"),
         Text(
           extent={{2,-49},{91,-92}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%HHigh"),
         Rectangle(
           extent={{-91,-49},{-8,-92}},

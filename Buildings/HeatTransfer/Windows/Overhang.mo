@@ -3,13 +3,11 @@ model Overhang
   "For a window with an overhang, outputs the fraction of the window area exposed to the sun"
   extends Buildings.ThermalZones.Detailed.BaseClasses.Overhang;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
-  parameter Modelica.SIunits.Angle azi(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
   // Overhang dimensions
 protected
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
-    final lat=lat,
     final azi=azi,
     final wR=wR,
     final wL=wL,
@@ -102,6 +100,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed definitions of <code>wL</code> and <code>wR</code> to be

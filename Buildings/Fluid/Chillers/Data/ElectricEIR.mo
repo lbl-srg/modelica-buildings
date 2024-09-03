@@ -1,19 +1,20 @@
 within Buildings.Fluid.Chillers.Data;
 package ElectricEIR "Performance data for chiller ElectricEIR"
   extends Modelica.Icons.MaterialPropertiesPackage;
+
   record Generic "Generic data record for chiller ElectricEIR"
     extends Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
         final nCapFunT=6,
         final nEIRFunT=6,
         final nEIRFunPLR=3);
-    parameter Modelica.SIunits.Temperature TConEnt_nominal
+    parameter Modelica.Units.SI.Temperature TConEnt_nominal
       "Temperature of fluid entering condenser at nominal condition"
       annotation (Dialog(group="Nominal condition"));
 
-    parameter Modelica.SIunits.Temperature TConEntMin
+    parameter Modelica.Units.SI.Temperature TConEntMin
       "Minimum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
-    parameter Modelica.SIunits.Temperature TConEntMax
+    parameter Modelica.Units.SI.Temperature TConEntMax
       "Maximum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
@@ -24,8 +25,13 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
                    "<html>
 <p>This record is used as a template for performance data
 for the chiller model
-<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
+To provide performance data for
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>, use
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic\">
+Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic</a> instead.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -8728,14 +8734,83 @@ Chiller:Electric:EIR,
 </pre>
 </html>"));
 
+  record ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled =
+    Buildings.Fluid.Chillers.Data.ElectricEIR.Generic (
+      QEva_flow_nominal =  -100582,
+      COP_nominal =         3.1,
+      PLRMin =              0.10,
+      PLRMinUnl =           0.10,
+      PLRMax =              1.15,
+      mEva_flow_nominal =   1000 * 0.0043,
+      mCon_flow_nominal =   1.2 * 9.4389,
+      TEvaLvg_nominal =     273.15 + 6.67,
+      TConEnt_nominal =     273.15 + 35,
+      TEvaLvgMin =          273.15 + 4.44,
+      TEvaLvgMax =          273.15 + 10.0,
+      TConEntMin =          273.15 + 23.89,
+      TConEntMax =          273.15 + 51.67,
+      capFunT =             {-0.2660645697,0.0998714035,-0.0023814154,0.0628316481,-0.0009644649,-0.0011249224},
+      EIRFunT =             {0.1807017787,0.0271530312,-0.0004553574,0.0188175079,0.0002623276,-0.0012881189},
+      EIRFunPLR =           {0.0,1.0,0.0},
+      etaMotor =            1.0)
+    "ElectricEIRChiller York YCAL0033EE 100.6 kW/3.1 COP Air Cooled"
+                                                        annotation (
+    defaultComponentName="datChi",
+    defaultComponentPrefixes="parameter",
+    Documentation(info=
+                   "<html>
+Performance data for chiller model.
+This data corresponds to the following EnergyPlus model:
+<pre>
+Chiller:Electric:EIR,
+    ElectricEIRChiller York YCAL0033EE 100.6kW/3.1COP,  !- Name
+    100582,                  !- Reference Capacity {W}
+    3.1,                     !- Reference COP {W/W}
+    6.67,                    !- Reference Leaving Chilled Water Temperature {C}
+    35,                      !- Reference Entering Condenser Fluid Temperature {C}
+    0.0043,                  !- Reference Chilled Water Flow Rate {m3/s}
+    0.0011,                  !- Reference Condenser Fluid Flow Rate {m3/s}
+    ElectricEIRChiller York YCAL0033EE 100.6kW/3.1COP CAPFT,  !- Cooling Capacity Function of Temperature Curve Name
+    ElectricEIRChiller York YCAL0033EE 100.6kW/3.1COP EIRFT,  !- Electric Input to Cooling Output Ratio Function of Temperature Curve Name
+    ElectricEIRChiller York YCAL0033EE 100.6kW/3.1COP EIRFPLR,  !- Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name
+    0.10,                    !- Minimum Part Load Ratio
+    1.15,                    !- Maximum Part Load Ratio
+    1.0,                     !- Optimum Part Load Ratio
+    0.10,                    !- Minimum Unloading Ratio
+    Chilled Water Side Inlet Node,  !- Chilled Water Inlet Node Name
+    Chilled Water Side Outlet Node,  !- Chilled Water Outlet Node Name
+    Condenser Side Inlet Node,  !- Condenser Inlet Node Name
+    Condenser Side Outlet Node,  !- Condenser Outlet Node Name
+    AirCooled,               !- Condenser Type
+    ,                        !- Condenser Fan Power Ratio {W/W}
+    1.0,                     !- Fraction of Compressor Electric Consumption Rejected by Condenser
+    2.0,                     !- Leaving Chilled Water Lower Temperature Limit {C}
+    ConstantFlow,            !- Chiller Flow Mode
+    0.0;                     !- Design Heat Recovery Water Flow Rate {m3/s}
+</pre>
+<br>
+Note that the reference condenser fluid volumetric flow rate listed in the
+EnergyPlus performance data is not reasonable.  The value obtained
+from the manufacturer data sheet is used instead.  The data sheet
+is available
+<a href=\"https://www.johnsoncontrols.com/en_hk/-/media/jci/be/united-states/hvac-equipment/chillers/files/be_eng_guide_-ycal_scroll-chillers-style-e-50-and-60-hz-111417.pdf\">here</a>
+.  Please see the Section for Physical Data and Nominal Ratings and row for Condender Fans Total Chiller CFM.
+</html>"));
 annotation(preferredView="info",
  Documentation(info="<html>
 <p>
 Package with performance data for chillers.
 </p>
 </html>", revisions="<html>
-<p>
-Generated on 04/25/2016 13:20 by thierry
-</p>
+<ul>
+<li>
+November 19, 2021 by David Blum:<br/>
+Added air-cooled chiller YCAL0033EE.
+</li>
+<li>
+April 25, 2016 by Thierry Nouidui:<br/>
+Generated.
+</li>
+</ul>
 </html>"));
 end ElectricEIR;

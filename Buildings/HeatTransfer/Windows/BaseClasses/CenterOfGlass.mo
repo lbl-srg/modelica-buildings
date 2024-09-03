@@ -5,7 +5,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (only 90 degrees=vertical is implemented)";
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.Generic glaSys
@@ -37,7 +37,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
     final gas=glaSys.gas,
     each final til=til,
     each linearize=linearize,
-    each final homotopyInitialization=homotopyInitialization)
+    each final homotopyInitialization=homotopyInitialization) if have_GasLay
     "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
@@ -64,6 +64,8 @@ model CenterOfGlass "Model for center of glass of a window construction"
 protected
   final parameter Integer nGlaLay = size(glaSys.glass, 1)
     "Number of glass layers";
+  final parameter Boolean have_GasLay = nGlaLay > 1
+    "True if it has gas layer";
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -140,7 +142,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics={Text(
           extent={{-82,100},{-32,86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="outside"),
                                Ellipse(
           extent={{-108,110},{-88,90}},
@@ -149,7 +151,7 @@ equation
           fillPattern=FillPattern.Sphere),
                                          Text(
           extent={{44,98},{94,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="room-side")}),      Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
@@ -173,7 +175,7 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),       Text(
           extent={{-90,86},{-78,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u")}),
     Documentation(info="<html>
 This is a model for the heat transfer through the center of the glass.
@@ -208,6 +210,12 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransferConvective</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 24, 2022, by Jianjun Hu:<br/>
+Changed the gas layer to be conditional.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

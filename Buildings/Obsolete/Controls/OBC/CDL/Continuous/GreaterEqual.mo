@@ -17,7 +17,7 @@ equation
 
 annotation (
   defaultComponentName="greEqu",
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Greater instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.Greater instead",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -45,7 +45,7 @@ annotation (
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
   Documentation(info="<html>
 <p>
 Block that outputs <code>true</code> if Real the input <code>u1</code>

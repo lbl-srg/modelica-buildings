@@ -3,29 +3,29 @@ model TwoPortRL
   "Model of a resistive-inductive element with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref"
-                                      annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature M = 507.65
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature M=507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Inductance L "Inductance";
-  parameter Modelica.SIunits.Current i1_start[2] = {0,0}
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Inductance L "Inductance";
+  parameter Modelica.Units.SI.Current i1_start[2]={0,0}
     "Initial current phasor of phase 1 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Current i2_start[2] = {0,0}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Current i2_start[2]={0,0}
     "Initial current phasor of phase 2 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
-  parameter Modelica.SIunits.Current i3_start[2] = {0,0}
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+  parameter Modelica.Units.SI.Current i3_start[2]={0,0}
     "Initial current phasor of phase 3 (positive if entering from terminal p)"
-    annotation (Dialog(enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic)));
+    annotation (Dialog(enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic)));
   parameter Buildings.Electrical.Types.Load mode(
     min=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
-  OnePhase.Lines.TwoPortRL  phase1(
+  OnePhase.Lines.TwoPortRL phase1(
     final T_ref=T_ref,
     final M=M,
     final R=R/3,
@@ -57,27 +57,27 @@ equation
   LossPower = phase1.LossPower + phase2.LossPower + phase3.LossPower;
 
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
-      points={{-100,0},{-20,0},{-20,30},{-10,30}},
+      points={{-99.95,0.05},{-20,0.05},{-20,30},{-10,30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[2], phase2.terminal_n) annotation (Line(
-      points={{-100,0},{-10,0}},
+      points={{-99.95,0.05},{-54,0.05},{-54,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[3], phase3.terminal_n) annotation (Line(
-      points={{-100,4.44089e-16},{-20,4.44089e-16},{-20,-30},{-10,-30}},
+      points={{-99.95,0.05},{-20,0.05},{-20,-30},{-10,-30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase1.terminal_p, terminal_p.phase[1]) annotation (Line(
-      points={{10,30},{20,30},{20,0},{100,0}},
+      points={{10,30},{20,30},{20,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase2.terminal_p, terminal_p.phase[2]) annotation (Line(
-      points={{10,0},{100,0}},
+      points={{10,0},{56,0},{56,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase3.terminal_p, terminal_p.phase[3]) annotation (Line(
-      points={{10,-30},{20,-30},{20,0},{100,0}},
+      points={{10,-30},{20,-30},{20,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
 
@@ -101,7 +101,7 @@ equation
                                                graphics={
           Text(
             extent={{-150,-28},{136,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R, L=%L"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
@@ -142,7 +142,7 @@ equation
           pattern=LinePattern.None),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

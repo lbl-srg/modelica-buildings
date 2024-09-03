@@ -27,6 +27,7 @@ simulator*.log
 comparison*.log
 unitTests*.log
 funnel_comp
+*/Resources/bin/Spawn-light-*
 
 # Files in top-level directory
 #####################################
@@ -69,7 +70,6 @@ Buildings/Resources/src/fluid/heatpumps/calibration/doc/build/doctrees
 
 # Spawn temporary directories
 #########################################
-tmp-eplus-*
 eplus*
 sqlite*
-*/EnergyPlus-simulation*
+Buildings/spawn-*

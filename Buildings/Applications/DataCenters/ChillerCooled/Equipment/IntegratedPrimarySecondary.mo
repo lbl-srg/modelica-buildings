@@ -13,17 +13,19 @@ model IntegratedPrimarySecondary
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  // Dynamics
- parameter Modelica.SIunits.Time tauPump = 1
-   "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
-   annotation (Dialog(tab = "Dynamics", group="Pump",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauPump=1
+    "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   //Pump
   parameter Integer numPum=numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_pum_nominal(min=0)=m2_flow_chi_nominal
-  "Nominal flow rate of the pump"
-   annotation (Dialog(group="Pump"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_pum_nominal(min=0)=
+    m2_flow_chi_nominal "Nominal flow rate of the pump"
+    annotation (Dialog(group="Pump"));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perPum[numPum]
     "Performance data for primary pumps"
     annotation (Dialog(group="Pump"),
@@ -31,9 +33,12 @@ model IntegratedPrimarySecondary
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump = 30
+  parameter Modelica.Units.SI.Time riseTimePump=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered flowrate",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum=initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate",enable=use_inputFilter));
@@ -49,9 +54,9 @@ model IntegratedPrimarySecondary
   parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.PressureDifference dpValPum_nominal = 6000
-   "Nominal differential pressure of the shutoff valves for primary pumps"
-   annotation(Dialog(group="Pump"));
+  parameter Modelica.Units.SI.PressureDifference dpValPum_nominal=6000
+    "Nominal differential pressure of the shutoff valves for primary pumps"
+    annotation (Dialog(group="Pump"));
  //Valve
   parameter Real lVal5(min=1e-10,max=1) = 0.0001
     "Valve 5 leakage, l=Kv(y=0)/Kv(y=1)"
@@ -103,7 +108,7 @@ model IntegratedPrimarySecondary
     final l=lVal5)
     "Bypass valve: closed when fully mechanic cooling is activated; open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_m pum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_m pum(
     redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,
@@ -116,7 +121,6 @@ model IntegratedPrimarySecondary
     final per=perPum,
     final addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final use_inputFilter=use_inputFilter,
     final init=initPum,
     final tau=tauPump,

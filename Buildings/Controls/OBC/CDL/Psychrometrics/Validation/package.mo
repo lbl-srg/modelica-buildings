@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
-package Validation
-  "Collection of models that validate the psychrometrics blocks of the CDL"
+package Validation "Collection of models that validate the psychrometrics blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

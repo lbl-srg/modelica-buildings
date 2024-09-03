@@ -10,18 +10,16 @@ package Solids
                                                                final LHea=0,
                                                                final phasechange=false);
     annotation (
-defaultComponentPrefixes="parameter",
-defaultComponentName="datSol",
-Documentation(info=
-"<html>
+      defaultComponentPrefixes="parameter",
+      defaultComponentName="datSol",
+      Documentation(info="<html>
 <p>
 Generic record for solid materials.
 The material is characterized by its
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-</html>", revisions=
-"<html>
+</html>", revisions="<html>
 <ul>
 <li>
 September 9, 2010, by Michael Wetter:<br/>
@@ -35,7 +33,7 @@ First implementation.
       k=0.89,
       d=1920,
       c=790) "Brick (k=0.89)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -43,7 +41,7 @@ First implementation.
       k=1.4,
       d=2240,
       c=840) "Concrete (k=1.4)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -51,7 +49,7 @@ First implementation.
       k=0.03,
       d=40,
       c=1200) "Insulation board (k=0.03)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -59,7 +57,7 @@ First implementation.
       k=1.0,
       d=2500,
       c=700) "Glass"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -67,7 +65,7 @@ First implementation.
       k=0.16,
       d=800,
       c=1090) "Gypsum board (k=0.58)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -75,7 +73,7 @@ First implementation.
       k=0.12,
       d=540,
       c=1210) "Plywood (k=0.12)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -84,7 +82,7 @@ First implementation.
       d=7850,
       c=450,
       steadyState=true) "Steel (k=50.2)"
-    annotation(
+    annotation (
       defaultComponentPrefixes="parameter",
       defaultComponentName="datSol");
 
@@ -102,10 +100,10 @@ These material records automatically compute the spatial grid
 that is used to compute transient heat conduction.
 In building materials, the thermal diffusivity of adjacent layer materials can differ by an order of magnitude. If the spatial grid generation were not to account for the material properties, then the time rate of change of the different temperature nodes would be significantly different from each other.
 Therefore, records in the packages
-<a href=\"Buildings.HeatTransfer.Data.Solids\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
 Buildings.HeatTransfer.Data.Solids</a>
 and
-<a href=\"Buildings.HeatTransfer.Data.SolidsPCM\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
 Buildings.HeatTransfer.Data.SolidsPCM</a>
 generate the spatial grid so that under the assumption of equal heat transfer, each node temperature has a similar time rate of change.
 </p>

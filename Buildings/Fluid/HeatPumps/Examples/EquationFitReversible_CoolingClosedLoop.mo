@@ -6,16 +6,15 @@ model EquationFitReversible_CoolingClosedLoop
   parameter Data.EquationFitReversible.Trane_Axiom_EXW240 per
    "Reversible heat pump performance data"
    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
-  parameter Modelica.SIunits.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
-   "Source heat exchanger nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
-   "Load heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSou_flow_nominal=per.hea.mSou_flow
+    "Source heat exchanger nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mLoa_flow_nominal=per.hea.mLoa_flow
+    "Load heat exchanger nominal mass flow rate";
 
   Buildings.Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
     scaling_factor=1)
    "Reversible water to water heat pump"
@@ -38,14 +37,14 @@ model EquationFitReversible_CoolingClosedLoop
      nPorts=1)
    "Volume for source side"
    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse uMod(
+  Controls.OBC.CDL.Reals.Sources.Pulse uMod(
     amplitude=-1,
     width=0.7,
     period=200,
     offset=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
+  Controls.OBC.CDL.Reals.Sources.Pulse pulse(
     amplitude=1,
     width=0.7,
     period(displayUnit="s") = 200,
@@ -63,7 +62,6 @@ model EquationFitReversible_CoolingClosedLoop
   Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mLoa_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
@@ -83,14 +81,14 @@ model EquationFitReversible_CoolingClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-12})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse TSouEnt(
+  Controls.OBC.CDL.Reals.Sources.Pulse TSouEnt(
     amplitude=3,
     width=0.7,
     period=200,
     offset=25 + 273.15)
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(
+  Controls.OBC.CDL.Reals.Sources.Pulse TLoaSet(
     y(final unit="K", displayUnit="degC"),
     amplitude=1,
     width=0.7,
@@ -124,10 +122,10 @@ equation
   connect(heaFlo.port, vol.heatPort)
    annotation (Line(points={{70,80},{80,80},{80,-2}},color={191,0,0}));
   connect(pum.port_a, vol.ports[1])
-   annotation (Line(points={{20,50},{40,50},{40,-10},{70,-10}},
+   annotation (Line(points={{20,50},{40,50},{40,-11},{70,-11}},
                                                              color={0,127,255}));
   connect(vol.ports[2], heaPum.port_b1)
-   annotation (Line(points={{70,-14},{20,-14}},
+   annotation (Line(points={{70,-13},{46,-13},{46,-14},{20,-14}},
                                             color={0,127,255}));
   connect(pum.port_b, heaPum.port_a1)
    annotation (Line(points={{0,50},{-20,50},{-20,-14},{0,-14}},

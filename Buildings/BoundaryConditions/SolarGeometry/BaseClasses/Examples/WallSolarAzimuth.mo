@@ -3,7 +3,6 @@ model WallSolarAzimuth "Test model for wall solar azimuth angle"
 extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,
-    lat=lat,
     til=1.5707963267949) "solar incidence angle"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -17,7 +16,7 @@ extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle altAng
     "Altitude angle"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  parameter Modelica.SIunits.Angle lat=41.98*Modelica.Constants.pi/180
+  parameter Modelica.Units.SI.Angle lat=41.98*Modelica.Constants.pi/180
     "Latitude";
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(

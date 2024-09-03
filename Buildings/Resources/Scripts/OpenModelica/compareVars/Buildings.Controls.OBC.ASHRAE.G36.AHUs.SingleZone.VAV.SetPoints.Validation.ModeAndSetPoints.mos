@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "modSetPoi.cooDowTim",
+    "modSetPoi.warUpTim",
+    "modSetPoi.TZon",
+    "modSetPoi.u1Occ",
+    "modSetPoi.tNexOcc",
+    "modSetPoi.cooSetAdj",
+    "modSetPoi.heaSetAdj",
+    "modSetPoi.yOpeMod",
+    "modSetPoi.TCooSet",
+    "modSetPoi.THeaSet"
+  };

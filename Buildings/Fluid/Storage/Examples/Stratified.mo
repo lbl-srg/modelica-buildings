@@ -27,14 +27,14 @@ model Stratified "Test model for stratified tank"
     T=273.15 + 20,
     use_p_in=true,
     p=300000,
-    nPorts=2)             annotation (Placement(transformation(extent={{90,-2},
-            {70,18}})));
+    nPorts=2)             annotation (Placement(transformation(extent={{90,-18},
+            {70,2}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_1(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
     m_flow_nominal=0.1)
-    annotation (Placement(transformation(extent={{36,0},{56,20}})));
+    annotation (Placement(transformation(extent={{34,-18},{54,2}})));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
     redeclare package Medium = Medium,
     hTan=3,
@@ -42,21 +42,21 @@ model Stratified "Test model for stratified tank"
     nSeg=10,
     m_flow_nominal=0.1,
     VTan=3) "Tank"
-    annotation (Placement(transformation(extent={{-18,-38},{2,-18}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
     m_flow_nominal=0.1)
-    annotation (Placement(transformation(extent={{38,-38},{58,-18}})));
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium =
         Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{6,2},{22,18}})));
+          extent={{4,-16},{20,0}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium =
         Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{18,-36},{34,-20}})));
+          extent={{20,-88},{36,-72}})));
   Modelica.Blocks.Continuous.Integrator dH
     "Differenz in enthalpy (should be zero at steady-state)"
     annotation (Placement(transformation(extent={{68,30},{88,50}})));
@@ -67,10 +67,10 @@ model Stratified "Test model for stratified tank"
     "Pressure boundary condition"
                  annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/86400,
+    f=1/86400,
     amplitude=10,
-    offset=273.15 + 20) annotation (Placement(transformation(extent={{-90,62},{
-            -70,82}})));
+    offset=273.15 + 20)
+    annotation (Placement(transformation(extent={{-90,62},{-70,82}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,50},{-28,62}})));
@@ -87,25 +87,23 @@ equation
   connect(TWat.y, sou_1.T_in) annotation (Line(
       points={{-79,12},{-62,12}},
       color={0,0,127}));
-  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{
-          5.55112e-16,10},{5.55112e-16,10},{6,10}},
-                                     color={0,127,255}));
+  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{-10,0},{
+          -10,-8},{4,-8}},           color={0,127,255}));
   connect(HOut_flow.port_b, res_1.port_a)
-    annotation (Line(points={{22,10},{30,10},{36,10}},
-                                               color={0,127,255}));
+    annotation (Line(points={{20,-8},{34,-8}}, color={0,127,255}));
   connect(tanEnh.port_b, HOut_flow1.port_a)
-    annotation (Line(points={{2,-28},{2,-28},{18,-28}},
+    annotation (Line(points={{-10,-70},{-10,-80},{20,-80}},
                                                color={0,127,255}));
-  connect(HOut_flow1.port_b, res_2.port_a) annotation (Line(points={{34,-28},{
-          38,-28}}, color={0,127,255}));
+  connect(HOut_flow1.port_b, res_2.port_a) annotation (Line(points={{36,-80},{
+          40,-80}}, color={0,127,255}));
   connect(add.y, dH.u)
     annotation (Line(points={{53,40},{66,40}},   color={0,0,127}));
-  connect(HOut_flow.H_flow, add.u1) annotation (Line(points={{14,18.8},{14,46},
-          {30,46}},  color={0,0,127}));
-  connect(HOut_flow1.H_flow, add.u2) annotation (Line(points={{26,-19.2},{26,34},
+  connect(HOut_flow.H_flow, add.u1) annotation (Line(points={{12,0.8},{12,46},{
+          30,46}},   color={0,0,127}));
+  connect(HOut_flow1.H_flow, add.u2) annotation (Line(points={{28,-71.2},{28,34},
           {30,34}},       color={0,0,127}));
   connect(P.y, sin_1.p_in) annotation (Line(
-      points={{41,70},{100,70},{100,16},{92,16}},
+      points={{41,70},{100,70},{100,0},{92,0}},
       color={0,0,127}));
   connect(sine.y, TBCSid1.T) annotation (Line(points={{-69,72},{-55.5,72},{
           -55.5,90},{-41.2,90}}, color={0,0,127}));
@@ -116,23 +114,23 @@ equation
   connect(sine.y, TBCTop2.T) annotation (Line(points={{-69,72},{-56,72},{-56,38},
           {-41.2,38}}, color={0,0,127}));
   connect(TBCSid2.port, tanEnh.heaPorSid) annotation (Line(points={{-28,56},{
-          -24,56},{-24,-12},{-2,-12},{-2,-28},{-2.4,-28}}, color={191,0,0}));
+          -24,56},{-24,-12},{-4.4,-12},{-4.4,-60}},        color={191,0,0}));
   connect(TBCTop2.port, tanEnh.heaPorTop) annotation (Line(points={{-28,38},{
-          -26,38},{-26,-14},{-6,-14},{-6,-20.6}}, color={191,0,0}));
+          -26,38},{-26,-14},{-8,-14},{-8,-52.6}}, color={191,0,0}));
   connect(sin_1.ports[1], res_1.port_b) annotation (Line(
-      points={{70,10},{56,10}},
+      points={{70,-9},{64,-9},{64,-8},{54,-8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin_1.ports[2], res_2.port_b) annotation (Line(
-      points={{70,6},{64,6},{64,-28},{58,-28}},
+      points={{70,-7},{64,-7},{64,-80},{60,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[1], tanSim.port_a) annotation (Line(
-      points={{-40,10},{-20,10}},
+      points={{-40,7},{-30,7},{-30,20},{-10,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_1.ports[2], tanEnh.port_a) annotation (Line(
-      points={{-40,6},{-30,6},{-30,-28},{-18,-28}},
+      points={{-40,9},{-30,9},{-30,-40},{-10,-40},{-10,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TBCSid1.port, tanSim.heaPorSid) annotation (Line(

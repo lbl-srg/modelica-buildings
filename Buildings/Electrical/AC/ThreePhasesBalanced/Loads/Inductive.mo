@@ -45,7 +45,7 @@ model Inductive "Model of an inductive and resistive load"
           rotation=180),
         Text(
           extent={{-120,120},{120,80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Ellipse(extent={{-10,-10},{10,10}},
           origin={0,50},

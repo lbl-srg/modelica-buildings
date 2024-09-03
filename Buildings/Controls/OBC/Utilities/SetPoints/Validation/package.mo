@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities.SetPoints;
-package Validation
-  "Collection of models that validate the SetPoints blocks of the CDL"
+package Validation "Collection of models that validate the SetPoints blocks of the CDL"
   annotation (
     preferredView="info",
     Documentation(

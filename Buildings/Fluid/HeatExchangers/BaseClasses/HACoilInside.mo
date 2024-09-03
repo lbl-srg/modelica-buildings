@@ -2,8 +2,9 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HACoilInside "Calculates the hA value for water inside a coil"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Water mass flow rate"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Water mass flow rate"
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput m_flow(unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
@@ -14,15 +15,14 @@ model HACoilInside "Calculates the hA value for water inside a coil"
     "Inside convective heat transfer" annotation (Placement(transformation(
           extent={{100,-10},{120,10}})));
 
-  parameter Modelica.SIunits.ThermalConductance hA_nominal(min=0)
+  parameter Modelica.Units.SI.ThermalConductance hA_nominal(min=0)
     "Convective heat transfer coefficient"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real n(min=0, max=1)=0.85
     "Water-side exponent for convective heat transfer coefficient, h proportional to m_flow^n";
-  parameter Modelica.SIunits.Temperature T_nominal=
-          Modelica.SIunits.Conversions.from_degC(20)
-    "Nominal water temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T_nominal=
+      Modelica.Units.Conversions.from_degC(20) "Nominal water temperature"
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Boolean flowDependent=true
     "Set to false to make hA independent of mass flow rate"
     annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
@@ -38,9 +38,8 @@ protected
   Real fm "Fraction of actual to nominal mass flow rate";
 
 initial equation
-  s =  if temperatureDependent then
-            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T_nominal)) else
-              1;
+  s =if temperatureDependent then 0.014/(1 + 0.014*
+    Modelica.Units.Conversions.to_degC(T_nominal)) else 1;
 equation
   fm = if flowDependent then m_flow / m_flow_nominal else 1;
   x = if temperatureDependent then 1 + s * (T-T_nominal) else 1;
@@ -77,7 +76,7 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={            Text(
           extent={{-66,88},{60,-2}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="hA"),

@@ -20,8 +20,8 @@ model Source_T
     annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
 
-  Buildings.Fluid.FMI.Interfaces.PressureInput p_in if
-       use_p_in "Prescribed boundary pressure"
+  Buildings.Fluid.FMI.Interfaces.PressureInput p_in
+    if use_p_in "Prescribed boundary pressure"
     annotation (Placement(transformation(extent={{-140,28},{-100,68}}),
         iconTransformation(extent={{-140,28},{-100,68}})));
   Modelica.Blocks.Interfaces.RealInput T_in(unit="K",
@@ -29,8 +29,8 @@ model Source_T
                                             min=0)
     "Prescribed boundary temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput X_w_in(unit="1") if
-       Medium.nXi > 0 "Prescribed boundary composition"
+  Modelica.Blocks.Interfaces.RealInput X_w_in(unit="1")
+    if Medium.nXi > 0 "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
@@ -47,7 +47,7 @@ model Source_T
 protected
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  input Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
 initial equation
    assert(Medium.nXi < 2,
@@ -82,7 +82,7 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}), Text(
           extent={{-94,60},{94,-58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="m_flow
 p")}),
     Documentation(info="<html>
@@ -101,6 +101,11 @@ and the mass flow rate of the system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

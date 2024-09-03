@@ -20,11 +20,11 @@ block InletToAir
 
   Modelica.Blocks.Interfaces.RealInput TAirZon(
     final unit="K",
-    displayUnit="degC") if
-       allowFlowReversal
+    displayUnit="degC")
+    if allowFlowReversal
     "Zone air temperature"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120}),
@@ -33,11 +33,11 @@ block InletToAir
         rotation=90,
         origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealInput X_wZon(
-    final unit="kg/kg") if
-       Medium.nXi > 0 and allowFlowReversal
+    final unit="kg/kg")
+    if Medium.nXi > 0 and allowFlowReversal
     "Zone air water mass fraction per total air mass"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120}),
@@ -46,11 +46,11 @@ block InletToAir
         rotation=90,
         origin={0,-120})));
   Modelica.Blocks.Interfaces.RealInput CZon[Medium.nC](
-    final quantity=Medium.extraPropertiesNames) if
-       allowFlowReversal
+    final quantity=Medium.extraPropertiesNames)
+    if allowFlowReversal
     "Zone air trace substances"
     annotation (Placement(
-        visible=allowFloWReserval,
+        visible=allowFlowReversal,
         transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120}),
@@ -66,8 +66,8 @@ block InletToAir
   Modelica.Blocks.Interfaces.RealOutput T(final unit="K") "Temperature of the inlet"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="kg/kg") if
-       Medium.nXi > 0
+  Modelica.Blocks.Interfaces.RealOutput X_w(final unit="kg/kg")
+    if Medium.nXi > 0
     "Water mass fraction per total air mass of the inlet"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
 
@@ -77,7 +77,7 @@ block InletToAir
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
 
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
 
@@ -91,8 +91,8 @@ protected
     "Internal connector for zone water vapor mass fraction";
 
   Modelica.Blocks.Interfaces.RealInput X_wZon_internal2(
-    final unit="kg/kg") = 0 if
-       Medium.nXi == 0 or not allowFlowReversal
+    final unit="kg/kg") = 0
+    if Medium.nXi == 0 or not allowFlowReversal
     "Internal connector for zone water vapor mass fraction, required if X_wZon is removed";
   Modelica.Blocks.Interfaces.RealInput CZon_internal[Medium.nC]
     "Internal connector for trace substances";
@@ -172,6 +172,11 @@ for its usage.
 </html>", revisions="<html>
 <ul>
 <li>
+February 1, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1829\">#1829</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.
 See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
@@ -191,19 +196,19 @@ First implementation.
     Icon(graphics={
         Text(
           extent={{58,60},{90,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{20,96},{84,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Text(
           extent={{28,-26},{92,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Text(
           extent={{36,-66},{100,-92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="C"),
         Line(points={{-80,0},{40,0}}, color={191,0,0}),
         Polygon(
@@ -214,12 +219,12 @@ First implementation.
         Text(
           visible=allowFlowReversal,
           extent={{-78,-70},{-46,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           visible=allowFlowReversal and Medium.nXi > 0,
           extent={{-28,-68},{36,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Polygon(
           visible=allowFlowReversal,

@@ -5,17 +5,17 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
  package Medium2 = Buildings.Media.Water "Medium model";
   parameter Real COP_nominal = 6 "Nominal COP";
 
-  parameter Modelica.SIunits.Power P_nominal=10E3
+  parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     -P_nominal*(COP_nominal-1)/cp2_default/dTEva_nominal
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=-P_nominal*(
+      COP_nominal - 1)/cp2_default/dTEva_nominal
     "Nominal mass flow rate at chilled water side";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-      P_nominal*COP_nominal/cp1_default/dTCon_nominal
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=P_nominal*
+      COP_nominal/cp1_default/dTCon_nominal
     "Nominal mass flow rate at condenser water wide";
   Buildings.Fluid.HeatPumps.Carnot_y heaPum(
     redeclare package Medium1 = Medium1,
@@ -70,15 +70,15 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
+      Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
       Medium1.p_default,
       Medium1.T_default,
       Medium1.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default=
+      Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
       Medium2.p_default,
       Medium2.T_default,
       Medium2.X_default))

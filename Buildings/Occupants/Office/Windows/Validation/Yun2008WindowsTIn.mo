@@ -8,9 +8,8 @@ model Yun2008WindowsTIn "Validating the model for window behaviors"
   Modelica.Blocks.Sources.Sine TIn(
     amplitude=15,
     offset=288,
-    freqHz=0.001,
-    y(unit="K",
-      displayUnit="degC")) "Indoor air temperature"
+    f=0.001,
+    y(unit="K", displayUnit="degC")) "Indoor air temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Office.Windows.Yun2008WindowsTIn win
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

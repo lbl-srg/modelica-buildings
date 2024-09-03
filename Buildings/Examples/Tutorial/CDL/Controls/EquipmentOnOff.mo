@@ -20,7 +20,7 @@ block EquipmentOnOff "Controller for equipment on/off control"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Negation of output signal, because boiler should be off if temperature exceed uHigh"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
   uHigh=273.15 + 90,
   uLow=273.15  + 70) "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
@@ -48,29 +48,29 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-90,82},{-42,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="TBoi"),
         Text(
           extent={{38,-38},{86,-78}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="onPum"),
         Text(
           extent={{-92,-40},{-44,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="onSys"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-148,104},{152,144}},
           textString="%name"),
         Text(
           extent={{44,82},{92,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None,
           textString="onBoi")}),

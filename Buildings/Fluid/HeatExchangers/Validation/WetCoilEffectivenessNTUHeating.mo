@@ -6,47 +6,46 @@ model WetCoilEffectivenessNTUHeating
   package Medium_W = Buildings.Media.Water;
   package Medium_A = Buildings.Media.Air;
 
-  constant Modelica.SIunits.AbsolutePressure pAtm = 101325
+  constant Modelica.Units.SI.AbsolutePressure pAtm=101325
     "Atmospheric pressure";
 
-  parameter Modelica.SIunits.Temperature T_a1_nominal=50+273.15
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=50 + 273.15
     "Inlet water temperature";
 
-  parameter Modelica.SIunits.Temperature T_b1_nominal=45+273.15
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=45 + 273.15
     "Outlet water temperature";
 
-  parameter Modelica.SIunits.Temperature T_a2_nominal=273.15
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=273.15
     "Inlet air temperature";
 
-  final parameter Modelica.SIunits.Temperature T_b2_nominal=
-    T_a2_nominal + Q_flow_nominal / m2_flow_nominal / 1010
-    "Outlet air temperature";
+  final parameter Modelica.Units.SI.Temperature T_b2_nominal=T_a2_nominal +
+      Q_flow_nominal/m2_flow_nominal/1010 "Outlet air temperature";
 
-  final parameter Modelica.SIunits.ThermalConductance CMin_flow_nominal=
-    min(m1_flow_nominal * 4186, m2_flow_nominal * 1010)
+  final parameter Modelica.Units.SI.ThermalConductance CMin_flow_nominal=min(
+      m1_flow_nominal*4186, m2_flow_nominal*1010)
     "Minimal capacity flow rate at nominal condition";
 
-  final parameter Modelica.SIunits.ThermalConductance CMax_flow_nominal=
-    max(m1_flow_nominal * 4186, m2_flow_nominal * 1010)
+  final parameter Modelica.Units.SI.ThermalConductance CMax_flow_nominal=max(
+      m1_flow_nominal*4186, m2_flow_nominal*1010)
     "Minimal capacity flow rate at nominal condition";
 
-  final parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal=
-    m1_flow_nominal * 4186 * (T_a1_nominal - T_b1_nominal);
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=m1_flow_nominal
+      *4186*(T_a1_nominal - T_b1_nominal);
 
   final parameter Real eps_nominal=
     abs(Q_flow_nominal/((T_a1_nominal - T_a2_nominal) * CMin_flow_nominal))
     "Nominal effectiveness";
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
+  parameter Modelica.Units.SI.ThermalConductance UA_nominal=
+      Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ(
       eps=eps_nominal,
       Z=CMin_flow_nominal/CMax_flow_nominal,
-      flowRegime=Integer(hexCon)) * CMin_flow_nominal
+      flowRegime=Integer(hexCon))*CMin_flow_nominal
     "Total thermal conductance at nominal flow";
 
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 3.78
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=3.78
     "Nominal mass flow rate of water";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = 2.646
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=2.646
     "Nominal mass flow rate of air";
   parameter Types.HeatExchangerConfiguration hexCon=
     Types.HeatExchangerConfiguration.CounterFlow
@@ -165,7 +164,7 @@ model WetCoilEffectivenessNTUHeating
     nPorts=1)
     "Source for water"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp T_a2(
+  Controls.OBC.CDL.Reals.Sources.Ramp T_a2(
     height=15,
     duration=1000,
     offset=273.15) "Air inlet temperature"
@@ -243,53 +242,36 @@ equation
       StopTime=1000,
       Tolerance=1e-06),
     __Dymola_Commands(
-    file="Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTUHeating.mos"
+    file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/WetCoilEffectivenessNTUHeating.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model duplicates an example from Mitchell and Braun 2012, example SM-2-1
-(Mitchell and Braun 2012) to validate a single case for the
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU</a>
-model.
+This model simulates various coil models in heating conditions, with
 </p>
-<h4>Validation</h4>
+<ul>
+<li>
+on the water-side: constant inlet temperature and mass flow rate,
+</li>
+<li>
+on the air-side: constant inlet humidity ratio and mass flow rate, and
+an increasing inlet temperature.
+</li>
+</ul>
 <p>
-The example simulates a wet coil with constant air
-and water inlet temperature and mass flow rate, and an increasing air inlet
-humidity which triggers the transition from a fully-dry to a fully-wet regime.
-The reference used for validation is the published experimental data.
-A discretized wet coil model is also simulated for comparison. 
-To provide an accurate reference, the latter model is configured with 30 elements.
+To provide an accurate reference, the instance of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a>
+is configured with 30 elements.
 Under steady-state modeling assumptions, this creates a large system of 
 non-linear equations. To alleviate this effect, dynamics are considered but
 the simulation time is increased to 1000 s to reproduce quasi steady-state 
 conditions.
 </p>
-<p>
-Note that the outlet air relative humidity may slightly exceed 100% when using
-the epsilon-NTU model.
-</p>
-<h4>References</h4>
-<p>
-Mitchell, John W., and James E. Braun. 2012.
-\"Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications\".
-Excerpt from <i>Principles of heating, ventilation, and air conditioning in buildings</i>.
-Hoboken, N.J.: Wiley. Available online:
-<a href=\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\">
-http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185</a>
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 19, 2017, by Michael Wetter:<br/>
-Revised model to avoid mixing textual equations and connect statements.
-</li>
-<li>
-March 17, 2017, by Michael O'Keefe:<br/>
-First implementation. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/622\">
-issue 622</a> for more information.
+Jan 21, 2021, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

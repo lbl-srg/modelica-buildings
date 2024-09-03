@@ -2,19 +2,18 @@ within Buildings.Media.Refrigerants;
 package R410A "Refrigerant R410A"
   extends Modelica.Icons.VariantsPackage;
 
-  final constant Modelica.SIunits.SpecificEntropy R = 114.55
-    "Gas constant for use in Martin-Hou equation of state";
+final constant Modelica.Units.SI.SpecificEntropy R=114.55
+  "Gas constant for use in Martin-Hou equation of state";
 
-  final constant Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature";
+final constant Modelica.Units.SI.Temperature TCri=345.25 "Critical temperature";
 
-  final constant Modelica.SIunits.Temperature T_min = 173.15
-    "Minimum temperature for correlated properties";
+final constant Modelica.Units.SI.Temperature T_min=173.15
+  "Minimum temperature for correlated properties";
 
-  final constant Modelica.SIunits.AbsolutePressure pCri = 4926.1e3
-    "Critical pressure";
+final constant Modelica.Units.SI.AbsolutePressure pCri=4926.1e3
+  "Critical pressure";
 
-protected
+protected 
   final constant Real A[:] = {-1.721781e2, 2.381558e-1, -4.329207e-4, -6.241072e-7}
     "Coefficients A for Martin-Hou equation of state";
 

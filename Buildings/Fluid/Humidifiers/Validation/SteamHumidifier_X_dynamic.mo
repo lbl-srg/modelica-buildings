@@ -4,7 +4,7 @@ model SteamHumidifier_X_dynamic
   extends Buildings.Fluid.Humidifiers.Validation.SprayAirWasher_X(
     redeclare Buildings.Fluid.Humidifiers.SteamHumidifier_X hum(
       mWatMax_flow=mWat_flow_nominal,
-      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
 
 annotation (
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/SteamHumidifier_X_dynamic.mos"

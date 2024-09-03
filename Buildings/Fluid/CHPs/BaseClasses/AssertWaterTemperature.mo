@@ -3,9 +3,9 @@ model AssertWaterTemperature
   "Assert if water outlet temperature is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Temperature TWatMax
+  parameter Modelica.Units.SI.Temperature TWatMax
     "Maximum cooling water temperature";
-  parameter Modelica.SIunits.TemperatureDifference THys = 0.5
+  parameter Modelica.Units.SI.TemperatureDifference THys=0.5
     "Hysteresis value to check temperature difference"
     annotation (Dialog(tab="Advanced"));
 
@@ -20,7 +20,7 @@ model AssertWaterTemperature
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=TWatMax -THys,
     final uHigh=TWatMax + THys)
     "Check if water temperature is larger than the maximum temperature"

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Greater
   "Output y is true, if input u1 is greater than input u2"
-  Interfaces.IntegerInput u1
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
     "Connector of first Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u2
     "Connector of second Integer input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -53,7 +53,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

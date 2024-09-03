@@ -5,7 +5,7 @@ model InternalHEXTwoUTube
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Length hSeg = borFieDat.conDat.hBor/nSeg
+  parameter Modelica.Units.SI.Length hSeg=borFieDat.conDat.hBor/nSeg
     "Length of the internal heat exchanger";
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
@@ -18,7 +18,6 @@ model InternalHEXTwoUTube
     dp2_nominal=10,
     dp3_nominal=10,
     dp4_nominal=10,
-    dynFil=true,
     borFieDat=borFieDat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TGro_start(displayUnit="K") = 285.15,
@@ -120,8 +119,14 @@ This example simulates the interior thermal behavior of a double U-tube borehole
 </html>", revisions="<html>
 <ul>
 <li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source FixedBoundary with Boundary_pT. This is for 
+Replaced fluid source FixedBoundary with Boundary_pT. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

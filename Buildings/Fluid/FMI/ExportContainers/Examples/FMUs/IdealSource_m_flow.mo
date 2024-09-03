@@ -54,7 +54,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.HorizontalCylinder),
                               Text(
           extent={{-94,110},{-50,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="m_flow"),
         Ellipse(
           extent={{-16,18},{24,-22}},

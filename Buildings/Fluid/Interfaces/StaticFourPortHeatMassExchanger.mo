@@ -15,12 +15,12 @@ model StaticFourPortHeatMassExchanger
     annotation(HideResult=true);
 
   // Q1_flow is sensible plus latent heat flow rate
-  input Modelica.SIunits.HeatFlowRate Q1_flow
+  input Modelica.Units.SI.HeatFlowRate Q1_flow
     "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
     "Moisture mass flow rate added to the medium 1";
   // Q2_flow is sensible plus latent heat flow rate
-  input Modelica.SIunits.HeatFlowRate Q2_flow
+  input Modelica.Units.SI.HeatFlowRate Q2_flow
     "Heat transferred into the medium 2";
   input Medium2.MassFlowRate mWat2_flow
     "Moisture mass flow rate added to the medium 2";

@@ -2,23 +2,24 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>3. Simulation Performance &#8212; Buildings Library User Guide</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap_custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom-sphinx.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="shortcut icon" href="_static/lbl-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,9 +29,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -83,10 +84,11 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. Simulation Performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#fluid-flow-systems">3.2. Fluid flow systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#numerical-solvers">3.4. Numerical solvers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unstable-control-loops">3.1. Unstable control loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#control-input-signal-of-equipment">3.2. Control input signal of equipment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fluid-flow-systems">3.3. Fluid flow systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">3.4. Examples for how to debug and correct slow simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numerical-solvers">3.5. Numerical solvers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="prePostProcessing.html">4. Pre- and Post-Processing</a></li>
@@ -117,20 +119,21 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">3. Simulation Performance</a><ul>
-<li><a class="reference internal" href="#control-input-signal-of-equipment">3.1. Control input signal of equipment</a></li>
-<li><a class="reference internal" href="#fluid-flow-systems">3.2. Fluid flow systems</a><ul>
-<li><a class="reference internal" href="#breaking-algebraic-loops">3.2.1. Breaking algebraic loops</a></li>
-<li><a class="reference internal" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.2.2. Reducing nonlinear equations of serially connected flow resistances</a></li>
-<li><a class="reference internal" href="#prescribed-mass-flow-rate">3.2.3. Prescribed mass flow rate</a></li>
-<li><a class="reference internal" href="#avoiding-events">3.2.4. Avoiding events</a></li>
+<li><a class="reference internal" href="#unstable-control-loops">3.1. Unstable control loops</a></li>
+<li><a class="reference internal" href="#control-input-signal-of-equipment">3.2. Control input signal of equipment</a></li>
+<li><a class="reference internal" href="#fluid-flow-systems">3.3. Fluid flow systems</a><ul>
+<li><a class="reference internal" href="#breaking-algebraic-loops">3.3.1. Breaking algebraic loops</a></li>
+<li><a class="reference internal" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances">3.3.2. Reducing nonlinear equations of serially connected flow resistances</a></li>
+<li><a class="reference internal" href="#prescribed-mass-flow-rate">3.3.3. Prescribed mass flow rate</a></li>
+<li><a class="reference internal" href="#avoiding-events">3.3.4. Avoiding events</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">3.3. Examples for how to debug and correct slow simulations</a><ul>
-<li><a class="reference internal" href="#state-events">3.3.1. State events</a></li>
-<li><a class="reference internal" href="#state-variables-that-dominate-the-error-control">3.3.2. State variables that dominate the error control</a></li>
+<li><a class="reference internal" href="#examples-for-how-to-debug-and-correct-slow-simulations">3.4. Examples for how to debug and correct slow simulations</a><ul>
+<li><a class="reference internal" href="#state-events">3.4.1. State events</a></li>
+<li><a class="reference internal" href="#state-variables-that-dominate-the-error-control">3.4.2. State variables that dominate the error control</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#numerical-solvers">3.4. Numerical solvers</a></li>
+<li><a class="reference internal" href="#numerical-solvers">3.5. Numerical solvers</a></li>
 </ul>
 </li>
 </ul>
@@ -176,11 +179,34 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="simulation-performance">
-<h1>3. Simulation Performance<a class="headerlink" href="#simulation-performance" title="Permalink to this headline">¶</a></h1>
-<p>This section provides tips for how to implement numerically efficient models.</p>
-<div class="section" id="control-input-signal-of-equipment">
-<span id="sec-con-inp-equ"></span><h2>3.1. Control input signal of equipment<a class="headerlink" href="#control-input-signal-of-equipment" title="Permalink to this headline">¶</a></h2>
+  <section id="simulation-performance">
+<h1><span class="section-number">3. </span>Simulation Performance<a class="headerlink" href="#simulation-performance" title="Permalink to this headline">¶</a></h1>
+<p>This section provides tips for how to implement numerically efficient models
+and for how to debug models.</p>
+<p>All Modelica simulation environments have debugging and profiling capabilities
+that give insight into where computing time is spent and how to speed up simulations.
+The use of these features varies among the different Modelica tools.
+We recommend users read the documentation of their respective simulation environment,
+take opportunity of training that is offered on request by many tool providers,
+and contact their support for tool related questions.</p>
+<section id="unstable-control-loops">
+<h2><span class="section-number">3.1. </span>Unstable control loops<a class="headerlink" href="#unstable-control-loops" title="Permalink to this headline">¶</a></h2>
+<p>Most solvers in Modelica tools adapt the time step during the simulation
+in order to accurately resolve the dynamics of the model.
+If feedback control loops are unstable, then trajectories can have
+high frequency oscillations, just as in a real HVAC system.
+The solver is then required to simulate with small time steps,
+which increases the simulation time.</p>
+<p>In large models, to detect which control loop is unstable, it can be
+helpful to log which state variables dominate the integration error
+or the integrator time step control.
+This usually points to the control loop that is unstable.
+There are various methods for tuning a controller, and the documentation of
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.PIDWithReset">Buildings.Controls.OBC.CDL.Reals.PIDWithReset</a>
+outlines one approach for tuning the gains of a PI-controller.</p>
+</section>
+<section id="control-input-signal-of-equipment">
+<span id="sec-con-inp-equ"></span><h2><span class="section-number">3.2. </span>Control input signal of equipment<a class="headerlink" href="#control-input-signal-of-equipment" title="Permalink to this headline">¶</a></h2>
 <p>Most equipment models that take a real-valued control signals as an input, such as
 flow machines (fans and pumps), have a boolean parameter
 <code class="docutils literal notranslate"><span class="pre">filteredSpeed</span></code>, and all actuators have a boolean parameter
@@ -195,14 +221,18 @@ in which <code class="docutils literal notranslate"><span class="pre">fanS</span
 Both fans are connected to a step input signal.
 The configuration of <code class="docutils literal notranslate"><span class="pre">fanS</span></code> causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The <code class="docutils literal notranslate"><span class="pre">fanC</span></code> avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
 <code class="docutils literal notranslate"><span class="pre">raiseTime=30</span></code> seconds.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <span id="figurefilteredresponse"></span><a class="reference internal image-reference" href="_images/fanStepSchematics.svg"><img alt="_images/fanStepSchematics.svg" src="_images/fanStepSchematics.svg" width="300px" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal notranslate"><span class="pre">fanS</span></code>) and <code class="docutils literal notranslate"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal notranslate"><span class="pre">fanC</span></code>).</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-<div class="figure align-default" id="id3">
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Schematic diagram of fans that are configured with <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code> (<code class="docutils literal notranslate"><span class="pre">fanS</span></code>) and <code class="docutils literal notranslate"><span class="pre">filteredSpeed=true</span></code> (<code class="docutils literal notranslate"><span class="pre">fanC</span></code>).</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
 <img alt="_images/fanStepResponse.png" src="_images/fanStepResponse.png" />
-<p class="caption"><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Mass flow rate of the two fans for a step input signal at 0 seconds.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Mass flow rate of the two fans for a step input signal at 0 seconds.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>For fans and pumps, the dynamics introduced by the filter can be thought of as approximating
 the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
 The default value is <code class="docutils literal notranslate"><span class="pre">raiseTime=30</span></code> seconds.</p>
@@ -217,25 +247,25 @@ control gains may need to be retuned to ensure satisfactory
 closed loop control performance.</p>
 </div>
 <p>For further information, see the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Movers_UsersGuide.html">User’s Guide of the flow machine package</a>, and the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
-</div>
-<div class="section" id="fluid-flow-systems">
-<h2>3.2. Fluid flow systems<a class="headerlink" href="#fluid-flow-systems" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="breaking-algebraic-loops">
-<h3>3.2.1. Breaking algebraic loops<a class="headerlink" href="#breaking-algebraic-loops" title="Permalink to this headline">¶</a></h3>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Movers_UsersGuide.html">User’s Guide of the flow machine package</a>, and the
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
+</section>
+<section id="fluid-flow-systems">
+<h2><span class="section-number">3.3. </span>Fluid flow systems<a class="headerlink" href="#fluid-flow-systems" title="Permalink to this headline">¶</a></h2>
+<section id="breaking-algebraic-loops">
+<h3><span class="section-number">3.3.1. </span>Breaking algebraic loops<a class="headerlink" href="#breaking-algebraic-loops" title="Permalink to this headline">¶</a></h3>
 <p>In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations.
 This leads to larger systems of coupled equations that need to be solved,
 which often causes larger computing time and can sometimes cause convergence problems.
 To decouple these systems of equations, in the model of a flow junction
-(<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Buildings.Fluid.FixedResistances.Junction</a>),
+(<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Junction">Buildings.Fluid.FixedResistances.Junction</a>),
 or in models for fans or pumps (such as the model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>),
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.SpeedControlled_y">Buildings.Fluid.Movers.SpeedControlled_y</a>),
 the parameter <code class="docutils literal notranslate"><span class="pre">dynamicBalance</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.
 This adds a control volume at the fluid junction that can decouple the system of equations.</p>
-</div>
-<div class="section" id="reducing-nonlinear-equations-of-serially-connected-flow-resistances">
-<h3>3.2.2. Reducing nonlinear equations of serially connected flow resistances<a class="headerlink" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="reducing-nonlinear-equations-of-serially-connected-flow-resistances">
+<h3><span class="section-number">3.3.2. </span>Reducing nonlinear equations of serially connected flow resistances<a class="headerlink" href="#reducing-nonlinear-equations-of-serially-connected-flow-resistances" title="Permalink to this headline">¶</a></h3>
 <p>In fluid flow systems, if multiple components are connected in series,
 then computing the pressure drop due to flow friction in the
 individual components can lead to coupled nonlinear systems of equations.
@@ -243,10 +273,12 @@ While this is no problem for small models, the iterative solution can lead to hi
 be part of the residual function.</p>
 <p>For illustration, consider the simple system shown below in which the flow resistances <code class="docutils literal notranslate"><span class="pre">res1</span></code> and <code class="docutils literal notranslate"><span class="pre">res2</span></code> compute the mass flow rate as
 <span class="math notranslate nohighlight">\(\dot m = k \, \sqrt{\Delta p}\)</span> if the parameter <code class="docutils literal notranslate"><span class="pre">from_dp</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, or otherwise compute the pressure drop between their inlet and outlet as <span class="math notranslate nohighlight">\(\Delta p = (\dot m / k)^2\)</span>. (Both formulations are implemented using <a class="reference internal" href="glossary.html#term-regularization"><span class="xref std std-term">regularization</span></a> near zero.)</p>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <a class="reference internal image-reference" href="_images/resistancesSeries.svg"><img alt="_images/resistancesSeries.svg" src="_images/resistancesSeries.svg" width="600px" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.3 </span><span class="caption-text">Schematic diagram of two flow resistances in series that connect a source and a volume.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.3 </span><span class="caption-text">Schematic diagram of two flow resistances in series that connect a source and a volume.</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation to compute the mass flow rate or the pressure drop.
 To avoid a nonlinear equation, use any of the measures below.</p>
 <blockquote>
@@ -256,10 +288,12 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </ul>
 </div></blockquote>
 <p>Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <a class="reference internal image-reference" href="_images/resistanceValveSeries.svg"><img alt="_images/resistanceValveSeries.svg" src="_images/resistanceValveSeries.svg" width="600px" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>Suppose the parameters are</p>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">FixedResistances</span><span class="o">.</span><span class="n">PressureDrop</span> <span class="n">res</span><span class="p">(</span>
   <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
@@ -273,10 +307,12 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 </pre></div>
 </div>
 <p>To avoid a nonlinear equation, the flow resistance could be deleted as shown below.</p>
-<div class="figure align-default" id="id6">
+<figure class="align-default" id="id6">
 <a class="reference internal image-reference" href="_images/valveNoResistance.svg"><img alt="_images/valveNoResistance.svg" src="_images/valveNoResistance.svg" width="600px" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Schematic diagram of a valve that connects a source and a volume.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Schematic diagram of a valve that connects a source and a volume.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>If the valve is configured as</p>
 <div class="highlight-modelica notranslate"><div class="highlight"><pre><span></span><span class="n">Buildings</span><span class="o">.</span><span class="n">Fluid</span><span class="o">.</span><span class="n">Actuators</span><span class="o">.</span><span class="n">Valves</span><span class="o">.</span><span class="n">TwoWayLinear</span> <span class="n">val</span><span class="p">(</span>
   <span class="kr">redeclare</span> <span class="kr">package</span> <span class="nc">Medium</span> <span class="o">=</span> <span class="n">Medium</span><span class="p">,</span>
@@ -294,13 +330,13 @@ To avoid a nonlinear equation, use any of the measures below.</p>
 The valve model then computes the pressure drop using <span class="math notranslate nohighlight">\(\bar k\)</span> and the same equations as described above for the fixed resistances.
 Thus, the composite model has the same <a class="reference internal" href="glossary.html#term-valve-authority"><span class="xref std std-term">valve authority</span></a> and mass flow rate, but a nonlinear equation can be avoided.</p>
 <p>For more details, see the
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
-</div>
-<div class="section" id="prescribed-mass-flow-rate">
-<h3>3.2.3. Prescribed mass flow rate<a class="headerlink" href="#prescribed-mass-flow-rate" title="Permalink to this headline">¶</a></h3>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Actuators_UsersGuide.html">User’s Guide of the actuator package</a>.</p>
+</section>
+<section id="prescribed-mass-flow-rate">
+<h3><span class="section-number">3.3.3. </span>Prescribed mass flow rate<a class="headerlink" href="#prescribed-mass-flow-rate" title="Permalink to this headline">¶</a></h3>
 <p>For some system models, the mass flow rate can be prescribed by using an idealized pump or fan
 (model
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow">Buildings.Fluid.Movers.FlowControlled_m_flow</a>) or a source element that outputs the required mass flow rate (such as the model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T">Buildings.Fluid.Sources.MassFlowSource_T</a>).
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowControlled_m_flow">Buildings.Fluid.Movers.FlowControlled_m_flow</a>) or a source element that outputs the required mass flow rate (such as the model <a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T">Buildings.Fluid.Sources.MassFlowSource_T</a>).
 Using these models avoids having to compute the intersection of the fan curve and the flow resistance.
 In some situations, this can lead to faster and more robust simulation.</p>
 <div class="admonition warning">
@@ -309,9 +345,9 @@ In some situations, this can lead to faster and more robust simulation.</p>
 agains a closed valve (or damper). Otherwise, it will force the flow through the component,
 which leads to very large pressure drops.</p>
 </div>
-</div>
-<div class="section" id="avoiding-events">
-<h3>3.2.4. Avoiding events<a class="headerlink" href="#avoiding-events" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="avoiding-events">
+<h3><span class="section-number">3.3.4. </span>Avoiding events<a class="headerlink" href="#avoiding-events" title="Permalink to this headline">¶</a></h3>
 <p>In Modelica, the time integration is halted whenever a Real elementary
 operation such as <span class="math notranslate nohighlight">\(x&gt;y\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are variables of type <code class="docutils literal notranslate"><span class="pre">Real</span></code>,
 changes its value. In this situation,
@@ -363,20 +399,20 @@ Adding dynamics may be achieved using a formulation such as</p>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">tau</span></code>&gt;0 is a time constant. See, for example,
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort</a>
 for a robust implementation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the package
-<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v8.0.0/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math">Buildings.Utilities.Math</a>
+<a class="reference external" href="https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math">Buildings.Utilities.Math</a>
 the functions and blocks whose names start with <code class="docutils literal notranslate"><span class="pre">smooth</span></code> can be used to avoid events.</p>
 </div>
-</div>
-</div>
-<div class="section" id="examples-for-how-to-debug-and-correct-slow-simulations">
-<span id="sec-example-event-debugging"></span><h2>3.3. Examples for how to debug and correct slow simulations<a class="headerlink" href="#examples-for-how-to-debug-and-correct-slow-simulations" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="state-events">
-<h3>3.3.1. State events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="examples-for-how-to-debug-and-correct-slow-simulations">
+<span id="sec-example-event-debugging"></span><h2><span class="section-number">3.4. </span>Examples for how to debug and correct slow simulations<a class="headerlink" href="#examples-for-how-to-debug-and-correct-slow-simulations" title="Permalink to this headline">¶</a></h2>
+<section id="state-events">
+<h3><span class="section-number">3.4.1. </span>State events<a class="headerlink" href="#state-events" title="Permalink to this headline">¶</a></h3>
 <p>This section shows how a simulation that stalls due to events can be debugged
 to find the root cause, and then corrected.
 While the details may differ from one tool to another, the principle is the same.
@@ -390,10 +426,12 @@ We run</p>
 </div>
 <p>and plotted the computing time and the number of events. Around <span class="math notranslate nohighlight">\(t=0.95e7\)</span> seconds,
 there was a spike as shown in the figure below.</p>
-<div class="figure align-default" id="id7">
+<figure class="align-default" id="id7">
 <a class="reference internal image-reference" href="_images/DualFanDualDuct-cpu-events.png"><img alt="_images/DualFanDualDuct-cpu-events.png" src="_images/DualFanDualDuct-cpu-events.png" style="width: 300pt;" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>As the number of events increased drastically, we enabled in Dymola in
 <cite>Simulation -&gt; Setup</cite>, under the tab <cite>Debug</cite> the entry <cite>Events during simulation</cite>
 and simulated the model from
@@ -429,11 +467,13 @@ which shows that it is used in the economizer control
 to switch the sign of the control gain because the economizer can provide heating or cooling,
 depending on the ambient and return air temperature. The problematic model is
 shown in the figure below.</p>
-<div class="figure align-default" id="id8">
+<figure class="align-default" id="id8">
 <span id="fig-dualfan-eco-con-bad"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-bad.svg"><img alt="_images/EconomizerTemperatureControl-bad.svg" src="_images/EconomizerTemperatureControl-bad.svg" width="600pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
+<figcaption>
+<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Block diagram of part of the economizer control that computes the outside air damper
 control signal. This implementation triggers many events.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</div>
+</figcaption>
+</figure>
 <p>The events are triggered by the inequality block which changes the control, which then in turn
 seems to cause a slight change in the return air temperature, possibly due
 to <a class="reference internal" href="glossary.html#term-numerical-noise"><span class="xref std std-term">numerical noise</span></a> or maybe because the return fan may change its operating point
@@ -445,23 +485,27 @@ Therefore, this equality comparison must be replaced by a block with hysteresis,
 which we did as shown in the figure below.
 We selected a hysteresis of <span class="math notranslate nohighlight">\(0.2\)</span> Kelvin, and now the model runs fine
 for the whole year.</p>
-<div class="figure align-default" id="id9">
+<figure class="align-default" id="id9">
 <span id="fig-dualfan-eco-con-revised"></span><a class="reference internal image-reference" href="_images/EconomizerTemperatureControl-revised.svg"><img alt="_images/EconomizerTemperatureControl-revised.svg" src="_images/EconomizerTemperatureControl-revised.svg" width="600pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
+<figcaption>
+<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Block diagram of part of the revised economizer control that computes the outside air damper
 control signal.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-<div class="section" id="state-variables-that-dominate-the-error-control">
-<h3>3.3.2. State variables that dominate the error control<a class="headerlink" href="#state-variables-that-dominate-the-error-control" title="Permalink to this headline">¶</a></h3>
+</figcaption>
+</figure>
+</section>
+<section id="state-variables-that-dominate-the-error-control">
+<h3><span class="section-number">3.4.2. </span>State variables that dominate the error control<a class="headerlink" href="#state-variables-that-dominate-the-error-control" title="Permalink to this headline">¶</a></h3>
 <p>In a development version of the model
 <code class="docutils literal notranslate"><span class="pre">Buildings.Examples.DualFanDualDuct.ClosedLoop</span></code>
 (commit <a class="reference external" href="https://github.com/lbl-srg/modelica-buildings/commit/ef410ee8a5d1816f8b8e171da7743e15caaa3163">ef410ee</a>),
 the simulation time was very slow during part of the
 simulation, as shown in <a class="reference internal" href="#fig-dualfan-filtered-speed"><span class="std std-numref">Fig. 3.9</span></a>.</p>
-<div class="figure align-default" id="id10">
+<figure class="align-default" id="id10">
 <span id="fig-dualfan-filtered-speed"></span><a class="reference internal image-reference" href="_images/DualFanDualDuctWithFilteredSpeed.svg"><img alt="_images/DualFanDualDuctWithFilteredSpeed.svg" src="_images/DualFanDualDuctWithFilteredSpeed.svg" width="400pt" /></a>
-<p class="caption"><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Computing time and number of events.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 <p>The number of state events did not increase in that time interval.
 To isolate the problem, we enabled in Dymola under <cite>Simulation -&gt; Setup</cite> the
 option to log which states dominate the error (see <cite>Debug</cite> tab).</p>
@@ -492,10 +536,10 @@ limit the step size significantly more often than other variables.
 Therefore, we removed these state variables
 by setting in the fan models the parameter <code class="docutils literal notranslate"><span class="pre">filteredSpeed=false</span></code>.
 After this change, the model simulates without problems.</p>
-</div>
-</div>
-<div class="section" id="numerical-solvers">
-<h2>3.4. Numerical solvers<a class="headerlink" href="#numerical-solvers" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="numerical-solvers">
+<h2><span class="section-number">3.5. </span>Numerical solvers<a class="headerlink" href="#numerical-solvers" title="Permalink to this headline">¶</a></h2>
 <p>Dymola 2021 is configured to use dassl as a default solver with a tolerance of
 1E-4.
 We recommend to change this setting to radau with a tolerance of around
@@ -510,8 +554,8 @@ However, the actual magnitude of the global integration error
 depends on the stability of the differential equation.
 As an extreme case, if a system is chaotic
 and uncontrolled, then the global integration error will grow rapidly.</p>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -529,8 +573,8 @@ and uncontrolled, then the global integration error will grow rapidly.</p>
       
     </p>
     <p>
-        &copy; Copyright 2012-2020, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.<br/>
+        &copy; Copyright 2012-2024, The Regents of the University of California (through Lawrence Berkeley National Laboratory).<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>

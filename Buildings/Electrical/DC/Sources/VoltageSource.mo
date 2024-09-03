@@ -29,15 +29,15 @@ equation
           rotation=90),
         Text(
           extent={{50,70},{150,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="+"),
         Text(
           extent={{50,-12},{150,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="-"),
         Text(visible = not use_V_in,
           extent={{-150,60},{150,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="V=%V")}),    Documentation(info="<html>
 <p>
 This model represents a simple DC voltage source with variable voltage.

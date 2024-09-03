@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Controls;
 model ConstantSpeedPumpStage "Staging control for constant speed pumps"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Time tWai "Waiting time";
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
 
   Modelica.Blocks.Interfaces.IntegerInput cooMod
     "Cooling mode - 0:off,  1: free cooling mode; 2: partially mechanical cooling; 3: fully mechanical cooling"
@@ -32,12 +32,14 @@ model ConstantSpeedPumpStage "Staging control for constant speed pumps"
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,10})));
-  Modelica.StateGraph.InitialStep off(nIn=1) "Free cooling mode"
+  Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
+                                             "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,70})));
-  Modelica.StateGraph.StepWithSignal twoOn "Two chillers are commanded on"
+  Modelica.StateGraph.StepWithSignal twoOn(nIn=1, nOut=1)
+                                           "Two chillers are commanded on"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,

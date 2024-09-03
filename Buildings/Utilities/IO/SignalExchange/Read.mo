@@ -23,9 +23,9 @@ model Read "Block that allows a signal to be read as an FMU output"
     KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RelativeHumidity or
     KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.CO2Concentration)));
 
-protected
   final parameter Boolean boptestRead = true
-    "Protected parameter, used by tools to search for read block in models";
+    "Parameter that is used by tools to search for read block in models";
+
   annotation (Documentation(info="<html>
 <p>
 This block enables the reading of a signal and its meta-data by an external
@@ -58,6 +58,11 @@ the parameter <code>zone</code> for more details.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 17, 2022 by David Blum:<br/>
+Made parameter <code>boptestRead</code> unprotected.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1585\">#1585</a>.
+</li>
 <li>
 February 23, 2020 by David Blum:<br/>
 Added zone designation for KPI calculation by parameter <code>zone</code>.
@@ -108,7 +113,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1059\">#1059</a>.
           rotation=90),
         Text(
           extent={{-50,-24},{54,-72}},
-          lineColor={153,153,153},
+          textColor={153,153,153},
           textString=DynamicSelect("", if (
             (KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature) or
             (KPIs==Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.RadiativeZoneTemperature) or

@@ -11,7 +11,7 @@ connector Terminal_n "AC three-phase balanced terminal ('negative')"
         extent={{-100,-100},{100,100}},
         grid={2,2}), graphics={           Text(
           extent={{-60,60},{60,-60}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           pattern=LinePattern.None,
           textString=""),                    Polygon(
           points={{-100,100},{-100,-100},{100,-100},{100,100},{-100,100}},
@@ -24,11 +24,11 @@ connector Terminal_n "AC three-phase balanced terminal ('negative')"
         grid={2,2}), graphics={
         Text(
           extent={{-120,120},{100,60}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="%name"),
         Text(
           extent={{14,16},{114,-84}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           pattern=LinePattern.None,
           textString=""),                    Polygon(
           points={{-100,50},{-100,-50},{0,-50},{0,50},{-100,50}},

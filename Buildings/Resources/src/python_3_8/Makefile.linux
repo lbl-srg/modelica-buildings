@@ -1,0 +1,39 @@
+#######################################################
+# LINUX OPERATING SYSTEMS
+#######################################################
+SHELL = /bin/sh
+ARCH = $(shell getconf LONG_BIT)
+# Makefile to compile Python interface
+# Michael Wetter (MWetter@lbl.gov) October 24, 2012
+
+PYTHONInc=/usr/include/python3.8
+PYTHONLib=/usr/lib/python3.8
+
+# Directory where executable will be copied to
+BINDIR = ../../Library/linux$(ARCH)
+
+#######################################################
+## Compilation flags
+CC = gcc
+
+CC_FLAGS_32 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.8 -lm -m32
+CC_FLAGS_64 = -Wall -std=c99 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.8 -lm -m64
+
+SRCS = pythonInterpreter.c
+OBJS = pythonInterpreter.o
+LIB  = libModelicaBuildingsPython_3_8.so
+
+# Note that -fPIC is recommended on Linux according to the Modelica specification
+
+all: clean
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
+	mv $(LIB) $(BINDIR)
+	@rm -f pythonInterpreter.o
+	@echo "==== library generated in $(BINDIR)"
+
+prg: clean
+	$(CC) -g testProgram.c $(SRCS) -o testProgram  $(CC_FLAGS_$(ARCH))
+
+clean:
+	rm -f $(OBJS) $(LIB) main.o main

@@ -16,19 +16,19 @@ block SunRiseSet
     final unit="s",
     displayUnit="h")
     "Time zone";
-  Interfaces.RealOutput nextSunRise(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput nextSunRise(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time of next sunrise"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Interfaces.RealOutput nextSunSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput nextSunSet(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time of next sunset"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanOutput sunUp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sunUp
     "Output true if the sun is up"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
@@ -43,14 +43,16 @@ protected
     final unit="s",
     fixed=false)
     "Simulation start time";
+  parameter Real timDifLocCiv(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
+    "Time difference between local and civil time";
+
   Real eqnTim(
     final quantity="Time",
     final unit="s")
     "Equation of time";
-  Real timDif(
-    final quantity="Time",
-    final unit="s")
-    "Time difference between local and civil time";
   Real timCor(
     final quantity="Time",
     final unit="s")
@@ -64,12 +66,18 @@ protected
     "Intermediate variable to calculate equation of time";
   Real cosHou
     "Cosine of hour angle";
+
+
   function nextHourAngle
     "Calculate the hour angle when the sun rises or sets next time"
     input Real t(
       final quantity="Time",
       final unit="s")
       "Current simulation time";
+    input Real timDifLocCiv(
+    final quantity="Time",
+    final unit="s")
+    "Time difference between local and civil time";
     input Real lat(
       final quantity="Angle",
       final unit="rad",
@@ -99,10 +107,6 @@ protected
       final quantity="Time",
       final unit="s")
       "Equation of time";
-    Real timDif(
-      final quantity="Time",
-      final unit="s")
-      "Time difference";
     Real decAng(
       final quantity="Angle",
       final unit="rad",
@@ -119,7 +123,7 @@ protected
       Bt := Modelica.Constants.pi*((tNext+86400)/86400-81)/182;
       eqnTim := 60*(9.87*Modelica.Math.sin(
         2*Bt)-7.53*Modelica.Math.cos(Bt)-1.5*Modelica.Math.sin(Bt));
-      timCor := eqnTim+timDif;
+      timCor := eqnTim+timDifLocCiv;
       decAng := Modelica.Math.asin(
         -k1*Modelica.Math.cos(
           (tNext/86400+10)*k2));
@@ -129,7 +133,8 @@ protected
     end while;
     houAng := Modelica.Math.acos(cosHou);
   end nextHourAngle;
-  function sunRise
+
+  function computeSunRise
     "Output the next sunrise time"
     input Real t(
       final quantity="Time",
@@ -139,6 +144,10 @@ protected
       final quantity="Time",
       final unit="s")
       "Simulation start time";
+    input Real timDifLocCiv(
+      final quantity="Time",
+      final unit="s")
+      "Time difference between local and civil time";
     input Real lat(
       final quantity="Angle",
       final unit="rad",
@@ -162,7 +171,7 @@ protected
       final quantity="Time",
       final unit="s")
       "Time correction";
-    Real sunRise(
+    Real sunRis(
       final quantity="Time",
       final unit="s")
       "Sunrise of the same day as input time";
@@ -173,19 +182,21 @@ protected
 
   algorithm
     (houAng,tNext,timCor) := nextHourAngle(
-      t,
-      lat);
-    sunRise :=(12-houAng*24/(2*Modelica.Constants.pi)-timCor/3600)*3600+floor(
+      t=t,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat);
+    sunRis :=(12-houAng*24/(2*Modelica.Constants.pi)-timCor/3600)*3600+floor(
       tNext/86400)*86400;
     //If simulation start time has passed the sunrise of the initial day, output
     //the sunrise of the next day.
-    if staTim > sunRise then
-      nextSunRise := sunRise+86400;
+    if staTim > sunRis then
+      nextSunRise := sunRis+86400;
     else
-      nextSunRise := sunRise;
+      nextSunRise := sunRis;
     end if;
-  end sunRise;
-  function sunSet
+  end computeSunRise;
+
+  function computeSunSet
     "Output the next sunset time"
     input Real t(
       final quantity="Time",
@@ -195,6 +206,10 @@ protected
       final quantity="Time",
       final unit="s")
       "Simulation start time";
+    input Real timDifLocCiv(
+      final quantity="Time",
+      final unit="s")
+      "Time difference between local and civil time";
     input Real lat(
       final quantity="Angle",
       final unit="rad",
@@ -229,8 +244,9 @@ protected
 
   algorithm
     (houAng,tNext,timCor) := nextHourAngle(
-      t,
-      lat);
+      t=t,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat);
     sunSet :=(12+houAng*24/(2*Modelica.Constants.pi)-timCor/3600)*3600+floor(
       tNext/86400)*86400;
     //If simulation start time has passed the sunset of the initial day, output
@@ -240,50 +256,56 @@ protected
     else
       nextSunSet := sunSet;
     end if;
-  end sunSet;
+  end computeSunSet;
 
 initial equation
   staTim=time;
-  nextSunRise=sunRise(
-    time-86400,
-    staTim,
-    lat);
+  timDifLocCiv=lon*43200/Modelica.Constants.pi-timZon;
+  nextSunRise=computeSunRise(
+    t=time-86400,
+    staTim=staTim,
+    timDifLocCiv=timDifLocCiv,
+    lat=lat);
+
   //In the polar cases where the sun is up during initialization, the next sunset
   //actually occurs before the next sunrise
   if cosHou <-1 then
-    nextSunSet=sunSet(
-      time-86400,
-      staTim,
-      lat)-86400;
+    nextSunSet=computeSunSet(
+      t=time-86400,
+      staTim=staTim,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat)-86400;
   else
-    nextSunSet=sunSet(
-      time-86400,
-      staTim,
-      lat);
+    nextSunSet=computeSunSet(
+      t=time-86400,
+      staTim=staTim,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat);
   end if;
 
 equation
   Bt=Modelica.Constants.pi*((time+86400)/86400-81)/182;
   eqnTim=60*(9.87*Modelica.Math.sin(
     2*Bt)-7.53*Modelica.Math.cos(Bt)-1.5*Modelica.Math.sin(Bt));
-  timDif=lon*43200/Modelica.Constants.pi-timZon;
-  timCor=eqnTim+timDif;
+  timCor=eqnTim+timDifLocCiv;
   decAng=Modelica.Math.asin(
     -k1*Modelica.Math.cos(
       (time/86400+10)*k2));
   cosHou=-Modelica.Math.tan(lat)*Modelica.Math.tan(decAng);
   //When time passes the current sunrise/sunset, output the next sunrise/sunset
   when time >= pre(nextSunRise) then
-    nextSunRise=sunRise(
-      time,
-      staTim,
-      lat);
+    nextSunRise=computeSunRise(
+      t=time,
+      staTim=staTim,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat);
   end when;
   when time >= pre(nextSunSet) then
-    nextSunSet=sunSet(
-      time,
-      staTim,
-      lat);
+    nextSunSet=computeSunSet(
+      t=time,
+      staTim=staTim,
+      timDifLocCiv=timDifLocCiv,
+      lat=lat);
   end when;
   sunUp=nextSunSet < nextSunRise;
   annotation (
@@ -310,8 +332,14 @@ Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>.
       revisions="<html>
 <ul>
 <li>
+January 4, 2022, by Michael Wetter:<br/>
+Changed implementation to avoid NaN in OpenModelica.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
+</li>
+<li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -332,7 +360,7 @@ issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/829\">829</
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,160},{100,106}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{70,-100},{-70,20}},

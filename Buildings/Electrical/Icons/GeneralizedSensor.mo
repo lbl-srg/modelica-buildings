@@ -39,20 +39,20 @@ partial class GeneralizedSensor
           smooth=Smooth.None),
         Text(
           extent={{-60,-42},{60,-82}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="V"),
         Text(
           extent={{0,-40},{120,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="I"),    Text(
           extent={{-140,110},{140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),    Documentation(info="<html>
 <p>
 This is the icon for ideal sensors that measure power, voltage and current.

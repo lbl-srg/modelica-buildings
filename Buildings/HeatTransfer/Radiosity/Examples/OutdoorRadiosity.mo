@@ -7,7 +7,7 @@ model OutdoorRadiosity "Test model for outdoor radiosity"
   Buildings.HeatTransfer.Radiosity.OutdoorRadiosity outRad(A=A, vieFacSky=0.5)
     "Outdoor radiosity model"
     annotation (Placement(transformation(extent={{-40,-22},{-20,-2}})));
-  parameter Modelica.SIunits.Area A=1 "Area of receiving surface";
+  parameter Modelica.Units.SI.Area A=1 "Area of receiving surface";
   Modelica.Blocks.Sources.Ramp TSky(
     duration=1,
     height=30,

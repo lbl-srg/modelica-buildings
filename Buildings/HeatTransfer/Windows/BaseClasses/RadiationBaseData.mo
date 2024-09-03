@@ -1,6 +1,8 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial record RadiationBaseData
   "Basic parameters for window radiation calculation"
+  extends Modelica.Icons.Record;
+
 
   parameter Integer N(min=1) "Number of glass layers"
     annotation (Dialog(group="Glass"));
@@ -9,27 +11,27 @@ partial record RadiationBaseData
     "Number of window states for electrochromic windows (set to 1 for regular windows)"
     annotation (Evaluate=true);
 
-  parameter Modelica.SIunits.Length xGla[N] "Thickness of glass"
-  annotation (Dialog(group="Glass"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauGlaSol[N, :]
+  parameter Modelica.Units.SI.Length xGla[N] "Thickness of glass"
+    annotation (Dialog(group="Glass"));
+  parameter Modelica.Units.SI.TransmissionCoefficient tauGlaSol[N,:]
     "Solar transmissivity of glass" annotation (Dialog(group="Glass"));
-  parameter Modelica.SIunits.ReflectionCoefficient rhoGlaSol_a[N, NSta]
+  parameter Modelica.Units.SI.ReflectionCoefficient rhoGlaSol_a[N,NSta]
     "Solar reflectivity of glass at surface a (facing outside)"
     annotation (Dialog(group="Glass"));
-  parameter Modelica.SIunits.ReflectionCoefficient rhoGlaSol_b[N, NSta]
+  parameter Modelica.Units.SI.ReflectionCoefficient rhoGlaSol_b[N,NSta]
     "Solar reflectivity of glass at surface b (facing room-side)"
     annotation (Dialog(group="Glass"));
 
-  parameter Modelica.SIunits.TransmissionCoefficient tauShaSol_a
+  parameter Modelica.Units.SI.TransmissionCoefficient tauShaSol_a
     "Solar transmissivity of shade for irradiation from air-side"
     annotation (Dialog(group="Shade"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauShaSol_b
+  parameter Modelica.Units.SI.TransmissionCoefficient tauShaSol_b
     "Solar transmissivity of shade for irradiation from glass-side"
     annotation (Dialog(group="Shade"));
-  parameter Modelica.SIunits.ReflectionCoefficient rhoShaSol_a
+  parameter Modelica.Units.SI.ReflectionCoefficient rhoShaSol_a
     "Solar reflectivity of shade for irradiation from air-side"
     annotation (Dialog(group="Shade"));
-  parameter Modelica.SIunits.ReflectionCoefficient rhoShaSol_b
+  parameter Modelica.Units.SI.ReflectionCoefficient rhoShaSol_b
     "Solar reflectivity of shade for irradiation from glass-side"
     annotation (Dialog(group="Shade"));
 

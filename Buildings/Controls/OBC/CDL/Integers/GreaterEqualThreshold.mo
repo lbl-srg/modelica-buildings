@@ -3,10 +3,10 @@ block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
   parameter Integer t=0
     "Comparison with respect to a threshold";
-  Interfaces.IntegerInput u
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -21,7 +21,7 @@ equation
       graphics={
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%t"),
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -46,7 +46,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-54,22},{-8,2},{-54,-18}},
           thickness=0.5,

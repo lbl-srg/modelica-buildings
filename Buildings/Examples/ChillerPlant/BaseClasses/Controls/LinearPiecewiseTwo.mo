@@ -81,40 +81,40 @@ First implementation.
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-52,6},{-42,-2}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y[1]"),
         Text(
           extent={{24,6},{34,-2}},
-          lineColor={128,0,255},
+          textColor={128,0,255},
           textString="y[2]",
           lineThickness=1),
         Text(
           extent={{-74,-52},{-64,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x0"),
         Text(
           extent={{-18,-52},{-8,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x1"),
         Text(
           extent={{40,-52},{50,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x2"),
         Text(
           extent={{-80,-38},{-70,-46}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y10"),
         Text(
           extent={{-80,34},{-68,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="y11"),
         Text(
           extent={{48,50},{60,42}},
-          lineColor={128,0,255},
+          textColor={128,0,255},
           textString="y21"),
         Text(
           extent={{48,-32},{58,-40}},
-          lineColor={128,0,255},
+          textColor={128,0,255},
           textString="y20",
           lineThickness=1),
         Line(
@@ -144,6 +144,6 @@ First implementation.
           smooth=Smooth.None),
         Text(
           extent={{62,-46},{72,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x")}));
 end LinearPiecewiseTwo;

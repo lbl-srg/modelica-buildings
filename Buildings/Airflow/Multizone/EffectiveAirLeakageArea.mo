@@ -1,10 +1,10 @@
 within Buildings.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(
+  extends Buildings.Airflow.Multizone.Coefficient_V_flow(
     m=0.65,
-    final k=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
+    final C=L * CDRat * sqrt(2.0/rho_default) * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.PressureDifference dpRat(
+  parameter Modelica.Units.SI.PressureDifference dpRat(
     min=0,
     displayUnit="Pa") = 4 "Pressure drop"
     annotation (Dialog(group="Rating conditions"));
@@ -13,10 +13,10 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     max=1) = 1 "Discharge coefficient"
     annotation (Dialog(group="Rating conditions"));
 
-  parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
+  parameter Modelica.Units.SI.Area L(min=0) "Effective leakage area";
 
-equation
-   v = V_flow/L;
+  Modelica.Units.SI.Velocity v(nominal=1) = V_flow/L "Average velocity";
+
   annotation (Icon(graphics={
         Rectangle(
           extent={{-50,48},{50,-42}},
@@ -32,7 +32,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,92},{-20,54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -40,7 +40,7 @@ equation
                "L=%L"),
         Text(
           extent={{22,94},{98,56}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
@@ -77,17 +77,17 @@ This model describes the one-directional pressure driven
 air flow through a crack-like opening, using the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-    V&#775; = k &Delta;p<sup>m</sup>,
+    V&#775; = C &Delta;p<sup>m</sup>,
 </p>
 <p>
 where
 <i>V&#775;</i> is the volume flow rate,
-<i>k</i> is a flow coefficient and
+<i>C</i> is a flow coefficient and
 <i>m</i> is the flow exponent.
 The flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
+C = L C<sub>D,Rat</sub> &Delta;p<sub>Rat</sub><sup>(0.5-m)</sup> (2/&rho;<sub>0</sub>)<sup>0.5</sup>,
 </p>
 <p>
 where
@@ -124,10 +124,21 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </li>
+<li>Michael Wetter. <a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">Multizone Airflow Model in Modelica.</a> Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006. </li>
 </ul>
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Revised implementation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1436\">IBPSA, #1436</a>.
+</li>
+<li>
+Apr 6, 2021, by Klaas De Jonge:<br/>
+Changes due to changes in the baseclass, velocity is now a top-level variable.
+</li>
 <li>
 June 24, 2018, by Michael Wetter:<br/>
 Removed parameter <code>lWet</code> as it is only used to compute

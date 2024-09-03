@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block IntegerToReal
   "Convert Integer to Real signals"
-  Interfaces.IntegerInput u
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -20,18 +20,18 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={255,127,0},
+          textColor={255,127,0},
           extent={{-120.0,-40.0},{-20.0,40.0}},
           textString="I"),
         Text(
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillPattern=FillPattern.Solid,
           extent={{0.0,-40.0},{100.0,40.0}},
           textString="R"),

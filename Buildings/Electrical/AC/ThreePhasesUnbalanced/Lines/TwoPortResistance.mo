@@ -2,12 +2,12 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortResistance "Model of a resistance with two electrical ports"
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort;
   extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort;
-  parameter Modelica.SIunits.Temperature T_ref = 298.15 "Reference temperature"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Temperature M = 507.65
+  parameter Modelica.Units.SI.Temperature T_ref=298.15 "Reference temperature"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Temperature M=507.65
     "Temperature constant (R_actual = R*(M + T_heatPort)/(M + T_ref))"
-    annotation(Evaluate=true);
-  parameter Modelica.SIunits.Resistance R "Resistance at temperature T_ref";
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.Resistance R "Resistance at temperature T_ref";
   OnePhase.Lines.TwoPortResistance  phase1(
     final T_ref=T_ref,
     final M=M,
@@ -74,7 +74,7 @@ equation
                                                graphics={
           Text(
             extent={{-140,-28},{138,-60}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R"),
           Line(points={{-92,0},{-72,0}}, color={0,0,0}),
           Line(points={{68,0},{88,0}}, color={0,0,0}),
@@ -85,7 +85,7 @@ equation
           fillPattern=FillPattern.Solid),
           Text(
             extent={{-142,80},{138,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 <p>

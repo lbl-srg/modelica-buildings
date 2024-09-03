@@ -6,15 +6,14 @@ model DuctManifoldFixedResistance
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
        annotation(Evaluate=true, Dialog(enable = not linearized));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Mass flow rate at port_a"  annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")
-    "Pressure drop"
-    annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter of duct"
-        annotation(Dialog(enable= not linearized));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Mass flow rate at port_a" annotation (Dialog(group="Nominal Condition"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(min=0, displayUnit=
+        "Pa") "Pressure drop" annotation (Dialog(group="Nominal Condition"));
+  parameter Modelica.Units.SI.Length dh=1 "Hydraulic diameter of duct"
+    annotation (Dialog(enable=not linearized));
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts"
+    "Reynolds number where transition to turbulence starts"
    annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"

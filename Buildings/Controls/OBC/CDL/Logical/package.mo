@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Logical
-  "Package with logical blocks"
+package Logical "Package with logical blocks"
   annotation (
     Documentation(
       info="<html>

@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Math.Functions.Examples.Interpolate", stopTime=500, tolerance=1e-06, resultFile="Interpolate");
+createPlot(id=1, position={15, 15, 584, 361}, x="dp", y={"m_flow"}, range={-50.0, 50.0, -0.1, 0.04000000000000001}, grid=true, filename="Interpolate.mat", colors={{28,108,200}}, timeUnit="Pa", displayUnits={"kg/s"});

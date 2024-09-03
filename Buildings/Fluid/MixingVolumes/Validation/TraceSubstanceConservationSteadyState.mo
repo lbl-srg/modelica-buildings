@@ -66,7 +66,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationSteadyState.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/TraceSubstanceConservationSteadyState.mos"
         "Simulate and plot"));
 end TraceSubstanceConservationSteadyState;

@@ -25,31 +25,38 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
-    start=Medium.T_default-2,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+  // Modelica.Math.atan returns a value with unit set to "rad".
+  // The following constant is used to satisfy the unit check.
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
+  constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
+
+  Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
-  Modelica.SIunits.MassFraction XiDryBul
+  Modelica.Units.SI.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  Modelica.SIunits.MassFraction XiSatRefIn
+  Modelica.Units.SI.MassFraction XiSat
+    "Water vapor mass fraction at saturation";
+  Modelica.Units.SI.MassFraction XiSatRefIn
     "Water vapor mass fraction at saturation, referenced to inlet mass flow rate";
 
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100*phi;
-    TWetBul      = 273.15 + TDryBul_degC
+    TWetBul      = 273.15 + uniCon1 * TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
-       + Modelica.Math.atan(TDryBul_degC + rh_per)
-       - Modelica.Math.atan(rh_per-1.676331)
-       + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
+       + uniConK * (Modelica.Math.atan(TDryBul_degC + rh_per)
+         - Modelica.Math.atan(rh_per-1.676331)
+         + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per))
+       - 4.686035;
     XiSat    = 0;
     XiDryBul = 0;
     XiSatRefIn=0;
@@ -82,24 +89,24 @@ annotation (
             100}}), graphics={
         Text(
           extent={{-92,100},{-62,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-92,14},{-72,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-90,-72},{-72,-90}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="p"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
         Line(points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -113,7 +120,7 @@ annotation (
         Line(points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -169,6 +176,18 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Changed icon.

@@ -2,7 +2,7 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertWaterFlow "Assert if water flow is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.MassFlowRate mWatMin_flow
+  parameter Modelica.Units.SI.MassFlowRate mWatMin_flow
     "Minimum cooling water mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput runSig
@@ -22,7 +22,7 @@ model AssertWaterFlow "Assert if water flow is outside boundaries"
 protected
   Buildings.Controls.OBC.CDL.Logical.Nand nand "Logical Nand"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0.99*mWatMin_flow - 1e-6,
     final uHigh=1.01*mWatMin_flow)
     "Check if water flow rate is larger than minimum rate"

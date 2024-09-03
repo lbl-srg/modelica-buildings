@@ -1,6 +1,8 @@
 compareVars :=
   {
     "ram_m_flow.y",
+    "gaiMasFlo.y",
     "massFlowRateMultiplier.port_a.m_flow",
-    "massFlowRateMultiplier.port_b.m_flow"
+    "massFlowRateMultiplier.port_b.m_flow",
+    "massFlowRateMultiplier1.port_b.m_flow"
   };

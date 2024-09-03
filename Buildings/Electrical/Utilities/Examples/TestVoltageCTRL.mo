@@ -15,7 +15,7 @@ model TestVoltageCTRL
     annotation (Placement(transformation(extent={{-70,-36},{-50,-16}})));
   Modelica.Blocks.Sources.Sine cosine(
     amplitude=20,
-    freqHz=0.1,
+    f=0.1,
     phase=0,
     offset=120) "Variable voltage signal"
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));

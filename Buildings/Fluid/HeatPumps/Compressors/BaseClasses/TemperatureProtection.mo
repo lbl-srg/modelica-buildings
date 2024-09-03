@@ -2,9 +2,9 @@ within Buildings.Fluid.HeatPumps.Compressors.BaseClasses;
 model TemperatureProtection
   "Temperature protection for heat pump compressor"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Temperature TConMax
+  parameter Modelica.Units.SI.Temperature TConMax
     "Upper bound for condenser temperature";
-  parameter Modelica.SIunits.Temperature TEvaMin
+  parameter Modelica.Units.SI.Temperature TEvaMin
     "Lower bound for evaporator temperature";
   parameter Real dTHys(
     final unit="K",

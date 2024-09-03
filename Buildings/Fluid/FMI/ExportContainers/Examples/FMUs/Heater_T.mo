@@ -9,14 +9,14 @@ block Heater_T
       final QMax_flow=QMax_flow,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
-  parameter Modelica.SIunits.HeatFlowRate QMax_flow=Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate QMin_flow=-Modelica.Constants.inf
+  parameter Modelica.Units.SI.HeatFlowRate QMin_flow=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")=0
-    "Pressure";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
+     = 0 "Pressure";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
@@ -106,7 +106,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-56,74},{54,14}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="TSet"),
         Rectangle(
           extent={{-100,61},{-68,58}},
@@ -116,14 +116,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FMI/
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,94},{-60,66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="T"),
         Text(
           extent={{64,92},{108,64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q"),
                    Text(
           extent={{26,-28},{70,-74}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="+")}));
 end Heater_T;

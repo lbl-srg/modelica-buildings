@@ -5,8 +5,16 @@
  * Filip Jorissen, KU Leuven
  */
 
-#include "jsonWriterInit.h"
+#ifndef IBPSA_JSONWRITERINIT_c
+#define IBPSA_JSONWRITERINIT_c
+
+#include <stdlib.h>
+#include <string.h>
+
 #include "fileWriterStructure.c"
+#include "ModelicaUtilities.h"
+
+#include "jsonWriterInit.h"
 
 void* jsonWriterInit(
   const char* instanceName,
@@ -24,16 +32,16 @@ void* jsonWriterInit(
 
   ID->numKeys=numKeys;
 
-  ID-> varKeys = malloc(numKeys * sizeof(char*));
+  ID-> varKeys = (char **)malloc(numKeys * sizeof(char*));
   if ( ID->varKeys == NULL )
     ModelicaError("Not enough memory in jsonWriterInit.c for allocating varKeys[].");
-  ID-> varVals = malloc(numKeys * sizeof(double));
+  ID-> varVals = (double *)malloc(numKeys * sizeof(double));
   if ( ID->varVals == NULL )
     ModelicaError("Not enough memory in jsonWriterInit.c for allocating varVals[].");
 
   for (i = 0; i < numKeys; ++i)
   {
-    ID-> varKeys[i] = malloc((strlen(varKeys[i])+1) * sizeof(char*));
+    ID-> varKeys[i] = (char *)malloc((strlen(varKeys[i])+1) * sizeof(char));
     if ( ID->varKeys[i] == NULL )
       ModelicaError("Not enough memory in jsonWriterInit.c for allocating varKeys.");
       strcpy(ID->varKeys[i], varKeys[i]);
@@ -88,3 +96,5 @@ void writeJson(void *ptrFileWriter,  const double* varVals, const int numVals){
   if (fclose(fOut) == EOF)
     ModelicaFormatError("In writeJson.c: Returned an error when closing %s.", ID->fileWriterName);
 }
+
+#endif

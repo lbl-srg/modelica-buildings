@@ -4,9 +4,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium1 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium1 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -14,9 +14,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium2 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium2 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -24,9 +24,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium3 =
     Modelica.Media.Interfaces.PartialMedium "Medium 3 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium3 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium3 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium3 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -34,9 +34,9 @@ partial model EightPort "Partial model with eight ports"
   replaceable package Medium4 =
     Modelica.Media.Interfaces.PartialMedium "Medium 4 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium4 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium4 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium4 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -55,35 +55,35 @@ partial model EightPort "Partial model with eight ports"
     "= true to allow flow reversal in medium 4, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a1_start = Medium1.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a1_start=Medium1.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b1_start = Medium1.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b1_start=Medium1.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a2_start = Medium2.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a2_start=Medium2.h_default
     "Start value for enthalpy flowing out of port a2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b2_start = Medium2.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b2_start=Medium2.h_default
     "Start value for enthalpy flowing out of port b2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-    parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a3_start = Medium3.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a3_start=Medium3.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b3_start = Medium3.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b3_start=Medium3.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-    parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a4_start = Medium4.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_a4_start=Medium4.h_default
     "Start value for enthalpy flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b4_start = Medium4.h_default
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_b4_start=Medium4.h_default
     "Start value for enthalpy flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
@@ -151,9 +151,14 @@ may be used by models that extend this model to treat flow reversal. </p>
 </html>", revisions="<html>
 <ul>
 <li>
+August 27, 2024, by Jianjun Hu:<br/>
+Corrected dropdown media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
+</li>
+<li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050</a>.
 </li>
 <li>July 2014, by Damien Picard:<br/>First implementation. </li>
 </ul>
@@ -163,7 +168,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
           extent={{-100,-100},{100,100}},
           grid={1,1}), graphics={Text(
           extent={{-151,147},{149,107}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
           textString="%name")}),

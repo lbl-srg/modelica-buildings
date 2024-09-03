@@ -61,23 +61,23 @@ equation
           lineColor={0,0,0}),
         Text(
           extent={{104,76},{154,56}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRad"),
         Text(
           extent={{100,-28},{150,-48}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QRad"),
         Text(
           extent={{100,-78},{150,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QCon"),
         Text(
           extent={{106,-128},{156,-148}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLat"),
         Text(
           extent={{-72,252},{70,146}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-144,-24},{80,-32}},
@@ -153,7 +153,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}}),
         graphics={Text(
           extent={{104,152},{118,146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
 <p>

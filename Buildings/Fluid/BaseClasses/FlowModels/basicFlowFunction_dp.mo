@@ -2,16 +2,16 @@ within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
 
-  input Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+  input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  input Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  output Modelica.SIunits.MassFlowRate m_flow
+  output Modelica.Units.SI.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.PressureDifference dp_turbulent = (m_flow_turbulent/k)^2
+  Modelica.Units.SI.PressureDifference dp_turbulent=(m_flow_turbulent/k)^2
     "Pressure where flow changes to turbulent";
   Real dpNorm=dp/dp_turbulent
     "Normalised pressure difference";
@@ -33,7 +33,7 @@ algorithm
           color={0,0,255},
           thickness=1), Text(
           extent={{-40,-40},{40,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={232,0,0},
           textString="%name")}),
@@ -42,14 +42,14 @@ Documentation(info="<html>
 Function that computes the pressure drop of flow elements as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 with regularization near the origin.
 Therefore, the flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.

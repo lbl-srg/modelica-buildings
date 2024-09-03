@@ -21,27 +21,22 @@ partial model PartialBorehole
 
   parameter Integer nSeg(min=1) = 10
     "Number of segments to use in vertical discretization of the boreholes";
-  parameter Modelica.SIunits.Temperature TGro_start[nSeg]
-    "Start value of grout temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TGro_start[nSeg]
+    "Start value of grout temperature" annotation (Dialog(tab="Initialization"));
 
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg] = TGro_start
-    "Start value of fluid temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=TGro_start
+    "Start value of fluid temperature" annotation (Dialog(tab="Initialization"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
 
-  parameter Boolean dynFil=true
-      "Set to false to remove the dynamics of the filling material"
-      annotation (Dialog(tab="Dynamics"));
   parameter Data.Borefield.Template borFieDat "Borefield parameters"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -56,6 +51,12 @@ as several borehole segments, with a uniform borehole wall boundary condition.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.

@@ -22,20 +22,20 @@ model SolarRadiationExchange
   // the model assumes diffuse reflection, whereas in reality, reflection of the solar
   // radiation at the floor is likely specular, and therefore less radiation would hit
   // the window from the room-side.
-  parameter Boolean isFloorConExt[NConExt]
+  parameter Boolean is_floorConExt[NConExt]
     "Flag to indicate if floor for exterior constructions";
-  parameter Boolean isFloorConExtWin[NConExtWin]
+  parameter Boolean is_floorConExtWin[NConExtWin]
     "Flag to indicate if floor for constructions";
-  parameter Boolean isFloorConPar_a[NConPar]
+  parameter Boolean is_floorConPar_a[NConPar]
     "Flag to indicate if floor for constructions";
-  parameter Boolean isFloorConPar_b[NConPar]
+  parameter Boolean is_floorConPar_b[NConPar]
     "Flag to indicate if floor for constructions";
-  parameter Boolean isFloorConBou[NConBou]
+  parameter Boolean is_floorConBou[NConBou]
     "Flag to indicate if floor for constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Boolean isFloorSurBou[NSurBou]
+  parameter Boolean is_floorSurBou[NSurBou]
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
-  parameter Modelica.SIunits.Emissivity tauGla[NConExtWin]
+  parameter Modelica.Units.SI.Emissivity tauGla[NConExtWin]
     "Transmissivity of window";
 
   Modelica.Blocks.Interfaces.RealInput JInDifConExtWin[NConExtWin](each unit="W")
@@ -49,7 +49,7 @@ model SolarRadiationExchange
     "Outgoing solar radiation that strikes window per unit area"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
-  Modelica.SIunits.HeatFlowRate JOutConExtWin[NConExtWin]
+  Modelica.Units.SI.HeatFlowRate JOutConExtWin[NConExtWin]
     "Outgoing solar radiation that strikes the window";
 
 protected
@@ -57,20 +57,21 @@ protected
     "Intermediate variable for gain for direct solar radiation distribution";
   final parameter Real kDir2(fixed=false)
     "Intermediate variable for gain for solar radiation distribution";
-  Modelica.SIunits.HeatFlowRate Q_flow[NTot]
+  Modelica.Units.SI.HeatFlowRate Q_flow[NTot]
     "Total solar radiation that is absorbed by the surfaces (or transmitted back through the glass)";
   final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
     "Number of opaque surfaces, including the window frame";
   final parameter Integer NWin = NConExtWin "Number of window surfaces";
   final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
-  final parameter Boolean isFlo[NTot](each fixed=false)
+  final parameter Boolean is_flo[NTot](each fixed=false)
     "Flag, true if a surface is a floor";
   final parameter Real eps[NTot](each min=0, each max=1, each fixed=false)
     "Solar absorptivity";
   final parameter Real tau[NTot](each min=0, each max=1, each fixed=false)
     "Solar transmissivity";
-  final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
-  final parameter Modelica.SIunits.Area A[NTot](each fixed=false) "Surface areas";
+  final parameter Modelica.Units.SI.Area AFlo(fixed=false) "Total floor area";
+  final parameter Modelica.Units.SI.Area A[NTot](each fixed=false)
+    "Surface areas";
   final parameter Real kDif[NTot](
     each unit="1",
     each fixed=false)
@@ -94,36 +95,36 @@ initial equation
   for i in 1:NConExt loop
     eps[i] = epsConExt[i];
     A[i]      = AConExt[i];
-    isFlo[i]  = isFloorConExt[i];
+    is_flo[i]  = is_floorConExt[i];
   end for;
   for i in 1:NConPar loop
     eps[i+NConExt]           = epsConPar_a[i];
     A[i+NConExt]             = AConPar[i];
-    isFlo[i+NConExt]         = isFloorConPar_a[i];
+    is_flo[i+NConExt]         = is_floorConPar_a[i];
     eps[i+NConExt+NConPar]   = epsConPar_b[i];
     A[i+NConExt+NConPar]     = AConPar[i];
-    isFlo[i+NConExt+NConPar] = isFloorConPar_b[i];
+    is_flo[i+NConExt+NConPar] = is_floorConPar_b[i];
   end for;
   for i in 1:NConBou loop
     eps[i+NConExt+2*NConPar]   = epsConBou[i];
     A[i+NConExt+2*NConPar]     = AConBou[i];
-    isFlo[i+NConExt+2*NConPar] = isFloorConBou[i];
+    is_flo[i+NConExt+2*NConPar] = is_floorConBou[i];
   end for;
   for i in 1:NSurBou loop
     eps[i+NConExt+2*NConPar+NConBou]   = epsSurBou[i];
     A[i+NConExt+2*NConPar+NConBou]     = ASurBou[i];
-    isFlo[i+NConExt+2*NConPar+NConBou] = isFloorSurBou[i];
+    is_flo[i+NConExt+2*NConPar+NConBou] = is_floorSurBou[i];
   end for;
 
   for i in 1:NConExtWin loop
     // Opaque part of construction that has a window embedded
     eps[i+NConExt+2*NConPar+NConBou+NSurBou]   = epsConExtWinOpa[i];
     A[i+NConExt+2*NConPar+NConBou+NSurBou]     = AConExtWinOpa[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou] = isFloorConExtWin[i];
+    is_flo[i+NConExt+2*NConPar+NConBou+NSurBou] = is_floorConExtWin[i];
     // Window frame
     eps[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin]   = epsConExtWinFra[i];
     A[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin]     = AConExtWinFra[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = isFloorConExtWin[i];
+    is_flo[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = is_floorConExtWin[i];
   end for;
   // Window glass
   for i in 1:NConExtWin loop
@@ -138,7 +139,7 @@ initial equation
     // This simplification allows lumping the solar distribution into
     // a parameter.
     eps[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = epsConExtWinUns[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = isFloorConExtWin[i];
+    is_flo[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = is_floorConExtWin[i];
     A[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = AConExtWinGla[i];
   end for;
   // Vector with all surface areas.
@@ -158,7 +159,7 @@ initial equation
   end for;
 
   // Sum of surface areas and products of emmissivity, transmissivity and area
-  AFlo = sum( (if isFlo[i] then A[i] else 0) for i in 1:NTot);
+  AFlo = sum( (if is_flo[i] then A[i] else 0) for i in 1:NTot);
   epsTauA = (eps .+ tau).*A;
   sumEpsTauA = sum(epsTauA[i] for i in 1:NTot);
 
@@ -172,15 +173,15 @@ initial equation
   // Coefficient that is used for non-floor areas.
   // The expression  max(1E-20, AFlo) is used to prevent a division by zero in case AFlo=0.
   // The situation for AFlo=0 is caught by the assert statement.
-  kDir1 = sum((if isFlo[i] then (A[i]*(1 - eps[i] - tau[i])) else 0) for i in 1:
+  kDir1 = sum((if is_flo[i] then (A[i]*(1 - eps[i] - tau[i])) else 0) for i in 1:
     NTot)/max(1E-20, AFlo);
 
-  kDir2 = sum((if isFlo[i] then 0 else epsTauA[i]) for i in 1:NTot);
+  kDir2 = sum((if is_flo[i] then 0 else epsTauA[i]) for i in 1:NTot);
 
 
   if (kDir2 > 1E-10) then
     for i in 1:NTot loop
-      if isFlo[i] then
+      if is_flo[i] then
         kDir[i] = epsTauA[i]/AFlo;
       else
         kDir[i] =kDir1/kDir2*epsTauA[i];
@@ -189,7 +190,7 @@ initial equation
   else
         // This branch only happens if k2=0, i.e., there is no surface other than floors
     for i in 1:NTot loop
-      if isFlo[i] then
+      if is_flo[i] then
         kDir[i] = A[i]/AFlo;
       else
         kDir[i] = 0;
@@ -414,6 +415,12 @@ which it is diffusely distributed to the other surfaces.
 </html>",
         revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 June 7, 2016, by Michael Wetter:<br/>
 Removed <code>HTot</code> as this is not needed, and refactored

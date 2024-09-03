@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block And
   "Logical 'and': y = u1 and u2"
-  Interfaces.BooleanInput u1
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Connector of first Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Connector of second Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -28,7 +28,7 @@ equation
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-90,40},{90,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="and"),
         Ellipse(
           extent={{71,7},{85,-7}},
@@ -72,7 +72,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(
       info="<html>
 <p>

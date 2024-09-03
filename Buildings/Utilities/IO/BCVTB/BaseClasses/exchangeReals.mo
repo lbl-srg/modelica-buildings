@@ -3,13 +3,13 @@ function exchangeReals "Exchanges values of type Real with the socket"
 
   input Integer socketFD(min=1) "Socket file descripter";
   input Integer flaWri "Communication flag to write to the socket stream";
-  input Modelica.SIunits.Time simTimWri
+  input Modelica.Units.SI.Time simTimWri
     "Current simulation time in seconds to write";
   input Real[nDblWri] dblValWri "Double values to write";
   input Integer nDblWri "Number of double values to write";
   input Integer nDblRea "Number of double values to read";
   output Integer flaRea "Communication flag read from the socket stream";
-  output Modelica.SIunits.Time simTimRea
+  output Modelica.Units.SI.Time simTimRea
     "Current simulation time in seconds read from socket";
   output Real[nDblRea] dblValRea "Double values read from socket";
   output Integer retVal "The exit value, which is negative if an error occurred";

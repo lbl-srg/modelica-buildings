@@ -7,9 +7,9 @@ block AbsorptionIndirectSteam
     "Performance data"
      annotation (choicesAllMatching = true,Placement(transformation(extent={{60,72},
             {80,92}})));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small
     "Small value for heat flow rate or power, used to avoid division by zero"
-    annotation(HideResult=true);
+    annotation (HideResult=true);
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable the absorption chiller"
@@ -64,10 +64,10 @@ block AbsorptionIndirectSteam
    annotation (Placement(transformation(extent={{100,-90},{120,-70}}), iconTransformation(extent={{100,-90},
             {120,-70}})));
 
-  Modelica.SIunits.Efficiency genHIR
-   "Ratio of the generator heat input to chiller operating capacity";
-  Modelica.SIunits.Efficiency EIRP(min=0)
-   "Ratio of the actual absorber pumping power to the nominal pumping power";
+  Modelica.Units.SI.Efficiency genHIR
+    "Ratio of the generator heat input to chiller operating capacity";
+  Modelica.Units.SI.Efficiency EIRP(min=0)
+    "Ratio of the actual absorber pumping power to the nominal pumping power";
   Real capFunEva(min=0)
     "Evaporator capacity factor function of temperature curve";
   Real capFunCon(min=0)
@@ -77,13 +77,13 @@ block AbsorptionIndirectSteam
   Real genEvaT(min=0)
    "Heat input modifier based on the evaporator outlet temperature";
 
-  Modelica.SIunits.HeatFlowRate QEva_flow_ava
-   "Cooling capacity available at the evaporator";
+  Modelica.Units.SI.HeatFlowRate QEva_flow_ava
+    "Cooling capacity available at the evaporator";
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
-   "Condenser entering water temperature in degC";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TEvaLvg_degC
-   "Evaporator leaving water temperature in degC";
+  Modelica.Units.NonSI.Temperature_degC TConEnt_degC
+    "Condenser entering water temperature in degC";
+  Modelica.Units.NonSI.Temperature_degC TEvaLvg_degC
+    "Evaporator leaving water temperature in degC";
 
 initial equation
   assert(per.QEva_flow_nominal < 0,
@@ -92,8 +92,8 @@ initial equation
   "In " + getInstanceName() + ": Parameter Q_flow_small must be larger than zero.");
 
 equation
-  TConEnt_degC=Modelica.SIunits.Conversions.to_degC(TConEnt);
-  TEvaLvg_degC=Modelica.SIunits.Conversions.to_degC(TEvaLvg);
+  TConEnt_degC=Modelica.Units.Conversions.to_degC(TConEnt);
+  TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   if on then
     capFunEva = Buildings.Utilities.Math.Functions.smoothMax(
@@ -156,9 +156,9 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that computes the performance for the model
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
-See <a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+See <a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>
 for a description of this model.
 </p>

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Examples.Performance;
 model Example1v2 "Example 1 model with mixing volume"
   extends Buildings.Fluid.Examples.Performance.BaseClasses.Example1;
-  parameter Modelica.SIunits.Time tau=10 "Time constant at nominal flow";
+  parameter Modelica.Units.SI.Time tau=10 "Time constant at nominal flow";
 
   Fluid.Delays.DelayFirstOrder[nRes.k] vol(
     redeclare each package Medium = Medium,
@@ -78,7 +78,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example1v2.mos"
         "Simulate and plot"));
 end Example1v2;

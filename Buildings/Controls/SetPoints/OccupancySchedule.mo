@@ -6,7 +6,7 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     "Occupancy table, each entry switching occupancy on or off";
   parameter Boolean firstEntryOccupied = true
     "Set to true if first entry in occupancy denotes a changed from unoccupied to occupied";
-  parameter Modelica.SIunits.Time period =   86400 "End time of periodicity";
+  parameter Modelica.Units.SI.Time period=86400 "End time of periodicity";
 
   Modelica.Blocks.Interfaces.RealOutput tNexNonOcc
     "Time until next non-occupancy"
@@ -21,15 +21,15 @@ protected
   final parameter Integer nRow = size(occupancy,1)
     "Number of rows in the schedule";
 
-  discrete Modelica.SIunits.Time tOcc "Time when next occupancy starts";
-  discrete Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
-  discrete Modelica.SIunits.Time tNext "Time of next switch in schedule";
+  discrete Modelica.Units.SI.Time tOcc "Time when next occupancy starts";
+  discrete Modelica.Units.SI.Time tNonOcc "Time when next non-occupancy starts";
+  discrete Modelica.Units.SI.Time tNext "Time of next switch in schedule";
 
   function getOutput "Get the next occupancy or non-occupancy outputs"
     extends Modelica.Icons.Function;
 
-    input Modelica.SIunits.Time t "Current model time";
-    input Modelica.SIunits.Time period "Periodicity";
+    input Modelica.Units.SI.Time t "Current model time";
+    input Modelica.Units.SI.Time period "Periodicity";
     input Real occupancy[nRow]
       "Occupancy table, each entry switching occupancy on or off";
     input Boolean firstEntryOccupied
@@ -37,11 +37,11 @@ protected
     input Integer nRow
       "Number of rows in the schedule";
 
-    output Modelica.SIunits.Time tOcc "Time when next occupancy starts";
-    output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
+    output Modelica.Units.SI.Time tOcc "Time when next occupancy starts";
+    output Modelica.Units.SI.Time tNonOcc "Time when next non-occupancy starts";
     output Boolean occupied
     "Outputs true if occupied at current time";
-    output Modelica.SIunits.Time tNext "Time of next switch in schedule";
+    output Modelica.Units.SI.Time tNext "Time of next switch in schedule";
 
   protected
     Integer iPerSta
@@ -163,15 +163,15 @@ equation
           color={0,0,255}),
         Text(
           extent={{34,74},{90,50}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="occupancy"),
         Text(
           extent={{32,16},{92,-16}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="non-occupancy"),
         Text(
           extent={{34,-44},{94,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="occupied")}),
 defaultComponentName="occSch",
 Documentation(info="<html>

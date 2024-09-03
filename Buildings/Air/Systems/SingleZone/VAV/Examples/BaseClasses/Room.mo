@@ -3,23 +3,22 @@ model Room
   "BESTest Case 600 with fluid ports for air HVAC and internal load"
 
   replaceable package MediumA = Buildings.Media.Air "Medium model";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Design airflow rate of system";
-  parameter Modelica.SIunits.Angle lat "Building latitude";
-  parameter Modelica.SIunits.Angle S_=
-    Buildings.Types.Azimuth.S "Azimuth for south walls";
-  parameter Modelica.SIunits.Angle E_=
-    Buildings.Types.Azimuth.E "Azimuth for east walls";
-  parameter Modelica.SIunits.Angle W_=
-    Buildings.Types.Azimuth.W "Azimuth for west walls";
-  parameter Modelica.SIunits.Angle N_=
-    Buildings.Types.Azimuth.N "Azimuth for north walls";
-  parameter Modelica.SIunits.Angle C_=
-    Buildings.Types.Tilt.Ceiling "Tilt for ceiling";
-  parameter Modelica.SIunits.Angle F_=
-    Buildings.Types.Tilt.Floor "Tilt for floor";
-  parameter Modelica.SIunits.Angle Z_=
-    Buildings.Types.Tilt.Wall "Tilt for wall";
+  parameter Modelica.Units.SI.Angle S_=Buildings.Types.Azimuth.S
+    "Azimuth for south walls";
+  parameter Modelica.Units.SI.Angle E_=Buildings.Types.Azimuth.E
+    "Azimuth for east walls";
+  parameter Modelica.Units.SI.Angle W_=Buildings.Types.Azimuth.W
+    "Azimuth for west walls";
+  parameter Modelica.Units.SI.Angle N_=Buildings.Types.Azimuth.N
+    "Azimuth for north walls";
+  parameter Modelica.Units.SI.Angle C_=Buildings.Types.Tilt.Ceiling
+    "Tilt for ceiling";
+  parameter Modelica.Units.SI.Angle F_=Buildings.Types.Tilt.Floor
+    "Tilt for floor";
+  parameter Modelica.Units.SI.Angle Z_=Buildings.Types.Tilt.Wall
+    "Tilt for wall";
   parameter Integer nConExtWin = 1 "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";
@@ -171,8 +170,6 @@ model Room
       fFra={0.001},
       til={Z_},
       azi={S_}),
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    lat=lat,
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     steadyStateWindow=false)
@@ -222,7 +219,7 @@ model Room
     nPorts=1)
     "Source model for air infiltration"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable intLoad(table=[0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable intLoad(table=[0,
         0.1; 8*3600,0.1; 8*3600,1.0; 18*3600,1.0; 18*3600,0.1; 24*3600,0.1])
     "Internal loads"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
@@ -365,10 +362,16 @@ the <code>Schedules</code> and <code>Constructions</code> packages.
 </html>", revisions="<html>
 <ul>
 <li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
+<li>
 July 21, 2020, by Kun Zhang:<br/>
-Replaced the internal gain block from BaseClasses by directly using the block 
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>.
+Replaced the internal gain block from BaseClasses by directly using the block
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a>.
 </li>
 <li>
 June 21, 2017, by Michael Wetter:<br/>
@@ -407,5 +410,5 @@ First implementation.
                                         Text(
         extent={{-156,234},{160,172}},
         textString="%name",
-        lineColor={0,0,255})}));
+        textColor={0,0,255})}));
 end Room;

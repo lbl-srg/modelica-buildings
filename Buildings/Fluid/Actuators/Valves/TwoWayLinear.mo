@@ -22,6 +22,13 @@ as the regularization near the origin.
 revisions="<html>
 <ul>
 <li>
+June 10, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter and changed the parameter <code>order</code> to a constant
+as most users need not change this value.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
+<li>
 August 7, 2020, by Ettore Zanetti:<br/>
 changed the computation of <code>phi</code> using
 <code>max(0.1*l, . )</code> to avoid

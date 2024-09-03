@@ -9,9 +9,9 @@ model TwoPortRCLine "Model of a two port DC resistance and capacity (T-model)"
   parameter Boolean use_C = false
     "Set to true to add a capacitance in the center of the line"
     annotation(Dialog(tab="Model", group="Assumptions"));
-  parameter Modelica.SIunits.Voltage Vc_start = V_nominal
+  parameter Modelica.Units.SI.Voltage Vc_start=V_nominal
     "Initial value of the voltage of the capacitance in the middle of the line";
-  Modelica.SIunits.Voltage Vc(start = Vc_start, stateSelect = StateSelect.prefer)
+  Modelica.Units.SI.Voltage Vc(start=Vc_start, stateSelect=StateSelect.prefer)
     "Voltage of the capacitor";
 initial equation
   if C>0 and use_C then
@@ -41,7 +41,7 @@ equation
                                                                   graphics={
           Text(
             extent={{-144,97},{156,57}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Line(points={{70,0},{90,0}},   color={0,0,255}),

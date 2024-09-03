@@ -35,9 +35,10 @@ partial model PartialChillerWSE
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   //WSE
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8
-    "Heat exchange effectiveness"
-    annotation(Dialog(group="Waterside economizer"));
+  parameter Modelica.Units.SI.Efficiency eta(
+    min=0,
+    max=1) = 0.8 "Heat exchange effectiveness"
+    annotation (Dialog(group="Waterside economizer"));
 
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -52,23 +53,24 @@ partial model PartialChillerWSE
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tauChi1 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauChi2 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauWSE = 10
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
+  parameter Modelica.Units.SI.Time tauChi1=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauChi2=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauWSE=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Waterside economizer",
-               enable= use_controller and not energyDynamics ==
-               Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Waterside economizer",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -113,11 +115,11 @@ partial model PartialChillerWSE
                enable=Medium2.nC > 0));
 
   // Temperature sensor
-  parameter Modelica.SIunits.Time tauSenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
-    but see user guide for potential problems)"
-   annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauSenT=1 "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
+    but see user guide for potential problems)" annotation (Dialog(
+      tab="Dynamics",
+      group="Temperature Sensor",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.Blocks.Types.Init initTSenor = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
@@ -137,7 +139,7 @@ partial model PartialChillerWSE
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel chiPar(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -164,7 +166,6 @@ partial model PartialChillerWSE
     final tau1=tauChi1,
     final tau2=tauChi2,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p1_start=p1_start,
     final T1_start=T1_start,
     final X1_start=X1_start,
@@ -206,7 +207,6 @@ partial model PartialChillerWSE
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -456,7 +456,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{6,16},{16,8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},
@@ -477,6 +477,13 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 April 26, 2021, by Kathryn Hinkelman:<br/>
 Removed <code>kFixed</code> redundancies. See

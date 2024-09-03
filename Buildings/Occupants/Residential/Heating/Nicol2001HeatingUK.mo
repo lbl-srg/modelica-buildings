@@ -4,7 +4,7 @@ model Nicol2001HeatingUK "A model to predict occupants' heating behavior with ou
   parameter Real A(final unit="1/K") = -0.514 "Slope of the logistic relation";
   parameter Real B(final unit="1") = 5.28 "Intercept of the logistic relation";
   parameter Integer seed = 10 "Seed for the random number generator";
-  parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -23,7 +23,8 @@ model Nicol2001HeatingUK "A model to predict occupants' heating behavior with ou
     final max=1) "Probability of heating being on";
 
 protected
-  parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
   Real curSeed "Current value for seed as a real-valued variable";
 
@@ -49,7 +50,7 @@ equation
   annotation (Icon(graphics={
             Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
             extent={{-40,20},{40,-20}},
-            lineColor={28,108,200},
+            textColor={28,108,200},
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid,
             textStyle={TextStyle.Bold},

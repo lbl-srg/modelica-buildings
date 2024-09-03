@@ -4,13 +4,12 @@ model RoomHVAC
  extends Modelica.Icons.Example;
 
   Buildings.Fluid.FMI.ExportContainers.Examples.FMUs.HVACZone hvaCon(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-      UA_nominal=-hvaCon.QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1=hvaCon.THeaRecLvg,
-        T_b1=hvaCon.TASup_nominal,
-        T_a2=hvaCon.TWSup_nominal,
-        T_b2=hvaCon.TWRet_nominal),
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
+      use_Q_flow_nominal=true,
+      Q_flow_nominal=hvaCon.QCoiC_flow_nominal,
+      T_a1_nominal=hvaCon.TWSup_nominal,
+      T_a2_nominal=hvaCon.THeaRecLvg,
+      w_a2_nominal=hvaCon.wHeaRecLvg,
       dp1_nominal=6000,
       dp2_nominal=200,
       show_T=true,
@@ -25,13 +24,12 @@ model RoomHVAC
   BaseCase baseCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Examples.FMUs.HVACZones hvaCon2(
-    redeclare Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
-      UA_nominal=-hvaCon2.QCoiC_flow_nominal/
-        Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
-        T_a1=hvaCon2.THeaRecLvg,
-        T_b1=hvaCon2.TASup_nominal,
-        T_a2=hvaCon2.TWSup_nominal,
-        T_b2=hvaCon2.TWRet_nominal),
+    redeclare Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
+      use_Q_flow_nominal=true,
+      Q_flow_nominal=hvaCon2.QCoiC_flow_nominal,
+      T_a1_nominal=hvaCon2.TWSup_nominal,
+      T_a2_nominal=hvaCon2.THeaRecLvg,
+      w_a2_nominal=hvaCon2.wHeaRecLvg,
       dp1_nominal=6000,
       dp2_nominal=200,
       show_T=true,
@@ -51,7 +49,6 @@ protected
     extends Buildings.Examples.Tutorial.SpaceCooling.System3(
       vol(energyDynamics=
       Modelica.Fluid.Types.Dynamics.FixedInitial),
-      fan(nominalValuesDefineDefaultPressureCurve=true),
       hex(dp1_nominal=200 + 10,
           dp2_nominal=200 + 200));
     annotation (Documentation(info="<html>
@@ -91,7 +88,7 @@ Buildings.Fluid.FMI.ExportContainers.Validation.RoomHVAC
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-72,190},{70,84}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%name"),
           Polygon(
             points={{-28,-6},{-56,-18},{-28,-32},{-28,-6}},
@@ -219,6 +216,23 @@ With Dymola 2017, we obtain the trajectories shown below.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Removed redundant nominal curve specification which is now specified
+in a lower-level model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
+<li>
+September 21, 2021 by David Blum:<br/>
+Use design conditions for UA parameterization in cooling coil.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2624\">#2624</a>.
+</li>
+<li>
+June 30, 2021, by Antoine Gautier:<br/>
+Changed cooling coil model. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2549\">issue #2549</a>.
+</li>
 <li>
 November 8, 2016, by Michael Wetter:<br/>
 Removed wrong usage of <code>each</code> keyword.

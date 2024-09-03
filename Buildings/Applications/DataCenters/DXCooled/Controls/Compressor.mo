@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.DXCooled.Controls;
 model Compressor "Controller for compressor speed"
 
   parameter Real k=0.5 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti=240 "Time constant of integrator block";
+  parameter Modelica.Units.SI.Time Ti=240 "Time constant of integrator block";
   parameter Real yMax=1 "Upper limit of output";
   parameter Real yMin=0 "Lower limit of output";
   parameter Boolean reverseActing=false
@@ -49,10 +49,10 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal freCoo
     "Determine if free cooling is on"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     "Switch to select control output"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Constant output signal with value 1"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
@@ -85,7 +85,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "weaDat.weaBus.winDir",
+    "north.pWin",
+    "west.pWin",
+    "east.pWin",
+    "south.pWin"
+  };

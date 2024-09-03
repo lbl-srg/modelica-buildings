@@ -1,45 +1,94 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function gFunction "Evaluate the g-function of a bore field"
+function gFunction
+  "Evaluate the g-function of a bore field"
   extends Modelica.Icons.Function;
 
   input Integer nBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nBor, 2] "Coordinates of boreholes";
-  input Modelica.SIunits.Height hBor "Borehole length";
-  input Modelica.SIunits.Height dBor "Borehole buried depth";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.Units.SI.Position cooBor[nBor,2] "Coordinates of boreholes";
+  input Modelica.Units.SI.Height hBor "Borehole length";
+  input Modelica.Units.SI.Height dBor "Borehole buried depth";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.ThermalDiffusivity aSoi
+    "Ground thermal diffusivity used in g-function evaluation";
   input Integer nSeg "Number of line source segments per borehole";
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
+  input Integer nClu "Number of clusters";
+  input Integer labels[nBor] "Cluster label associated with each data point";
+  input Integer cluSiz[nClu] "Size of the clusters";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
-  output Modelica.SIunits.Time tGFun[nTimSho+nTimLon] "Time of g-function evaluation";
+  output Modelica.Units.SI.Time tGFun[nTimSho + nTimLon]
+    "Time of g-function evaluation";
   output Real g[nTimSho+nTimLon] "g-function";
 
 protected
-  Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Characteristic time";
-  Modelica.SIunits.Time tSho_min = 1 "Minimum time for short time calculations";
-  Modelica.SIunits.Time tSho_max = 3600 "Maximum time for short time calculations";
-  Modelica.SIunits.Time tLon_min = tSho_max "Minimum time for long time calculations";
-  Modelica.SIunits.Time tLon_max = ts*ttsMax "Maximum time for long time calculations";
-  Modelica.SIunits.Time tSho[nTimSho] "Time vector for short time calculations";
-  Modelica.SIunits.Time tLon[nTimLon] "Time vector for long time calculations";
-  Modelica.SIunits.Distance dis "Separation distance between boreholes";
-  Modelica.SIunits.Distance dis_mn "Separation distance for comparison";
-  Modelica.SIunits.Radius rLin=0.0005*hBor "Radius for evaluation of same-borehole line source solutions";
+  Modelica.Units.SI.Time ts=hBor^2/(9*aSoi) "Characteristic time";
+  Modelica.Units.SI.Time tSho_min=1 "Minimum time for short time calculations";
+  Modelica.Units.SI.Time tSho_max=3600
+    "Maximum time for short time calculations";
+  Modelica.Units.SI.Time tLon_min=tSho_max
+    "Minimum time for long time calculations";
+  Modelica.Units.SI.Time tLon_max=ts*ttsMax
+    "Maximum time for long time calculations";
+  Modelica.Units.SI.Time tSho[nTimSho]
+    "Time vector for short time calculations";
+  Modelica.Units.SI.Time tLon[nTimLon] "Time vector for long time calculations";
+  Integer n_max = max(cluSiz.*cluSiz);
+  Modelica.Units.SI.Distance dis[nClu,nClu,n_max] "Separation distance between boreholes";
+  Modelica.Units.SI.Distance dis_ij "Separation distance between boreholes";
+  Integer wDis[nClu,nClu,n_max] "Number of occurence of separation distances";
+  Integer n_dis[nClu,nClu];
+  Modelica.Units.SI.Radius rLin=0.0005*hBor
+    "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
-  Modelica.SIunits.Height dSeg "Buried depth of borehole segment";
-  Integer Done[nBor, nBor] "Matrix for tracking of FLS evaluations";
-  Real A[nSeg*nBor+1, nSeg*nBor+1] "Coefficient matrix for system of equations";
-  Real B[nSeg*nBor+1] "Coefficient vector for system of equations";
-  Real X[nSeg*nBor+1] "Solution vector for system of equations";
+  Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
+  Real A[nSeg*nClu+1, nSeg*nClu+1] "Coefficient matrix for system of equations";
+  Real B[nSeg*nClu+1] "Coefficient vector for system of equations";
+  Real X[nSeg*nClu+1] "Solution vector for system of equations";
   Real FLS "Finite line source solution";
   Real ILS "Infinite line source solution";
   Real CHS "Cylindrical heat source solution";
+  Boolean found "Flag, true if a cluster has been found";
 
 algorithm
+  // Distances between borehole clusters
+  n_dis := zeros(nClu,nClu);
+  wDis := zeros(nClu,nClu,n_max);
+  for i in 1:nBor loop
+    for j in i:nBor loop
+      // Distance between boreholes
+      if i <> j then
+        dis_ij := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
+      else
+        dis_ij := rLin;
+      end if;
+      found := false;
+      for n in 1:n_dis[labels[i],labels[j]] loop
+        if abs(dis_ij - dis[labels[i],labels[j],n]) / dis[labels[i],labels[j],n] < relTol then
+          wDis[labels[i],labels[j],n] := wDis[labels[i],labels[j],n] + 1;
+          found := true;
+          if i <> j then
+            wDis[labels[j],labels[i],n] := wDis[labels[j],labels[i],n] + 1;
+          end if;
+          break;
+        end if;
+      end for;
+      if not found then
+        n_dis[labels[i],labels[j]] := n_dis[labels[i],labels[j]] + 1;
+        wDis[labels[i],labels[j],n_dis[labels[i],labels[j]]] := wDis[labels[i],labels[j],n_dis[labels[i],labels[j]]] + 1;
+        dis[labels[i],labels[j],n_dis[labels[i],labels[j]]] := dis_ij;
+        if i <> j then
+          n_dis[labels[j],labels[i]] := n_dis[labels[j],labels[i]] + 1;
+          wDis[labels[j],labels[i],n_dis[labels[j],labels[i]]] := wDis[labels[j],labels[i],n_dis[labels[j],labels[i]]] + 1;
+          dis[labels[j],labels[i],n_dis[labels[j],labels[i]]] := dis_ij;
+        end if;
+      end if;
+    end for;
+  end for;
+
   // Generate geometrically expanding time vectors
   tSho :=
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.timeGeometric(
@@ -86,87 +135,68 @@ algorithm
   // Long time calculations
   // ----------------------
   // Initialize coefficient matrix A
-  for m in 1:nBor loop
+  for m in 1:nClu loop
     for u in 1:nSeg loop
       // Tb coefficient in spatial superposition equations
-      A[(m-1)*nSeg+u,nBor*nSeg+1] := -1;
+      A[(m-1)*nSeg+u,nClu*nSeg+1] := -1;
       // Q coefficient in heat balance equation
-      A[nBor*nSeg+1,(m-1)*nSeg+u] := 1;
+      A[nClu*nSeg+1,(m-1)*nSeg+u] := cluSiz[m];
     end for;
   end for;
   // Initialize coefficient vector B
   // The total heat extraction rate is constant
-  B[nBor*nSeg+1] := nBor*nSeg;
+  B[nClu*nSeg+1] := nBor*nSeg;
 
   // Evaluate thermal response matrix at all times
   for k in 1:nTimLon-1 loop
-    for i in 1:nBor loop
-      for j in i:nBor loop
-        // Distance between boreholes
-        if i == j then
-          // If same borehole, distance is the radius
-          dis := rLin;
-        else
-          dis := sqrt((cooBor[i,1] - cooBor[j,1])^2 + (cooBor[i,2] - cooBor[j,2])^2);
-        end if;
-        // Only evaluate the thermal response factors if not already evaluated
-        if Done[i,j] < k then
-          // Evaluate Real and Mirror parts of FLS solution
-          // Real part
-          for m in 1:nSeg loop
-            hSegRea[m] :=
-              Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource(
+    for i in 1:nClu loop
+      for j in i:nClu loop
+        // Evaluate Real and Mirror parts of FLS solution
+        // Real part
+        for m in 1:nSeg loop
+          hSegRea[m] :=
+            Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
               tLon[k + 1],
               aSoi,
-              dis,
+              dis[i,j,1:n_dis[i,j]],
+              wDis[i,j,1:n_dis[i,j]],
               hBor/nSeg,
               dBor,
               hBor/nSeg,
               dBor + (m - 1)*hBor/nSeg,
+              cluSiz[i],
+              n_dis[i,j],
               includeMirrorSource=false);
-          end for;
+        end for;
         // Mirror part
-          for m in 1:(2*nSeg-1) loop
-            hSegMir[m] :=
-              Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource(
+        for m in 1:(2*nSeg-1) loop
+          hSegMir[m] :=
+            Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_Equivalent(
               tLon[k + 1],
               aSoi,
-              dis,
+              dis[i,j,1:n_dis[i,j]],
+              wDis[i,j,1:n_dis[i,j]],
               hBor/nSeg,
               dBor,
               hBor/nSeg,
               dBor + (m - 1)*hBor/nSeg,
+              cluSiz[i],
+              n_dis[i,j],
               includeRealSource=false);
+        end for;
+        // Add thermal response factor to coefficient matrix A
+        for u in 1:nSeg loop
+          for v in 1:nSeg loop
+            A[(i-1)*nSeg+u,(j-1)*nSeg+v] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
+            A[(j-1)*nSeg+v,(i-1)*nSeg+u] := (hSegRea[abs(u-v)+1] + hSegMir[u+v-1]) * cluSiz[i] / cluSiz[j];
           end for;
-        // Apply to all pairs that have the same separation distance
-          for m in 1:nBor loop
-            for n in m:nBor loop
-              if m == n then
-                dis_mn := rLin;
-              else
-                dis_mn := sqrt((cooBor[m,1] - cooBor[n,1])^2 + (cooBor[m,2] - cooBor[n,2])^2);
-              end if;
-              if abs(dis_mn - dis) < relTol*dis then
-                // Add thermal response factor to coefficient matrix A
-                for u in 1:nSeg loop
-                  for v in 1:nSeg loop
-                    A[(m-1)*nSeg+u,(n-1)*nSeg+v] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
-                    A[(n-1)*nSeg+v,(m-1)*nSeg+u] := hSegRea[abs(u-v)+1] + hSegMir[u+v-1];
-                  end for;
-                end for;
-                // Mark current pair as evaluated
-                Done[m,n] := k;
-                Done[n,m] := k;
-              end if;
-            end for;
-          end for;
-        end if;
+        end for;
       end for;
     end for;
     // Solve the system of equations
     X := Modelica.Math.Matrices.solve(A,B);
     // The g-function is equal to the borehole wall temperature
-    g[nTimSho+k+1] := X[nBor*nSeg+1];
+    g[nTimSho+k+1] := X[nClu*nSeg+1];
   end for;
   // Correct finite line source solution for cylindrical geometry
   for k in 2:nTimLon loop
@@ -190,8 +220,9 @@ annotation (
 Documentation(info="<html>
 <p>
 This function implements the <i>g</i>-function evaluation method introduced by
-Cimmino and Bernier (see: Cimmino and Bernier (2014), and Cimmino (2018)) based
-on the <i>g</i>-function function concept first introduced by Eskilson (1987).
+Cimmino and Bernier (see: Cimmino and Bernier (2014), Cimmino (2018), and Prieto
+and Cimmino (2021)) based on the <i>g</i>-function function concept first
+introduced by Eskilson (1987).
 The <i>g</i>-function gives the relation between the variation of the borehole
 wall temperature at a time <i>t</i> and the heat extraction and injection rates
 at all times preceding time <i>t</i> as
@@ -217,16 +248,18 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFa
 and the infinite line source (ILS) solution (see
 <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource\">
 Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.infiniteLineSource</a>).
-To obtain the <i>g</i>-function of a bore field, each borehole is divided into a
-series of <code>nSeg</code> segments of equal length, each modeled as a line
-source of finite length. The finite line source solution is superimposed in
-space to obtain a system of equations that gives the relation between the heat
-injection rate at each of the segments and the borehole wall temperature at each
-of the segments. The system is solved to obtain the uniform borehole wall
-temperature required at any time to maintain a constant total heat injection
-rate (<i>Q<sub>tot</sub> = 2&pi;k<sub>s</sub>H<sub>tot</sub>)</i> into the bore
-field. The uniform borehole wall temperature is then equal to the finite line
-source based <i>g</i>-function.
+To obtain the <i>g</i>-function of a bore field, the bore field is first divided
+into <code>nClu</code> groups of similarly behaving boreholes. Each group
+is represented by a single <i>equivalent</i> borehole. Each equivalent borehole
+is then divided into a series of <code>nSeg</code> segments of equal length,
+each modeled as a line source of finite length. The finite line source solution
+is superimposed in space to obtain a system of equations that gives the relation
+between the heat injection rate at each of the segments and the borehole wall
+temperature at each of the segments. The system is solved to obtain the uniform
+borehole wall temperature required at any time to maintain a constant total heat
+injection rate (<i>Q<sub>tot</sub> = 2&pi;k<sub>s</sub>H<sub>tot</sub>)</i> into
+the bore field. The uniform borehole wall temperature is then equal to the
+finite line source based <i>g</i>-function.
 </p>
 <p>
 Since this <i>g</i>-function is based on line sources of heat, rather than
@@ -258,8 +291,7 @@ Mass Transfer 70: 641-650.
 <p>
 Cimmino, M. 2018. <i>Fast calculation of the g-functions of geothermal borehole
 fields using similarities in the evaluation of the finite line source
-solution</i>. Journal of Building Performance Simulation. DOI:
-10.1080/19401493.2017.1423390.
+solution</i>. Journal of Building Performance Simulation 11(6): 655-668.
 </p>
 <p>
 Eskilson, P. 1987. <i>Thermal analysis of heat extraction boreholes</i>. Ph.D.
@@ -270,8 +302,27 @@ Li, M., Li, P., Chan, V. and Lai, A.C.K. 2014. <i>Full-scale temperature
 response function (G-function) for heat transfer by borehole heat exchangers
 (GHEs) from sub-hour to decades</i>. Applied Energy 136: 197-205.
 </p>
+<p>
+Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
+fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
+of Building Performance Simulation 14(4): 446-460.
+<a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
+doi:10.1080/19401493.2021.1968953</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022 by Massimo Cimmino:<br/>
+Updated the function to use the more efficient method of Prieto and Cimmino
+(2021).
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Initialized variable <code>Done</code>.<br/>
+See
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/9707#issuecomment-1317631281\">
+OpenModelica, #9707</a>.
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.

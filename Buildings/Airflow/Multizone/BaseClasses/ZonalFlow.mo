@@ -11,6 +11,7 @@ partial model ZonalFlow "Flow across zonal boundaries of a room"
     final m2_flow_small=1E-4*abs(m2_flow_nominal));
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
     annotation (choices(
         choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 

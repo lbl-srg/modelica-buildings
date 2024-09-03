@@ -1,12 +1,8 @@
 !-Generator IDFEditor 1.44
 !-Option SortedOrder
-
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
-
-
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
-
 ! Approximation of the HVAC systems for the testing rooms:
 !   * Single fan single duct constant air volume system.
 !   * Variable chilled water flow rate with a lower limit to approximate the minimum cold air flow.
@@ -18,86 +14,76 @@
 !   * Visible absorptances of surfaces are tuned such that the workplane illuminance in the middle of room matches the measured illuminance.
 ! Infiltration:
 !   * Infiltration air flow rate is guessed as a small value.
-Version,
-    8.2;                     !- Version Identifier
 
+  Version,9.6;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
-SimulationControl,
+  SimulationControl,
     No,                      !- Do Zone Sizing Calculation
     No,                      !- Do System Sizing Calculation
     No,                      !- Do Plant Sizing Calculation
     No,                      !- Run Simulation for Sizing Periods
-    Yes;                     !- Run Simulation for Weather File Run Periods
-
+    Yes,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
 !-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
 
-Building,
+  Building,
     Building 71T Rm 102,     !- Name
     0,                       !- North Axis {deg}
     Suburbs,                 !- Terrain
-    0.04,                    !- Loads Convergence Tolerance Value
+    0.04,                    !- Loads Convergence Tolerance Value {W}
     0.4,                     !- Temperature Convergence Tolerance Value {deltaC}
     FullInteriorAndExterior, !- Solar Distribution
     25,                      !- Maximum Number of Warmup Days
     6;                       !- Minimum Number of Warmup Days
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SHADOWCALCULATION ===========
 
-ShadowCalculation,
-    AverageOverDaysInFrequency,  !- Calculation Method
-    20,                      !- Calculation Frequency
+  ShadowCalculation,
+    PolygonClipping,         !- Shading Calculation Method
+    Periodic,                !- Shading Calculation Update Frequency Method
+    20,                      !- Shading Calculation Update Frequency
     50000;                   !- Maximum Figures in Shadow Overlap Calculations
-
 
 !-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:INSIDE ===========
 
-SurfaceConvectionAlgorithm:Inside,
-    TARP;                    !- Algorithm
-
+  SurfaceConvectionAlgorithm:Inside,TARP;
 
 !-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:OUTSIDE ===========
 
-SurfaceConvectionAlgorithm:Outside,
-    TARP;                    !- Algorithm
-
+  SurfaceConvectionAlgorithm:Outside,TARP;
 
 !-   ===========  ALL OBJECTS IN CLASS: HEATBALANCEALGORITHM ===========
 
-HeatBalanceAlgorithm,
-    ConductionTransferFunction;  !- Algorithm
-
+  HeatBalanceAlgorithm,ConductionTransferFunction;
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONECAPACITANCEMULTIPLIER:RESEARCHSPECIAL ===========
 
-ZoneCapacitanceMultiplier:ResearchSpecial,
+  ZoneCapacitanceMultiplier:ResearchSpecial,
+    Multiplier,              !- Name
+    ,                        !- Zone or ZoneList Name
     1,                       !- Temperature Capacity Multiplier
     1,                       !- Humidity Capacity Multiplier
     1,                       !- Carbon Dioxide Capacity Multiplier
     1.0;                     !- Generic Contaminant Capacity Multiplier
 
-
 !-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
 
-Timestep,
-    4;                       !- Number of Timesteps per Hour
-
+  Timestep,4;
 
 !-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
 
-Site:Location,
+  Site:Location,
     San Francisco,           !- Name
     37.62,                   !- Latitude {deg}
     -122.4,                  !- Longitude {deg}
     -8.0,                    !- Time Zone {hr}
     2;                       !- Elevation {m}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
-
 ! MWetter: Run test with specified ground reflectance. The default is 0.2.
 !Site:GroundReflectance,
 !0.05, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2;
@@ -138,241 +124,190 @@ Site:Location,
 !    SummerDesignDay,         !- Day Type
 !    0,                       !- Daylight Saving Time Indicator
 !    WetBulb;                 !- Humidity Indicating Type
-RunPeriod,
+
+  RunPeriod,
     annual,                  !- Name
     1,                       !- Begin Month
     1,                       !- Begin Day of Month
+    ,                        !- Begin Year
     1,                       !- End Month
     7,                       !- End Day of Month
+    ,                        !- End Year
     Monday,                  !- Day of Week for Start Day
     No,                      !- Use Weather File Holidays and Special Days
     No,                      !- Use Weather File Daylight Saving Period
     Yes,                     !- Apply Weekend Holiday Rule
     Yes,                     !- Use Weather File Rain Indicators
-    Yes;                     !- Use Weather File Snow Indicators
-
+    Yes,                     !- Use Weather File Snow Indicators
+    ;                        !- Treat Weather as Actual
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULETYPELIMITS ===========
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     AnyNumber,               !- Name
     ,                        !- Lower Limit Value
     ,                        !- Upper Limit Value
     Continuous;              !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Thermostat Control Type, !- Name
     0,                       !- Lower Limit Value
     4,                       !- Upper Limit Value
     Discrete;                !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     On/Off,                  !- Name
     0,                       !- Lower Limit Value
     1,                       !- Upper Limit Value
     Discrete;                !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Fraction,                !- Name
     0,                       !- Lower Limit Value
     1,                       !- Upper Limit Value
     Continuous;              !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Temperature,             !- Name
     -60,                     !- Lower Limit Value
     200,                     !- Upper Limit Value
     Continuous;              !- Numeric Type
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Lighting Schedule,  !- Name
     AnyNumber,               !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: Weekdays SummerDesignDay,  !- Field 2
-    Until:  7:00,            !- Field 3
-    0,                       !- Field 4
-    Until: 19:00,            !- Field 5
-    0,                       !- Field 6
-    Until: 24:00,            !- Field 7
-    0,                       !- Field 8
-    For: CustomDay1 CustomDay2,  !- Field 9
-    Until:  7:00,            !- Field 10
-    0,                       !- Field 11
-    Until: 19:00,            !- Field 12
-    0,                       !- Field 13
-    Until: 24:00,            !- Field 14
-    0,                       !- Field 15
-    For: Weekends Holidays WinterDesignDay,  !- Field 16
-    Until: 24:00,            !- Field 17
-    0;                       !- Field 18
+    For: Weekdays SummerDesignDay, !- Field 2
+    Until:  7:00,0,          !- Field 3
+    Until: 19:00,0,          !- Field 5
+    Until: 24:00,0,          !- Field 7
+    For: CustomDay1 CustomDay2, !- Field 9
+    Until:  7:00,0,          !- Field 10
+    Until: 19:00,0,          !- Field 12
+    Until: 24:00,0,          !- Field 14
+    For: Weekends Holidays WinterDesignDay, !- Field 16
+    Until: 24:00,0;          !- Field 17
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Infiltration Schedule,  !- Name
     AnyNumber,               !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: Weekdays SummerDesignDay,  !- Field 2
-    Until:  6:00,            !- Field 3
-    1.0,                     !- Field 4
-    Until: 19:00,            !- Field 5
-    1.0,                     !- Field 6
-    Until: 24:00,            !- Field 7
-    1.0,                     !- Field 8
-    For: CustomDay1 CustomDay2,  !- Field 9
-    Until:  6:00,            !- Field 10
-    1.0,                     !- Field 11
-    Until: 19:00,            !- Field 12
-    1.0,                     !- Field 13
-    Until: 24:00,            !- Field 14
-    1.0,                     !- Field 15
-    For: Weekends Holidays WinterDesignDay,  !- Field 16
-    Until:  6:00,            !- Field 17
-    1.0,                     !- Field 18
-    Until: 19:00,            !- Field 19
-    1.0,                     !- Field 20
-    Until: 24:00,            !- Field 21
-    1.0;                     !- Field 22
+    For: Weekdays SummerDesignDay, !- Field 2
+    Until:  6:00,1.0,        !- Field 3
+    Until: 19:00,1.0,        !- Field 5
+    Until: 24:00,1.0,        !- Field 7
+    For: CustomDay1 CustomDay2, !- Field 9
+    Until:  6:00,1.0,        !- Field 10
+    Until: 19:00,1.0,        !- Field 12
+    Until: 24:00,1.0,        !- Field 14
+    For: Weekends Holidays WinterDesignDay, !- Field 16
+    Until:  6:00,1.0,        !- Field 17
+    Until: 19:00,1.0,        !- Field 19
+    Until: 24:00,1.0;        !- Field 21
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Thermostat Type Schedule,  !- Name
     Thermostat Control Type, !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    3;                       !- Field 4
+    Until: 24:00,3;          !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Temperature Setpoint Schedule,  !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    23.5;                    !- Field 4
+    Until: 24:00,23.5;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Fan Schedule,   !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    1.00;                    !- Field 4
+    Until: 24:00,1.00;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Coil Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    1.00;                    !- Field 4
+    Until: 24:00,1.00;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Water Loop Schedule,     !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    1.00;                    !- Field 4
+    Until: 24:00,1.00;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Water Loop Temperature Setpoint Schedule,  !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    4.50;                    !- Field 4
+    Until: 24:00,4.50;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Electric Equipment Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    1.00;                    !- Field 4
+    Until: 24:00,1.00;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Window Panel Transmittance Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00,            !- Field 3
-    0.5;                     !- Field 4
+    Until: 24:00,0.5;        !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Compensating Cooling Load Schedule,  !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 5:00,             !- Field 3
-    0.00,                    !- Field 4
-    Until:5:30,              !- Field 5
-    0.10,                    !- Field 6
-    Until: 6:00,             !- Field 7
-    0.20,                    !- Field 8
-    Until: 6:30,             !- Field 9
-    0.30,                    !- Field 10
-    Until: 7:00,             !- Field 11
-    0.40,                    !- Field 12
-    Until: 7:30,             !- Field 13
-    0.50,                    !- Field 14
-    Until: 8:00,             !- Field 15
-    0.60,                    !- Field 16
-    Until: 8:30,             !- Field 17
-    0.70,                    !- Field 18
-    Until: 9:00,             !- Field 19
-    0.80,                    !- Field 20
-    Until: 9:30,             !- Field 21
-    0.90,                    !- Field 22
-    Until: 10:00,            !- Field 23
-    1.00,                    !- Field 24
-    Until: 13:30,            !- Field 25
-    0.90,                    !- Field 26
-    Until: 14:00,            !- Field 27
-    0.80,                    !- Field 28
-    Until: 14:30,            !- Field 29
-    0.70,                    !- Field 30
-    Until:15:00,             !- Field 31
-    0.60,                    !- Field 32
-    Until:15:30,             !- Field 33
-    0.50,                    !- Field 34
-    Until: 16:00,            !- Field 35
-    0.40,                    !- Field 36
-    Until: 16:30,            !- Field 37
-    0.30,                    !- Field 38
-    Until: 17:00,            !- Field 39
-    0.20,                    !- Field 40
-    Until: 17:30,            !- Field 41
-    0.10,                    !- Field 42
-    Until: 24:00,            !- Field 43
-    0.00;                    !- Field 44
+    Until: 5:00,0.00,        !- Field 3
+    Until:5:30,0.10,         !- Field 5
+    Until: 6:00,0.20,        !- Field 7
+    Until: 6:30,0.30,        !- Field 9
+    Until: 7:00,0.40,        !- Field 11
+    Until: 7:30,0.50,        !- Field 13
+    Until: 8:00,0.60,        !- Field 15
+    Until: 8:30,0.70,        !- Field 17
+    Until: 9:00,0.80,        !- Field 19
+    Until: 9:30,0.90,        !- Field 21
+    Until: 10:00,1.00,       !- Field 23
+    Until: 13:30,0.90,       !- Field 25
+    Until: 14:00,0.80,       !- Field 27
+    Until: 14:30,0.70,       !- Field 29
+    Until:15:00,0.60,        !- Field 31
+    Until:15:30,0.50,        !- Field 33
+    Until: 16:00,0.40,       !- Field 35
+    Until: 16:30,0.30,       !- Field 37
+    Until: 17:00,0.20,       !- Field 39
+    Until: 17:30,0.10,       !- Field 41
+    Until: 24:00,0.00;       !- Field 43
 
-Schedule:Compact,
+  Schedule:Compact,
     Room 102 Lighting Schedule_CHRIS,  !- Name
     AnyNumber,               !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: Weekdays SummerDesignDay,  !- Field 2
-    Until:  7:00,            !- Field 3
-    0,                       !- Field 4
-    Until: 19:00,            !- Field 5
-    1,                       !- Field 6
-    Until: 24:00,            !- Field 7
-    0,                       !- Field 8
-    For: CustomDay1 CustomDay2,  !- Field 9
-    Until:  7:00,            !- Field 10
-    0,                       !- Field 11
-    Until: 19:00,            !- Field 12
-    1,                       !- Field 13
-    Until: 24:00,            !- Field 14
-    0,                       !- Field 15
-    For: Weekends Holidays WinterDesignDay,  !- Field 16
-    Until: 24:00,            !- Field 17
-    0;                       !- Field 18
-
+    For: Weekdays SummerDesignDay, !- Field 2
+    Until:  7:00,0,          !- Field 3
+    Until: 19:00,1,          !- Field 5
+    Until: 24:00,0,          !- Field 7
+    For: CustomDay1 CustomDay2, !- Field 9
+    Until:  7:00,0,          !- Field 10
+    Until: 19:00,1,          !- Field 12
+    Until: 24:00,0,          !- Field 14
+    For: Weekends Holidays WinterDesignDay, !- Field 16
+    Until: 24:00,0;          !- Field 17
 
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
 
-Material,
+  Material,
     MediumFurniture,         !- Name
     MediumSmooth,            !- Roughness
     0.57,                    !- Thickness {m}
@@ -383,7 +318,7 @@ Material,
     0.75,                    !- Solar Absorptance
     0.75;                    !- Visible Absorptance
 
-Material,
+  Material,
     2x6 Wood Stud R19,       !- Name
     Rough,                   !- Roughness
     0.133,                   !- Thickness {m}
@@ -394,7 +329,7 @@ Material,
     0.7,                     !- Solar Absorptance
     0.7;                     !- Visible Absorptance
 
-Material,
+  Material,
     Gypsum board - 5/8 in,   !- Name
     Smooth,                  !- Roughness
     0.015875,                !- Thickness {m}
@@ -405,7 +340,7 @@ Material,
     0.7,                     !- Solar Absorptance
     0.3;                     !- Visible Absorptance
 
-Material,
+  Material,
     Plywood - 3/8 in,        !- Name
     Smooth,                  !- Roughness
     0.009525,                !- Thickness {m}
@@ -413,7 +348,7 @@ Material,
     540,                     !- Density {kg/m3}
     1210;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     Plywood - 3/4 in,        !- Name
     Smooth,                  !- Roughness
     0.01905,                 !- Thickness {m}
@@ -421,7 +356,7 @@ Material,
     540,                     !- Density {kg/m3}
     1210;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     Plywood - 1/2 in,        !- Name
     Smooth,                  !- Roughness
     0.0127,                  !- Thickness {m}
@@ -429,7 +364,7 @@ Material,
     540,                     !- Density {kg/m3}
     1210;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     Metal Siding,            !- Name
     MediumSmooth,            !- Roughness
     0.000701,                !- Thickness {m}
@@ -437,7 +372,7 @@ Material,
     7833.028,                !- Density {kg/m3}
     502.416;                 !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     T&G - 3/4 in,            !- Name
     MediumSmooth,            !- Roughness
     0.01905,                 !- Thickness {m}
@@ -445,7 +380,7 @@ Material,
     608,                     !- Density {kg/m3}
     1630;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     Insulation: Expanded polystyrene - molded beads - 16kg/m3 density,  !- Name
     VeryRough,               !- Roughness
     1.90500386169072E-02,    !- Thickness {m}
@@ -453,7 +388,7 @@ Material,
     16,                      !- Density {kg/m3}
     1210;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     F08 Metal surface,       !- Name
     Smooth,                  !- Roughness
     3.1750064361512E-03,     !- Thickness {m}
@@ -461,7 +396,7 @@ Material,
     7824,                    !- Density {kg/m3}
     500;                     !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     Hardboard Medium density,!- Name
     Smooth,                  !- Roughness
     3.1750064361512E-03,     !- Thickness {m}
@@ -469,7 +404,7 @@ Material,
     800,                     !- Density {kg/m3}
     1300;                    !- Specific Heat {J/kg-K}
 
-Material,
+  Material,
     F13 Built-up roofing,    !- Name
     Rough,                   !- Roughness
     0.0095,                  !- Thickness {m}
@@ -479,10 +414,9 @@ Material,
     0.9,                     !- Thermal Absorptance
     0.7;                     !- Solar Absorptance
 
-
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL:NOMASS ===========
 
-Material:NoMass,
+  Material:NoMass,
     Carpet w/rubber pad,     !- Name
     Rough,                   !- Roughness
     0.22,                    !- Thermal Resistance {m2-K/W}
@@ -490,7 +424,7 @@ Material:NoMass,
     0.7,                     !- Solar Absorptance
     0.85;                    !- Visible Absorptance
 
-Material:NoMass,
+  Material:NoMass,
     R-30 Fiberglass Insulation,  !- Name
     Rough,                   !- Roughness
     5.28,                    !- Thermal Resistance {m2-K/W}
@@ -498,7 +432,7 @@ Material:NoMass,
     0.7,                     !- Solar Absorptance
     0.7;                     !- Visible Absorptance
 
-Material:NoMass,
+  Material:NoMass,
     Nonres_Roof_Insulation,  !- Name
     MediumSmooth,            !- Roughness
     0.0299387330245182,      !- Thermal Resistance {m2-K/W}
@@ -506,17 +440,15 @@ Material:NoMass,
     0.7,                     !- Solar Absorptance
     0.7;                     !- Visible Absorptance
 
-
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL:AIRGAP ===========
 
-Material:AirGap,
+  Material:AirGap,
     F04 Wall air space resistance,  !- Name
     0.15;                    !- Thermal Resistance {m2-K/W}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:GLAZING ===========
 
-WindowMaterial:Glazing,
+  WindowMaterial:Glazing,
     ELECTRO GLASS LIGHT STATE,  !- Name
     SpectralAverage,         !- Optical Data Type
     ,                        !- Window Glass Spectral Data Set Name
@@ -532,7 +464,7 @@ WindowMaterial:Glazing,
     0.84,                    !- Back Side Infrared Hemispherical Emissivity
     0.9;                     !- Conductivity {W/m-K}
 
-WindowMaterial:Glazing,
+  WindowMaterial:Glazing,
     ELECTRO GLASS DARK STATE,!- Name
     SpectralAverage,         !- Optical Data Type
     ,                        !- Window Glass Spectral Data Set Name
@@ -548,7 +480,7 @@ WindowMaterial:Glazing,
     0.84,                    !- Back Side Infrared Hemispherical Emissivity
     0.9;                     !- Conductivity {W/m-K}
 
-WindowMaterial:Glazing,
+  WindowMaterial:Glazing,
     GLASS - CLEAR PLATE 1 / 4 IN,  !- Name
     SpectralAverage,         !- Optical Data Type
     ,                        !- Window Glass Spectral Data Set Name
@@ -564,19 +496,17 @@ WindowMaterial:Glazing,
     0.8400000,               !- Back Side Infrared Hemispherical Emissivity
     0.9000000;               !- Conductivity {W/m-K}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:GAS ===========
-
 !       Window Gap Layers
-WindowMaterial:Gas,
+
+  WindowMaterial:Gas,
     wingap1_B71T_Glazing,    !- Name
     Air,                     !- Gas Type
     0.0127;                  !- Thickness {m}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:GASMIXTURE ===========
 
-WindowMaterial:GasMixture,
+  WindowMaterial:GasMixture,
     Gap_6_W_0_0100,          !- Name
     0.0100,                  !- Thickness {m}
     2,                       !- Number of Gases in Mixture
@@ -585,495 +515,160 @@ WindowMaterial:GasMixture,
     Argon,                   !- Gas 2 Type
     0.95;                    !- Gas 2 Fraction
 
-
 !-   ===========  ALL OBJECTS IN CLASS: MATERIALPROPERTY:GLAZINGSPECTRALDATA ===========
 
-MaterialProperty:GlazingSpectralData,
+  MaterialProperty:GlazingSpectralData,
     Glass_5289F_Layer_SpecDat,  !- Name
-    0.300000,                !- Wavelength 1 {micron}
-    0.000000,                !- Transmittance 1
-    0.250000,                !- Front Reflectance 1
-    0.050600,                !- Back Reflectance 1
-    0.305000,                !- Wavelength 2 {micron}
-    0.000000,                !- Transmittance 2
-    0.257000,                !- Front Reflectance 2
-    0.050400,                !- Back Reflectance 2
-    0.310000,                !- Wavelength 3 {micron}
-    0.000000,                !- Transmittance 3
-    0.270000,                !- Front Reflectance 3
-    0.050300,                !- Back Reflectance 3
-    0.315000,                !- Wavelength 4 {micron}
-    0.000000,                !- Transmittance 4
-    0.282900,                !- Front Reflectance 4
-    0.050000,                !- Back Reflectance 4
-    0.320000,                !- Wavelength 5 {micron}
-    0.000000,                !- Transmittance 5
-    0.292900,                !- Front Reflectance 5
-    0.049900,                !- Back Reflectance 5
-    0.325000,                !- N21
-    0.000000,                !- N22
-    0.301400,                !- N23
-    0.049400,                !- N24
-    0.330000,                !- N25
-    0.000100,                !- N26
-    0.306100,                !- N27
-    0.049600,                !- N28
-    0.335000,                !- N29
-    0.000900,                !- N30
-    0.303700,                !- N31
-    0.049400,                !- N32
-    0.340000,                !- N33
-    0.004800,                !- N34
-    0.295500,                !- N35
-    0.049200,                !- N36
-    0.345000,                !- N37
-    0.015500,                !- N38
-    0.283400,                !- N39
-    0.049700,                !- N40
-    0.350000,                !- N41
-    0.036400,                !- N42
-    0.267700,                !- N43
-    0.051800,                !- N44
-    0.355000,                !- N45
-    0.067100,                !- N46
-    0.249100,                !- N47
-    0.056400,                !- N48
-    0.360000,                !- N49
-    0.104600,                !- N50
-    0.228100,                !- N51
-    0.062800,                !- N52
-    0.365000,                !- N53
-    0.144900,                !- N54
-    0.205700,                !- N55
-    0.069800,                !- N56
-    0.370000,                !- N57
-    0.179100,                !- N58
-    0.182800,                !- N59
-    0.073400,                !- N60
-    0.375000,                !- N61
-    0.197600,                !- N62
-    0.160000,                !- N63
-    0.072000,                !- N64
-    0.380000,                !- N65
-    0.219700,                !- N66
-    0.137500,                !- N67
-    0.071300,                !- N68
-    0.385000,                !- N69
-    0.267300,                !- N70
-    0.117000,                !- N71
-    0.075600,                !- N72
-    0.390000,                !- N73
-    0.319600,                !- N74
-    0.099200,                !- N75
-    0.079500,                !- N76
-    0.395000,                !- N77
-    0.360300,                !- N78
-    0.083400,                !- N79
-    0.080700,                !- N80
-    0.400000,                !- N81
-    0.387800,                !- N82
-    0.069300,                !- N83
-    0.079200,                !- N84
-    0.410000,                !- N85
-    0.411000,                !- N86
-    0.046000,                !- N87
-    0.071700,                !- N88
-    0.420000,                !- N89
-    0.415900,                !- N90
-    0.030100,                !- N91
-    0.064700,                !- N92
-    0.430000,                !- N93
-    0.414000,                !- N94
-    0.019900,                !- N95
-    0.059400,                !- N96
-    0.440000,                !- N97
-    0.405600,                !- N98
-    0.014000,                !- N99
-    0.055500,                !- N100
-    0.450000,                !- N101
-    0.404200,                !- N102
-    0.011700,                !- N103
-    0.053200,                !- N104
-    0.460000,                !- N105
-    0.402700,                !- N106
-    0.011900,                !- N107
-    0.051300,                !- N108
-    0.470000,                !- N109
-    0.396000,                !- N110
-    0.013600,                !- N111
-    0.050300,                !- N112
-    0.480000,                !- N113
-    0.386700,                !- N114
-    0.016100,                !- N115
-    0.049600,                !- N116
-    0.490000,                !- N117
-    0.379700,                !- N118
-    0.019400,                !- N119
-    0.049300,                !- N120
-    0.500000,                !- N121
-    0.377500,                !- N122
-    0.022800,                !- N123
-    0.049200,                !- N124
-    0.510000,                !- N125
-    0.373600,                !- N126
-    0.026000,                !- N127
-    0.049500,                !- N128
-    0.520000,                !- N129
-    0.373000,                !- N130
-    0.028700,                !- N131
-    0.049800,                !- N132
-    0.530000,                !- N133
-    0.378400,                !- N134
-    0.030800,                !- N135
-    0.050100,                !- N136
-    0.540000,                !- N137
-    0.400800,                !- N138
-    0.032100,                !- N139
-    0.050600,                !- N140
-    0.550000,                !- N141
-    0.432000,                !- N142
-    0.033000,                !- N143
-    0.051300,                !- N144
-    0.560000,                !- N145
-    0.446300,                !- N146
-    0.031600,                !- N147
-    0.051200,                !- N148
-    0.570000,                !- N149
-    0.430200,                !- N150
-    0.028200,                !- N151
-    0.050000,                !- N152
-    0.580000,                !- N153
-    0.395300,                !- N154
-    0.023600,                !- N155
-    0.048400,                !- N156
-    0.590000,                !- N157
-    0.370500,                !- N158
-    0.019300,                !- N159
-    0.047100,                !- N160
-    0.600000,                !- N161
-    0.375800,                !- N162
-    0.016500,                !- N163
-    0.046400,                !- N164
-    0.610000,                !- N165
-    0.382200,                !- N166
-    0.015000,                !- N167
-    0.045700,                !- N168
-    0.620000,                !- N169
-    0.382000,                !- N170
-    0.015300,                !- N171
-    0.045400,                !- N172
-    0.630000,                !- N173
-    0.372600,                !- N174
-    0.017500,                !- N175
-    0.045300,                !- N176
-    0.640000,                !- N177
-    0.359300,                !- N178
-    0.022900,                !- N179
-    0.045900,                !- N180
-    0.650000,                !- N181
-    0.352000,                !- N182
-    0.032300,                !- N183
-    0.047200,                !- N184
-    0.660000,                !- N185
-    0.354900,                !- N186
-    0.046100,                !- N187
-    0.049600,                !- N188
-    0.670000,                !- N189
-    0.367200,                !- N190
-    0.064600,                !- N191
-    0.053600,                !- N192
-    0.680000,                !- N193
-    0.384200,                !- N194
-    0.088000,                !- N195
-    0.060300,                !- N196
-    0.690000,                !- N197
-    0.395800,                !- N198
-    0.115300,                !- N199
-    0.069900,                !- N200
-    0.700000,                !- N201
-    0.392400,                !- N202
-    0.145700,                !- N203
-    0.080400,                !- N204
-    0.710000,                !- N205
-    0.375300,                !- N206
-    0.178800,                !- N207
-    0.090600,                !- N208
-    0.720000,                !- N209
-    0.350900,                !- N210
-    0.214500,                !- N211
-    0.099700,                !- N212
-    0.730000,                !- N213
-    0.323500,                !- N214
-    0.251000,                !- N215
-    0.108200,                !- N216
-    0.740000,                !- N217
-    0.295600,                !- N218
-    0.289500,                !- N219
-    0.115200,                !- N220
-    0.750000,                !- N221
-    0.268200,                !- N222
-    0.327300,                !- N223
-    0.120800,                !- N224
-    0.760000,                !- N225
-    0.243100,                !- N226
-    0.365900,                !- N227
-    0.125900,                !- N228
-    0.770000,                !- N229
-    0.219100,                !- N230
-    0.402800,                !- N231
-    0.129500,                !- N232
-    0.780000,                !- N233
-    0.197700,                !- N234
-    0.438400,                !- N235
-    0.132800,                !- N236
-    0.790000,                !- N237
-    0.177900,                !- N238
-    0.473800,                !- N239
-    0.134600,                !- N240
-    0.800000,                !- N241
-    0.159800,                !- N242
-    0.507300,                !- N243
-    0.136000,                !- N244
-    0.810000,                !- N245
-    0.144500,                !- N246
-    0.538300,                !- N247
-    0.137200,                !- N248
-    0.820000,                !- N249
-    0.130400,                !- N250
-    0.567000,                !- N251
-    0.137600,                !- N252
-    0.830000,                !- N253
-    0.118400,                !- N254
-    0.593400,                !- N255
-    0.137500,                !- N256
-    0.840000,                !- N257
-    0.106800,                !- N258
-    0.619100,                !- N259
-    0.136500,                !- N260
-    0.850000,                !- N261
-    0.096900,                !- N262
-    0.640000,                !- N263
-    0.136800,                !- N264
-    0.860000,                !- N265
-    0.087800,                !- N266
-    0.666000,                !- N267
-    0.137100,                !- N268
-    0.870000,                !- N269
-    0.079400,                !- N270
-    0.685700,                !- N271
-    0.134800,                !- N272
-    0.880000,                !- N273
-    0.073200,                !- N274
-    0.701400,                !- N275
-    0.134200,                !- N276
-    0.890000,                !- N277
-    0.066500,                !- N278
-    0.718400,                !- N279
-    0.132200,                !- N280
-    0.900000,                !- N281
-    0.061200,                !- N282
-    0.733900,                !- N283
-    0.130900,                !- N284
-    0.910000,                !- N285
-    0.056400,                !- N286
-    0.748200,                !- N287
-    0.130200,                !- N288
-    0.920000,                !- N289
-    0.052100,                !- N290
-    0.761300,                !- N291
-    0.129300,                !- N292
-    0.930000,                !- N293
-    0.048100,                !- N294
-    0.772800,                !- N295
-    0.128500,                !- N296
-    0.940000,                !- N297
-    0.044700,                !- N298
-    0.784300,                !- N299
-    0.127600,                !- N300
-    0.950000,                !- N301
-    0.041700,                !- N302
-    0.794600,                !- N303
-    0.127000,                !- N304
-    0.960000,                !- N305
-    0.038400,                !- N306
-    0.804300,                !- N307
-    0.126200,                !- N308
-    0.970000,                !- N309
-    0.035300,                !- N310
-    0.813200,                !- N311
-    0.124800,                !- N312
-    0.980000,                !- N313
-    0.033000,                !- N314
-    0.821600,                !- N315
-    0.123400,                !- N316
-    0.990000,                !- N317
-    0.030900,                !- N318
-    0.829000,                !- N319
-    0.122700,                !- N320
-    1.000000,                !- N321
-    0.029100,                !- N322
-    0.836300,                !- N323
-    0.122100,                !- N324
-    1.050000,                !- N325
-    0.021600,                !- N326
-    0.865300,                !- N327
-    0.120600,                !- N328
-    1.100000,                !- N329
-    0.016700,                !- N330
-    0.886500,                !- N331
-    0.120000,                !- N332
-    1.150000,                !- N333
-    0.013100,                !- N334
-    0.901900,                !- N335
-    0.120500,                !- N336
-    1.200000,                !- N337
-    0.011000,                !- N338
-    0.915300,                !- N339
-    0.122300,                !- N340
-    1.250000,                !- N341
-    0.009100,                !- N342
-    0.924500,                !- N343
-    0.128600,                !- N344
-    1.300000,                !- N345
-    0.008100,                !- N346
-    0.931200,                !- N347
-    0.140000,                !- N348
-    1.350000,                !- N349
-    0.007000,                !- N350
-    0.937200,                !- N351
-    0.156700,                !- N352
-    1.400000,                !- N353
-    0.006500,                !- N354
-    0.942600,                !- N355
-    0.175700,                !- N356
-    1.450000,                !- N357
-    0.006100,                !- N358
-    0.947300,                !- N359
-    0.198700,                !- N360
-    1.500000,                !- N361
-    0.005900,                !- N362
-    0.949400,                !- N363
-    0.225800,                !- N364
-    1.550000,                !- N365
-    0.005900,                !- N366
-    0.952200,                !- N367
-    0.254600,                !- N368
-    1.600000,                !- N369
-    0.005600,                !- N370
-    0.953700,                !- N371
-    0.280800,                !- N372
-    1.650000,                !- N373
-    0.005500,                !- N374
-    0.956600,                !- N375
-    0.299400,                !- N376
-    1.700000,                !- N377
-    0.005900,                !- N378
-    0.956600,                !- N379
-    0.307400,                !- N380
-    1.750000,                !- N381
-    0.005000,                !- N382
-    0.957600,                !- N383
-    0.311000,                !- N384
-    1.800000,                !- N385
-    0.004700,                !- N386
-    0.959500,                !- N387
-    0.313000,                !- N388
-    1.850000,                !- N389
-    0.004300,                !- N390
-    0.960700,                !- N391
-    0.315800,                !- N392
-    1.900000,                !- N393
-    0.004300,                !- N394
-    0.960300,                !- N395
-    0.318600,                !- N396
-    1.950000,                !- N397
-    0.004500,                !- N398
-    0.962700,                !- N399
-    0.331100,                !- N400
-    2.000000,                !- N401
-    0.002100,                !- N402
-    0.963800,                !- N403
-    0.336200,                !- N404
-    2.050000,                !- N405
-    0.002800,                !- N406
-    0.964000,                !- N407
-    0.345300,                !- N408
-    2.100000,                !- N409
-    0.002700,                !- N410
-    0.966400,                !- N411
-    0.357900,                !- N412
-    2.150000,                !- N413
-    0.003800,                !- N414
-    0.966500,                !- N415
-    0.369300,                !- N416
-    2.200000,                !- N417
-    0.003600,                !- N418
-    0.966000,                !- N419
-    0.365200,                !- N420
-    2.250000,                !- N421
-    0.003400,                !- N422
-    0.963400,                !- N423
-    0.374600,                !- N424
-    2.300000,                !- N425
-    0.003700,                !- N426
-    0.973400,                !- N427
-    0.390800,                !- N428
-    2.350000,                !- N429
-    0.007100,                !- N430
-    0.963900,                !- N431
-    0.407000,                !- N432
-    2.400000,                !- N433
-    0.000400,                !- N434
-    0.973500,                !- N435
-    0.410600,                !- N436
-    2.450000,                !- N437
-    0.003400,                !- N438
-    0.952900,                !- N439
-    0.392400,                !- N440
-    2.500000,                !- N441
-    0.013200,                !- N442
-    0.964800,                !- N443
-    0.394300;                !- N444
-
+    0.300000,0.000000,0.250000,0.050600,
+    0.305000,0.000000,0.257000,0.050400,
+    0.310000,0.000000,0.270000,0.050300,
+    0.315000,0.000000,0.282900,0.050000,
+    0.320000,0.000000,0.292900,0.049900,
+    0.325000,0.000000,0.301400,0.049400,
+    0.330000,0.000100,0.306100,0.049600,
+    0.335000,0.000900,0.303700,0.049400,
+    0.340000,0.004800,0.295500,0.049200,
+    0.345000,0.015500,0.283400,0.049700,
+    0.350000,0.036400,0.267700,0.051800,
+    0.355000,0.067100,0.249100,0.056400,
+    0.360000,0.104600,0.228100,0.062800,
+    0.365000,0.144900,0.205700,0.069800,
+    0.370000,0.179100,0.182800,0.073400,
+    0.375000,0.197600,0.160000,0.072000,
+    0.380000,0.219700,0.137500,0.071300,
+    0.385000,0.267300,0.117000,0.075600,
+    0.390000,0.319600,0.099200,0.079500,
+    0.395000,0.360300,0.083400,0.080700,
+    0.400000,0.387800,0.069300,0.079200,
+    0.410000,0.411000,0.046000,0.071700,
+    0.420000,0.415900,0.030100,0.064700,
+    0.430000,0.414000,0.019900,0.059400,
+    0.440000,0.405600,0.014000,0.055500,
+    0.450000,0.404200,0.011700,0.053200,
+    0.460000,0.402700,0.011900,0.051300,
+    0.470000,0.396000,0.013600,0.050300,
+    0.480000,0.386700,0.016100,0.049600,
+    0.490000,0.379700,0.019400,0.049300,
+    0.500000,0.377500,0.022800,0.049200,
+    0.510000,0.373600,0.026000,0.049500,
+    0.520000,0.373000,0.028700,0.049800,
+    0.530000,0.378400,0.030800,0.050100,
+    0.540000,0.400800,0.032100,0.050600,
+    0.550000,0.432000,0.033000,0.051300,
+    0.560000,0.446300,0.031600,0.051200,
+    0.570000,0.430200,0.028200,0.050000,
+    0.580000,0.395300,0.023600,0.048400,
+    0.590000,0.370500,0.019300,0.047100,
+    0.600000,0.375800,0.016500,0.046400,
+    0.610000,0.382200,0.015000,0.045700,
+    0.620000,0.382000,0.015300,0.045400,
+    0.630000,0.372600,0.017500,0.045300,
+    0.640000,0.359300,0.022900,0.045900,
+    0.650000,0.352000,0.032300,0.047200,
+    0.660000,0.354900,0.046100,0.049600,
+    0.670000,0.367200,0.064600,0.053600,
+    0.680000,0.384200,0.088000,0.060300,
+    0.690000,0.395800,0.115300,0.069900,
+    0.700000,0.392400,0.145700,0.080400,
+    0.710000,0.375300,0.178800,0.090600,
+    0.720000,0.350900,0.214500,0.099700,
+    0.730000,0.323500,0.251000,0.108200,
+    0.740000,0.295600,0.289500,0.115200,
+    0.750000,0.268200,0.327300,0.120800,
+    0.760000,0.243100,0.365900,0.125900,
+    0.770000,0.219100,0.402800,0.129500,
+    0.780000,0.197700,0.438400,0.132800,
+    0.790000,0.177900,0.473800,0.134600,
+    0.800000,0.159800,0.507300,0.136000,
+    0.810000,0.144500,0.538300,0.137200,
+    0.820000,0.130400,0.567000,0.137600,
+    0.830000,0.118400,0.593400,0.137500,
+    0.840000,0.106800,0.619100,0.136500,
+    0.850000,0.096900,0.640000,0.136800,
+    0.860000,0.087800,0.666000,0.137100,
+    0.870000,0.079400,0.685700,0.134800,
+    0.880000,0.073200,0.701400,0.134200,
+    0.890000,0.066500,0.718400,0.132200,
+    0.900000,0.061200,0.733900,0.130900,
+    0.910000,0.056400,0.748200,0.130200,
+    0.920000,0.052100,0.761300,0.129300,
+    0.930000,0.048100,0.772800,0.128500,
+    0.940000,0.044700,0.784300,0.127600,
+    0.950000,0.041700,0.794600,0.127000,
+    0.960000,0.038400,0.804300,0.126200,
+    0.970000,0.035300,0.813200,0.124800,
+    0.980000,0.033000,0.821600,0.123400,
+    0.990000,0.030900,0.829000,0.122700,
+    1.000000,0.029100,0.836300,0.122100,
+    1.050000,0.021600,0.865300,0.120600,
+    1.100000,0.016700,0.886500,0.120000,
+    1.150000,0.013100,0.901900,0.120500,
+    1.200000,0.011000,0.915300,0.122300,
+    1.250000,0.009100,0.924500,0.128600,
+    1.300000,0.008100,0.931200,0.140000,
+    1.350000,0.007000,0.937200,0.156700,
+    1.400000,0.006500,0.942600,0.175700,
+    1.450000,0.006100,0.947300,0.198700,
+    1.500000,0.005900,0.949400,0.225800,
+    1.550000,0.005900,0.952200,0.254600,
+    1.600000,0.005600,0.953700,0.280800,
+    1.650000,0.005500,0.956600,0.299400,
+    1.700000,0.005900,0.956600,0.307400,
+    1.750000,0.005000,0.957600,0.311000,
+    1.800000,0.004700,0.959500,0.313000,
+    1.850000,0.004300,0.960700,0.315800,
+    1.900000,0.004300,0.960300,0.318600,
+    1.950000,0.004500,0.962700,0.331100,
+    2.000000,0.002100,0.963800,0.336200,
+    2.050000,0.002800,0.964000,0.345300,
+    2.100000,0.002700,0.966400,0.357900,
+    2.150000,0.003800,0.966500,0.369300,
+    2.200000,0.003600,0.966000,0.365200,
+    2.250000,0.003400,0.963400,0.374600,
+    2.300000,0.003700,0.973400,0.390800,
+    2.350000,0.007100,0.963900,0.407000,
+    2.400000,0.000400,0.973500,0.410600,
+    2.450000,0.003400,0.952900,0.392400,
+    2.500000,0.013200,0.964800,0.394300;
 
 !-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
 
-Construction,
+  Construction,
     Medium Furniture,        !- Name
     MediumFurniture;         !- Outside Layer
 
-Construction,
+  Construction,
     Room Ceiling,            !- Name
     Plywood - 3/8 in,        !- Outside Layer
     2x6 Wood Stud R19,       !- Layer 2
     Gypsum board - 5/8 in;   !- Layer 3
 
-Construction,
+  Construction,
     Room Wall - East West,   !- Name
     2x6 Wood Stud R19,       !- Outside Layer
     Gypsum board - 5/8 in;   !- Layer 2
 
-Construction,
+  Construction,
     Room Wall - North,       !- Name
     Gypsum board - 5/8 in,   !- Outside Layer
     Plywood - 3/8 in,        !- Layer 2
     2x6 Wood Stud R19,       !- Layer 3
     Gypsum board - 5/8 in;   !- Layer 4
 
-Construction,
+  Construction,
     Room Wall - South,       !- Name
     Metal Siding,            !- Outside Layer
     Plywood - 1/2 in,        !- Layer 2
     2x6 Wood Stud R19;       !- Layer 3
 
-Construction,
+  Construction,
     Room Floor,              !- Name
     R-30 Fiberglass Insulation,  !- Outside Layer
     T&G - 3/4 in,            !- Layer 2
     Plywood - 3/4 in,        !- Layer 3
     Carpet w/rubber pad;     !- Layer 4
 
-Construction,
+  Construction,
     panelMaterial,           !- Name
     F08 Metal surface,       !- Outside Layer
     Insulation: Expanded polystyrene - molded beads - 16kg/m3 density,  !- Layer 2
@@ -1081,55 +676,53 @@ Construction,
     F04 Wall air space resistance,  !- Layer 4
     F08 Metal surface;       !- Layer 5
 
-Construction,
+  Construction,
     HousingFloor,            !- Name
     Gypsum board - 5/8 in,   !- Outside Layer
     2x6 Wood Stud R19,       !- Layer 2
     Plywood - 3/8 in;        !- Layer 3
 
-Construction,
+  Construction,
     HousingRoof,             !- Name
     F13 Built-up roofing,    !- Outside Layer
     Nonres_Roof_Insulation,  !- Layer 2
     F08 Metal surface;       !- Layer 3
 
-Construction,
+  Construction,
     HousingIntWall,          !- Name
     Gypsum board - 5/8 in,   !- Outside Layer
     2x6 Wood Stud R19;       !- Layer 2
 
-Construction,
+  Construction,
     HousingNorIntWall,       !- Name
     Gypsum board - 5/8 in,   !- Outside Layer
     2x6 Wood Stud R19,       !- Layer 2
     Plywood - 3/8 in,        !- Layer 3
     Gypsum board - 5/8 in;   !- Layer 4
 
-Construction,
+  Construction,
     ELECTRO-CON-LIGHT,       !- Name
     ELECTRO GLASS LIGHT STATE,  !- Outside Layer
     wingap1_B71T_Glazing,    !- Layer 2
     GLASS - CLEAR PLATE 1 / 4 IN;  !- Layer 3
 
-Construction,
+  Construction,
     ELECTRO-CON-DARK,        !- Name
     ELECTRO GLASS DARK STATE,!- Outside Layer
     wingap1_B71T_Glazing,    !- Layer 2
     GLASS - CLEAR PLATE 1 / 4 IN;  !- Layer 3
 
-
 !-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
 
-GlobalGeometryRules,
+  GlobalGeometryRules,
     UpperLeftCorner,         !- Starting Vertex Position
     Counterclockwise,        !- Vertex Entry Direction
     Relative,                !- Coordinate System
     Relative;                !- Daylighting Reference Point Coordinate System
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONE ===========
 
-Zone,
+  Zone,
     Room 102,                !- Name
     180,                     !- Direction of Relative North {deg}
     0,                       !- X Origin {m}
@@ -1140,257 +733,184 @@ Zone,
     3.35,                    !- Ceiling Height {m}
     46.699;                  !- Volume {m3}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     woodSash2,               !- Name
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5,                     !- View Factor to Ground
     4,                       !- Number of Vertices
-    -0.609600000000,         !- Vertex 1 X-coordinate {m}
-    0.000000000000,          !- Vertex 1 Y-coordinate {m}
-    0.127000000000,          !- Vertex 1 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.000000000000,          !- Vertex 2 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.000000000000,          !- Vertex 3 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 4 X-coordinate {m}
-    0.000000000000,          !- Vertex 4 Y-coordinate {m}
-    0.127000000000;          !- Vertex 4 Z-coordinate {m}
+    -0.609600000000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.609600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.657600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.657600000000,0.000000000000,0.127000000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Room102 Floor,           !- Name
     FLOOR,                   !- Surface Type
     Room Floor,              !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     1,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    -3.657600000000,         !- Vertex 1 X-coordinate {m}
-    -4.572000000000,         !- Vertex 1 Y-coordinate {m}
-    0.000000000000,          !- Vertex 1 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.000000000000,          !- Vertex 2 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.000000000000,          !- Vertex 3 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 4 X-coordinate {m}
-    -4.572000000000,         !- Vertex 4 Y-coordinate {m}
-    0.000000000000;          !- Vertex 4 Z-coordinate {m}
+    -3.657600000000,-4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -3.657600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -0.609600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -0.609600000000,-4.572000000000,0.000000000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Room102 West Wall,       !- Name
     WALL,                    !- Surface Type
     Room Wall - East West,   !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    -0.609600000000,         !- Vertex 1 X-coordinate {m}
-    -4.572000000000,         !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 2 X-coordinate {m}
-    -4.572000000000,         !- Vertex 2 Y-coordinate {m}
-    0.000000000000,          !- Vertex 2 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.000000000000,          !- Vertex 3 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 4 X-coordinate {m}
-    0.000000000000,          !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -0.609600000000,-4.572000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.609600000000,-4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -0.609600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -0.609600000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Room102 North Wall,      !- Name
     WALL,                    !- Surface Type
     Room Wall - North,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    -3.657600000000,         !- Vertex 1 X-coordinate {m}
-    -4.572000000000,         !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 2 X-coordinate {m}
-    -4.572000000000,         !- Vertex 2 Y-coordinate {m}
-    0.000000000000,          !- Vertex 2 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 3 X-coordinate {m}
-    -4.572000000000,         !- Vertex 3 Y-coordinate {m}
-    0.000000000000,          !- Vertex 3 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 4 X-coordinate {m}
-    -4.572000000000,         !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -3.657600000000,-4.572000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -3.657600000000,-4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -0.609600000000,-4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -0.609600000000,-4.572000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Room102 East Wall,       !- Name
     WALL,                    !- Surface Type
     Room Wall - East West,   !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    -3.657600000000,         !- Vertex 1 X-coordinate {m}
-    0.000000000000,          !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.000000000000,          !- Vertex 2 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 3 X-coordinate {m}
-    -4.572000000000,         !- Vertex 3 Y-coordinate {m}
-    0.000000000000,          !- Vertex 3 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 4 X-coordinate {m}
-    -4.572000000000,         !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -3.657600000000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -3.657600000000,0.000000000000,0.000000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.657600000000,-4.572000000000,0.000000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.657600000000,-4.572000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Room102 Ceiling,         !- Name
     Ceiling,                 !- Surface Type
     Room Ceiling,            !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.0,                     !- View Factor to Ground
     4,                       !- Number of Vertices
-    -0.609600000000,         !- Vertex 1 X-coordinate {m}
-    -4.572000000000,         !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    3.352800000000,          !- Vertex 2 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    3.352800000000,          !- Vertex 3 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 4 X-coordinate {m}
-    -4.572000000000,         !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -0.609600000000,-4.572000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.609600000000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.657600000000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.657600000000,-4.572000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     woodSash1,               !- Name
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5,                     !- View Factor to Ground
     4,                       !- Number of Vertices
-    -0.609600000000,         !- Vertex 1 X-coordinate {m}
-    0.000000000000,          !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -0.609600000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.127000000000,          !- Vertex 2 Z-coordinate {m}
-    -0.685800000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.127000000000,          !- Vertex 3 Z-coordinate {m}
-    -0.685800000000,         !- Vertex 4 X-coordinate {m}
-    0.000000000000,          !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -0.609600000000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.609600000000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -0.685800000000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -0.685800000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     panelFrame,              !- Name
     WALL,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5,                     !- View Factor to Ground
     4,                       !- Number of Vertices
-    -0.685800000000,         !- Vertex 1 X-coordinate {m}
-    0.000000000000,          !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -0.685800000000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.127000000000,          !- Vertex 2 Z-coordinate {m}
-    -3.551237500000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.127000000000,          !- Vertex 3 Z-coordinate {m}
-    -3.551237500000,         !- Vertex 4 X-coordinate {m}
-    0.000000000000,          !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
+    -0.685800000000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.685800000000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.551237500000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.551237500000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     woodSash3,               !- Name
     Wall,                    !- Surface Type
     Room Wall - South,       !- Construction Name
     Room 102,                !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5,                     !- View Factor to Ground
     4,                       !- Number of Vertices
-    -3.551237500000,         !- Vertex 1 X-coordinate {m}
-    0.000000000000,          !- Vertex 1 Y-coordinate {m}
-    3.352800000000,          !- Vertex 1 Z-coordinate {m}
-    -3.551237500000,         !- Vertex 2 X-coordinate {m}
-    0.000000000000,          !- Vertex 2 Y-coordinate {m}
-    0.127000000000,          !- Vertex 2 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 3 X-coordinate {m}
-    0.000000000000,          !- Vertex 3 Y-coordinate {m}
-    0.127000000000,          !- Vertex 3 Z-coordinate {m}
-    -3.657600000000,         !- Vertex 4 X-coordinate {m}
-    0.000000000000,          !- Vertex 4 Y-coordinate {m}
-    3.352800000000;          !- Vertex 4 Z-coordinate {m}
-
+    -3.551237500000,0.000000000000,3.352800000000,  !- X,Y,Z ==> Vertex 1 {m}
+    -3.551237500000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.657600000000,0.000000000000,0.127000000000,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.657600000000,0.000000000000,3.352800000000;  !- X,Y,Z ==> Vertex 4 {m}
 
 !-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
 
-FenestrationSurface:Detailed,
+  FenestrationSurface:Detailed,
     glass,                   !- Name
     Window,                  !- Surface Type
     ELECTRO-CON-LIGHT,       !- Construction Name
     panelFrame,              !- Building Surface Name
     ,                        !- Outside Boundary Condition Object
     0.5,                     !- View Factor to Ground
-    WIN-CONTROL,             !- Shading Control Name
     ,                        !- Frame and Divider Name
     ,                        !- Multiplier
     ,                        !- Number of Vertices
-    -0.739774999999999,      !- Vertex 1 X-coordinate {m}
-    1.03977864658391e-015,   !- Vertex 1 Y-coordinate {m}
-    3.312287,                !- Vertex 1 Z-coordinate {m}
-    -0.739774999999999,      !- Vertex 2 X-coordinate {m}
-    -2.00370669926137e-031,  !- Vertex 2 Y-coordinate {m}
-    0.180975,                !- Vertex 2 Z-coordinate {m}
-    -3.521789375,            !- Vertex 3 X-coordinate {m}
-    -1.04192748361591e-030,  !- Vertex 3 Y-coordinate {m}
-    0.180975,                !- Vertex 3 Z-coordinate {m}
-    -3.521789375,            !- Vertex 4 X-coordinate {m}
-    1.03977864658391e-015,   !- Vertex 4 Y-coordinate {m}
-    3.312287;                !- Vertex 4 Z-coordinate {m}
-
+    -0.739774999999999,1.03977864658391e-015,3.312287,  !- X,Y,Z ==> Vertex 1 {m}
+    -0.739774999999999,-2.00370669926137e-031,0.180975,  !- X,Y,Z ==> Vertex 2 {m}
+    -3.521789375,-1.04192748361591e-030,0.180975,  !- X,Y,Z ==> Vertex 3 {m}
+    -3.521789375,1.03977864658391e-015,3.312287;  !- X,Y,Z ==> Vertex 4 {m}
 
 !-   ===========  ALL OBJECTS IN CLASS: WINDOWPROPERTY:SHADINGCONTROL ===========
 
-WindowProperty:ShadingControl,
-    WIN-CONTROL,             !- Name
+  WindowShadingControl,
+    WIN-CONTROL-Room 102,    !- Name
+    Room 102,                !- Zone Name
+    1,                       !- Shading Control Sequence Number
     SwitchableGlazing,       !- Shading Type
     ELECTRO-CON-DARK,        !- Construction with Shading Name
     OnIfHighSolarOnWindow,   !- Shading Control Type
@@ -1400,14 +920,17 @@ WindowProperty:ShadingControl,
     No,                      !- Glare Control Is Active
     ,                        !- Shading Device Material Name
     FixedSlatAngle,          !- Type of Slat Angle Control for Blinds
-    ;                        !- Slat Angle Schedule Name
-
+    ,                        !- Slat Angle Schedule Name
+    ,                        !- Setpoint 2 {W/m2 or deg C}
+    ,                        !- Daylighting Control Object Name
+    Sequential,              !- Multiple Surface Control Type
+    glass;                   !- Fenestration Surface 1 Name
 
 !-   ===========  ALL OBJECTS IN CLASS: LIGHTS ===========
 
-Lights,
+  Lights,
     Lights 1 Room 102,       !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Lighting Schedule,  !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     0,                       !- Lighting Level {W}
@@ -1421,9 +944,10 @@ Lights,
 
 ! MWetter. Set lights to 0
 !    100,                     !- Lighting Level {W}
-Lights,
+
+  Lights,
     Lights 1 Room 102_CHRIS, !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Lighting Schedule_CHRIS,  !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     0,                       !- Lighting Level {W}
@@ -1435,14 +959,13 @@ Lights,
     1,                       !- Fraction Replaceable
     GeneralLights;           !- End-Use Subcategory
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ELECTRICEQUIPMENT ===========
-
 ! MWetter: Set this to zero for the validation.
 !    80.1,                    !- Design Level {W}
-ElectricEquipment,
+
+  ElectricEquipment,
     ElecEq 1 Room 102,       !- Name
-    Room 102,                !- Zone or ZoneList Name
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Electric Equipment Schedule,  !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     0,                       !- Design Level {W}
@@ -1453,37 +976,35 @@ ElectricEquipment,
     0,                       !- Fraction Lost
     0;                       !- End-Use Subcategory
 
-
 !-   ===========  ALL OBJECTS IN CLASS: OTHEREQUIPMENT ===========
-
 ! MWetter: Set this to zero for the validation.
 !    400,                     !- Design Level {W}
-OtherEquipment,
+
+  OtherEquipment,
     Compensating Cooling Load Room 102,  !- Name
-    Room 102,                !- Zone or ZoneList Name
+    None,                    !- Fuel Type
+    Room 102,                !- Zone or ZoneList or Space or SpaceList Name
     Room 102 Compensating Cooling Load Schedule,  !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     0,                       !- Design Level {W}
     ,                        !- Power per Zone Floor Area {W/m2}
-    ,                        !- Power per Person {W/Person}
+    ,                        !- Power per Person {W/person}
     0,                       !- Fraction Latent
     0,                       !- Fraction Radiant
     0;                       !- Fraction Lost
 
-
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:THERMOSTAT ===========
 
-HVACTemplate:Thermostat,
+  HVACTemplate:Thermostat,
     Room,                    !- Name
     ,                        !- Heating Setpoint Schedule Name
     24,                      !- Constant Heating Setpoint {C}
     ,                        !- Cooling Setpoint Schedule Name
     24;                      !- Constant Cooling Setpoint {C}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM ===========
 
-HVACTemplate:Zone:IdealLoadsAirSystem,
+  HVACTemplate:Zone:IdealLoadsAirSystem,
     Room 102,                !- Zone Name
     Room,                    !- Template Thermostat Name
     ,                        !- System Availability Schedule Name
@@ -1511,22 +1032,18 @@ HVACTemplate:Zone:IdealLoadsAirSystem,
     ,                        !- Design Specification Outdoor Air Object Name
     None;                    !- Demand Controlled Ventilation Type
 
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
 
-Output:VariableDictionary,
-    regular;                 !- Key Field
-
+  Output:VariableDictionary,regular;
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:TABLE:SUMMARYREPORTS ===========
 
-Output:Table:SummaryReports,
+  Output:Table:SummaryReports,
     AnnualBuildingUtilityPerformanceSummary;  !- Report 1 Name
-
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:TABLE:MONTHLY ===========
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Building Loads - Heating,!- Name
     2,                       !- Digits After Decimal
     Zone Air System Sensible Heating Energy,  !- Variable or Meter 1 Name
@@ -1536,7 +1053,7 @@ Output:Table:Monthly,
     Site Outdoor Air Drybulb Temperature,  !- Variable or Meter 3 Name
     ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 3
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Zone Electric Summary,   !- Name
     2,                       !- Digits After Decimal
     Zone Lights Electric Energy,  !- Variable or Meter 1 Name
@@ -1548,7 +1065,7 @@ Output:Table:Monthly,
     Zone Electric Equipment Electric Energy,  !- Variable or Meter 4 Name
     Maximum;                 !- Aggregation Type for Variable or Meter 4
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Peak Zone Electric Summary,  !- Name
     2,                       !- Digits After Decimal
     Electricity:Zone:ROOM 102,  !- Variable or Meter 1 Name
@@ -1556,7 +1073,8 @@ Output:Table:Monthly,
 
 !Zone People Total Heat Gain,  !- Variable or Meter 1 Name
 !SumOrAverage,            !- Aggregation Type for Variable or Meter 1
-Output:Table:Monthly,
+
+  Output:Table:Monthly,
     Space Gains,             !- Name
     2,                       !- Digits After Decimal
     Zone Lights Total Heating Energy,  !- Variable or Meter 1 Name
@@ -1573,7 +1091,8 @@ Output:Table:Monthly,
 !    5,                       !- Digits After Decimal
 !    FANGERPMV,               !- Variable or Meter 1 Name
 !    SumOrAverage;            !- Aggregation Type for Variable or Meter 1
-Output:Table:Monthly,
+
+  Output:Table:Monthly,
     Energy Consumption - Electricity & Natural Gas,  !- Name
     2,                       !- Digits After Decimal
     Electricity:Building,    !- Variable or Meter 1 Name
@@ -1581,7 +1100,7 @@ Output:Table:Monthly,
     Electricity:Building,    !- Variable or Meter 2 Name
     Maximum;                 !- Aggregation Type for Variable or Meter 2
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Building Energy Performance - Electricity,  !- Name
     2,                       !- Digits After Decimal
     InteriorLights:Electricity,  !- Variable or Meter 1 Name
@@ -1595,7 +1114,7 @@ Output:Table:Monthly,
     Cooling:Electricity,     !- Variable or Meter 5 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 5
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Peak Energy End-Use - Electricity Part 1,  !- Name
     2,                       !- Digits After Decimal
     InteriorLights:Electricity,  !- Variable or Meter 1 Name
@@ -1607,13 +1126,13 @@ Output:Table:Monthly,
     Heating:Electricity,     !- Variable or Meter 4 Name
     Maximum;                 !- Aggregation Type for Variable or Meter 4
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Peak Energy End-Use - Electricity Part 2,  !- Name
     ,                        !- Digits After Decimal
     Cooling:Electricity,     !- Variable or Meter 1 Name
     Maximum;                 !- Aggregation Type for Variable or Meter 1
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Electric Components of Peak Demand,  !- Name
     ,                        !- Digits After Decimal
     Electricity:Facility,    !- Variable or Meter 1 Name
@@ -1629,7 +1148,7 @@ Output:Table:Monthly,
     Cooling:Electricity,     !- Variable or Meter 6 Name
     ValueWhenMaximumOrMinimum;  !- Aggregation Type for Variable or Meter 6
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Daylighting & Glare,     !- Name
     2,                       !- Digits After Decimal
     Daylighting Reference Point 1 Illuminance,  !- Variable or Meter 1 Name
@@ -1637,7 +1156,7 @@ Output:Table:Monthly,
     Daylighting Reference Point 1 Glare Index,  !- Variable or Meter 2 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 2
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Air Loop System Energy Use,  !- Name
     ,                        !- Digits After Decimal
     Air System Electric Energy,  !- Variable or Meter 1 Name
@@ -1649,13 +1168,13 @@ Output:Table:Monthly,
     Air System Heating Coil Gas Energy,  !- Variable or Meter 4 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 4
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Peak Air Loop System Energy Use,  !- Name
     ,                        !- Digits After Decimal
     Air System Electric Energy,  !- Variable or Meter 1 Name
     Maximum;                 !- Aggregation Type for Variable or Meter 1
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Air Loop System Component Loads,  !- Name
     ,                        !- Digits After Decimal
     Air System Fan Air Heating Energy,  !- Variable or Meter 1 Name
@@ -1669,7 +1188,7 @@ Output:Table:Monthly,
     Air System Heating Coil Total Heating Energy,  !- Variable or Meter 5 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 5
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Air Loop System Component Energy Use,  !- Name
     ,                        !- Digits After Decimal
     Air System Fan Electric Energy,  !- Variable or Meter 1 Name
@@ -1687,7 +1206,7 @@ Output:Table:Monthly,
     Air System Heating Coil Electric Energy,  !- Variable or Meter 7 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 7
 
-Output:Table:Monthly,
+  Output:Table:Monthly,
     Other System Energy Use, !- Name
     ,                        !- Digits After Decimal
     Heating Coil Electric Energy,  !- Variable or Meter 1 Name
@@ -1695,142 +1214,64 @@ Output:Table:Monthly,
     Heating Coil Electric Power,  !- Variable or Meter 2 Name
     SumOrAverage;            !- Aggregation Type for Variable or Meter 2
 
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUTCONTROL:TABLE:STYLE ===========
 
-OutputControl:Table:Style,
+  OutputControl:Table:Style,
     HTML;                    !- Column Separator
-
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
 
-Output:Variable,
-    *,                       !- Key Value
-    Site Outdoor Air Drybulb Temperature,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Site Diffuse Solar Radiation Rate per Area,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Site Diffuse Solar Radiation Rate per Area,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Site Direct Solar Radiation Rate per Area,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Site Direct Solar Radiation Rate per Area,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Facility Total Electric Demand Power,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Facility Total Electric Demand Power,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ideal Loads Zone Total Heating Rate ,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Ideal Loads Zone Total Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Ideal Loads Zone Total Cooling Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Ideal Loads Zone Total Cooling Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Electric Equipment Electric Power,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Electric Equipment Electric Power,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Lights Electric Power,   !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Lights Electric Power,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Mean Air Temperature,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Mean Air Temperature,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Infiltration Mass Flow Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Infiltration Mass Flow Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Infiltration Current Density Volume Flow Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Infiltration Current Density Volume Flow Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Infiltration Standard Density Volume Flow Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Infiltration Standard Density Volume Flow Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Site Outdoor Air Density,!- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Site Outdoor Air Density,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Outdoor Air Wind Speed,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Outdoor Air Wind Speed,Timestep;
 
 ! Outputs for internal heat gains
-Output:Variable,
-    *,                       !- Key Value
-    Lights Radiant Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
 
-Output:Variable,
-    *,                       !- Key Value
-    Lights Convective Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Lights Radiant Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Electric Equipment Radiant Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Lights Convective Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Electric Equipment Convective Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Electric Equipment Radiant Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Other Equipment Radiant Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Electric Equipment Convective Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Other Equipment Convective Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Other Equipment Radiant Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Surface Window Total Absorbed Shortwave Radiation Rate Layer 1,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Zone Other Equipment Convective Heating Rate,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Surface Window Total Absorbed Shortwave Radiation Rate Layer 2,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Surface Window Total Absorbed Shortwave Radiation Rate Layer 1,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Surface Window Total Absorbed Shortwave Radiation Rate Layer 3,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Surface Window Total Absorbed Shortwave Radiation Rate Layer 2,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Surface Outside Face Incident Solar Radiation Rate per Area,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Surface Window Total Absorbed Shortwave Radiation Rate Layer 3,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Surface Outside Face Incident Beam Solar Radiation Rate per Area,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Surface Outside Face Incident Solar Radiation Rate per Area,Timestep;
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Infiltration Mass Flow Rate ,  !- Variable Name
-    Timestep;                !- Reporting Frequency
+  Output:Variable,*,Surface Outside Face Incident Beam Solar Radiation Rate per Area,Timestep;
+
+  Output:Variable,*,Zone Infiltration Mass Flow Rate,Timestep;
+

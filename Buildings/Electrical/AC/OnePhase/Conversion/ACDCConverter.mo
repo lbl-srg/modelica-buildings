@@ -14,17 +14,16 @@ model ACDCConverter "AC DC converter"
     "Ratio of DC voltage / AC RMS voltage";
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
-  Modelica.SIunits.Power PLoss "Loss power";
+  Modelica.Units.SI.Power PLoss "Loss power";
   parameter Boolean ground_AC = false "Connect AC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="AC side"));
   parameter Boolean ground_DC = true "Connect DC side of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="DC side"));
 protected
   PhaseSystem_p.Current i_dc "DC current";
   PhaseSystem_p.Voltage v_dc "DC voltage";
-  Modelica.SIunits.Power P_p[2] = PhaseSystem_p.phasePowers_vi(terminal_p.v, terminal_p.i)
-    "Power transmitted at pin p (secondary)";
-  Modelica.SIunits.Power P_n[2](each start=0)=
-     PhaseSystem_n.phasePowers_vi(terminal_n.v, terminal_n.i)
-    "Power transmitted at pin n (primary)";
+  Modelica.Units.SI.Power P_p[2]=PhaseSystem_p.phasePowers_vi(terminal_p.v,
+      terminal_p.i) "Power transmitted at pin p (secondary)";
+  Modelica.Units.SI.Power P_n[2](each start=0) = PhaseSystem_n.phasePowers_vi(
+    terminal_n.v, terminal_n.i) "Power transmitted at pin n (primary)";
 equation
   //voltage relation
   v_p = v_n*conversionFactor;
@@ -60,7 +59,7 @@ defaultComponentName="conACDC",
           smooth=Smooth.None),
         Text(
           extent={{36,54},{96,14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="DC"),
         Line(
           points={{-2,60},{-2,60},{-82,60},{-2,60},{-82,-60},{-2,-60},{-2,60},{
@@ -69,19 +68,19 @@ defaultComponentName="conACDC",
           smooth=Smooth.None),
         Text(
           extent={{-100,52},{-40,12}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%eta"),
         Line(visible = ground_DC == true,
           points={{100,-100},{100,-12}},
@@ -145,8 +144,8 @@ Furthermore, reactive power on both side are set to <i>0</i>.
 <h4>Note:</h4>
 <p>
 This model is derived from
-<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Utilities.IdealACDCConverter</a>.
+<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter\">
+Modelica.Electrical.QuasiStatic.SinglePhase.Utilities.IdealACDCConverter</a>.
 </p>
 </html>", revisions="<html>
 <ul>

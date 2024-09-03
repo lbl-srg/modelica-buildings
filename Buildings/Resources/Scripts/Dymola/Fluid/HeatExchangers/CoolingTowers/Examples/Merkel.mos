@@ -3,7 +3,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.Merkel",
    method="CVode", resultFile="Merkel");
 createPlot(id = 1,
   position = {42, 6, 907, 713},
-  y = {"tow.sta_a.T", "tow.sta_b.T", "tow.TAir"},
+  y = {"TEnt.T", "tow.TLvg", "tow.TAir"},
   range = {0, 2, 70.0, 10.0},
   autoscale = true,
   autoerase = true,

@@ -5,22 +5,22 @@ function internalResistancesOneUTube
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances;
 
   // Outputs
-  output Modelica.SIunits.ThermalResistance Rgb
+  output Modelica.Units.SI.ThermalResistance Rgb
     "Thermal resistance between grout zone and borehole wall";
-  output Modelica.SIunits.ThermalResistance Rgg
+  output Modelica.Units.SI.ThermalResistance Rgg
     "Thermal resistance between the two grout zones";
-  output Modelica.SIunits.ThermalResistance RCondGro
+  output Modelica.Units.SI.ThermalResistance RCondGro
     "Thermal resistance between: pipe wall to capacity in grout";
 protected
   Real[2,2] RDelta(each unit="(m.K)/W") "Delta-circuit thermal resistances";
   Real[2,2] R(each unit="(m.K)/W") "Internal thermal resistances";
-  Modelica.SIunits.Position[2] xPip = {-sha, sha} "x-Coordinates of pipes";
-  Modelica.SIunits.Position[2] yPip = {0., 0.} "y-Coordinates of pipes";
-  Modelica.SIunits.Radius[2] rPip = {rTub, rTub} "Outer radius of pipes";
+  Modelica.Units.SI.Position[2] xPip={-sha,sha} "x-Coordinates of pipes";
+  Modelica.Units.SI.Position[2] yPip={0.,0.} "y-Coordinates of pipes";
+  Modelica.Units.SI.Radius[2] rPip={rTub,rTub} "Outer radius of pipes";
   Real[2] RFluPip(each unit="(m.K)/W") = {RCondPipe+RConv, RCondPipe+RConv} "Fluid to pipe wall thermal resistances";
-  Modelica.SIunits.ThermalResistance Rg
+  Modelica.Units.SI.ThermalResistance Rg
     "Thermal resistance between outer borehole wall and one tube";
-  Modelica.SIunits.ThermalResistance Rar
+  Modelica.Units.SI.ThermalResistance Rar
     "Thermal resistance between the two pipe outer walls";
 
   Real Ra(unit="(m.K)/W")
@@ -81,10 +81,10 @@ algorithm
       i := i + 1;
     end while;
   end if;
-  assert(test,
+  assert(test, "In " + instanceName + ":\n" +
   "Maximum number of iterations exceeded. Check the borehole geometry.
   The tubes may be too close to the borehole wall.
-  Input to the function 
+  Input to the function
   Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances
   is
            hSeg = " + String(hSeg) + " m
@@ -99,37 +99,44 @@ algorithm
            Rgb  = " + String(Rgb) + " K/W
            Rgg  = " + String(Rgg) + " K/W");
 
-  if printDebug then
-    Modelica.Utilities.Streams.print("
-      Rb = " + String(Rb_internal) + " m K / W
-      RCondPipe = "+ String(RCondPipe) + " m K / W
-      RConv = " +String(RConv) +"m K / W
-      hSeg = " + String(hSeg) + " m
-      Rg = "+String(Rg) + " K / W
-      Ra = " + String(Ra)  + " m K / W
-      x = " + String(x) + "
-      i = "  + String(i));
-  end if;
-                                                        annotation (Diagram(graphics), Documentation(info="<html>
+annotation (
+  Documentation(info="<html>
 <p>
-This model computes the different thermal resistances present in a single-U-tube borehole 
+This model computes the different thermal resistances present in a single-U-tube borehole
 using the method of Bauer et al. (2011).
-It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i> 
-and the grout-to-grout thermal resistance <i>R<sub>a</sub></i> 
+It also computes the fluid-to-ground thermal resistance <i>R<sub>b</sub></i>
+and the grout-to-grout thermal resistance <i>R<sub>a</sub></i>
 as defined by Claesson and Hellstrom (2011) using the multipole method.
 </p>
 
 <h4>References</h4>
-<p>J. Claesson and G. Hellstrom. 
-<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger. 
+<p>J. Claesson and G. Hellstrom.
+<i>Multipole method to calculate borehole thermal resistances in a borehole heat exchanger.
 </i>
 HVAC&amp;R Research,
 17(6): 895-911, 2011.</p>
-<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch. 
-<i>Thermal resistance and capacity models for borehole heat exchangers</i>. 
+<p>D. Bauer, W. Heidemann, H. M&uuml;ller-Steinhagen, and H.-J. G. Diersch.
+<i>Thermal resistance and capacity models for borehole heat exchangers</i>.
 International Journal of Energy Research, 35:312&ndash;320, 2011.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 22, 2023, by Michael Wetter:<br/>
+Corrected use of <code>getInstanceName()</code> which was called inside a function which
+is not allowed.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1814\">IBPSA, #1814</a>.
+</li>
+<li>
+February 7, 2022, by Michael Wetter:<br/>
+Changed function to be <code>pure</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1582\">IBPSA, #1582</a>.
+</li>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 July 18, 2018 by Massimo Cimmino:<br/>
 Implemented multipole method.

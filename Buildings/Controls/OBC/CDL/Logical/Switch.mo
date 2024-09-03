@@ -1,31 +1,30 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Switch
-  "Switch between two Real signals"
-  Interfaces.RealInput u1
-    "Real input signal"
+  "Switch between two boolean signals"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
+    "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealInput u3
-    "Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u3
+    "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.RealOutput y
-    "Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Booelan output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=
-    if u2 then
+  y=if u2 then
       u1
     else
       u3;
   annotation (
-    defaultComponentName="swi",
+    defaultComponentName="logSwi",
     Documentation(
       info="<html>
 <p>
-Block that outputs one of two real input signals based on a boolean input signal.
+Block that outputs one of two boolean input signals based on a boolean input signal.
 </p>
 <p>
 If the input signal <code>u2</code> is <code>true</code>,
@@ -60,33 +59,33 @@ Modelica Standard Library.
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Line(
-          points={{12.0,0.0},{100.0,0.0}},
-          color={0,0,127}),
-        Line(
-          points={{-100.0,0.0},{-40.0,0.0}},
+          points={{12,0},{100,0}},
           color={255,0,255}),
         Line(
-          points={{-100.0,-80.0},{-40.0,-80.0},{-40.0,-80.0}},
-          color={0,0,127}),
-        Line(
-          points={{-40.0,12.0},{-40.0,-12.0}},
+          points={{-100,0},{-40,0}},
           color={255,0,255}),
         Line(
-          points={{-100.0,80.0},{-40.0,80.0}},
-          color={0,0,127}),
+          points={{-100,-80},{-40,-80},{-40,-80}},
+          color={255,0,255}),
         Line(
-          points=DynamicSelect({{10,0},{-40,80}},{{10,0},
+          points={{-40,12},{-40,-10}},
+          color={255,0,255}),
+        Line(
+          points={{-100,80},{-40,80}},
+          color={255,0,255}),
+        Line(
+          points=DynamicSelect({{8,2},{-40,80}},{{8,2},
             if u2 then
               {-40,80}
             else
               {-40,-80}}),
-          color={0,0,127},
-          thickness=1.0),
+          color={255,0,255},
+          thickness=1),
         Ellipse(
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          extent={{2.0,-8.0},{18.0,8.0}}),
+          extent={{2.0,-6.0},{18.0,8.0}}),
         Ellipse(
           extent={{-71,7},{-85,-7}},
           lineColor=DynamicSelect({235,235,235},
@@ -100,17 +99,56 @@ Modelica Standard Library.
             else
               {235,235,235}),
           fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-71,74},{-85,88}},
+          lineColor=DynamicSelect({235,235,235},
+            if u1 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u1 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-71,-74},{-85,-88}},
+          lineColor=DynamicSelect({235,235,235},
+            if u3 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u3 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{71,7},{85,-7}},
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-90,80},{-46,54}},
-          lineColor=DynamicSelect({0,0,0},
+          extent={{-90,76},{-46,50}},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {0,0,0}
             else
               {235,235,235}),
           textString="true"),
         Text(
-          extent={{-90,-46},{-38,-76}},
-          lineColor=DynamicSelect({0,0,0},
+          extent={{-90,-42},{-38,-72}},
+          textColor=DynamicSelect({0,0,0},
             if u2 then
               {235,235,235}
             else
@@ -118,6 +156,6 @@ Modelica Standard Library.
           textString="false"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}));
 end Switch;

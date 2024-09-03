@@ -3,9 +3,9 @@ model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(lay[i].R for i in 1:nLay));
-  Modelica.SIunits.Temperature T[sum(layers.nSta)](
-    each nominal = 300) "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate Q_flow[sum(layers.nSta)+nLay]
+  Modelica.Units.SI.Temperature T[sum(layers.nSta)](each nominal=300)
+    "Temperature at the states";
+  Modelica.Units.SI.HeatFlowRate Q_flow[sum(layers.nSta) + nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
@@ -111,7 +111,7 @@ equation
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of
-<a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>.
 See this model for an explanation of the equations that are applied to
 each material layer.

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput phi(final unit="1",
                                             min=0,
                                             start=phi_start)
@@ -18,14 +18,14 @@ protected
     "Relative humidity to which the sensor is exposed to";
 
 protected
-  Modelica.SIunits.Temperature T_a
+  Modelica.Units.SI.Temperature T_a
     "Temperature of the medium flowing from port_a to port_b";
   Medium.MassFraction Xi_a[Medium.nXi](
     quantity=Medium.substanceNames[1:Medium.nXi])
     "Mass fraction of the medium flowing from port_a to port_b";
   Real phi_a(final unit="1")
     "Relative humidity of the medium flowing from port_a to port_b";
-  Modelica.SIunits.Temperature T_b
+  Modelica.Units.SI.Temperature T_b
     "Temperature of the medium flowing from port_b to port_a";
   Medium.MassFraction Xi_b[Medium.nXi](
     quantity=Medium.substanceNames[1:Medium.nXi])
@@ -90,15 +90,15 @@ annotation (defaultComponentName="senRelHum",
         grid={1,1}), graphics={
         Text(
           extent={{102,124},{6,95}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="phi"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Text(
           extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(phi, leftjustified=false, significantDigits=2)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(phi, leftJustified=false, significantDigits=2)))}),
   Documentation(info="<html>
 <p>
 This model outputs the relative humidity of the fluid flowing from

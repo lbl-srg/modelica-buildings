@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.Utilities;
-package SetPoints
-  "Package with blocks for setpoint resets"
+package SetPoints "Package with blocks for setpoint resets"
   annotation (
     preferredView="info",
     Documentation(

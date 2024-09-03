@@ -5,8 +5,9 @@ model PartialPV "Base model for a PV system"
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"  annotation(Evaluate=true, Dialog(group="Nominal conditions"));
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)"
+    annotation (Evaluate=true, Dialog(group="Nominal conditions"));
   Modelica.Blocks.Interfaces.RealInput G(unit="W/m2")
     "Total solar irradiation per unit area"
      annotation (Placement(transformation(
@@ -37,7 +38,7 @@ equation
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
         Text(
           extent={{-150,-104},{150,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Polygon(
           points={{-80,-52},{-32,63},{78,63},{29,-52},{-80,-52}},
@@ -54,7 +55,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-5,100},{98,136}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="G"),
         Polygon(
           points={{-53,-9},{-41,17},{-18,17},{-29,-9},{-53,-9}},
@@ -106,7 +107,7 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{102,107},{124,81}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="P")}),
     Documentation(revisions="<html>
 <ul>

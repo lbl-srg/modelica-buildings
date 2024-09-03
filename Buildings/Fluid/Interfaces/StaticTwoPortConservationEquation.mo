@@ -21,11 +21,11 @@ model StaticTwoPortConservationEquation
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
-                                                 unit="kg/s") if
-       use_mWat_flow "Moisture mass flow rate added to the medium"
+                                                 unit="kg/s")
+    if use_mWat_flow "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if
-       use_C_flow "Trace substance mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow
+    if use_C_flow "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model
@@ -40,7 +40,8 @@ model StaticTwoPortConservationEquation
 
   Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
                                                           each min=0,
-                                                          each max=1)
+                                                          each max=1,
+                                                          nominal=0.01*ones(Medium.nXi))
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -64,7 +65,7 @@ protected
 
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
 
-  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
+  Modelica.Units.SI.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
   // Parameters for inverseXRegularized.
@@ -95,10 +96,10 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=state_default)
+  final parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=state_default)
     "Specific heat capacity, used to verify energy conservation";
-  constant Modelica.SIunits.TemperatureDifference dTMax(min=1) = 200
+  constant Modelica.Units.SI.TemperatureDifference dTMax(min=1) = 200
     "Maximum temperature difference across the StaticTwoPortConservationEquation";
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
@@ -107,11 +108,12 @@ protected
     "Needed to connect to conditional connector";
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
       "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
-
+  end if;
 equation
   // Conditional connectors
   connect(mWat_flow, mWat_flow_internal);
@@ -335,6 +337,17 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for <code>XiOut</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
+</li>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
 Removed start value for <code>hOut</code> as it will be set by
@@ -594,23 +607,23 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-93,72},{-58,89}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow"),
         Text(
           extent={{-93,37},{-58,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="mWat_flow"),
         Text(
           extent={{-41,103},{-10,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="hOut"),
         Text(
           extent={{10,103},{41,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="XiOut"),
         Text(
           extent={{61,103},{92,117}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="COut"),
         Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
         Polygon(

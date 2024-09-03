@@ -1,5 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 function smoothInterpolation "Get interpolated data without triggering events"
+  extends Modelica.Icons.Function;
+
   input Real y[:] "Data array";
   input Real x "x value";
   output Real val "Interpolated value";

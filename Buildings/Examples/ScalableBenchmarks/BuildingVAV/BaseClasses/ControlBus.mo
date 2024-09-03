@@ -3,12 +3,12 @@ expandable connector ControlBus
   "Control bus that is adapted to the signals connected to it"
   extends Modelica.Icons.SignalBus;
 
-  Modelica.SIunits.Temperature TRooMin "Minimum temperature of multiple zones";
-  Modelica.SIunits.Temperature TRooAve "Average temperature of multiple zones";
-  Modelica.SIunits.Temperature TRooSetHea "Room heating setpoint temperature";
-  Modelica.SIunits.Temperature TRooSetCoo "Room cooling setpoint temperature";
-  Modelica.SIunits.Temperature TOut "Outdoor air temperature";
-  Modelica.SIunits.Time dTNexOcc "Time to next occupancy period";
+  Modelica.Units.SI.Temperature TRooMin "Minimum temperature of multiple zones";
+  Modelica.Units.SI.Temperature TRooAve "Average temperature of multiple zones";
+  Modelica.Units.SI.Temperature TRooSetHea "Room heating setpoint temperature";
+  Modelica.Units.SI.Temperature TRooSetCoo "Room cooling setpoint temperature";
+  Modelica.Units.SI.Temperature TOut "Outdoor air temperature";
+  Modelica.Units.SI.Time dTNexOcc "Time to next occupancy period";
   Boolean occupied "Occupancy status";
   Integer controlMode "System operation modes";
 

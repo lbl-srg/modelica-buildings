@@ -19,23 +19,23 @@ partial model PartialWaterToWater
   parameter Real scaling_factor = 1.0
     "Scaling factor for heat pump capacity";
 
-  parameter Modelica.SIunits.ThermalConductance UACon
+  parameter Modelica.Units.SI.ThermalConductance UACon
     "Thermal conductance of condenser";
 
-  parameter Modelica.SIunits.ThermalConductance UAEva
+  parameter Modelica.Units.SI.ThermalConductance UAEva
     "Thermal conductance of evaporator";
 
-  parameter Modelica.SIunits.Time tau1=60
+  parameter Modelica.Units.SI.Time tau1=60
     "Time constant at nominal flow rate (used if energyDynamics1 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Time tau2=60
+  parameter Modelica.Units.SI.Time tau2=60
     "Time constant at nominal flow rate (used if energyDynamics2 <> Modelica.Fluid.Types.Dynamics.SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
-  parameter Modelica.SIunits.Temperature T1_start=Medium1.T_default
+  parameter Modelica.Units.SI.Temperature T1_start=Medium1.T_default
     "Initial or guess value of set point"
     annotation (Dialog(tab="Dynamics", group="Condenser"));
-  parameter Modelica.SIunits.Temperature T2_start=Medium2.T_default
+  parameter Modelica.Units.SI.Temperature T2_start=Medium2.T_default
     "Initial or guess value of set point"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
 
@@ -47,12 +47,12 @@ partial model PartialWaterToWater
   parameter Boolean enable_temperature_protection = true
     "Enable temperature protection"
     annotation(Evaluate=true, Dialog(group="Temperature protection"));
-  parameter Modelica.SIunits.Temperature TConMax = ref.TCri-5
-    "Upper bound for condenser temperature"
-    annotation(Dialog(enable=enable_temperature_protection, group="Temperature protection"));
-  parameter Modelica.SIunits.Temperature TEvaMin = 275.15
-    "Lower bound for evaporator temperature"
-    annotation(Dialog(enable=enable_temperature_protection, group="Temperature protection"));
+  parameter Modelica.Units.SI.Temperature TConMax=ref.TCri - 5
+    "Upper bound for condenser temperature" annotation (Dialog(enable=
+          enable_temperature_protection, group="Temperature protection"));
+  parameter Modelica.Units.SI.Temperature TEvaMin=275.15
+    "Lower bound for evaporator temperature" annotation (Dialog(enable=
+          enable_temperature_protection, group="Temperature protection"));
   parameter Real dTHys(unit="K",min=0) = 5
     "Hysteresis interval width"
     annotation(Dialog(enable=enable_temperature_protection, group="Temperature protection"));
@@ -64,13 +64,13 @@ partial model PartialWaterToWater
   Modelica.Blocks.Interfaces.BooleanOutput errNegTemDif if enable_temperature_protection
     "if true, compressor disabled since condenser temperature is below evaporator temperature";
 
-  Modelica.Blocks.Interfaces.RealInput y(final unit = "1") if
-    enable_variable_speed == true
+  Modelica.Blocks.Interfaces.RealInput y(final unit = "1")
+ if enable_variable_speed == true
     "Modulating signal for compressor frequency, equal to 1 at full load condition"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
-  Modelica.Blocks.Interfaces.IntegerInput stage if
-    enable_variable_speed == false
+  Modelica.Blocks.Interfaces.IntegerInput stage
+ if enable_variable_speed == false
     "Current stage of the heat pump, equal to 1 at full load condition"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
 
@@ -136,12 +136,12 @@ partial model PartialWaterToWater
         origin={50,-6})));
 
 protected
-  Modelica.Blocks.Math.IntegerToReal intToRea if
-    enable_variable_speed == false "Conversion for stage signal"
+  Modelica.Blocks.Math.IntegerToReal intToRea
+ if enable_variable_speed == false "Conversion for stage signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Modelica.Blocks.Nonlinear.Limiter lim(final uMin=0, final uMax=1) if
-    enable_variable_speed == false "Limiter for control signal"
+  Modelica.Blocks.Nonlinear.Limiter lim(final uMin=0, final uMax=1)
+ if enable_variable_speed == false "Limiter for control signal"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Compressors.BaseClasses.TemperatureProtection temPro(
@@ -166,8 +166,9 @@ equation
     annotation (Line(points={{-100,60},{40,60}},  color={0,127,255}));
   connect(con.port_b, port_b1)
     annotation (Line(points={{60,60},{60,60},{100,60}}, color={0,127,255}));
-  connect(con.Q_flow, QCon_flow) annotation (Line(points={{61,64},{60,64},{60,90},
-          {110,90}}, color={0,0,127}));
+  connect(con.Q_flow, QCon_flow) annotation (Line(points={{61,64},{80,64},{80,
+          90},{110,90}},
+                     color={0,0,127}));
   connect(eva.port_a, port_a2)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(eva.port_b, port_b2)

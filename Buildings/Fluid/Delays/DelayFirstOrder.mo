@@ -1,24 +1,26 @@
 within Buildings.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
-  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V_nominal,
-                                                 final mSenFac=1);
+  extends Buildings.Fluid.MixingVolumes.MixingVolume(
+    final V=V_nominal,
+    final massDynamics=energyDynamics,
+    final mSenFac=1);
 
-  parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau=60 "Time constant at nominal flow"
+    annotation (Dialog(group="Delay time"));
 
 protected
-   parameter Modelica.SIunits.Volume V_nominal = m_flow_nominal*tau/rho_default
+  parameter Modelica.Units.SI.Volume V_nominal=m_flow_nominal*tau/rho_default
     "Volume of delay element";
   annotation (    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={      Text(
           extent={{-70,-26},{70,-66}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="tau=%tau")}),
 defaultComponentName="del",
     Documentation(info="<html>
 <p>
-This model approximates a transport delay using a first order differential equations.
+This model approximates a transport delay using first order differential equations.
 </p>
 <p>
 The model consists of a mixing volume with two ports. The size of the
@@ -27,11 +29,23 @@ mixing volume is such that at the nominal mass flow rate
 the time constant of the volume is equal to the parameter <code>tau</code>.
 </p>
 <p>
-The heat flux connector is optional, it need not be connnected.
+The heat flux connector is optional and need not be connnected.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 12, 2024, by Michael Wetter:<br/>
+Moved parameter <code>tau</code> to the main parameter tab.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1906\">#1906</a>.
+</li>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 September 14, 2013, by Michael Wetter:<br/>
 Renamed <code>V0</code> to <code>V_nominal</code> to use consistent notation.

@@ -4,7 +4,7 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
     final prescribedHeatFlowRate=true));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u(unit="1") "Control input"
     annotation (Placement(transformation(
@@ -17,7 +17,10 @@ protected
     final alpha=0)
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
+  Modelica.Blocks.Math.Gain gai(
+    k(final unit="W")=Q_flow_nominal,
+    y(final unit="W"))
+    "Gain"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
   connect(u, gai.u) annotation (Line(
@@ -59,7 +62,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-56,-12},{54,-72}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString="Q=%Q_flow_nominal"),
         Rectangle(
           extent={{-100,60},{-70,58}},
@@ -69,11 +72,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-122,106},{-78,78}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Text(
           extent={{72,96},{116,68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Q_flow")}),
 defaultComponentName="hea",
 Documentation(info="<html>
@@ -116,6 +119,18 @@ Buildings.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 13, 2022, by Fabian Wuellhorst:<br/>
+Added unit to instance <code>gai</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1642\">#1642</a>.
+</li>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Set <code>preHea(final alpha=0)</code> as this allows to simplify the

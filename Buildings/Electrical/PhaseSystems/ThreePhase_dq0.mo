@@ -55,7 +55,7 @@ package ThreePhase_dq0 "AC system in dqo representation"
 
 
   redeclare function extends phaseVoltages "Return phase to neutral voltages"
-protected
+  protected
     Voltage neutral_v = 0;
   algorithm
     v := {V*cos(phi), V*sin(phi), sqrt(3)*neutral_v}/sqrt(3);
@@ -87,7 +87,7 @@ protected
   redeclare function extends systemVoltage
   "Return system voltage as function of phase voltages"
   algorithm
-    V := Modelica.Fluid.Utilities.regRoot(v*v, delta=  1e-5);
+    V := Modelica.Fluid.Utilities.regRoot(v*v, delta = 1e-5);
     annotation(Inline=true);
   end systemVoltage;
 
@@ -95,7 +95,7 @@ protected
   redeclare function extends systemCurrent
   "Return system current as function of phase currents"
   algorithm
-    I := Modelica.Fluid.Utilities.regRoot(i*i, delta=  1e-5);
+    I := Modelica.Fluid.Utilities.regRoot(i*i, delta = 1e-5);
     annotation(Inline=true);
   end systemCurrent;
 

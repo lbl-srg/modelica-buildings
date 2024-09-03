@@ -1,0 +1,55 @@
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeadered",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=10800.0,
+    resultFile="StagingHeadered");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 300, 400},
+    y={"u1.y[1]", "u1.y[2]", "u1.y[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ratFlo.y[1]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={315, 5, 300, 600},
+    y={"staPumPriDed.y1[1]", "staPumPriDed.y1[2]", "staPumPriDed.y1[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"staPumPriNoDp.y1[1]", "staPumPriNoDp.y1[2]", "staPumPriNoDp.y1[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"staPumPriDp.y1[1]", "staPumPriDp.y1[2]", "staPumPriDp.y1[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=3,
+    position={620, 5, 300, 200},
+    y={"staPumSecDp.y1[1]", "staPumSecDp.y1[2]", "staPumSecDp.y1[3]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

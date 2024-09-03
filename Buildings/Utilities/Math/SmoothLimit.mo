@@ -9,7 +9,7 @@ equation
   y = Buildings.Utilities.Math.Functions.smoothLimit(u, lower, upper, deltaX);
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
-          lineColor={160,160,164},
+          textColor={160,160,164},
           textString="smoothLimit()")}),
 Documentation(info="<html>
 <p>

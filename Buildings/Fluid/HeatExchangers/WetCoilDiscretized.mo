@@ -11,12 +11,11 @@ model WetCoilDiscretized
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
 
-  Modelica.SIunits.HeatFlowRate QSen2_flow = Q2_flow - QLat2_flow
+  Modelica.Units.SI.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.SIunits.HeatFlowRate QLat2_flow=
-    Buildings.Utilities.Psychrometrics.Constants.h_fg * mWat_flow
-    "Latent heat input into air (negative if air is dehumidified)";
+  Modelica.Units.SI.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
+      *mWat_flow "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
     min=0,
@@ -25,8 +24,8 @@ model WetCoilDiscretized
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
        "Sensible to total heat ratio";
 
-   Modelica.SIunits.MassFlowRate mWat_flow = sum(hexReg[:].ele[:,:].vol2.mWat_flow)
-     "Water flow rate";
+  Modelica.Units.SI.MassFlowRate mWat_flow=sum(hexReg[:].ele[:, :].vol2.mWat_flow)
+    "Water flow rate";
 
  annotation (
 defaultComponentName="cooCoi",
@@ -56,6 +55,21 @@ Modelica.Media.Air.MoistAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 5, 2022, by Antoine Gautier:<br/>
+Restored the addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+</li>
+<li>
+May 26, 2022, by Michael Wetter:<br/>
+Removed addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>
+to correct latent heat exchange calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Corrected wrong use of <code>each</code>.

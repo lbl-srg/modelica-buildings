@@ -4,14 +4,14 @@ block ResistanceVolume
   extends Buildings.Fluid.FMI.ExportContainers.PartialTwoPort(
     redeclare package Medium = Buildings.Media.Air);
 
-  parameter Modelica.SIunits.Volume V=1 "Volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.01
+  parameter Modelica.Units.SI.Volume V=1 "Volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=100
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=100
     "Nominal pressure drop";
 
-  Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p) if
-       use_p_in "Pressure drop of the component"
+  Modelica.Blocks.Sources.RealExpression dpCom(y=res.port_a.p - res.port_b.p)
+    if use_p_in "Pressure drop of the component"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
 protected

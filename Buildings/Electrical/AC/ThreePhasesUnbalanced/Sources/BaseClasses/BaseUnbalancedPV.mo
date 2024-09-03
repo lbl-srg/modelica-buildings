@@ -3,9 +3,9 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   extends Buildings.Electrical.Interfaces.PartialPvBase;
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=480)
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
-     annotation(Dialog(group="Nominal conditions"));
+    annotation (Dialog(group="Nominal conditions"));
   parameter Real areaFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of area occupied by the PVs of each phase";
   replaceable OnePhase.Sources.PVSimple pv_phase2(
@@ -14,8 +14,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[2],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3)) if
-       plugPhase2 "PV phase 2"
+    V_nominal=V_nominal/sqrt(3))
+    if plugPhase2 "PV phase 2"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   replaceable OnePhase.Sources.PVSimple pv_phase3(
     pf=pf,
@@ -23,8 +23,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[3],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3)) if
-       plugPhase3 "PV phase 3"
+    V_nominal=V_nominal/sqrt(3))
+    if plugPhase3 "PV phase 3"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
   replaceable OnePhase.Sources.PVSimple pv_phase1(
     pf=pf,
@@ -32,8 +32,8 @@ partial model BaseUnbalancedPV "Partial model for an unbalanced PV source"
     A=A*areaFraction[1],
     fAct=fAct,
     eta=eta,
-    V_nominal=V_nominal/sqrt(3)) if
-       plugPhase1 "PV phase 1"
+    V_nominal=V_nominal/sqrt(3))
+    if plugPhase1 "PV phase 1"
     annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
   Modelica.Blocks.Math.Add3 sumBlock "Sum of the generated power on each phase"
     annotation (Placement(transformation(extent={{40,84},{60,64}})));
@@ -119,7 +119,7 @@ equation
         Text(
           extent={{-140,-100},{160,-60}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{80,-52},{32,63},{-78,63},{-29,-52},{80,-52}},
           smooth=Smooth.None,

@@ -3,12 +3,11 @@ model CoolingModeNonIntegrated
   "Cooling mode controller in the chilled water system with a non-integrated  waterside economizer"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.TemperatureDifference deaBan
+  parameter Modelica.Units.SI.TemperatureDifference deaBan
     "Dead band width for switching waterside economizer off ";
-  parameter Modelica.SIunits.Temperature TSwi
+  parameter Modelica.Units.SI.Temperature TSwi
     "Temperature transition to free cooling mode";
-  parameter Modelica.SIunits.Time tWai
-    "Waiting time";
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
 
   Modelica.Blocks.Interfaces.IntegerInput numOnChi
     "Number of running chillers"
@@ -34,13 +33,13 @@ model CoolingModeNonIntegrated
     "Cooling mode signal (1: free cooling mode, 3: fully mechanical cooling)"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1)
+  Modelica.StateGraph.InitialStepWithSignal freCoo(nIn=1, nOut=1)
     "Free cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-20,58})));
-  Modelica.StateGraph.StepWithSignal fulMecCoo
+  Modelica.StateGraph.StepWithSignal fulMecCoo(nIn=1, nOut=1)
     "Fully mechanical cooling mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -102,7 +101,7 @@ equation
   annotation (      Diagram(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{128,114},{-128,166}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>Chilled water plant with a non-integrated waterside economizer (WSE) have two cooling modes:

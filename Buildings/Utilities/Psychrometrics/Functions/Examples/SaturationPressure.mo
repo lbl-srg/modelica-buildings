@@ -1,10 +1,10 @@
 within Buildings.Utilities.Psychrometrics.Functions.Examples;
 model SaturationPressure "Model to test the saturationPressure function"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Temperature TMin = 190 "Temperature";
-  parameter Modelica.SIunits.Temperature TMax = 373.16 "Temperature";
-  Modelica.SIunits.Temperature T "Temperature";
-  Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
+  parameter Modelica.Units.SI.Temperature TMin=190 "Temperature";
+  parameter Modelica.Units.SI.Temperature TMax=373.16 "Temperature";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.AbsolutePressure pSat "Saturation pressure";
   constant Real conv(unit="1/s") = 1 "Conversion factor";
 equation
   T = TMin + conv*time * (TMax-TMin);

@@ -3,7 +3,5 @@ compareVars :=
     "dp",
     "dp_comp",
     "der(dp)",
-    "der(dp_comp)",
-    "err_dp",
-    "err_der_dp"
+    "der(dp_comp)"
   };

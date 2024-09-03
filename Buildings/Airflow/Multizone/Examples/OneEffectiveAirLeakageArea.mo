@@ -8,7 +8,6 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
     V=2.5*5*5,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
@@ -16,13 +15,12 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
     V=2.5*5*5,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01) "Control volume"
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.Sine heaFloBou(freqHz=1/3600)
+  Modelica.Blocks.Sources.Sine heaFloBou(f=1/3600)
     "Signal for heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Math.Gain gai(k=100)

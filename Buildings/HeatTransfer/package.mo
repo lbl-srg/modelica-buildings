@@ -4,7 +4,9 @@ package HeatTransfer "Package with heat transfer models"
 
 
 annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains models for heat transfer elements.
+</p>
 </html>"),
 Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100,-100},{100,100}}),
 graphics={

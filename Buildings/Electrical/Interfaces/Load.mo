@@ -12,33 +12,29 @@ model Load "Partial model for a generic load"
     "Type of load model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
 
-  parameter Modelica.SIunits.Power P_nominal = 0
+  parameter Modelica.Units.SI.Power P_nominal=0
     "Nominal power (negative if consumed, positive if generated). Used if mode <> Buildings.Electrical.Types.Load.VariableZ_P_input"
-    annotation(Dialog(group="Nominal conditions",
-        enable = mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
+    annotation (Dialog(group="Nominal conditions", enable=mode <> Buildings.Electrical.Types.Load.VariableZ_P_input));
 
-  parameter Modelica.SIunits.Voltage V_nominal(min=0, start=110)
-    "Nominal voltage (V_nominal >= 0)"
-    annotation (
-      Evaluate=true,
-      Dialog(group="Nominal conditions",
-      enable = (mode==Buildings.Electrical.Types.Load.FixedZ_dynamic or linearized)));
+  parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=110)
+    "Nominal voltage (V_nominal >= 0)" annotation (Evaluate=true, Dialog(group=
+          "Nominal conditions", enable=(mode == Buildings.Electrical.Types.Load.FixedZ_dynamic
+           or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
   max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
     "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
 
-  Modelica.SIunits.Voltage v[:](start = PhaseSystem.phaseVoltages(V_nominal)) = terminal.v
-    "Voltage vector";
-  Modelica.SIunits.Current i[:](each start=0) = terminal.i
-    "Current vector";
-  Modelica.SIunits.Power S[PhaseSystem.n] = PhaseSystem.phasePowers_vi(v, -i)
+  Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal)) =
+    terminal.v "Voltage vector";
+  Modelica.Units.SI.Current i[:](each start=0) = terminal.i "Current vector";
+  Modelica.Units.SI.Power S[PhaseSystem.n]=PhaseSystem.phasePowers_vi(v, -i)
     "Phase powers";
-  Modelica.SIunits.Power P(start=0)
+  Modelica.Units.SI.Power P(start=0)
     "Power of the load (negative if consumed, positive if fed into the electrical grid)";
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1") if
-       (mode == Buildings.Electrical.Types.Load.VariableZ_y_input)
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
+    if (mode == Buildings.Electrical.Types.Load.VariableZ_y_input)
     "Fraction of the nominal power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -46,8 +42,8 @@ model Load "Partial model for a generic load"
         extent={{-20,-20},{20,20}},
         rotation=180,
         origin={100,0})));
-  Modelica.Blocks.Interfaces.RealInput Pow(unit="W") if
-       (mode == Buildings.Electrical.Types.Load.VariableZ_P_input)
+  Modelica.Blocks.Interfaces.RealInput Pow(unit="W")
+    if (mode == Buildings.Electrical.Types.Load.VariableZ_P_input)
     "Power consumed" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=180,
@@ -182,7 +178,7 @@ Buildings.Electrical.Interfaces.Terminal</a>
 that can be redeclared.
 The generalized load is modeled as an impedance whose value can change. The value of the impedance
 can change depending on the value of the parameter <code>mode</code>, which is of type
-<a href=\"Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
+<a href=\"modelica://Buildings.Electrical.Types.Load\">Buildings.Electrical.Types.Load</a>:
 </p>
 
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">

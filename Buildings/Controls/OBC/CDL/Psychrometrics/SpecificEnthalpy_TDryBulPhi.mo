@@ -5,18 +5,18 @@ block SpecificEnthalpy_TDryBulPhi
     final quantity="Pressure",
     final unit="Pa")=101325
     "Atmospheric pressure";
-  Interfaces.RealInput TDryBul(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     final min=100)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
-  Interfaces.RealInput phi(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput h(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput h(
     final quantity="SpecificEnergy",
     final unit="J/kg")
     "Specific enthalpy"
@@ -60,7 +60,7 @@ The correlation used in this model is from the 2009 ASHRAE Handbook Fundamentals
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -84,7 +84,7 @@ First implementation.
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -100,7 +100,7 @@ First implementation.
           thickness=0.5),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -111,11 +111,11 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-88,-44},{-68,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Line(
           points={{78,-74},{-48,-74}}),
@@ -126,7 +126,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -134,6 +134,6 @@ First implementation.
           points={{-48,84},{-48,-74}}),
         Text(
           extent={{74,14},{94,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="h")}));
 end SpecificEnthalpy_TDryBulPhi;

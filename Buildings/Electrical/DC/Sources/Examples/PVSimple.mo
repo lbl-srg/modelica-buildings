@@ -13,15 +13,13 @@ model PVSimple "Example for the PVSimple model with constant load"
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Buildings.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
+  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(til=
+        0.34906585039887, azi=-0.78539816339745)
+                           "Diffuse irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    til=0.34906585039887,
-    lat=0.65798912800186,
-    azi=-0.78539816339745) "Direct irradiation on tilted surface"
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(til=
+        0.34906585039887, azi=-0.78539816339745)
+                           "Direct irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
       computeWetBulbTemperature=false,
@@ -95,6 +93,12 @@ In actual systems, the voltage source may be an AC/DC converter.
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 January 4, 2012, by Michael Wetter:<br/>
 First implementation.

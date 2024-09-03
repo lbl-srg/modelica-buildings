@@ -4,19 +4,19 @@ model Carnot_y "Test model for chiller based on Carnot_y efficiency"
  package Medium1 = Buildings.Media.Water "Medium model";
  package Medium2 = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.Power P_nominal=10E3
+  parameter Modelica.Units.SI.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
 
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     -P_nominal*COPc_nominal/dTEva_nominal/4200
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=-P_nominal*
+      COPc_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=m2_flow_nominal*(
+      COPc_nominal + 1)/COPc_nominal
     "Nominal mass flow rate at condenser water wide";
 
   Buildings.Fluid.Chillers.Carnot_y chi(
@@ -26,7 +26,6 @@ model Carnot_y "Test model for chiller based on Carnot_y efficiency"
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -113,8 +112,14 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
     Documentation(revisions="<html>
 <ul>
 <li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

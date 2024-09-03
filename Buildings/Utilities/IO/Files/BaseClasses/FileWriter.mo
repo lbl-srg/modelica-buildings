@@ -7,7 +7,7 @@ model FileWriter "Partial model for writing results to a .csv file"
     annotation(Evaluate=true, Dialog(connectorSizing=true));
   parameter String fileName = getInstanceName() + ".csv"
     "File name, including extension";
-  parameter Modelica.SIunits.Time samplePeriod
+  parameter Modelica.Units.SI.Time samplePeriod
     "Sample period: equidistant interval for which the inputs are saved";
   parameter String delimiter = "\t"
     "Delimiter for csv file"
@@ -29,8 +29,7 @@ protected
   parameter Boolean isCombiTimeTable = false
     "=true, if CombiTimeTable header should be prepended upon destruction"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.Time t0(fixed=false)
-    "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(fixed=false) "First sample time instant";
   parameter String insNam = getInstanceName() "Instance name";
   Buildings.Utilities.IO.Files.BaseClasses.FileWriterObject filWri=
       Buildings.Utilities.IO.Files.BaseClasses.FileWriterObject(
@@ -80,15 +79,15 @@ algorithm
   defaultComponentName="csvWri",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-86,-54},{90,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%fileName"),                                        Text(
           extent={{-86,-54},{90,-96}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%fileName"),                                        Text(
           extent={{-86,-16},{90,-58}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="%samplePeriod")}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

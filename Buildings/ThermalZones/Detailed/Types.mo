@@ -1,5 +1,6 @@
 within Buildings.ThermalZones.Detailed;
 package Types "Package with type definitions"
+  extends Modelica.Icons.TypesPackage;
 
   type CFDBoundaryConditions = enumeration(
       Temperature "Temperature specified",

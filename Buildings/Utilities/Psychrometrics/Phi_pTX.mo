@@ -58,7 +58,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-70,84},{-48,66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -73,7 +73,7 @@ First implementation.
           fillPattern=FillPattern.Solid),
         Text(
           extent={{76,-80},{86,-96}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -83,7 +83,7 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{34,-10},{56,-28}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="phi")}));

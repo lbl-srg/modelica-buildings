@@ -5,21 +5,23 @@ model DCDCConverter "DC DC converter"
     redeclare package PhaseSystem_n = PhaseSystems.TwoConductor,
     redeclare Interfaces.Terminal_n terminal_n,
     redeclare Interfaces.Terminal_p terminal_p);
-  parameter Modelica.SIunits.Voltage VHigh
+  parameter Modelica.Units.SI.Voltage VHigh
     "DC voltage on side 1 of the transformer (primary side)";
-  parameter Modelica.SIunits.Voltage VLow
+  parameter Modelica.Units.SI.Voltage VLow
     "DC voltage on side 2 of the transformer (secondary side)";
-  parameter Modelica.SIunits.Efficiency eta(max=1) "Converter efficiency";
+  parameter Modelica.Units.SI.Efficiency eta(max=1) "Converter efficiency";
   parameter Boolean ground_1 = true "Connect side 1 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Evaluate=true, Dialog(tab = "Ground", group="side 2"));
-  Modelica.SIunits.Power LossPower "Loss power";
+  Modelica.Units.SI.Power LossPower "Loss power";
 protected
   parameter Real conversionFactor = VLow/VHigh
     "Ratio of high versus low voltage";
-  Modelica.SIunits.Current i1,i2;
-  Modelica.SIunits.Voltage v1,v2;
-  Modelica.SIunits.Power P_p "Power at terminal p";
-  Modelica.SIunits.Power P_n "Power at terminal n";
+  Modelica.Units.SI.Current i1;
+  Modelica.Units.SI.Current i2;
+  Modelica.Units.SI.Voltage v1;
+  Modelica.Units.SI.Voltage v2;
+  Modelica.Units.SI.Power P_p "Power at terminal p";
+  Modelica.Units.SI.Power P_n "Power at terminal n";
 equation
   Connections.potentialRoot(terminal_n.theta);
   Connections.potentialRoot(terminal_p.theta);
@@ -68,7 +70,7 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{30,54},{90,14}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="DC"),
         Line(
           points={{-2,100},{-2,60},{-82,60},{-2,60},{-82,-60},{-2,-60},{-2,60},
@@ -77,27 +79,27 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{-88,54},{-28,14}},
-          lineColor={85,170,255},
+          textColor={85,170,255},
           textString="DC"),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-120,-60},{-2,-90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%VHigh"),
         Text(
           extent={{-100,-100},{100,-132}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%eta"),
         Text(
           extent={{-132,80},{-72,40}},
-          lineColor={85,170,255},
+          textColor={85,170,255},
           textString="1"),
         Text(
           extent={{70,80},{130,40}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="2"),
         Line(visible = (ground_1 == true),
           points={{-120,-100},{-80,-100}},
@@ -133,7 +135,7 @@ equation
           smooth=Smooth.None),
         Text(
           extent={{2,-60},{120,-90}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%VLow")}),
     Documentation(info="<html>
 <p>

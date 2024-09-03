@@ -2,17 +2,15 @@ within Buildings.ThermalZones.ReducedOrder.RC.BaseClasses;
 model InteriorWall "Interior wall consisting of variable number of RC elements"
 
   parameter Integer n(min = 1) "Number of RC-elements";
-  parameter Modelica.SIunits.ThermalResistance RInt[n](
-   each min=Modelica.Constants.small)
+  parameter Modelica.Units.SI.ThermalResistance RInt[n](each min=Modelica.Constants.small)
     "Vector of resistors, from port to capacitor"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.HeatCapacity CInt[n](
-   each min=Modelica.Constants.small)
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.HeatCapacity CInt[n](each min=Modelica.Constants.small)
     "Vector of heat capacitors, from port to center"
-    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Temperature T_start
+    annotation (Dialog(group="Thermal mass"));
+  parameter Modelica.Units.SI.Temperature T_start
     "Initial temperature of capacities"
-    annotation(Dialog(group="Thermal mass"));
+    annotation (Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
     iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -112,8 +110,11 @@ equation
    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
    Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None,
    thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}},
-   pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(
-    extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+   pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None),
+   Text(
+    extent = {{-90, 142}, {90, 104}},
+    textColor = {0, 0, 255},
+    textString = "%name"),
    Line(points = {{18, -32}, {-20, -32}}, color = {0, 0, 0}, thickness = 0.5,
    smooth = Smooth.None),
    Line(points = {{14, -44}, {-15, -44}}, color = {0, 0, 0}, thickness = 0.5,

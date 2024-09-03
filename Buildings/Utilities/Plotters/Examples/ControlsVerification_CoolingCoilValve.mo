@@ -90,15 +90,15 @@ model ControlsVerification_CoolingCoilValve
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.5)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=0.5)
     "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter percConv(k=0.01)
     "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConv1(k=0.01)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter percConv1(k=0.01)
     "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 

@@ -2,7 +2,7 @@ within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
 model KMinusU "Test model for KMinusU"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine pulse(
-    freqHz=0.001,
+    f=0.001,
     amplitude=0.5,
     offset=0.5,
     phase=-1.5707963267949)

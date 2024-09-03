@@ -2,10 +2,8 @@ within Buildings.Fluid.CHPs.BaseClasses;
 model AssertPower "Assert if electric power is outside boundaries"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.SIunits.Power PEleMax
-    "Maximum power output";
-  parameter Modelica.SIunits.Power PEleMin
-    "Minimum power output";
+  parameter Modelica.Units.SI.Power PEleMax "Maximum power output";
+  parameter Modelica.Units.SI.Power PEleMin "Minimum power output";
   parameter Boolean use_powerRateLimit
     "If true, the rate at which net power output can change is limited";
   parameter Real dPEleMax(final unit="W/s")
@@ -35,18 +33,18 @@ protected
     final initType=Modelica.Blocks.Types.Init.InitialOutput) if use_powerRateLimit
     "Power demand rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 if use_powerRateLimit "Absolute value"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1 if use_powerRateLimit "Absolute value"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold maxRat(final t=
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold maxRat(final t=
         dPEleMax) if use_powerRateLimit
     "Check if demand rate is more than the maximum rate"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis maxPow(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis maxPow(
     final uLow=0.99*PEleMax,
     final uHigh=1.01*PEleMax + 1e-6)
     "Check if the electric power demand is more than the maximum power production"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis minPow(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis minPow(
     final uLow=0.99*PEleMin - 1e-6,
     final uHigh=1.01*PEleMin)
     "Check if the electric power demand is larger than the minimum power production"

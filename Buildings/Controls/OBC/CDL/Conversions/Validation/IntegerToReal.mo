@@ -2,15 +2,15 @@ within Buildings.Controls.OBC.CDL.Conversions.Validation;
 model IntegerToReal
   "Validation model for the IntegerToReal block"
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    "Block that convert Integer to Real signal"
+    "Block that converts Integer to Real signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -20,11 +20,11 @@ model IntegerToReal
 
 equation
   connect(ramp1.y,round2.u)
-    annotation (Line(points={{-59,0},{-42,0}},color={0,0,127}));
+    annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
   connect(round2.y,reaToInt1.u)
-    annotation (Line(points={{-19,0},{-2,0}},color={0,0,127}));
+    annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
   connect(reaToInt1.y,intToRea.u)
-    annotation (Line(points={{21,0},{28,0},{28,0},{38,0}},color={255,127,0}));
+    annotation (Line(points={{22,0},{28,0},{28,0},{38,0}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,

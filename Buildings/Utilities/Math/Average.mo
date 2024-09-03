@@ -19,6 +19,6 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={Text(
           extent={{-74,46},{66,-58}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="ave")}));
 end Average;

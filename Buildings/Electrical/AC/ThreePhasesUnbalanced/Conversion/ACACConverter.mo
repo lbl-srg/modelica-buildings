@@ -19,7 +19,7 @@ model ACACConverter "AC AC converter single phase systems (YY)"
       ground_2=ground_2));
   parameter Real conversionFactor
     "Ratio of QS rms voltage on side 2 / QS rms voltage on side 1";
-  parameter Modelica.SIunits.Efficiency eta(max=1)
+  parameter Modelica.Units.SI.Efficiency eta(max=1)
     "Converter efficiency, pLoss = (1-eta) * Ptr";
   parameter Boolean ground_1 = false "Connect side 1 of converter to ground" annotation(Dialog(tab = "Ground", group="side 1"));
   parameter Boolean ground_2 = true "Connect side 2 of converter to ground" annotation(Dialog(tab = "Ground", group="side 2"));
@@ -38,27 +38,27 @@ model ACACConverter "AC AC converter single phase systems (YY)"
           smooth=Smooth.None),
         Text(
           extent={{-100,92},{100,60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name"),
         Text(
           extent={{-100,-60},{100,-92}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%conversionFactor"),
         Text(
           extent={{-132,78},{-72,38}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="1"),
         Text(
           extent={{-88,52},{-28,12}},
-          lineColor={11,193,87},
+          textColor={11,193,87},
           textString="AC"),
         Text(
           extent={{32,52},{92,12}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="AC"),
         Text(
           extent={{70,78},{130,38}},
-          lineColor={0,120,120},
+          textColor={0,120,120},
           textString="2")}),
     Documentation(info="<html>
 <p>

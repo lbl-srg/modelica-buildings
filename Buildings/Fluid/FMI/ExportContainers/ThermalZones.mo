@@ -46,7 +46,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-64,270},{78,164}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-68,140},{74,52}},
@@ -88,7 +88,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,180}}),
         graphics={Text(
           extent={{-118,172},{-104,166}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="[%nZon, %nPorts]")}),
     Documentation(info="<html>
     <p>

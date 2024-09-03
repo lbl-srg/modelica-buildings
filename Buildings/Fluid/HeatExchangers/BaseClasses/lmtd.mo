@@ -1,14 +1,14 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function lmtd "Log-mean temperature difference"
-  input Modelica.SIunits.Temperature T_a1 "Temperature at port a1";
-  input Modelica.SIunits.Temperature T_b1 "Temperature at port b1";
-  input Modelica.SIunits.Temperature T_a2 "Temperature at port a2";
-  input Modelica.SIunits.Temperature T_b2 "Temperature at port b2";
-  output Modelica.SIunits.TemperatureDifference lmtd
+  input Modelica.Units.SI.Temperature T_a1 "Temperature at port a1";
+  input Modelica.Units.SI.Temperature T_b1 "Temperature at port b1";
+  input Modelica.Units.SI.Temperature T_a2 "Temperature at port a2";
+  input Modelica.Units.SI.Temperature T_b2 "Temperature at port b2";
+  output Modelica.Units.SI.TemperatureDifference lmtd
     "Log-mean temperature difference";
 protected
-  Modelica.SIunits.TemperatureDifference dT1 "Temperature difference side 1";
-  Modelica.SIunits.TemperatureDifference dT2 "Temperature difference side 2";
+  Modelica.Units.SI.TemperatureDifference dT1 "Temperature difference side 1";
+  Modelica.Units.SI.TemperatureDifference dT2 "Temperature difference side 2";
 algorithm
   dT1 :=T_a1 - T_b2;
   dT2 :=T_b1 - T_a2;
@@ -29,7 +29,7 @@ revisions="<html>
 November 30, 2020, by Michael Wetter:<br/>
 Updated documentation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2268\">#2268</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2268\">Buildings, #2268</a>.
 </li>
 <li>
 May 28, 2010, by Michael Wetter:<br/>

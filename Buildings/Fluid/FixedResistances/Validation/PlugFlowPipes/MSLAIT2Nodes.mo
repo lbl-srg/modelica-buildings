@@ -249,12 +249,10 @@ model MSLAIT2Nodes
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-28,68})));
-  parameter Modelica.SIunits.ThermalConductivity kIns=0.024
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.024
     "Heat conductivity";
-  parameter Modelica.SIunits.Length dIns=0.045
-    "Thickness of pipe insulation";
-  parameter Modelica.SIunits.Diameter diameter=0.089
-    "Outer diameter of pipe";
+  parameter Modelica.Units.SI.Length dIns=0.045 "Thickness of pipe insulation";
+  parameter Modelica.Units.SI.Diameter diameter=0.089 "Outer diameter of pipe";
   Fluid.Sensors.TemperatureTwoPort
                             senTem_p2(redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -294,9 +292,9 @@ model MSLAIT2Nodes
         rotation=90,
         origin={18,112})));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, used for regularization near zero flow";
-  parameter Modelica.SIunits.Time tauHeaTra=6500
+  parameter Modelica.Units.SI.Time tauHeaTra=6500
     "Time constant for heat transfer, default 20 minutes";
 
   Modelica.Blocks.Logical.Switch switch
@@ -436,8 +434,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{
             220,200}})),
     experiment(StopTime=603900, Tolerance=1e-006),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT2Nodes.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Validation/PlugFlowPipes/MSLAIT2Nodes.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>The example contains

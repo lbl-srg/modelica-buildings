@@ -1,7 +1,7 @@
 within Buildings.Utilities.Plotters;
 model Configuration "Configuration for plotters"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+  parameter Modelica.Units.SI.Time samplePeriod(min=1E-3)
     "Sample period of component";
   parameter String fileName = Modelica.Utilities.Files.fullPathName("plots.html")
    "Name of html file";
@@ -14,14 +14,12 @@ model Configuration "Configuration for plotters"
     "Set to true to enable an input that allows activating and deactivating the plotting"
     annotation(Dialog(group="Activation"));
 
-  parameter Modelica.SIunits.Time activationDelay(min=0)=0
+  parameter Modelica.Units.SI.Time activationDelay(min=0) = 0
     "Time that needs to elapse to enable plotting after activate becomes true"
-    annotation(Dialog(
-      group="Activation",
-      enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
+    annotation (Dialog(group="Activation", enable=(activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)));
 
-  Modelica.Blocks.Interfaces.BooleanInput activate if
-     (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
+  Modelica.Blocks.Interfaces.BooleanInput activate
+  if (activation == Buildings.Utilities.Plotters.Types.GlobalActivation.use_input)
     "Set to true to enable plotting of time series after activationDelay elapsed"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
@@ -29,7 +27,8 @@ model Configuration "Configuration for plotters"
 protected
   Modelica.Blocks.Interfaces.BooleanInput activate_internal
     "Internal connector to activate plots";
-  discrete Modelica.SIunits.Time tActivateLast "Time when plotter was the last time activated";
+  discrete Modelica.Units.SI.Time tActivateLast
+    "Time when plotter was the last time activated";
 initial equation
   tActivateLast = time-2*activationDelay;
 equation
@@ -78,7 +77,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         smooth = Smooth.Bezier),
         Text(
           extent={{-42,-44},{34,-74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="delay=%activationDelay"),
         Ellipse(
           extent={{-95,67},{-81,53}},
@@ -93,7 +92,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
 <p>
 This block can be used to globally configure the parameters
 for the blocks from the package
-<a href=\"Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
+<a href=\"modelica://Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
 Use this block for example to set the same
 plot file name and sampling time.
 </p>

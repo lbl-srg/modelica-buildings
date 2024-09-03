@@ -6,8 +6,7 @@ package Types "Package with type definitions"
       FreeCooling "Free cooling mode",
       PartialMechanical "Partial mechanical cooling",
       FullMechanical "Holiday") "Full mechanical cooling" annotation (
-      Documentation(info =
-"<html>
+      Documentation(info="<html>
 <p>
 Enumeration for the type cooling mode.
 </p>

@@ -2,14 +2,14 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples;
 model YorkCalc "Example for yorkCalc correlation"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.TemperatureDifference TRan = 5.56
+  parameter Modelica.Units.SI.TemperatureDifference TRan=5.56
     "Range temperature (water in - water out)";
-  parameter Modelica.SIunits.Temperature TAirInWB = 25.55 + 273.15
+  parameter Modelica.Units.SI.Temperature TAirInWB=25.55 + 273.15
     "Inlet air wet bulb temperature";
-  Modelica.SIunits.MassFraction x "Independent variable";
-  Modelica.SIunits.TemperatureDifference TApp_Wat
+  Modelica.Units.SI.MassFraction x "Independent variable";
+  Modelica.Units.SI.TemperatureDifference TApp_Wat
     "Approach temperature as a function of FRWat";
-  Modelica.SIunits.TemperatureDifference TApp_Air
+  Modelica.Units.SI.TemperatureDifference TApp_Air
     "Approach temperature as a function of FRAir";
 
 equation

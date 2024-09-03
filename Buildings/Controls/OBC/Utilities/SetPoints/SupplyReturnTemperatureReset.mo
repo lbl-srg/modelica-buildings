@@ -62,175 +62,136 @@ block SupplyReturnTemperatureReset
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected
-  CDL.Continuous.Sources.Constant dTOutHeaBal_nominal(
+  CDL.Reals.Sources.Constant dTOutHeaBal_nominal(
     final k=dTOutHeaBal,
-    y(
-      final quantity="TemperatureDifference",
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Offset of outdoor temperature to take into account heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  CDL.Continuous.Sources.Constant TSup_nom(
+  CDL.Reals.Sources.Constant TSup_nom(
     final k=TSup_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating supply water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  CDL.Continuous.Sources.Constant TZon_nom(
+  CDL.Reals.Sources.Constant TZon_nom(
     final k=TZon_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Zone temperature at design condition"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  CDL.Continuous.Sources.Constant zer(
+  CDL.Reals.Sources.Constant zer(
     final k=1E-100)
     "Small positive constant to avoid log(0)"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  CDL.Continuous.Sources.Constant TRet_nom(
+  CDL.Reals.Sources.Constant TRet_nom(
     final k=TRet_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Heating return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  CDL.Continuous.Sources.Constant TOut_nom(
+  CDL.Reals.Sources.Constant TOut_nom(
     final k=TOut_nominal,
-    y(
-      final quantity="ThermodynamicTemperature",
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Outside temperature at design condition"
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
-  CDL.Continuous.Sources.Constant expM(
+  CDL.Reals.Sources.Constant expM(
     final k=m)
     "Exponent of heat transfer"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  CDL.Continuous.Sources.Constant one(
+  CDL.Reals.Sources.Constant one(
     final k=1)
     "Outputs 1"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  CDL.Continuous.Add TOutOffSet(
-    final k1=1,
-    final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Add TOutOffSet(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer (takes into account zone heat gains)"
     annotation (Placement(transformation(extent={{-80,-58},{-60,-38}})));
-  CDL.Continuous.Add qRelDen(
-    final k1=1,
-    final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Subtract qRelDen(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Denominator for relative heating load calculation"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  CDL.Continuous.Add qRelNum(
-    final k1=-1,
-    final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Subtract qRelNum(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Numerator for relative heating load calculation"
-    annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
-  CDL.Continuous.Division qRel
-    "Relative heating load = Q_flow/Q_flow_nominal"
+    annotation (Placement(transformation(extent={{-40,-52},{-20,-32}})));
+  CDL.Reals.Divide qRel "Relative heating load = Q_flow/Q_flow_nominal"
     annotation (Placement(transformation(extent={{0,24},{20,44}})));
-  CDL.Continuous.Add dTFlu2_nom(
-    final k1=0.5,
-    final k2=-0.5,
-    y(
-      final quantity="TemperatureDifference",
-      final unit="K"))
+  CDL.Reals.Subtract dTFlu2_nom
     "Heating supply minus return water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  CDL.Continuous.Add TFluAve_nominal(
-    final k1=0.5,
-    final k2=0.5,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Average TFluAve_nominal(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average heating water temperature at nominal condition"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  CDL.Continuous.Add dTFluAve_nominal(
-    final k1=1,
-    final k2=-1,
-    y(
-      final quantity="TemperatureDifference",
+  CDL.Reals.Subtract dTFluAve_nominal(
+    y(final quantity="TemperatureDifference",
       final unit="K"))
     "Average heating water temperature minus room temperature at nominal condition"
-    annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  CDL.Continuous.Division mInv
-    "Inverse of heat transfer exponent, y = 1/m"
+    annotation (Placement(transformation(extent={{36,110},{56,130}})));
+  CDL.Reals.Divide mInv "Inverse of heat transfer exponent, y = 1/m"
     annotation (Placement(transformation(extent={{-40,-160},{-20,-140}})));
-  CDL.Continuous.Add TAve(
-    final k1=1,
-    final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Add TAve(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Average of supply and return temperature"
     annotation (Placement(transformation(extent={{-40,276},{-20,296}})));
-  CDL.Continuous.Add TSupCur(
-    final k1=1,
-    final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Add TSupCur(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current supply water temperature"
     annotation (Placement(transformation(extent={{42,270},{62,290}})));
-  CDL.Continuous.Add TRetCur(
-    final k1=1,
-    final k2=-1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Subtract TRetCur(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Current return water temperature"
     annotation (Placement(transformation(extent={{40,238},{60,258}})));
-  CDL.Continuous.Max qRel0
+  CDL.Reals.Max qRel0
     "Relative heating load, but always non-zero value"
     annotation (Placement(transformation(extent={{32,30},{52,50}})));
-  CDL.Continuous.Product pro
-    "Product used to compute q^(1/m)"
+  CDL.Reals.Multiply pro "Product used to compute q^(1/m)"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  CDL.Continuous.Exp qRaiInvM
+  CDL.Reals.Exp qRaiInvM
     "Outputs qRel^(1/m)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  CDL.Continuous.Log log1
+  CDL.Reals.Log log1
     "Logarithm used for evaluation of qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  CDL.Continuous.Product dTQ(
-    y(
-      final quantity="TemperatureDifference",
-      final unit="K"))
-    "Temperature contribution due to qRel^(1/m)"
+  CDL.Reals.Multiply dTQ(y(
+    final quantity="TemperatureDifference",
+    final unit="K")) "Temperature contribution due to qRel^(1/m)"
     annotation (Placement(transformation(extent={{-80,220},{-60,240}})));
-  CDL.Continuous.Product dTFlu(
-    y(
-      final quantity="TemperatureDifference",
-      final unit="K"))
-    "Supply minus return water temperature"
+  CDL.Reals.Multiply dTFlu(y(
+    final quantity="TemperatureDifference",
+    final unit="K")) "Supply minus return water temperature"
     annotation (Placement(transformation(extent={{0,220},{20,240}})));
-  CDL.Continuous.Add TOutOffSet_nominal(
-    final k1=1,
-    final k2=1,
-    y(
-      final quantity="ThermodynamicTemperature",
+  CDL.Reals.Add TOutOffSet_nominal(
+    y(final quantity="ThermodynamicTemperature",
       final unit="K",
       displayUnit="degC"))
     "Effective outside temperature for heat transfer at nominal condition (takes into account zone heat gains)"
     annotation (Placement(transformation(extent={{-44,32},{-24,52}})));
+  CDL.Reals.MultiplyByParameter gai(
+    final k=0.5,
+    y(final quantity="TemperatureDifference",
+      final unit="K")) "Gain factor"
+    annotation (Placement(transformation(extent={{0,150},{20,170}})));
 
 equation
   connect(dTOutHeaBal_nominal.y,TOutOffSet.u1)
@@ -239,10 +200,6 @@ equation
     annotation (Line(points={{-120,60},{-90,60},{-90,-54},{-82,-54}},color={0,0,127}));
   connect(TZon_nom.y,qRelDen.u1)
     annotation (Line(points={{-58,90},{-42,90}},color={0,0,127}));
-  connect(TOutOffSet.y,qRelNum.u1)
-    annotation (Line(points={{-58,-48},{-42,-48}},color={0,0,127}));
-  connect(TSetZon,qRelNum.u2)
-    annotation (Line(points={{-120,-60},{-42,-60}},color={0,0,127}));
   connect(qRel.y,qRel0.u2)
     annotation (Line(points={{22,34},{30,34}},color={0,0,127}));
   connect(zer.y,qRel0.u1)
@@ -254,11 +211,9 @@ equation
   connect(TFluAve_nominal.u1,TSup_nom.y)
     annotation (Line(points={{-42,136},{-48,136},{-48,170},{-58,170}},color={0,0,127}));
   connect(TRet_nom.y,TFluAve_nominal.u2)
-    annotation (Line(points={{-58,130},{-50,130},{-50,124},{-42,124}},color={0,0,127}));
-  connect(dTFluAve_nominal.u1,TFluAve_nominal.y)
-    annotation (Line(points={{-2,126},{-10,126},{-10,130},{-18,130}},color={0,0,127}));
+    annotation (Line(points={{-58,130},{-52,130},{-52,124},{-42,124}},color={0,0,127}));
   connect(dTFluAve_nominal.u2,TZon_nom.y)
-    annotation (Line(points={{-2,114},{-50,114},{-50,90},{-58,90}},color={0,0,127}));
+    annotation (Line(points={{34,114},{-50,114},{-50,90},{-58,90}},color={0,0,127}));
   connect(qRel0.y,log1.u)
     annotation (Line(points={{54,40},{64,40},{64,-80},{-90,-80},{-90,-100},{-82,-100}},color={0,0,127}));
   connect(one.y,mInv.u1)
@@ -272,15 +227,14 @@ equation
   connect(qRaiInvM.u,pro.y)
     annotation (Line(points={{-2,-100},{-18,-100}},color={0,0,127}));
   connect(dTQ.u1,dTFluAve_nominal.y)
-    annotation (Line(points={{-82,236},{-92,236},{-92,204},{32,204},{32,120},{22,120}},color={0,0,127}));
+    annotation (Line(points={{-82,236},{-92,236},{-92,204},{60,204},{60,120},{58,
+          120}},                                                                       color={0,0,127}));
   connect(qRaiInvM.y,dTQ.u2)
     annotation (Line(points={{22,-100},{46,-100},{46,-98},{70,-98},{70,206},{-90,206},{-90,224},{-82,224}},color={0,0,127}));
   connect(TSetZon,TAve.u1)
     annotation (Line(points={{-120,-60},{-94,-60},{-94,292},{-42,292}},color={0,0,127}));
   connect(TAve.u2,dTQ.y)
     annotation (Line(points={{-42,280},{-52,280},{-52,230},{-58,230}},color={0,0,127}));
-  connect(dTFlu2_nom.y,dTFlu.u1)
-    annotation (Line(points={{-18,160},{-10,160},{-10,236},{-2,236}},color={0,0,127}));
   connect(qRel0.y,dTFlu.u2)
     annotation (Line(points={{54,40},{64,40},{64,216},{-6,216},{-6,224},{-2,224}},color={0,0,127}));
   connect(TSupCur.u1,TAve.y)
@@ -296,7 +250,7 @@ equation
   connect(TRetCur.y,TRet)
     annotation (Line(points={{62,248},{80,248},{80,-60},{120,-60}},color={0,0,127}));
   connect(qRel.u1,qRelNum.y)
-    annotation (Line(points={{-2,40},{-12,40},{-12,-54},{-18,-54}},color={0,0,127}));
+    annotation (Line(points={{-2,40},{-12,40},{-12,-42},{-18,-42}},color={0,0,127}));
   connect(qRel.u2,qRelDen.y)
     annotation (Line(points={{-2,28},{-6,28},{-6,84},{-18,84}},color={0,0,127}));
   connect(TOutOffSet_nominal.u1,TOut_nom.y)
@@ -305,6 +259,16 @@ equation
     annotation (Line(points={{-58,0},{-52,0},{-52,36},{-46,36}},color={0,0,127}));
   connect(TOutOffSet_nominal.y,qRelDen.u2)
     annotation (Line(points={{-22,42},{-20,42},{-20,66},{-50,66},{-50,78},{-42,78}},color={0,0,127}));
+  connect(TSetZon, qRelNum.u1) annotation (Line(points={{-120,-60},{-48,-60},{-48,
+          -36},{-42,-36}}, color={0,0,127}));
+  connect(TOutOffSet.y, qRelNum.u2)
+    annotation (Line(points={{-58,-48},{-42,-48}}, color={0,0,127}));
+  connect(dTFlu2_nom.y, gai.u)
+    annotation (Line(points={{-18,160},{-2,160}}, color={0,0,127}));
+  connect(gai.y, dTFlu.u1) annotation (Line(points={{22,160},{28,160},{28,180},{
+          -10,180},{-10,236},{-2,236}}, color={0,0,127}));
+  connect(TFluAve_nominal.y, dTFluAve_nominal.u1) annotation (Line(points={{-18,
+          130},{10,130},{10,126},{34,126}}, color={0,0,127}));
   annotation (
     defaultComponentName="watRes",
     Documentation(
@@ -350,6 +314,10 @@ alt=\"Supply and return water temperatures.\"/>
       revisions="<html>
 <ul>
 <li>
+October 21, 2021, by Michael Wetter:<br/>
+Corrected icon.
+</li>
+<li>
 February 8, 2021, by Michael Wetter:<br/>
 Renamed to <code>Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset</code>
 and reimplemented using elementary CDL blocks.<br/>
@@ -358,7 +326,7 @@ This is for
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>
@@ -428,25 +396,24 @@ First implementation.
           smooth=Smooth.Bezier),
         Text(
           extent={{-152,120},{-102,70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TOut"),
         Text(
-          visible=use_TRoo_in,
           extent={{-152,-4},{-102,-54}},
-          lineColor={0,0,127},
-          textString="TRoo"),
+          textColor={0,0,127},
+          textString="TSetZon"),
         Text(
           extent={{40,86},{90,36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TSup"),
         Text(
           extent={{42,-30},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TRet"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Diagram(
       coordinateSystem(
         extent={{-100,-200},{100,340}}),
@@ -459,7 +426,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-34,318},{66,306}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -472,7 +439,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-26,-178},{74,-190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -485,7 +452,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-84,198},{-36,190}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -498,7 +465,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-4,98},{56,90}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
@@ -511,7 +478,7 @@ First implementation.
           pattern=LinePattern.None),
         Text(
           extent={{-6,-68},{60,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,

@@ -7,7 +7,7 @@ partial model CoolingTower "Base class for cooling towers"
     final unit="K",
     displayUnit="degC") "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Modelica.SIunits.HeatFlowRate Q_flow = preHea.Q_flow
+  Modelica.Units.SI.HeatFlowRate Q_flow=preHea.Q_flow
     "Heat input into water circuit";
 
 protected
@@ -28,7 +28,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TVol.T, TLvg) annotation (Line(
-      points={{40,-60},{110,-60}},
+      points={{41,-60},{110,-60}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -42,17 +42,31 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,41},{-70,38}},
+          extent={{-102,5},{99,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{76,-58},{100,-62}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-102,5},{99,-5}},
+          extent={{76,-60},{80,-4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+         extent={{190,-6},{70,-56}},
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(TLvg-273.15, format=".1f"))),
+        Text(
+          extent={{90,-20},{124,-58}},
+          textColor={0,0,127},
+          textString=DynamicSelect("TLvg", ""))}),
 defaultComponentName="cooTow",
     Documentation(info="<html>
 <p>

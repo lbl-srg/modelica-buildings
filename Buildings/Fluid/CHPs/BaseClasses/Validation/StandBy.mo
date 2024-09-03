@@ -6,7 +6,7 @@ model StandBy "Validate model StandBy"
     "CHP performance data"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mWat_flow(
     final k=0.5) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Fluid.CHPs.BaseClasses.Types.Mode actMod "Mode indicator";
@@ -16,9 +16,11 @@ model StandBy "Validate model StandBy"
     "Standby to pump on mode"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
 
-  Modelica.StateGraph.Step staBy(nOut=2) "Plant is in standby mode"
+  Modelica.StateGraph.Step staBy(nOut=2, nIn=1)
+                                         "Plant is in standby mode"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Modelica.StateGraph.Step pumOn "Plant pump is on"
+  Modelica.StateGraph.Step pumOn(nIn=1, nOut=1)
+                                 "Plant pump is on"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 protected
   Modelica.Blocks.Sources.BooleanTable avaSig(table={300,600,900,1260})
@@ -29,7 +31,8 @@ protected
   Modelica.Blocks.Sources.BooleanTable runSig(table={1200,1260})
     "Plant run signal"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.StateGraph.InitialStep off(nIn=2) "Off mode"
+  Modelica.StateGraph.InitialStep off(nIn=2, nOut=1)
+                                             "Off mode"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
@@ -39,11 +42,11 @@ protected
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.StateGraph.TransitionWithSignal transition4 "Standby to off mode"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minWatFlo(
     final k=per.mWatMin_flow)
     "Minimum water mass flow rate"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cheMinFlo
+  Buildings.Controls.OBC.CDL.Reals.Greater cheMinFlo
     "Check if water mass flow rate is higher than the minimum"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 

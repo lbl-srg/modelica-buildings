@@ -29,15 +29,15 @@ equation
   annotation ( Icon(graphics={
         Text(
           extent={{-92,22},{-50,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Text(
           extent={{48,22},{90,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u'"),
         Text(
           extent={{-14,-40},{92,-80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="1-u'")}),
            Documentation(info="<html>
 This model changes the shading control signal to avoid a singularity

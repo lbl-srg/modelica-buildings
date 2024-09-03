@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "tabDat_m_flow.m_flow",
+    "tabDat_V_flow.V_flow",
+    "tabDat_V_flow.V_flow",
+    "tabDat_m_flow.m_flow"
+  };

@@ -10,7 +10,7 @@ block SampleTrigger
     final quantity="Time",
     final unit="s")=0
     "Shift time for output";
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -53,7 +53,7 @@ equation
           points={{60,-70},{60,70}}),
         Text(
           extent={{-150,-140},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%period"),
         Polygon(
           points={{-80,88},{-88,66},{-72,66},{-80,88}},
@@ -85,7 +85,7 @@ equation
               {235,235,235}),
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),
     Documentation(
@@ -113,7 +113,7 @@ This is for
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

@@ -15,34 +15,31 @@ partial model PartialInternalHEX
               "Propylene glycol water, 40% mass fraction")));
   constant Real mSenFac=1
     "Factor for scaling the sensible thermal mass of the volume";
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material"
-    annotation (Dialog(tab="Dynamics"));
-  parameter Modelica.SIunits.Length hSeg
+
+  parameter Modelica.Units.SI.Length hSeg
     "Length of the internal heat exchanger";
-  parameter Modelica.SIunits.Volume VTubSeg = hSeg*Modelica.Constants.pi*(borFieDat.conDat.rTub-borFieDat.conDat.eTub)^2
+  parameter Modelica.Units.SI.Volume VTubSeg=hSeg*Modelica.Constants.pi*(
+      borFieDat.conDat.rTub - borFieDat.conDat.eTub)^2
     "Fluid volume in each tube";
-  parameter Modelica.SIunits.Temperature TFlu_start
-    "Start value of fluid temperature"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Temperature TGro_start
-    "Start value of grout temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TFlu_start
+    "Start value of fluid temperature" annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TGro_start
+    "Start value of grout temperature" annotation (Dialog(tab="Initialization"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_wall
     "Thermal connection for borehole wall"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpMed=
       Medium.specificHeatCapacityCp(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Specific heat capacity of the fluid";
-  parameter Modelica.SIunits.ThermalConductivity kMed=
+  parameter Modelica.Units.SI.ThermalConductivity kMed=
       Medium.thermalConductivity(Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
       Medium.X_default)) "Thermal conductivity of the fluid";
-  parameter Modelica.SIunits.DynamicViscosity muMed=Medium.dynamicViscosity(
+  parameter Modelica.Units.SI.DynamicViscosity muMed=Medium.dynamicViscosity(
       Medium.setState_pTX(
       Medium.p_default,
       Medium.T_default,
@@ -90,6 +87,12 @@ need to be declared in models which extend this partial model:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to water and glycolWater.

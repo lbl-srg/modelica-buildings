@@ -4,7 +4,7 @@ partial model Slab "Base class for radiant slab"
     Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType
      sysTyp "Radiant system type";
 
-  parameter Modelica.SIunits.Distance disPip "Pipe distance";
+  parameter Modelica.Units.SI.Distance disPip "Pipe distance";
 
   parameter Buildings.Fluid.Data.Pipes.Generic pipe
     "Record for pipe geometry and material"
@@ -22,12 +22,12 @@ partial model Slab "Base class for radiant slab"
     "Number of the interface layer in which the pipes are located"
   annotation(Dialog(group="Construction"), Evaluate=true);
 
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
+  parameter Modelica.Units.SI.Temperature T_a_start=293.15
     "Initial temperature at surf_a, used if steadyStateInitial = false"
-    annotation(Dialog(tab="Initialization", group="Construction"));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
+    annotation (Dialog(tab="Initialization", group="Construction"));
+  parameter Modelica.Units.SI.Temperature T_b_start=293.15
     "Initial temperature at surf_b, used if steadyStateInitial = false"
-    annotation(Dialog(tab="Initialization", group="Construction"));
+    annotation (Dialog(tab="Initialization", group="Construction"));
 
   parameter Boolean stateAtSurface_a=true
     "=true, a state will be at the surface a"

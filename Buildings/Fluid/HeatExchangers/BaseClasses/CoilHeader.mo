@@ -10,9 +10,9 @@ model CoilHeader "Header for a heat exchanger register"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Integer nPipPar(min=1) "Number of parallel pipes in each register";
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a
+  parameter Modelica.Units.SI.MassFlowRate mStart_flow_a
     "Guess value for mass flow rate at port_a"
-    annotation(Dialog(group = "Initialization"));
+    annotation (Dialog(group="Initialization"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a[nPipPar](
         redeclare each final package Medium = Medium,

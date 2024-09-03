@@ -17,9 +17,8 @@ model CoolingModeNonIntegrated
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Sine TWetBub(
     amplitude=4,
-    freqHz=1/300,
-    offset=273.15 + 8)
-    "Wet bulb temperature"
+    f=1/300,
+    offset=273.15 + 8) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15 + 10)
     "Chilled water supply temperature setpoint"

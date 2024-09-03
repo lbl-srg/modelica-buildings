@@ -21,12 +21,12 @@ connector Outlet "Connector for fluid outlet"
 
   output Medium.MassFlowRate m_flow
     "Mass flow rate from the connection point into the component";
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
-       use_p_in "Thermodynamic pressure in the connection point";
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p
+    if use_p_in "Thermodynamic pressure in the connection point";
 
   input Buildings.Fluid.FMI.Interfaces.FluidProperties backward(
-    redeclare final package Medium = Medium) if
-       allowFlowReversal "Inflowing properties";
+    redeclare final package Medium = Medium)
+    if allowFlowReversal "Inflowing properties";
 
   output Buildings.Fluid.FMI.Interfaces.FluidProperties forward(
     redeclare final package Medium = Medium) "Outflowing properties";
@@ -41,7 +41,7 @@ connector Outlet "Connector for fluid outlet"
           fillColor={255,255,255}),
           Text(
           extent={{-58,134},{48,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
 <p>

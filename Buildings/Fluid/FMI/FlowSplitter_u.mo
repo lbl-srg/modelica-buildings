@@ -13,8 +13,8 @@ block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal[nout](
-    each min=0) "Nominal mass flow rate for each outlet";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nout](each min=0)
+    "Nominal mass flow rate for each outlet";
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (inlet -> outlet)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
@@ -41,13 +41,13 @@ block FlowSplitter_u "Model of a flow splitter that can be exported as an FMU"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 protected
-  final parameter Modelica.SIunits.MassFlowRate mAve_flow_nominal=
-      sum(m_flow_nominal)/nout "Average nominal mass flow rate";
+  final parameter Modelica.Units.SI.MassFlowRate mAve_flow_nominal=sum(
+      m_flow_nominal)/nout "Average nominal mass flow rate";
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
+  output Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
     "Internal connector for mass fraction of backward flow properties";
 
 initial equation
@@ -81,7 +81,7 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Text(
           extent={{-100,98},{-60,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="u"),
         Rectangle(
           extent={{-100,14},{-22,-10}},
@@ -144,6 +144,11 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

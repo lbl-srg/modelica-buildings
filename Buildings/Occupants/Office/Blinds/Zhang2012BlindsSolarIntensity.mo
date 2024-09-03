@@ -7,7 +7,7 @@ model Zhang2012BlindsSolarIntensity
     parameter Real BUp = -3.33 "Intercept for blinds up";
     parameter Real BDown = -3.17 "Intercept for blinds down";
     parameter Integer seed = 10 "Seed for the random number generator";
-    parameter Modelica.SIunits.Time samplePeriod = 120 "Sample period";
+  parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(
       unit="W/m2") "Solar intensity" annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
@@ -32,7 +32,8 @@ model Zhang2012BlindsSolarIntensity
       final max=1) "The probability of blinds down";
 
 protected
-    parameter Modelica.SIunits.Time t0(final fixed = false) "First sample time instant";
+  parameter Modelica.Units.SI.Time t0(final fixed=false)
+    "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
     Boolean isOpen "Blind state as a boolean";
     Real curSeed "Current value for seed as a real-valued variable";
@@ -71,7 +72,7 @@ equation
     annotation (Icon(graphics={
               Rectangle(extent={{-60,40},{60,-40}}, lineColor={28,108,200}), Text(
               extent={{-40,20},{40,-20}},
-              lineColor={28,108,200},
+              textColor={28,108,200},
               fillColor={0,0,255},
               fillPattern=FillPattern.Solid,
               textStyle={TextStyle.Bold},

@@ -14,7 +14,7 @@ annotation (
 defaultComponentName="assEqu",
 Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="u1 = u2")}),
 Documentation(info="<html>
 <p>

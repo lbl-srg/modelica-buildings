@@ -18,7 +18,7 @@ models alternate current electrical systems.
 The package <a href=\"modelica://Buildings.Electrical.AC\">Buildings.Electrical.AC</a> contains
 component models for AC systems. The mathematics that describes AC systems is contained in the package
 <a href=\"modelica://Buildings.Electrical.PhaseSystems.OnePhase\">Buildings.Electrical.PhaseSystems.OnePhase</a>,
-in which n = 2 and m = 1. The AC models that are part of the library can use two different assumptions.
+in which <code>n = 2</code> and <code>m = 1</code>. The AC models that are part of the library can use two different assumptions.
 </p>
 <p>
 The first assumption is that the frequency is modeled as quasi-stationary, assuming a perfect sine
@@ -30,9 +30,9 @@ in the complex plane.
 <p>
 The second assumption is the so-called dynamic phasorial representation. The basic idea of the
 dynamic phasorial representation is to account for dynamic variations of the amplitude and
-the angle of the pha- sors. With such an approach, it is possible to analyze faster dynamics
+the angle of the phasors. With such an approach, it is possible to analyze faster dynamics
 without directly representing all the electromagnetic effects and high-order harmonics
-(for more details <a href=\"#Stankovic1999\">Stankovic Et Al. 1999</a>, and
+(for more details, see <a href=\"#Stankovic1999\">Stankovic Et Al. 1999</a>, and
 <a href=\"#Stankovic2000\">Stankovic A.M. and Aydin T.</a>).
 </p>
 
@@ -81,24 +81,24 @@ where the subscripts indicates a
 <h4>Reference angle for AC systems</h4>
 <p>
 The AC connector has an additional vector that represents the
-reference angle <code>theta[PhaseSystem.m]</code>. The reference angl eis used, for example in the
+reference angle <code>theta[PhaseSystem.m]</code>. The reference angle is used, for example in the
 AC single phase systems to describe the phase angle of the reference voltage.
 This extra information in the connector makes it overdetermined
 because the number of effort variables is higher than the number of flow variables.
 The over-determined connectors are defined and used in such a way that a Modelica tool is able
 to remove the superfluous but consistent equations, arriving at a balanced set of equations based on a
 graph analysis of the connection structure. The models in the library uses constructs specified
-by the Modelica language to handle this situation <a href=\"#Olsson2008\">Olsson Et Al. (2008)</a>.
+by the Modelica language to handle this situation, as described by <a href=\"#Olsson2008\">Olsson et al. (2008)</a>.
 </p>
 <p>
-The reference angle are usually defined by the sources (e.g., voltage sources or generators) and
-the value of their reference angles need to be propagated to all the components connected to them.
-If more generators are connected to the same network the Modelica tool is able to remove the superfluous equations,
+The reference angles are usually defined by the sources (e.g., voltage sources or generators) and
+their values need to be propagated to all the components connected to them.
+If more than one generator are connected to the same network, the Modelica tool is able to remove the superfluous equations,
 arriving at a balanced set of equations based on a graph analysis of the connection structure.
 The flags <code>potentialReference</code> and <code>definiteReference</code> are used to help the
-Modelica tool during the selection of the reference angle. If <code>definiteReference</code> is set to
-<code>True</code> means that the reference angle of the source has to be used as reference, while if
-<code>definiteReference</code> is set to <code>True</code> the reference angle is used just if there are no
+Modelica tool during the selection of the reference angle. If <code>definiteReference = true</code>,
+then the reference angle of the source has to be used as reference, while if
+<code>potentialReference = true</code>, the reference angle is used only if there are no
 definite sources defined.
 </p>
 <p>

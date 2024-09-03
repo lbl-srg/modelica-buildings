@@ -2,10 +2,10 @@ compareVars :=
   {
     "wetBulPhi.TWetBul",
     "wetBulPhi_BuiLib.TWetBul",
-    "add.y",
+    "sub.y",
     "phi.y",
     "wetBulPhi.TWetBul",
     "wetBulXi.TWetBul",
-    "add1.y",
+    "sub1.y",
     "phi.y"
   };

@@ -11,15 +11,15 @@ model Pipe
     annotation(HideResult=true);
 
   parameter Integer nSeg(min=1) = 10 "Number of volume segments";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of insulation";
-  parameter Modelica.SIunits.ThermalConductivity lambdaIns
+  parameter Modelica.Units.SI.Length thicknessIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity lambdaIns
     "Heat conductivity of insulation";
-  parameter Modelica.SIunits.Length diameter
+  parameter Modelica.Units.SI.Length diameter
     "Pipe diameter (without insulation)";
 
-  parameter Modelica.SIunits.Length length "Length of the pipe";
+  parameter Modelica.Units.SI.Length length "Length of the pipe";
   parameter Real ReC=4000
-    "Reynolds number where transition to turbulent starts"
+    "Reynolds number where transition to turbulence starts"
     annotation (Dialog(tab="Flow resistance"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
@@ -52,14 +52,15 @@ model Pipe
         transformation(extent={{-1,-18},{19,-38}})));
 
 protected
-  parameter Modelica.SIunits.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)^
-      2*length "Pipe volume";
+  parameter Modelica.Units.SI.Volume VPipe=Modelica.Constants.pi*(diameter/2.0)
+      ^2*length "Pipe volume";
   parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Default state";
-  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
-  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(state_default);
+  parameter Modelica.Units.SI.DynamicViscosity mu_default=
+      Medium.dynamicViscosity(state_default)
     "Dynamic viscosity at nominal condition";
 
 initial equation
@@ -100,7 +101,7 @@ equation
           fillColor={217,236,255}),
         Text(
           extent={{-42,12},{40,-12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%nSeg")}),
     Documentation(info="<html>
 <p>

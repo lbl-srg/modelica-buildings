@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-function getHeaderElementTMY3
+impure function getHeaderElementTMY3
   "Gets an element from the header of a TMY3 weather data file"
   extends Modelica.Icons.Function;
  input String filNam "Name of weather data file"
@@ -70,6 +70,10 @@ When this line is found, the function returns the element at the position number
 A comma is used as the delimiter of the elements.
 </html>", revisions="<html>
 <ul>
+<li>
+December 11, 2021, by Michael Wetter:<br/>
+Added <code>impure</code> declaration for MSL 4.0.0.
+</li>
 <li>
 April 21, 2016, by Michael Wetter:<br/>
 Removed call to

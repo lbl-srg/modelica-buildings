@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.Controls.Validation.PIDWithOperatingMode", stopTime=10, method="Cvode", tolerance=1e-06, resultFile="PIDWithOperatingMode");
+createPlot(id=1, position={35, 35, 800, 1027}, y={"mode.y[1]", "limPIDPar.u_s", "limPIDPar.u_m", "limPIDPar.y"}, autoscale=true, grid=true, autoerase=true, color=true, subPlot=1);
+createPlot(id=1, y={"mode.y[1]","limPIPar.u_s", "limPIPar.u_m", "limPIPar.y"}, autoscale=true, grid=true, autoerase=true, color=true, subPlot=2);

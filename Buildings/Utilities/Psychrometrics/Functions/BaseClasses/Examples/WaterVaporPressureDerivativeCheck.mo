@@ -6,9 +6,9 @@ model WaterVaporPressureDerivativeCheck
   Real y "Function value";
   Real y_comp "Function value for comparison";
   Real err "Integration error";
-  Modelica.SIunits.MassFraction X_w
+  Modelica.Units.SI.MassFraction X_w
     "Water vapor mass fraction at dry bulb temperature";
-  Modelica.SIunits.Pressure p "Total pressure";
+  Modelica.Units.SI.Pressure p "Total pressure";
 
 initial equation
   y=y_comp;

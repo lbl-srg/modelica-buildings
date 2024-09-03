@@ -16,7 +16,7 @@ equation
   y = u1 <= u2;
   annotation (
         defaultComponentName="lesEqu",
-        obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Less instead",
+        obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.Less instead",
         Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -43,7 +43,7 @@ equation
           thickness=0.5),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
                             Documentation(info="<html>
 <p>

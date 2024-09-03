@@ -1,6 +1,9 @@
 MassFlowSource_WeatherData
 Outside
 Outside_Cp
+Outside_CpData
+Outside_CpData_Angles
+Outside_CpData_Specification
 Outside_CpLowRise
 PropertySource_T
 PropertySource_h

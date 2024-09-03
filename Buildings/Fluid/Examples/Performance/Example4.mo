@@ -6,13 +6,12 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
   parameter Boolean allowFlowReversal=false
     "= false to simplify equations, assuming, but not enforcing, no flow reversal";
 
-  Modelica.SIunits.MassFlowRate m_condens = min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]))
-    "Water vapor mass flow rate";
+  Modelica.Units.SI.MassFlowRate m_condens=min(0, -vol.ports[1].m_flow*(bou.X[1]
+       - xSat.X[1])) "Water vapor mass flow rate";
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     nPorts=2,
     ports(m_flow(min={0,-Modelica.Constants.inf})),
     redeclare package Medium = Medium,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -160,7 +159,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </ul>
 </html>"),
 experiment(Tolerance=1e-6, StopTime=20),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example4.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example4.mos"
         "Simulate and plot"));
 end Example4;

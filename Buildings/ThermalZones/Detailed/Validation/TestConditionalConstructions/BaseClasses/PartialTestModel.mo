@@ -21,8 +21,7 @@ partial model PartialTestModel
     AFlo=20,
     hRoo=2.7,
     linearizeRadiation = true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722) "Room model"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
   parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt

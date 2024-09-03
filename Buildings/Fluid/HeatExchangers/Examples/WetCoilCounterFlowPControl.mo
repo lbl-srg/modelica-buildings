@@ -4,14 +4,14 @@ model WetCoilCounterFlowPControl
   extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.Water;
   package Medium2 = Buildings.Media.Air;
-  parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
-  parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;
-  parameter Modelica.SIunits.Temperature T_b2_nominal=15 + 273.15;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=0.1
+  parameter Modelica.Units.SI.Temperature T_a1_nominal=5 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_b1_nominal=10 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_a2_nominal=30 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_b2_nominal=15 + 273.15;
+  parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=0.1
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
-      1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
+  parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal=0.2*m1_flow_nominal*4200
+      /1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
@@ -98,7 +98,7 @@ model WetCoilCounterFlowPControl
     Ti=60) "Controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Sources.Ramp TWat(
-    height=30,
+    height=5,
     offset=T_a1_nominal,
     startTime=300,
     duration=2000) "Water temperature, raised to high value at t=3000 s"
@@ -180,6 +180,12 @@ for the air outlet.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2023 by Jianjun Hu:<br/>
+Reduced the nominal airflow rate and the water temperature.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3607\">#3607</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

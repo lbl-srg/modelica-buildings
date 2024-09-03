@@ -6,10 +6,10 @@ block ZeroOrderHold
     final unit="s",
     min=1E-3)
     "Sample period of component";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -50,7 +50,8 @@ equation
   /* Define y=ySample with an infinitesimal delay to break potential
        algebraic loops if both the continuous and the discrete part have
        direct feedthrough
-    */y=pre(ySample);
+   */
+  y=pre(ySample);
   annotation (
     defaultComponentName="zerOrdHol",
     Icon(
@@ -68,15 +69,15 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-78.0,-42.0},{-52.0,-42.0},{-52.0,0.0},{-26.0,0.0},{-26.0,24.0},{-6.0,24.0},{-6.0,64.0},{18.0,64.0},{18.0,20.0},{38.0,20.0},{38.0,0.0},{44.0,0.0},{44.0,0.0},{62.0,0.0}},
           color={0,0,127}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>
@@ -91,7 +92,7 @@ At initial time, the block feeds the input directly to the output.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

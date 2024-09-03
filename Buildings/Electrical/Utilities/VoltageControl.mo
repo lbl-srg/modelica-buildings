@@ -4,18 +4,18 @@ model VoltageControl "Voltage controller"
       Buildings.Electrical.PhaseSystems.PartialPhaseSystem constrainedby
     Buildings.Electrical.PhaseSystems.PartialPhaseSystem "Phase system"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Voltage V_nominal
+  parameter Modelica.Units.SI.Voltage V_nominal
     "Nominal voltage of the node to be controlled";
   parameter Real vThresh(min=0.0, max=1.0) = 0.1
     "Threshold that activates voltage ctrl (ratio of nominal voltage)";
-  parameter Modelica.SIunits.Time tDelay = 300
+  parameter Modelica.Units.SI.Time tDelay=300
     "Time to wait before plugging the load back";
-  parameter Modelica.SIunits.Time T = 0.01
+  parameter Modelica.Units.SI.Time T=0.01
     "Time constant representing the switching time";
   parameter Real y_start = 1.0 "Initial value of the control output signal";
-  final parameter Modelica.SIunits.Voltage Vmin = V_nominal*(1-vThresh)
+  final parameter Modelica.Units.SI.Voltage Vmin=V_nominal*(1 - vThresh)
     "Low threshold";
-  final parameter Modelica.SIunits.Voltage Vmax = V_nominal*(1+vThresh)
+  final parameter Modelica.Units.SI.Voltage Vmax=V_nominal*(1 + vThresh)
     "High threshold";
   Modelica.Blocks.Interfaces.RealOutput y(start = y_start, stateSelect = StateSelect.prefer)
     "Control signal"
@@ -49,14 +49,14 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-100,-40},{100,-80}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="Voltage
 CTRL"),                                   Text(
           extent={{-100,72},{100,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           lineThickness=0.5,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,

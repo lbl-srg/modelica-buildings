@@ -3,32 +3,29 @@ model SingleZoneFloorWithHeating
   "Validation model for SingleZoneFloor with heating and control"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Buildings library air media package";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180
-    "Latitude of site location";
 
-  parameter Modelica.SIunits.Area AFloCor=flo.cor.AFlo "Floor area corridor";
-  parameter Modelica.SIunits.Area AFloSou=flo.sou.AFlo "Floor area south";
-  parameter Modelica.SIunits.Area AFloNor=flo.nor.AFlo "Floor area north";
-  parameter Modelica.SIunits.Area AFloEas=flo.eas.AFlo "Floor area east";
-  parameter Modelica.SIunits.Area AFloWes=flo.wes.AFlo "Floor area west";
+  parameter Modelica.Units.SI.Area AFloCor=flo.cor.AFlo "Floor area corridor";
+  parameter Modelica.Units.SI.Area AFloSou=flo.sou.AFlo "Floor area south";
+  parameter Modelica.Units.SI.Area AFloNor=flo.nor.AFlo "Floor area north";
+  parameter Modelica.Units.SI.Area AFloEas=flo.eas.AFlo "Floor area east";
+  parameter Modelica.Units.SI.Area AFloWes=flo.wes.AFlo "Floor area west";
 
-  parameter Modelica.SIunits.Volume VRooCor=AFloCor*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooCor=AFloCor*flo.hRoo
     "Room volume corridor";
-  parameter Modelica.SIunits.Volume VRooSou=AFloSou*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooSou=AFloSou*flo.hRoo
     "Room volume south";
-  parameter Modelica.SIunits.Volume VRooNor=AFloNor*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooNor=AFloNor*flo.hRoo
     "Room volume north";
-  parameter Modelica.SIunits.Volume VRooEas=AFloEas*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooEas=AFloEas*flo.hRoo
     "Room volume east";
-  parameter Modelica.SIunits.Volume VRooWes=AFloWes*flo.hRoo
+  parameter Modelica.Units.SI.Volume VRooWes=AFloWes*flo.hRoo
     "Room volume west";
-  parameter Modelica.SIunits.Volume VRoo=VRooSou+VRooEas+VRooNor+VRooWes+VRooCor
-    "Total floor volume";
+  parameter Modelica.Units.SI.Volume VRoo=VRooSou + VRooEas + VRooNor + VRooWes
+       + VRooCor "Total floor volume";
 
   Buildings.Examples.VAVReheat.BaseClasses.Floor flo(
     redeclare package Medium = Medium,
     use_windPressure=false,
-    lat=lat,
     gai(K=0*[0.4; 0.4; 0.2])) "Five-zone floor model"
     annotation (Placement(transformation(extent={{-8,48},{48,108}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -40,14 +37,13 @@ model SingleZoneFloorWithHeating
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = Medium,
     use_windPressure=false,
-    lat=lat,
     gai(K=0*[0.4; 0.4; 0.2]))
     "Single-zone floor model"
     annotation (Placement(transformation(extent={{66,106},{106,146}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetRoo(k=273.15 + 22,
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRoo(k=273.15 + 22,
       y(unit="K", displayUnit="degC")) "Setpoint for room air"
     annotation (Placement(transformation(extent={{-120,84},{-100,104}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum EHeaFlo(nin=5)
+  Buildings.Controls.OBC.CDL.Reals.MultiSum EHeaFlo(nin=5)
     "Heating energy of the five-zone floor"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloorHeater heaAndCon(
@@ -82,7 +78,7 @@ model SingleZoneFloorWithHeating
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
   connect(weaDat.weaBus, flo.weaBus) annotation (Line(
-      points={{-20,144},{28,144},{28,112.615},{27.3043,112.615}},
+      points={{-20,144},{28,144},{28,117.231},{27.3043,117.231}},
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, sinZonFlo.weaBus) annotation (Line(
@@ -99,29 +95,29 @@ equation
           {-30,100},{-30,118},{74,118},{74,114},{75.8,114}},
                                                            color={0,127,255}));
   connect(heaAndConNor.port_b, flo.portsNor[2]) annotation (Line(points={{-40,32},
-          {-20,32},{-20,93.2308},{14.887,93.2308}},
+          {-20,32},{-20,95.0769},{14.887,95.0769}},
                                                  color={0,127,255}));
   connect(heaAndConWes.port_a, flo.portsWes[1]) annotation (Line(points={{-60,-10},
-          {-68,-10},{-68,6},{-8,6},{-8,77.5385},{-2.64348,77.5385}},
+          {-68,-10},{-68,6},{-8,6},{-8,79.3846},{-2.64348,79.3846}},
                                               color={0,127,255}));
   connect(heaAndConWes.port_b, flo.portsWes[2]) annotation (Line(points={{-40,-10},
-          {-4,-10},{-4,77.5385},{-0.208696,77.5385}},
+          {-4,-10},{-4,79.3846},{-0.208696,79.3846}},
                                                   color={0,127,255}));
   connect(heaAndConCor.port_a, flo.portsCor[1]) annotation (Line(points={{-60,-50},
-          {-68,-50},{-68,-34},{8,-34},{8,77.5385},{12.4522,77.5385}},
+          {-68,-50},{-68,-34},{8,-34},{8,79.3846},{12.4522,79.3846}},
                                                  color={0,127,255}));
   connect(heaAndConCor.port_b, flo.portsCor[2]) annotation (Line(points={{-40,-50},
-          {10,-50},{10,77.5385},{14.887,77.5385}}, color={0,127,255}));
+          {10,-50},{10,79.3846},{14.887,79.3846}}, color={0,127,255}));
   connect(heaAndConSou.port_a, flo.portsSou[1]) annotation (Line(points={{-60,-90},
           {-68,-90},{-68,-74},{12.4522,-74},{12.4522,60.9231}},
                                          color={0,127,255}));
   connect(heaAndConSou.port_b, flo.portsSou[2]) annotation (Line(points={{-40,-90},
           {14.887,-90},{14.887,60.9231}},  color={0,127,255}));
   connect(heaAndConEas.port_a, flo.portsEas[1]) annotation (Line(points={{-60,
-          -130},{-68,-130},{-68,-114},{40.2087,-114},{40.2087,77.5385}},
+          -130},{-68,-130},{-68,-114},{40.2087,-114},{40.2087,79.3846}},
                                                color={0,127,255}));
   connect(heaAndConEas.port_b, flo.portsEas[2]) annotation (Line(points={{-40,
-          -130},{44,-130},{44,77.5385},{42.6435,77.5385}},
+          -130},{44,-130},{44,79.3846},{42.6435,79.3846}},
                                                        color={0,127,255}));
   connect(TSetRoo.y, heaAndConNor.TSetRoo) annotation (Line(points={{-98,94},{
           -80,94},{-80,26},{-62,26}},
@@ -179,7 +175,7 @@ equation
           {70,-138},{70,-40.5},{78,-40.5},{78,-41.6}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(heaAndConNor.port_a, flo.portsNor[1]) annotation (Line(points={{-60,32},
-          {-68,32},{-68,60},{-26,60},{-26,93.2308},{12.4522,93.2308}},
+          {-68,32},{-68,60},{-26,60},{-26,95.0769},{12.4522,95.0769}},
                                           color={0,127,255}));
   connect(sinZonFlo.TRooAir, heaAndCon.TRooMea) annotation (Line(
       points={{103,136.2},{106,136.2},{106,136},{108,136},{108,158},{-68,158},{

@@ -3,17 +3,16 @@ record ParameterConstructionWithWindow
   "Record for exterior constructions that have a window"
   extends Buildings.ThermalZones.Detailed.BaseClasses.PartialParameterConstruction;
 
-  parameter Modelica.SIunits.Area A
+  parameter Modelica.Units.SI.Area A
     "Heat transfer area of opaque construction and window combined";
-  parameter Modelica.SIunits.Length hWin "Window height"
+  parameter Modelica.Units.SI.Length hWin "Window height"
     annotation (Dialog(group="Glazing system"));
-  parameter Modelica.SIunits.Length wWin "Window width"
+  parameter Modelica.Units.SI.Length wWin "Window width"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AWin=hWin*wWin
-    "Heat transfer area of window"
-      annotation (Dialog(group="Glazing system"));
+  final parameter Modelica.Units.SI.Area AWin=hWin*wWin
+    "Heat transfer area of window" annotation (Dialog(group="Glazing system"));
 
-  final parameter Modelica.SIunits.Area AOpa = A-AWin
+  final parameter Modelica.Units.SI.Area AOpa=A - AWin
     "Heat transfer area of opaque construction"
     annotation (Dialog(group="Opaque construction"));
 
@@ -34,9 +33,9 @@ record ParameterConstructionWithWindow
     annotation (Dialog(group="Glazing system"), choicesAllMatching=true, Placement(transformation(extent={{60,-20},
             {80,0}})));
 
-  final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
+  final parameter Modelica.Units.SI.Area AFra=fFra*AWin "Frame area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
+  final parameter Modelica.Units.SI.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
 
   parameter HeatTransfer.Data.GlazingSystems.Generic glaSys

@@ -27,6 +27,6 @@ First implementation for
       StopTime=3600,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mos"
            "Simulate and plot"));
 end CoupledVolumesSpecializedWaterTemperatureDependentDensity;

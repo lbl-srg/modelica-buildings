@@ -31,9 +31,9 @@ protected
   Buildings.Utilities.Math.Biquadratic mWatIntCon(
     final a=per.coeMasWat) "Internal control of water flow rate "
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch watFloSet "Water flow setpoint"
+  Buildings.Controls.OBC.CDL.Reals.Switch watFloSet "Water flow setpoint"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Zero flow rate"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.UnitConversions.To_degC to_degC

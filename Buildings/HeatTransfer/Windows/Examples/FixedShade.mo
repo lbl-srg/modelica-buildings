@@ -4,14 +4,12 @@ model FixedShade "Test model for the fixed shade model"
 
   Buildings.HeatTransfer.Windows.FixedShade sha[4](
     final conPar=conPar,
-    azi=conPar.azi,
-    each lat=weaDat.lat) "Shade model"
+    azi=conPar.azi) "Shade model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-    lat=weaDat.lat,
     til=Buildings.Types.Tilt.Wall,
     azi=Buildings.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -98,6 +96,12 @@ nor a side fin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2021, by Michael Wetter:<br/>
+Removed parameter <code>lat</code> because the latitude is now obtained from the weather data bus.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1477\">IBPSA, #1477</a>.
+</li>
 <li>
 October 20, 2014, by Michael Wetter:<br/>
 Corrected error in the documentation.

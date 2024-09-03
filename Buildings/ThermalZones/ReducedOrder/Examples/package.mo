@@ -1,6 +1,5 @@
 within Buildings.ThermalZones.ReducedOrder;
-package Examples
-  "Collection of models that illustrate model use and test models"
+package Examples "Collection of models that illustrate model use and test models"
   extends Modelica.Icons.ExamplesPackage;
 
 

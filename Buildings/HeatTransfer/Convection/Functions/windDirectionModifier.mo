@@ -3,12 +3,12 @@ function windDirectionModifier
   "Wind direction modifier that is used to compute the wind-driven convective heat transfer coefficient"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Angle azi "Surface azimuth";
-  input Modelica.SIunits.Angle dir(min=0, max=2*Modelica.Constants.pi)
+  input Modelica.Units.SI.Angle azi "Surface azimuth";
+  input Modelica.Units.SI.Angle dir(min=0, max=2*Modelica.Constants.pi)
     "Wind direction (0=wind from North)";
   output Real W "Wind direction modifier";
 protected
-  constant Modelica.SIunits.Angle lee = Modelica.SIunits.Conversions.from_deg(100)
+  constant Modelica.Units.SI.Angle lee=Modelica.Units.Conversions.from_deg(100)
     "Angle at which the transition occurs";
   constant Real cosLee = Modelica.Math.cos(lee)
     "Cosine of the angle at which the transition occurs";

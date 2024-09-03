@@ -1,6 +1,8 @@
 # Makefile for Sphinx documentation
 #
 
+SHELL := /bin/bash
+
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
@@ -39,9 +41,14 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-regressiontest: clean html
+regressiontest: clean
 	@echo "Verify whether all files compile and no uncommitted changes exist"
-	git checkout build/html/.buildinfo
+	@rm -rf virEnv
+	python -m venv virEnv
+	source virEnv/bin/activate
+	pip install -r requirements.txt --no-deps
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	rm -rf virEnv
 	git diff --exit-code .
 
 dirhtml:
@@ -120,4 +127,4 @@ copytowww:
 	  --rsh=ssh --compress --times --checksum --verbose \
 	  --exclude "*~" \
 	  --exclude ".DS_Store" \
-	  build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
+	  build/html/* gundog.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/

@@ -3,10 +3,10 @@ package BaseClasses "Base classes for package Data"
   extends Modelica.Icons.BasesPackage;
   record Material "Thermal properties of materials w/o storage"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.Length x "Material thickness";
-    parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-    parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.Units.SI.Length x "Material thickness";
+    parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
+    parameter Modelica.Units.SI.SpecificHeatCapacity c "Specific heat capacity";
+    parameter Modelica.Units.SI.Density d(displayUnit="kg/m3") "Mass density";
     parameter Real R(unit="m2.K/W")
       "Thermal resistance of a unit area of material";
     parameter Integer nStaRef(min=0) = 3
@@ -27,13 +27,13 @@ package BaseClasses "Base classes for package Data"
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
 
-    parameter Modelica.SIunits.Temperature TSol
+    parameter Modelica.Units.SI.Temperature TSol
       "Solidus temperature, used only for PCM."
       annotation (Dialog(group="Properties for phase change material"));
-    parameter Modelica.SIunits.Temperature TLiq
+    parameter Modelica.Units.SI.Temperature TLiq
       "Liquidus temperature, used only for PCM"
       annotation (Dialog(group="Properties for phase change material"));
-    parameter Modelica.SIunits.SpecificInternalEnergy LHea
+    parameter Modelica.Units.SI.SpecificInternalEnergy LHea
       "Latent heat of phase change"
       annotation (Dialog(group="Properties for phase change material"));
 
@@ -48,8 +48,9 @@ package BaseClasses "Base classes for package Data"
     defaultComponentPrefixes="parameter",
     defaultComponentName="datMat",
     Documentation(info="<html>
+<p>
 Base record for materials that declares the thermal properties.
-<br/>
+</p>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
@@ -66,6 +67,13 @@ and ceilings of different surface area.
 </html>",
   revisions="<html>
 <ul>
+<li>
+December 10, 2022, by Michael Wetter:<br/>
+Corrected annotation to avoid comparison for equality
+using real-valued parameter.<br/>
+See also
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1671\">IBPSA, #1671</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
@@ -93,45 +101,45 @@ First implementation.
 </ul>
 </html>"),   Icon(graphics={
           Text(
-            extent={{-94,44},{-16,12}},
-            lineColor={0,0,0},
+            extent={{-98,44},{-2,12}},
+            textColor={0,0,0},
             textString="x=%x"),
           Text(
-            extent={{8,40},{86,8}},
-            lineColor={0,0,0},
+            extent={{2,40},{96,8}},
+            textColor={0,0,0},
             textString="k=%k"),
           Text(
-            extent={{-90,-58},{-12,-90}},
-            lineColor={0,0,0},
+            extent={{-98,-58},{-4,-90}},
+            textColor={0,0,0},
             textString="R=%R"),
           Text(
-            extent={{-92,-10},{-14,-42}},
-            lineColor={0,0,0},
+            extent={{-98,-10},{-4,-42}},
+            textColor={0,0,0},
             textString="U=%U"),
           Rectangle(
-            visible=(c == 0),
+            visible=(c > 0),
             extent={{0,0},{100,-100}},
             lineColor={0,0,0},
             fillColor={255,170,170},
             fillPattern=FillPattern.Solid),
           Line(points={{-100,-50},{100,-50}}, color={0,0,0}),
           Text(
-            visible=not (c == 0),
-            extent={{8,-8},{86,-40}},
-            lineColor={0,0,0},
+            visible=not (c > 1E-10),
+            extent={{4,-8},{98,-40}},
+            textColor={0,0,0},
             textString="d=%d"),
           Text(
-            visible=not (c == 0),
-            extent={{10,-56},{88,-88}},
-            lineColor={0,0,0},
+            visible=not (c > 1E-10),
+            extent={{4,-56},{98,-88}},
+            textColor={0,0,0},
             textString="c=%c")}));
   end Material;
 
   record ThermalProperties "Thermal properties of materials with storage"
     extends Modelica.Icons.Record;
-    parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-    parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.Units.SI.ThermalConductivity k "Thermal conductivity";
+    parameter Modelica.Units.SI.SpecificHeatCapacity c "Specific heat capacity";
+    parameter Modelica.Units.SI.Density d(displayUnit="kg/m3") "Mass density";
     parameter Boolean steadyState= (c < Modelica.Constants.eps or d < Modelica.Constants.eps)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
@@ -139,8 +147,9 @@ First implementation.
    defaultComponentPrefixes="parameter",
    defaultComponentName="datThePro",
     Documentation(info="<html>
+<p>
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties.
-<br/>
+</p>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
@@ -149,13 +158,15 @@ will be modeled as a thermal resistor that does not store energy.
   revisions="<html>
 <ul>
 <li>
+June 25, 2023, by Michael Wetter:<br/>
+Removed test for equality in annotation. This is needed for OMEdit
+as equality on <code>Real</code> variables are only allowed in functions.
+</li>
+<li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/493\">issue 493</a>.
-</li>
-<li>
-April 2011, by Pierre Vigouroux:<br/>
 </li>
 <li>
 April 12 2011, by Pierre Vigouroux:<br/>
@@ -165,18 +176,18 @@ First implementation.
 </html>"),   Icon(graphics={
           Line(points={{-100,-50},{100,-50}}, color={0,0,0}),
           Text(
-            visible=not (c == 0),
-            extent={{-80,36},{-10,12}},
-            lineColor={0,0,0},
+            visible=d > 1E-10,
+            extent={{-98,-62},{-2,-86}},
+            textColor={0,0,0},
             textString="d=%d"),
           Text(
-            visible=not (c == 0),
-            extent={{-80,-58},{-6,-88}},
-            lineColor={0,0,0},
+            visible=c > 1E-10,
+            extent={{-98,-8},{-2,-38}},
+            textColor={0,0,0},
             textString="c=%c"),
           Text(
-            extent={{-74,-12},{-14,-36}},
-            lineColor={0,0,0},
+            extent={{-98,38},{-2,14}},
+            textColor={0,0,0},
             textString="k=%k"),
           Line(points={{-100,0},{100,0}},     color={0,0,0})}));
   end ThermalProperties;

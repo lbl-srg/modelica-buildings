@@ -5,12 +5,11 @@ model Reheat "Model that implements an on and off controller for a reheater"
     "Switch point for valve signal";
   parameter Real yValDeaBan(min=0, max=1, unit="1")
     "Deadband for valve signal";
-  parameter Modelica.SIunits.TemperatureDifference dTSwi
+  parameter Modelica.Units.SI.TemperatureDifference dTSwi
     "Switch point for temperature difference";
-  parameter Modelica.SIunits.TemperatureDifference dTDeaBan
+  parameter Modelica.Units.SI.TemperatureDifference dTDeaBan
     "Deadband for temperature difference";
-  parameter Modelica.SIunits.Time tWai
-    "Waiting time";
+  parameter Modelica.Units.SI.Time tWai "Waiting time";
 
   Modelica.Blocks.Interfaces.RealInput yVal(
     min=0,
@@ -28,13 +27,15 @@ model Reheat "Model that implements an on and off controller for a reheater"
     "On and off signal for the reheater"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.StateGraph.InitialStepWithSignal off "Off"
+  Modelica.StateGraph.InitialStepWithSignal off(nIn=1, nOut=1)
+                                                "Off"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-50,30})));
-  Modelica.StateGraph.StepWithSignal on "On"
+  Modelica.StateGraph.StepWithSignal on(nIn=1, nOut=1)
+                                        "On"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
@@ -80,7 +81,7 @@ equation
           borderPattern=BorderPattern.Raised), Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-12,-64},{-12,60}},
           color={0,0,127},

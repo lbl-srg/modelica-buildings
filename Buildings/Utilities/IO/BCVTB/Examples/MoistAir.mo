@@ -3,8 +3,8 @@ model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-      259.2*6/1.2/3600 "Nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=259.2*6/1.2/3600
+    "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.PressureDrop dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

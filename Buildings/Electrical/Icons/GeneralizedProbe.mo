@@ -33,7 +33,7 @@ partial class GeneralizedProbe
           fillPattern=FillPattern.Solid),
                               Text(
           extent={{-140,110},{140,70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),    Documentation(info="<html>
 <p>
 This is the icon for a probe that measure voltage magnitude and phase.

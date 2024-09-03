@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model ProjectedShadowLength "Test model for projected shadow length"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Length h = 2 "Height of object";
+  parameter Modelica.Units.SI.Length h=2 "Height of object";
   Buildings.BoundaryConditions.SolarGeometry.ProjectedShadowLength proShaLenEas(
     azi=Buildings.Types.Azimuth.E,
     h=h,

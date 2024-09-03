@@ -1,19 +1,19 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 function der_temperature_u
   "Computes the derivative of the temperature of a phase change material with respect to specific internal energy"
-  input Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-  input Modelica.SIunits.Temperature TSol
+  input Modelica.Units.SI.SpecificHeatCapacity c "Specific heat capacity";
+  input Modelica.Units.SI.Temperature TSol
     "Solidus temperature, used only for PCM.";
-  input Modelica.SIunits.Temperature TLiq
+  input Modelica.Units.SI.Temperature TLiq
     "Liquidus temperature, used only for PCM";
-  input Modelica.SIunits.SpecificInternalEnergy LHea
+  input Modelica.Units.SI.SpecificInternalEnergy LHea
     "Latent heat of phase change";
   input Boolean ensureMonotonicity = false
     "Set to true to force derivatives dT/du to be monotone";
 
-  output Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
+  output Modelica.Units.SI.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  output Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+  output Modelica.Units.SI.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
   output Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](
     each fixed=false,
@@ -21,9 +21,9 @@ function der_temperature_u
     "Derivatives dT/du at the support points";
 protected
   parameter Real scale=0.999 "Used to place points on the phase transition";
-  parameter Modelica.SIunits.Temperature Tm1=TSol+(1-scale)*(TLiq-TSol)
+  Modelica.Units.SI.Temperature Tm1=TSol + (1 - scale)*(TLiq - TSol)
     "Support point";
-  parameter Modelica.SIunits.Temperature Tm2=TSol+scale*(TLiq-TSol)
+  Modelica.Units.SI.Temperature Tm2=TSol + scale*(TLiq - TSol)
     "Support point";
 algorithm
   assert(Buildings.HeatTransfer.Conduction.nSupPCM == 6,
@@ -60,6 +60,13 @@ to compute for a given specific internal energy the temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in
+Dymola 2025x beta1.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Changed the input argument from type

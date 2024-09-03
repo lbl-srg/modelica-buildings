@@ -5,16 +5,14 @@ model Borefields
 
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Time tLoaAgg=300
+  parameter Modelica.Units.SI.Time tLoaAgg=300
     "Time resolution of load aggregation";
 
-  parameter Modelica.SIunits.Temperature TGro = 283.15
-    "Ground temperature";
+  parameter Modelica.Units.SI.Temperature TGro=283.15 "Ground temperature";
   Buildings.Fluid.Geothermal.Borefields.TwoUTubes borFie2UTubPar(
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubParDat,
     tLoaAgg=tLoaAgg,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in parallel borehole configuration"
@@ -47,6 +45,8 @@ model Borefields
     "Outlet temperature of the borefield with 2-UTube in parallel configuration"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFieUTubDat(
+    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+    steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.SingleUTube))
     annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
@@ -55,7 +55,6 @@ model Borefields
     redeclare package Medium = Medium,
     borFieDat=borFie2UTubSerDat,
     tLoaAgg=tLoaAgg,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a 2-U-tube connected in serie borehole configuration"
@@ -89,6 +88,8 @@ model Borefields
     "Outlet temperature of the borefield with 2-UTube in serie configuration"
     annotation (Placement(transformation(extent={{42,50},{62,70}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubParDat(
+    filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+    steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeParallel))
     "Data from the borefield with 2-UTube in parallel borehole configuration"
@@ -97,7 +98,6 @@ model Borefields
     redeclare package Medium = Medium,
     borFieDat=borFieUTubDat,
     tLoaAgg=tLoaAgg,
-    dynFil=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TExt0_start=TGro)
     "Borefield with a U-tube borehole configuration"
@@ -130,6 +130,8 @@ model Borefields
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Example borFie2UTubSerDat(
+      filDat=Buildings.Fluid.Geothermal.Borefields.Data.Filling.Bentonite(
+        steadyState=true),
     conDat=Buildings.Fluid.Geothermal.Borefields.Data.Configuration.Example(
     borCon=Buildings.Fluid.Geothermal.Borefields.Types.BoreholeConfiguration.DoubleUTubeSeries))
     "Data from the borefield with 2-UTube in serie borehole configuration"
@@ -160,7 +162,7 @@ equation
     annotation (Line(points={{10,-60},{40,-60}},          color={0,127,255}));
   connect(TUTubOut.port_b, sin.ports[1])
     annotation (Line(points={{60,-60},{70,-60}},          color={0,127,255}));
-  annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/Examples/Borefields.mos"
         "Simulate and plot"),
   Documentation(info="<html>
 <p>
@@ -171,6 +173,12 @@ the thermal behaviour of the circulating fluid in each case.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 17, 2024, by Michael Wetter:<br/>
+Updated model due to removal of parameter <code>dynFil</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+</li>
 <li>
 April 8, 2021, by Michael Wetter:<br/>
 Added missing <code>parameter</code> keyword.<br/>

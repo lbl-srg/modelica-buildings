@@ -1,15 +1,17 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 function nusseltHorizontalCavityEnhanced
   "Nusselt number for horizontal cavity, bottom surface warmer than top surface"
+  extends Modelica.Icons.Function;
+
   input Buildings.HeatTransfer.Data.Gases.Generic gas
     "Thermophysical properties of gas fill"
    annotation(choicesAllMatching=true);
   input Real Ra(min=0) "Rayleigh number";
-  input Modelica.SIunits.Temperature T_m
+  input Modelica.Units.SI.Temperature T_m
     "Temperature used for thermophysical properties";
-  input Modelica.SIunits.TemperatureDifference dT
+  input Modelica.Units.SI.TemperatureDifference dT
     "Temperature difference used to compute q_flow = h*dT";
-  input Modelica.SIunits.Angle til "Window tilt";
+  input Modelica.Units.SI.Angle til "Window tilt";
   input Real cosTil(min=0) "Cosine of the window tilt";
   output Real Nu(min=0) "Nusselt number";
 protected

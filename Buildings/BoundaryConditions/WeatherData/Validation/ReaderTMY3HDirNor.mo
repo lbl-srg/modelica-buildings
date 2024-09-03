@@ -8,15 +8,15 @@ model ReaderTMY3HDirNor
     "Weather data reader with radiation data obtained from the inputs' connectors"
     annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 protected
-    Modelica.Blocks.Sources.Sine HGloHor1(
-    freqHz=1/86400,
+  Modelica.Blocks.Sources.Sine HGloHor1(
+    f=1/86400,
     startTime=25200,
     offset=0,
     amplitude=100) "Horizontal global radiation"
     annotation (Placement(transformation(extent={{-88,-30},{-68,-10}})));
 
-    Modelica.Blocks.Sources.Sine HGloHor(
-    freqHz=1/86400,
+  Modelica.Blocks.Sources.Sine HGloHor(
+    f=1/86400,
     startTime=68428,
     offset=0,
     amplitude=100) "Horizontal global radiation"

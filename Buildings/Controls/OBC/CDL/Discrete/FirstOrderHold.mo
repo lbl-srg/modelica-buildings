@@ -6,10 +6,10 @@ block FirstOrderHold
     final unit="s",
     min=1E-3)
     "Sample period of component";
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -55,8 +55,7 @@ equation
     tSample=time;
     uSample=u;
     pre_uSample=pre(uSample);
-    c=
-      if firstTrigger then
+    c=if firstTrigger then
         0
       else
         (uSample-pre_uSample)/samplePeriod;
@@ -64,7 +63,8 @@ equation
   /* Use pre_uSample and pre(c) to break potential algebraic loops by an
        infinitesimal delay if both the continuous and the discrete part
        have direct feedthrough.
-    */y=pre_uSample+pre(c)*(time-tSample);
+    */
+      y=pre_uSample+pre(c)*(time-tSample);
   annotation (
     defaultComponentName="firOrdHol",
     Icon(
@@ -82,7 +82,7 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           points={{-79.0,-41.0},{-59.0,-33.0},{-40.0,1.0},{-20.0,9.0},{0.0,63.0},{21.0,20.0},{41.0,10.0},{60.0,20.0}},
           color={0,0,127}),
@@ -91,9 +91,9 @@ equation
           color={0,0,127}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString=DynamicSelect("",String(y,
-            leftjustified=false,
+            leftJustified=false,
             significantDigits=3)))}),
     Documentation(
       info="<html>
@@ -106,7 +106,7 @@ values of the last two sampled input signals.
 <ul>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
-Reformulated to remove dependency to <code>Modelica.SIunits</code>.<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
 </li>

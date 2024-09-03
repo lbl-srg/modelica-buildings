@@ -4,15 +4,19 @@ model VAVSystemCTControl
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
- parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
+  parameter Modelica.Units.SI.MassFlowRate mMIT_flow=roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
-parameter Modelica.SIunits.PressureDifference dpSuiSup_nominal(displayUnit="Pa") = 95
+  parameter Modelica.Units.SI.PressureDifference dpSuiSup_nominal(displayUnit=
+        "Pa") = 95
     "Pressure drop supply air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpSuiRet_nominal(displayUnit="Pa") = 233
+  parameter Modelica.Units.SI.PressureDifference dpSuiRet_nominal(displayUnit=
+        "Pa") = 233
     "Pressure drop return air leg with splitters of one suite (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpFanSupMIT_nominal(displayUnit="Pa") = 1050
+  parameter Modelica.Units.SI.PressureDifference dpFanSupMIT_nominal(
+      displayUnit="Pa") = 1050
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
-parameter Modelica.SIunits.PressureDifference dpFanRetMIT_nominal(displayUnit="Pa") = 347
+  parameter Modelica.Units.SI.PressureDifference dpFanRetMIT_nominal(
+      displayUnit="Pa") = 347
     "Pressure increase over supply fan in MIT system model as in ASHRAE 825-RP (obtained from simulation)";
 parameter Real scaM_flow = 1 "Scaling factor for mass flow rate";
 parameter Real scaDpFanSup_nominal = 1
@@ -73,13 +77,13 @@ parameter Real scaDpFanRet_nominal = 1
     T=293.15,
     nPorts=2)
     annotation (Placement(transformation(extent={{-38,-74},{-18,-54}})));
-   Buildings.Controls.Continuous.LimPID conSupFan(
+  Buildings.Controls.Continuous.LimPID conSupFan(
     Ti=60,
     yMax=1,
     yMin=0,
     Td=60,
     k=0.1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for supply fan"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -115,7 +119,7 @@ parameter Real scaDpFanRet_nominal = 1
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=120)
     "Boolean to real conversion, outputs static pressure set point"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
-  Controls.OBC.CDL.Continuous.SlewRateLimiter ramLim(raisingSlewRate=1/120)
+  Controls.OBC.CDL.Reals.LimitSlewRate ramLim(raisingSlewRate=1/120)
     "Ramp limiter for fan control signal"
     annotation (Placement(transformation(extent={{50,100},{70,120}})));
 equation

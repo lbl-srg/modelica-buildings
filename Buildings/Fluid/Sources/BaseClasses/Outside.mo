@@ -1,11 +1,11 @@
 within Buildings.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  extends Buildings.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
 
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true);
+    annotation(Evaluate=true);
   parameter Medium.ExtraProperty C[Medium.nC](
     final quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
@@ -22,8 +22,8 @@ partial model Outside
 protected
   final parameter Boolean singleSubstance = (Medium.nX == 1)
     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
-       not singleSubstance "Block to compute water vapor concentration";
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi
+    if not singleSubstance "Block to compute water vapor concentration";
 
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",
                                                      displayUnit="degC")
@@ -84,7 +84,7 @@ equation
         Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(
           visible=use_C_in,
           points={{-100,-80},{-60,-80}},
@@ -92,7 +92,7 @@ equation
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C"),
@@ -105,7 +105,7 @@ equation
             min(1, max(0, (weaBus.TDryBul-273.15)/50))*{255,0,0})),
         Text(
           extent={{62,28},{-58,-22}},
-          lineColor={255,255,255},
+          textColor={255,255,255},
           textString=DynamicSelect("", String(weaBus.TDryBul-273.15, format=".1f")))}),
     Documentation(info="<html>
 <p>
@@ -128,6 +128,18 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected use of <code>HideResult</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\">#1850</a>.
+</li>
+<li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

@@ -3,14 +3,14 @@ function pW_TDewPoi_amb
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Temperature T "Dew point temperature";
-  output Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
+  input Modelica.Units.SI.Temperature T "Dew point temperature";
+  output Modelica.Units.SI.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";
 protected
-  constant Modelica.SIunits.Temperature T1=283.15 "First support point";
-  constant Modelica.SIunits.Temperature T2=293.15 "Second support point";
-  constant Modelica.SIunits.Pressure p1=1227.97 "First support point";
-  constant Modelica.SIunits.Pressure p2=2338.76 "Second support point";
+  constant Modelica.Units.SI.Temperature T1=283.15 "First support point";
+  constant Modelica.Units.SI.Temperature T2=293.15 "Second support point";
+  constant Modelica.Units.SI.Pressure p1=1227.97 "First support point";
+  constant Modelica.Units.SI.Pressure p2=2338.76 "Second support point";
 
   constant Real a1=(Modelica.Math.log(p2) - Modelica.Math.log(p1)*T2/T1)/(1 -
       T2/T1);

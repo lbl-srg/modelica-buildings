@@ -3,15 +3,15 @@ partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse with a controlleable tolerance"
    replaceable package Medium =
         Modelica.Media.Interfaces.PartialMedium;
-     parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
+  parameter Modelica.Units.SI.Temperature T0=273.15 + 20 "Temperature";
      parameter Real tol = 1E-8 "Numerical tolerance";
-     Modelica.SIunits.Temperature T "Temperature";
-     Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.SpecificEnthalpy h "Enthalpy";
      Medium.MassFraction Xi[:] = Medium.reference_X "Mass fraction";
 equation
     h = Medium.specificEnthalpy_pTX(p=101325, T=T0, X=Xi);
     T = Medium.temperature_phX(p=101325, h=h,  X=Xi);
-    if (time>0.1) then
+    if (time>=0.1) then
     assert(abs(T-T0)<tol, "Error in implementation of functions.\n"
        + "   T0 = " + String(T0) + "\n"
        + "   T  = " + String(T) + "\n"
@@ -24,6 +24,12 @@ Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2022, by Michael Wetter:<br/>
+Reformulated <code>if</code>-expression to avoid warning about state event.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1657\">#1657</a>.
+</li>
 <li>
 March 24, 2020 by Kathryn Hinkelman:<br/>
 Expanded the assert message to include absolute error value.

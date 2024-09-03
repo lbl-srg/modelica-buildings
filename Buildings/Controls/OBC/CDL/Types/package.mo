@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.CDL;
-package Types
-  "Package with type definitions"
+package Types "Package with type definitions"
   annotation (
     Documentation(
       info="<html>

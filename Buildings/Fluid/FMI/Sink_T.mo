@@ -20,8 +20,8 @@ model Sink_T
                                             min=0)
     "Prescribed boundary temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput X_w_in(unit="1") if
-       Medium.nXi > 0 "Prescribed boundary composition"
+  Modelica.Blocks.Interfaces.RealInput X_w_in(unit="1")
+    if Medium.nXi > 0 "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
 
@@ -35,8 +35,8 @@ model Sink_T
     final allowFlowReversal=allowFlowReversal,
     final use_p_in=use_p_in) "Fluid port"
     annotation (Placement(transformation(extent={{120,-10},{100,10}})));
-  Buildings.Fluid.FMI.Interfaces.PressureOutput p if
-     use_p_in "Pressure"
+  Buildings.Fluid.FMI.Interfaces.PressureOutput p
+  if use_p_in "Pressure"
   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -46,7 +46,7 @@ model Sink_T
         rotation=180,
         origin={-120,-80})));
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
@@ -89,7 +89,7 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}), Text(
           extent={{-98,-90},{-62,-72}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="P",
           visible=use_p_in)}),
     Documentation(info="<html>
@@ -114,6 +114,11 @@ may be needed to iteratively solve for the mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air and water.

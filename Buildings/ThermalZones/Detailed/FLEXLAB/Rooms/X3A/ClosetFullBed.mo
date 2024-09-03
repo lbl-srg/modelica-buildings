@@ -4,7 +4,6 @@ model ClosetFullBed
   extends Buildings.ThermalZones.Detailed.MixedAir(
   hRoo = 3.6576,
   AFlo = 3.93,
-  lat = 0.66098585832754,
   nConExt = 2,
   nConBou = 2,
   nSurBou = 3,
@@ -168,25 +167,25 @@ model ClosetFullBed
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="air"),
         Text(
           extent={{-72,-22},{-22,-50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="radiation"),
         Text(
           extent={{-104,-124},{-54,-152}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface"),
         Text(
           extent={{-138,-82},{-96,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="fluid")}));

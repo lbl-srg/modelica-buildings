@@ -2,9 +2,9 @@ within Buildings.Utilities.Psychrometrics.Functions.Examples;
 model phi_pTX "Model to test phi_pTX"
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Pressure p = 101325 "Pressure of the medium";
-  Modelica.SIunits.Temperature T "Temperature";
-  Modelica.SIunits.MassFraction X_w "Mass fraction";
+  parameter Modelica.Units.SI.Pressure p=101325 "Pressure of the medium";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.MassFraction X_w "Mass fraction";
   Real phi "Relative humidity";
   Real X_inv "Inverse computation of mass fraction";
   constant Real convT(unit="1/s") = 0.999 "Conversion factor";

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "weaDat.weaBus.winDir",
+    "symNor.CpAct",
+    "symWes.CpAct",
+    "asyNor.CpAct",
+    "asyWes.CpAct"
+  };

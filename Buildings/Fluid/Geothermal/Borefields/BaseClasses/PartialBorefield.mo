@@ -24,7 +24,7 @@ partial model PartialBorefield
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -32,46 +32,46 @@ partial model PartialBorefield
     annotation(Dialog(tab = "Initialization"));
 
   // Simulation parameters
-  parameter Modelica.SIunits.Time tLoaAgg=300 "Time resolution of load aggregation";
+  parameter Modelica.Units.SI.Time tLoaAgg=300
+    "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Integer nSeg(min=1)=10
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nSegGFun(min=1)=12 "Number of segments to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nClu(min=1)=5
+    "Number of borehole clusters to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
 
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   // Temperature gradient in undisturbed soil
-  parameter Modelica.SIunits.Temperature TExt0_start=283.15
+  parameter Modelica.Units.SI.Temperature TExt0_start=283.15
     "Initial far field temperature"
     annotation (Dialog(tab="Initialization", group="Soil"));
-  parameter Modelica.SIunits.Temperature TExt_start[nSeg]=
-    {if z[i] >= z0 then TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nSeg}
+  parameter Modelica.Units.SI.Temperature TExt_start[nSeg]={if z[i] >= z0 then
+      TExt0_start + (z[i] - z0)*dT_dz else TExt0_start for i in 1:nSeg}
     "Temperature of the undisturbed ground"
     annotation (Dialog(tab="Initialization", group="Soil"));
 
-  parameter Modelica.SIunits.Temperature TGro_start[nSeg]=TExt_start
+  parameter Modelica.Units.SI.Temperature TGro_start[nSeg]=TExt_start
     "Start value of grout temperature"
     annotation (Dialog(tab="Initialization", group="Filling material"));
 
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=TGro_start
-    "Start value of fluid temperature"
-    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=TGro_start
+    "Start value of fluid temperature" annotation (Dialog(tab="Initialization"));
 
-  parameter Modelica.SIunits.Height z0=10
+  parameter Modelica.Units.SI.Height z0=10
     "Depth below which the temperature gradient starts"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
   parameter Real dT_dz(final unit="K/m", min=0) = 0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
-
-  // Dynamics of filling material
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
 
   Modelica.Blocks.Interfaces.RealOutput TBorAve(final quantity="ThermodynamicTemperature",
                                                 final unit="K",
@@ -83,6 +83,8 @@ partial model PartialBorefield
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     final tLoaAgg=tLoaAgg,
     final nCel=nCel,
+    final nSeg=nSegGFun,
+    final nClu=nClu,
     final borFieDat=borFieDat,
     final forceGFunCalc=forceGFunCalc)
     "Ground temperature response"
@@ -105,25 +107,27 @@ partial model PartialBorefield
     final energyDynamics=energyDynamics,
     final p_start=p_start,
     final mSenFac=mSenFac,
-    final dynFil=dynFil,
     final TFlu_start=TFlu_start,
     final TGro_start=TGro_start) "Borehole"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 protected
-  parameter Modelica.SIunits.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i - 0.5) for i in 1:nSeg}
+  parameter Modelica.Units.SI.Height z[nSeg]={borFieDat.conDat.hBor/nSeg*(i -
+      0.5) for i in 1:nSeg}
     "Distance from the surface to the considered segment";
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=1/borFieDat.conDat.nBor)
                                    "Division of flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
@@ -180,7 +184,7 @@ equation
     annotation (Line(points={{-4.44089e-16,-20},{0,-20},{0,-30}},
                                                         color={191,0,0}));
   connect(QBorHol.Q_flow, QTotSeg_flow.u)
-    annotation (Line(points={{-10,-10},{-86,-10},{-86,80},{-62,80}},
+    annotation (Line(points={{-11,-10},{-86,-10},{-86,80},{-62,80}},
                                                           color={0,0,127}));
   connect(groTemRes.delTBor, repDelTBor.u)
     annotation (Line(points={{41,80},{58,80}}, color={0,0,127}));
@@ -298,7 +302,7 @@ temperature after calculating and/or read (from a previous calculation) the bore
 <li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.
 </li>
 <li>
 August 25, 2020, by Filip Jorissen:<br/>

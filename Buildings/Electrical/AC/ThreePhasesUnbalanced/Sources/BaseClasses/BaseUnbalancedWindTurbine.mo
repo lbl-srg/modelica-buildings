@@ -3,11 +3,11 @@ partial model BaseUnbalancedWindTurbine
   "Partial model for an unbalanced wind power source"
   extends Buildings.Electrical.Interfaces.PartialPluggableUnbalanced;
   extends Buildings.Electrical.Interfaces.PartialAcDcParameters;
-  extends Buildings.Electrical.Interfaces.PartialWindTurbineBase(V_nominal(start = 480));
+  extends Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbineBase(
+    V_nominal(start = 480));
   parameter Real scaleFraction[3](each min=0, each max=1.0) = ones(3)/3
     "Fraction of power allocated to the wind turbines of each phase";
-  replaceable OnePhase.Sources.WindTurbine
-                                        wt_phase2(
+  replaceable OnePhase.Sources.WindTurbine wt_phase2(
     pf=pf,
     eta_DCAC=eta_DCAC,
     scale=scale*scaleFraction[2],
@@ -18,11 +18,11 @@ partial model BaseUnbalancedWindTurbine
     table=table,
     tableName=tableName,
     fileName=fileName,
-    V_nominal=V_nominal/sqrt(3)) if
-                plugPhase2 "Wind turbine phase 2"
+    V_nominal=V_nominal/sqrt(3))
+      if plugPhase2 "Wind turbine phase 2"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
-  replaceable OnePhase.Sources.WindTurbine
-                                        wt_phase3(
+
+  replaceable OnePhase.Sources.WindTurbine wt_phase3(
     pf=pf,
     eta_DCAC=eta_DCAC,
     scale=scale*scaleFraction[3],
@@ -33,11 +33,11 @@ partial model BaseUnbalancedWindTurbine
     table=table,
     tableName=tableName,
     fileName=fileName,
-    V_nominal=V_nominal/sqrt(3)) if
-                plugPhase3 "Wind turbine phase 3"
+    V_nominal=V_nominal/sqrt(3))
+      if plugPhase3 "Wind turbine phase 3"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  replaceable OnePhase.Sources.WindTurbine
-                                        wt_phase1(
+
+  replaceable OnePhase.Sources.WindTurbine wt_phase1(
     pf=pf,
     eta_DCAC=eta_DCAC,
     scale=scale*scaleFraction[1],
@@ -48,8 +48,8 @@ partial model BaseUnbalancedWindTurbine
     table=table,
     tableName=tableName,
     fileName=fileName,
-    V_nominal=V_nominal/sqrt(3)) if
-                plugPhase1 "Wind turbine phase 1"
+    V_nominal=V_nominal/sqrt(3))
+      if plugPhase1 "Wind turbine phase 1"
     annotation (Placement(transformation(extent={{-18,40},{-38,60}})));
   Modelica.Blocks.Math.Add3 sumBlock "Sum of th epower generated on each phase"
     annotation (Placement(transformation(extent={{32,50},{52,70}})));

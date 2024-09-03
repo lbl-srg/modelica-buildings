@@ -14,10 +14,10 @@ model System1
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=4000
     "Internal heat gains of the room";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
     "Outside temperature"
@@ -28,7 +28,7 @@ model System1
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -95,10 +95,10 @@ have water as a medium.
 We also defined the system-level parameters
 </p>
 <pre>
-  parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 \"Room volume\";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     \"Nominal mass flow rate\";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow = 4000
     \"Internal heat gains of the room\";
 </pre>
 <p>
@@ -169,13 +169,13 @@ input signal, which is obtained from a time table.
 <li>
 <p>
 To define a time-dependent heat gain, we instantiated the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a>
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a>
 and set its name to <code>timTab</code>.
 We set the table parameters to
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -192,8 +192,8 @@ The first time stamp is <i>-6</i> hours in order to create
 a table that has a periodicity of one day.
 We also set the interpolation of the data to using
 piece-wise constant segments.
-See the documentation of <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable</a> for the various options
+See the documentation of <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable\">
+Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable</a> for the various options
 of this time table.
 </p>
 </li>

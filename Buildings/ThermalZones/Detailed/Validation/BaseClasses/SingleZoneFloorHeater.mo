@@ -5,16 +5,16 @@ model SingleZoneFloorHeater
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Volume VRoo
-    "Room air volume";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.Volume VRoo "Room air volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flowrate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetRoo(
     unit="K",
     displayUnit="degC")
-    "Room setpoint temperature" annotation (Placement(transformation(extent={{-140,
-            -80},{-100,-40}}), iconTransformation(extent={{-140,-80},{-100,-40}})));
+    "Room setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yEHea(
     unit="J")
     "Heating energy"
@@ -25,17 +25,20 @@ model SingleZoneFloorHeater
     displayUnit="degC")
     "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
-    iconTransformation(extent={{-140,-110},{-100,-70}})));
+      iconTransformation(extent={{-140,-110},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=900,
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC")) "Controller for heater"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    k=20)
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     p=273.15 + 10,
-    k=20,
     y(unit="K", displayUnit="degC"))
     "Compute the leaving water setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -58,19 +61,24 @@ model SingleZoneFloorHeater
 equation
   connect(hea.Q_flow, EHea.u) annotation (Line(points={{41,8},{50,8},{50,-80},{
           58,-80}}, color={0,0,127}));
-  connect(addPar.y, hea.TSet) annotation (Line(points={{2,-60},{10,-60},{10,8},
-          {18,8}}, color={0,0,127}));
-  connect(conPID.y, addPar.u)  annotation (Line(points={{-38,-60},{-22,-60}},color={0,0,127}));
+  connect(addPar.y, hea.TSet) annotation (Line(points={{2,-60},{8,-60},{8,8},{18,
+          8}},     color={0,0,127}));
   connect(fan.port_b, hea.port_a)
     annotation (Line(points={{-40,0},{20,0}}, color={0,127,255}));
-  connect(TRooMea, conPID.u_m)  annotation (Line(points={{-120,-90},{-50,-90},{-50,-72}},color={0,0,127}));
-  connect(TSetRoo, conPID.u_s) annotation (Line(points={{-120,-60},{-62,-60}},
+  connect(TRooMea, conPID.u_m)  annotation (Line(points={{-120,-90},{-70,-90},{-70,
+          -72}},  color={0,0,127}));
+  connect(TSetRoo, conPID.u_s) annotation (Line(points={{-120,-60},{-82,-60}},
                          color={0,0,127}));
   connect(EHea.y, yEHea) annotation (Line(points={{81,-80},{120,-80}},
         color={0,0,127}));
   connect(port_a, fan.port_a) annotation (Line(points={{-100,0},{-60,0}}, color={0,127,255}));
   connect(hea.port_b, port_b)
     annotation (Line(points={{40,0},{100,0}}, color={0,127,255}));
+  connect(conPID.y, gai.u)
+    annotation (Line(points={{-58,-60},{-50,-60}}, color={0,0,127}));
+  connect(gai.y, addPar.u)
+    annotation (Line(points={{-26,-60},{-22,-60}}, color={0,0,127}));
+
   annotation (
  Icon(coordinateSystem(preserveAspectRatio=false),
  graphics={

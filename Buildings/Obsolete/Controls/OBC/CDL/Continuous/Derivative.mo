@@ -3,7 +3,7 @@ block Derivative "Block that approximates the derivative of the input"
   extends Modelica.Icons.ObsoleteModel;
 
   parameter Real k(unit="1") = 1 "Gains";
-  parameter Modelica.SIunits.Time T(min=1E-60)=0.01
+  parameter Modelica.Units.SI.Time T(min=1E-60) = 0.01
     "Time constant (T>0 required)";
   parameter Real x_start=0 "Initial or guess value of state"
     annotation (Dialog(group="Initialization"));
@@ -100,7 +100,7 @@ Modelica Standard Library.
     points = {{-55.333,87.333},{-19.333,-40.667},{86.667,-52.667}},
     color = {0,0,127},
     smooth = Smooth.Bezier),
-  Text(lineColor={192,192,192},
+  Text(textColor={192,192,192},
     extent={{-30.0,14.0},{86.0,60.0}},
     textString="DT1"),
   Text(extent={{-150.0,-150.0},{150.0,-110.0}},
@@ -108,9 +108,9 @@ Modelica Standard Library.
   Text(
     extent={{-150,150},{150,110}},
     textString="%name",
-    lineColor={0,0,255}),
+    textColor={0,0,255}),
   Text(
     extent={{226,60},{106,10}},
-    lineColor={0,0,0},
-    textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}));
+    textColor={0,0,0},
+    textString=DynamicSelect("", String(y, leftJustified=false, significantDigits=3)))}));
 end Derivative;

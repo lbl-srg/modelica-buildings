@@ -2,9 +2,9 @@ within Buildings.Electrical.AC.ThreePhasesUnbalanced.Conversion.Examples.BaseCla
 model TransformerExample
   "This example represents the basic test for a transformer model"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Voltage V_primary = 12470
+  parameter Modelica.Units.SI.Voltage V_primary=12470
     "RMS Voltage on the primary side of the transformer";
-  parameter Modelica.SIunits.Voltage V_secondary = 4160
+  parameter Modelica.Units.SI.Voltage V_secondary=4160
     "RMS Voltage on the secondary side of the transformer";
   Sources.FixedVoltage sou(
     f=60,

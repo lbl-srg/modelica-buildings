@@ -9,7 +9,8 @@ model IndirectTankHeatExchanger
 
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
-      redeclare final package Medium = MediumHex);
+    final massDynamics=energyDynamics,
+    redeclare final package Medium = MediumHex);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium = MediumHex,
     final show_T=false);
@@ -18,39 +19,36 @@ model IndirectTankHeatExchanger
     annotation(HideResult=true);
 
   parameter Integer nSeg(min=2) "Number of segments in the heat exchanger";
-  parameter Modelica.SIunits.HeatCapacity CHex
+  parameter Modelica.Units.SI.HeatCapacity CHex
     "Capacitance of the heat exchanger";
-  parameter Modelica.SIunits.Volume volHexFlu
+  parameter Modelica.Units.SI.Volume volHexFlu
     "Volume of heat transfer fluid in the heat exchanger";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Heat transfer at nominal conditions"
-  annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
 
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal=
-    abs(Q_flow_nominal/(THex_nominal-TTan_nominal))
+  final parameter Modelica.Units.SI.ThermalConductance UA_nominal=abs(
+      Q_flow_nominal/(THex_nominal - TTan_nominal))
     "Nominal UA value for the heat exchanger";
-  parameter Modelica.SIunits.Temperature TTan_nominal
+  parameter Modelica.Units.SI.Temperature TTan_nominal
     "Temperature of fluid inside the tank at UA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature THex_nominal
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature THex_nominal
     "Temperature of fluid inside the heat exchanger at UA_nominal"
-    annotation(Dialog(tab="General", group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Real r_nominal(min=0, max=1)=0.5
     "Ratio between coil inside and outside convective heat transfer"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.Diameter dExtHex
+  parameter Modelica.Units.SI.Diameter dExtHex
     "Exterior diameter of the heat exchanger pipe";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance for heat exchanger internal fluid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsSolid=energyDynamics
     "Formulation of energy balance for heat exchanger solid mass"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance for heat exchanger"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Boolean hA_flowDependent = true
     "Set to false to make the convective heat coefficient calculation of the fluid inside the coil independent of mass flow rate"
@@ -82,7 +80,7 @@ model IndirectTankHeatExchanger
     each m_flow_nominal=m_flow_nominal,
     each V=volHexFlu/nSeg,
     each energyDynamics=energyDynamics,
-    each massDynamics=massDynamics,
+    each massDynamics=energyDynamics,
     each p_start=p_start,
     each T_start=T_start,
     each X_start=X_start,
@@ -96,8 +94,8 @@ model IndirectTankHeatExchanger
      each T(start=T_start,
             fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.FixedInitial)),
      each der_T(
-            fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if
-             not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
+            fixed=(energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+          if not energyDynamicsSolid == Modelica.Fluid.Types.Dynamics.SteadyState
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 protected
@@ -171,7 +169,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol[1].ports[1],senMasFlo.port_b) annotation (Line(
-      points={{-24,-40},{-24,-50},{-60,-50}},
+      points={{-23,-40},{-23,-50},{-60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(cap.port,HexToTan.solid) annotation (Line(
@@ -187,7 +185,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSenHex.T, hAPipIns.T)     annotation (Line(
-      points={{-10,-70},{0,-70},{0,-76},{9,-76}},
+      points={{-9,-70},{0,-70},{0,-76},{9,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hAPipIns.hA, htfToHex.Gc)     annotation (Line(
@@ -204,12 +202,12 @@ equation
       smooth=Smooth.None));
   connect(temSenSur.T, hANatCyl.TSur)
                                      annotation (Line(
-      points={{20,52},{20,70},{-40,70},{-40,114},{-2,114}},
+      points={{20,53},{20,70},{-40,70},{-40,114},{-2,114}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hANatCyl.TFlu, temSenWat.T)
                                      annotation (Line(
-      points={{-2,106},{-36,106},{-36,76},{68,76},{68,50}},
+      points={{-2,106},{-36,106},{-36,76},{68,76},{68,51}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a, senMasFlo.port_a) annotation (Line(
@@ -217,7 +215,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[nSeg].ports[2], res.port_a) annotation (Line(
-      points={{-20,-40},{-20,-50},{46,-50}},
+      points={{-21,-40},{-21,-50},{46,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, port_b) annotation (Line(
@@ -240,7 +238,7 @@ equation
             -150},{100,150}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-150},{100,150}}), graphics={
         Rectangle(
-          extent={{-66,64},{74,-96}},
+          extent={{-70,64},{70,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
@@ -252,25 +250,25 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-66,-12},{74,-18}},
+          extent={{-70,-12},{70,-18}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-36,64},{-32,-96}},
+          extent={{-40,64},{-36,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{2,64},{6,-96}},
+          extent={{-2,64},{2,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{40,64},{44,-96}},
+          extent={{36,64},{40,-96}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
@@ -287,9 +285,9 @@ equation
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
-          The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
+          The model is based on <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
           Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside</a> and
-          <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
+          <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
@@ -300,9 +298,15 @@ equation
           revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buidings, PR #2440</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>

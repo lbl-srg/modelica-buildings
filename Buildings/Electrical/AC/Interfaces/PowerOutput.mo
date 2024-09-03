@@ -1,9 +1,9 @@
 within Buildings.Electrical.AC.Interfaces;
 connector PowerOutput
   "Connector with real power, reactive power and power factor"
-  output Modelica.SIunits.Power real "Real power";
-  output Modelica.SIunits.ReactivePower apparent "Apparent power";
-  output Modelica.SIunits.Angle phi "Phase shift";
+  output Modelica.Units.SI.Power real "Real power";
+  output Modelica.Units.SI.ReactivePower apparent "Apparent power";
+  output Modelica.Units.SI.Angle phi "Phase shift";
   output Real cosPhi "Power factor";
 
   annotation (Icon(graphics={ Polygon(
@@ -17,7 +17,7 @@ connector PowerOutput
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{30,110},{30,60}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="%name")}),
     Documentation(info="<html>
 This connector contains multiple quantities that can be used to monitor

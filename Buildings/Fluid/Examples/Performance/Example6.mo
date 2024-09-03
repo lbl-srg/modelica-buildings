@@ -10,10 +10,14 @@ model Example6
 
   Real[nCapacitors] T;
   Real[nCapacitors+1] Q_flow;
+
+protected
+  constant Real k(final unit="1/s") = 1
+    "Unit conversion to satisfy unit check";
 initial equation
   T = fill(273.15,nCapacitors);
 equation
-  Q_flow[1]=((273.15+sin(time))-T[1])/R;
+  Q_flow[1]=((273.15+sin(k*time))-T[1])/R;
   der(T[1])=(Q_flow[1]-Q_flow[2])/C;
   for i in 2:nCapacitors loop
     Q_flow[i] = (T[i-1] - T[i])/R;
@@ -24,12 +28,18 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics={Text(
           extent={{-62,24},{-18,-4}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="See code")}),
     experiment(
       Tolerance=1e-6, StopTime=100),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 April 11, 2016 by Michael Wetter:<br/>
 Corrected wrong hyperlink in documentation for
@@ -97,7 +107,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
         "Simulate and plot"));
 end Example6;
