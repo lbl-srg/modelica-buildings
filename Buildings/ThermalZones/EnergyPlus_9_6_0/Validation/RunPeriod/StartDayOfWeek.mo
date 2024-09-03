@@ -7,7 +7,8 @@ model StartDayOfWeek "Validation model for the start day of the week"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.OutputVariable.OneZoneOneOutputVariable mon(
     building(
-    runPeriod(startDayOfYear=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays.Monday)))
+      runPeriod(
+        startDayOfYear=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays.Monday)))
     "Model with first day of the week being Monday"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
