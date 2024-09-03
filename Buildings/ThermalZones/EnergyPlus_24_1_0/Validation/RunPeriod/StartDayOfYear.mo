@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.RunPeriod;
-model StartDayOfWeek "Validation model for the start day of the week"
+model StartDayOfYear "Validation model for the start day of the week"
   extends Modelica.Icons.Example;
 
   Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable sun
@@ -42,8 +42,8 @@ First implementation for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/RunPeriod/StartDayOfWeek.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/RunPeriod/StartDayOfYear.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06));
-end StartDayOfWeek;
+end StartDayOfYear;
