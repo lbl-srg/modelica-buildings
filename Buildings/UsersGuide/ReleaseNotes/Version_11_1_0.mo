@@ -45,15 +45,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
-    </td>
-    <td valign=\"top\">Package that contains components for the PID controller that can
-                       autotune the control gain and time constants.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
