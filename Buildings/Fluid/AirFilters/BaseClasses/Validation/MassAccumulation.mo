@@ -27,7 +27,6 @@ model MassAccumulation
 equation
   connect(RepSig.y, masAcc.uRep)
     annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},{-12,-6}}, color={255,0,255}));
-
   connect(mCon_flow.y, masAcc.mCon_flow) annotation (Line(points={{-39,30},{-20,
           30},{-20,0},{-12,0}}, color={0,0,127}));
 annotation (experiment(Tolerance=1e-6, StopTime=1.0),

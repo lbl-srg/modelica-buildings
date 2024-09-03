@@ -36,8 +36,8 @@ model Empirical "Example for using the empirical air filter model"
     startTime=20) "Contaminant mass flow rate fraction for CO2"
     annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
   Modelica.Blocks.Sources.Ramp C_VOC_inflow(
-    duration=40,
-    height=-0.04,
+    duration=30,
+    height=-0.03,
     offset=0.1,
     startTime=20)
     "Contaminant mass flow rate fraction for VOC"

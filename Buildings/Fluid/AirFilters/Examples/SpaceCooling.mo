@@ -7,17 +7,6 @@ model SpaceCooling
   "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = MediumA,
-    m_flow_nominal=mA_flow_nominal,
-    V=V,
-    nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    mSenFac=3)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
-    "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
@@ -62,6 +51,18 @@ model SpaceCooling
     "Water return temperature";
   parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=-QCoiC_flow_nominal/
       (TWRet_nominal - TWSup_nominal)/4200 "Nominal water mass flow rate";
+
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    mSenFac=3)
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
+    "Thermal conductance with the ambient"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"

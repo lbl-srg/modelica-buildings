@@ -20,7 +20,7 @@ model MassTransfer
                                             caseSensitive=false))
     then 1 else 0 for i in 1:Medium.nC}
     for j in 1:size(substanceName,1)}
-    "Vector with zero everywhere except where species is"
+    "Vector to check if the trace substances are included in the medium"
     annotation(Evaluate=true);
   parameter Real s2[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -28,13 +28,13 @@ model MassTransfer
                                             caseSensitive=false))
     then 1 else 0 for i in 1:size(substanceName,1)}
     for j in 1:Medium.nC}
-    "Vector with zero everywhere except where species is"
+    "Vector to check if the trace substances in the medium are included in the performance dataset"
     annotation(Evaluate=true);
 initial equation
   assert(abs(sum(s1) - size(substanceName,1)) < 0.1,
          "In " + getInstanceName() + ":Some specified trace substances are 
          not present in medium '" + Medium.mediumName + "'.\n"
-         + "Check sensor parameter and medium model.",
+         + "Check filter parameter and medium model.",
          level = AssertionLevel.warning)
          "Check if all the specificed substances are included in the medium";
 
@@ -55,6 +55,7 @@ equation
         port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
       end if;
   end for;
+  // Calculate the amount of removed contaminants.
   for i in 1:size(substanceName,1) loop
       if max(s1[i]) > 0.9 then
         for j in 1:Medium.nC loop

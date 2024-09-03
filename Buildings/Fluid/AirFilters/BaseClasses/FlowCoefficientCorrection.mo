@@ -18,7 +18,8 @@ model FlowCoefficientCorrection
 initial equation
   assert(per.b - 1.0 > 0.01,
           "In " + getInstanceName() + ":The resistance coefficient should be larger
-          than 1")
+          than 1",
+         level = AssertionLevel.error)
          "Validate the resistance coefficient";
 equation
   y = per.b^rat;
