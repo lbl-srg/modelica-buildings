@@ -3,8 +3,8 @@ model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String spawnExe="spawn-0.5.0-c10e8c6d7e"
-      "Name of the spawn executable, without extension, such as spawn-0.5.0-c10e8c6d7eaaa"
+  constant String spawnExe="spawn-0.5.0-ab07bde9bb"
+      "Name of the spawn executable, without extension, such as spawn-0.5.0-ab07bde9bbaaa"
     annotation (HideResult=true);
 
   constant String idfVersion = "9_6_0"
@@ -159,7 +159,7 @@ while Modelica will use the file specified by <code>weaName</code>.
 <p>
 The parameter <code>runPeriod</code> can be used to configure certain data of the EnergyPlus
 <code>RunPeriod</code> object. See
-<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
 for the available options.
 Note however that the simulation start and stop time is controlled by Modelica,

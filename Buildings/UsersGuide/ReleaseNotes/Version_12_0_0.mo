@@ -105,7 +105,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
     </td>
     <td valign=\"top\">Refactored with synchronous language elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>
+                     and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
@@ -161,8 +162,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        With this update, simulations that start with a negative start time are supported.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.<br/><br/>
                        This update also adds support for specifying entries for the EnergyPlus run period.
-                       See the documentation of <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</code> for
-                       details and differences compared to using EnergyPlus as a stand-alone simulator.<br/>
+                       See the documentation of <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</code> for details.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
     </td>
 </tr>

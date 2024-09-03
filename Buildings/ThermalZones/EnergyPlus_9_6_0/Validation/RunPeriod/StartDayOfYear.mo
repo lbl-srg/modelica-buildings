@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.RunPeriod;
-model StartDayOfWeek "Validation model for the start day of the week"
+model StartDayOfYear "Validation model for the start day of the week"
   extends Modelica.Icons.Example;
 
   Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.OutputVariable.OneZoneOneOutputVariable sun
@@ -7,7 +7,8 @@ model StartDayOfWeek "Validation model for the start day of the week"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.OutputVariable.OneZoneOneOutputVariable mon(
     building(
-    runPeriod(dayOfWeekForStartDay=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays.Monday)))
+      runPeriod(
+        startDayOfYear=Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays.Monday)))
     "Model with first day of the week being Monday"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -27,7 +28,7 @@ Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.OutputVariable.OneZoneOneOutp
 a model that outputs the electricity consumption that is specified via an EnergyPlus schedule.
 This schedule set the electricity consumption to zero for the whole day on Saturday and Sunday,
 but not on other days.
-In the instance <code>sun</code>, the start day of the week is left as the default, which is Sunday,
+In the instance <code>sun</code>, the start day of the year is left as the default, which is Sunday,
 and in the instance <code>mon</code>, it is set to Monday.
 Plotting the electricity consumption verifies that the setting is properly applied
 in EnergyPlus.
@@ -42,8 +43,8 @@ First implementation for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Validation/RunPeriod/StartDayOfWeek.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Validation/RunPeriod/StartDayOfYear.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06));
-end StartDayOfWeek;
+end StartDayOfYear;
