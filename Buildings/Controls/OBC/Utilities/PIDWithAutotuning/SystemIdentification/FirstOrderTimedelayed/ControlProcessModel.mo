@@ -123,7 +123,7 @@ protected
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(message="In " +
         getInstanceName() +
-        ": an autotuning fails, see earlier warnings for possible reasons, the controller gains are unchanged.")
+        ": an autotuning fails, the controller gains are unchanged.")
     "Warning message when an autotuning fails"
     annotation (Placement(transformation(extent={{134,50},{154,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if an error occurs"
