@@ -4,7 +4,7 @@ package SurfaceComparison "Collection of models used to validate zone surface co
 
   annotation (Documentation(info="<html>
 <p>
-Package containing models used to compare 
+Package containing models used to compare
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> results against equivalent EnergyPlus surfaces
 </p>

@@ -77,9 +77,9 @@ protected
     Documentation(
       info="<html>
 <p>
-This model simulates the envelope of a single family house with EnergyPlus but uses 
+This model simulates the envelope of a single family house with EnergyPlus but uses
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> to model the heat 
+Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> to model the heat
 transfer through the garage exterior (east and west facing) and interior walls.
 </p>
 </html>",

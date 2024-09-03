@@ -24,7 +24,7 @@ Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison.BaseClasse
 that only uses EnergyPlus surfaces, and the building in
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison.BaseClasses.ZoneSurfaces\">
 Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison.BaseClasses.ZoneSurfaces</a>
-that uses the same envelope but replaces select surfaces with 
+that uses the same envelope but replaces select surfaces with
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> objects.
 </p>

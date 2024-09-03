@@ -105,13 +105,13 @@ First implementation.
 </html>", info="<html>
 <p>
 This is a model of the heat transfer through an interior wall, which is connected
-to an EnergyPlus Zone Heat Balance through 
+to an EnergyPlus Zone Heat Balance through
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
 Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> objects on both side of
-the wall.  
+the wall.
 </p>
 <p>
-This model can be used in a Spawn simulation to substitute the heat conduction 
+This model can be used in a Spawn simulation to substitute the heat conduction
 calculation performed by EnergyPlus with a
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> object.

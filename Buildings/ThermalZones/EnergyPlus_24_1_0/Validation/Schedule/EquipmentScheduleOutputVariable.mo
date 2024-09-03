@@ -31,7 +31,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Simple test case that verifies whether the schedule for the internal loads 
+Simple test case that verifies whether the schedule for the internal loads
 used by EnergyPlus is modified from Modelica, and the electrical equipment load
 that is controlled by this schedule is reported correctly.
 </p>
