@@ -94,7 +94,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.TrueFalseHold
     </td>
     <td valign=\"top\">Refactored with synchronous language elements.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>
+                     and <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Reals.Sort
@@ -138,6 +139,28 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added two-port temperature sensors to replace <code>sta_*.T</code> in reference results.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Data.Generic
+    </td>
+    <td valign=\"top\">The function <code>Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</code>
+                       is no longer called unless needed.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
+    </td>
+    <td valign=\"top\">Added standalone declaration for the peak operating condition to ensure that
+                       the same values are used for each mover.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
