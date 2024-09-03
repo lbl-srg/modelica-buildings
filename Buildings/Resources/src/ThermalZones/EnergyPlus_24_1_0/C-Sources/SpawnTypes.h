@@ -67,8 +67,7 @@ enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};
 
 typedef struct {
-  int dayOfWeekForStartDay; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays */
-  int dayOfWeekIsAtTime0;
+  int startDayOfYear; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays */
   int applyWeekEndHolidayRule;
   int use_weatherFileDaylightSavingPeriod;
   int use_weatherFileHolidaysAndSpecialDays;
