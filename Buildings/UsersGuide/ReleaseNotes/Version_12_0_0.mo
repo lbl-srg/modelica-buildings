@@ -141,6 +141,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Data.Generic
+    </td>
+    <td valign=\"top\">The function <code>Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</code>
+                       is no longer called unless needed.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
+    </td>
+    <td valign=\"top\">Added standalone declaration for the peak operating condition to ensure that
+                       the same values are used for each mover.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
     </td>
 </tr>
