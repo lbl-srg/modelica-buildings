@@ -37,7 +37,6 @@ void* allocate_Modelica_EnergyPlus_24_1_0(
   const char* idfName,
   const char* epwName,
   int runPeriod_dayOfWeekForStartDay,
-  int runPeriod_dayOfWeekIsAtTime0,
   int runPeriod_applyWeekEndHolidayRule,
   int runPeriod_use_weatherFileDaylightSavingPeriod,
   int runPeriod_use_weatherFileHolidaysAndSpecialDays,
@@ -73,7 +72,6 @@ void* allocate_Modelica_EnergyPlus_24_1_0(
 
     runPeriod runPer;
     runPer.dayOfWeekForStartDay = runPeriod_dayOfWeekForStartDay;
-    runPer.dayOfWeekIsAtTime0 = runPeriod_dayOfWeekIsAtTime0;
     runPer.applyWeekEndHolidayRule = runPeriod_applyWeekEndHolidayRule;
     runPer.use_weatherFileDaylightSavingPeriod = runPeriod_use_weatherFileDaylightSavingPeriod;
     runPer.use_weatherFileHolidaysAndSpecialDays = runPeriod_use_weatherFileHolidaysAndSpecialDays;

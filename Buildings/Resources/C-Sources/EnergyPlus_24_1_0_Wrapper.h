@@ -31,7 +31,6 @@
 
 typedef struct {
   int dayOfWeekForStartDay; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays */
-  int dayOfWeekIsAtTime0;
   int applyWeekEndHolidayRule;
   int use_weatherFileDaylightSavingPeriod;
   int use_weatherFileHolidaysAndSpecialDays;
