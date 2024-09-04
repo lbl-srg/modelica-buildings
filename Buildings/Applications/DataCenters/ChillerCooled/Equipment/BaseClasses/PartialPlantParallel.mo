@@ -118,6 +118,12 @@ The signal filter is used to smoothe the on/off signal for the valves.
         revisions="<html>
 <ul>
 <li>
+September 4, 2024, by Jianjun Hu:<br/>
+Added input filter to the isolation valve 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for

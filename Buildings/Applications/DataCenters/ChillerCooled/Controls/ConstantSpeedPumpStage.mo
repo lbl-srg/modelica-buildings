@@ -188,12 +188,12 @@ equals to the number of running chillers.
 <li>
 September 3, 2024, by Jianjun Hu:<br/>
 Added plant on signal for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
 </li>
 <li>
 September 11, 2017, by Michael Wetter:<br/>
 Revised switch that selects the operation mode for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/921\">issue 921</a>.
 </li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>
