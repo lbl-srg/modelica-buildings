@@ -28,7 +28,7 @@ partial model PartialPlantParallel
     each final homotopyInitialization=homotopyInitialization,
     each final riseTime=riseTimeValve,
     each final init=initValve,
-    each final use_inputFilter=false,
+    each final use_inputFilter=true,
     each final deltaM=deltaM2,
     each final l=l[2],
     final y_start=yValve_start,
