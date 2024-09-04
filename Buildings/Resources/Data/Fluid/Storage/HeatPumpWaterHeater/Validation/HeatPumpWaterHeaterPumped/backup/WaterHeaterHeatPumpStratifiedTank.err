@@ -1,0 +1,51 @@
+Program Version,EnergyPlus, Version 9.6.0-f420c06a69, YMD=2024.09.02 23:05,
+   ** Warning ** CalcEquipmentFlowRates: Target water temperature is greater than the hot water temperature
+   **   ~~~   **  During Warmup, Environment=CHICAGO_IL_USA ANNUAL HEATING 99% DESIGN CONDITIONS DB, at Simulation time=01/21 00:00 - 00:01
+   **   ~~~   ** ...target water temperature       = 40.560 C
+   **   ~~~   ** ...hot water temperature       = 20.890 C
+   **   ~~~   ** ...Note: target water temperature should be less than or equal to the hot water temperature
+   **   ~~~   ** ...Target water temperature should be less than or equal to the hot water temperature. Verify temperature setpoints and schedules.
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** CalcEquipmentFlowRates: Target water temperature is greater than the hot water temperature
+   **   ~~~   **  During Warmup, Environment=AUG, at Simulation time=08/01 03:00 - 03:01
+   **   ~~~   ** ...target water temperature       = 40.560 C
+   **   ~~~   ** ...hot water temperature       = 23.622 C
+   **   ~~~   ** ...Note: target water temperature should be less than or equal to the hot water temperature
+   **   ~~~   ** ...Target water temperature should be less than or equal to the hot water temperature. Verify temperature setpoints and schedules.
+   ** Warning ** WaterHeater:HeatPump:PumpedCondenser "PLANTHEATPUMPWATERHEATER"
+   **   ~~~   ** Heat pump water heater compressor part-load ratio calculation failed: PLR limits of 0 to 1 exceeded. Part-load ratio used = 0.885
+   **   ~~~   ** Please send this information to the EnergyPlus support group.
+   **   ~~~   ** This error occurred in float mode. Environment=AUG, at Simulation time=08/01 03:51 - 03:52
+   ************* Simulation Error Summary *************
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** SINKS" - Target water temperature should be less than or equal to the hot water temperature error continues...
+   *************  **   ~~~   **   This error occurred 1036 total times;
+   *************  **   ~~~   **   during Warmup 1036 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=23.616682  Min=7.156259
+   *************
+   *************  ** Warning ** SHOWERS" - Target water temperature should be less than or equal to the hot water temperature error continues...
+   *************  **   ~~~   **   This error occurred 81 total times;
+   *************  **   ~~~   **   during Warmup 81 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=39.909299  Min=19.220537
+   *************
+   *************  ** Warning ** WaterHeater:HeatPump:PumpedCondenser "PLANTHEATPUMPWATERHEATER": Part-load ratio calculation failed in float mode warning continues. Part-load ratio statistics follow.
+   *************  **   ~~~   **   This error occurred 1172 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=0.983377  Min=0.69756
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 1 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 2292 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  2.35sec

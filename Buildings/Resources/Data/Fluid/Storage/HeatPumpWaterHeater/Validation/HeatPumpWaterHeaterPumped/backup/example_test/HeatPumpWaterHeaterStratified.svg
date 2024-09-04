@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<svg width="250mm" height="200mm" viewBox="0 0 2500 1500"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events">
+<g font-family="Verdana" font-size="8">
+  <text x="1" y="1">ERROR - COULD NOT COMPLETE DRAWING! Examine ERR file for possible explanation. Last error message is:   "Error: No node connection found after the following object: ZONE4BHPWHFAN"</text>
+  <rect x="200" y="20" width="200" height="20" style="fill:aliceblue; stroke: black;"/>14
+  <text x="202" y="33">ZONE4HPWHDXCOIL</text>
+  <rect x="200" y="100" width="1" height="1" style="fill:aliceblue; stroke: black;"/>16
+  <text x="202" y="94">ZONE4BHPWHDXCOIL</text>
+  <rect x="450" y="20" width="200" height="20" style="fill:silver; stroke: black;"/>26
+  <text x="452" y="33">ZONE4HPWHFAN</text>
+  <rect x="200" y="100" width="1" height="1" style="fill:silver; stroke: black;"/>27
+  <text x="202" y="94">ZONE4BHPWHFAN</text>
+  <rect x="700" y="20" width="200" height="20" style="fill:chartreuse; stroke: black;"/>123
+  <text x="702" y="33">SPACE4-1</text>
+  <line x1="400" y1="30" x2="450" y2="30" style="stroke:black;"/>
+  <line x1="201" y1="100" x2="200" y2="100" style="stroke:black;"/>
+  <line x1="650" y1="30" x2="700" y2="30" style="stroke:black;"/>
+  <text x="200" y="141">Unused Non-Parent Objects:</text>
+  <text x="220" y="161">SPACE1-1</text>
+  <text x="220" y="181">SPACE2-1</text>
+  <text x="220" y="201">SPACE3-1</text>
+  <text x="220" y="221">SPACE5-1</text>
+  <text x="220" y="241">HPWHDXCOIL</text>
+  <text x="220" y="261">OutdoorAir:NodeList</text>
+  <text x="220" y="281">OutdoorAir:NodeList</text>
+  <text x="220" y="301">OutdoorAir:NodeList</text>
+  <text x="220" y="321">OutdoorAir:NodeList</text>
+  <text x="220" y="341">OutdoorAir:Node</text>
+  <text x="220" y="361">OutdoorAir:Node</text>
+  <text x="220" y="381">HPWHDXCOIL</text>
+  <text x="220" y="401">HPWHOUTDOORDXCOIL</text>
+  <text x="220" y="421">HPWHOUTDOORDXCOIL</text>
+  <text x="220" y="441">HPWHSCHEDULEDDXCOIL</text>
+  <text x="220" y="461">HPWHSCHEDULEDDXCOIL</text>
+  <text x="220" y="481">HPWHPLANTDXCOIL</text>
+  <text x="220" y="501">HPWHPLANTDXCOIL</text>
+  <text x="220" y="521">SUPPLY FAN 1</text>
+  <text x="220" y="541">HPWHFAN</text>
+  <text x="220" y="561">HPWHOUTDOORFAN</text>
+  <text x="220" y="581">HPWHSCHEDULEDFAN</text>
+  <text x="220" y="601">HPWHPLANTFAN</text>
+  <text x="220" y="621">ZONE5HEATPUMPWATERHEATER</text>
+  <text x="220" y="641">ZONE5HEATPUMPWATERHEATER</text>
+  <text x="220" y="661">ZONE5HEATPUMPWATERHEATER</text>
+  <text x="220" y="681">HPWHTANK</text>
+  <text x="220" y="701">ZONE4HPWHTANK</text>
+  <text x="220" y="721">ZONE4BHPWHTANK</text>
+  <text x="220" y="741">ZONE4BHPWHTANK</text>
+  <text x="220" y="761">HPWHOUTDOORTANK</text>
+  <text x="220" y="781">HPWHOUTDOORTANK</text>
+  <text x="220" y="801">HPWHSCHEDULEDTANK</text>
+  <text x="220" y="821">HPWHPLANTTANK</text>
+  <text x="220" y="841">HPWHPLANTTANK</text>
+  <text x="220" y="861">SUPPLY AIR TEMP MANAGER 1</text>
+  <text x="220" y="881">HOT WATER LOOP SETPOINT MANAGER</text>
+  <text x="220" y="901">CHILLED WATER LOOP SETPOINT MANAGER</text>
+  <text x="220" y="921">CENTRAL CHILLER SETPOINT MANAGER</text>
+  <text x="220" y="941">DHW LOOP SETPOINT MANAGER</text>
+  <text x="220" y="961">SPACE2-1 HUMIDISTAT MANAGER</text>
+  <text x="220" y="981">MIXED AIR TEMP MANAGER 2</text>
+  <text x="220" y="1001">MIXED AIR TEMP MANAGER 1</text>
+  <text x="220" y="1021">MYCONDENSERCONTROL</text>
+  <text x="220" y="1041">HEATING SUPPLY SIDE BYPASS</text>
+  <text x="220" y="1061">HEATING SUPPLY OUTLET</text>
+  <text x="220" y="1081">HEATING DEMAND INLET PIPE</text>
+  <text x="220" y="1101">HEATING DEMAND OUTLET PIPE</text>
+  <text x="220" y="1121">HEATING DEMAND BYPASS</text>
+  <text x="220" y="1141">COOLING DEMAND SIDE INLET PIPE</text>
+  <text x="220" y="1161">COOLING DEMAND SIDE BYPASS</text>
+  <text x="220" y="1181">CW DEMAND SIDE OUTLET PIPE</text>
+  <text x="220" y="1201">SUPPLY SIDE OUTLET PIPE</text>
+  <text x="220" y="1221">SUPPLY SIDE BYPASS</text>
+  <text x="220" y="1241">CONDENSER SUPPLY SIDE BYPASS</text>
+  <text x="220" y="1261">CONDENSER SUPPLY OUTLET</text>
+  <text x="220" y="1281">CONDENSER DEMAND INLET PIPE</text>
+  <text x="220" y="1301">CONDENSER DEMAND SIDE BYPASS</text>
+  <text x="220" y="1321">CONDENSER DEMAND OUTLET PIPE</text>
+  <text x="220" y="1341">DHW SUPPLY OUTLET PIPE</text>
+  <text x="220" y="1361">DHW DEMAND INLET PIPE</text>
+  <text x="220" y="1381">MAINS MAKEUP PIPE</text>
+  <text x="220" y="1401">HEATING DEMAND SPLITTER</text>
+  <text x="220" y="1421">HEATING DEMAND MIXER</text>
+  <text x="220" y="1441">HEATING SUPPLY SPLITTER</text>
+  <text x="220" y="1461">HEATING SUPPLY MIXER</text>
+  <text x="220" y="1481">CW DEMAND SPLITTER</text>
+  <text x="220" y="1501">CW DEMAND MIXER</text>
+  <text x="220" y="1521">CENTRAL CHILLER</text>
+  <text x="220" y="1541">CENTRAL CHILLER</text>
+  <text x="220" y="1561">CW LOOP SPLITTER</text>
+  <text x="220" y="1581">CW LOOP MIXER</text>
+  <text x="220" y="1601">DOMESTIC HOT WATER</text>
+  <text x="220" y="1621">DHW DEMAND SPLITTER</text>
+  <text x="220" y="1641">DHW DEMAND MIXER</text>
+  <text x="220" y="1661">DHW SUPPLY SPLITTER</text>
+  <text x="220" y="1681">DHW SUPPLY MIXER</text>
+  <text x="220" y="1701">CONDENSER DEMAND SPLITTER</text>
+  <text x="220" y="1721">CONDENSER DEMAND MIXER</text>
+  <text x="220" y="1741">CENTRAL TOWER</text>
+  <text x="220" y="1761">CONDENSER SUPPLY SPLITTER</text>
+  <text x="220" y="1781">CONDENSER SUPPLY MIXER</text>
+  <text x="220" y="1801">ZONE SUPPLY AIR SPLITTER 1</text>
+  <text x="220" y="1821">SPACE1-1 VAV REHEAT</text>
+  <text x="220" y="1841">SPACE1-1 ZONE COIL</text>
+  <text x="220" y="1861">SPACE1-1 ZONE COIL</text>
+  <text x="220" y="1881">SPACE2-1 ZONE COIL</text>
+  <text x="220" y="1901">SPACE2-1 ZONE COIL</text>
+  <text x="220" y="1921">SPACE3-1 ZONE COIL</text>
+  <text x="220" y="1941">SPACE3-1 ZONE COIL</text>
+  <text x="220" y="1961">SPACE4-1 ZONE COIL</text>
+  <text x="220" y="1981">SPACE4-1 ZONE COIL</text>
+  <text x="220" y="2001">SPACE5-1 ZONE COIL</text>
+  <text x="220" y="2021">SPACE5-1 ZONE COIL</text>
+  <text x="220" y="2041">MAIN HEATING COIL 1</text>
+  <text x="220" y="2061">MAIN HEATING COIL 1</text>
+  <text x="220" y="2081">MAIN COOLING COIL 1</text>
+  <text x="220" y="2101">MAIN COOLING COIL 1</text>
+  <text x="220" y="2121">SPACE2-1 VAV REHEAT</text>
+  <text x="220" y="2141">SPACE3-1 VAV REHEAT</text>
+  <text x="220" y="2161">SPACE4-1 VAV REHEAT</text>
+  <text x="220" y="2181">SPACE5-1 VAV REHEAT</text>
+  <text x="220" y="2201">CENTRAL COOLING COIL CONTOLLER 1</text>
+  <text x="220" y="2221">CENTRAL HEATING COIL CONTOLLER 1</text>
+  <text x="220" y="2241">RETURN-PLENUM-1</text>
+  <text x="220" y="2261">OA MIXING BOX 1</text>
+  <text x="220" y="2281">OA CONTROLLER 1</text>
+  <text x="220" y="2301">HW CIRC PUMP</text>
+  <text x="220" y="2321">CW CIRC PUMP</text>
+  <text x="220" y="2341">COND CIRC PUMP</text>
+  <text x="220" y="2361">MAINS PRESSURE</text>
+  <text x="220" y="2381">SPACE2-1</text>
+  <text x="220" y="2401">SPACE3-1</text>
+  <text x="220" y="2421">SPACE5-1</text>
+  <text x="200" y="2461">
+The following are not supported: objects related to controls or ZoneHVAC:IdealLoadsAirSystem</text>
+</g>
+</svg>

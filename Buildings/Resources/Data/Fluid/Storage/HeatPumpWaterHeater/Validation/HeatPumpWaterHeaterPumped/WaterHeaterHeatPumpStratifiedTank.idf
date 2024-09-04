@@ -589,7 +589,7 @@ WaterHeater:Stratified,
     ,                        !- Source Side Outlet Height {m}
     Fixed,                   !- Inlet Mode
     autosize,                !- Use Side Design Flow Rate {m3/s}
-    0.00033,                 !- Source Side Design Flow Rate {m3/s}
+    autosize,                !- Source Side Design Flow Rate {m3/s}
     1.5,                     !- Indirect Water Heating Recovery Time {hr}
     12;                      !- Number of Nodes
 
@@ -815,6 +815,40 @@ Output:Variable,
     timestep;                !- Reporting Frequency
 
 Output:Variable,
+    HPPlantWaterInletNode,     !- Key Value
+    System Node Temperature, !- Variable Name
+    timestep;                !- Reporting Frequency
+
+Output:Variable,
+    HPPlantWaterInletNode,     !- Key Value
+    System Node Mass Flow Rate,  !- Variable Name
+    timestep;                !- Reporting Frequency
+
+
+
+Output:Variable,
+	Water Heater Use Loop Outlet Node,     !- Key Value
+    System Node Temperature, !- Variable Name
+    timestep;                !- Reporting Frequency
+
+Output:Variable,
+    Water Heater Use Loop Outlet Node,     !- Key Value
+    System Node Mass Flow Rate,  !- Variable Name
+    timestep;                !- Reporting Frequency
+
+
+
+Output:Variable,
+    HPPlantWaterOutletNode,     !- Key Value
+    System Node Temperature, !- Variable Name
+    timestep;                !- Reporting Frequency
+
+Output:Variable,
+    HPPlantWaterOutletNode,     !- Key Value
+    System Node Mass Flow Rate,  !- Variable Name
+    timestep;                !- Reporting Frequency
+
+Output:Variable,
     HPPlantAirInletNode,     !- Key Value
     System Node Temperature, !- Variable Name
     timestep;                !- Reporting Frequency
@@ -1012,4 +1046,9 @@ Output:Variable,
 Output:Variable,
     *,                       !- Key Value
     Performance Curve Output Value,  !- Variable Name
+    timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Water Heater Source Side Heat Transfer Rate,  !- Variable Name
     timestep;                !- Reporting Frequency
