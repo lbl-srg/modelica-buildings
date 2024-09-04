@@ -570,6 +570,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </html>", revisions="<html>
 <ul>
 <li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to control the pump speed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
+<li>
 January 2, 2022, by Kathryn Hinkelman:<br/>
 Passed the <code>plaOn</code> signal to the chilled water pump control
 to turn them off when the plant is off.

@@ -274,6 +274,12 @@ differential pressure reset control are not implemented in this example.
 </html>", revisions="<html>
 <ul>
 <li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to pumps control.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
+<li>
 November 16, 2022, by Michael Wetter:<br/>
 Corrected control to avoid cooling tower pumps to operate when plant is off, because
 shut-off valves are off when plant is off.

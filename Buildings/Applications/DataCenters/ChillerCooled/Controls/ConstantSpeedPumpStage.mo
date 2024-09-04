@@ -187,7 +187,8 @@ equals to the number of running chillers.
 <ul>
 <li>
 September 3, 2024, by Jianjun Hu:<br/>
-Added plant on signal for
+Added plant on signal to pumps control.
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
 </li>
 <li>

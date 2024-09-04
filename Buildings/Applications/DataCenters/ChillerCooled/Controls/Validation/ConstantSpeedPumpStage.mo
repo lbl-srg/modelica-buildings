@@ -46,6 +46,12 @@ Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage
 </html>", revisions="<html>
 <ul>
 <li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to pumps control.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
+<li>
 August 25, 2017, by Yangyang Fu:<br/>
 First implementation.
 </li>

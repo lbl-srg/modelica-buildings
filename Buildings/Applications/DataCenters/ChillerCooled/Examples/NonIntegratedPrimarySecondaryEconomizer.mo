@@ -90,7 +90,6 @@ model NonIntegratedPrimarySecondaryEconomizer
     annotation (Placement(transformation(extent={{66,-38},{46,-18}})));
 equation
   for i in 1:numChi loop
-
     connect(chiOn[i].y, chiWSE.on[i])
       annotation (Line(
         points={{-109,140},{-80,140},{-80,37.6},{-1.6,37.6}},
@@ -282,6 +281,12 @@ are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to control the pump speed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Corrected control to avoid cooling tower pumps to operate when plant is off, because
