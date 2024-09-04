@@ -2,7 +2,7 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
   parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
-    "Record with performance dat"
+    "Record with performance data"
     annotation (Placement(transformation(extent={{20,62},{40,82}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     each final unit="1",

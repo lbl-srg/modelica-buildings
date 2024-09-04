@@ -14,6 +14,8 @@ model MassTransfer
     each final unit = "kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
+
+protected
   parameter Real s1[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName[j],
@@ -36,7 +38,7 @@ initial equation
          not present in medium '" + Medium.mediumName + "'.\n"
          + "Check filter parameter and medium model.",
          level = AssertionLevel.warning)
-         "Check if all the specificed substances are included in the medium";
+         "Check if all the specified substances are included in the medium";
 
 equation
   // Modify the substances individually.

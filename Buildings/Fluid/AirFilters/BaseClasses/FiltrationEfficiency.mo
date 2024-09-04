@@ -2,7 +2,7 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Component that calculates the filtration efficiency"
   parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
-    "Record with performance dat"
+    "Record with performance data"
     annotation (Placement(transformation(extent={{20,62},{40,82}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
     final unit="kg")

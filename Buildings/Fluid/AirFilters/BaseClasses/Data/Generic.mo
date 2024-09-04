@@ -9,10 +9,13 @@ record Generic "Generic data record for air filters"
   parameter
     Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters
     filterationEfficiencyParameters
-    "Filteration efficiency vs. relative mass of the contaminant";
+    "Filtration efficiency vs. relative mass of the contaminant";
   parameter Real b = 1.1
     "Resistance coefficient";
-  annotation (Documentation(revisions="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(revisions="<html>
 <ul>
 <li>
 June 27, 2023, by Sen Huang:<br/>
@@ -34,7 +37,7 @@ The record contains one dataset:
 relative mass of the contaminant
 (see <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>)
-versus filteration efficiency.
+versus filtration efficiency.
 </p>
 <p>
 It also contains a parameter that defines how the pressure drop

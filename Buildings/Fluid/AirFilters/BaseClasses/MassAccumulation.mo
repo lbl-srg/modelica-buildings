@@ -39,9 +39,9 @@ model MassAccumulation
     message="In " + getInstanceName() + ": The filter needs to be replaced.")
     "Warning message when the filter is full"
     annotation (Placement(transformation(extent={{72,40},{92,60}})));
-
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(nin=nin) "Summation of the inputs"
     annotation (Placement(transformation(extent={{-52,-10},{-32,10}})));
+
 equation
   connect(intWitRes.y, mCon)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
@@ -55,7 +55,6 @@ equation
     annotation (Line(points={{38,42},{20,42},{20,0},{12,0}}, color={0,0,127}));
   connect(con1.y, greater.u1)
     annotation (Line(points={{2,50},{38,50}}, color={0,0,127}));
-
   connect(mulSum.y, intWitRes.u)
     annotation (Line(points={{-30,0},{-12,0}}, color={0,0,127}));
   connect(mulSum.u, mCon_flow)
