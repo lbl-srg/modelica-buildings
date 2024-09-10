@@ -107,7 +107,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final m_flow_small=m_flow_small,
     each final show_T=show_T,
     each final tau=tau,
-    each final use_inputFilter=use_inputFilter,
+    each final use_riseTime=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
     each final energyDynamics=energyDynamics,
@@ -115,8 +115,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start,
-    each final C_nominal=C_nominal)
-    "Pumps"
+    each final C_nominal=C_nominal) "Pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val[num](
     redeclare each final replaceable package Medium = Medium,

@@ -103,7 +103,7 @@ equation
     or if the performance record is unreasonable. Please verify your model, and
     consider using one of the other pump or fan models.");
 
-  if use_inputFilter then
+  if use_riseTime then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
       color={0,0,127},

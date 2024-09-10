@@ -56,7 +56,7 @@ model TwoWayValvesMotor
     m_flow_nominal=1,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal=10000,
-    use_inputFilter=false,
+    use_strokeTime=false,
     l=0.05,
     l2=0.01) annotation (Placement(transformation(extent={{0,-64},{20,-44}})));
 equation

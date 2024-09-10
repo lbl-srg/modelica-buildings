@@ -26,7 +26,7 @@ partial model DataCenter
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15,
     dp_nominal=750) "Fan for air flow through the data center"
@@ -63,10 +63,10 @@ partial model DataCenter
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Chilled water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Chilled water pump" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,-120})));
@@ -90,10 +90,10 @@ partial model DataCenter
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Condenser water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={358,200})));

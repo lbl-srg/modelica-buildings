@@ -116,7 +116,7 @@ equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
-  if use_inputFilter then
+  if use_riseTime then
     connect(filter.y, gain.u) annotation (Line(
       points={{41,70.5},{44,70.5},{44,42}},
       color={0,0,127},

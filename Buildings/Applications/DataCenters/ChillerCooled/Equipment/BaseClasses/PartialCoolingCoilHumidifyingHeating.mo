@@ -127,24 +127,23 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
     annotation (Placement(transformation(extent={{60,-64},{80,-44}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine fan
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-      redeclare final package Medium = Medium2,
-      final per=perFan,
-      final allowFlowReversal=allowFlowReversal2,
-      final show_T=show_T,
-      final energyDynamics=energyDynamics,
-      final inputType=inputType,
-      final tau=tauFan,
-      final addPowerToMedium=addPowerToMedium,
-      final use_inputFilter=use_inputFilterFan,
-      final riseTime=riseTimeFan,
-      final init=initFan,
-      final p_start=p_start,
-      final T_start=T_start,
-      final X_start=X_start,
-      final C_start=C_start,
-      final C_nominal=C_nominal,
-      final m_flow_small=m2_flow_small)
-    "Fan"
+    redeclare final package Medium = Medium2,
+    final per=perFan,
+    final allowFlowReversal=allowFlowReversal2,
+    final show_T=show_T,
+    final energyDynamics=energyDynamics,
+    final inputType=inputType,
+    final tau=tauFan,
+    final addPowerToMedium=addPowerToMedium,
+    final use_riseTime=use_inputFilterFan,
+    final riseTime=riseTimeFan,
+    final init=initFan,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final m_flow_small=m2_flow_small) "Fan"
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
   replaceable Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv watVal
     constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(

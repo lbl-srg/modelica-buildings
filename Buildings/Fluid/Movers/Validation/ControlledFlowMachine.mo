@@ -9,8 +9,8 @@ model ControlledFlowMachine "Fans with different control signals as input"
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan3(
       addPowerToMedium=false,
-      use_inputFilter=false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      use_riseTime   =false));
 
   annotation (
 experiment(Tolerance=1e-6, StopTime=600),

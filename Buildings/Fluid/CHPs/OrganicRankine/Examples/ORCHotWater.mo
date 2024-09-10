@@ -95,11 +95,11 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=TCol_start,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=mCol_flow_nominal,
     final dpValve_nominal=dpValCol_nominal,
-    final dpFixed_nominal=fill(dpCon_nominal, 2)) "Control valve"
-    annotation (Placement(transformation(
+    final dpFixed_nominal=fill(dpCon_nominal, 2)) "Control valve" annotation (
+      Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={40,-40})));

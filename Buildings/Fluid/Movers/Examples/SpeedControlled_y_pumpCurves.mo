@@ -14,13 +14,11 @@ model SpeedControlled_y_pumpCurves
     "Nominal pressure";
 
    model pumpModel = Buildings.Fluid.Movers.SpeedControlled_y (
-    redeclare package Medium = Medium,
-    use_inputFilter=
-                  false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(
-      pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
-               dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
+      redeclare package Medium = Medium,
+      use_riseTime=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      per(pressure(V_flow=2/1000*m_flow_nominal*{0.2,0.4,0.6,0.8}, dp=
+              dp_nominal*{0.9,0.85,0.6,0.2})))
     "Declaration of pump model";
 
   pumpModel pum(

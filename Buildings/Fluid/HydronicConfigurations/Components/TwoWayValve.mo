@@ -134,7 +134,7 @@ model TwoWayValve "Container class for two-way valves"
     "Two-way valve with table-specified characteristic"
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Actuators.Valves.TwoWayPressureIndependent valPre(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -144,11 +144,10 @@ model TwoWayValve "Container class for two-way valves"
     final deltaM=deltaM,
     final from_dp=from_dp,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_inputFilter,
+    final strokeTime=riseTime,
     final init=init,
-    final y_start=y_start)
-    if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.PressureIndependent
     "Pressure-independent two-way valve"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 initial equation

@@ -29,14 +29,14 @@ model PumpCurveDerivatives
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    use_inputFilter=false) "Wilo Stratos pump"
+    use_riseTime=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Movers.SpeedControlled_y pump2(
     y_start=1,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per=per,
-    use_inputFilter=false) "Wilo Stratos pump"
+    use_riseTime=false) "Wilo Stratos pump"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow forcedPump1(

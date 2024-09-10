@@ -80,16 +80,15 @@ model Damper "Multiple-configuration damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_inputFilter,
+    final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final linearized=linearized)
-    if typ==Buildings.Templates.Components.Types.Damper.Modulating or
-       typ==Buildings.Templates.Components.Types.Damper.TwoPosition
+    final linearized=linearized) if typ == Buildings.Templates.Components.Types.Damper.Modulating
+     or typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Damper with exponential characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Dampers.PressureIndependent ind(

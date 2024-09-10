@@ -131,7 +131,7 @@ model HeatPumpGroup
     final show_T=show_T,
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
     final per=datPum,

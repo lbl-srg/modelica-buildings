@@ -176,10 +176,10 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_inputFilter,
+    final strokeTime=riseTime,
     final init=init,
-    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Three-way valve with equal percentage and linear characteristics"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -206,10 +206,10 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_inputFilter,
+    final strokeTime=riseTime,
     final init=init,
-    final y_start=y_start) if typCha==Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
+    final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Three-way valve with linear characteristics"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Actuators.Valves.ThreeWayTable valTab(
@@ -236,8 +236,8 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_inputFilter,
+    final strokeTime=riseTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Three-way valve with table-specified characteristics"

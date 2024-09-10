@@ -120,9 +120,8 @@ partial model PartialDataCenter
     each addPowerToMedium=false,
     per=perPumCW,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each use_inputFilter=false)
-    "Condenser water pump"
-    annotation (Placement(transformation(
+    each use_riseTime=false) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,100})));

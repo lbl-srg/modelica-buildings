@@ -55,7 +55,7 @@ equation
     annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
-  if use_inputFilter then
+  if use_riseTime then
     connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
             26},{-26,26},{-26,-46}},  color={0,0,127}));
     connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,

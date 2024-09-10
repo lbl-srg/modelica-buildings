@@ -2,9 +2,7 @@ within Buildings.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
-  constant Integer order(min=1) = 2 "Order of filter";
-
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_strokeTime=true
     "= true, if opening is filtered to avoid a step change in actuator position"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
@@ -12,7 +10,7 @@ model ActuatorSignal
     "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
-  parameter Modelica.Units.SI.Time riseTime=120
+  parameter Modelica.Units.SI.Time strokeTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -40,48 +38,32 @@ model ActuatorSignal
   // Classes used to implement the filtered opening
 protected
   final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
-      riseTime) "Cut-off frequency of filter";
+      strokeTime) "Cut-off frequency of filter";
 
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"
     annotation(Evaluate=true);
   Modelica.Blocks.Interfaces.RealOutput y_internal(unit="1")
     "Output connector for internal use (= y_actual if not casePreInd)";
-  Modelica.Blocks.Interfaces.RealOutput y_filtered if use_inputFilter
+  Modelica.Blocks.Interfaces.RealOutput y_filtered if use_strokeTime
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
-    final n=order,
-    final f=fCut,
-    final normalized=true,
-    final initType=init,
-    final y_start=y_start) if use_inputFilter and not use_linearDynamics
-    "Second order filter to approximate actuator opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,89},{24,96}})));
-
   Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
-    Rising=1/riseTime,
-    Falling=-1/riseTime,
-    Td=10/riseTime,
+    Rising=1/strokeTime,
+    Falling=-1/strokeTime,
+    Td=10/strokeTime,
     initType=init,
     y_start=y_start,
-    strict=true)
-    if use_inputFilter and use_linearDynamics
-      "Actuator position"
+    strict=true) if use_strokeTime and use_linearDynamics "Actuator position"
     annotation (Placement(transformation(extent={{16,76},{24,84}})));
 equation
-  connect(filter.y, y_filtered)
-    annotation (Line(points={{24.4,92.5},{34,92.5},{34,88},{50,88}},
-                     color={0,0,127}));
   connect(actPos.y, y_filtered)
     annotation (Line(points={{24.4,80},{34,80},{34,88},
           {50,88}}, color={0,0,127}));
 
-  if use_inputFilter then
-    connect(y, filter.u) annotation (Line(points={{0,120},{0,92.5},{15.2,92.5}},
-                           color={0,0,127}));
+  if use_strokeTime then
   connect(actPos.u, y)
     annotation (Line(points={{15.2,80},{0,80},{0,120}}, color={0,0,127}));
 

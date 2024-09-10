@@ -31,7 +31,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     per(pressure(V_flow={0,0.5*V_flow_nominal,V_flow_nominal}, dp={dp_nominal,
             0.5*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -41,7 +41,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_dp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     per(pressure(V_flow={0.5*V_flow_nominal,0.75*V_flow_nominal,V_flow_nominal},
           dp={0.5*dp_nominal,0.25*dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -51,7 +51,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_m_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     per(pressure(V_flow={0,0.25*V_flow_nominal,0.5*V_flow_nominal}, dp={
             dp_nominal,0.75*dp_nominal,0.5*dp_nominal})),
     inputType=Buildings.Fluid.Types.InputType.Constant)
@@ -61,7 +61,7 @@ model PumpCurveConstruction
   Buildings.Fluid.Movers.SpeedControlled_y pum_no(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     per(pressure(V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*
             V_flow_nominal}, dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal})),
     inputType=Buildings.Fluid.Types.InputType.Constant)

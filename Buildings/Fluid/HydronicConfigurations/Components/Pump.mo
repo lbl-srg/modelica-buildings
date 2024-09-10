@@ -128,12 +128,11 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
+    final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+     and typMod == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
     "Pump with ideally controlled head as input signal"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
@@ -149,12 +148,11 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
+    final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+     and typMod == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Pump with ideally controlled normalized speed as input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
@@ -171,12 +169,11 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
+    final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
+     and typMod == Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
     "Pump with ideally controlled mass flow rate as input"
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
   Sensors.VolumeFlowRate V_flow(

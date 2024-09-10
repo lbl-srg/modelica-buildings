@@ -49,7 +49,7 @@ partial model PartialFlowMachine
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_riseTime=true
     "= true, if speed is filtered to avoid a step change in motor speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
@@ -243,7 +243,7 @@ protected
     final n=2,
     final f=fCut,
     final normalized=true,
-    final initType=init) if use_inputFilter and not use_linearDynamics
+    final initType=init) if use_riseTime and not use_linearDynamics
     "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{16,89},{24,96}})));
 
@@ -253,7 +253,7 @@ protected
     Td=10/riseTime,
     initType=init,
     strict=true)
-    if use_inputFilter and use_linearDynamics
+    if use_riseTime and use_linearDynamics
       "Dynamics of engine speed"
     annotation (Placement(transformation(extent={{16,76},{24,84}})));
 
@@ -520,10 +520,11 @@ equation
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{4,-56},{4,
           -86},{48,-86}}, color={0,0,127}));
-  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
-          {18,70.5}},     color={0,0,127}));
-  connect(inputSwitch.y, motSpe.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
-          {18,70.5}},     color={0,0,127}));
+  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,
+          92.5},{15.2,92.5}},
+                          color={0,0,127}));
+  connect(inputSwitch.y, motSpe.u) annotation (Line(points={{1,50},{12,50},{12,
+          80},{15.2,80}}, color={0,0,127}));
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,

@@ -223,7 +223,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     mExh_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     linearized=true,
-    riseTime=15,
+    strokeTime=15,
     y_start=0,
     dpDamExh_nominal=0.27,
     dpDamOut_nominal=0.27,

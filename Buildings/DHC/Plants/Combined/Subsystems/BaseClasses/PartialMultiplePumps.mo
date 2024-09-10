@@ -89,14 +89,14 @@ partial model PartialMultiplePumps
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  replaceable Fluid.Movers.SpeedControlled_y pum
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    redeclare final package Medium=Medium,
+  replaceable Fluid.Movers.SpeedControlled_y pum constrainedby
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    redeclare final package Medium = Medium,
     final tau=tau,
     final show_T=show_T,
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_inputFilter,
     final riseTime=riseTime,
     final init=init,
     final per=per,

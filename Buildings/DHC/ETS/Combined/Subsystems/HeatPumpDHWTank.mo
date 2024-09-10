@@ -7,7 +7,7 @@ model HeatPumpDHWTank
         QCon_flow_nominal=QHotWat_flow_nominal,
         QCon_flow_max=QHotWat_flow_nominal),
     pumCon(use_inputFilter=true),
-    pumEva(use_inputFilter=true));
+    pumEva(use_riseTime   =true));
   parameter Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger
     datWatHea "Performance data"
     annotation (Placement(transformation(extent={{140,100},{160,120}})));
