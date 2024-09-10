@@ -148,7 +148,7 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_inputFilter,
+    final use_riseTime=use_strokeTime,
     final riseTime=riseTime,
     final init=init,
     final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -349,13 +349,13 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
           fillColor={135,135,135},

@@ -87,7 +87,7 @@ model WatersideEconomizer "Waterside economizer"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final use_inputFilter=use_inputFilter,
-    final riseTime=riseTimeValve,
+    final riseTime=strokeTime,
     final init=initValve,
     final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,
@@ -145,7 +145,7 @@ around the setpoint.
 <ul>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
-Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves 
+Moved nominal pressure differences to <code>dpFixed_nominal</code> at isolation valves
 to avoid redundant declarations and algebraic loops.
 </li>
 <li>

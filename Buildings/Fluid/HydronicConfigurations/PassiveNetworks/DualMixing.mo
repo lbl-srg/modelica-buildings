@@ -16,7 +16,7 @@ model DualMixing "Dual mixing circuit"
     redeclare final package Medium=Medium,
     final typCha=typCha,
     final energyDynamics=energyDynamics,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional else
       Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -72,7 +72,7 @@ model DualMixing "Dual mixing circuit"
     final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final per=perPum)
     "Pump"
     annotation (
@@ -268,7 +268,7 @@ Constant flow
 Typical applications
 </td>
 <td valign=\"top\">
-Consumer circuit supply temperature different from primary circuit 
+Consumer circuit supply temperature different from primary circuit
 such as underfloor heating systems
 </td>
 </tr>
@@ -295,7 +295,7 @@ Control valve selection<br/>
 (See the nomenclature in the schematic.)
 </td>
 <td valign=\"top\">
-<i>&beta; = &Delta;p<sub>A-AB</sub> / &Delta;p<sub>K-L</sub> = 
+<i>&beta; = &Delta;p<sub>A-AB</sub> / &Delta;p<sub>K-L</sub> =
 &Delta;p<sub>A-AB</sub> /
 (&Delta;p<sub>1</sub> + &Delta;p<sub>A-AB</sub>) </i><br/>
 The control valve is sized with a pressure drop equal to the
@@ -334,7 +334,7 @@ Lumped flow resistance includes<br/>
 </td>
 <td valign=\"top\">
 Control valve <code>val</code> only<br/>
-(So the option has no effect here: the balancing valves are always modeled as distinct flow resistances.) 
+(So the option has no effect here: the balancing valves are always modeled as distinct flow resistances.)
 </td>
 </tr>
 </table>

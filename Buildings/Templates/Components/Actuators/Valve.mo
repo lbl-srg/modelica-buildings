@@ -111,7 +111,7 @@ model Valve "Multiple-configuration valve"
     dat.dpFixedByp_nominal
     "Nominal pressure drop in the bypass line";
 
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_strokeTime=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(__ctrlFlow(enable=false),
     Dialog(tab="Dynamics", group="Filtered opening",
@@ -122,16 +122,16 @@ model Valve "Multiple-configuration valve"
     Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+      enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(__ctrlFlow(enable=false),
     Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Real y_start=1 "Initial position of actuator"
     annotation(__ctrlFlow(enable=false),
     Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -237,7 +237,7 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -260,7 +260,7 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -283,7 +283,7 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -299,7 +299,7 @@ model Valve "Multiple-configuration valve"
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -325,7 +325,7 @@ model Valve "Multiple-configuration valve"
     final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -350,7 +350,7 @@ model Valve "Multiple-configuration valve"
     final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -377,7 +377,7 @@ model Valve "Multiple-configuration valve"
     final dpFixed_nominal={dpFixed_nominal,dpFixedByp_nominal},
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,

@@ -55,7 +55,7 @@ model MixingBoxMinimumFlow
     final m_flow_nominal=mOutMin_flow_nominal,
     final dpDamper_nominal=dpDamOutMin_nominal,
     final dpFixed_nominal=dpFixOutMin_nominal,
-    final use_inputFilter=false) "Damper for minimum outside air intake"
+    final use_strokeTime=false) "Damper for minimum outside air intake"
     annotation (Placement(transformation(extent={{48,32},{68,52}})));
 protected
   Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if use_strokeTime

@@ -110,7 +110,7 @@ model ElectricChillerParallel
     annotation (Placement(transformation(extent={{-420,100},{-380,140}}),
    iconTransformation(extent={{-340,140},{-300,180}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final per=fill(
       perChi,
       numChi),
@@ -127,7 +127,7 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final dp_nominal=dpCW_nominal/2,
     final dpValve_nominal = dpCooTowVal_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
@@ -147,7 +147,7 @@ model ElectricChillerParallel
       1,
       numChi),
     final tau=tau,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTimePump=riseTimePump,
     final init=init,
     final yPump_start=yCHWP_start,
@@ -163,7 +163,7 @@ model ElectricChillerParallel
       perCWPum,
       numChi),
     final tau=tau,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTimePump=riseTimePump,
     final init=init,
     final yPump_start=yCWP_start,
@@ -178,7 +178,7 @@ model ElectricChillerParallel
     final allowFlowReversal=false,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
-    final use_inputFilter=true,
+    final use_strokeTime=true,
     riseTime=60)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},

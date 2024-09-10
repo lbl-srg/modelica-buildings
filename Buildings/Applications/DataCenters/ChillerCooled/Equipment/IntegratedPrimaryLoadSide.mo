@@ -81,7 +81,7 @@ model IntegratedPrimaryLoadSide
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final deltaM=deltaM2,
     final riseTimePump=riseTimePump,
-    final riseTimeValve=riseTimeValve,
+    final strokeTime=strokeTime,
     final yValve_start=yValPum_start,
     final l=lValPum,
     final yPump_start=yPum_start,

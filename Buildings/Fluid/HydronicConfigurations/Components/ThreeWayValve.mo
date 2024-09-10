@@ -74,7 +74,7 @@ model ThreeWayValve "Container class for three-way valves"
     "=true, to assert that the flow does not reverse when portFlowDirection_* does not equal Bidirectional"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_strokeTime=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Units.SI.Time riseTime=120
@@ -82,12 +82,12 @@ model ThreeWayValve "Container class for three-way valves"
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
 
 
   final parameter Modelica.Units.SI.PressureDifference dp3Valve_nominal(
@@ -176,7 +176,7 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
@@ -206,7 +206,7 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
@@ -236,7 +236,7 @@ model ThreeWayValve "Container class for three-way valves"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
@@ -288,19 +288,19 @@ equation
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -352,7 +352,7 @@ equation
           fillColor=DynamicSelect({0,0,0}, (1-y)*{255,255,255}),
           fillPattern=FillPattern.Solid),
     Line(
-      visible=use_inputFilter,
+      visible=use_strokeTime,
       points={{-30,40},{30,40}}),
             Line(
       points={{0,40},{0,0}}),
@@ -362,13 +362,13 @@ equation
           textString="%name")}),
     Documentation(info="<html>
 <p>
-This is a container class for three-way valve models from 
+This is a container class for three-way valve models from
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
 Buildings.Fluid.Actuators.Valves</a>.
 </p>
 <p>
-The parameter <code>typCha</code> allows configuring the model 
-by selecting the valve characteristic to be used based on the enumeration 
+The parameter <code>typCha</code> allows configuring the model
+by selecting the valve characteristic to be used based on the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic\">
 Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic</a>.
 </p>

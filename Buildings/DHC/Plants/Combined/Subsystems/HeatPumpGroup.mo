@@ -57,7 +57,7 @@ model HeatPumpGroup
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Pump speed filter parameters
-  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Boolean use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
     "= true, if signal is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered pump speed"));
   parameter Modelica.Units.SI.Time riseTime=30
@@ -65,12 +65,12 @@ model HeatPumpGroup
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered pump speed",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered pump speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered pump speed",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered pump speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered pump speed",enable=use_strokeTime));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
     "Heat pump On/Off command"

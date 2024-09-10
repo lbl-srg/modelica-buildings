@@ -51,7 +51,7 @@ model Decoupling "Decoupling circuit with self-acting Delta-p control valve"
   Components.TwoWayValve val(
     redeclare final package Medium = Medium,
     final typCha=typCha,
-    use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m1_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
@@ -358,10 +358,10 @@ temperature is not included in this package.
 </p>
 <p>
 The specific built-in control option implemented in this model does not
-depend on the actual function of the consumer circuit 
+depend on the actual function of the consumer circuit
 (such as cooling, heating, or change-over).
 Therefore, the model remains the same whatever the value
-assigned to the parameter <code>typCtl</code> except if 
+assigned to the parameter <code>typCtl</code> except if
 <code>None</code> (no built-in controls) is selected.
 In that latter case only, no built-in controls are included and the user
 must connect a control signal to modulate the valve.

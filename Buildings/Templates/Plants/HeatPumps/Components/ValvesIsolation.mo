@@ -141,7 +141,7 @@ model ValvesIsolation
     "Set to false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation (Dialog(tab="Assumptions"),
     Evaluate=true);
-  parameter Boolean use_inputFilter=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+  parameter Boolean use_strokeTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Filtered opening",
@@ -150,17 +150,17 @@ model ValvesIsolation
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Filtered opening",
-    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Filtered opening",
-    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
   parameter Real y_start=1
     "Initial position of actuator"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Filtered opening",
-    enable=use_inputFilter and have_valHpInlIso or have_valHpOutIso));
+    enable=use_strokeTime and have_valHpInlIso or have_valHpOutIso));
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true,
@@ -300,7 +300,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     final dat=datValHeaWatHpOutIso,
     each final typ=typ,
-    each final use_inputFilter=use_inputFilter,
+    each final use_strokeTime=use_strokeTime,
     each final riseTime=riseTime,
     each final init=init,
     each final y_start=y_start,
@@ -314,7 +314,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     final dat=datValChiWatHpOutIso,
     each final typ=typ,
-    each final use_inputFilter=use_inputFilter,
+    each final use_strokeTime=use_strokeTime,
     each final riseTime=riseTime,
     each final init=init,
     each final y_start=y_start,
@@ -328,7 +328,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     final dat=datValHeaWatHpInlIso,
     each final typ=typ,
-    each final use_inputFilter=use_inputFilter,
+    each final use_strokeTime=use_strokeTime,
     each final riseTime=riseTime,
     each final init=init,
     each final y_start=y_start,
@@ -342,7 +342,7 @@ model ValvesIsolation
     redeclare each final package Medium=Medium,
     final dat=datValChiWatHpInlIso,
     each final typ=typ,
-    each final use_inputFilter=use_inputFilter,
+    each final use_strokeTime=use_strokeTime,
     each final riseTime=riseTime,
     each final init=init,
     each final y_start=y_start,
@@ -1215,7 +1215,7 @@ equation
       info="<html>
 <p>
 This model represents the heat pump isolation valves.
-The isolation valves are modeled as two-way two-position 
+The isolation valves are modeled as two-way two-position
 valves, which can be located at the heat pump inlet and/or
 outlet depending on the settings of the parameters <code>have_valHpInlIso</code>
 and <code>have_valHpOutIso</code>.

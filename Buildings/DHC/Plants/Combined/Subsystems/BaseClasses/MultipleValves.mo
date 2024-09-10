@@ -34,7 +34,7 @@ model MultipleValves
     "Pressure drop of pipe and other resistances that are in series (each unit)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_strokeTime=true
     "Opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Units.SI.Time riseTime=120
@@ -42,12 +42,12 @@ model MultipleValves
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -111,7 +111,7 @@ model MultipleValves
     each final dpValve_nominal=dpValve_nominal,
     each final dpFixed_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal,
-    each final use_inputFilter=use_inputFilter,
+    each final use_strokeTime=use_strokeTime,
     each final riseTime=riseTime,
     each final init=init,
     each final y_start=y_start)

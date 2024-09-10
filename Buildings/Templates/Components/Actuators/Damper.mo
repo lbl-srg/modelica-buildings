@@ -19,7 +19,7 @@ model Damper "Multiple-configuration damper"
     dat.dp_nominal
     "Damper pressure drop";
 
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_strokeTime=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
     enable=typ<>Buildings.Templates.Components.Types.Damper.None));
@@ -28,14 +28,14 @@ model Damper "Multiple-configuration damper"
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered opening",
-      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+      enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -80,7 +80,7 @@ model Damper "Multiple-configuration damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final y_start=y_start,
@@ -96,7 +96,7 @@ model Damper "Multiple-configuration damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,

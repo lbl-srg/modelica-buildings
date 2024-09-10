@@ -41,7 +41,7 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean use_inputFilterValve=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
-  parameter Modelica.Units.SI.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time strokeTime=120
     "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -65,7 +65,7 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Boolean use_inputFilterFan=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Fan"));
-  parameter Modelica.Units.SI.Time riseTimeFan=30
+  parameter Modelica.Units.SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
       Dialog(
       tab="Dynamics",
@@ -136,7 +136,7 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
     final tau=tauFan,
     final addPowerToMedium=addPowerToMedium,
     final use_riseTime=use_inputFilterFan,
-    final riseTime=riseTimeFan,
+    final riseTime=riseTime,
     final init=initFan,
     final p_start=p_start,
     final T_start=T_start,
@@ -157,7 +157,7 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final linearized=linearizeFlowResistance1,
       final rhoStd=rhoStd,
       final use_inputFilter=use_inputFilterValve,
-      final riseTime=riseTimeValve,
+      final riseTime=strokeTime,
       final init=initValve,
       final y_start=yValve_start,
       final dpValve_nominal=dpValve_nominal,

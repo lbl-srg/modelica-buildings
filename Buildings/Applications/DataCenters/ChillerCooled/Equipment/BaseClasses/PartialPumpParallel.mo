@@ -40,7 +40,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.Units.SI.Time riseTimeValve=riseTimePump
+  parameter Modelica.Units.SI.Time strokeTime=riseTimePump
     "Rise time of the filter (time to become 99.6 % open)" annotation (
       Dialog(
       tab="Dynamics",
@@ -126,7 +126,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final show_T=show_T,
     each final rhoStd=rhoStd,
     each final use_inputFilter=use_inputFilter,
-    each final riseTime=riseTimeValve,
+    each final riseTime=strokeTime,
     each final init=init,
     final y_start=yValve_start,
     each final dpValve_nominal=dpValve_nominal,

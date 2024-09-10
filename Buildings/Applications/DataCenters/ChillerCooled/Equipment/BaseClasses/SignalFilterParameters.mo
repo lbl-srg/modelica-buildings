@@ -10,7 +10,7 @@ record SignalFilterParameters
     "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
 
-  parameter Modelica.Units.SI.Time riseTimeValve=30
+  parameter Modelica.Units.SI.Time strokeTime=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -31,7 +31,7 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\
 </li>
 <li>
 November 15, 2022, by Michael Wetter:<br/>
-Change <code>riseTimeValve</code> to 30 seconds so that it is the same as for pumps.
+Change <code>strokeTime</code> to 30 seconds so that it is the same as for pumps.
 Otherwise, pumps may work against almost closed valves.
 </li>
 <li>
@@ -47,7 +47,7 @@ The number of filters is specified by <code>nFilter</code>.
 </p>
 <p>
 Note that all the signal filters have the same on/off control signal, rising time, and initialization type,
-which are specified by <code>use_inputFilter, riseTimeValve</code> and <code>initValve</code> respectively.
+which are specified by <code>use_inputFilter, strokeTime</code> and <code>initValve</code> respectively.
 However, they can have different initial valves, specified by <code>yValve_start</code>.
 </p>
 </html>"));

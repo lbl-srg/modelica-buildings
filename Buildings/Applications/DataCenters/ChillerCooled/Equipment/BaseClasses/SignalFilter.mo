@@ -6,7 +6,7 @@ protected
     annotation (Placement(transformation(extent={{-28,66},{-12,82}})));
   Modelica.Blocks.Continuous.Filter[numFil] filter(
      each order=2,
-     each f_cut=5/(2*Modelica.Constants.pi*riseTimeValve),
+     each f_cut=5/(2*Modelica.Constants.pi*strokeTime),
      each final init=initValve,
      final y_start=yValve_start,
      each final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
@@ -16,9 +16,9 @@ protected
     annotation (Placement(transformation(extent={{-50,89},{-42,96}})));
 
   Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
-    Rising=1/riseTimeValve,
-    Falling=-1/riseTimeValve,
-    Td=10/riseTimeValve,
+    Rising=1/strokeTime,
+    Falling=-1/strokeTime,
+    Td=10/strokeTime,
     initType=initValve,
     y_start=yValve_start,
     strict=true)

@@ -91,7 +91,7 @@ model FanCoil2PipeHeatingValve
     redeclare final package Medium=Medium1,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dpValve_nominal=10000,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final allowFlowReversal=allowFlowReversal,
     dpFixed_nominal=dpSou_nominal-10000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-80})));

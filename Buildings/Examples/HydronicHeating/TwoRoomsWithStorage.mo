@@ -179,7 +179,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    use_inputFilter=false) "Radiator valve"
+    use_strokeTime=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
   Controls.OBC.CDL.Reals.PID conRoo2(
     yMax=1,
@@ -197,7 +197,7 @@ model TwoRoomsWithStorage
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true,
-    use_inputFilter=false) "Radiator valve"
+    use_strokeTime=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.OBC.CDL.Reals.PID conRoo1(
     yMax=1,
