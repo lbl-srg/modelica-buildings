@@ -141,14 +141,40 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Data.Generic
+    </td>
+    <td valign=\"top\">The function <code>Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</code>
+                       is no longer called unless needed.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
+    </td>
+    <td valign=\"top\">Added standalone declaration for the peak operating condition to ensure that
+                       the same values are used for each mover.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA #1912</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
     </td>
 </tr>
 <tr>
     <td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0
     </td>
-    <td valign=\"top\">Updated EnergyPlus binaries to support simulations that start with a negative start time.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.
+    <td valign=\"top\">Updated EnergyPlus binaries.<br/><br/>
+                       With this update, simulations that start with a negative start time are supported.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.<br/><br/>
+                       This update also adds support for specifying entries for the EnergyPlus run period.
+                       See the documentation of <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</code> for details.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
