@@ -13,13 +13,6 @@ model PumpCurveConstruction
   parameter Modelica.Units.SI.PressureDifference dp_nominal=10000
     "Nominal pump head at zero mass flow rate";
 
-  Actuators.Valves.TwoWayLinear val1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    use_riseTime=false,
-    dpValve_nominal=dp_nominal/1000,
-    from_dp=false) "Valve with very small pressure drop if fully open"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -74,10 +67,18 @@ model PumpCurveConstruction
     height=-0.99) "Input signal for valve"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
+  Actuators.Valves.TwoWayLinear val1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    use_strokeTime=false,
+    dpValve_nominal=dp_nominal/1000,
+    from_dp=false) "Valve with very small pressure drop if fully open"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
   Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_riseTime=false,
+    use_strokeTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -85,7 +86,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_riseTime=false,
+    use_strokeTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -93,7 +94,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_riseTime=false,
+    use_strokeTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -103,7 +104,7 @@ equation
       points={{40,80},{0,80}},
       color={0,127,255}));
   connect(val1.port_a, sou.ports[1]) annotation (Line(
-      points={{-20,80},{-40,80},{-40,17.5},{-62,17.5}},
+      points={{-20,80},{-40,80},{-40,12.25},{-62,12.25}},
       color={0,127,255}));
   connect(yVal.y, val1.y) annotation (Line(
       points={{-39,100},{-10,100},{-10,92}},
@@ -115,10 +116,10 @@ equation
       points={{40,-20},{0,-20}},
       color={0,127,255}));
   connect(sou.ports[2], val2.port_a) annotation (Line(
-      points={{-62,16.5},{-38,16.5},{-38,30},{-20,30}},
+      points={{-62,12.75},{-38,12.75},{-38,30},{-20,30}},
       color={0,127,255}));
   connect(val3.port_a, sou.ports[3]) annotation (Line(
-      points={{-20,-20},{-38,-20},{-38,15.5},{-62,15.5}},
+      points={{-20,-20},{-38,-20},{-38,13.25},{-62,13.25}},
       color={0,127,255}));
   connect(yVal.y, val2.y) annotation (Line(
       points={{-39,100},{-32,100},{-32,56},{-10,56},{-10,42}},
@@ -128,7 +129,7 @@ equation
       color={0,0,127}));
 
   connect(val4.port_a, sou.ports[4]) annotation (Line(
-      points={{-20,-60},{-40,-60},{-40,14.5},{-62,14.5}},
+      points={{-20,-60},{-40,-60},{-40,13.75},{-62,13.75}},
       color={0,127,255}));
   connect(val4.port_b, pum_no.port_a) annotation (Line(
       points={{0,-60},{40,-60}},
@@ -137,17 +138,16 @@ equation
       points={{-39,100},{-32,100},{-32,-40},{-10,-40},{-10,-48}},
       color={0,0,127}));
   connect(pum_no.port_b, sou.ports[5]) annotation (Line(
-      points={{60,-60},{68,-60},{68,-80},{-42,-80},{-42,13.5},{-62,13.5}},
+      points={{60,-60},{68,-60},{68,-80},{-42,-80},{-42,14.25},{-62,14.25}},
       color={0,127,255}));
   connect(pum_m_flow.port_b, sou.ports[6]) annotation (Line(
-      points={{60,-20},{68,-20},{72,-20},{72,-84},{-44,-84},{-44,12.5},{-62,
-          12.5}},
+      points={{60,-20},{68,-20},{72,-20},{72,-84},{-44,-84},{-44,14.75},{-62,14.75}},
       color={0,127,255}));
   connect(pum_dp.port_b, sou.ports[7]) annotation (Line(
-      points={{60,30},{76,30},{76,-88},{-46,-88},{-46,11.5},{-62,11.5}},
+      points={{60,30},{76,30},{76,-88},{-46,-88},{-46,15.25},{-62,15.25}},
       color={0,127,255}));
   connect(pum.port_b, sou.ports[8]) annotation (Line(
-      points={{60,80},{80,80},{80,-92},{-48,-92},{-48,10.5},{-62,10.5}},
+      points={{60,80},{80,80},{80,-92},{-48,-92},{-48,15.75},{-62,15.75}},
       color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=1.0),
