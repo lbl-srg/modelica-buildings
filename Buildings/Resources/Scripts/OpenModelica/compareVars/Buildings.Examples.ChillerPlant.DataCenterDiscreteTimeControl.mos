@@ -2,7 +2,9 @@ compareVars :=
   {
     "TAirSup.T",
     "wseCon.TWetBul",
+    "TCHWEntChi.T",
+    "TCWLeaTow.T",
     "wseCon.y1",
     "chiCon.y",
-    "pumCHW.m_flow"
+    "EHVAC.y"
   };

@@ -1,0 +1,19 @@
+simulateModel("Buildings.Templates.Components.Validation.Tanks",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=500.0,
+    resultFile="Tanks");
+createPlot(
+    id=1,
+    position={5, 5, 300, 400},
+    y={"intFlo.y", "tan.V"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"sou.T", "tan.sta_b.T", "noTan.sta_b.T"},
+    autoscale=true,
+    grid=true
+);
