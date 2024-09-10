@@ -90,19 +90,19 @@ influence the flow network.
 The valves and dampers in the package
 <a href=\"modelica://Buildings.Fluid.Actuators\">
 Buildings.Fluid.Actuators</a>
-all have a parameter <code>use_inputFilter</code>.
+all have a parameter <code>use_strokeTime</code>.
 This parameter is used as follows:
 </p>
 <ul>
 <li>
-If <code>use_inputFilter=false</code>, then the actual valve
+If <code>use_strokeTime=false</code>, then the actual valve
 or damper position is equal to the input signal <code>y</code>.
 </li>
 <li>
-If <code>use_inputFilter=true</code>, then the actual valve or damper position
+If <code>use_strokeTime=true</code>, then the actual valve or damper position
 is computed in such a way that it approximates a valve motor.
 This approximation is implemented using a 2nd order low-pass filter.
-The filter has a parameter <code>riseTime</code>, which by default is
+The filter has a parameter <code>strokeTime</code>, which by default is
 set to <i>120</i> seconds.
 The rise time is the time required to reach 99.6% of the opening.
 </li>
@@ -114,14 +114,14 @@ in the input signal is \"smoothened\" by the filter, and
 hence the flow network is only exposed to a continuously differentiable change
 in the input signal.
 However, if the filter is part of a closed loop control, then the transient
-response gets changed. Therefore, if the parameter <code>use_inputFilter</code>
+response gets changed. Therefore, if the parameter <code>use_strokeTime</code>
 is changed, control gains may need to be retuned.
 </p>
 <p>
 For example, suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
-and a valve, configured with <code>use_inputFilter=true</code> and <code>riseTime=120</code> seconds.
+and a valve, configured with <code>use_strokeTime=true</code> and <code>strokeTime=120</code> seconds.
 Assume that the transient response of the other dynamic elements in the control loop is fast
 compared to the rise time of the filter.
 Then, a proportional gain of <code>k=0.1</code> and an integrator time constant of
@@ -132,13 +132,13 @@ If the control loop shows oscillatory behavior, then reduce <code>k</code> and/o
 If the control loop reacts too slow, do the opposite.
 </p>
 <p>
-We will now show how the parameter <code>riseTime</code> affects the actual position of a
+We will now show how the parameter <code>strokeTime</code> affects the actual position of a
 control valve.
 The figure below shows a model with two control valves.
-The valve <code>val1</code> is configured with <code>use_inputFilter=true</code>
-and a rise time <code>riseTime=120</code> seconds.
+The valve <code>val1</code> is configured with <code>use_strokeTime=true</code>
+and a rise time <code>strokeTime=120</code> seconds.
 The grey motor symbol above the control valve <code>val1</code>
-indicates that <code>use_inputFilter=true</code>.
+indicates that <code>use_strokeTime=true</code>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveSchematic.png\"/>
@@ -155,7 +155,7 @@ Thus, in the valve <code>val1</code>, the mass flow rate will slowly increase,
 whereas in <code>val2</code>, the mass flow rate changes instantaneously.
 </p>
 <p>
-If <code>use_inputFilter=true</code>, then the parameter
+If <code>use_strokeTime=true</code>, then the parameter
 <code>y_start</code> can be used to set the initial position of the
 actuator, and the parameter
 <code>init</code> can be used to configure how the position

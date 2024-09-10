@@ -3,24 +3,22 @@ model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
   parameter Boolean use_strokeTime=true
-    "= true, if opening is filtered to avoid a step change in actuator position"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-
-  parameter Boolean use_linearDynamics = true
-    "Set to true to use an actuator dynamics that models the change in actuator position linear in time"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
+    "Set to true to continuously open and close valve using strokeTime"
+    annotation(Dialog(tab="Dynamics", group="Actuator position"));
 
   parameter Modelica.Units.SI.Time strokeTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter));
+      group="Actuator position",
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Actuator position",
+                      enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Actuator position",
+                      enable=use_strokeTime));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
     "Actuator position (0: closed, 1: open)"
@@ -36,10 +34,8 @@ model ActuatorSignal
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
-protected
-  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
-      strokeTime) "Cut-off frequency of filter";
 
+protected
   parameter Boolean casePreInd = false
     "In case of PressureIndependent the model I/O is modified"
     annotation(Evaluate=true);
@@ -56,16 +52,16 @@ protected
     Td=10/strokeTime,
     initType=init,
     y_start=y_start,
-    strict=true) if use_strokeTime and use_linearDynamics "Actuator position"
-    annotation (Placement(transformation(extent={{16,76},{24,84}})));
+    strict=true) if use_strokeTime "Actuator position"
+    annotation (Placement(transformation(extent={{14,82},{26,94}})));
 equation
   connect(actPos.y, y_filtered)
-    annotation (Line(points={{24.4,80},{34,80},{34,88},
-          {50,88}}, color={0,0,127}));
+    annotation (Line(points={{26.6,88},{50,88}},
+                    color={0,0,127}));
 
   if use_strokeTime then
   connect(actPos.u, y)
-    annotation (Line(points={{15.2,80},{0,80},{0,120}}, color={0,0,127}));
+    annotation (Line(points={{12.8,88},{0,88},{0,120}}, color={0,0,127}));
 
     connect(y_filtered, y_internal);
   else
@@ -84,19 +80,19 @@ equation
         Line(
           points={{0,70},{40,70}}),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_strokeTime,
           extent={{-20,94},{22,48}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -167,7 +163,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_strokeTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

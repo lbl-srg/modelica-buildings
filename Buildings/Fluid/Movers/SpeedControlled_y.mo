@@ -6,23 +6,18 @@ model SpeedControlled_y
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
-    filter(
-      final y_start=y_start,
-      u(final unit="1"),
-      y(final unit="1")),
+    final constInput(final unit="1") = per.constantSpeed,
     motSpe(
       final y_start=y_start,
       u(final unit="1"),
       y(final unit="1")),
-    eff(
-      per(final pressure = per.pressure,
-          final etaHydMet = per.etaHydMet,
-          final etaMotMet = per.etaMotMet),
-      r_N(start=y_start)));
+    eff(per(
+        final pressure=per.pressure,
+        final etaHydMet=per.etaHydMet,
+        final etaMotMet=per.etaMotMet), r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   Modelica.Blocks.Interfaces.RealInput y(
     unit="1")
@@ -56,14 +51,11 @@ equation
                                                      color={0,0,127}));
 
   if use_riseTime then
-    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
-    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70},{44,70},{44,26},
+            {-26,26},{-26,-46}},      color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
-            26},{-26,26},{-26,-46}},
-                                   color={0,0,127}));
+            26}},                  color={0,0,127}));
   end if;
 
     annotation (defaultComponentName="mov",
@@ -136,7 +128,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

@@ -31,7 +31,7 @@ model TwoWayValveParameterization
     m_flow_nominal=m_flow_nominal,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal(displayUnit="kPa") = dp_nominal,
-    use_inputFilter=false) "Valve model, linear opening characteristics"
+    use_strokeTime=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Ramp     y(duration=1)
                                             "Control signal"
@@ -41,7 +41,7 @@ model TwoWayValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=m_flow_nominal,
     Kv=Kv,
-    use_inputFilter=false) "Valve model, linear opening characteristics"
+    use_strokeTime=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Valves.TwoWayLinear valCv(
@@ -49,7 +49,7 @@ model TwoWayValveParameterization
     m_flow_nominal=m_flow_nominal,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=Cv,
-    use_inputFilter=false) "Valve model, linear opening characteristics"
+    use_strokeTime=false) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -78,7 +78,7 @@ model TwoWayValveParameterization
   Valves.TwoWayLinear valAv(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     CvData=Buildings.Fluid.Types.CvTypes.Av,
     Av=Av) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
@@ -94,16 +94,16 @@ equation
       points={{-39,70},{-20,70},{-20,20},{6.66134e-16,20},{6.66134e-16,12}},
       color={0,0,127}));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
-      points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,1},{-50,1}},
+      points={{-10,0},{-30,0},{-30,-0.5},{-50,-0.5}},
       color={0,127,255}));
   connect(sou.ports[3], valCv.port_a) annotation (Line(
-      points={{-50,-1},{-34,-1},{-34,-40},{-10,-40}},
+      points={{-50,0.5},{-34,0.5},{-34,-40},{-10,-40}},
       color={0,127,255}));
   connect(y.y, valCv.y) annotation (Line(
       points={{-39,70},{-20,70},{-20,-20},{6.66134e-16,-20},{6.66134e-16,-28}},
       color={0,0,127}));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(
-      points={{-50,3},{-40,3},{-40,40},{-10,40}},
+      points={{-50,-1.5},{-40,-1.5},{-40,40},{-10,40}},
       color={0,127,255}));
   connect(valOPPoi.port_b, senM_flowOpPoi.port_a) annotation (Line(
       points={{10,40},{20,40}},
@@ -116,20 +116,20 @@ equation
       points={{10,-40},{20,-40}},
       color={0,127,255}));
   connect(senM_flowCv.port_b, sin.ports[3]) annotation (Line(
-      points={{40,-40},{56,-40},{56,-1},{70,-1}},
+      points={{40,-40},{56,-40},{56,0.5},{70,0.5}},
       color={0,127,255}));
   connect(senM_flowKv.port_b, sin.ports[2]) annotation (Line(
-      points={{40,6.10623e-16},{50,6.10623e-16},{50,1},{70,1}},
+      points={{40,0},{50,0},{50,-0.5},{70,-0.5}},
       color={0,127,255}));
   connect(senM_flowOpPoi.port_b, sin.ports[1]) annotation (Line(
-      points={{40,40},{60,40},{60,2},{66,2},{66,3},{70,3}},
+      points={{40,40},{60,40},{60,2},{66,2},{66,-1.5},{70,-1.5}},
       color={0,127,255}));
-  connect(sou.ports[4], valAv.port_a) annotation (Line(points={{-50,-3},{-40,-3},
+  connect(sou.ports[4], valAv.port_a) annotation (Line(points={{-50,1.5},{-40,1.5},
           {-40,-80},{-10,-80}}, color={0,127,255}));
   connect(valAv.port_b, senM_flowAv.port_a)
     annotation (Line(points={{10,-80},{20,-80}}, color={0,127,255}));
-  connect(senM_flowAv.port_b, sin.ports[4]) annotation (Line(points={{40,-80},{
-          60,-80},{60,-3},{70,-3}}, color={0,127,255}));
+  connect(senM_flowAv.port_b, sin.ports[4]) annotation (Line(points={{40,-80},{60,
+          -80},{60,1.5},{70,1.5}},  color={0,127,255}));
   connect(valAv.y, y.y) annotation (Line(points={{0,-68},{0,-60},{-20,-60},{-20,
           70},{-39,70}}, color={0,0,127}));
     annotation (experiment(Tolerance=1e-6, StopTime=1.0),

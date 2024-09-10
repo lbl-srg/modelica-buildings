@@ -45,27 +45,24 @@ partial model PartialFlowMachine
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(
       tab="Dynamics",
-      group="Nominal condition",
+      group="Conservation equations",
       enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Classes used to implement the filtered speed
   parameter Boolean use_riseTime=true
-    "= true, if speed is filtered to avoid a step change in motor speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-
-  parameter Boolean use_linearDynamics = true
-    "Set to true to use an motor dynamics that models the change in motor speed linear in time"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+    "Set to true to continuously change motor speed"
+    annotation(Dialog(tab="Dynamics", group="Motor speed"));
 
   parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time need to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered speed",
-      enable=use_inputFilter));
+      group="Motor speed",
+      enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",
+    enable=use_riseTime));
 
   // Connectors and ports
   Modelica.Blocks.Interfaces.IntegerInput stage
@@ -200,9 +197,6 @@ protected
   final parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_start=
       Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
-  final parameter Modelica.Units.SI.Frequency fCut=5/(2*Modelica.Constants.pi*
-      riseTime) "Cut-off frequency of filter";
-
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs)
    if inputType == Buildings.Fluid.Types.InputType.Stages "Stage input values"
@@ -239,23 +233,15 @@ protected
     nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-70,0},{-90,20}})));
 
-  Buildings.Fluid.BaseClasses.ActuatorFilter filter(
-    final n=2,
-    final f=fCut,
-    final normalized=true,
-    final initType=init) if use_riseTime and not use_linearDynamics
-    "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,89},{24,96}})));
-
   Modelica.Blocks.Nonlinear.SlewRateLimiter motSpe(
     Rising=1/riseTime,
     Falling=-1/riseTime,
     Td=10/riseTime,
     initType=init,
     strict=true)
-    if use_riseTime and use_linearDynamics
+    if use_riseTime
       "Dynamics of engine speed"
-    annotation (Placement(transformation(extent={{16,76},{24,84}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -520,11 +506,8 @@ equation
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
   connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{4,-56},{4,
           -86},{48,-86}}, color={0,0,127}));
-  connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,
-          92.5},{15.2,92.5}},
-                          color={0,0,127}));
   connect(inputSwitch.y, motSpe.u) annotation (Line(points={{1,50},{12,50},{12,
-          80},{15.2,80}}, color={0,0,127}));
+          70},{18,70}},   color={0,0,127}));
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
           -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,
@@ -553,7 +536,7 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          visible=not use_inputFilter,
+          visible=not use_riseTime,
           points={{0,100},{0,40}}),
         Rectangle(
           extent={{-100,16},{100,-16}},
@@ -588,19 +571,19 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
           fillColor={135,135,135},
@@ -739,7 +722,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

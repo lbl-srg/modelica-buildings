@@ -16,7 +16,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -77,7 +77,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -85,7 +85,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
@@ -93,7 +93,7 @@ model PumpCurveConstruction
   Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     dpValve_nominal=dp_nominal/1000,
     from_dp=false) "Valve with very small pressure drop if fully open"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));

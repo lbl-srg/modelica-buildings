@@ -64,27 +64,27 @@ model SpeedControlled_y_pumpCurves
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    use_inputFilter=false) "Pressure drop"
+    use_riseTime=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    use_inputFilter=false) "Pressure drop"
+    use_riseTime=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    use_inputFilter=false) "Pressure drop"
+    use_riseTime=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=0.01*dp_nominal,
-    use_inputFilter=false) "Pressure drop"
+    use_riseTime=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
   connect(dp1.port_b, pum.port_a)      annotation (Line(

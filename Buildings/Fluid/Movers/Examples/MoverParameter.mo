@@ -11,7 +11,7 @@ model MoverParameter
     redeclare package Medium = Medium,
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     massFlowRates={0,0.5,1}*m_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -28,8 +28,8 @@ model MoverParameter
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Buildings.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
-        speeds={0,0.5,1}, constantSpeed=1),
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(speeds=
+          {0,0.5,1}, constantSpeed=1),
     use_riseTime=false,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)

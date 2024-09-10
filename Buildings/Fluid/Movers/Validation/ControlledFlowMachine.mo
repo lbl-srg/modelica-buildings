@@ -5,7 +5,7 @@ model ControlledFlowMachine "Fans with different control signals as input"
     fan1(addPowerToMedium=false, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan2(
       addPowerToMedium=false,
-      use_inputFilter=false,
+      use_riseTime=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     fan3(
       addPowerToMedium=false,

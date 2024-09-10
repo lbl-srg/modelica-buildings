@@ -44,7 +44,7 @@ model PumpCurveDerivatives
     nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false) "Pump for forcing a certain mass flow rate"
+    use_riseTime=false) "Pump for forcing a certain mass flow rate"
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
 
   Modelica.Blocks.Sources.Constant y1(k=1000/2610) "Pump speed control signal"

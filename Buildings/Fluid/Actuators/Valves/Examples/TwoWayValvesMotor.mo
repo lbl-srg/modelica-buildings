@@ -8,7 +8,7 @@ model TwoWayValvesMotor
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000) "Valve model, linear opening characteristics"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
@@ -31,7 +31,7 @@ model TwoWayValvesMotor
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000) "Valve model, quick opening characteristics"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -40,7 +40,7 @@ model TwoWayValvesMotor
     R=10,
     delta0=0.1,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
@@ -117,7 +117,7 @@ To use common values, use the default values.
 All valves are connected to a model of a motor with
 hysteresis. A more efficient implementation that approximates
 a motor but lacks hysteresis would be to
-set the valve parameter <code>use_inputFilter=true</code> instead
+set the valve parameter <code>use_strokeTime=true</code> instead
 of using the motor model.
 </p>
 </html>", revisions="<html>

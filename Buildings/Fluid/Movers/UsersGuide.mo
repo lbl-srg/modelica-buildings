@@ -723,18 +723,18 @@ amount of heat dissipates into the ambient, the separation of
 
 <h5>Start-up and shut-down transients</h5>
 <p>
-All models have a parameter <code>use_inputFilter</code>. This
+All models have a parameter <code>use_riseTime</code>. This
 parameter affects the fan output as follows:
 </p>
 <ol>
 <li>
-If <code>use_inputFilter=false</code>, then the input signal <code>y</code>
+If <code>use_riseTime=false</code>, then the input signal <code>y</code>
 (or <code>m_flow_in</code>, or <code>dp_in</code>)
 is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
-If <code>use_inputFilter=true</code>, which is the default,
+If <code>use_riseTime=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
 as a 2nd order differential equation and can be thought of as
@@ -748,7 +748,7 @@ if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
 </li>
 </ol>
 <p>
-The figure below shows for a fan with <code>use_inputFilter=true</code>
+The figure below shows for a fan with <code>use_riseTime=true</code>
 and <code>riseTime=30</code> seconds the
 speed input signal and the actual speed.</p>
 <p align=\"center\">
@@ -765,20 +765,20 @@ a fan switches on, is damped before it affects the air flow rate.
 This continuous change in flow rate turns out to be easier, and in
 some cases faster, to simulate compared to a step change.
 For most simulations, we therefore recommend to use the default settings
-of <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+of <code>use_riseTime=true</code> and <code>riseTime=30</code> seconds.
 An exception are situations in which the fan or pump is operated at a fixed speed during
-the whole simulation. In this case, set <code>use_inputFilter=false</code>.
+the whole simulation. In this case, set <code>use_riseTime=false</code>.
 </p>
 <p>
 Note that if the fan is part of a closed loop control, then the filter affects
 the transient response of the control.
-When changing the value of <code>use_inputFilter</code>, the control gains
+When changing the value of <code>use_riseTime</code>, the control gains
 may need to be retuned.
 We now present values control parameters that seem to work in most cases.
 Suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
-and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+and a fan or pump, configured with <code>use_riseTime=true</code> and <code>riseTime=30</code> seconds.
 Assume that the transient response of the other dynamic elements in the control loop is fast
 compared to the rise time of the filter.
 Then, a proportional gain of <code>k=0.5</code> and an integrator time constant of
