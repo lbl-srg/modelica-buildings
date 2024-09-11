@@ -274,7 +274,7 @@ model ChillerHeatRecoveryGroup
     each final dpFixed_nominal=dpCon_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start) "Condenser isolation valve" annotation (
       Placement(transformation(
@@ -290,7 +290,7 @@ model ChillerHeatRecoveryGroup
     each final dpFixed_nominal=dpEva_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start) "Evaporator isolation valve" annotation (
       Placement(transformation(
@@ -404,7 +404,7 @@ model ChillerHeatRecoveryGroup
     each final dpFixed_nominal=0,
     each final allowFlowReversal=true,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start) "Condenser switchover valve" annotation (
       Placement(transformation(
@@ -420,7 +420,7 @@ model ChillerHeatRecoveryGroup
     each final dpFixed_nominal=0,
     each final allowFlowReversal=true,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start) "Evaporator switchover valve" annotation (
       Placement(transformation(

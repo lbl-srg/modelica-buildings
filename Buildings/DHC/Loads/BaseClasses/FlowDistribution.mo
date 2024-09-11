@@ -272,7 +272,7 @@ model FlowDistribution
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));

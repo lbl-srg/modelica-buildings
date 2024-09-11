@@ -112,7 +112,7 @@ model MultipleValves
     each final dpFixed_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start) "Modulating valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

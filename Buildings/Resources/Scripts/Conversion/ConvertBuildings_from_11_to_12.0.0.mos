@@ -5,6 +5,11 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3965
+convertModifiers("Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
 
 convertModifiers("Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve",
                  {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);

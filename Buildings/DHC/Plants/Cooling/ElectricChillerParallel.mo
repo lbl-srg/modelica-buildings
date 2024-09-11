@@ -68,24 +68,32 @@ model ElectricChillerParallel
   parameter Modelica.Units.SI.Time tau=1
     "Pump time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Pump"));
-  parameter Boolean use_inputFilter=false
+  parameter Boolean use_riseTime=false
     "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.Units.SI.Time riseTimePump=30
+  parameter Boolean use_strokeTime=use_riseTime
+    "Set to true to continuously change valve position"
+    annotation(Dialog(tab="Dynamics", group="Valve"));
+  parameter Modelica.Units.SI.Time riseTime=30
     "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
       group="Pump",
-      enable=use_inputFilter));
+      enable=use_riseTime));
+  parameter Modelica.Units.SI.Time strokeTime=riseTime
+    "Time needed to open or close valve" annotation (Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization for pumps (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
   parameter Real[numChi] yCHWP_start=fill(0,numChi)
     "Initial value of CHW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
   parameter Real[numChi] yCWP_start=fill(0,numChi)
     "Initial value of CW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
     "Nominal pressure difference of the cooling tower valve";
   // control settings
@@ -111,17 +119,13 @@ model ElectricChillerParallel
    iconTransformation(extent={{-340,140},{-300,180}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
     final use_strokeTime=use_strokeTime,
-    final per=fill(
-      perChi,
-      numChi),
+    final per=fill(perChi, numChi),
     final m1_flow_nominal=mCW_flow_nominal,
     final m2_flow_nominal=mCHW_flow_nominal,
     final dp1_nominal=dpCW_nominal/2,
     final dp2_nominal=dpCHW_nominal,
-    final num=numChi,
-    redeclare final package Medium1=Medium,
-    redeclare final package Medium2=Medium)
-    "Chillers connected in parallel"
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium) "Chillers connected in parallel"
     annotation (Placement(transformation(extent={{60,40},{40,60}})));
   Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass cooTowWitByp(
     redeclare final package Medium=Medium,
@@ -143,8 +147,10 @@ model ElectricChillerParallel
     final per=fill(perCHWPum, numChi),
     yValve_start=fill(1, numChi),
     final tau=tau,
+    final use_riseTime=use_riseTime,
+    final riseTime=riseTime,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTimePump,
+    final strokeTime=strokeTime,
     final init=init,
     final yPump_start=yCHWP_start,
     final energyDynamics=energyDynamics,
@@ -156,8 +162,10 @@ model ElectricChillerParallel
     redeclare final package Medium = Medium,
     final per=fill(perCWPum, numChi),
     final tau=tau,
+    final use_riseTime=use_riseTime,
+    final riseTime=riseTime,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTimePump,
+    final strokeTime=strokeTime,
     final init=init,
     final yPump_start=yCWP_start,
     final energyDynamics=energyDynamics,
@@ -171,7 +179,7 @@ model ElectricChillerParallel
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
     final use_strokeTime=true,
-    riseTime=60)
+    strokeTime=60)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
@@ -303,7 +311,8 @@ equation
     annotation (Line(points={{-179.375,210},{-160,210},{-160,174},{-42,174}},
       color={255,0,255}));
   connect(weaBus.TWetBul,cooTowWitByp.TWetBul)
-    annotation (Line(points={{0,380},{0,380},{0,238},{-50,238},{-50,168},{-42,168}},
+    annotation (Line(points={{0.1,380.1},{0.1,380.1},{0.1,238},{-50,238},{-50,168},
+          {-42,168}},
     color={255,204,51},thickness=0.5),Text(string="%first",index=-1,
     extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(port_aSerCoo,senTCHWRet.port_a)

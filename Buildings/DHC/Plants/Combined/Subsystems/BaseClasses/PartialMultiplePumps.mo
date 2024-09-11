@@ -63,7 +63,7 @@ partial model PartialMultiplePumps
       enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_riseTime));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nPum]
     "Start signal (VFD Run or motor starter contact)"
