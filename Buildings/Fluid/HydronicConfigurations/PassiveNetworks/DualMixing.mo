@@ -72,7 +72,7 @@ model DualMixing "Dual mixing circuit"
     final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_riseTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final per=perPum)
     "Pump"
     annotation (

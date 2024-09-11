@@ -26,9 +26,9 @@ partial model PartialPlantParallel
     each dpFixed_nominal=dp2_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final riseTime=strokeTime,
+    each final strokeTime=strokeTime,
     each final init=initValve,
-    each final use_inputFilter=false,
+    each final use_strokeTime=false,
     each final deltaM=deltaM2,
     each final l=l[2],
     final y_start=yValve_start,
@@ -49,8 +49,8 @@ partial model PartialPlantParallel
     each dpFixed_nominal=dp1_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final use_inputFilter=false,
-    each final riseTime=strokeTime,
+    each final use_strokeTime=false,
+    each final strokeTime=strokeTime,
     each final init=initValve,
     final y_start=yValve_start,
     each final deltaM=deltaM1,
@@ -82,10 +82,10 @@ equation
   end for;
   if use_strokeTime then
     connect(booToRea.y, filter.u)
-      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,92.5},{-50.8,92.5}},
         color={0,0,127}));
     connect(booToRea.y, actPos.u)
-      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,80},{-50.8,80}},
         color={0,0,127}));
   else
     connect(booToRea.y, y_actual)
