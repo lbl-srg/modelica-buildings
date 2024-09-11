@@ -24,9 +24,9 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve"
     annotation(Dialog(tab="Dynamics", group=
-          "Time needed to open or close valve",                                  enable=
-          activate_ThrWayVal));
-  parameter Modelica.Units.SI.Time riseTime=30
+          "Time needed to open or close valve",
+          enable=activate_ThrWayVal));
+  parameter Modelica.Units.SI.Time strokeTime=30
     "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
@@ -70,7 +70,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final rhoStd=rhoStd,
     final homotopyInitialization=homotopyInitialization,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final R=R,
     final delta0=delta0,

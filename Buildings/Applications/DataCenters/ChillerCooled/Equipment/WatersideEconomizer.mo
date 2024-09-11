@@ -18,10 +18,10 @@ model WatersideEconomizer "Waterside economizer"
   // Filter opening
   parameter Real yThrWayVal_start=1
    "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_controller and use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_controller and use_strokeTime));
   parameter Real yValWSE_start=1
     "Initial value of output from the filter in the shutoff valve"
-    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics",group="Time needed to open or close valve",enable=use_strokeTime));
 
  // Heat exchanger
   parameter Modelica.Units.SI.Efficiency eta(start=0.8)
@@ -87,8 +87,8 @@ model WatersideEconomizer "Waterside economizer"
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_strokeTime=use_inputFilter,
-    final riseTime=strokeTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=initValve,
     final yThrWayVal_start=yThrWayVal_start,
     final eta=eta,

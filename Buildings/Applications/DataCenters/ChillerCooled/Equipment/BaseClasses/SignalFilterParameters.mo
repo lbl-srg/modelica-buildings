@@ -1,7 +1,7 @@
 within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 record SignalFilterParameters
   "Record that contains the parameters of the filtered opening for multiple valves and dampers"
-  parameter Integer numFil(min=1)=4 "Number of filters";
+  parameter Integer numAct(min=1)=4 "Number of filters";
   parameter Boolean use_strokeTime=false
     "= true, if opening is filtered to avoid a step change in actuator position"
     annotation(Dialog(tab="Dynamics", group=
@@ -12,13 +12,13 @@ record SignalFilterParameters
     annotation (Dialog(
       tab="Dynamics",
       group="Time needed to open or close valve",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
-  parameter Real[numFil] yValve_start=fill(1,numFil)
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
+  parameter Real[numAct] yValve_start=fill(1,numAct)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   annotation (    Documentation(revisions="<html>
 <ul>
 <li>

@@ -25,17 +25,20 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean use_riseTime=true
     "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously change valve position"
+    annotation(Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Time needed to change motor speed"                           annotation (
+    "Time needed to change motor speed" annotation (
       Dialog(
       tab="Dynamics",
       group="Pump",
-      enable=use_inputFilter));
+      enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
   parameter Real[num] yPump_start=fill(0,num) "Initial value of pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_riseTime));
 
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
@@ -44,10 +47,10 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Time needed to open or close valve" annotation (Dialog(
       tab="Dynamics",
       group="Valve",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Real[num] yValve_start = fill(1,num)
     "Initial value of valve signals"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -124,8 +127,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
     each final rhoStd=rhoStd,
-    each final use_inputFilter=use_riseTime,
-    each final riseTime=strokeTime,
+    each final use_strokeTime=use_strokeTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     final y_start=yValve_start,
     each final dpValve_nominal=dpValve_nominal,

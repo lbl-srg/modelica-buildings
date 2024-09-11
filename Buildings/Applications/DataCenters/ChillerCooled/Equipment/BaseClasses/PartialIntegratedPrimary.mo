@@ -15,11 +15,11 @@ model PartialIntegratedPrimary
   parameter Real yVal5_start(min=0,max=1) = 0
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Real yVal6_start(min=0,max=1) = 1-yVal5_start
     "Initial value of output:0-closed, 1-fully opened"
     annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
 
  Modelica.Blocks.Interfaces.RealInput yVal6(
    final unit = "1",
@@ -56,7 +56,7 @@ model PartialIntegratedPrimary
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final use_inputFilter=use_strokeTime,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=initValve,
     final dpFixed_nominal=0,
@@ -76,7 +76,7 @@ model PartialIntegratedPrimary
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final use_inputFilter=use_strokeTime,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=initValve,
     final dpFixed_nominal=0,

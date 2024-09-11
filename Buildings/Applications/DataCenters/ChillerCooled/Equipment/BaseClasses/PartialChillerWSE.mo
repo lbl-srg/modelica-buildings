@@ -12,7 +12,7 @@ partial model PartialChillerWSE
      numVal=4,
      final deltaM=deltaM1);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters(
-     final numFil=1,
+     final numAct=1,
      final yValve_start={yValWSE_start});
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.ThreeWayValveParameters(
      final activate_ThrWayVal=use_controller);
@@ -32,7 +32,7 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
   //WSE
   parameter Modelica.Units.SI.Efficiency eta(
@@ -45,11 +45,11 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=
-          use_controller and use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+                      enable=use_controller and use_strokeTime));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

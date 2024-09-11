@@ -9,7 +9,7 @@ partial model PartialPlantParallel
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     final deltaM=deltaM1);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
-    final numFil=num);
+    final numAct=num);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -81,11 +81,8 @@ equation
         color={0,127,255}));
   end for;
   if use_strokeTime then
-    connect(booToRea.y, filter.u)
-      annotation (Line(points={{-67.4,40},{-60,40},{-60,92.5},{-50.8,92.5}},
-        color={0,0,127}));
     connect(booToRea.y, actPos.u)
-      annotation (Line(points={{-67.4,40},{-60,40},{-60,80},{-50.8,80}},
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-48.8,84}},
         color={0,0,127}));
   else
     connect(booToRea.y, y_actual)

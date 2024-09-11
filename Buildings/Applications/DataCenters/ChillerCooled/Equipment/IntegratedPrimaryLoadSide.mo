@@ -28,21 +28,24 @@ model IntegratedPrimaryLoadSide
   parameter Boolean addPowerToMedium = true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.Units.SI.Time riseTimePump=30
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
+    annotation(Dialog(tab="Dynamics", group="Motor speed"));
+  parameter Modelica.Units.SI.Time riseTime=30
     "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
       group="Motor speed",
-      enable=use_inputFilter));
+      enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init initPum = initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_riseTime));
   parameter Real[numPum] yPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_riseTime));
   parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_riseTime));
   parameter Real lValPum = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
@@ -71,7 +74,8 @@ model IntegratedPrimaryLoadSide
     final per=perPum,
     addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
-    final use_riseTime=use_strokeTime,
+    final use_riseTime=use_riseTime,
+    final use_strokeTime=use_strokeTime,
     final init=initPum,
     final tau=tauPump,
     final allowFlowReversal=allowFlowReversal2,
@@ -80,7 +84,7 @@ model IntegratedPrimaryLoadSide
     dpValve_nominal=6000,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final deltaM=deltaM2,
-    final riseTime=riseTimePump,
+    final riseTime=riseTime,
     final strokeTime=strokeTime,
     final yValve_start=yValPum_start,
     final l=lValPum,
