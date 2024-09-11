@@ -35,19 +35,19 @@ model MultipleValves
     annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean use_strokeTime=true
-    "Opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Set to true to continuously open and close valve using strokeTime"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
+      group="Time needed to open or close valve",
       enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -112,10 +112,9 @@ model MultipleValves
     each final dpFixed_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=riseTime,
+    each final riseTime=strokeTime,
     each final init=init,
-    each final y_start=y_start)
-    "Modulating valve"
+    each final y_start=y_start) "Modulating valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   final parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(

@@ -75,19 +75,19 @@ model ThreeWayValve "Container class for three-way valves"
     annotation(Dialog(tab="Advanced"));
 
   parameter Boolean use_strokeTime=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
+      group="Time needed to open or close valve",
       enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_strokeTime));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_strokeTime));
 
 
   final parameter Modelica.Units.SI.PressureDifference dp3Valve_nominal(
@@ -177,7 +177,7 @@ model ThreeWayValve "Container class for three-way valves"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.EqualPercentage
     "Three-way valve with equal percentage and linear characteristics"
@@ -207,7 +207,7 @@ model ThreeWayValve "Container class for three-way valves"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Linear
     "Three-way valve with linear characteristics"
@@ -237,7 +237,7 @@ model ThreeWayValve "Container class for three-way valves"
     final C_start=C_start,
     final C_nominal=C_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start) if typCha == Buildings.Fluid.HydronicConfigurations.Types.ValveCharacteristic.Table
     "Three-way valve with table-specified characteristics"

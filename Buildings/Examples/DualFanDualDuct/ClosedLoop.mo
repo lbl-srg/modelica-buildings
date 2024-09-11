@@ -413,7 +413,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
-    riseTime=10,
     use_strokeTime=false) "Preheating coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

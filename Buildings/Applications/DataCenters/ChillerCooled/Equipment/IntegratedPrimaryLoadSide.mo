@@ -29,20 +29,20 @@ model IntegratedPrimaryLoadSide
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Units.SI.Time riseTimePump=30
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered speed",
+      group="Motor speed",
       enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum = initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_inputFilter));
   parameter Real[numPum] yPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",enable=use_inputFilter));
   parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
   parameter Real lValPum = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
@@ -71,7 +71,7 @@ model IntegratedPrimaryLoadSide
     final per=perPum,
     addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_strokeTime,
     final init=initPum,
     final tau=tauPump,
     final allowFlowReversal=allowFlowReversal2,
@@ -80,15 +80,14 @@ model IntegratedPrimaryLoadSide
     dpValve_nominal=6000,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final deltaM=deltaM2,
-    final riseTimePump=riseTimePump,
+    final riseTime=riseTimePump,
     final strokeTime=strokeTime,
     final yValve_start=yValPum_start,
     final l=lValPum,
     final yPump_start=yPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
-    final linearizeFlowResistance=linearizeFlowResistance2)
-    "Pumps"
+    final linearizeFlowResistance=linearizeFlowResistance2) "Pumps"
     annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
 
 equation

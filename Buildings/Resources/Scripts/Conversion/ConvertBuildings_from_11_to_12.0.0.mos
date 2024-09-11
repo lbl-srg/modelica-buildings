@@ -5,6 +5,34 @@ clear
 
 convertClear();
 
+
+convertModifiers("Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("Buildings.Fluid.HydronicConfigurations.Components.Pump",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+
+
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.ChillerGroup",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.HeatPumpGroup",
+                 {"use_inputFilter", "riseTime"}, {"use_strokeTime", "strokeTime"}, true);
+
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsDp",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsFlow",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+convertModifiers("Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed",
+                 {"use_inputFilter"}, {"use_riseTime"}, true);
+
+// Remove non-used parameter
+convertModifiers("Buildings.DHC.Plants.Cooling.Controls.FlowControl",
+                {"use_outFil"}, fill("",0), true);
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3787
 convertModifiers("Buildings.Controls.OBC.CDL.Logical.TrueHold",
                  {"duration", "falseHoldDuration"},

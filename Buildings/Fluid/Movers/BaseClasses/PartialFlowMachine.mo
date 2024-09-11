@@ -54,7 +54,7 @@ partial model PartialFlowMachine
     annotation(Dialog(tab="Dynamics", group="Motor speed"));
 
   parameter Modelica.Units.SI.Time riseTime=30
-    "Time need to change motor speed between zero and full speed" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
       group="Motor speed",

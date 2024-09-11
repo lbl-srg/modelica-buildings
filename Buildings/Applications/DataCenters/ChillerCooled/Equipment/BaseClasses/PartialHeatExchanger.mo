@@ -21,23 +21,25 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     start=0.8) "constant effectiveness";
 
    // Filter opening
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group=
+          "Time needed to open or close valve",                                  enable=
+          activate_ThrWayVal));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+      group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Real yThrWayVal_start=1
     "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0,
@@ -67,7 +69,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final linearized={linearizeFlowResistance2,linearizeFlowResistance2},
     final rhoStd=rhoStd,
     final homotopyInitialization=homotopyInitialization,
-    final use_strokeTime=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final strokeTime=riseTime,
     final init=init,
     final R=R,

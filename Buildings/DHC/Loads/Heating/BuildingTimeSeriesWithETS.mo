@@ -30,7 +30,7 @@ model BuildingTimeSeriesWithETS
     "Type of energy balance"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Boolean use_inputFilter=false
-    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter String filNam
     "Library path of the file with thermal loads as time series";

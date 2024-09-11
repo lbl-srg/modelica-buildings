@@ -32,7 +32,7 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
 
   //WSE
   parameter Modelica.Units.SI.Efficiency eta(
@@ -45,10 +45,11 @@ partial model PartialChillerWSE
     annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
   parameter Real yThrWayValWSE_start=0
     "Initial value of output from three-way bypass valve in WSE"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_controller and use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=
+          use_controller and use_strokeTime));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -157,7 +158,7 @@ partial model PartialChillerWSE
     final num=numChi,
     final per=perChi,
     final homotopyInitialization=homotopyInitialization,
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=use_strokeTime,
     final strokeTime=strokeTime,
     final initValve=initValve,
     final m1_flow_nominal=m1_flow_chi_nominal,
@@ -183,7 +184,8 @@ partial model PartialChillerWSE
     final yValve_start=yValChi_start)
     "Chillers with identical nominal parameters but different performance curves"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer wse(
+  Buildings.Applications.DataCenters.ChillerCooled.Equipment.WatersideEconomizer
+    wse(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -203,7 +205,7 @@ partial model PartialChillerWSE
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final l=lValWSE,
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=use_strokeTime,
     final strokeTime=strokeTime,
     final initValve=initValve,
     final energyDynamics=energyDynamics,
@@ -243,8 +245,7 @@ partial model PartialChillerWSE
     final show_T=show_T,
     final portFlowDirection_1=portFlowDirection_1,
     final portFlowDirection_2=portFlowDirection_2,
-    final portFlowDirection_3=portFlowDirection_3)
-    "Waterside economizer"
+    final portFlowDirection_3=portFlowDirection_3) "Waterside economizer"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final replaceable package Medium = Medium2,

@@ -112,25 +112,25 @@ model Valve "Multiple-configuration valve"
     "Nominal pressure drop in the bypass line";
 
   parameter Boolean use_strokeTime=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    "Set to true to continuously open and close valve"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (__ctrlFlow(enable=false),
     Dialog(
       tab="Dynamics",
-      group="Filtered opening",
+      group="Time needed to open or close valve",
       enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
   parameter Real y_start=1 "Initial position of actuator"
     annotation(__ctrlFlow(enable=false),
-    Dialog(tab="Dynamics", group="Filtered opening",
+    Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Valve.None));
 
   parameter Modelica.Units.SI.Time tau=10

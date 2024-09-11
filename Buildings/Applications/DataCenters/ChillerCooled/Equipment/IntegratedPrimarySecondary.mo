@@ -34,7 +34,7 @@ model IntegratedPrimarySecondary
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Units.SI.Time riseTimePump=30
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered flowrate",
@@ -50,7 +50,7 @@ model IntegratedPrimarySecondary
     annotation(Dialog(tab="Dynamics", group="Filtered flowrate"));
   parameter Real[numPum] yValPum_start = fill(0,numPum)
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
   parameter Real lValPum=0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Pump"));
@@ -63,7 +63,7 @@ model IntegratedPrimarySecondary
     annotation(Dialog(group="Shutoff valve"));
   parameter Real yVal5_start = 0
     "Initial value of output from valve 5:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
 
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
       each final unit = "1",
@@ -88,7 +88,7 @@ model IntegratedPrimarySecondary
     "Electrical power consumed by the pumps"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear  val5(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare final package Medium = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     final allowFlowReversal=allowFlowReversal2,
@@ -98,7 +98,7 @@ model IntegratedPrimarySecondary
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=use_strokeTime,
     final riseTime=strokeTime,
     final init=initValve,
     final dpFixed_nominal=0,
@@ -121,7 +121,7 @@ model IntegratedPrimarySecondary
     final per=perPum,
     final addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_strokeTime,
     final init=initPum,
     final tau=tauPump,
     final m_flow_nominal=m_flow_pum_nominal,
@@ -135,9 +135,8 @@ model IntegratedPrimarySecondary
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    final riseTimePump=riseTimePump,
-    final yPump_start=yPum_start)
-    "Constant speed pumps"
+    final riseTime=riseTimePump,
+    final yPump_start=yPum_start) "Constant speed pumps"
     annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
   Buildings.Fluid.Sensors.MassFlowRate bypFlo(redeclare package Medium = Medium2)
     "Bypass water mass flowrate"

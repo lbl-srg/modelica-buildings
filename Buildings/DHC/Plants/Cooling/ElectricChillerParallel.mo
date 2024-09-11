@@ -69,10 +69,10 @@ model ElectricChillerParallel
     "Pump time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Boolean use_inputFilter=false
-    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter Modelica.Units.SI.Time riseTimePump=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
       group="Pump",
@@ -139,39 +139,31 @@ model ElectricChillerParallel
     "Cooling towers with bypass valve"
     annotation (Placement(transformation(extent={{-40,160},{-20,180}})));
   Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pumCHW(
-    redeclare final package Medium=Medium,
-    final per=fill(
-      perCHWPum,
-      numChi),
-    yValve_start=fill(
-      1,
-      numChi),
+    redeclare final package Medium = Medium,
+    final per=fill(perCHWPum, numChi),
+    yValve_start=fill(1, numChi),
     final tau=tau,
     final use_strokeTime=use_strokeTime,
-    final riseTimePump=riseTimePump,
+    final riseTime=riseTimePump,
     final init=init,
     final yPump_start=yCHWP_start,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
-    final num=numChi)
-    "Chilled water pumps"
+    final num=numChi) "Chilled water pumps"
     annotation (Placement(transformation(extent={{-52,34},{-32,54}})));
   Buildings.Applications.BaseClasses.Equipment.FlowMachine_m pumCW(
-    redeclare final package Medium=Medium,
-    final per=fill(
-      perCWPum,
-      numChi),
+    redeclare final package Medium = Medium,
+    final per=fill(perCWPum, numChi),
     final tau=tau,
     final use_strokeTime=use_strokeTime,
-    final riseTimePump=riseTimePump,
+    final riseTime=riseTimePump,
     final init=init,
     final yPump_start=yCWP_start,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCW_flow_nominal,
     final dpValve_nominal=dpCWPumVal_nominal,
-    final num=numChi)
-    "Condenser water pumps"
+    final num=numChi) "Condenser water pumps"
     annotation (Placement(transformation(extent={{60,160},{80,180}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,

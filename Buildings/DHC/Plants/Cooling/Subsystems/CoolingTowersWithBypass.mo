@@ -10,10 +10,10 @@ model CoolingTowersWithBypass
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Boolean use_strokeTime=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
+    "Set to true to continuously open and close valve"
+    annotation (Dialog(tab="Dynamics",group="Time needed to open or close valve"));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
       enable=use_strokeTime));

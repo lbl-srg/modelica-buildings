@@ -177,17 +177,17 @@ block PartialController "Interface class for plant controller"
     annotation (Dialog(group="Cooling tower loop"));
 
   parameter Modelica.Units.SI.Time riseTime=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)"
+    "Time needed to change motor speed between zero and full speed"
     annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered speed"));
+      group="Motor speed"));
   parameter Modelica.Units.SI.Time strokeTime=120
     "Valve stroke time"
     annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered opening"));
+      group="Time needed to open or close valve"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"

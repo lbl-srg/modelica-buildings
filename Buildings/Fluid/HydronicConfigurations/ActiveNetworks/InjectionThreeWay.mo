@@ -111,11 +111,8 @@ model InjectionThreeWay "Injection circuit with three-way valve"
     final dp_nominal=dpPum_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final per=perPum)
-    "Pump"
-    annotation (
-      Placement(transformation(
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final per=perPum) "Pump" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,40})));

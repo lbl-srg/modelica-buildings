@@ -37,7 +37,7 @@ partial model PartialMultiplePumps
     final nPum=nPum,
     final mPum_flow_nominal=mPum_flow_nominal,
     final dpPum_nominal=dpPum_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Multiple pumps in parallel - Speed controlled"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));

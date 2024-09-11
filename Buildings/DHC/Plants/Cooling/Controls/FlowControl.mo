@@ -10,10 +10,6 @@ block FlowControl
     "Nominal mass flow rate of the tank branch"
     annotation(Dialog(group="Nominal values"));
 
-  parameter Boolean use_outFil=true
-    "= true, if output is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filter"));
-
   Modelica.Blocks.Interfaces.IntegerInput com
     "Command: 1 = charge tank, 2 = no command, 3 = discharge tank"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
@@ -405,6 +401,10 @@ or \"chiller producing\" is also active.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2024, by Michael Wetter:<br/>
+Deleted non-used parameter <code>use_outFil</code>.
+</li>
 <li>
 February 23, 2023 by Hongxiang Fu:<br/>
 First implementation. This is for

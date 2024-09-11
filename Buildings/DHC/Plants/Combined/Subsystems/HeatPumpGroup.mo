@@ -58,10 +58,10 @@ model HeatPumpGroup
 
   // Pump speed filter parameters
   parameter Boolean use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "= true, if signal is filtered with a 2nd order CriticalDamping filter"
+    "Time needed to open or close valve"
     annotation(Dialog(tab="Dynamics", group="Filtered pump speed"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
+  parameter Modelica.Units.SI.Time strokeTime=30
+    "Time needed to change motor speed between zero and full speed"
     annotation (Dialog(
       tab="Dynamics",
       group="Filtered pump speed",
@@ -132,7 +132,7 @@ model HeatPumpGroup
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
     final use_riseTime=use_inputFilter,
-    final riseTime=riseTime,
+    final riseTime=strokeTime,
     final init=init,
     final per=datPum,
     addPowerToMedium=false) "HW pump"

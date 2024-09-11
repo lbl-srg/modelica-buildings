@@ -17,7 +17,7 @@ model MixingBoxMinimumFlow
     annotation (Dialog(group="Nominal condition"));
   parameter Real yOutMin_start=y_start
     "Initial value of signal for minimum outside air damper"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",enable=use_inputFilter));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else

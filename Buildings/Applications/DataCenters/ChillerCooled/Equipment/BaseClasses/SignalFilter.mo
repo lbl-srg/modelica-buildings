@@ -11,7 +11,8 @@ protected
      final y_start=yValve_start,
      each final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      each final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-     x(each stateSelect=StateSelect.always)) if use_inputFilter and not use_linearDynamics
+     x(each stateSelect=StateSelect.always)) if use_strokeTime and not
+    use_linearDynamics
     "Second order filters to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{-50,89},{-42,96}})));
 
@@ -22,11 +23,11 @@ protected
     initType=initValve,
     y_start=yValve_start,
     strict=true)
-    if use_inputFilter and use_linearDynamics
+    if use_strokeTime and use_linearDynamics
       "Actuator position"
     annotation (Placement(transformation(extent={{-50,76},{-42,84}})));
 
-  Modelica.Blocks.Interfaces.RealOutput[numFil] y_filtered if use_inputFilter
+  Modelica.Blocks.Interfaces.RealOutput[numFil] y_filtered if use_strokeTime
     "Filtered valve positions in the range 0..1"
     annotation (Placement(transformation(extent={{-28,76},{-12,92}}),
         iconTransformation(extent={{60,50},{80,70}})));
@@ -37,7 +38,7 @@ equation
  connect(actPos.y,y_filtered)
    annotation (Line(points={{-41.6,80},{-32,80},{-32,84},{-20,84}},
       color={0,0,127}));
- if use_inputFilter then
+  if use_strokeTime then
    connect(filter.y, y_actual)
      annotation (Line(points={{-41.6,92.5},{-32,92.5},{-32,74},{-20,74}},
        color={0,0,127}));

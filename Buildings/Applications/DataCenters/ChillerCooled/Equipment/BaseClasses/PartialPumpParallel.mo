@@ -22,11 +22,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Modelica.Units.SI.Time tau=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Pump"));
-  parameter Boolean use_inputFilter=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.Units.SI.Time riseTimePump=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Time needed to change motor speed"                           annotation (
       Dialog(
       tab="Dynamics",
       group="Pump",
@@ -40,9 +40,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.Units.SI.Time strokeTime=riseTimePump
-    "Rise time of the filter (time to become 99.6 % open)" annotation (
-      Dialog(
+  parameter Modelica.Units.SI.Time strokeTime=riseTime
+    "Time needed to open or close valve" annotation (Dialog(
       tab="Dynamics",
       group="Valve",
       enable=use_inputFilter));
@@ -107,8 +106,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final m_flow_small=m_flow_small,
     each final show_T=show_T,
     each final tau=tau,
-    each final use_riseTime=use_inputFilter,
-    each final riseTime=riseTimePump,
+    each final use_riseTime=use_riseTime,
+    each final riseTime=riseTime,
     each final init=init,
     each final energyDynamics=energyDynamics,
     each final p_start=p_start,
@@ -125,7 +124,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
     each final rhoStd=rhoStd,
-    each final use_inputFilter=use_inputFilter,
+    each final use_inputFilter=use_riseTime,
     each final riseTime=strokeTime,
     each final init=init,
     final y_start=yValve_start,

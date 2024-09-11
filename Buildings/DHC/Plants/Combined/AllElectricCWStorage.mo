@@ -330,7 +330,7 @@ model AllElectricCWStorage
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Boolean use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "= true, if control signal is filtered with a 2nd order CriticalDamping filter"
+    "Time needed to open or close valve"
     annotation(Dialog(tab="Dynamics", group="Filtered signal for actuators and movers"));
 
   // Outside connectors

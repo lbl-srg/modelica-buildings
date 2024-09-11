@@ -38,20 +38,20 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
 
-  parameter Boolean use_inputFilterValve=false
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
+  parameter Boolean use_strokeTime=false
+    "Set to true to continuously open and close valve on the water-side"
     annotation(Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.Units.SI.Time strokeTime=120
-    "Rise time of the filter for the water-side valve (time to reach 99.6 % of an opening step)"
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
       group="Valve",
-      enable=use_inputFilterValve));
+      enable=use_strokeTime));
   parameter Modelica.Blocks.Types.Init initValve=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
   parameter Real yValve_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilterValve));
+    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_strokeTime));
   // fan parameters
    parameter Buildings.Fluid.Types.InputType inputType = Buildings.Fluid.Types.InputType.Continuous
     "Control input type"
@@ -62,20 +62,20 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
   parameter Modelica.Units.SI.Time tauFan=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Fan"));
-  parameter Boolean use_inputFilterFan=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Fan"));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
       group="Fan",
-      enable=use_inputFilterFan));
+      enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init initFan=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_riseTime));
   parameter Real yFan_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_inputFilterFan));
+    annotation(Dialog(tab="Dynamics", group="Fan",enable=use_riseTime));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perFan "Performance data for the fan"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
@@ -135,7 +135,7 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
     final inputType=inputType,
     final tau=tauFan,
     final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_inputFilterFan,
+    final use_riseTime=use_riseTime,
     final riseTime=riseTime,
     final init=initFan,
     final p_start=p_start,
@@ -156,7 +156,7 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final homotopyInitialization=homotopyInitialization,
       final linearized=linearizeFlowResistance1,
       final rhoStd=rhoStd,
-      final use_inputFilter=use_inputFilterValve,
+      final use_inputFilter=use_strokeTime,
       final riseTime=strokeTime,
       final init=initValve,
       final y_start=yValve_start,

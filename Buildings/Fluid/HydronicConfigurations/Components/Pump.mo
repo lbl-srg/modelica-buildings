@@ -54,20 +54,22 @@ model Pump "Container class for circulating pumps"
       enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
 
   // Classes used to implement the filtered speed
-  parameter Boolean use_inputFilter=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",
-    enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
+  parameter Boolean use_riseTime=true
+    "Set to true to continuously change motor speed"
+    annotation(Dialog(tab="Dynamics", group="Motor speed",
+    enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None));
   parameter Modelica.Units.SI.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+    "Time needed to change motor speed between zero and full speed" annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered speed",
-      enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and use_inputFilter));
+      group="Motor speed",
+      enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
+          use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",
-    enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None and use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed",
+    enable=typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None and
+          use_riseTime));
 
   // Variables
   Modelica.Units.SI.VolumeFlowRate VMachine_flow = V_flow.V_flow
@@ -128,7 +130,7 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final riseTime=riseTime,
     final init=init,
     final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -148,7 +150,7 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_strokeTime,
+    final use_riseTime=use_riseTime,
     final riseTime=riseTime,
     final init=init,
     final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -169,7 +171,7 @@ model Pump "Container class for circulating pumps"
     final show_T=show_T,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final use_riseTime=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final riseTime=riseTime,
     final init=init,
     final per=per) if typ <> Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -343,19 +345,19 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Rectangle(
-          visible=use_inputFilter,
+          visible=use_riseTime,
           extent={{-32,40},{34,100}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          visible=use_strokeTime,
+          visible=use_riseTime,
           extent={{-32,100},{34,40}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=use_strokeTime,
+          visible=use_riseTime,
           extent={{-20,92},{22,46}},
           textColor={0,0,0},
           fillColor={135,135,135},

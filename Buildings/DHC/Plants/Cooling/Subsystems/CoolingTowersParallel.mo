@@ -30,8 +30,8 @@ model CoolingTowersParallel
   parameter Modelica.Units.SI.Power PFan_nominal "Fan power"
     annotation (Dialog(group="Fan"));
   parameter Boolean use_strokeTime=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
+    "Set to true to continuously open and close valve"
+    annotation (Dialog(tab="Dynamics",group="Time needed to open or close valve"));
   Modelica.Blocks.Interfaces.BooleanInput on[num]
     "On signal for cooling towers"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));

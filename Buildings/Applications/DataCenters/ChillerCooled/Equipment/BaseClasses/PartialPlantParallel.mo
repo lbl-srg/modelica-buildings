@@ -80,7 +80,7 @@ equation
       annotation (Line(points={{-40,-42},{-40,-60},{-100,-60}},
         color={0,127,255}));
   end for;
-  if use_inputFilter then
+  if use_strokeTime then
     connect(booToRea.y, filter.u)
       annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
         color={0,0,127}));

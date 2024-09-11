@@ -14,11 +14,11 @@ model PartialIntegratedPrimary
 
   parameter Real yVal5_start(min=0,max=1) = 0
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
       enable=use_inputFilter));
   parameter Real yVal6_start(min=0,max=1) = 1-yVal5_start
     "Initial value of output:0-closed, 1-fully opened"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
       enable=use_inputFilter));
 
  Modelica.Blocks.Interfaces.RealInput yVal6(
@@ -56,15 +56,14 @@ model PartialIntegratedPrimary
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=use_strokeTime,
     final strokeTime=strokeTime,
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[5],
     final l=lVal5,
     final rhoStd=rhoStd[5],
-    final y_start=yVal5_start)
-    "Bypass valve: closed when fully mechanic cooling is activated;
+    final y_start=yVal5_start) "Bypass valve: closed when fully mechanic cooling is activated;
     open when fully mechanic cooling is activated"
     annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -77,15 +76,14 @@ model PartialIntegratedPrimary
     final homotopyInitialization=homotopyInitialization,
     final linearized=linearizeFlowResistance2,
     final deltaM=deltaM2,
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=use_strokeTime,
     final strokeTime=strokeTime,
     final init=initValve,
     final dpFixed_nominal=0,
     final dpValve_nominal=dpValve_nominal[6],
     final l=lVal6,
     final rhoStd=rhoStd[6],
-    final y_start=yVal6_start)
-    "Bypass valve: closed when free cooling mode is deactivated;
+    final y_start=yVal6_start) "Bypass valve: closed when free cooling mode is deactivated;
     open when free cooling is activated"
     annotation (Placement(transformation(extent={{-30,-30},{-50,-10}})));
 

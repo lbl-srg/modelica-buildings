@@ -56,7 +56,9 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
+  replaceable
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
+    chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
     numChi=numChi,
@@ -71,10 +73,9 @@ partial model PartialDataCenter
     redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_controller=false)
-    "Chillers and waterside economizer"
+    use_controller=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
