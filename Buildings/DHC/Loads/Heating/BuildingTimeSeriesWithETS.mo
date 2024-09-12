@@ -29,7 +29,7 @@ model BuildingTimeSeriesWithETS
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Boolean use_inputFilter=false
+  parameter Boolean use_riseTime=false
     "Set to true to continuously change motor speed"
     annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter String filNam

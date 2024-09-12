@@ -44,7 +44,7 @@ The number of filters is specified by <code>nFilter</code>.
 </p>
 <p>
 Note that all the signal filters have the same on/off control signal, rising time, and initialization type,
-which are specified by <code>use_inputFilter, strokeTime</code> and <code>initValve</code> respectively.
+which are specified by <code>use_strokeTime, strokeTime</code> and <code>initValve</code> respectively.
 However, they can have different initial valves, specified by <code>yValve_start</code>.
 </p>
 </html>"));
