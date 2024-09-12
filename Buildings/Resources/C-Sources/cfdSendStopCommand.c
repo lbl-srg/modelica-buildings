@@ -149,7 +149,7 @@ void cfdSendStopCommand(void *thread) {
   }
   if (cosim != NULL){
     free(cosim);
-    /* If it is not explicitly set to NULL - then the check in cfdcosim() 
+    /* If it is not explicitly set to NULL - then the check in cfdcosim()
        will fail if a second simulation is performed. */
     cosim = NULL;
   }
