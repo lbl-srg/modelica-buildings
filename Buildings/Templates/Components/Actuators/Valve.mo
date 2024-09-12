@@ -116,7 +116,7 @@ model Valve "Multiple-configuration valve"
     annotation(__ctrlFlow(enable=false),
     Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Valve.None));
-  parameter Modelica.Units.SI.Time riseTime=120
+  parameter Modelica.Units.SI.Time strokeTime=120
     "Time needed to open or close valve"
     annotation (__ctrlFlow(enable=false),
     Dialog(
@@ -238,7 +238,7 @@ model Valve "Multiple-configuration valve"
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -261,7 +261,7 @@ model Valve "Multiple-configuration valve"
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -284,7 +284,7 @@ model Valve "Multiple-configuration valve"
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -300,7 +300,7 @@ model Valve "Multiple-configuration valve"
     final dpValve_nominal=dpValve_nominal,
     final dpFixed_nominal=dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -326,7 +326,7 @@ model Valve "Multiple-configuration valve"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -351,7 +351,7 @@ model Valve "Multiple-configuration valve"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -378,7 +378,7 @@ model Valve "Multiple-configuration valve"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional

@@ -146,7 +146,7 @@ model ValvesIsolation
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Time needed to open or close valve",
     enable=have_valHpInlIso or have_valHpOutIso));
-  parameter Modelica.Units.SI.Time riseTime=120
+  parameter Modelica.Units.SI.Time strokeTime=120
     "Time needed to open or close valve"
     annotation (__ctrlFlow(enable=false),
   Dialog(tab="Dynamics",group="Time needed to open or close valve",
@@ -301,7 +301,7 @@ model ValvesIsolation
     final dat=datValHeaWatHpOutIso,
     each final typ=typ,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=riseTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
@@ -315,7 +315,7 @@ model ValvesIsolation
     final dat=datValChiWatHpOutIso,
     each final typ=typ,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=riseTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
@@ -329,7 +329,7 @@ model ValvesIsolation
     final dat=datValHeaWatHpInlIso,
     each final typ=typ,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=riseTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,
@@ -343,7 +343,7 @@ model ValvesIsolation
     final dat=datValChiWatHpInlIso,
     each final typ=typ,
     each final use_strokeTime=use_strokeTime,
-    each final riseTime=riseTime,
+    each final strokeTime=strokeTime,
     each final init=init,
     each final y_start=y_start,
     each final from_dp=from_dp,

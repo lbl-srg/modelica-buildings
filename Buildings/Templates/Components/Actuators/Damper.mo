@@ -23,7 +23,7 @@ model Damper "Multiple-configuration damper"
     "Set to true to continuously open and close valve"
     annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.Time riseTime=120
+  parameter Modelica.Units.SI.Time strokeTime=120
     "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
@@ -81,7 +81,7 @@ model Damper "Multiple-configuration damper"
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final strokeTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
@@ -97,7 +97,7 @@ model Damper "Multiple-configuration damper"
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
     final use_strokeTime=use_strokeTime,
-    final riseTime=riseTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
