@@ -2293,6 +2293,7 @@ Buildings/Resources/Images/Fluid/Actuators/Valves/Examples/TwoWayValveTable_kv.p
 Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png
 Buildings/Resources/Images/Fluid/Actuators/valvePressureDropSeries.png
 Buildings/Resources/Images/Fluid/Actuators/valveResponse.png
+Buildings/Resources/Images/Fluid/Actuators/valveResponse.svg
 Buildings/Resources/Images/Fluid/Actuators/valveSchematic.png
 Buildings/Resources/Images/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.pdf
 Buildings/Resources/Images/Fluid/FMI/ExportContainers/Validation/RoomConvectiveHVACConvective.png
@@ -2355,8 +2356,11 @@ Buildings/Resources/Images/Fluid/Movers/BaseClasses/Validation/NegativePressureO
 Buildings/Resources/Images/Fluid/Movers/BaseClasses/Validation/NegativePressureOrFlow.svg
 Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png
 Buildings/Resources/Images/Fluid/Movers/Examples/Supply.png
+Buildings/Resources/Images/Fluid/Movers/Preconfigured/PumpCharacteristic.png
+Buildings/Resources/Images/Fluid/Movers/Preconfigured/PumpCharacteristic.svg
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png
+Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.svg
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png
 Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationHead.png
 Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationPower.png
