@@ -6,8 +6,8 @@ model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
   redeclare Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       redeclare package MediumHex = MediumTan,
-      hHex_a=0.995,
-      hHex_b=0.1,
+      hHex_a=datWT.hSegTop,
+      hHex_b=datWT.hSegBot,
       Q_flow_nominal=Q_flow_nominal,
       TTan_nominal=293.15,
       THex_nominal=323.15,
@@ -24,7 +24,7 @@ model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for pump"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{-72,-78},{-52,-58}})),
+      Placement(transformation(extent={{-70,-76},{-50,-56}})),
       Dialog(group="Pump parameters"));
   parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal
     "Nominal mass flow rate through the heat exchanger"
@@ -66,15 +66,7 @@ model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
   Sensors.TemperatureTwoPort senTemPumOutWat(redeclare package Medium =
         MediumTan, m_flow_nominal=mHex_flow_nominal)
     "Pump water inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-18,-30},{2,-10}})));
-  Sensors.TemperatureTwoPort senTemCoiInAir(redeclare package Medium =
-        MediumAir, m_flow_nominal=mAir_flow_nominal)
-    "Coil air inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-18,50},{2,70}})));
-  Sensors.TemperatureTwoPort senTemCoiOutAir(redeclare package Medium =
-        MediumAir, m_flow_nominal=mAir_flow_nominal)
-    "Coil air outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-86,50},{-66,70}})));
+    annotation (Placement(transformation(extent={{-18,-44},{2,-24}})));
 equation
   connect(on,sinSpeDXCoo. on) annotation (Line(points={{-120,0},{-80,0},{-80,68},
           {-61,68}}, color={255,0,255}));
@@ -100,19 +92,15 @@ equation
   connect(sinSpeDXCoo.portCon_a, senTemCoiInWat.port_a)
     annotation (Line(points={{-44,50},{-44,46},{-34,46}}, color={0,127,255}));
   connect(pum.port_b, senTemPumOutWat.port_a) annotation (Line(points={{-26,-34},
-          {-22,-34},{-22,-20},{-18,-20}}, color={0,127,255}));
-  connect(senTemCoiInAir.port_b, fan.port_a)
-    annotation (Line(points={{2,60},{24,60}}, color={0,127,255}));
-  connect(senTemCoiInAir.port_a, sinSpeDXCoo.port_b)
-    annotation (Line(points={{-18,60},{-40,60}}, color={0,127,255}));
-  connect(senTemCoiOutAir.port_a, port_a1)
-    annotation (Line(points={{-86,60},{-100,60}}, color={0,127,255}));
-  connect(senTemCoiOutAir.port_b, sinSpeDXCoo.port_a)
-    annotation (Line(points={{-66,60},{-60,60}}, color={0,127,255}));
-  connect(senTemPumOutWat.port_b, tan.portHex_a) annotation (Line(points={{2,
-          -20},{16,-20},{16,-29.8},{26,-29.8}}, color={0,127,255}));
-  connect(senTemCoiInWat.port_b, tan.portHex_b) annotation (Line(points={{-14,
-          46},{12,46},{12,-34},{26,-34}}, color={0,127,255}));
+          {-18,-34}},                     color={0,127,255}));
+  connect(senTemPumOutWat.port_b, tan.portHex_a) annotation (Line(points={{2,-34},
+          {16,-34},{16,-29.8},{26,-29.8}},      color={0,127,255}));
+  connect(senTemCoiInWat.port_b, tan.portHex_b) annotation (Line(points={{-14,46},
+          {20,46},{20,-34},{26,-34}},     color={0,127,255}));
+  connect(sinSpeDXCoo.port_b, fan.port_a)
+    annotation (Line(points={{-40,60},{24,60}}, color={0,127,255}));
+  connect(port_a1, sinSpeDXCoo.port_a)
+    annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end HeatPumpWaterHeaterPumped;

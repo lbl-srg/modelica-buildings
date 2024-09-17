@@ -85,10 +85,12 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     final p(displayUnit="Pa"),
     final nPorts=1) "Sink of air"
     annotation (Placement(transformation(extent={{70,14},{50,34}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
+      =                                                                           MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
+      =                                                                          MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{28,-14},{48,6}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
@@ -121,8 +123,6 @@ equation
           32,8},{32,24},{50,24}},  color={0,127,255}));
   connect(TBCSid.port, heaPumWatHeaWra.heaPorSid) annotation (Line(points={{-36,-50},
           {16,-50},{16,2}},            color={191,0,0}));
-  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-36,-68},
-          {-6,-68},{-6,10},{10,10}},       color={191,0,0}));
   connect(senTemIn.port_b, res.port_a)
     annotation (Line(points={{48,-4},{50,-4}}, color={0,127,255}));
   connect(senTemIn.port_a, heaPumWatHeaWra.port_a2) annotation (Line(points={{28,-4},
@@ -167,6 +167,8 @@ equation
                                 color={0,0,127}));
   connect(TWat_K.Celsius, datRea.y[2]) annotation (Line(points={{68,49.6},{68,
           50},{62,50},{62,70},{-89,70}},            color={0,0,127}));
+  connect(TBCTop.port, heaPumWatHeaWra.heaPorTop) annotation (Line(points={{-36,
+          -68},{-6,-68},{-6,10},{10,10}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -100},{120,100}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,
