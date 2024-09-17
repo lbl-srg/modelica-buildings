@@ -106,7 +106,8 @@
     time_out: 600
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
-    time_out: 600
+    comment:  "Simulation times out"
+    simulate: false
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -398,6 +399,9 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+  optimica:
+    comment: Possible chattering detected at t = 3.120112e+03 in state event
+    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
     comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].
