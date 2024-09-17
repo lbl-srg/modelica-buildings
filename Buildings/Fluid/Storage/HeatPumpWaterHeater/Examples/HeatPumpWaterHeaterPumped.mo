@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater.Examples;
-model HeatPumpWaterHeaterPumped
+model HeatPumpWaterHeaterPumped "Test model for pumped tank"
     extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.Air "Medium of the air";
   package MediumTan = Buildings.Media.Water "Medium in the tank";
@@ -158,6 +158,6 @@ equation
           "Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Examples/HeatPumpWaterHeaterPumped.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-<p>This model tests a wrapped heat pump water heater. An on-off controller keeps the tank temperature in the range of 40-43.89 degC.</p>
+<p>This model tests a pumped heat pump water heater. An on-off controller keeps the tank temperature in the range of 40-43.89 degC.</p>
 </html>"));
 end HeatPumpWaterHeaterPumped;

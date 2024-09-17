@@ -55,18 +55,6 @@ model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
   ExpansionVessel exp1(redeclare package Medium = MediumTan, V_start=1)
     annotation (Placement(transformation(extent={{-70,-6},{-50,14}})));
 
-  Sensors.TemperatureTwoPort senTemCoiOutWat(redeclare package Medium =
-        MediumTan, m_flow_nominal=mHex_flow_nominal)
-    "Coil water outlet temperature sensor"
-    annotation (Placement(transformation(extent={{-88,-44},{-68,-24}})));
-  Sensors.TemperatureTwoPort senTemCoiInWat(redeclare package Medium =
-        MediumTan, m_flow_nominal=mHex_flow_nominal)
-    "Coil water inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-34,36},{-14,56}})));
-  Sensors.TemperatureTwoPort senTemPumOutWat(redeclare package Medium =
-        MediumTan, m_flow_nominal=mHex_flow_nominal)
-    "Pump water inlet temperature sensor"
-    annotation (Placement(transformation(extent={{-18,-44},{2,-24}})));
 equation
   connect(on,sinSpeDXCoo. on) annotation (Line(points={{-120,0},{-80,0},{-80,68},
           {-61,68}}, color={255,0,255}));
@@ -84,23 +72,21 @@ equation
           -20,14},{-20,0},{-36,0},{-36,-22}}, color={0,0,127}));
   connect(exp1.port_a, pum.port_a) annotation (Line(points={{-60,-6},{-60,-34},
           {-46,-34}}, color={0,127,255}));
-  connect(senTemCoiOutWat.port_b, pum.port_a)
-    annotation (Line(points={{-68,-34},{-46,-34}}, color={0,127,255}));
-  connect(senTemCoiOutWat.port_a, sinSpeDXCoo.portCon_b) annotation (Line(
-        points={{-88,-34},{-92,-34},{-92,46},{-56,46},{-56,50}}, color={0,127,
-          255}));
-  connect(sinSpeDXCoo.portCon_a, senTemCoiInWat.port_a)
-    annotation (Line(points={{-44,50},{-44,46},{-34,46}}, color={0,127,255}));
-  connect(pum.port_b, senTemPumOutWat.port_a) annotation (Line(points={{-26,-34},
-          {-18,-34}},                     color={0,127,255}));
-  connect(senTemPumOutWat.port_b, tan.portHex_a) annotation (Line(points={{2,-34},
-          {16,-34},{16,-29.8},{26,-29.8}},      color={0,127,255}));
-  connect(senTemCoiInWat.port_b, tan.portHex_b) annotation (Line(points={{-14,46},
-          {20,46},{20,-34},{26,-34}},     color={0,127,255}));
   connect(sinSpeDXCoo.port_b, fan.port_a)
     annotation (Line(points={{-40,60},{24,60}}, color={0,127,255}));
   connect(port_a1, sinSpeDXCoo.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
+  connect(pum.port_a, sinSpeDXCoo.portCon_b) annotation (Line(points={{-46,-34},
+          {-90,-34},{-90,46},{-56,46},{-56,50}}, color={0,127,255}));
+  connect(sinSpeDXCoo.portCon_a, tan.portHex_b) annotation (Line(points={{-44,
+          50},{-44,46},{18,46},{18,-34},{26,-34}}, color={0,127,255}));
+  connect(pum.port_b, tan.portHex_a) annotation (Line(points={{-26,-34},{0,-34},
+          {0,-29.8},{26,-29.8}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>This is a model of a heat pump water heater with pumped condenser for thermal energy storage based on the EnergyPlus model WaterHeater:HeatPump:PumpedCondenser. </p>
+<p>The system model is composed of the following component model: (1) A stratified water tank (2) A single speed air-to-water heating coil (3) A supply fan (4) A circulation pump. </p>
+<p>Please note that this model takes into account the detailed heat exchange of the circulation pump, which is not included in EnergyPlus. The heat exchanger component is absent from the EnergyPlus model. Similar to the wrapped configuration, the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
+</html>"));
 end HeatPumpWaterHeaterPumped;

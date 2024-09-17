@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater.Examples;
-model HeatPumpWaterHeaterWrapped
+model HeatPumpWaterHeaterWrapped "Test model for wrapped tank"
     extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.Air "Medium of the air";
   package MediumTan = Buildings.Media.Water "Medium in the tank";

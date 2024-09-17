@@ -12,15 +12,7 @@ record FanData "Fan data"
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>
-Fan performance data record based on EnergyPlus example file available in the 
-Buildings library
-(modelica-buildings/Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf).
-<br>
-The volume flowrate values are derived by splitting the nominal flowrate from the 
-EnergyPlus sizing report into ten datapoints. The power values are calculated for 
-each flowrate datapoint with the power curve coefficients from EnergyPlus. 
-</p>
+<p>Fan performance data record.  The volume flowrate values are derived by splitting the nominal flowrate from the EnergyPlus sizing report into ten datapoints. The power values are calculated for each flowrate datapoint with the power curve coefficients from EnergyPlus. </p>
 </html>",   revisions="<html>
 <ul>
 <li>

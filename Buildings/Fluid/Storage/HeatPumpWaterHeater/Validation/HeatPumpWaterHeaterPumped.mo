@@ -31,7 +31,6 @@ model HeatPumpWaterHeaterPumped
                 nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-
   parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
     datWT(
     hTan=1.594,
@@ -51,6 +50,10 @@ model HeatPumpWaterHeaterPumped
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
+
+  Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
+    "Convert real to boolean"
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 
   Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped
     heaPumWatHeaPum(
@@ -89,12 +92,10 @@ model HeatPumpWaterHeaterPumped
     final p(displayUnit="Pa"),
     final nPorts=1) "Sink of air"
     annotation (Placement(transformation(extent={{70,14},{50,34}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
-      =                                                                           MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{28,-14},{48,6}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
@@ -122,9 +123,7 @@ model HeatPumpWaterHeaterPumped
   Buildings.Utilities.IO.BCVTB.From_degC TWat_K "Converts degC to K"
     annotation (Placement(transformation(extent={{70,40},{90,60}})));
 
-  Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
-    "Convert real to boolean"
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+
 equation
   connect(heaPumWatHeaPum.port_b1, sin.ports[1]) annotation (Line(points={{20,8},{
           32,8},{32,24},{50,24}},  color={0,127,255}));
@@ -186,11 +185,9 @@ equation
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterPumped.mos"
-        "Simulate and Plot", file=
-          "Resources/Scripts/Dymola/Fluid/Storage/HeatPumpWaterHeater/Validation/Debug1.mos"
-        "Debug1"),
+        "Simulate and Plot"),
     Documentation(info="<html>
 <p>This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped. </p>
-<p>The EnergyPlus results were generated using the example file WaterHeaterHeatPumpStratifiedTank.idf from EnergyPlus 9.6. The results were then used to set-up the boundary conditions for the model as well as the input signals.</p>
+<p>Due to the constraints of the EnergyPlus example results for the pumped configuration, cross-comparison is employed to assess the performance of the pumped configuration relative to the wrapped configuration. The same boundary conditions used for the wrapped configuration are applied. The results indicate that the pumped configuration exhibits greater power consumption compared to the wrapped configuration, attributed to a higher heating coil condenser temperature.</p>
 </html>"));
 end HeatPumpWaterHeaterPumped;

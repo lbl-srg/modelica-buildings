@@ -34,7 +34,7 @@ annotation (preferredView="info",
 defaultComponentName="datHPWH",
 defaultComponentPrefixes="parameter",
 Documentation(info="<html>
-<p>This record declares the geometry and performance data for the heat pump water heater. The record calculates the scaled heating fraction for each condenser/heat exchanger node based on the geometry data.</p>
+<p>This record declares the geometry and performance data for the heat pump water heater. For the wrapped configuration, the record calculates the scaled heating fraction for each condenser/heat exchanger node based on the geometry data.</p>
 </html>",
 revisions="<html>
 <ul>
