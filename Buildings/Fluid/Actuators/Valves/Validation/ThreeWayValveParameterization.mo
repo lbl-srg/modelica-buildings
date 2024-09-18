@@ -29,9 +29,9 @@ model ThreeWayValveParameterization
     m_flow_nominal=m_flow_nominal,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dpValve_nominal(displayUnit="kPa") = 4500,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                           "Three way valve with operating point as parameter"
+    "Three way valve with operating point as parameter"
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valKv(
@@ -39,9 +39,9 @@ model ThreeWayValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=m_flow_nominal,
     Kv=Kv,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                           "Three way valve with Kv-value as parameter"
+    "Three way valve with Kv-value as parameter"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCv(
@@ -49,16 +49,16 @@ model ThreeWayValveParameterization
     m_flow_nominal=m_flow_nominal,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=Cv,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                           "Three way valve with Cv-value as parameter"
+    "Three way valve with Cv-value as parameter"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valAv(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     Av=Av,
-    use_inputFilter=false,
+    use_strokeTime=false,
     CvData=Buildings.Fluid.Types.CvTypes.Av,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Three way valve with Av-value as parameter"

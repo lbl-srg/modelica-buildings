@@ -6,19 +6,18 @@ model SpeedControlled_y
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
-    filter(
+    final constInput(final unit="1") = per.constantSpeed,
+    motSpe(
       final y_start=y_start,
       u(final unit="1"),
       y(final unit="1")),
-    eff(
-      per(final pressure = per.pressure,
-          final etaHydMet = per.etaHydMet,
-          final etaMotMet = per.etaMotMet),
-      r_N(start=y_start)));
+    eff(per(
+        final pressure=per.pressure,
+        final etaHydMet=per.etaHydMet,
+        final etaMotMet=per.etaMotMet), r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   Modelica.Blocks.Interfaces.RealInput y(
     unit="1")
@@ -51,13 +50,12 @@ equation
     annotation (Line(points={{-10,-9},{-10,14},{56,14},{56,8}},
                                                      color={0,0,127}));
 
-  if use_inputFilter then
-    connect(filter.y, eff.y_in) annotation (Line(points={{41,70.5},{44,70.5},{44,
-            26},{-26,26},{-26,-46}},  color={0,0,127}));
+  if use_riseTime then
+    connect(motSpe.y, eff.y_in) annotation (Line(points={{41,70},{44,70},{44,26},
+            {-26,26},{-26,-46}},      color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{44,50},{44,
-            26},{-26,26},{-26,-46}},
-                                   color={0,0,127}));
+            26}},                  color={0,0,127}));
   end if;
 
     annotation (defaultComponentName="mov",
@@ -85,6 +83,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
+
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Removed the modification that normalised the speed input
@@ -124,7 +128,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

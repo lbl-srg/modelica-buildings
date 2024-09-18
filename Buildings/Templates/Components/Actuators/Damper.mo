@@ -19,23 +19,23 @@ model Damper "Multiple-configuration damper"
     dat.dp_nominal
     "Damper pressure drop";
 
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
     enable=typ<>Buildings.Templates.Components.Types.Damper.None));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+      group="Time needed to open or close valve",
+      enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
   parameter Real y_start=1 "Initial position of actuator"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Damper.None));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+    enable=use_strokeTime and typ<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -80,16 +80,15 @@ model Damper "Multiple-configuration damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T,
     final from_dp=from_dp,
-    final linearized=linearized)
-    if typ==Buildings.Templates.Components.Types.Damper.Modulating or
-       typ==Buildings.Templates.Components.Types.Damper.TwoPosition
+    final linearized=linearized) if typ == Buildings.Templates.Components.Types.Damper.Modulating
+     or typ == Buildings.Templates.Components.Types.Damper.TwoPosition
     "Damper with exponential characteristic"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Actuators.Dampers.PressureIndependent ind(
@@ -97,8 +96,8 @@ model Damper "Multiple-configuration damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,

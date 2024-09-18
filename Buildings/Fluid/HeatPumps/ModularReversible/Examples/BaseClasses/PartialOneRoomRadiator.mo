@@ -76,7 +76,7 @@ partial model PartialOneRoomRadiator
     m_flow_nominal=mCon_flow_nominal,
     m_flow_start=mCon_flow_nominal,
     T_start=TRadSup_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for radiator side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -112,7 +112,7 @@ partial model PartialOneRoomRadiator
     redeclare package Medium = MediumWat,
     m_flow_start=mEva_flow_nominal,
     m_flow_nominal=mEva_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heat pump source side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

@@ -1,22 +1,22 @@
 within Buildings.Fluid.Examples.FlowSystem;
 model Simplified4 "Removed valve dynamics"
   extends Simplified3(
-    valNorth(use_inputFilter=false),
-    valSouth(use_inputFilter=false),
+    valNorth(use_strokeTime =false),
+    valSouth(use_strokeTime =false),
     pmpNorth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      use_inputFilter=false),
+      use_riseTime   =false),
     pmpSouth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      use_inputFilter=false),
-    valSouth1(each use_inputFilter=false),
-    valSouth2(each use_inputFilter=false),
-    valNorth1(each use_inputFilter=false),
-    valNorth2(each use_inputFilter=false),
-    pumpHea(use_inputFilter=false),
-    pumpCoo(use_inputFilter=false),
-    valCoo(use_inputFilter=false),
-    valHea(use_inputFilter=false));
+      use_riseTime   =false),
+    valSouth1(each use_strokeTime=false),
+    valSouth2(each use_strokeTime=false),
+    valNorth1(each use_strokeTime=false),
+    valNorth2(each use_strokeTime=false),
+    pumpHea(use_riseTime   =false),
+    pumpCoo(use_riseTime   =false),
+    valCoo(use_strokeTime=false),
+    valHea(use_strokeTime=false));
   annotation (Documentation(info="<html>
 <p>
 The model is further simplified by removing the valve and pump control dynamics.
