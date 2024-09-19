@@ -5,13 +5,13 @@ protected
   Modelica.Blocks.Interfaces.RealOutput[numAct] y_actual "Actual valve position"
     annotation (Placement(transformation(extent={{-28,66},{-12,82}})));
 
-  Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
-    Rising=1/strokeTime,
-    Falling=-1/strokeTime,
-    Td=10/strokeTime,
-    initType=initValve,
-    y_start=yValve_start,
-    strict=true)
+  Modelica.Blocks.Nonlinear.SlewRateLimiter[numAct] actPos(
+    each Rising=1/strokeTime,
+    each Falling=-1/strokeTime,
+    each Td=10/strokeTime,
+    each initType=initValve,
+    each y_start=yValve_start,
+    each strict=true)
     if use_strokeTime
       "Actuator position"
     annotation (Placement(transformation(extent={{-48,80},{-40,88}})));
@@ -31,6 +31,10 @@ equation
  end if;
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+September 19, 2024, by Michael Wetter:<br/>
+Corrected dimension of instance <code>actPos</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4004\">Buildings, #4004</a>.
 <li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear actuator travel dynamics.<br/>
