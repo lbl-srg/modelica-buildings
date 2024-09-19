@@ -35,6 +35,7 @@ equation
 September 19, 2024, by Michael Wetter:<br/>
 Corrected dimension of instance <code>actPos</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4004\">Buildings, #4004</a>.
+</li>
 <li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear actuator travel dynamics.<br/>
