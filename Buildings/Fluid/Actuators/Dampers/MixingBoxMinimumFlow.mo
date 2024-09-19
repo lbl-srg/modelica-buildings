@@ -66,7 +66,7 @@ protected
   Modelica.Blocks.Nonlinear.SlewRateLimiter actPosOutMin(
     Rising=1/strokeTime,
     Falling=-1/strokeTime,
-    Td=10/strokeTime,
+    Td=0.001*strokeTime,
     initType=init,
     y_start=y_start,
     strict=true) if use_strokeTime

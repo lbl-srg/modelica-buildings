@@ -236,7 +236,7 @@ protected
   Modelica.Blocks.Nonlinear.SlewRateLimiter motSpe(
     Rising=1/riseTime,
     Falling=-1/riseTime,
-    Td=10/riseTime,
+    Td=0.001*riseTime,
     initType=init,
     strict=true)
     if use_riseTime
