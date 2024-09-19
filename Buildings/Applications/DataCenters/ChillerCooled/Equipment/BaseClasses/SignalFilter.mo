@@ -10,7 +10,7 @@ protected
     each Falling=-1/strokeTime,
     each Td=10/strokeTime,
     each initType=initValve,
-    each y_start=yValve_start,
+    y_start=yValve_start,
     each strict=true)
     if use_strokeTime
       "Actuator position"
