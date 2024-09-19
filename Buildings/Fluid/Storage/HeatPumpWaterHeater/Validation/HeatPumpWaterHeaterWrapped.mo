@@ -34,7 +34,7 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     VTan=0.287691,
     dIns=0.05,
     kIns=0.03939,
-    nSeg=12,
+    nSeg=5,
     hSegBot=0.066416667,
     hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
@@ -43,7 +43,7 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     final fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterWrapped/WaterHeaterHeatPumpWrappedCondenser.dat"),
     final tableOnFile=true,
-    final columns=2:31,
+    final columns=2:24,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
@@ -85,12 +85,10 @@ model HeatPumpWaterHeaterWrapped "Validation model for heat pump water heater"
     final p(displayUnit="Pa"),
     final nPorts=1) "Sink of air"
     annotation (Placement(transformation(extent={{70,14},{50,34}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
-      =                                                                           MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{28,-14},{48,6}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"

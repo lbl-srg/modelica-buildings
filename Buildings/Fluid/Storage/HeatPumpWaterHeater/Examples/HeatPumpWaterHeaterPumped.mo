@@ -28,7 +28,7 @@ model HeatPumpWaterHeaterPumped "Test model for pumped tank"
     hTan=1.59,
     dIns=0.05,
     kIns=0.04,
-    nSeg=12,
+    nSeg=5,
     hSegBot=0.066416667,
     hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));

@@ -37,7 +37,7 @@ model HeatPumpWaterHeaterPumped
     VTan=0.287691,
     dIns=0.05,
     kIns=0.03939,
-    nSeg=12,
+    nSeg=5,
     hSegBot=0.066416667,
     hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
@@ -45,7 +45,7 @@ model HeatPumpWaterHeaterPumped
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterWrapped/WaterHeaterHeatPumpWrappedCondenser.dat"),
     final tableOnFile=true,
-    final columns=2:31,
+    final columns=2:24,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"

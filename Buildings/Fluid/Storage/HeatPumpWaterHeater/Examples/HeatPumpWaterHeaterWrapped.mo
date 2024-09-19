@@ -32,7 +32,7 @@ model HeatPumpWaterHeaterWrapped "Test model for wrapped tank"
     hTan=1.59,
     dIns=0.05,
     kIns=0.04,
-    nSeg=12,
+    nSeg=5,
     hSegBot=0.066416667,
     hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
@@ -107,10 +107,12 @@ model HeatPumpWaterHeaterWrapped "Test model for wrapped tank"
     final p(displayUnit="Pa") = 101325,
     final nPorts=1) "Sink of air"
     annotation (Placement(transformation(extent={{50,50},{30,70}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium = MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(redeclare package Medium
+      =                                                                           MediumTan,
       m_flow_nominal=0.1) "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-42,-14},{-22,6}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium = MediumTan,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
+      =                                                                          MediumTan,
       m_flow_nominal=0.1) "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{14,-14},{34,6}})));
 

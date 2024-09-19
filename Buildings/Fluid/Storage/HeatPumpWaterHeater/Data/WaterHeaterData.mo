@@ -8,7 +8,7 @@ record WaterHeaterData "Heat pump water heater data"
   "Specific heat conductivity of insulation";
   parameter Modelica.Units.SI.Length hTemSen = 1.0625
   "Height of temperature sensor in the tank from the bottom";
-  parameter Integer nSeg = 12 "Number of volume segments" annotation(Dialog(group="System parameters"));
+  parameter Integer nSeg = 5 "Number of volume segments" annotation(Dialog(group="System parameters"));
   parameter Modelica.Units.SI.Length hSegBot = 0.08
   "Height of condenser/heat exchanger bottom from bottom";
   parameter Modelica.Units.SI.Length hSegTop = 0.86
