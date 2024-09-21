@@ -236,7 +236,7 @@ protected
   Modelica.Blocks.Nonlinear.SlewRateLimiter motSpe(
     Rising=1/riseTime,
     Falling=-1/riseTime,
-    Td=10/riseTime,
+    Td=0.001*riseTime,
     initType=init,
     strict=true)
     if use_riseTime
@@ -643,7 +643,8 @@ revisions="<html>
 <li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear dynamics for change in motor speed.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
 
 <li>

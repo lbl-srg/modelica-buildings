@@ -8,7 +8,7 @@ protected
   Modelica.Blocks.Nonlinear.SlewRateLimiter[numAct] actPos(
     each Rising=1/strokeTime,
     each Falling=-1/strokeTime,
-    each Td=10/strokeTime,
+    each Td=0.001*strokeTime,
     each initType=initValve,
     y_start=yValve_start,
     each strict=true)

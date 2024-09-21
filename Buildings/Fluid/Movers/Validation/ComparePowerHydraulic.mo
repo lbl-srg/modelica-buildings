@@ -12,7 +12,7 @@ model ComparePowerHydraulic
       per=per,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_riseTime   =false),
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y mov2(
       redeclare final package Medium = Medium,
       per(
@@ -23,7 +23,7 @@ model ComparePowerHydraulic
         etaMotMet=per.etaMotMet),
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_riseTime   =false),
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y mov3(
       redeclare final package Medium = Medium,
       per(
@@ -34,7 +34,7 @@ model ComparePowerHydraulic
         etaMotMet=per.etaMotMet),
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_riseTime   =false));
+      use_riseTime=false));
 
   final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak =
     Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(

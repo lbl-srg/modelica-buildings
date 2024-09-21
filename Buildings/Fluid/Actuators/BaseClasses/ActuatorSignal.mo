@@ -7,7 +7,7 @@ model ActuatorSignal
     annotation(Dialog(tab="Dynamics", group="Actuator position"));
 
   parameter Modelica.Units.SI.Time strokeTime=120
-    "Time needed to open or close valve"
+    "Time needed to fully open or close actuator"
     annotation (Dialog(
       tab="Dynamics",
       group="Actuator position",
@@ -49,7 +49,7 @@ protected
   Modelica.Blocks.Nonlinear.SlewRateLimiter actPos(
     Rising=1/strokeTime,
     Falling=-1/strokeTime,
-    Td=10/strokeTime,
+    Td=0.001*strokeTime,
     initType=init,
     y_start=y_start,
     strict=true) if use_strokeTime "Actuator position"
@@ -122,7 +122,8 @@ for a description of the filter.
 <li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear actuator travel dynamics.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>

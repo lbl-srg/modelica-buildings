@@ -10,7 +10,7 @@ model ControlledFlowMachine "Fans with different control signals as input"
     fan3(
       addPowerToMedium=false,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      use_riseTime   =false));
+      use_riseTime=false));
 
   annotation (
 experiment(Tolerance=1e-6, StopTime=600),
