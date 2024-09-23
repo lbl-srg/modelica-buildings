@@ -80,48 +80,52 @@ a flow leg becomes decoupled from a reference pressure source.
 <h4>Transients of actuators</h4>
 <p>
 This section describes how valves and dampers can be configured
-to approximate the travel time of an actuator.
-Such an approximation can also lead to faster simulation because
+to model the travel time of an actuator.
+Modeling the travel time of the actuator can lead to faster simulation because
 discrete or fast changes in controllers are damped before they
 influence the flow network.
 </p>
-<h5>Approximation using a 2nd order filter</h5>
+<h5>Change in actuator position that is linear in time</h5>
 <p>
 The valves and dampers in the package
 <a href=\"modelica://Buildings.Fluid.Actuators\">
 Buildings.Fluid.Actuators</a>
-all have a parameter <code>use_inputFilter</code>.
+all have a parameter <code>use_strokeTime</code>.
 This parameter is used as follows:
 </p>
 <ul>
 <li>
-If <code>use_inputFilter=false</code>, then the actual valve
+If <code>use_strokeTime=false</code>, then the actual valve
 or damper position is equal to the input signal <code>y</code>.
 </li>
 <li>
-If <code>use_inputFilter=true</code>, then the actual valve or damper position
-is computed in such a way that it approximates a valve motor.
-This approximation is implemented using a 2nd order low-pass filter.
-The filter has a parameter <code>riseTime</code>, which by default is
-set to <i>120</i> seconds.
-The rise time is the time required to reach 99.6% of the opening.
+If <code>use_strokeTime=true</code>, then the actual valve or damper position
+changes linear in time until it reaches the control input.
+The parameter <code>strokeTime</code>, which by default is set to
+<i>120</i> seconds, determines how fast the speed changes.
+For example, if <code>strokeTime=120</code> seconds and the current actuator position is <i>0</i>, then
+a step change in the actuator input signal from <i>0</i> to <i>1</i> will
+cause the actuator position to change linearly from <i>0</i> to <i>1</i> within
+<i>30</i> seconds. Similarly, if the actuator position is then reduced by changing
+the input signal from <i>1</i> to <i>0.5</i>, it will take <i>15</i> seconds
+to achieve the new set point.
 </li>
 </ul>
 <p>
-Using a filter often leads to a more robust simulation,
+Using a linear change in actuator position often leads to a more robust simulation,
 because a step change
 in the input signal is \"smoothened\" by the filter, and
 hence the flow network is only exposed to a continuously differentiable change
 in the input signal.
 However, if the filter is part of a closed loop control, then the transient
-response gets changed. Therefore, if the parameter <code>use_inputFilter</code>
+response gets changed. Therefore, if the parameter <code>strokeTime</code>
 is changed, control gains may need to be retuned.
 </p>
 <p>
 For example, suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
-and a valve, configured with <code>use_inputFilter=true</code> and <code>riseTime=120</code> seconds.
+and a valve, configured with <code>use_strokeTime=true</code> and <code>strokeTime=120</code> seconds.
 Assume that the transient response of the other dynamic elements in the control loop is fast
 compared to the rise time of the filter.
 Then, a proportional gain of <code>k=0.1</code> and an integrator time constant of
@@ -132,13 +136,13 @@ If the control loop shows oscillatory behavior, then reduce <code>k</code> and/o
 If the control loop reacts too slow, do the opposite.
 </p>
 <p>
-We will now show how the parameter <code>riseTime</code> affects the actual position of a
+We will now show how the parameter <code>strokeTime</code> affects the actual position of a
 control valve.
 The figure below shows a model with two control valves.
-The valve <code>val1</code> is configured with <code>use_inputFilter=true</code>
-and a rise time <code>riseTime=120</code> seconds.
+The valve <code>val1</code> is configured with <code>use_strokeTime=true</code>
+and a rise time <code>strokeTime=120</code> seconds.
 The grey motor symbol above the control valve <code>val1</code>
-indicates that <code>use_inputFilter=true</code>.
+indicates that <code>use_strokeTime=true</code>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveSchematic.png\"/>
@@ -148,14 +152,14 @@ If these valves both have a step input signal at <i>10</i> seconds, then the
 actual opening of the valves are as follows:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveResponse.png\"/>
+<img alt=\"image\" width=\"506\" height=\"280\" src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valveResponse.png\"/>
 </p>
 <p>
 Thus, in the valve <code>val1</code>, the mass flow rate will slowly increase,
 whereas in <code>val2</code>, the mass flow rate changes instantaneously.
 </p>
 <p>
-If <code>use_inputFilter=true</code>, then the parameter
+If <code>use_strokeTime=true</code>, then the parameter
 <code>y_start</code> can be used to set the initial position of the
 actuator, and the parameter
 <code>init</code> can be used to configure how the position
@@ -163,7 +167,7 @@ should be initialized.
 </p>
 <p>
 For most applications, the default values are appropriate.
-Although adding a filter increases the number of equations,
+Although setting <code>use_strokeTime</code> increases the number of equations,
 it can reduce computing time because the equations are
 easier to solve when a controller switches.
 </p>

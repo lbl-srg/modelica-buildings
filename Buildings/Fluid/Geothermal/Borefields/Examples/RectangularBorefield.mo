@@ -74,7 +74,7 @@ model RectangularBorefield "Example model of a rectangular borefield"
     redeclare package Medium = Medium,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,

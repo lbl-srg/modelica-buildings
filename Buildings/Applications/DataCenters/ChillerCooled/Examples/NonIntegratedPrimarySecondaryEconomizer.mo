@@ -52,10 +52,7 @@ model NonIntegratedPrimarySecondaryEconomizer
     m_flow_nominal=m2_flow_chi_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
-    use_inputFilter=true)
-    "Secondary pumps"
-    annotation (
-      Placement(transformation(
+    use_riseTime=true) "Secondary pumps" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-38})));
@@ -67,9 +64,7 @@ model NonIntegratedPrimarySecondaryEconomizer
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=1,
-    use_inputFilter=true)
-    "Constant speed pumps"
-    annotation (Placement(
+    use_riseTime=true) "Constant speed pumps" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,

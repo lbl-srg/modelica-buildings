@@ -63,10 +63,9 @@ model IntegratedPrimarySecondaryEconomizer
     per=perPumSec,
     addPowerToMedium=false,
     m_flow_nominal=m2_flow_chi_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Secondary pumps"
-    annotation (Placement(transformation(
+    "Secondary pumps" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-46,-34})));

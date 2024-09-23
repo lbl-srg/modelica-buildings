@@ -180,29 +180,20 @@ model FlowDistribution
     "Actual heat flow rate transferred to each load"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-    redeclare final package Medium=Medium,
-    final portFlowDirection_1=
-      if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else
-        Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=
-      if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else
-        Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=
-      if allowFlowReversal then
-        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-      else
-        Modelica.Fluid.Types.PortFlowDirection.Entering,
+    redeclare final package Medium = Medium,
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final dpValve_nominal=dpVal_nominal,
-    final use_inputFilter=false,
+    final use_strokeTime=false,
     final m_flow_nominal=m_flow_nominal,
     final linearized={true,true},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) if have_val
-    "Mixing valve"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},origin={-80,40})));
+    "Mixing valve" annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+          origin={-80,40})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource pipPre(
     redeclare final package Medium=Medium,
     final dp_start=dp_nominal-dpVal_nominal,
@@ -281,18 +272,19 @@ model FlowDistribution
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumSpe(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
-    use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr == Type_ctr.ConstantSpeed
+    use_riseTime=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    if have_pum and typCtr == Type_ctr.ConstantSpeed
     "Distribution pump with prescribed speed (fractional)"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Fluid.Sensors.TemperatureTwoPort senTSup(

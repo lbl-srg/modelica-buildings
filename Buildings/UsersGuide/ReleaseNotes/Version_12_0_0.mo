@@ -240,9 +240,38 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">The blocks have been moved to the <code>Obsolete</code> package.
                        Users are encouraged to use <code>TrueFalseHold(falseHoldDuration=0)</code>
                        instead.<br/>
-                       For Dymola, the conversion script will automatically
-                       update existing models.<br/>
+                       The conversion script will automatically update existing models.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                       Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayTable<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayButterfly<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPolynomial<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayTable
+    </td>
+    <td valign=\"top\">Changed model for actuator position. The new implementation changes the actuator position
+                       at a constant speed defined by the stroke time rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> and <code>riseTime</code> to
+                       <code>use_strokeTime</code> and <code>strokeTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
@@ -258,6 +287,79 @@ have been <b style=\"color:blue\">improved</b> in a
                        declaration of the energy balance configuration for the borehole filling.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+    </td>
+</tr>
+
+
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsDp<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsFlow<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed
+    </td>
+    <td valign=\"top\">Changed model for change in pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel<br/>
+                       Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.ChillerGroup<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.HeatPumpGroup
+    </td>
+    <td valign=\"top\">Changed model for actuator position. The new implementation changes the actuator position
+                       at a constant speed defined by the stroke time rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> and <code>riseTime</code> to
+                       <code>use_strokeTime</code> and <code>strokeTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HydronicConfigurations</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve<br/>
+                       Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve<br/>
+                       Buildings.Fluid.HydronicConfigurations.Components.Pump
+    </td>
+    <td valign=\"top\">Changed model for change in pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y
+    </td>
+    <td valign=\"top\">Changed model for change in fan or pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>

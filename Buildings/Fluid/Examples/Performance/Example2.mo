@@ -10,7 +10,7 @@ model Example2 "Example 2 model with series pressure components"
   Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true)

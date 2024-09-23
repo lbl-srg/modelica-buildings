@@ -121,7 +121,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
@@ -143,7 +143,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damRec(
@@ -165,7 +165,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final k1=k1,
     final use_constant_density=use_constant_density,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=false)
+    final use_strokeTime=false)
     "Recirculation air damper"
     annotation (
       Placement(transformation(
@@ -325,7 +325,7 @@ See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_strokeTime</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

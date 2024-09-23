@@ -31,7 +31,7 @@ model TransientBoreholeDynamics "Description"
     redeclare each package Medium = Medium,
     each T_start=T_start,
     each addPowerToMedium=false,
-    each use_inputFilter=false,
+    each use_riseTime=false,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mZon_flow_nominal,
     each dp_nominal=60E3) "Circulation pump"
