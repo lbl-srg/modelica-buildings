@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.Sensors.Examples.EntropyFlowRate", method="CVode", tolerance=1e-6, stopTime=60, resultFile="EntropyFlowRate");
 createPlot(id = 5,
  position = {15, 13, 645, 498},
- y = {"senM_flow.m_flow"},
+ y = {"senMasFlo.m_flow"},
  range = {0, 1, 2, (-2.0)},
  autoscale = true,
  autoerase = true,

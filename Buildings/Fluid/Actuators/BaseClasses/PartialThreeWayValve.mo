@@ -156,7 +156,7 @@ This is for
 </li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
-Propagated parameter <code>strokeTime</code> to valves. The value is not used as the filter is disabled,
+Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
 but it will show in the result file. Having a consistent value for all these parameters in the result filter
 helps during debugging.
 </li>
@@ -181,7 +181,7 @@ Improved icon graphics annotation. This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_strokeTime</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

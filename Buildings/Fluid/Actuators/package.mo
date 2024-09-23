@@ -102,12 +102,12 @@ or damper position is equal to the input signal <code>y</code>.
 If <code>use_strokeTime=true</code>, then the actual valve or damper position
 changes linear in time until it reaches the control input.
 The parameter <code>strokeTime</code>, which by default is set to
-<i>120</i> seconds, determines how fast the speed changes.
+<i>120</i> seconds, determines how fast the position changes.
 For example, if <code>strokeTime=120</code> seconds and the current actuator position is <i>0</i>, then
 a step change in the actuator input signal from <i>0</i> to <i>1</i> will
 cause the actuator position to change linearly from <i>0</i> to <i>1</i> within
-<i>30</i> seconds. Similarly, if the actuator position is then reduced by changing
-the input signal from <i>1</i> to <i>0.5</i>, it will take <i>15</i> seconds
+<i>120</i> seconds. Similarly, if the actuator position is then reduced by changing
+the input signal from <i>1</i> to <i>0.5</i>, it will take <i>60</i> seconds
 to achieve the new set point.
 </li>
 </ul>

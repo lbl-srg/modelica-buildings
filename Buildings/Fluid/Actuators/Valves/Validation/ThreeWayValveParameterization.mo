@@ -24,7 +24,7 @@ model ThreeWayValveParameterization
       273.15 + 4,
       Medium.X_default) "Standard density";
 
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valOPPoi(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valOpePoi(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -84,17 +84,17 @@ model ThreeWayValveParameterization
     offset=0) "Control signal"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Buildings.Fluid.Sensors.MassFlowRate senM_flowOpPoi(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloOpPoi(
     redeclare package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flowKv(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloKv(
     redeclare package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flowCv(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloCv(
     redeclare package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  Buildings.Fluid.Sensors.MassFlowRate senM_flowAv(redeclare package Medium =
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloAv(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{20,-94},{40,-74}})));
   Buildings.Fluid.Sources.Boundary_pT sou3(
@@ -105,7 +105,7 @@ model ThreeWayValveParameterization
     T=293.15) "Boundary condition for flow source"
     annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
 equation
-  connect(sou1.ports[1], valOPPoi.port_1) annotation (Line(points={{-48,33},{-32,
+  connect(sou1.ports[1], valOpePoi.port_1) annotation (Line(points={{-48,33},{-32,
           33},{-32,90},{-10,90}}, color={0,127,255}));
   connect(sou1.ports[2], valKv.port_1) annotation (Line(points={{-48,31},{-42,31},
           {-42,30},{-10,30}}, color={0,127,255}));
@@ -113,7 +113,7 @@ equation
           {-32,-30},{-10,-30}}, color={0,127,255}));
   connect(sou1.ports[4], valAv.port_1) annotation (Line(points={{-48,27},{-32,27},
           {-32,-84},{-10,-84}}, color={0,127,255}));
-  connect(sou3.ports[1], valOPPoi.port_3) annotation (Line(points={{-50,-7},{-20,
+  connect(sou3.ports[1], valOpePoi.port_3) annotation (Line(points={{-50,-7},{-20,
           -7},{-20,70},{0,70},{0,80}}, color={0,127,255}));
   connect(sou3.ports[2], valKv.port_3) annotation (Line(points={{-50,-9},{-20,-9},
           {-20,12},{0,12},{0,20}}, color={0,127,255}));
@@ -121,23 +121,23 @@ equation
           {-20,-48},{0,-48},{0,-40}}, color={0,127,255}));
   connect(sou3.ports[4], valAv.port_3) annotation (Line(points={{-50,-13},{-20,-13},
           {-20,-110},{0,-110},{0,-94}}, color={0,127,255}));
-  connect(valOPPoi.port_2, senM_flowOpPoi.port_a)
+  connect(valOpePoi.port_2, senMasFloOpPoi.port_a)
     annotation (Line(points={{10,90},{20,90}}, color={0,127,255}));
-  connect(valKv.port_2, senM_flowKv.port_a)
+  connect(valKv.port_2, senMasFloKv.port_a)
     annotation (Line(points={{10,30},{20,30}}, color={0,127,255}));
-  connect(valCv.port_2, senM_flowCv.port_a)
+  connect(valCv.port_2, senMasFloCv.port_a)
     annotation (Line(points={{10,-30},{20,-30}}, color={0,127,255}));
-  connect(valAv.port_2, senM_flowAv.port_a)
+  connect(valAv.port_2, senMasFloAv.port_a)
     annotation (Line(points={{10,-84},{20,-84}}, color={0,127,255}));
-  connect(senM_flowOpPoi.port_b, sin.ports[1]) annotation (Line(points={{40,90},
+  connect(senMasFloOpPoi.port_b, sin.ports[1]) annotation (Line(points={{40,90},
           {52,90},{52,92},{90,92},{90,3},{100,3}}, color={0,127,255}));
-  connect(senM_flowKv.port_b, sin.ports[2]) annotation (Line(points={{40,30},{76,
+  connect(senMasFloKv.port_b, sin.ports[2]) annotation (Line(points={{40,30},{76,
           30},{76,1},{100,1}}, color={0,127,255}));
-  connect(senM_flowCv.port_b, sin.ports[3]) annotation (Line(points={{40,-30},{90,
+  connect(senMasFloCv.port_b, sin.ports[3]) annotation (Line(points={{40,-30},{90,
           -30},{90,-1},{100,-1}}, color={0,127,255}));
-  connect(senM_flowAv.port_b, sin.ports[4]) annotation (Line(points={{40,-84},{92,
+  connect(senMasFloAv.port_b, sin.ports[4]) annotation (Line(points={{40,-84},{92,
           -84},{92,-3},{100,-3}}, color={0,127,255}));
-  connect(y.y, valOPPoi.y) annotation (Line(points={{-59,110},{0,110},{0,102}},
+  connect(y.y, valOpePoi.y) annotation (Line(points={{-59,110},{0,110},{0,102}},
                             color={0,0,127}));
   connect(y.y, valKv.y) annotation (Line(points={{-59,110},{-40,110},{-40,52},{0,
           52},{0,42}},
