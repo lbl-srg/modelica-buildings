@@ -238,5 +238,7 @@ equation
     This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped. </p>
     <p>
     Due to the constraints of the EnergyPlus example results for the pumped configuration, cross-comparison is employed to assess the performance of the pumped configuration relative to the wrapped configuration. The same boundary conditions used for the wrapped configuration are applied. The results indicate that the pumped configuration exhibits greater power consumption compared to the wrapped configuration, attributed to a higher heating coil condenser temperature.</p>
+</html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
 </html>"));
 end HeatPumpWaterHeaterPumped;

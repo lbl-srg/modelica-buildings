@@ -17,6 +17,7 @@ model HeatPumpWaterHeaterWrapped "Wrapped heat pump water heater model"
       from_dp=true,
       dp_nominal=dpAir_nominal,
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+      "Single speed DX cooling coil"
       annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
 
   Modelica.Blocks.Sources.RealExpression QCon[datWT.nSegCon](y={-
@@ -118,5 +119,7 @@ equation
     <p>
     Please note that the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
     
-    </html>"));
+    </html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
+</html>"));
 end HeatPumpWaterHeaterWrapped;

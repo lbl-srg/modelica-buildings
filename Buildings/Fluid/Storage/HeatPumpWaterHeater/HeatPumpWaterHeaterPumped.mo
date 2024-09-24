@@ -108,5 +108,7 @@ equation
     The system model is composed of the following component model: (1) A stratified water tank (2) A single speed air-to-water heating coil (3) A supply fan (4) A circulation pump. </p>
     <p>
     Please note that this model takes into account the detailed heat exchange of the circulation pump, which is not included in EnergyPlus. The heat exchanger component is absent from the EnergyPlus model. Similar to the wrapped configuration, the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
+</html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
 </html>"));
 end HeatPumpWaterHeaterPumped;

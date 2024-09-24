@@ -179,5 +179,7 @@ equation
     <a href=\"Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped\">
     Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped</a>.
     </p>
-    </html>"));
+    </html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
+</html>"));
 end PartialHeatPumpWaterHeater;

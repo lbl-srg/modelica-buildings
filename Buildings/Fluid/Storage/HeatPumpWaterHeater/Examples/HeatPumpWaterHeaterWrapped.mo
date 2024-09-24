@@ -197,5 +197,7 @@ equation
     Documentation(info="<html>
     <p>
     This model tests a wrapped heat pump water heater. An on-off controller keeps the tank temperature in the range of 40-43.89 degC.</p>
+</html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
 </html>"));
 end HeatPumpWaterHeaterWrapped;

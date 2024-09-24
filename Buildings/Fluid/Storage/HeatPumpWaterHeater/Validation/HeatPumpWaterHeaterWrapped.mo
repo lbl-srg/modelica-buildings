@@ -233,5 +233,7 @@ equation
     This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped. </p>
     <p>
     The EnergyPlus results were generated using the example file WaterHeaterHeatPumpWrappedCondenser.idf from EnergyPlus 9.6. The results were then used to set-up the boundary conditions for the model as well as the input signals.</p>
+</html>", revisions="<html>
+<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
 </html>"));
 end HeatPumpWaterHeaterWrapped;
