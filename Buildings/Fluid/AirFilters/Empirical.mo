@@ -256,7 +256,7 @@ Documentation(info="<html>
 <p>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
-The dynamic characteristics of the filters are defined by
+The dynamic characteristics of the filters are defined by the following parameters.
 </p>
 <ul>
 <li>
@@ -292,14 +292,14 @@ when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
 mass of the captured contaminants becomes <i>0</i>.
 </p>
 <b>Note:</b>
-A warning will be triggered 
+Warnings will be triggered 
 <ul>
 <li>
 when the captured contaminant mass becomes greater than the
-maximum contaminant mass (<code>mCon_nominal</code>).
+<code>mCon_nominal</code>.
 </li>
 <li>
-or when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
+when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
 defined in the <code>per</code>.
 </li>
 </ul>

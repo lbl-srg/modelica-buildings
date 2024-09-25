@@ -49,7 +49,8 @@ Documentation(info="<html>
 This model calculates the filtration efficiency, <i>eps</i>, based on the cubic hermite spline interpolation of
 the filter dataset (see 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters\">
-Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters</a>).
+Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters</a>)
+with respect to <i>rat</i>.
 </p>
 <p>
 The <i>rat</i> is the relative mass of the contaminant captured by the filter
