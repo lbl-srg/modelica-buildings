@@ -1,5 +1,5 @@
 compareVars :=
   {
     "mCon.y",
-    "eps.y"
+    "eps.y[1]"
   };

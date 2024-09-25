@@ -82,7 +82,7 @@ This block is implemented based on
 <a href=\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\">
 Buildings.Fluid.FixedResistances.PressureDrop</a>
 and inherits most of its configuration.
-However, it is different when calculating the mass flow rate
+However, its mass flow rate is calculated differently by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 m&#775; = m_flow_nominal/(&radic;<span style=\"text-decoration:overline;\">dp_nominal*kCor</span>)

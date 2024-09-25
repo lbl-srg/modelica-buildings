@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters;
-package Examples "Package with example models"
-extends Modelica.Icons.ExamplesPackage;
+package Validation "Collection of models that illustrate model use and test models"
+  extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
 <p>
@@ -9,4 +9,4 @@ This package contains examples for the use of models that can be found in
 Buildings.Fluid.AirFilters</a>.
 </p>
 </html>"));
-end Examples;
+end Validation;
