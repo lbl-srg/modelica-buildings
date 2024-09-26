@@ -9,6 +9,17 @@ model VariableSpeedThermalWheels
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWhe(
+    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
+    haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=false)
+    "Performance record for the enthalpy wheel"
+    annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
+    haveLatentHeatExchange=true,
+    useDefaultMotorEfficiencyCurve=true)
+    "Performance record for the enthalpy wheel with default motor dataset"
+    annotation (Placement(transformation(extent={{0,74},{20,94}})));    
   Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
@@ -29,17 +40,7 @@ model VariableSpeedThermalWheels
     per=perLatWheDefMotCur)
     "Enthalpy wheel with default motor curve"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWhe(
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
-    haveLatentHeatExchange=true,
-    useDefaultMotorEfficiencyCurve=false)
-    "Performance record for the enthalpy wheel"
-    annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
-    haveLatentHeatExchange=true,
-    useDefaultMotorEfficiencyCurve=true)
-    "Performance record for the enthalpy wheel with default motor dataset"
-    annotation (Placement(transformation(extent={{0,74},{20,94}})));
+
 equation
   connect(uSpe.y, senWhe.uSpe)
     annotation (Line(points={{-39,0},{-28,0},{-28,50},
