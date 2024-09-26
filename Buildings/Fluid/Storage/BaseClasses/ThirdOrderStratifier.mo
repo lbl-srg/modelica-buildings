@@ -4,27 +4,30 @@ model ThirdOrderStratifier
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium model" annotation (choicesAllMatching=true);
+    "Medium model"
+    annotation (choicesAllMatching=true);
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
+
   parameter Integer nSeg(min=4) "Number of volume segments";
 
   parameter Real alpha(
     min=0,
-    max=1) = 0.5 "Under-relaxation coefficient (1: QUICK; 0: 1st order upwind)";
+    max=1) = 0.5
+    "Under-relaxation coefficient (1: QUICK; 0: 1st order upwind)";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
-    "Heat input into the volumes" annotation (Placement(transformation(extent={
-            {90,-10},{110,10}})));
+    "Heat input into the volumes"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.Blocks.Interfaces.RealInput m_flow
-    "Mass flow rate from port a to port b" annotation (Placement(transformation(
-          extent={{-140,62},{-100,102}})));
+    "Mass flow rate from port a to port b"
+    annotation (Placement(transformation(extent={{-140,62},{-100,102}})));
 
   Modelica.Blocks.Interfaces.RealInput[nSeg + 1] H_flow
-    "Enthalpy flow between the volumes" annotation (Placement(transformation(
-          extent={{-140,-100},{-100,-60}})));
+    "Enthalpy flow between the volumes"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each
       package Medium = Medium)
@@ -34,14 +37,18 @@ model ThirdOrderStratifier
 protected
   Modelica.Units.SI.SpecificEnthalpy[nSeg + 1] hOut
     "Extended vector with new outlet enthalpies to reduce numerical dissipation (at the boundary between two volumes)";
+
   Modelica.Units.SI.SpecificEnthalpy[nSeg + 2] h
     "Extended vector with port enthalpies, needed to simplify loop";
+
   Modelica.Units.SI.HeatFlowRate Q_flow[nSeg]
     "Heat exchange computed using upwind third order discretization scheme";
+
   //    Modelica.Units.SI.HeatFlowRate Q_flow_upWind
   //     "Heat exchange computed using upwind third order discretization scheme"; //Used to test the energy conservation
   Real sig
     "Sign used to implement the third order upwind scheme without triggering a state event";
+
   Real comSig
     "Sign used to implement the third order upwind scheme without triggering a state event";
 

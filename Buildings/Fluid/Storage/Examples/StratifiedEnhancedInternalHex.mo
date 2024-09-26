@@ -4,6 +4,7 @@ model StratifiedEnhancedInternalHex
   extends Modelica.Icons.Example;
 
   package MediumTan = Buildings.Media.Water "Medium in the tank";
+
   package MediumHex = Buildings.Media.Water "Medium in the heat exchanger";
 
   parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500
@@ -12,26 +13,27 @@ model StratifiedEnhancedInternalHex
   parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278
     "Mass flow rate of heat exchanger";
 
-  Buildings.Fluid.Sources.Boundary_pT bouWat(redeclare package Medium =
-        MediumTan, nPorts=3)
-    "Boundary condition for water (used to set pressure)" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={72,-78})));
+  Buildings.Fluid.Sources.Boundary_pT bouWat(
+    redeclare package Medium =MediumTan,
+    nPorts=3)
+    "Boundary condition for water (used to set pressure)"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={72,-78})));
+
   Buildings.Fluid.Sources.Boundary_pT solColSup(
     redeclare package Medium = MediumHex,
     nPorts=3,
     use_p_in=true,
-    T=353.15) "Water from solar collector" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-30,40})));
+    T=353.15)
+    "Water from solar collector"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-30,40})));
+
   Buildings.Fluid.Sources.Boundary_pT toSolCol(
     redeclare package Medium = MediumHex,
     nPorts=3,
     p(displayUnit="Pa") = 3E5,
-    T=283.15) "Water to solar collector" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-72,-20})));
+    T=283.15) "Water to solar collector"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-72,-20})));
+
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tanSte(
     redeclare package Medium = MediumTan,
     m_flow_nominal=0.001,
@@ -53,23 +55,30 @@ model StratifiedEnhancedInternalHex
     dpHex_nominal=dpHex_nominal)
     "Tank with heat exchanger configured as steady state"
     annotation (Placement(transformation(extent={{6,56},{40,88}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSte(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
-    tau=0) "Temperature sensor for outlet of steady-state heat exchanger"
+    tau=0)
+    "Temperature sensor for outlet of steady-state heat exchanger"
     annotation (Placement(transformation(extent={{-20,0},{-40,20}})));
+
   Modelica.Blocks.Sources.Step step(
     height=dpHex_nominal,
     offset=3E5,
-    startTime=300) "Step input for mass flow rate"
+    startTime=300)
+    "Step input for mass flow rate"
     annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDyn(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
     m_flow_nominal=mHex_flow_nominal,
-    tau=0) "Temperature sensor for outlet of dynamic heat exchanger"
+    tau=0)
+    "Temperature sensor for outlet of dynamic heat exchanger"
     annotation (Placement(transformation(extent={{-22,-30},{-42,-10}})));
+
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tanDyn(
     redeclare package Medium = MediumTan,
     m_flow_nominal=0.001,
@@ -87,8 +96,10 @@ model StratifiedEnhancedInternalHex
     mHex_flow_nominal=mHex_flow_nominal,
     energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial,
     TTan_nominal=293.15,
-    THex_nominal=323.15) "Tank with heat exchanger configured as dynamic"
+    THex_nominal=323.15)
+    "Tank with heat exchanger configured as dynamic"
     annotation (Placement(transformation(extent={{4,-28},{38,4}})));
+
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tanDynSol(
     redeclare package Medium = MediumTan,
     m_flow_nominal=0.001,
@@ -110,6 +121,7 @@ model StratifiedEnhancedInternalHex
     THex_nominal=323.15)
     "Tank with heat exchanger configured as steady-state except for metal which is dynamic"
     annotation (Placement(transformation(extent={{6,-76},{40,-44}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemDynSol(
     redeclare package Medium = MediumHex,
     allowFlowReversal=false,
@@ -117,45 +129,55 @@ model StratifiedEnhancedInternalHex
     tau=0)
     "Temperature sensor for outlet of steady state heat exchanger with solid configured dynamic"
     annotation (Placement(transformation(extent={{-20,-82},{-40,-62}})));
+
 equation
-  connect(solColSup.ports[1], tanSte.portHex_a) annotation (Line(
-      points={{-20,38.6667},{-4,38.6667},{-4,65.92},{6,65.92}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(solColSup.ports[1], tanSte.portHex_a)
+    annotation (Line(points={{-20,38.6667},{-4,38.6667},{-4,65.92},{6,65.92}},color={0,127,255},smooth=Smooth.None));
+
   connect(senTemSte.port_b, toSolCol.ports[1])
     annotation (Line(points={{-40,10},{-40,10},{-50,10},{-50,-21.3333},{-62,
-          -21.3333}},                          color={0,127,255}));
-  connect(senTemSte.port_a, tanSte.portHex_b) annotation (Line(points={{-20,10},
-          {0,10},{0,59.2},{6,59.2}}, color={0,127,255}));
-  connect(senTemDyn.port_a, tanDyn.portHex_b) annotation (Line(points={{-22,-20},
-          {0,-20},{0,-24.8},{4,-24.8}}, color={0,127,255}));
-  connect(senTemDyn.port_b, toSolCol.ports[2]) annotation (Line(points={{-42,-20},
-          {-52,-20},{-62,-20}},           color={0,127,255}));
-  connect(tanDynSol.portHex_b, senTemDynSol.port_a) annotation (Line(points={{6,-72.8},
-          {-8,-72.8},{-8,-72},{-20,-72}},        color={0,127,255}));
-  connect(senTemDynSol.port_b, toSolCol.ports[3]) annotation (Line(points={{-40,-72},
-          {-50,-72},{-50,-18.6667},{-62,-18.6667}},                color={0,127,
-          255}));
-  connect(solColSup.ports[2], tanDyn.portHex_a) annotation (Line(points={{-20,40},
-          {-14,40},{-4,40},{-4,-18.08},{4,-18.08}}, color={0,127,255}));
-  connect(solColSup.ports[3], tanDynSol.portHex_a) annotation (Line(points={{-20,
-          41.3333},{-6,41.3333},{-6,-66.08},{6,-66.08}},               color={0,
-          127,255}));
-  connect(bouWat.ports[1], tanSte.port_b) annotation (Line(points={{62,-79.3333},
-          {52,-79.3333},{52,40},{22,40},{22,56},{23,56}},
-                                          color={0,127,255}));
+          -21.3333}},                                                                  color={0,127,255}));
+
+  connect(senTemSte.port_a, tanSte.portHex_b)
+    annotation (Line(points={{-20,10},{0,10},{0,59.2},{6,59.2}}, color={0,127,255}));
+
+  connect(senTemDyn.port_a, tanDyn.portHex_b)
+    annotation (Line(points={{-22,-20},{0,-20},{0,-24.8},{4,-24.8}}, color={0,127,255}));
+
+  connect(senTemDyn.port_b, toSolCol.ports[2])
+    annotation (Line(points={{-42,-20},{-52,-20},{-62,-20}},color={0,127,255}));
+
+  connect(tanDynSol.portHex_b, senTemDynSol.port_a)
+    annotation (Line(points={{6,-72.8},{-8,-72.8},{-8,-72},{-20,-72}},color={0,127,255}));
+
+  connect(senTemDynSol.port_b, toSolCol.ports[3])
+    annotation (Line(points={{-40,-72},{-50,-72},{-50,-18.6667},{-62,-18.6667}},color={0,127,255}));
+
+  connect(solColSup.ports[2], tanDyn.portHex_a)
+    annotation (Line(points={{-20,40},{-14,40},{-4,40},{-4,-18.08},{4,-18.08}}, color={0,127,255}));
+
+  connect(solColSup.ports[3], tanDynSol.portHex_a)
+    annotation (Line(points={{-20,41.3333},{-6,41.3333},{-6,-66.08},{6,-66.08}},color={0,127,255}));
+
+  connect(bouWat.ports[1], tanSte.port_b)
+    annotation (Line(points={{62,-79.3333},{52,-79.3333},{52,40},{22,40},{22,56},
+          {23,56}},                                                                       color={0,127,255}));
+
   connect(bouWat.ports[2], tanDyn.port_b)
-    annotation (Line(points={{62,-78},{52,-78},{52,-36},{21,-36},{21,-28}},
-                                                          color={0,127,255}));
-  connect(bouWat.ports[3], tanDynSol.port_b) annotation (Line(points={{62,
-          -76.6667},{24,-76.6667},{24,-76},{23,-76}},
-                                            color={0,127,255}));
+    annotation (Line(points={{62,-78},{52,-78},{52,-36},{21,-36},{21,-28}},color={0,127,255}));
+
+  connect(bouWat.ports[3], tanDynSol.port_b)
+    annotation (Line(points={{62,-76.6667},{24,-76.6667},{24,-76},{23,-76}}, color={0,127,255}));
+
   connect(step.y, solColSup.p_in)
     annotation (Line(points={{-59,48},{-52,48},{-42,48}}, color={0,0,127}));
+
   annotation ( __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and plot"),
-experiment(Tolerance=1e-6, StopTime=1200),
+      experiment(
+      Tolerance=1e-6,
+      StopTime=1200),
 Documentation(info="<html>
 <p>
 This model provides an example for the
