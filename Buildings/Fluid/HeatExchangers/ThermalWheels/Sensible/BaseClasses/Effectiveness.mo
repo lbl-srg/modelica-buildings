@@ -19,7 +19,7 @@ model Effectiveness
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
     final unit="K")
-    "Exhaust air temperature" 
+    "Exhaust air temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
     "Supply air mass flow rate"

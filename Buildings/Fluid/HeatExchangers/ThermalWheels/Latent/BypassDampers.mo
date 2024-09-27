@@ -7,7 +7,7 @@ model BypassDampers
     dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers"
     annotation (Dialog(group="Nominal condition"));
-   parameter Real P_nominal(final unit="W")
+  parameter Real P_nominal(final unit="W")
     "Power consumption at the design condition"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uBypDamPos(

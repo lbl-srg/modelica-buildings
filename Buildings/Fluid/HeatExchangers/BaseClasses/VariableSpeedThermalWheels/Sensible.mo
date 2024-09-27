@@ -38,7 +38,7 @@ initial equation
                   "Check if the motor efficiency curve is correct";
   end for;
   assert(abs(yeta[size(yeta,1)]-1) < 1E-4,
-          "In " + getInstanceName() + ": motor efficiency curve is wrong. 
+          "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
           The motor percent full-load efficiency at the full seepd should be 1",
           level=AssertionLevel.error)
           "Check if the motor efficiency curve is consistent with the nominal condition";

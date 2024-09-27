@@ -61,7 +61,7 @@ protected
     final realFalse=0)
     "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Modelica.Blocks.Sources.Constant zero(final k=0) 
+  Modelica.Blocks.Sources.Constant zero(final k=0)
     "Zero signal"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 equation
