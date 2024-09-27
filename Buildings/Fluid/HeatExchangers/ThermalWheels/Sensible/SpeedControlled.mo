@@ -3,37 +3,41 @@ model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
   extends
     Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
-  parameter Real a[:] = {1}
-    "Coefficients for power consumption curve for rotor. The sum of the elements must be equal to 1"
-    annotation (Dialog(group="Efficiency"));
-
+  parameter
+    Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
+    per "Record with performance data"
+    annotation (Placement(transformation(extent={{28,78},{48,98}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-protected
-  Modelica.Blocks.Sources.RealExpression PEle(
-    final y=P_nominal*Buildings.Utilities.Math.Functions.polynomial(a=a, x=uSpe))
-    "Electric power consumption"
-    annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-
-initial equation
-  assert(abs(sum(a)-1) < Modelica.Constants.eps,
-         "In " + getInstanceName() + ": Power efficiency curve is wrong. 
-         The sum of the coefficients for power efficiency curve must be 1.",
-         level=AssertionLevel.error);
+  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
+    senWhe(final per=per)
+    "Correct the wheel performance based on the wheel speed"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
+    "Calculate the heat exchanger effectiveness"
+    annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
 
 equation
-  connect(P, PEle.y)
-    annotation (Line(points={{120,-90},{81,-90}}, color={0,0,127}));
-  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,
-          6},{-10,6}}, color={0,127,255}));
-  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,-60},
-          {100,-60}}, color={0,127,255}));
-  connect(effCal.uSpe, uSpe)
-    annotation (Line(points={{-102,0},{-200,0}}, color={0,0,127}));
+  connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
+    {-10,6}}, color={0,127,255}));
+  connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
+          -80},{100,-80}}, color={0,127,255}));
+  connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-138,0},{-114,0},
+          {-114,-16},{-54,-16}},color={0,0,127}));
+  connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-62,0},{-62,-4},
+          {-54,-4}}, color={0,0,127}));
+  connect(mul.y, hex.eps) annotation (Line(points={{-30,-10},{-26,-10},{-26,0},
+          {-12,0}},color={0,0,127}));
+  connect(uSpe, senWhe.uSpe) annotation (Line(points={{-200,0},{-162,0}},
+          color={0,0,127}));
+  connect(senWhe.P, P) annotation (Line(points={{-138,8},{-134,8},{-134,68},{88,
+          68},{88,-40},{120,-40}}, color={0,0,127}));
+  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-20},{-26,
+          -20},{-26,-10},{-30,-10}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -57,25 +61,9 @@ exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
-</p>
-<p>
-Accordingly, the power consumption of this wheel is calculated by
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-P = P_nominal * (a<sub>1</sub> + a<sub>2</sub> uSpe + a<sub>3</sub> uSpe<sup>2</sup> + ...),
-</p>
-<p>
-where <code>P_nominal</code> is the nominal wheel power consumption,
-<code>uSpe</code> is the wheel speed ratio, 
-and the <code>a[:]</code> are the coefficients for power efficiency curve.
-The sum of the coefficients must be <i>1</i>, otherwise the model stops with an error.
-Thus, when the speed ratio <code>uSpe=1</code>, the power consumption equal to
-nominal consumption, <code>P=P_nominal</code>.
-</p>
-<p>
-The sensible heat exchanger effectiveness is calculated with
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness</a>.
+See details about the impacts of the wheel speed in 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
+Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 </html>", revisions="<html>
 <ul>

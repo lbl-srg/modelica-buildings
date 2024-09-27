@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "vol.T_start",
+    "vol.T",
+    "TOut.T",
+    "cooCoi.sta_a2.T",
+    "cooCoi.sta_b2.T",
+    "opeSig.y",
+    "TOut.T",
+    "senTemHXOut.T",
+    "TMixSetPoi.y",
+    "whe.port_a1.Xi_outflow[1]",
+    "whe.port_b1.Xi_outflow[1]",
+    "whe.senSupMasFlo.m_flow"
+  };

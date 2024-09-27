@@ -10,32 +10,23 @@ model Effectiveness
     "Nominal sensible heat exchanger effectiveness at the heating mode";
   parameter Modelica.Units.SI.Efficiency epsHeaPL(final max=1)
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.VolumeFlowRate VSup_flow_nominal
-    "Nominal supply air flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
+    "Nominal supply air mass flow rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
+    final unit="K")
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
-    final min=0,
-    final unit="K",
-    displayUnit="degC")
-    "Exhaust air temperature
-    " annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VSup_flow(final unit="m3/s")
-    "Supply air volumetric flow rate"
+    final unit="K")
+    "Exhaust air temperature"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
+    "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VExh_flow( final unit="m3/s")
-    "Exhaust air volumetric flow rate"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
+    "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
-    final unit="1",
-    final max=1)
-    "Wheel speed ratio"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
@@ -60,17 +51,17 @@ protected
 
 equation
   // Check if the air flows are too unbalanced
-  assert(VSup_flow - 2*VExh_flow < 0 or VExh_flow - 2*VSup_flow < 0,
+  assert(mSup_flow - 2*mExh_flow < 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5,
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2].",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (VSup_flow + VExh_flow)/2/VSup_flow_nominal;
+  rat = (mSup_flow +mExh_flow) /2/mSup_flow_nominal;
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   fraCoo = if equ_nominal and equPL then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
   epsPL = if equPL then epsCooPL else fraCoo*epsCooPL + (1-fraCoo) * epsHeaPL;
   eps_nominal = if equ_nominal then epsCoo_nominal else fraCoo*epsCoo_nominal + (1-fraCoo) * epsHea_nominal;
   // Calculate effectiveness
-  eps =uSpe*(epsPL + (eps_nominal - epsPL)*(
+  eps = (epsPL + (eps_nominal - epsPL)*(
     Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01) - 0.75)/0.25);
 
   assert(eps >= 0 and eps < 1,
@@ -106,14 +97,13 @@ where <code>VSup_flow</code> is the flow rate of the supply air,
 It then calculates the sensible heat exchanger effectiveness as
 </p>
 <pre>
-  eps = uSpe * (epsPL + (eps_nominal - epsPL) * (rat - 0.75)/0.25),
+  eps = (epsPL + (eps_nominal - epsPL) * (rat - 0.75)/0.25),
 </pre>
 <p>
 where <code>eps</code> is the effectiveness
 for the sensible heat transfer, respectively,
 <code>eps_nominal</code> and <code>epsPL</code> are the effectiveness 
-for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively, and
-<code>uSpe</code> is the speed ratio of a rotary wheel.
+for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively.
 </p>
 <p>
 The parameters <code>eps_nominal</code> and <code>epsPL</code>
