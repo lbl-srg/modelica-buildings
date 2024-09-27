@@ -16,20 +16,23 @@ model FlowControlled_dp
       y(final unit="Pa", nominal=dp_nominal)),
     eff(per(
         final pressure=if per.havePressureCurve then per.pressure else
-            Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(
-              nOri - 1)},
+          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri - 1)},
             dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
         final etaHydMet=if (per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-             or per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-             and not per.havePressureCurve then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-             else per.etaHydMet,
+          or per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+          and not per.havePressureCurve then
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else
+            per.etaHydMet,
         final etaMotMet=if (per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
-             or per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
-             and (not per.haveWMot_nominal and not per.havePressureCurve) then
+          or per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+          and (not per.haveWMot_nominal and not per.havePressureCurve) then
             Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-             else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
-            dp_start/dp_nominal else 0)));
+          else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
+            dp_start/dp_nominal
+          else
+            0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
     min=0,
@@ -173,7 +176,7 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear dynamics for change in motor speed.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
-for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
@@ -221,7 +224,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

@@ -61,8 +61,7 @@ partial model PartialFlowMachine
       enable=use_riseTime));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Motor speed",
-    enable=use_riseTime));
+    annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   // Connectors and ports
   Modelica.Blocks.Interfaces.IntegerInput stage
@@ -240,7 +239,7 @@ protected
     initType=init,
     strict=true)
     if use_riseTime
-      "Dynamics of engine speed"
+      "Dynamics of motor speed"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
@@ -644,9 +643,8 @@ revisions="<html>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear dynamics for change in motor speed.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
-for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
-
 <li>
 June 18, 2024, by Michael Wetter:<br/>
 Added <code>start</code> and <code>nominal</code> attributes
@@ -723,7 +721,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>

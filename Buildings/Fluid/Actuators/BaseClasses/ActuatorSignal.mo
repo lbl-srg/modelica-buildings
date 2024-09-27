@@ -123,7 +123,7 @@ for a description of the filter.
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear actuator travel dynamics.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
-for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
 <li>
 June 10, 2021, by Michael Wetter:<br/>
@@ -164,7 +164,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredInput</code> to <code>use_strokeTime</code>.<br/>
+Renamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
