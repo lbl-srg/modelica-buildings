@@ -29,15 +29,15 @@ model HeatPumpWaterHeaterWrapped "Test model for wrapped tank"
      "Coil data"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
-  parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
+  parameter
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.Baseclasses.WaterTank
     datWT(
     hTan=1.59,
     dIns=0.05,
     kIns=0.04,
     nSeg=12,
     hSegBot=0.066416667,
-    hSegTop=0.863416667)
-    "Heat pump water heater data"
+    hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
 
   Modelica.Blocks.Sources.TimeTable P(table=[0,310000; 1800,310000; 1800,305000;
@@ -67,16 +67,15 @@ model HeatPumpWaterHeaterWrapped "Test model for wrapped tank"
     offset=273.15 + 20) "Sine signal for the outdoor temperature"
     annotation (Placement(transformation(extent={{-74,-70},{-54,-50}})));
 
-  Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterWrapped
-    heaPumWatHeaWra(
+  Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser heaPumWatHeaWra(
     mAir_flow_nominal=0.2279,
     mWat_flow_nominal=0.1,
     dpAir_nominal(displayUnit="Pa") = 65,
     datCoi=datCoi,
     datWT=datWT,
-    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer,
-    tan(T_start=318.15))
-    "Heat pump water heater"
+    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.Data.Fan
+      fanPer,
+    tan(T_start=318.15)) "Heat pump water heater"
     annotation (Placement(transformation(extent={{-10,-6},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sinWat(

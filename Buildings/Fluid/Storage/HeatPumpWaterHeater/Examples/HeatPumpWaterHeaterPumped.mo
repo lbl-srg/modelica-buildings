@@ -23,15 +23,15 @@ model HeatPumpWaterHeaterPumped "Test model for pumped tank"
     "Coil data"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
-  parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WaterHeaterData
+  parameter
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.Baseclasses.WaterTank
     datWT(
     hTan=1.59,
     dIns=0.05,
     kIns=0.04,
     nSeg=12,
     hSegBot=0.066416667,
-    hSegTop=0.863416667)
-    "Heat pump water heater data"
+    hSegTop=0.863416667) "Heat pump water heater data"
     annotation (Placement(transformation(extent={{70,80},{90,100}})));
 
   Modelica.Blocks.Sources.TimeTable P(
@@ -63,19 +63,20 @@ model HeatPumpWaterHeaterPumped "Test model for pumped tank"
     "Sine signal for the outdoor temperature"
     annotation (Placement(transformation(extent={{-74,-70},{-54,-50}})));
 
-  Buildings.Fluid.Storage.HeatPumpWaterHeater.HeatPumpWaterHeaterPumped heaPumWatHeaPum(
+  Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser heaPumWatHeaPum(
     mAir_flow_nominal=0.2279,
     mWat_flow_nominal=0.1,
     dpAir_nominal(displayUnit="Pa") = 65,
     datCoi=datCoi,
     datWT=datWT,
-    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.FanData fanPer,
+    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.Data.Fan
+      fanPer,
     Q_flow_nominal=4500,
     dpCon_nominal(displayUnit="Pa") = 45000,
-    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.PumpData pumPer,
-    mHex_flow_nominal=0.3)
-    "Heat pump water heater"
-    annotation (Placement(transformation(extent={{-10,-6},{10,10}})));
+    redeclare Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.Data.Pump
+      pumPer,
+    mHex_flow_nominal=0.3) "Heat pump water heater"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sinWat(
     p=300000 + 5000,
@@ -152,28 +153,30 @@ equation
     annotation (Line(points={{-79,64},{-72,64}},color={0,0,127},smooth=Smooth.None));
 
   connect(heaPumWatHeaPum.port_b1, sinAir.ports[1])
-    annotation (Line(points={{10,8},{16,8},{16,60},{30,60}},color={0,127,255}));
+    annotation (Line(points={{10,6},{16,6},{16,60},{30,60}},color={0,127,255}));
 
   connect(TBCSid.port,heaPumWatHeaPum. heaPorSid)
-    annotation (Line(points={{-28,-42},{6,-42},{6,2}},color={191,0,0}));
+    annotation (Line(points={{-28,-42},{6,-42},{6,0}},color={191,0,0}));
 
   connect(TBCTop.port,heaPumWatHeaPum. heaPorTop)
-    annotation (Line(points={{-28,-60},{-20,-60},{-20,10},{0,10}},color={191,0,0}));
+    annotation (Line(points={{-28,-60},{-20,-60},{-20,8},{0,8}},  color={191,0,0}));
 
   connect(not1.u,onOffHea. y)
     annotation (Line(points={{58,-60},{51,-60}}, color={255,0,255}));
 
   connect(heaPumWatHeaPum.TWat, onOffHea.u)
-  annotation (Line(points={{11,1},{16,1},{16,-60},{28,-60}}, color={0,0,127}));
+  annotation (Line(points={{11,-1},{16,-1},{16,-60},{28,-60}},
+                                                             color={0,0,127}));
 
   connect(not1.y,heaPumWatHeaPum.on)
-   annotation (Line(points={{81,-60},{94,-60},{94,-26},{-28,-26},{-28,2},{-12,2}},color={255,0,255}));
+   annotation (Line(points={{81,-60},{94,-60},{94,-26},{-28,-26},{-28,0},{-12,0}},color={255,0,255}));
 
   connect(heaPumWatHeaPum.port_a1, souAir.ports[1])
-    annotation (Line(points={{-10,8},{-28,8},{-28,60},{-50,60}},color={0,127,255}));
+    annotation (Line(points={{-10,6},{-28,6},{-28,60},{-50,60}},color={0,127,255}));
 
   connect(senTemOut.port_b,heaPumWatHeaPum. port_b2)
-  annotation (Line(points={{-22,-4},{-10,-4}},color={0,127,255}));
+  annotation (Line(points={{-22,-4},{-16,-4},{-16,-6},{-10,-6}},
+                                              color={0,127,255}));
 
   connect(senTemOut.port_a,sinWat. ports[1])
     annotation (Line(points={{-42,-4},{-50,-4}}, color={0,127,255}));
@@ -182,7 +185,8 @@ equation
     annotation (Line(points={{34,-4},{36,-4}}, color={0,127,255}));
 
   connect(senTemIn.port_a,heaPumWatHeaPum. port_a2)
-  annotation (Line(points={{14,-4},{10,-4}},color={0,127,255}));
+  annotation (Line(points={{14,-4},{12,-4},{12,-6},{10,-6}},
+                                            color={0,127,255}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

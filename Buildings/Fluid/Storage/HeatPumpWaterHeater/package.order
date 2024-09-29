@@ -1,6 +1,6 @@
-HeatPumpWaterHeaterWrapped
-HeatPumpWaterHeaterPumped
-BaseClasses
+PumpedCondenser
+WrappedCondenser
 Data
 Examples
 Validation
+BaseClasses

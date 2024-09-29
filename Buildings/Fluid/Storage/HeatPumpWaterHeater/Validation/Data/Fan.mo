@@ -1,5 +1,6 @@
-within Buildings.Fluid.Storage.HeatPumpWaterHeater.Data;
-record FanData "Fan data"
+within Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.Data;
+record Fan
+  "Fan data"
   extends Buildings.Fluid.Movers.Data.Generic(
     power(V_flow={0,0.0189917,0.0379834,0.0569751,0.0759668,0.0949585,
     0.1139502,0.1329419,0.1519336,0.1709253,0.189917}, P={0.869,1.301,1.693,
@@ -12,14 +13,16 @@ record FanData "Fan data"
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Fan performance data record.  The volume flowrate values are derived by splitting the nominal flowrate from the EnergyPlus sizing report into ten datapoints. The power values are calculated for each flowrate datapoint with the power curve coefficients from EnergyPlus. </p>
+<p>Fan performance data record.  The volume flowrate values are derived by splitting
+the nominal flowrate from the EnergyPlus sizing report into ten datapoints. The
+power values are calculated for each flowrate datapoint with the power curve
+coefficients from EnergyPlus. </p>
 </html>",   revisions="<html>
 <ul>
-<li>
-September 06, 2022, by Karthik Devaprasad:
-<br/>
-Initial version
-</li>
-</ul>
+    <li>
+    September 24, 2024 by Xing Lu, Karthik Devaprasad and Cerrina Mouchref:</br>
+    First implementation.
+    </li>
+    </ul>
 </html>"));
-end FanData;
+end Fan;

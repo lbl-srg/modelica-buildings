@@ -1,13 +1,14 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater;
-model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
+model PumpedCondenser "Pumped heat pump water heater model"
   extends
     Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses.PartialHeatPumpWaterHeater(
-      redeclare Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi,
-      redeclare Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
+    redeclare parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.PumpedCondenser
+      datHPWH,
+    redeclare Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       redeclare package MediumHex = MediumTan,
-      hHex_a=datWT.hSegTop,
-      hHex_b=datWT.hSegBot,
+      hHex_a=datHPWH.datTanWat.hSegTop,
+      hHex_b=datHPWH.datTanWat.hSegBot,
       Q_flow_nominal=Q_flow_nominal,
       TTan_nominal=293.15,
       THex_nominal=323.15,
@@ -23,82 +24,88 @@ model HeatPumpWaterHeaterPumped "Pumped heat pump water heater model"
     "Heat transfer at nominal conditions"
     annotation(Dialog(group="Nominal conditions"));
 
-    replaceable parameter Buildings.Fluid.Movers.Data.Generic pumPer
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for pump"
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{-70,-76},{-50,-56}})),Dialog(group="Pump parameters"));
-
   parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal
     "Nominal mass flow rate through the heat exchanger"
     annotation(Dialog(group="Nominal conditions"));
 
-  Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed sinSpeDXCoo(datCoi=
-    datCoi,
+  Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed sinSpeDXCoo(
+    datCoi=datHPWH.datCoi,
     redeclare package MediumEva = MediumAir,
     redeclare package MediumCon = MediumTan,
     dpEva_nominal=dpAir_nominal,
     dpCon_nominal=dpCon_nominal,
     final computeReevaporation=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(redeclare package Medium =
     MediumTan,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    per=pumPer,
+    per=datHPWH.datPum,
     m_flow_nominal=mHex_flow_nominal,
     dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-46,-44},{-26,-24}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-70,10})));
 
   Modelica.Blocks.Math.Add3 add "Addition of power"
-    annotation (Placement(transformation(extent={{66,-50},{86,-30}})));
+    annotation (Placement(transformation(extent={{70,10},{90,30}})));
 
   Modelica.Blocks.Math.Gain gai_mHex_flow(k=mHex_flow_nominal)
     "Nominal mass flow rate"
-    annotation (Placement(transformation(extent={{-34,10},{-26,18}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-40,30})));
 
   ExpansionVessel exp1(redeclare package Medium = MediumTan, V_start=1)
-    annotation (Placement(transformation(extent={{-70,-6},{-50,14}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-90,40})));
 
 
 equation
   connect(on,sinSpeDXCoo. on)
-    annotation (Line(points={{-120,0},{-80,0},{-80,68},{-61,68}}, color={255,0,255}));
+    annotation (Line(points={{-120,80},{-88,80},{-88,94},{-31,94},{-31,68}},
+                                                                  color={255,0,255}));
 
   connect(add.y, P)
-    annotation (Line(points={{87,-40},{110,-40}}, color={0,0,127}));
+    annotation (Line(points={{91,20},{110,20}},   color={0,0,127}));
 
   connect(fan.P, add.u1)
-    annotation (Line(points={{45,69},{48,69},{48,-32},{64,-32}}, color={0,0,127}));
+    annotation (Line(points={{51,69},{60,69},{60,28},{68,28}},   color={0,0,127}));
 
   connect(add.u2,sinSpeDXCoo. P)
-    annotation (Line(points={{64,-40},{8,-40},{8,69},{-39,69}},color={0,0,127}));
+    annotation (Line(points={{68,20},{50,20},{50,28},{-4,28},{-4,69},{-9,69}},
+                                                               color={0,0,127}));
 
   connect(add.u3, pum.P)
-    annotation (Line(points={{64,-48},{-18,-48},{-18,-25},{-25,-25}}, color={0,0,127}));
+    annotation (Line(points={{68,12},{60,12},{60,-2},{-48,-2},{-48,-1},{-61,-1}},
+                                                                      color={0,0,127}));
 
   connect(yMov.y, gai_mHex_flow.u)
-    annotation (Line(points={{-49,30},{-46,30},{-46,14},{-34.8,14}}, color={0,0,127}));
+    annotation (Line(points={{-59,80},{-40,80},{-40,42}},            color={0,0,127}));
 
   connect(gai_mHex_flow.y, pum.m_flow_in)
-    annotation (Line(points={{-25.6,14},{-20,14},{-20,0},{-36,0},{-36,-22}}, color={0,0,127}));
+    annotation (Line(points={{-40,19},{-40,10},{-58,10}},                    color={0,0,127}));
 
   connect(exp1.port_a, pum.port_a)
-    annotation (Line(points={{-60,-6},{-60,-34},{-46,-34}}, color={0,127,255}));
+    annotation (Line(points={{-90,30},{-90,24},{-70,24},{-70,20}},
+                                                            color={0,127,255}));
   connect(sinSpeDXCoo.port_b, fan.port_a)
-    annotation (Line(points={{-40,60},{24,60}}, color={0,127,255}));
+    annotation (Line(points={{-10,60},{30,60}}, color={0,127,255}));
 
   connect(port_a1, sinSpeDXCoo.port_a)
-    annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-30,60}}, color={0,127,255}));
 
   connect(pum.port_a, sinSpeDXCoo.portCon_b)
-    annotation (Line(points={{-46,-34},{-90,-34},{-90,46},{-56,46},{-56,50}}, color={0,127,255}));
+    annotation (Line(points={{-70,20},{-70,46},{-26,46},{-26,50}},            color={0,127,255}));
 
   connect(sinSpeDXCoo.portCon_a, tan.portHex_b)
-    annotation (Line(points={{-44,50},{-44,46},{18,46},{18,-34},{26,-34}}, color={0,127,255}));
+    annotation (Line(points={{-14,50},{-14,-38},{30,-38}},                 color={0,127,255}));
 
   connect(pum.port_b, tan.portHex_a)
-    annotation (Line(points={{-26,-34},{0,-34},{0,-29.8},{26,-29.8}}, color={0,127,255}));
+    annotation (Line(points={{-70,-3.55271e-15},{-70,-33.8},{30,-33.8}},
+                                                                      color={0,127,255}));
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
@@ -109,6 +116,11 @@ equation
     <p>
     Please note that this model takes into account the detailed heat exchange of the circulation pump, which is not included in EnergyPlus. The heat exchanger component is absent from the EnergyPlus model. Similar to the wrapped configuration, the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
 </html>", revisions="<html>
-<p>September 24, 2024 by Xing Lu, Karthick Devaprasad and Cerrina Mouchref</p>
+    <ul>
+    <li>
+    September 24, 2024 by Xing Lu, Karthik Devaprasad and Cerrina Mouchref:</br>
+    First implementation.
+    </li>
+    </ul>
 </html>"));
-end HeatPumpWaterHeaterPumped;
+end PumpedCondenser;
