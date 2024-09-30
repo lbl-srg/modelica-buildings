@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses;
-partial model PartialHeatPumpWaterHeater
+partial model PartialHeater
   "Partial heat pump water heater model for wrapped and pumped configuration"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
   final m1_flow_nominal=mAir_flow_nominal,
@@ -7,9 +7,11 @@ partial model PartialHeatPumpWaterHeater
   redeclare package Medium1 = MediumAir,
   redeclare package Medium2 = MediumTan);
 
-  package MediumAir = Buildings.Media.Air "Medium in the air";
+  package MediumAir = Buildings.Media.Air
+    "Medium representing outdoor air";
 
-  package MediumTan = Buildings.Media.Water "Medium in the tank";
+  package MediumTan = Buildings.Media.Water
+    "Medium in the tank";
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Nominal mass flow rate of air"
@@ -76,33 +78,37 @@ partial model PartialHeatPumpWaterHeater
     per=datHPWH.datFan,
     m_flow_nominal=mAir_flow_nominal,
     dp_nominal=dpAir_nominal)
+    "Evaporator coil fan"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
 
   replaceable Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WrappedCondenser datHPWH
-    constrainedby Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WrappedCondenser
+    constrainedby
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.WrappedCondenser
     "Data record for system components"
     annotation (Placement(transformation(extent={{70,72},{90,92}})),
       choicesAllMatching=true);
 
     //--inputs--//
   Modelica.Blocks.Interfaces.BooleanInput on
-    "Heat pump water heater on/off signal" annotation (Placement(transformation(extent={{-140,60},
-            {-100,100}}), iconTransformation(extent={{-140,-20},{-100,20}})));
+    "Heat pump water heater on/off signal"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   //--outputs--//
 
   Modelica.Blocks.Interfaces.RealOutput TWat(
     final unit="K",
-    displayUnit="degC") "Absolute temperature as output signal"
+    displayUnit="degC")
+    "Absolute temperature as output signal"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-20},{120,0}})));
+      iconTransformation(extent={{100,-20},{120,0}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
     final unit="W")
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,10},{120,30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-50},{120,-30}})));
 
 equation
   connect(fan.port_b, port_b1)
@@ -184,9 +190,9 @@ equation
     info="<html>
     <p>
     This partial model is the base class for
-    <a href=\"Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser\">
+    <a href=\"modelica://Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser\">
     Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser</a> and
-    <a href=\"Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser\">
+    <a href=\"modelica://Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser\">
     Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser</a>.
     </p>
     </html>", revisions="<html>
@@ -197,4 +203,4 @@ equation
     </li>
     </ul>
 </html>"));
-end PartialHeatPumpWaterHeater;
+end PartialHeater;

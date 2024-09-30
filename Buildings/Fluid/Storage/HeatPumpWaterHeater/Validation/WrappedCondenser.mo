@@ -32,7 +32,7 @@ model WrappedCondenser
           TEvaInMin=280.35,
           TEvaInMax=322.04))},
                 nSta=1)
-                "Coil data"
+    "Coil data"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
@@ -77,7 +77,7 @@ model WrappedCondenser
     redeclare package Medium = MediumTan,
     T=273.15 + 20,
     nPorts=1)
-    "Sink of water"
+    "Sink for water"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTemTop
@@ -91,13 +91,14 @@ model WrappedCondenser
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumAir,
     final p(displayUnit="Pa"),
-    final nPorts=1) "Sink of air"
+    final nPorts=1)
+    "Sink for air"
     annotation (Placement(transformation(extent={{50,20},{30,40}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(
     redeclare package Medium = MediumTan,
     m_flow_nominal=0.1)
-      "Water outlet temperature sensor"
+    "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
@@ -127,7 +128,7 @@ model WrappedCondenser
     final use_m_flow_in=true,
     final use_T_in=true,
     final nPorts=1)
-    "Mass flow source for DHW"
+    "Mass flow source for DHW return"
     annotation (Placement(transformation(extent={{110,-40},{90,-20}})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTemBot
@@ -230,7 +231,7 @@ equation
             {160,100}})),
       experiment(
         StartTime=18316800,
-        StopTime=19526400,
+        StopTime=18403200,
         Tolerance=1e-06,
         __Dymola_Algorithm="Cvode"),
       __Dymola_Commands(file=
@@ -238,11 +239,15 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
     <p>
-    This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser. </p>
+    This model validates the class
+    <a href=\"modelica://Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser\">
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.WrappedCondenser</a>.
+    </p>
     <p>
-    The EnergyPlus results were generated using the example file WaterHeaterHeatPumpWrappedCondenser.idf
-    from EnergyPlus 9.6. The results were then used to set-up the boundary conditions
-    for the model as well as the input signals.</p>
+    The EnergyPlus results are generated using the example file
+    <code>WaterHeaterHeatPumpWrappedCondenser.idf</code> from EnergyPlus 9.6. The
+    results are then used to set-up the boundary conditions for the model as well
+    as the input signals.</p>
 </html>", revisions="<html>
     <ul>
     <li>

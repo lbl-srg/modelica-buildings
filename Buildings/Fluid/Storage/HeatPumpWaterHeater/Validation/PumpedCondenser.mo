@@ -44,7 +44,8 @@ model PumpedCondenser
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
 
-  Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.2)
+  Modelica.Blocks.Math.RealToBoolean realToBoolean(
+    final threshold=0.2)
     "Convert real to boolean"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
@@ -64,20 +65,23 @@ model PumpedCondenser
     dpCon_nominal(displayUnit="Pa") = 45000,
     Q_flow_nominal=4500,
     mHex_flow_nominal=0.33,
-    tan(T_start=322.04)) "Heat pump water heater"
+    tan(T_start=322.04))
+    "Heat pump water heater"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     from_dp=true,
     redeclare package Medium = MediumTan,
     dp_nominal=5000,
-    m_flow_nominal=0.1) "Resistance in the water loop"
+    m_flow_nominal=0.1)
+    "Resistance in the water loop"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = MediumTan,
     T=273.15 + 20,
-    nPorts=1) "Sink of water"
+    nPorts=1)
+    "Sink for water"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTemTop
@@ -93,7 +97,7 @@ model PumpedCondenser
     redeclare package Medium = MediumAir,
     final p(displayUnit="Pa"),
     final nPorts=1)
-    "Sink of air"
+    "Sink for air"
     annotation (Placement(transformation(extent={{50,20},{30,40}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemOut(
@@ -102,20 +106,22 @@ model PumpedCondenser
      "Water outlet temperature sensor"
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(redeclare package Medium
-      =                                                                          MediumTan,
-      m_flow_nominal=0.1) "Water inlet temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemIn(
+    redeclare package Medium = MediumTan,
+    m_flow_nominal=0.1)
+    "Water inlet temperature sensor"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
 
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K
-  "Converts degC to K"
+    "Converts degC to K"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 
   Buildings.Fluid.Sources.Boundary_pT bouAir(
     redeclare package Medium = MediumAir,
     final use_Xi_in=true,
     final use_T_in=true,
-    nPorts=1) "Mass flow source for coil inlet air"
+    nPorts=1)
+    "Mass flow source for coil inlet air"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
@@ -127,7 +133,7 @@ model PumpedCondenser
     final use_m_flow_in=true,
     final use_T_in=true,
     final nPorts=1)
-    "Mass flow source for DHW"
+    "Mass flow source for DHW return"
     annotation (Placement(transformation(extent={{110,-40},{90,-20}})));
 
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTemBot
@@ -231,7 +237,7 @@ equation
             {160,100}})),
     experiment(
       StartTime=18316800,
-      StopTime=19526400,
+      StopTime=18403200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
@@ -239,9 +245,20 @@ equation
         "Simulate and Plot"),
     Documentation(info="<html>
     <p>
-    This model validates the model Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser. </p>
+    This model validates the class
+    <a href=\"modelica://Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser\">
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.PumpedCondenser</a>.
+    </p>
     <p>
-    Due to the constraints of the EnergyPlus example results for the pumped configuration, cross-comparison is employed to assess the performance of the pumped configuration relative to the wrapped configuration. The same boundary conditions used for the wrapped configuration are applied. The results indicate that the pumped configuration exhibits greater power consumption compared to the wrapped configuration, attributed to a higher heating coil condenser temperature.</p>
+    Due to the constraints of the EnergyPlus example results for the pumped
+    configuration, cross-comparison with the wrapped condenser validation model
+    <a href=\"modelica://Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.WrappedCondenser\">
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.WrappedCondenser</a>
+    is employed to assess the performance of the pumped configuration. The same
+    boundary conditions used for the wrapped configuration are applied. The results
+    indicate that the pumped configuration exhibits greater power consumption compared
+    to the wrapped configuration, attributed to a higher heating coil condenser
+    temperature.</p>
 </html>", revisions="<html>
     <ul>
     <li>

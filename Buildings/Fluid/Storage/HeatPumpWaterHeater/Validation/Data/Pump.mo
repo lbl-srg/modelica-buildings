@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater.Validation.Data;
 record Pump
-  "Pump data"
+  "Pump performance data for HPWH validation"
   extends Buildings.Fluid.Movers.Data.Generic(
     power(V_flow={0,0.000033, 0.000066, 0.000099, 0.000132, 0.000165, 0.000198, 0.000231, 0.000264, 0.000297, 0.00033},
     P={4.168, 6.236, 8.117, 10.168, 12.749, 16.219, 20.934, 27.255, 35.539, 46.144, 59.429}),
@@ -11,10 +11,11 @@ record Pump
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
-<p>Pump performance data record.  The volume flowrate values are derived by splitting
-the nominal flowrate from the EnergyPlus sizing report into ten datapoints. The
-power values are calculated for each flowrate datapoint with the power curve coefficients
-from EnergyPlus. </p>
+<p>Pump performance data record for use in the validation models, derived from the
+EnergyPlus example model <code>WaterHeaterHeatPumpWrappedCondenser.idf</code>. The
+volume flowrate values are derived by splitting the nominal flowrate from the
+EnergyPlus sizing report into ten datapoints. The power values are calculated for
+each flowrate datapoint with the power curve coefficients from EnergyPlus.</p>
 </html>",   revisions="<html>
 <ul>
     <li>
