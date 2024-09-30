@@ -121,3 +121,17 @@ jobs:
                    chmod u=rw,og=rw $ff
                 done
               done
+
+  test-checksum:
+    # Skip if the commit message contains "ci skip"
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so job can access it
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Compute the checksum and check that it matches the value from the last commit
+        run: ./Resources/Scripts/travis/templates/checkandrun.sh --checksum --skip --diffhead

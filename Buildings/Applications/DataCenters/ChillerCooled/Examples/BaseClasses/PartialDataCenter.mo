@@ -56,7 +56,9 @@ partial model PartialDataCenter
   parameter Modelica.Units.SI.Pressure dpSetPoi=80000
     "Differential pressure setpoint";
 
-  replaceable Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE chiWSE(
+  replaceable
+    Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialChillerWSE
+    chiWSE(
     redeclare replaceable package Medium1 = MediumW,
     redeclare replaceable package Medium2 = MediumW,
     numChi=numChi,
@@ -71,10 +73,9 @@ partial model PartialDataCenter
     redeclare each
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YT_1055kW_5_96COP_Vanes
       perChi,
-    use_inputFilter=false,
+    use_strokeTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_controller=false)
-    "Chillers and waterside economizer"
+    use_controller=false) "Chillers and waterside economizer"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sources.Boundary_pT expVesCW(
     redeclare replaceable package Medium = MediumW,
@@ -120,9 +121,8 @@ partial model PartialDataCenter
     each addPowerToMedium=false,
     per=perPumCW,
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    each use_inputFilter=false)
-    "Condenser water pump"
-    annotation (Placement(transformation(
+    each use_riseTime=false) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-50,100})));
@@ -187,7 +187,7 @@ partial model PartialDataCenter
     redeclare each package Medium = MediumW,
     each m_flow_nominal=m1_flow_chi_nominal,
     each dpValve_nominal=6000,
-    each use_inputFilter=false)
+    each use_strokeTime=false)
     "Shutoff valves"
     annotation (Placement(transformation(extent={{70,130},{50,150}})));
 
@@ -321,7 +321,7 @@ equation
             color={0,127,255},
             thickness=0.5));
   connect(weaBus.TWetBul, cooTow[i].TAir) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{32,200},{32,144},{22,144}},
+      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{32,200},{32,144},{22,144}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -484,13 +484,13 @@ equation
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
+      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)

@@ -100,7 +100,7 @@ equation
     experiment(
       StartTime=-660000,
       StopTime=0,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/Validation/OptimalStartCoolingNegativeStartTime.mos" "Simulate and plot"),
     Documentation(

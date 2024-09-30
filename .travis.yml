@@ -32,9 +32,9 @@ env:
   global:
     - DOCKER_REPONAME=lbnlblum
     - BUILDINGSPY_VERSION=BuildingsPy@0bc654fd913c83f64163be167807e8989eff0293
-    - OMC_VERSION=ubuntu-2204-omc:1.22.1-1
-    - OPTIMICA_VERSION=travis-ubuntu-2204-optimica:1.48.2
-    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2024x-x86_64
+    - OMC_VERSION=ubuntu-2204-omc:1.23.0-1
+    - OPTIMICA_VERSION=travis-ubuntu-2204-optimica:1.51.6
+    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2024xRefresh1-x86_64
     - ENERGYPLUS_9_6_0=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
     - ENERGYPLUS_23_1_0=EnergyPlus-23.1.0-87ed9199d4-Linux-Ubuntu20.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
@@ -110,7 +110,6 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-openmodelica  PACKAGE=\"Buildings.Templates\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
-    - TEST_ARG="make test-templates-optimica"
     - TEST_ARG="make test-templates-dymola"
 
 before_install:
@@ -180,7 +179,7 @@ script:
   - |
     TRAVIS_WAIT=90
     if [[ "$TEST_ARG" == *test-templates* ]]; then
-      TRAVIS_WAIT=180
+      TRAVIS_WAIT=120
     fi
     (cd Buildings/Resources/Scripts/travis && travis_wait $TRAVIS_WAIT $TEST_ARG)
 

@@ -66,6 +66,14 @@ typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMo
 enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};
 
+typedef struct {
+  int startDayOfYear; /* Day of week from Buildings.ThermalZones.EnergyPlus_9_6_0.Types.WeekDays */
+  int applyWeekEndHolidayRule;
+  int use_weatherFileDaylightSavingPeriod;
+  int use_weatherFileHolidaysAndSpecialDays;
+  int use_weatherFileRainIndicators;
+  int use_weatherFileSnowIndicators;
+} runPeriod;
 
 typedef struct FMUBuilding
 {
@@ -78,6 +86,7 @@ typedef struct FMUBuilding
   char* idfVersion; /* IDF version with underscores, such as 9_6_0. This must be the same as is used as suffix for Buildings.ThermalZones.EnergyPlus_ */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
+  runPeriod* runPer; /* EnergyPlus RunPeriod */
   double relativeSurfaceTolerance; /* Relative surface tolerance for heat balance calculations */
   size_t nExcObj; /* Number of exc that use this FMU */
   void** exchange; /* Pointers to all exchange objects*/

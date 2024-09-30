@@ -4,6 +4,8 @@ package Types "Package with type definitions"
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
+      None
+      "No chiller",
       WaterCooled
       "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";
@@ -77,14 +79,13 @@ package Types "Package with type definitions"
       EquationFit
       "Heat pump model based on the equation fit method")
     "Enumeration to specify the heat pump model";
-  type IconPipe = enumeration(
+  type IntegrationPoint = enumeration(
       None
-      "No line",
+      "None",
       Return
-      "Return pipe - Dashed line",
+      "Return side",
       Supply
-      "Supply pipe - Solid line")
-    "Enumeration to specify the pipe symbol";
+      "Supply side") "Enumeration to specify the integration point of equipment";
   type Pump = enumeration(
       None
       "No pump",

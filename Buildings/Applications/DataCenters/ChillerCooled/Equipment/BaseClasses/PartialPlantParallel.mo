@@ -9,7 +9,7 @@ partial model PartialPlantParallel
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)},
     final deltaM=deltaM1);
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilter(
-    final numFil=num);
+    final numAct=num);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -26,9 +26,9 @@ partial model PartialPlantParallel
     each dpFixed_nominal=dp2_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final riseTime=riseTimeValve,
+    each final strokeTime=strokeTime,
     each final init=initValve,
-    each final use_inputFilter=false,
+    each final use_strokeTime=false,
     each final deltaM=deltaM2,
     each final l=l[2],
     final y_start=yValve_start,
@@ -49,8 +49,8 @@ partial model PartialPlantParallel
     each dpFixed_nominal=dp1_nominal,
     each final show_T=show_T,
     each final homotopyInitialization=homotopyInitialization,
-    each final use_inputFilter=false,
-    each final riseTime=riseTimeValve,
+    each final use_strokeTime=false,
+    each final strokeTime=strokeTime,
     each final init=initValve,
     final y_start=yValve_start,
     each final deltaM=deltaM1,
@@ -80,9 +80,9 @@ equation
       annotation (Line(points={{-40,-42},{-40,-60},{-100,-60}},
         color={0,127,255}));
   end for;
-  if use_inputFilter then
-    connect(booToRea.y, filter.u)
-      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-55.2,84}},
+  if use_strokeTime then
+    connect(booToRea.y, actPos.u)
+      annotation (Line(points={{-67.4,40},{-60,40},{-60,84},{-48.8,84}},
         color={0,0,127}));
   else
     connect(booToRea.y, y_actual)
@@ -117,6 +117,11 @@ The signal filter is used to smoothe the on/off signal for the valves.
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear actuator travel dynamics.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

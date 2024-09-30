@@ -28,6 +28,7 @@ size_t AllocateBuildingDataStructure(
   const char* idfVersion,
   const char* idfName,
   const char* epwName,
+  const runPeriod* runPer,
   double relativeSurfaceTolerance,
   int usePrecompiledFMU,
   const char* fmuName,
@@ -138,6 +139,12 @@ size_t AllocateBuildingDataStructure(
     &(Buildings_FMUS[nFMU]->weather),
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->weather, epwName);
+
+  /* Assign the RunPeriod object */
+  Buildings_FMUS[nFMU]->runPer = malloc(sizeof(runPeriod));
+  if ( Buildings_FMUS[nFMU]->runPer == NULL )
+    SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU[nFMU]->runPer.");
+  memcpy(Buildings_FMUS[nFMU]->runPer, runPer, sizeof(runPeriod));
 
   /* Set relative surface tolerance */
   Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
@@ -321,6 +328,8 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->idfName);
     if (bui->weather != NULL)
       free(bui->weather);
+    if (bui->runPer != NULL)
+      free(bui->runPer);
     if (bui->exchange != NULL)
       free(bui->exchange);
     if (bui->tmpDir != NULL)

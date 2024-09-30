@@ -56,7 +56,7 @@ model DryCoilDiscretizedPControl
     redeclare package Medium = Medium1,
     l=0.005,
     m_flow_nominal=m1_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpFixed_nominal=2000 + 3000,
     dpValve_nominal=6000) "Valve model"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
