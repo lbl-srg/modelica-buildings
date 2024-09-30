@@ -27,7 +27,7 @@ model SingleSpeed
           Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves.Curve_II())},
     nSta=1)
     "Coil data"
-    annotation (Placement(transformation(extent={{58,60},{78,80}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed
     sinSpeDX(
