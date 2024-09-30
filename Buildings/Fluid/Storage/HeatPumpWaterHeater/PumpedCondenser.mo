@@ -60,11 +60,12 @@ model PumpedCondenser "Pumped heat pump water heater model"
         origin={-40,30})));
 
   Buildings.Fluid.Storage.ExpansionVessel exp1(
-    redeclare package Medium = MediumTan)
+    redeclare package Medium = MediumTan,
+    final V_start=1)
     "Thermal expansion vessel for normalizing pressure in hot water loop"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-90,40})));
+        origin={-80,40})));
 
 
 equation
@@ -93,7 +94,7 @@ equation
     annotation (Line(points={{-40,19},{-40,10},{-58,10}},                    color={0,0,127}));
 
   connect(exp1.port_a, pum.port_a)
-    annotation (Line(points={{-90,30},{-90,24},{-70,24},{-70,20}},
+    annotation (Line(points={{-80,30},{-80,24},{-70,24},{-70,20}},
                                                             color={0,127,255}));
   connect(sinSpeDXCoo.port_b, fan.port_a)
     annotation (Line(points={{-10,60},{30,60}}, color={0,127,255}));
