@@ -3,7 +3,8 @@ record WrappedCondenser
   "Wrapped condenser heat pump water heater data"
   extends Modelica.Icons.Record;
   replaceable parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.Baseclasses.WaterTank datTanWat
-    constrainedby Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.Baseclasses.WaterTank
+    constrainedby
+    Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.Baseclasses.WaterTank
     "Sizing and performance data for water tank and integrated condenser coil/heat exchanger"
     annotation(choicesAllMatching=true);
 
@@ -13,7 +14,8 @@ record WrappedCondenser
     annotation(choicesAllMatching=true);
 
   replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi
-    constrainedby Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
+    constrainedby
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     "Sizing and performance data for evaporator coil"
     annotation(choicesAllMatching=true);
 

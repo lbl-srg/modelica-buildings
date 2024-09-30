@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater;
 model PumpedCondenser "Pumped heat pump water heater model"
-  extends
-    Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses.PartialHeatPumpWaterHeater(
+  extends Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses.PartialHeater(
     redeclare parameter Buildings.Fluid.Storage.HeatPumpWaterHeater.Data.PumpedCondenser
       datHPWH,
     redeclare Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
@@ -36,6 +35,7 @@ model PumpedCondenser "Pumped heat pump water heater model"
     dpCon_nominal=dpCon_nominal,
     final computeReevaporation=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single-speed air-to-water heating coil"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(redeclare package Medium =
@@ -44,20 +44,24 @@ model PumpedCondenser "Pumped heat pump water heater model"
     per=datHPWH.datPum,
     m_flow_nominal=mHex_flow_nominal,
     dp_nominal=100000)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-70,10})));
+    "Hot water circulation pump"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=270,
+      origin={-70,10})));
 
-  Modelica.Blocks.Math.Add3 add "Addition of power"
+  Modelica.Blocks.Math.Add3 add
+    "Addition of power"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
 
-  Modelica.Blocks.Math.Gain gai_mHex_flow(k=mHex_flow_nominal)
+  Modelica.Blocks.Math.Gain gai_mHex_flow(
+    final k=mHex_flow_nominal)
     "Nominal mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,30})));
 
-  ExpansionVessel exp1(redeclare package Medium = MediumTan, V_start=1)
+  Buildings.Fluid.Storage.ExpansionVessel exp1(
+    redeclare package Medium = MediumTan)
+    "Thermal expansion vessel for normalizing pressure in hot water loop"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-90,40})));
@@ -110,11 +114,40 @@ equation
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>
-    This is a model of a heat pump water heater with pumped condenser for thermal energy storage based on the EnergyPlus model WaterHeater:HeatPump:PumpedCondenser. </p>
+    This is a model of a heat pump water heater with pumped condenser for thermal
+    energy storage based on the EnergyPlus model <code>WaterHeater:HeatPump:PumpedCondenser</code>.
+    </p>
     <p>
-    The system model is composed of the following component model: (1) A stratified water tank (2) A single speed air-to-water heating coil (3) A supply fan (4) A circulation pump. </p>
+    The system model consists of the following components:
+    <ul>
+    <li>
+    A stratified water tank of class
+    <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+    Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a>
+    </li>
+    <li>
+    A single speed air-to-water heating coil of class
+    <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed\">
+    Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed</a>
+    </li>
+    <li>
+    An evaporator coil fan of class
+    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+    </li>
+    <li> A circulation pump of class
+    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+    </li>
+    </ul>
+    </p>
     <p>
-    Please note that this model takes into account the detailed heat exchange of the circulation pump, which is not included in EnergyPlus. The heat exchanger component is absent from the EnergyPlus model. Similar to the wrapped configuration, the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
+    Please note that this model takes into account the detailed heat exchange of
+    the circulation pump, which is not included in EnergyPlus. The heat exchanger
+    component is absent from the EnergyPlus model. Similar to the wrapped configuration,
+    the performance curve of the EIR as a function of fluid temperatures needs to
+    be provided for this class while the EnergyPlus model requires the COP curve
+    as a function of fluid temperatures.</p>
 </html>", revisions="<html>
     <ul>
     <li>

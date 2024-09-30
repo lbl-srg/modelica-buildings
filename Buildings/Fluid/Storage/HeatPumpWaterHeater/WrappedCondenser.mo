@@ -1,20 +1,19 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater;
 model WrappedCondenser "Wrapped heat pump water heater model"
-  extends
-    Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses.PartialHeatPumpWaterHeater;
+  extends Buildings.Fluid.Storage.HeatPumpWaterHeater.BaseClasses.PartialHeater;
 
    Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TConWat[datHPWH.datTanWat.nSegCon]
     "Water temperatures that the condenser see"
     annotation (Placement(transformation(extent={{-20,0},{-40,20}})));
 
-    Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed sinSpeDXCoo(
-      datCoi=datHPWH.datCoi,
-      redeclare package Medium = MediumAir,
-      from_dp=true,
-      dp_nominal=dpAir_nominal,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-      "Single speed DX cooling coil"
-      annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed sinSpeDXCoo(
+    datCoi=datHPWH.datCoi,
+    redeclare package Medium = MediumAir,
+    from_dp=true,
+    dp_nominal=dpAir_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single speed DX cooling coil"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Modelica.Blocks.Sources.RealExpression QCon[datHPWH.datTanWat.nSegCon](
     final y={-sinSpeDXCoo.dxCoi.Q_flow*datHPWH.datTanWat.conHeaFraSca[i] for i in 1:datHPWH.datTanWat.nSegCon})
@@ -98,29 +97,47 @@ equation
         Rectangle(extent={{50,68},{40,-66}},lineColor={0,0,255},pattern=LinePattern.None,fillColor={255,255,0},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-      experiment(
-      StopTime=10800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
-    
     <p>
-    This is a model of a heat pump water heater with wrapped condenser for thermal energy storage based on the EnergyPlus model WaterHeater:HeatPump:WrappedCondenser. </p>
+    This is a model of a heat pump water heater with wrapped condenser for thermal
+    energy storage based on the EnergyPlus model
+    <code>WaterHeater:HeatPump:WrappedCondenser</code>.</p>
     <p>
-    The system model is composed of the following component model: (1) A stratified water tank (2) A single speed wrapped water heating coil (3) A supply fan. </p>
-    <p>
-    The following assumptions are made based on the EnergyPlus source codes:</p>
+    The system model consists of the following components:
     <ul>
-    
+    <li>A stratified water tank of class
+    <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+    Buildings.Fluid.Storage.StratifiedEnhanced</a>.
+    </li>
     <li>
-    The condenser temperature of the water heating coil is the weighted average temperatures of the water tank nodes that the wrapped condenser coil sees.</li>
+    A single speed water heating coil whose condenser is wrapped around the water
+    tank. The effective heat transfer is calculated using the class
+    <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed\">
+    Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed</a>
+    </li>
     <li>
-    The heat flow fraction into each tank node the condenser coil sees is assumed to be equal to the ratio of the condenser coil height in the tank node.</li>
+    An evaporator coil fan of class
+    <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
+    Buildings.Fluid.Movers.FlowControlled_m_flow</a>
+    </li>
     </ul>
-    
+    </p>
     <p>
-    Please note that the performance curve of the EIR for fluid temperatures needs to be given in this model while the EnergyPlus model requires the COP curve for fluid temperatures as the counterpart.</p>
-    
+    The following assumptions are made based on the EnergyPlus source code:</p>
+    <ul>
+    <li>
+    The condenser temperature of the water heating coil is the weighted average
+    temperatures of the water tank nodes that the wrapped condenser coil is
+    thermally coupled with.
+    </li>
+    <li>
+    The heat flow fraction into each tank node the condenser coil sees is assumed
+    to be equal to the ratio of the condenser coil height in the tank node.</li>
+    </ul>
+    <p>
+    Please note that the performance curve of the EIR as a function of fluid
+    temperatures needs to be provided to this model while the EnergyPlus model
+    requires the COP curve as a function of fluid temperatures.</p>
     </html>", revisions="<html>
     <ul>
     <li>

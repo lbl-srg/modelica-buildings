@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.HeatPumpWaterHeater;
-package Validation
+package Validation "Validation models for heat pump water heater models"
   extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
