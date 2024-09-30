@@ -6,7 +6,7 @@ record WaterTank "Example data record for hot water tank"
     dIns = 0.05,
     kIns = 0.04,
     hTemSen = 1.0625,
-    nSeg = 12,
+    nSeg = 5,
     hSegBot = 0.08,
     hSegTop = 0.86);
 

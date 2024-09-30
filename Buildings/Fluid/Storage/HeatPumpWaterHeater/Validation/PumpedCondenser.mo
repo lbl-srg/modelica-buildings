@@ -36,9 +36,9 @@ model PumpedCondenser
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final fileName=ModelicaServices.ExternalReferences.loadResource(
-      "modelica://Buildings/Resources/Data/Fluid/Storage/HeatPumpWaterHeater/Validation/HeatPumpWaterHeaterWrapped/WaterHeaterHeatPumpWrappedCondenser.dat"),
+      "modelica://Buildings/Resources/Data/Fluid/Storage/HeatPumpWaterHeater/Validation/WrappedCondenser.dat"),
     final tableOnFile=true,
-    final columns=2:31,
+    final columns=2:24,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
