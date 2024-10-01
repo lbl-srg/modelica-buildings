@@ -34,7 +34,7 @@ model MoistAirEnthalpyFlowRate
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Specific enthalpy sensor"
                 annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flow(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,10},{48,30}})));
   Modelica.Blocks.Math.Product pro "Product to compute enthalpy flow rate"
@@ -60,12 +60,12 @@ equation
   connect(senH_flow.port_b, senH.port_a) annotation (Line(
       points={{-10,20},{-5.55112e-16,20}},
       color={0,127,255}));
-  connect(senH.port_b, senM_flow.port_a) annotation (Line(
+  connect(senH.port_b, senMasFlo.port_a) annotation (Line(
       points={{20,20},{28,20}},
       color={0,127,255}));
   connect(senH.h_out, pro.u1) annotation (Line(points={{10,31},{10,38},{10,76},
           {58,76}},          color={0,0,127}));
-  connect(senM_flow.m_flow, pro.u2) annotation (Line(points={{38,31},{38,48},{
+  connect(senMasFlo.m_flow, pro.u2) annotation (Line(points={{38,31},{38,48},{
           38,64},{58,64}},       color={0,0,127}));
   connect(senHLat_flow.H_flow, add.u1) annotation (Line(
       points={{-50,-59},{-50,-30},{18,-30}},
@@ -73,7 +73,7 @@ equation
   connect(senHSen_flow.H_flow, add.u2) annotation (Line(
       points={{-10,-59},{-10,-42},{18,-42}},
       color={0,0,127}));
-  connect(senM_flow.port_b, senHLat_flow.port_a) annotation (Line(
+  connect(senMasFlo.port_b, senHLat_flow.port_a) annotation (Line(
       points={{48,20},{60,20},{60,0},{-70,0},{-70,-70},{-60,-70}},
       color={0,127,255}));
   connect(senHLat_flow.port_b, senHSen_flow.port_a)

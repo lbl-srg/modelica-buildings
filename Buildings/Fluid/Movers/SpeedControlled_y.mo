@@ -14,7 +14,8 @@ model SpeedControlled_y
     eff(per(
         final pressure=per.pressure,
         final etaHydMet=per.etaHydMet,
-        final etaMotMet=per.etaMotMet), r_N(start=y_start)));
+        final etaMotMet=per.etaMotMet),
+        r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
@@ -87,9 +88,8 @@ User's Guide</a> for more information.
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear dynamics for change in motor speed.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
-for  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
 </li>
-
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Removed the modification that normalised the speed input
@@ -129,7 +129,7 @@ This is for
 </li>
 <li>
 March 24, 2017, by Michael Wetter:<br/>
-Renamed <code>filteredSpeed</code> to <code>use_riseTime</code>.<br/>
+Renamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/665\">#665</a>.
 </li>
