@@ -118,6 +118,12 @@ The signal filter is used to smoothe the on/off signal for the valves.
         revisions="<html>
 <ul>
 <li>
+September 4, 2024, by Jianjun Hu:<br/>
+Added input filter to the isolation valve 2.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
+<li>
 August 26, 2024, by Michael Wetter:<br/>
 Implemented linear actuator travel dynamics.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.

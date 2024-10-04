@@ -60,6 +60,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel
+    </td>
+    <td valign=\"top\">Added input filter to the isolation valve 2.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone</b>
     </td>
 </tr>
@@ -211,6 +220,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage<br/>
+                       Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                       Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Added plant on signal to pumps control.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
