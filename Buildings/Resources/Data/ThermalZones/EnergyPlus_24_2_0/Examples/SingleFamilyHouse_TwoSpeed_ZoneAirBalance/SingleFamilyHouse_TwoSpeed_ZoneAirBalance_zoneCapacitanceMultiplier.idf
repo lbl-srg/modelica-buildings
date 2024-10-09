@@ -101,7 +101,7 @@
 ! Utility Tariffs:                None
 !
 
-  Version,24.1;
+  Version,24.2;
 
   Building,
     Single family House,     !- Name
@@ -1223,6 +1223,14 @@
     0,                       !- Temperature Term Coefficient
     0,                       !- Velocity Term Coefficient
     0;                       !- Velocity Squared Term Coefficient
+
+  ZoneCapacitanceMultiplier:ResearchSpecial,
+    Living zone heat capacitance multiplier,  !- Name
+    LIVING ZONE,             !- Zone or ZoneList Name
+    10,                      !- Temperature Capacity Multiplier
+    1.0,                     !- Humidity Capacity Multiplier
+    1.0,                     !- Carbon Dioxide Capacity Multiplier
+    1.0;                     !- Generic Contaminant Capacity Multiplier
 
   ElectricEquipment,
     LIVING ZONE ElecEq,      !- Name
