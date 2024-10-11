@@ -169,14 +169,14 @@
   openmodelica:
     comment: Simulation terminated at time 4.59003e+07.
     simulate: false
-- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
-  openmodelica:
-    comment: Takes 230 s to compute locally with OpenModelica 1.25.0~dev-57-g8f280d6
-    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
+- model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoPipesConduit
+  openmodelica:
+    comment: Takes 230 s to compute locally with OpenModelica 1.25.0~dev-57-g8f280d6
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Validation.GroundCouplingAIT
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
@@ -199,7 +199,7 @@
     simulate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
   openmodelica:
-    rtol: 1.0E-8
+    rtol: 1.0e-08
 - model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
