@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "PLig.y",
+    "ligPow.y",
+    "zon.TAir"
+  };

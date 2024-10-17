@@ -6,6 +6,14 @@ class Version_12_0_0 "Version 12.0.0"
 <p>
 Version 12.0.0 is ... xxx
 </p>
+<p>
+The following major changes have been done compared to release 11:
+</p>
+<ul>
+<li>
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -44,12 +52,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Updated the EnergyPlus coupling to use
+                       EnergyPlus version 24.2.0.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
     </td>
     </tr>
 </table>
