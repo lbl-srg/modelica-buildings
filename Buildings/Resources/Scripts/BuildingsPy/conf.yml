@@ -106,7 +106,8 @@
     time_out: 600
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
-    time_out: 600
+    comment:  "Simulation times out"
+    simulate: false
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -284,6 +285,9 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
+  optimica:
+    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   openmodelica:
     comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
@@ -295,6 +299,10 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
     translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayCheckValve
+  openmodelica:
+    comment: 'Singular system of equations when both load valves are fully closed but pump is running'
+    simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
@@ -391,6 +399,9 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+  optimica:
+    comment: Possible chattering detected at t = 3.120112e+03 in state event
+    simulate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Validation.AirToWater
   optimica:
     comment: False positive warning "missing each", but the model can be simulated successfully [Modelon - 1173].

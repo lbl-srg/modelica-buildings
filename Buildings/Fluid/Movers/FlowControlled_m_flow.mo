@@ -4,40 +4,34 @@ model FlowControlled_m_flow
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    final stageInputs(each final unit="kg/s")=massFlowRates,
-    final constInput(final unit="kg/s")=constantMassFlowRate,
-    final _m_flow_nominal = m_flow_nominal,
-    filter(
+    final stageInputs(each final unit="kg/s") = massFlowRates,
+    final constInput(final unit="kg/s") = constantMassFlowRate,
+    final _m_flow_nominal=m_flow_nominal,
+    motSpe(
+      Rising=m_flow_nominal/riseTime,
+      Falling=-m_flow_nominal/riseTime,
       final y_start=m_flow_start,
-      u(final unit="kg/s"),
-      y(final unit="kg/s"),
-      x(each nominal=m_flow_nominal),
-      u_nominal=m_flow_nominal),
-    eff(
-      per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
+      u(final unit="kg/s", nominal=m_flow_nominal),
+      y(final unit="kg/s", nominal=m_flow_nominal)),
+    eff(per(
+        final pressure=if per.havePressureCurve then per.pressure else
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-        final etaHydMet=
-          if (per.etaHydMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
-            or per.etaHydMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri - 1)},
+            dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
+        final etaHydMet=if (per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
             and not per.havePressureCurve then
               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
-          else per.etaHydMet,
-        final etaMotMet=
-          if (per.etaMotMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
-            or per.etaMotMet ==
-               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+            else
+              per.etaHydMet,
+        final etaMotMet=if (per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
             and (not per.haveWMot_nominal and not per.havePressureCurve) then
-               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
-          else per.etaMotMet),
-      r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
+              Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+            else per.etaMotMet), r_N(start=if abs(m_flow_nominal) > 1E-8 then
+              m_flow_start/m_flow_nominal
+            else
+              0)),
     preSou(m_flow_start=m_flow_start));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
@@ -53,7 +47,7 @@ model FlowControlled_m_flow
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_start(min=0) = 0
     "Initial value of mass flow rate"
-    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
 
   parameter Modelica.Units.SI.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant" annotation (
@@ -97,16 +91,11 @@ equation
     or if the performance record is unreasonable. Please verify your model, and
     consider using one of the other pump or fan models.");
 
-  if use_inputFilter then
-    connect(filter.y, m_flow_actual) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(filter.y, preSou.m_flow_in)
-      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
+  if use_riseTime then
+    connect(motSpe.y, preSou.m_flow_in)
+      annotation (Line(points={{41,70},{44,70},{44,8}},
+                                                     color={0,0,127}));
   else
-  connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
-                                             color={0,0,127}));
   connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
       points={{1,50},{44,50},{44,8}},
       color={0,0,127},
@@ -118,6 +107,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(eff.m_flow, senMasFlo.m_flow)
+    annotation (Line(points={{-34,-54},{-40,-54},{-40,-11}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, m_flow_actual) annotation (Line(points={{-40,-11},{
+          -40,-20},{-20,-20},{-20,20},{80,20},{80,50},{110,50}}, color={0,0,127}));
   annotation (
       Icon(graphics={
         Text(
@@ -146,6 +139,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Refactored the model with a new declaration for

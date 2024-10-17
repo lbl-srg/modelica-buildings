@@ -31,16 +31,15 @@ model FanCoil2PipeHeatingValve
   parameter Modelica.Units.SI.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare final package Medium=Medium2,
+    redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     redeclare final Fluid.Movers.Data.Generic per,
     addPowerToMedium=true,
     nominalValuesDefineDefaultPressureCurve=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
-    final dp_nominal=dpLoa_nominal)
-    "Fan"
+    use_riseTime=false,
+    final dp_nominal=dpLoa_nominal) "Fan"
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Reals.PID con(
     Ti=10,
@@ -92,7 +91,7 @@ model FanCoil2PipeHeatingValve
     redeclare final package Medium=Medium1,
     final m_flow_nominal=mHeaWat_flow_nominal,
     dpValve_nominal=10000,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final allowFlowReversal=allowFlowReversal,
     dpFixed_nominal=dpSou_nominal-10000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-80})));
