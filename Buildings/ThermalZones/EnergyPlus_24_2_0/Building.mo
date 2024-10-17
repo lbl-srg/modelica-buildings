@@ -31,6 +31,13 @@ model Building
     "Name of the weather file, in .mos format and with .mos extension"
     annotation(Evaluate=false);
 
+  parameter Boolean autosizeHVAC=false
+    "Set to true to enable EnergyPlus HVAC autosizing";
+
+  parameter Boolean use_sizingPeriods=true
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
+    annotation(Dialog(enable=autosizeHVAC));
+
   parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Warning
     "Log level of EnergyPlus output"
     annotation (Dialog(tab="Debug"));

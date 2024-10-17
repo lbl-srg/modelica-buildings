@@ -340,6 +340,10 @@ method can be used.
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
 </li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
+</li>
 </ul>
 </html>"));
   end Conventions;

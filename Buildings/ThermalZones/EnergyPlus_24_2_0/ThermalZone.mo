@@ -5,6 +5,10 @@ model ThermalZone
     Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacZone = "default"
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Autosizing"));
+
   parameter Integer nPorts=0
     "Number of fluid ports (equals to 2 for one inlet and one outlet)"
     annotation (Evaluate=true,Dialog(connectorSizing=true,tab="General",group="Ports"));
@@ -101,10 +105,13 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final autosizeHVAC=autosizeHVAC,
+    final use_sizingPeriods=use_sizingPeriods,
     final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
     final zoneName=zoneName,
+    final hvacZone=hvacZone,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
