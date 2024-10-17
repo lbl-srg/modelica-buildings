@@ -14,7 +14,7 @@ model VariableSource
   parameter Modelica.Units.SI.MassFlowRate mCol_flow_nominal = 1
     "Nominal mass flow rate of condenser cold fluid";
 
-  Buildings.Fluid.CHPs.OrganicRankine.Cycle orc(
+  Buildings.Fluid.CHPs.OrganicRankine.ConstantEvaporation orc(
     redeclare package Medium1 = MediumHot,
     redeclare package Medium2 = MediumCol,
     pro=pro,
