@@ -17,9 +17,9 @@ partial model DoorDiscretized
   Modelica.Units.SI.Velocity vTop "Velocity at top of opening from A to B";
   Modelica.Units.SI.Velocity vBot "Velocity at bottom of opening from A to B";
 
-protected
-  parameter Modelica.Units.SI.Length dh=hOpe/nCom "Height of each compartment";
 
+  input Modelica.Units.SI.Length dh=hOpe/nCom "Height of each compartment";
+protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
@@ -28,11 +28,11 @@ protected
   parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Real hAg[nCom](each unit="m2/s2")=
+  input Real hAg[nCom](each unit="m2/s2")=
     {Modelica.Constants.g_n*(hA - (i - 0.5)*dh) for i in 1:nCom}
     "Product g*h_i for each compartment";
 
-  parameter Real hBg[nCom](each unit="m2/s2")=
+  input Real hBg[nCom](each unit="m2/s2")=
     {Modelica.Constants.g_n*(hB - (i - 0.5)*dh) for i in 1:nCom}
     "Product g*h_i for each compartment";
   Modelica.Units.SI.AbsolutePressure pA[nCom](each nominal=101325)
