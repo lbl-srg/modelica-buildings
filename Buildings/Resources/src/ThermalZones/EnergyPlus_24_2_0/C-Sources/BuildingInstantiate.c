@@ -62,30 +62,41 @@ void buildJSONKeyDoubleValue(
   buildJSONKeyLiteralValue(buffer, level, key, litVal, addComma, size, SpawnFormatError);
 }
 
-void openJSONModelBracket(char* *buffer, size_t* size, void (*SpawnFormatError)(const char *string, ...)){
-  saveAppend(buffer, "      {\n", size, SpawnFormatError);
+void openJSONModelBracket(char* *buffer, size_t level, size_t* size, void (*SpawnFormatError)(const char *string, ...)){
+  size_t iLevel;
+  for(iLevel = 0; iLevel < level; iLevel++)
+    saveAppend(buffer, "  ", size, SpawnFormatError);
+  saveAppend(buffer, "{\n", size, SpawnFormatError);
 }
 
 void closeJSONModelBracket(
-  char* *buffer, size_t i, size_t iMax, size_t* size,
+  char* *buffer, size_t level, size_t i, size_t iMax, size_t* size,
   void (*SpawnFormatError)(const char *string, ...)){
+  size_t iLevel;
+  for(iLevel = 0; iLevel < level; iLevel++)
+    saveAppend(buffer, "  ", size, SpawnFormatError);
   if (i < iMax -1)
-    saveAppend(buffer, "      },\n", size, SpawnFormatError);
+    saveAppend(buffer, "},\n", size, SpawnFormatError);
   else
-    saveAppend(buffer, "      }\n", size, SpawnFormatError);
+    saveAppend(buffer, "}\n", size, SpawnFormatError);
 }
 
 void closeJSONModelArrayBracket(
-  char* *buffer, size_t iMod, size_t nMod, size_t* size,
+  char* *buffer, size_t level, size_t iMod, size_t nMod, size_t* size,
   void (*SpawnFormatError)(const char *string, ...)){
+
+  size_t iLevel;
+  for(iLevel = 0; iLevel < level; iLevel++)
+    saveAppend(buffer, "  ", size, SpawnFormatError);
+
   /* Close json array bracket */
   if (iMod == nMod){
     /* There are no more other objects that belong to "model" */
-    saveAppend(buffer, "    ]\n", size, SpawnFormatError);
+    saveAppend(buffer, "]\n", size, SpawnFormatError);
   }
   else{
     /* There are other objects that belong to "model" */
-    saveAppend(buffer, "    ],\n", size, SpawnFormatError);
+    saveAppend(buffer, "],\n", size, SpawnFormatError);
   }
 }
 
@@ -115,6 +126,104 @@ char* getStartDayOfYear(
     }
     strcpy(day, days[startDay]);
     return day;
+}
+
+void buildJSONModelStructureForEnergyPlusHVACZones(
+  const FMUBuilding* bui, char* *buffer, size_t iMod, size_t nMod, size_t* size){
+  size_t i;
+  size_t iWri;
+  size_t k;
+  size_t iHVACZones;
+  size_t nTheZon = 0;  /* Number of thermal zones */
+  size_t nHVACZones = 0; /* Number of HVACZones */
+  bool recorded;
+  char **arrHVACZones = NULL;
+  size_t *couTheZon = NULL;
+
+  SpawnObject** ptrSpaObj = (SpawnObject**)bui->exchange;
+
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  /* Count how many thermal zones there are in each HVACZone */
+  /* Number of HVAC zones */
+  for(i = 0; i < bui->nExcObj; i++){
+    if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+      nTheZon++;
+    }
+  }
+  /* Array of names of HVACZone, or NULL if there are no more HVAC zones */
+  arrHVACZones = malloc(nTheZon * sizeof(char*));
+  if (arrHVACZones == NULL){
+    SpawnFormatError("%s", "Failed to allocate array for arrHVACZones.");
+  }
+  for(i = 0; i < nTheZon; i++)
+    arrHVACZones[i] = NULL;
+  /* Build set of names of all HVACZones */
+
+  for(i=0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        /* Check if we already have this HVACZone */
+        recorded = false;
+        for(k = 0; k < i; k++){
+          if ( ptrSpaObj[k]->objectType == THERMALZONE ){
+            if (strcmp(ptrSpaObj[i]->hvacZone, ptrSpaObj[k]->hvacZone) == 0){
+              /* Had the zone already */
+              recorded = true;
+            }
+          }
+        }
+        if (!recorded){
+          arrHVACZones[nHVACZones] = ptrSpaObj[i]->hvacZone;
+          nHVACZones++;
+        }
+    }
+  }
+  /* Create a size_t array with the number of thermal zones in each HVACZone.
+     This is used to avoid the comma after the last thermal zone. */
+  couTheZon = malloc(nHVACZones * sizeof(size_t));
+  if (couTheZon == NULL){
+    SpawnFormatError("%s", "Failed to allocate array for couTheZon.");
+  }
+
+  for(iHVACZones = 0; iHVACZones < nHVACZones; iHVACZones++){
+    couTheZon[iHVACZones] = 0;
+    for(i = 0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        if (strcmp(ptrSpaObj[i]->hvacZone, arrHVACZones[iHVACZones]) == 0){
+          couTheZon[iHVACZones]++;
+        }
+      }
+    }
+  }
+
+  /* Write the "hvacZones" objects */
+  saveAppend(buffer, "    \"", size, SpawnFormatError);
+  saveAppend(buffer, "hvacZones", size, SpawnFormatError);
+  saveAppend(buffer, "\": [\n", size, SpawnFormatError);
+  /* Write all thermalZones that belong to the hvacZone */
+  for(iHVACZones = 0; iHVACZones < nHVACZones; iHVACZones++){
+    openJSONModelBracket(buffer, 3, size, SpawnFormatError);
+    buildJSONKeyStringValue(buffer, 4, "name", arrHVACZones[iHVACZones], true, size, SpawnFormatError);
+    saveAppend(buffer, "          \"zones\": [\n", size, SpawnFormatError);
+
+    for(i = 0, iWri = 0; i < bui->nExcObj; i++){
+      if ( ptrSpaObj[i]->objectType == THERMALZONE ) {
+        /* Check if this thermal zone belongs to the HVACZone */
+        if (strcmp(ptrSpaObj[i]->hvacZone, arrHVACZones[iHVACZones]) == 0){
+          /* Found a match */
+          openJSONModelBracket(buffer, 6, size, SpawnFormatError);
+          buildJSONKeyStringValue(buffer, 6, "name", ptrSpaObj[i]->epName, false, size, SpawnFormatError);
+          closeJSONModelBracket(buffer, 6, iWri, couTheZon[iHVACZones], size, SpawnFormatError);
+          iWri++;
+        }
+      }
+    }
+    /* We are done iterating over all objects, close the array */
+    closeJSONModelArrayBracket(buffer, 5, 0, 0, size, SpawnFormatError);
+    closeJSONModelBracket(buffer, 3, iHVACZones, nHVACZones, size, SpawnFormatError);
+  }
+  closeJSONModelArrayBracket(buffer, 2, iMod, nMod, size, SpawnFormatError);
+  free(arrHVACZones);
 }
 
 void buildJSONModelStructureForEnergyPlus(
@@ -154,6 +263,18 @@ void buildJSONModelStructureForEnergyPlus(
   /* weather file */
   buildJSONKeyStringValue(buffer, 2, "weather", bui->weather, true, size, SpawnFormatError);
 
+  /* Flag to request HVAC autosizing */
+  if (bui->autosizeHVAC) {
+    buildJSONKeyStringValue(buffer, 2, "autosize",
+      "true",                   true,                 size, SpawnFormatError);
+    buildJSONKeyStringValue(buffer, 2, "runSimulationForSizingPeriods",
+      bui->use_sizingPeriods ? "true": "false", true, size, SpawnFormatError);
+  }
+  else{
+    buildJSONKeyStringValue(buffer, 2, "autosize",                      "false", true, size, SpawnFormatError);
+    buildJSONKeyStringValue(buffer, 2, "runSimulationForSizingPeriods", "false", true, size, SpawnFormatError);
+  }
+
   /* Tolerance of solver for surface heat balance */
   buildJSONKeyDoubleValue(buffer, 2, "relativeSurfaceTolerance", bui->relativeSurfaceTolerance,
     false, size, SpawnFormatError);
@@ -191,22 +312,29 @@ void buildJSONModelStructureForEnergyPlus(
           saveAppend(buffer, "\": [\n", size, SpawnFormatError);
         }
         /* Write content */
-        openJSONModelBracket(buffer, size, SpawnFormatError);
+        openJSONModelBracket(buffer, 3, size, SpawnFormatError);
         saveAppend(buffer, ptrSpaObj[i]->jsonKeysValues, size, SpawnFormatError);
         saveAppend(buffer, "\n", size, SpawnFormatError);
-        closeJSONModelBracket(buffer, iWri, objectCount[objectType], size, SpawnFormatError);
+        closeJSONModelBracket(buffer, 3, iWri, objectCount[objectType], size, SpawnFormatError);
         iWri++;
       }
     }
 
     iMod += iWri;
-    if (iWri > 0)
-      closeJSONModelArrayBracket(buffer, iMod, nMod, size, SpawnFormatError);
+    if (iWri > 0){
+      closeJSONModelArrayBracket(buffer, 2, iMod, (objectType == 0) ? 0 : nMod, size, SpawnFormatError);
+    }
+
+    /* After the first object type, which is "zones", we also write the "hvacZones". */
+    if (objectType == 0){
+      buildJSONModelStructureForEnergyPlusHVACZones(bui, buffer, iWri, bui->nExcObj, size);
+    }
   }
 
   /* Close json object for model */
   saveAppend(buffer, "  },\n", size, SpawnFormatError);
 
+  /* Create the model hash */
   *modelHash = (char*)( cryptographicsHash(*buffer, bui->SpawnError) );
 
     /* fmu */
@@ -258,6 +386,8 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
     SpawnFormatError("Failed to open '%s' with write mode.", *modelicaBuildingsJsonFile);
   fprintf(fp, "%s", buffer);
   fclose(fp);
+
+  SpawnFormatError("**** FIXME: Wrote json file '%s'.", *modelicaBuildingsJsonFile);
 }
 
 void setAttributesReal(
