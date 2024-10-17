@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation;
 package ZoneSurface "Collection of validation models for EnergyPlus schedules"
   extends Modelica.Icons.Package;
 

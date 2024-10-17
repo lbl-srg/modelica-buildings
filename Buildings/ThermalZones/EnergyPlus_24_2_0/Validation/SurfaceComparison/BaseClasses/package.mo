@@ -1,12 +1,12 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison;
-package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison"
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.SurfaceComparison;
+package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.SurfaceComparison"
 extends Modelica.Icons.BasesPackage;
 
   annotation (Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.SurfaceComparison\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.SurfaceComparison</a>.
 </p>
 </html>", revisions="<html>
 <ul>

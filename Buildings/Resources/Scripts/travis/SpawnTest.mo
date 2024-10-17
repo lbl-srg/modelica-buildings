@@ -1,6 +1,6 @@
 within ;
 model SpawnTest
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
   annotation(
     Documentation(info = "
 <html>

@@ -1,7 +1,7 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize;
 block ObjectSynchronizer
   "Block that synchronizes an object"
-  outer Buildings.ThermalZones.EnergyPlus_24_1_0.Building building
+  outer Buildings.ThermalZones.EnergyPlus_24_2_0.Building building
     "Reference to outer building model";
   SynchronizeBuilding synBui
     "Model that synchronize the Spawn objects"

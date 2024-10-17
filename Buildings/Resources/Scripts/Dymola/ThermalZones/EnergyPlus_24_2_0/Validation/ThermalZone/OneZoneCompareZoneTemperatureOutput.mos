@@ -1,5 +1,5 @@
 old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
 Hidden.AvoidDoubleComputation=true;
-simulateModel("Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone.OneZoneCompareZoneTemperatureOutput", stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="OneZoneCompareZoneTemperatureOutput");
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone.OneZoneCompareZoneTemperatureOutput", stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="OneZoneCompareZoneTemperatureOutput");
 Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;
 createPlot(y={"zon.TAir", "zonMeaAirTem.y"}, grid=true);

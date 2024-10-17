@@ -1,5 +1,5 @@
-#ifndef EnergyPlus_24_1_0_Wrapper_h
-#define EnergyPlus_24_1_0_Wrapper_h
+#ifndef EnergyPlus_24_2_0_Wrapper_h
+#define EnergyPlus_24_2_0_Wrapper_h
 
 #include <stdint.h>
 
@@ -30,7 +30,7 @@
 #include "ModelicaUtilities.h"
 
 typedef struct {
-  int dayOfWeekForStartDay; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays */
+  int dayOfWeekForStartDay; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays */
   int applyWeekEndHolidayRule;
   int use_weatherFileDaylightSavingPeriod;
   int use_weatherFileHolidaysAndSpecialDays;
@@ -40,7 +40,7 @@ typedef struct {
 
 /* ********************************************************* */
 /* Thermal zone */
-extern void* allocate_Spawn_EnergyPlus_24_1_0(
+extern void* allocate_Spawn_EnergyPlus_24_2_0(
   const int objectType,
   double startTime,
   const char* modelicaNameBuilding,
@@ -81,16 +81,16 @@ extern void* allocate_Spawn_EnergyPlus_24_1_0(
   void (*SpawnFormatMessage)(const char *string, ...),
   void (*SpawnFormatError)(const char *string, ...));
 
-extern void initialize_Spawn_EnergyPlus_24_1_0(void* object, int *nObj);
+extern void initialize_Spawn_EnergyPlus_24_2_0(void* object, int *nObj);
 
-extern void getParameters_Spawn_EnergyPlus_24_1_0(void* object, double *parOut);
+extern void getParameters_Spawn_EnergyPlus_24_2_0(void* object, double *parOut);
 
-extern void exchange_Spawn_EnergyPlus_24_1_0(
+extern void exchange_Spawn_EnergyPlus_24_2_0(
   void* object,
   int initialCall,
   const double* u,
   double* y);
 
-extern void free_Spawn_EnergyPlus_24_1_0(void* object);
+extern void free_Spawn_EnergyPlus_24_2_0(void* object);
 
 #endif

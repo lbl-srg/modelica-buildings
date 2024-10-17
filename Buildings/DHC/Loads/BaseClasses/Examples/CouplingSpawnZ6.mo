@@ -85,8 +85,8 @@ secondary pumps.
 <p>
 Simulation with Dymola requires minimum version 2020x and setting
 <code>Hidden.AvoidDoubleComputation=true</code>, see
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide</a>.
 </p>
 </html>",
       revisions="<html>

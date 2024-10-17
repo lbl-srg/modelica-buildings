@@ -1,4 +1,4 @@
-simulateModel("Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.RunPeriod.NegativeStartTime", startTime=-172800, stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="NegativeStartTime");
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.RunPeriod.NegativeStartTime", startTime=-172800, stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="NegativeStartTime");
 createPlot(id=1, position={15, 15, 842, 707}, y={"zon.TAir", "building.weaBus.TDryBul"}, range={-25.0, 25.0, -100.0, 50.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});
 createPlot(id=1, position={15, 15, 842, 707}, y={"sitDirSol.y", "building.weaBus.HDirNor"}, range={-25.0, 25.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"W/m2", "W/m2"});
 createPlot(id=1, position={15, 15, 842, 707}, y={"sitOutDryBul.y", "building.weaBus.TDryBul"}, range={-25.0, 25.0, -2.0, 3.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="h", displayUnits={"degC", "degC"});

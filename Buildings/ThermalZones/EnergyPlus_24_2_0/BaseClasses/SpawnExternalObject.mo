@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 class SpawnExternalObject
   "Class used to couple the FMU to interact with a thermal zone"
   extends ExternalObject;
@@ -15,12 +15,12 @@ class SpawnExternalObject
     input String spawnExe
       "Name of the spawn executable, without extension, such as spawn-0.2.0-d7f1e095f3";
     input String idfVersion
-      "IDF version with underscores, such as 24_1_0";
+      "IDF version with underscores, such as 24_2_0";
     input String idfName
       "Name of the IDF";
     input String epwName
       "Name of the weather file";
-    input Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod runPeriod
+    input Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
@@ -32,7 +32,7 @@ class SpawnExternalObject
       "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)";
     input String buildingsRootFileLocation
       "Name of top-level legal.html file of the Buildings library (used to find the spawn executable)";
-    input Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels logLevel
+    input Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel
       "LogLevels of EnergyPlus output";
     input Boolean printUnit
       "Set to true to print units for OutputVariable object. Must be false for all other objects";
@@ -65,7 +65,7 @@ class SpawnExternalObject
     input Real derivatives_delta[nDer]
       "Increments for derivative calculation";
     output SpawnExternalObject adapter;
-  external "C" adapter=allocate_Modelica_EnergyPlus_24_1_0(
+  external "C" adapter=allocate_Modelica_EnergyPlus_24_2_0(
     objectType,
     startTime,
     modelicaNameBuilding,
@@ -107,9 +107,9 @@ class SpawnExternalObject
     derivatives_delta,
     nDer)
     annotation (
-      Include="#include <EnergyPlus_24_1_0_Wrapper.c>",
+      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus_24_1_0","fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>
@@ -148,11 +148,11 @@ class SpawnExternalObject
     "Release storage"
     extends Modelica.Icons.Function;
     input SpawnExternalObject adapter;
-  external "C" free_Modelica_EnergyPlus_24_1_0(adapter)
+  external "C" free_Modelica_EnergyPlus_24_2_0(adapter)
     annotation (
-      Include="#include <EnergyPlus_24_1_0_Wrapper.c>",
+      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus_24_1_0","fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
     annotation (
       Documentation(
         info="<html>

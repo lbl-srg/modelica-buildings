@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model HeatPumpRadiantHeatingGroundHeatTransfer
   "Example model with one thermal zone with a radiant floor and ground heat transfer modeled in Modelica"
   extends
-    Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
+    Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
   package MediumW=Buildings.Media.Water
     "Water medium";
   package MediumG=Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)
@@ -29,7 +29,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     d=1500)
     "Soil properties"
     annotation (Placement(transformation(extent={{40,-348},{60,-328}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface livFlo(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface livFlo(
     surfaceName="Living:Floor")
     "Surface of living room floor"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
@@ -318,7 +318,7 @@ equation
           {30,-320},{-130,-320},{-130,-300},{-120,-300}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/HeatPumpRadiantHeatingGroundHeatTransfer.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/HeatPumpRadiantHeatingGroundHeatTransfer.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),
@@ -352,8 +352,8 @@ which would yield jumps in the output of the controller.
 </p>
 <p>
 This model has no cooling and hence will overheat in summer. See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
 for a model that also has cooling.
 </p>
 <p>

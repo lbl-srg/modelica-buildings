@@ -67,7 +67,7 @@ enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};
 
 typedef struct {
-  int startDayOfYear; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays */
+  int startDayOfYear; /* Day of week from Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays */
   int applyWeekEndHolidayRule;
   int use_weatherFileDaylightSavingPeriod;
   int use_weatherFileHolidaysAndSpecialDays;
@@ -83,7 +83,7 @@ typedef struct FMUBuilding
   char* buildingsLibraryRoot; /* Root directory of Buildings library */
   char* modelicaNameBuilding; /* Name of the Modelica instance of this zone */
   char* spawnExe;   /* Name of the spawn executable without extension, such as spawn-0.2.0-d7f1e095f3 */
-  char* idfVersion; /* IDF version with underscores, such as 24_1_0. This must be the same as is used as suffix for Buildings.ThermalZones.EnergyPlus_ */
+  char* idfVersion; /* IDF version with underscores, such as 24_2_0. This must be the same as is used as suffix for Buildings.ThermalZones.EnergyPlus_ */
   fmi2Byte* idfName; /* if usePrecompiledFMU == true, the user-specified fmu name, else the idf name */
   fmi2Byte* weather;
   runPeriod* runPer; /* EnergyPlus RunPeriod */

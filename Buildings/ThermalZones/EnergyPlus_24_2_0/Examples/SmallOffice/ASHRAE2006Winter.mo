@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model ASHRAE2006Winter
   "Variable air volume flow system with terminal reheat and five thermal zones using a control sequence published by ASHRAE in 2006"
   extends Modelica.Icons.Example;
@@ -9,7 +9,7 @@ model ASHRAE2006Winter
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006 hvac,
-    redeclare Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor flo);
+    redeclare Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor flo);
 
   parameter Real ACHCor(final unit="1/h")=4
     "Design air change per hour core";
@@ -24,7 +24,7 @@ model ASHRAE2006Winter
 
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SmallOffice/ASHRAE2006Winter.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/ASHRAE2006Winter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
@@ -54,8 +54,8 @@ See the model
 Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor</a>
 for a description of the building envelope.
 </p>
 <p>
@@ -84,8 +84,8 @@ using a finite state machine.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.Guideline36Winter\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.Guideline36Winter</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter</a>.
 </p>
 <h4>References</h4>
 <p>

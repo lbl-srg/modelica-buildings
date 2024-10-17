@@ -1,10 +1,10 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model Guideline36Spring
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.Guideline36Winter;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter;
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SmallOffice/Guideline36Spring.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/Guideline36Spring.mos" "Simulate and plot"),
     experiment(
       StartTime=7344000,
       StopTime=7776000,
@@ -17,8 +17,8 @@ model Guideline36Spring
       info="<html>
 <p>
 This is the same model as
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.Guideline36Winter\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.Guideline36Winter</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Guideline36Winter</a>
 but configured for simulation of a few days in spring.
 </p>
 </html>",

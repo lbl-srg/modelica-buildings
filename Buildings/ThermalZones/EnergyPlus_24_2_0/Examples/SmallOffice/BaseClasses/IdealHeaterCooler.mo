@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses;
 model IdealHeaterCooler
   "Model of ideal heater or cooler"
   extends Modelica.Blocks.Icons.Block;
@@ -76,8 +76,8 @@ The heater or cooler has a PID controller that regulates the heat added or remov
 <p>
 To use this model, connect its heat port to the heat port of an air volume, for example,
 the heat port <code>heaPorAir</code> of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.
 </p>
 <p>
 Note that this model can only provide sensible cooling, but no latent cooling.

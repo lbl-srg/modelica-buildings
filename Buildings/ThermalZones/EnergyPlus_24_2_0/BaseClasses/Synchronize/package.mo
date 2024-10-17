@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 package Synchronize "Package with classes to synchronize Spawn objects"
   annotation (
     Documentation(

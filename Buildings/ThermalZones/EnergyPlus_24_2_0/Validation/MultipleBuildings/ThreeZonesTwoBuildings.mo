@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings;
 model ThreeZonesTwoBuildings
   "Validation model for three zones that are in two buildings"
   extends Modelica.Icons.Example;
@@ -6,7 +6,7 @@ model ThreeZonesTwoBuildings
     "Medium model";
   model OneZoneBuilding
     "Model with a building with one zone"
-    extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
+    extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
     extends Modelica.Blocks.Icons.Block;
     annotation (
       Icon(
@@ -19,7 +19,7 @@ model ThreeZonesTwoBuildings
 
   model TwoZoneBuilding
     "Model with a building with two zones"
-    extends Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone.TwoIdenticalZones;
+    extends Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone.TwoIdenticalZones;
     extends Modelica.Blocks.Icons.Block;
     annotation (
       Icon(
@@ -51,7 +51,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/MultipleBuildings/ThreeZonesTwoBuildings.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/MultipleBuildings/ThreeZonesTwoBuildings.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06));

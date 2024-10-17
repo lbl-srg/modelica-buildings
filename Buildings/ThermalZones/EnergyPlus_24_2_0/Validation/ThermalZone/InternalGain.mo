@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone;
 model InternalGain
   "Validation model for one zone with and without internal heat gain"
   extends Modelica.Icons.Example;
@@ -38,7 +38,7 @@ protected
     parameter Modelica.Units.SI.HeatFlux qSen_flow
       "Convective sensible internal heat gain";
     parameter Modelica.Units.SI.HeatFlux qLat_flow "Latent internal heat gain";
-    Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned bui(
+    Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned bui(
       m_flow_nominal=bui.VRoo*10*0.3/3600,
       qIntGai(
         final k={qRad_flow,qSen_flow,qLat_flow}),
@@ -87,7 +87,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/ThermalZone/InternalGain.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/ThermalZone/InternalGain.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));

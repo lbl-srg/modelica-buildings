@@ -1,13 +1,13 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.RunPeriod;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.RunPeriod;
 model NegativeStartTime "Validation model for negative start time"
   extends Examples.SingleFamilyHouse.Unconditioned;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable sitDirSol(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable sitDirSol(
     name="Site Direct Solar Radiation Rate per Area",
     key="Environment",
     y(final unit="W/m2"))
     "Block that reads direct solar radiation from EnergyPlus"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable sitOutDryBul(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable sitOutDryBul(
     name="Site Outdoor Air Drybulb Temperature",
     key="Environment",
     y(final unit="K",
@@ -16,7 +16,7 @@ model NegativeStartTime "Validation model for negative start time"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   annotation (
   __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/RunPeriod/NegativeStartTime.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/RunPeriod/NegativeStartTime.mos" "Simulate and plot"),
     experiment(
       StartTime=-172800,
       StopTime=86400,

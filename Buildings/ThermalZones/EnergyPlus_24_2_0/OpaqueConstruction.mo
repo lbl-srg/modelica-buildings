@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 model OpaqueConstruction
   "Model to exchange heat of an opaque construction with EnergyPlus"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.PartialEnergyPlusObject;
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
   final parameter Modelica.Units.SI.Area A(final fixed=false, min=1E-10)
@@ -33,7 +33,7 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=6,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -47,7 +47,7 @@ protected
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.buildingsRootFileLocation,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="buildingSurfaceDetailed",
@@ -100,10 +100,10 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for ZoneSurface.");
-  nObj=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
-  {A}=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.getParameters(
+  {A}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
@@ -125,7 +125,7 @@ equation
     TFroLast=heaPorFro.T;
     TBacLast=heaPorBac.T;
     dtLast=time-pre(tLast);
-    yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+    yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
       adapter=adapter,
       nY=nY,
       u={heaPorFro.T,heaPorBac.T,round(time,1E-3)},
@@ -178,18 +178,18 @@ If the back-side surface is above ground, then the heat flow rate from the groun
 This model allows for example coupling of a radiant slab that is modeled in Modelica to the EnergyPlus thermal zone model.
 Examples of such radiant systems include a floor slab with embedded pipes and a radiant cooling panel that is suspended from a ceiling.
 The model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a> illustrates the use of this model for a floor and ceiling slab.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a> illustrates the use of this model for a floor and ceiling slab.
 </p>
 <p>
 Note that if the ground heat transfer of the floor slab is modeled in Modelica,
 then the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface</a>
 can be used, as shown for the floor slab
 in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>.
 </p>
 <p>
 By convention, if a surface cools the thermal zone,
@@ -226,7 +226,7 @@ If this construction is modeled with a radiant slab, that may have pipes embedde
 to cool the living room, then this model can be used as
 </p>
 <pre>
-Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction attFlo(surfaceName=\"Attic:LivingFloor\")
+Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction attFlo(surfaceName=\"Attic:LivingFloor\")
     \"Floor of the attic above the living room\";
 </pre>
 <p>
@@ -235,8 +235,8 @@ surface of a radiant slab, and the
 heat port <code>attFlo.heaPorBac</code> can be connected to the downward facing surface of the radiant slab
 that cool the living room via the surface <code>Living:Ceiling</code>.
 This configuration is illustrated in the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>.
 </p>
 </html>",
       revisions="<html>

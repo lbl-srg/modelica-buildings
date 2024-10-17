@@ -1,14 +1,14 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable;
 model OneZoneOneOutputVariableSummer
   "Validation model for one zone with one output variable for a summer period"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable;
   annotation (
     Documentation(
       info="<html>
 <p>
 Test case identical to
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable</a>
 but simulating only a period in summer.
 </p>
 <p>
@@ -24,7 +24,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/OutputVariable/OneZoneOneOutputVariableSummer.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/OutputVariable/OneZoneOneOutputVariableSummer.mos" "Simulate and plot"),
     experiment(
       StartTime=18748800,
       StopTime=19353600,

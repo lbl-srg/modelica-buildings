@@ -9,7 +9,7 @@ import os
 
 if __name__ == '__main__':
 
-  VERSIONS = ["9_6_0", "24_1_0"]
+  VERSIONS = ["9_6_0", "24_2_0"]
   
   # Configure the argument parser
   parser = argparse.ArgumentParser(

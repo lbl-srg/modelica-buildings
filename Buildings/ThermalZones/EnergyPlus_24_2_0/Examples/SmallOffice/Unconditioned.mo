@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model Unconditioned
   "Open loop model of one floor"
   extends Modelica.Icons.Example;
@@ -18,7 +18,7 @@ model Unconditioned
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data bus"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor flo(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor flo(
     redeclare package Medium=Medium,
     nor(
       T_start=275.15),
@@ -94,7 +94,7 @@ equation
     annotation (Line(points={{24,-20},{38,-20},{38,12.7692},{37.1652,12.7692}},color={0,127,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SmallOffice/Unconditioned.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/Unconditioned.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),

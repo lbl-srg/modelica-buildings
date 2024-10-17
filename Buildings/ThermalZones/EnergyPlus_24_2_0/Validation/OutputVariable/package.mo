@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation;
 package OutputVariable "Collection of validation models for EnergyPlus output variables"
   extends Modelica.Icons.Package;
 

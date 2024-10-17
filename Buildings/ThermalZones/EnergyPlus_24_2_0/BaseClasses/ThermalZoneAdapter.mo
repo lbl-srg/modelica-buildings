@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 model ThermalZoneAdapter
   "Block that interacts with this EnergyPlus zone"
   extends Modelica.Blocks.Icons.Block;
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
 
   constant String modelicaNameBuilding
     "Name of the building to which this thermal zone belongs to"
@@ -23,7 +23,7 @@ model ThermalZoneAdapter
     "Name of the Energyplus weather file including the epw extension";
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod runPeriod
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
 
@@ -35,7 +35,7 @@ model ThermalZoneAdapter
   parameter String fmuName=""
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation (Dialog(tab="Debug",enable=usePrecompiledFMU));
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels.Warning
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Warning
     "LogLevels of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
   parameter Boolean setInitialRadiativeHeatGainToZero
@@ -106,7 +106,7 @@ protected
     start=0)
     "Total number of Spawn objects in building";
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=1,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -120,7 +120,7 @@ protected
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.buildingsRootFileLocation,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="zones",
@@ -207,11 +207,11 @@ initial equation
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
 
-  nObj=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
-  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.getParameters(
+  {AFlo, V, mSenFac}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
@@ -232,7 +232,7 @@ initial equation
 
   // Synchronization with EnergyPlus
   // Below, the term X_w/(1.-X_w) is for conversion from kg/kg_total_air (Modelica) to kg/kg_dry_air (EnergyPlus)
-  yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+  yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
     u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
@@ -280,7 +280,7 @@ equation
     QGaiRadAve_flow = (EGaiRadLast-pre(EGaiRadLast))/dtLast;
 
     // Call EnergyPlus
-    yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+    yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
       adapter=adapter,
       nY=nY,
       u={T,X_w/(1.-X_w),pre(mInlet_flow),TAveInlet,QGaiRadAve_flow,round(time,1E-3)},

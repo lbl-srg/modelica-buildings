@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 pure function exchange
   "Exchange the values with the EnergyPlus thermal zone"
   extends Modelica.Icons.Function;
-  input Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter
+  input Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter
     "External object";
   input Integer nY
     "Size of output y";
@@ -12,11 +12,11 @@ pure function exchange
     "Dummy value (used to force Modelica tools to call initialize())";
   output Real y[nY]
     "Output values. First all outputs, then all derivatives, then next event time";
-external "C" exchange_Modelica_EnergyPlus_24_1_0(adapter, u, dummy, y)
+external "C" exchange_Modelica_EnergyPlus_24_2_0(adapter, u, dummy, y)
   annotation (
-      Include="#include <EnergyPlus_24_1_0_Wrapper.c>",
+      Include="#include <EnergyPlus_24_2_0_Wrapper.c>",
       IncludeDirectory="modelica://Buildings/Resources/C-Sources",
-      Library={"ModelicaBuildingsEnergyPlus_24_1_0","fmilib_shared"});
+      Library={"ModelicaBuildingsEnergyPlus_24_2_0","fmilib_shared"});
   annotation (
     Documentation(
       info="<html>

@@ -1,11 +1,11 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 block Schedule
   "Block to write to an EnergyPlus schedule"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.PartialEnergyPlusObject;
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String name
     "Name of schedule";
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units unit
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units unit
     "Unit of variable as used in Modelica"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealInput u
@@ -30,9 +30,9 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  final parameter String unitString=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.getUnitAsString(unit)
+  final parameter String unitString=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getUnitAsString(unit)
     "Unit as a string";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=2,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -46,7 +46,7 @@ protected
     epName=name,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.buildingsRootFileLocation,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="schedules",
@@ -74,12 +74,12 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Schedule.");
-  nObj=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
 equation
-  yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+  yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
     u={u,round(time,1E-3)},
@@ -141,10 +141,10 @@ then EnergyPlus will receive the inputs
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
 This unit is then converted internally to the units required by EnergyPlus before
 the value is sent to EnergyPlus.
-See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units\">Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units\">Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units</a>
 for the supported units.
 If the value of the parameter <code>unit</code> is left at its default value of
-<code>Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.unspecified</code>, then
+<code>Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
 </p>
 <h4>Usage</h4>
@@ -169,13 +169,13 @@ Next, instantiate the actuator in Modelica. For the above
 <code>Schedule:Compact</code>, the Modelica instantiation would be
 </p>
 <pre>
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Schedule schInt(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule schInt(
     name = \"INTERMITTENT\",
-    unit = Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Normalized)
+    unit = Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Normalized)
     \"Block that writes to the EnergyPlus schedule INTERMITTENT\";
 </pre>
 <p>
-The entry <code>units=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Normalized</code>
+The entry <code>units=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Normalized</code>
 will cause the value to be sent to EnergyPlus without any unit conversion.
 </p>
 </html>",

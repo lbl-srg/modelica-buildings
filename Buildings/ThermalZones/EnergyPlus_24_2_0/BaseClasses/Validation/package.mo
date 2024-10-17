@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 package Validation "Collection of validation models"
   extends Modelica.Icons.ExamplesPackage;
 
@@ -8,8 +8,8 @@ package Validation "Collection of validation models"
       info="<html>
 <p>
 This package contains validation models for the classes in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses</a>.
 </p>
 <p>
 Note that most validation models contain simple input data

@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 

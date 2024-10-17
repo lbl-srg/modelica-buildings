@@ -1,2 +1,2 @@
-simulateModel("Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneEnvironmentOutputVariable", startTime=864000, stopTime=950400, method="Cvode", tolerance=1e-06, resultFile="OneEnvironmentOutputVariable");
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneEnvironmentOutputVariable", startTime=864000, stopTime=950400, method="Cvode", tolerance=1e-06, resultFile="OneEnvironmentOutputVariable");
 createPlot(id=1, position={50, 88, 592, 372}, y={"TEnePlu.y", "building.weaBus.TDryBul"}, range={10.0, 11.0, -6.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"degC", "degC"});

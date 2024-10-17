@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 package UsersGuide
   "EnergyPlus package user's guide"
   extends Modelica.Icons.Information;
@@ -15,7 +15,7 @@ package UsersGuide
 The official release of the Modelica Buildings Library that can be downloaded at
 <a href=\"https://simulationresearch.lbl.gov/modelica/download.html\">simulationresearch.lbl.gov/modelica/download.html</a>
 contains all binaries required to simulated the models in
-<a href=\"modelica://Buildings.ThermalZones\">Buildings.ThermalZones_24_1_0</a>.
+<a href=\"modelica://Buildings.ThermalZones\">Buildings.ThermalZones_24_2_0</a>.
 You should not have to do any other installations or settings.
 </p>
 <p>
@@ -130,8 +130,8 @@ To instantiate one or several building models, proceed as follows:
 <ol>
 <li>
 Create an instance of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Building\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Building</a> to specify the building model.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Building\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Building</a> to specify the building model.
 This instance is automatically named <code>building</code> and this
 name must not be changed.
 </li>
@@ -155,8 +155,8 @@ The following coupling objects can then be integrated in the model that contains
 <ul>
 <li>
 To connect Modelica zone models with the equivalent EnergyPlus zone envelopes,
-instantiate any number of <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone</a> models and parameterize them with the name
+instantiate any number of <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a> models and parameterize them with the name
 of the thermal zones as they are entered in the EnergyPlus input data file.
 Each model should also be assigned the medium of heat transfer (typically air),
 as is done for any other fluid flow component.
@@ -164,37 +164,37 @@ as is done for any other fluid flow component.
 <li>
 To write to EnergyPlus actuators or schedules during the simulation,
 instantiate any number of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator</a>
 or
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Schedule\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Schedule</a> models.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule</a> models.
 </li>
 <li>
 To retrieve the current values of output variables from EnergyPlus,
 instantiate any number of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable</a> models.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable</a> models.
 </li>
 <li>
 To model an opaque construction such as a radiant slab in Modelica and interface
 it to EnergyPlus, instantiate any number of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction</a> models.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction</a> models.
 </li>
 <li>
 To set individual surface temperatures in EnergyPlus and retrieve their room-side
 heat gains, instantiate any number of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> models.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface</a> models.
 </li>
 </ul>
 <p>
 If you have more than one building, you can repeat the above steps for each building and combine
 these building models in a top-level model.
 See for example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings.ThreeZonesTwoBuildings\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings.ThreeZonesTwoBuildings</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.ThreeZonesTwoBuildings\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.ThreeZonesTwoBuildings</a>
 for how to combine two buildings in one Modelica model.
 </p>
 <p>
@@ -205,12 +205,12 @@ and look at the example models below.
 <h4>Example models</h4>
 <p>
 To get started, we recommend to look at the simple examples in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse</a>
 which illustrate the use of all these objects based on a single family house.
 Also, read the information section of the models you plan to use in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0\">
-Buildings.ThermalZones.EnergyPlus_24_1_0</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0\">
+Buildings.ThermalZones.EnergyPlus_24_2_0</a>.
 </p>
 <p>
 We suggest looking at the examples in the following order which
@@ -218,42 +218,42 @@ starts with the simplest example and moves to more comprehensive ones.
 </p>
 <ol>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned</a> is modeling one
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned</a> is modeling one
 zone, the living room, in Modelica as an unconditioned zone with a fixed amount of outside air infiltration.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.AirHeating\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.AirHeating</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating</a>
 adds an air-based heating system that recirculates air to track a heating setpoint temperature.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.EquipmentSchedule\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.EquipmentSchedule</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.EquipmentSchedule\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.EquipmentSchedule</a>
 shows how to set the equipment schedule in Modelica and override the schedule in EnergyPlus.
 It also uses the unconditioned thermal zone to keep it simple.
 </li>
 <li>
-<a href=\"modelica//:Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.LightsControl\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.LightsControl</a>
+<a href=\"modelica//:Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl</a>
 is showing how to set the value of an EMS Actuator, here the one that sets internal gains
 caused by the lights which are controlled by Modelica based on time of day and sun position.
 The model also shows how to read an EnergyPlus output variable, here
 for the lighting electricity consumption.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.ShadeControl\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.ShadeControl</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.ShadeControl\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.ShadeControl</a>
 reads from EnergyPlus the incident solar radiation, retrieves from the thermal zone its
 temperature, and based on these values, actuates the window shading control
 using an EMS actuator.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
 and
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
   illustrate how to couple a radiant slab for heating and cooling which interfaces
 two surfaces in EnergyPlus: The floor that connects the slab to the zone above, and the ceiling
 that connects the slab to the zone below.
@@ -261,15 +261,15 @@ In the first model, cooling is controlled based on the surface temperature, and 
 based on the room temperature.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
 illustrates how to couple a radiant slab for heating in a configuration in which the
 bottom of the slab is connected to a ground heat transfer model in Modelica.
 Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Radiator\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Radiator</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Radiator</a>
 shows how to couple a radiator to a thermal zone.
 </li>
 </ol>
@@ -290,8 +290,8 @@ The following conventions are made:
 <ul>
 <li>
 The entries of the EnergyPlus <code>RunPeriod</code> object are ignored.
-See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod</a>
 for how the run period and the day of the week are handled.
 </li>
 <li>
@@ -310,21 +310,21 @@ EnergyPlus will simulate the outside air infiltration if specified in the idf fi
 </ul>
 This allows unconditioned zones such as a basement or an attic to simulate in EnergyPlus
 without having to use an instance of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>.
 </li>
 <li>
 If a zone is in the idf file and modeled in Modelica using
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone</a>,
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>,
 then EnergyPlus will remove all infiltration objects for this zone.
 This is done because Modelica computes the mass balance of the zone air, and infiltration
 depends on the static pressure of the HVAC system.
 Pressure-driven infiltration can be modeled using
 <a href=\"modelica://Buildings.Airflow.Multizone\">
 Buildings.Airflow.Multizone</a>, or a fixed infiltration rate can be imposed as is shown in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.AirHeating\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.AirHeating</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.AirHeating</a>.
 </li>
 <li>
 All EnergyPlus HVAC objects that are present in the idf file are removed when coupled to Spawn.
@@ -355,14 +355,14 @@ as declared in the idf file.
 <p>
 Units between Modelica and EnergyPlus are automatically converted, if they are specified.
 The conversion is according to the table at
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units</a>.
 </p>
 <p>
 To see what units are used, set <code>printUnits=true</code> (the default) in the
 instance
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Building\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Building</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Building\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Building</a>.
 This will cause the used units to be reported in the Modelica log file.
 </p>
 <p>
@@ -370,11 +370,11 @@ The thermal zone model automatically converts the units.
 </p>
 <p>
 To do unit conversion for values sent by
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator</a>
 and by
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Schedule\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Schedule</a>,
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Schedule</a>,
 set the parameter <code>unit</code> to the unit of the variable obtained at
 the input connector <code>u</code>. The value will then be converted
 before it is sent to EnergyPlus.
@@ -383,8 +383,8 @@ are reported to the Modelica log file.
 </p>
 <p>
 To do unit conversion for values read by
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable</a>,
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable</a>,
 Modelica will use the units reported by EnergyPlus.
 The units that are used in the output <code>y</code> of this block
 are reported to the Modelica log file.
@@ -403,8 +403,8 @@ are reported to the Modelica log file.
 <p>
 In Spawn there can be both connected and unconnected zones defined in the EnergyPlus input file.
 Connected zones have a corresponding zone model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone</a>
 in Modelica that communicates with the EnergyPlus zone heat balance model.
 Unconnected zones are thermal zones which are defined entirely within the EnergyPlus input file,
 and for these zones the conventional EnergyPlus algorithms are used to simulate the zone conditions,
@@ -560,7 +560,7 @@ EnergyPlus.
 </p>
 <p>
 <img alt=\"Spawn coupling\"
-src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_24_1_0/envelope-room-hvac-1600.png\"/>
+src=\"modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_24_2_0/envelope-room-hvac-1600.png\"/>
 </p>
 <p>
 The figure above shows an overview of the exchanged coupling variables.
@@ -574,8 +574,8 @@ to heat gains in the room and its surfaces.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide.Installation\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide.Installation</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide.Installation\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide.Installation</a>
 for how to install EnergyPlus and how EnergyPlus is invoked.
 </p>
 <h4>References</h4>

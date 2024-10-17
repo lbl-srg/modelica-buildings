@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable;
 model OneZoneTwoIdenticalOutputVariables
   "Validation model for one zone with two identical output variables"
   extends OneZoneOneOutputVariable;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable equEle2(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable equEle2(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     y(final unit="W"))
@@ -25,7 +25,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/OutputVariable/OneZoneTwoIdenticalOutputVariables.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/OutputVariable/OneZoneTwoIdenticalOutputVariables.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));

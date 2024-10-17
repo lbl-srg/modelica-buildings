@@ -1,15 +1,15 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 block Actuator
   "Block to write to an EnergyPlus actuator"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.PartialEnergyPlusObject;
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String variableName
     "Actuated component unique name in the EnergyPlus idf file";
   parameter String componentType
     "Actuated component type";
   parameter String controlType
     "Actuated component control type";
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units unit
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units unit
     "Unit of variable as used in Modelica"
     annotation (choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealInput u
@@ -34,9 +34,9 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  final parameter String unitString=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.getUnitAsString(unit)
+  final parameter String unitString=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getUnitAsString(unit)
     "Unit as a string";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=3,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -50,7 +50,7 @@ protected
     epName=variableName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.buildingsRootFileLocation,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="emsActuators",
@@ -79,12 +79,12 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for block Actuator.");
-  nObj=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
 
 equation
-  yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+  yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
     u={u,round(time,1E-3)},
@@ -124,10 +124,10 @@ then EnergyPlus will receive the inputs
 The parameter <code>unit</code> specifies the unit of the signal <code>u</code>.
 This unit is then converted internally to the units required by EnergyPlus before
 the value is sent to EnergyPlus.
-See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units\">Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units\">Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units</a>
 for the supported units.
 If the value of the parameter <code>unit</code> is left at its default value of
-<code>Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.unspecified</code>, then
+<code>Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.unspecified</code>, then
 the simulation will stop with an error.
 </p>
 <h4>Usage</h4>
@@ -139,8 +139,8 @@ For other actuators, please see the EnergyPlus EMS Application Guide.
 <h5>Configuring an actuator for lights</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.LightsControl\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.LightsControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.LightsControl</a>.
 In this example, Modelica overwrites the EnergyPlus <code>Lights</code> object.
 The idf-file
 has the following entry:
@@ -172,11 +172,11 @@ Therefore, the <code>Lights</code> object can be overwritten
 by specifying the Modelica instance
 </p>
 <pre>
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator actLig(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator actLig(
     variableName=\"LIVING ZONE Lights\",
     componentType=\"Lights\",
     controlType=\"Electric Power Level\",
-    unit=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Power)
+    unit=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Power)
       \"Actuator for lights\";
 </pre>
 <p>
@@ -186,8 +186,8 @@ and setting its input to the required power in Watts.
 <h5>Configuring an actuator for a shade</h5>
 <p>
 Consider the example
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.ShadeControl\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.ShadeControl</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.ShadeControl\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.ShadeControl</a>.
 In this example, the idf-file
 has the following entry:
 </p>
@@ -211,17 +211,17 @@ to <i>6</i> to activate the interior blind.
 Therefore, in Modelica, the instantiation
 </p>
 <pre>
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator actSha(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator actSha(
     variableName=\"Zn001:Wall001:Win001\",
     componentType=\"Window Shading Control\",
     controlType=\"Control Status\",
-    unit=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Normalized)
+    unit=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Normalized)
       \"Actuator for window shade\"
 </pre>
 <p>
 will write to the <code>Window Shading Control</code> of the EnergyPlus object
 <code>FenestrationSurface:Detailed</code> with name <code>Zn001:Wall001:Win001</code>.
-The entry <code>units=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Normalized</code>
+The entry <code>units=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Normalized</code>
 will cause the input value of the Modelica instance <code>actSha</code>
 to be sent to EnergyPlus without any unit conversion. Hence,
 in the example, the input <code>actSha.u</code> is set to <i>0</i> or <i>6</i>.

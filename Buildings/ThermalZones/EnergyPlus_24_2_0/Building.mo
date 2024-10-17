@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
@@ -7,7 +7,7 @@ model Building
       "Name of the spawn executable, without extension, such as spawn-0.5.0-ab07bde9bbaaa"
     annotation (HideResult=true);
 
-  constant String idfVersion = "24_1_0"
+  constant String idfVersion = "24_2_0"
     "IDF version with underscore, used for error report";
 
   final constant String modelicaNameBuilding=getInstanceName()
@@ -31,7 +31,7 @@ model Building
     "Name of the weather file, in .mos format and with .mos extension"
     annotation(Evaluate=false);
 
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels.Warning
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Warning
     "Log level of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
 
@@ -39,7 +39,7 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod runPeriod
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
   parameter Boolean setInitialRadiativeHeatGainToZero = true
@@ -93,8 +93,8 @@ algorithm
     missingInnerMessage="
 Your model is using an outer \"building\" component to declare building-level parameters, but
 an inner \"building\" component is not defined.
-Drag one instance of Buildings.ThermalZones.EnergyPlus_24_1_0.Building into your model,
-above all declarations of Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone,
+Drag one instance of Buildings.ThermalZones.EnergyPlus_24_2_0.Building into your model,
+above all declarations of Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone,
 to specify building-level parameters. This instance must have the name \"building\".",
     Icon(
       graphics={
@@ -159,8 +159,8 @@ while Modelica will use the file specified by <code>weaName</code>.
 <p>
 The parameter <code>runPeriod</code> can be used to configure certain data of the EnergyPlus
 <code>RunPeriod</code> object. See
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod</a>
 for the available options.
 Note however that the simulation start and stop time is controlled by Modelica,
 and therefore the entries in the EnergyPlus input data file for the <code>RunPeriod</code> object are ignored.
@@ -208,8 +208,8 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\
 March 16, 2024, by Michael Wetter:<br/>
 Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.
 This is required for
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Radiator\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Radiator</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Radiator\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Radiator</a>
 with OpenModelica.
 See info section for rationale.<br/>
 This was required for

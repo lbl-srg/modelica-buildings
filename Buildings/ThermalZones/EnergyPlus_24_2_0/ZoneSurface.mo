@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 model ZoneSurface
   "Model to exchange heat with a inside-facing surface of a thermal zone"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.PartialEnergyPlusObject;
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize.ObjectSynchronizer;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String surfaceName
     "Surface unique name in the EnergyPlus idf file";
   final parameter Modelica.Units.SI.Area A(final fixed=false, min=1E-10)
@@ -39,7 +39,7 @@ protected
     fixed=false,
     start=0)
     "Total number of Spawn objects in building";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.SpawnExternalObject(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject adapter=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.SpawnExternalObject(
     objectType=5,
     startTime=startTime,
     modelicaNameBuilding=modelicaNameBuilding,
@@ -53,7 +53,7 @@ protected
     epName=surfaceName,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
-    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.buildingsRootFileLocation,
+    buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
     logLevel=logLevel,
     printUnit=false,
     jsonName="zoneSurfaces",
@@ -99,10 +99,10 @@ initial equation
   assert(
     not usePrecompiledFMU,
     "Use of pre-compiled FMU is not supported for ZoneSurface.");
-  nObj=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.initialize(
+  nObj=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.initialize(
     adapter=adapter,
     isSynchronized=building.isSynchronized);
-  {A}=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.getParameters(
+  {A}=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.getParameters(
     adapter=adapter,
     nParOut=nParOut,
     isSynchronized=nObj);
@@ -115,7 +115,7 @@ equation
     // Initialization of output variables.
     TLast=T;
     dtLast=time-pre(tLast);
-    yEP=Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.exchange(
+    yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
       adapter=adapter,
       nY=nY,
       u={T,round(time,1E-3)},
@@ -165,8 +165,8 @@ The output <code>q_flow</code> is equal to <code>q_flow = Q_flow/A</code>, where
 <p>
 Note that for most applications that require interfacing the front-facing and back-side facing surface with the
 building model, the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction</a>
 is easier to use.
 </p>
 <h4>Usage</h4>
@@ -195,7 +195,7 @@ Consider an EnergyPlus input data file that has the following entry:
 To set the temperature of this surface, this model can be used as
 </p>
 <pre>
-Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface flo(surfaceName=\"Living:Floor\");
+Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface flo(surfaceName=\"Living:Floor\");
 </pre>
 <p>
 The temperature of this surface will then be set to the value received
@@ -206,11 +206,11 @@ per unit area of the surface.
 </p>
 <p>
 The model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
 illustrates this use. Note that if the ground heat transfer were modeled in EnergyPlus, then
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction</a>
 should have been used, which is simpler to setup.
 </p>
 </html>",

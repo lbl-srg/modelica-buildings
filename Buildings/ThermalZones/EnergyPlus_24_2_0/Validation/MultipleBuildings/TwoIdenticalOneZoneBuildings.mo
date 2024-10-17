@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings;
 model TwoIdenticalOneZoneBuildings
   "Validation model with two identical buildings, each having one thermal zone"
   extends Modelica.Icons.Example;
@@ -9,7 +9,7 @@ model TwoIdenticalOneZoneBuildings
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   model Zone
     "Model of a thermal zone"
-    extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
+    extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
     extends Modelica.Blocks.Icons.Block;
   end Zone;
   annotation (
@@ -29,7 +29,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/MultipleBuildings/TwoIdenticalOneZoneBuildings.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/MultipleBuildings/TwoIdenticalOneZoneBuildings.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));

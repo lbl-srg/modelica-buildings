@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Types;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Types;
 type WeekDays = enumeration(
     Monday,
     Tuesday,

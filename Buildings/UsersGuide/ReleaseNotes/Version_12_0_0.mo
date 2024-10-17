@@ -11,7 +11,7 @@ The following major changes have been done compared to release 11:
 </p>
 <ul>
 <li>
-The EnergyPlus coupling has been update to EnergyPlus 24.1.0.
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
 </li>
 </ul>
 </div>
@@ -55,10 +55,10 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_1_0
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0
     </td>
     <td valign=\"top\">Updated the EnergyPlus coupling to use
-                       EnergyPlus version 24.1.0.<br/>
+                       EnergyPlus version 24.2.0.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
     </td>

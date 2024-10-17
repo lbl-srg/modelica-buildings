@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable;
 model OneZoneOneOutputVariable
   "Validation model for one zone with one output variable"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable equEle(
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable equEle(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
     y(final unit="W"))
@@ -26,7 +26,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/OutputVariable/OneZoneOneOutputVariable.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/OutputVariable/OneZoneOneOutputVariable.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));

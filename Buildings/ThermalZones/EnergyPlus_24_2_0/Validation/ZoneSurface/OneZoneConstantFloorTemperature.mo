@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ZoneSurface;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ZoneSurface;
 model OneZoneConstantFloorTemperature
   "Validation model with one thermal zone with constant floor temperature"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface flo(
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface flo(
     surfaceName="Living:Floor")
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
@@ -17,7 +17,7 @@ equation
     annotation (Line(points={{-18,70},{-2,70}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/ZoneSurface/OneZoneConstantFloorTemperature.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/ZoneSurface/OneZoneConstantFloorTemperature.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06),

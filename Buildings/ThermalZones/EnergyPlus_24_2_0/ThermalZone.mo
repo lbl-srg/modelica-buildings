@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
 model ThermalZone
   "Model to connect to an EnergyPlus thermal zone"
   extends
-    Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.PartialEnergyPlusObject;
+    Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.PartialEnergyPlusObject;
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Integer nPorts=0
@@ -94,7 +94,7 @@ protected
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.ThermalZoneAdapter fmuZon(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter fmuZon(
     final modelicaNameBuilding=modelicaNameBuilding,
     final modelicaInstanceName=modelicaInstanceName,
     final spawnExe=spawnExe,
@@ -420,23 +420,23 @@ Model for a thermal zone that is implemented in EnergyPlus.
 This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
 The <code>idfName</code> needs to be specified in an instance of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Building\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Building</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Building\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Building</a>
 that is named <code>building</code>, and that is placed at this
 or at a higher hierarchy-level of the model.
 If the FMU is already instantiated by another instance of this model,
 it will use the already instantiated FMU. Hence, for each thermal zone
 in an EnergyPlus FMU, one instance of this model needs to be used.
-See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide</a>
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide</a>
 for how zones are simulated that are declared in the EnergyPlus input data file
 but not in Modelica.
 </p>
 <p>
 If there are two instances that declare the same <code>zoneName</code>
 and have in the model hierarchy the same instance of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Building\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Building</a>,
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Building\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Building</a>,
 then the simulation will stop with an error.
 </p>
 <h4>Main Equations</h4>

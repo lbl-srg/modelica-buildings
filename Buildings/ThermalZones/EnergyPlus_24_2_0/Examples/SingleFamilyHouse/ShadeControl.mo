@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model ShadeControl
   "Example model with one actuator that controls a shade in EnergyPlus"
   extends Modelica.Icons.Example;
@@ -6,7 +6,7 @@ model ShadeControl
     "Medium model";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/EMSWindowShadeControl/EMSWindowShadeControl.idf"),
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
@@ -19,32 +19,32 @@ model ShadeControl
     each k=0)
     "Internal heat gains"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zonWes(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zonWes(
     redeclare package Medium=Medium,
     zoneName="West Zone",
     nPorts=2)
     "West zone"
     annotation (Placement(transformation(extent={{-28,-20},{12,20}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zonEas(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zonEas(
     redeclare package Medium=Medium,
     zoneName="EAST ZONE",
     nPorts=2)
     "East zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zonNor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zonNor(
     redeclare package Medium=Medium,
     zoneName="NORTH ZONE",
     nPorts=2)
     "North zone"
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator actSha(
-    unit=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Normalized,
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator actSha(
+    unit=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Normalized,
     variableName="Zn001:Wall001:Win001",
     componentType="Window Shading Control",
     controlType="Control Status")
     "Actuator for window shade"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable incBeaSou(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Zn001:Wall001:Win001",
     y(final unit="W/m2"))
@@ -215,7 +215,7 @@ equation
     annotation (Line(points={{100,0},{60,0}},color={191,0,0}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/ShadeControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/ShadeControl.mos" "Simulate and plot"),
     experiment(
       StartTime=8640000,
       StopTime=8899200,

@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice;
 model Guideline36Winter
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends Modelica.Icons.Example;
@@ -10,7 +10,7 @@ model Guideline36Winter
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36 hvac,
     redeclare
-      Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor
+      Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor
       flo);
 
   parameter Real ACHCor(final unit="1/h")=4
@@ -26,7 +26,7 @@ model Guideline36Winter
 
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SmallOffice/Guideline36Winter.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SmallOffice/Guideline36Winter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
@@ -52,8 +52,8 @@ See the model
 Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC</a>
 for a description of the HVAC system,
 and see the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses.Floor</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses.Floor</a>
 for a description of the building envelope.
 </p>
 <p>
@@ -69,8 +69,8 @@ sequence is shown in the figure below.
 </p>
 <p>
 A similar model but with a different control sequence can be found in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.ASHRAE2006Winter\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.ASHRAE2006Winter</a>..
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Winter</a>..
 Note that this model, because of the frequent time sampling,
 has longer computing time than
 <a href=\"modelica://Buildings.Examples.VAVReheat.ASHRAE2006\">

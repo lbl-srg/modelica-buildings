@@ -1,14 +1,14 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.RunPeriod;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.RunPeriod;
 model StartDayOfYear "Validation model for the start day of the week"
   extends Modelica.Icons.Example;
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable sun
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable sun
     "Model with first day of the week being Sunday"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable mon(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable mon(
     building(
       runPeriod(
-        startDayOfYear=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays.Monday)))
+        startDayOfYear=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays.Monday)))
     "Model with first day of the week being Monday"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
@@ -23,8 +23,8 @@ model StartDayOfYear "Validation model for the start day of the week"
     Documentation(info="<html>
 <p>
 This validation case simulates two instances of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable.OneZoneOneOutputVariable</a>,
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable.OneZoneOneOutputVariable</a>,
 a model that outputs the electricity consumption that is specified via an EnergyPlus schedule.
 This schedule set the electricity consumption to zero for the whole day on Saturday and Sunday,
 but not on other days.
@@ -43,7 +43,7 @@ First implementation for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/RunPeriod/StartDayOfYear.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/RunPeriod/StartDayOfYear.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06));

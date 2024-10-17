@@ -1,16 +1,16 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable;
 model OneEnvironmentOutputVariable
   "Validation model that has only one output variable from the environment conditions reported to Modelica"
   extends Modelica.Icons.Example;
   inner Building building(
-    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable TEnePlu(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable TEnePlu(
     name="Site Outdoor Air Drybulb Temperature",
     key="Environment",
     y(final unit="K", displayUnit="degC"))
@@ -19,7 +19,7 @@ model OneEnvironmentOutputVariable
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/OutputVariable/OneEnvironmentOutputVariable.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/OutputVariable/OneEnvironmentOutputVariable.mos" "Simulate and plot"),
     experiment(
       StartTime=864000,
       StopTime=950400,
@@ -32,8 +32,8 @@ Simple test case for one building in which only an EnergyPlus output variable is
 In this model, the site drybulb temperature is obtained from EnergyPlus.
 Note that this variable could be read directly from the Modelica weather data bus,
 which can be accessed from
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Building\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Building</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Building\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Building</a>.
 </p>
 </html>", revisions="<html>
 <ul>

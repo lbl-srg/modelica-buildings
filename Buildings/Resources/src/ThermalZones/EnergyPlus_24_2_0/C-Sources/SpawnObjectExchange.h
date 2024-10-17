@@ -12,7 +12,7 @@
 #include "FMI2/fmi2_import_capi.h"
 
 
-LBNL_Spawn_EXPORT void exchange_Spawn_EnergyPlus_24_1_0(
+LBNL_Spawn_EXPORT void exchange_Spawn_EnergyPlus_24_2_0(
   void* object,
   int initialCall,
   const double* u,

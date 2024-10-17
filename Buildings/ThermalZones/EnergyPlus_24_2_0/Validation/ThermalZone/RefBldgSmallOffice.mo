@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone;
 model RefBldgSmallOffice
   "Validation model for six zones small office building"
   extends Modelica.Icons.Example;
@@ -6,7 +6,7 @@ model RefBldgSmallOffice
     "Medium model";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
@@ -28,32 +28,32 @@ model RefBldgSmallOffice
     k=0)
     "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone att(
     redeclare package Medium=Medium,
     zoneName="Attic")
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,74},{80,114}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone cor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone cor(
     redeclare package Medium=Medium,
     zoneName="Core_ZN")
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,28},{80,68}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone sou(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone sou(
     redeclare package Medium=Medium,
     zoneName="Perimeter_ZN_1")
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-18},{80,22}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone eas(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone eas(
     redeclare package Medium=Medium,
     zoneName="Perimeter_ZN_2")
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-64},{80,-24}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone nor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone nor(
     redeclare package Medium=Medium,
     zoneName="Perimeter_ZN_3")
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-112},{80,-72}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone wes(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone wes(
     redeclare package Medium=Medium,
     zoneName="Perimeter_ZN_4")
     "Thermal zone"
@@ -61,7 +61,7 @@ model RefBldgSmallOffice
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:9,
@@ -124,7 +124,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/ThermalZone/RefBldgSmallOffice.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/ThermalZone/RefBldgSmallOffice.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06),

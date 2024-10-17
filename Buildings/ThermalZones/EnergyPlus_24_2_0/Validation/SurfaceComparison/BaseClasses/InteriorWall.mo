@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.SurfaceComparison.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.SurfaceComparison.BaseClasses;
 model InteriorWall "Model of an interior wall with Spawn-controlled surface conditions"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
@@ -12,10 +12,10 @@ model InteriorWall "Model of an interior wall with Spawn-controlled surface cond
   annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},
           {80,80}})));
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface sur_a(surfaceName=surNam_a)
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface sur_a(surfaceName=surNam_a)
     "Wall surface (port a)"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface sur_b(surfaceName=surNam_b)
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface sur_b(surfaceName=surNam_b)
     "Wall surface (port b)"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Buildings.HeatTransfer.Conduction.MultiLayer walCon(
@@ -106,8 +106,8 @@ First implementation.
 <p>
 This is a model of the heat transfer through an interior wall, which is connected
 to an EnergyPlus Zone Heat Balance through
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.ZoneSurface</a> objects on both side of
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.ZoneSurface</a> objects on both side of
 the wall.
 </p>
 <p>

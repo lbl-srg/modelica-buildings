@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 
-void free_Spawn_EnergyPlus_24_1_0(void* object){
+void free_Spawn_EnergyPlus_24_2_0(void* object){
   if ( object != NULL ){
     SpawnObject* ptrSpaObj = (SpawnObject*) object;
 

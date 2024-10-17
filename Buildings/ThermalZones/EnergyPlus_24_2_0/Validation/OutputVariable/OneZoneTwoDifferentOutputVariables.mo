@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.OutputVariable;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.OutputVariable;
 model OneZoneTwoDifferentOutputVariables
   "Validation model for one zone with two different output variables"
   extends OneZoneOneOutputVariable;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable incBeaSou(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable incBeaSou(
     name="Surface Outside Face Incident Beam Solar Radiation Rate per Area",
     key="Living:South",
     y(final unit="W/m2"))
@@ -25,7 +25,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/OutputVariable/OneZoneTwoDifferentOutputVariables.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/OutputVariable/OneZoneTwoDifferentOutputVariables.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));

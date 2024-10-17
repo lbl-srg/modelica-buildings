@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Synchronize;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Synchronize;
 connector SynchronizeConnector
   "Connector to synchronize Spawn objects"
   Real do

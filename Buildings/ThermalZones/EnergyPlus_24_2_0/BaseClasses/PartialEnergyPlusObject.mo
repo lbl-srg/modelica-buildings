@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses;
 partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
   extends Modelica.Blocks.Icons.Block;
-  outer Buildings.ThermalZones.EnergyPlus_24_1_0.Building building
+  outer Buildings.ThermalZones.EnergyPlus_24_2_0.Building building
     "Building-level declarations";
 
 protected
@@ -25,7 +25,7 @@ protected
   final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
 
-  final parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Data.RunPeriod runPeriod=building.runPeriod
+  final parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod=building.runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
 
@@ -35,7 +35,7 @@ protected
   final parameter String fmuName=building.fmuName
     "Specify if a pre-compiled FMU should be used instead of EnergyPlus (mainly for development)"
     annotation (Dialog(tab="Debug"));
-  final parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.LogLevels logLevel=building.logLevel
+  final parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel=building.logLevel
     "LogLevels of EnergyPlus output"
     annotation (Dialog(tab="Debug"));
   parameter Modelica.Units.SI.Time startTime(fixed=false)

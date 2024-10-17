@@ -1,14 +1,14 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone;
 model ZoneCapacitanceMultiplier
   "Validation model for zone capacitance multiplier in Spawn"
   extends Modelica.Icons.Example;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned defCap
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned defCap
     "Default capacitance"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned mulCap(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned mulCap(
     building(
       idfName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_zoneCapacitanceMultiplier.idf")))
+        "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_zoneCapacitanceMultiplier.idf")))
         "Capacitance with a multiplier of 10"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   annotation (
@@ -16,8 +16,8 @@ model ZoneCapacitanceMultiplier
       info="<html>
 <p>
 This validation case simulates two instances of
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned</a>.
 In the instance <code>mulCap</code>, the case is modified by adding
 the following snippet to the idf file:
 </p>
@@ -45,7 +45,7 @@ First implementation. This is for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/ThermalZone/ZoneCapacitanceMultiplier.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/ThermalZone/ZoneCapacitanceMultiplier.mos" "Simulate and plot"),
     experiment(
       StopTime=432000,
       Tolerance=1e-06));

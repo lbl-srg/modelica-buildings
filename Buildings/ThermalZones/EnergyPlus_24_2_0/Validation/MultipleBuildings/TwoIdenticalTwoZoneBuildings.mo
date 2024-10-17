@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings;
 model TwoIdenticalTwoZoneBuildings
   "Validation model with two identical buildings, each having two thermal zones"
   extends Modelica.Icons.Example;
@@ -9,7 +9,7 @@ model TwoIdenticalTwoZoneBuildings
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   model Zone
     "Model of a thermal zone"
-    extends Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone.TwoIdenticalZones;
+    extends Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone.TwoIdenticalZones;
     extends Modelica.Blocks.Icons.Block;
   end Zone;
   annotation (
@@ -22,8 +22,8 @@ The model has two identical buildings, each having two thermal zones.
 <p>
 This model has been added because a building with multiple thermal zones executes
 C code that is not executed if there is only one thermal zone, as is the case in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings</a>.
 </p>
 </html>",
       revisions="<html>
@@ -35,7 +35,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/MultipleBuildings/TwoIdenticalTwoZoneBuildings.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/MultipleBuildings/TwoIdenticalTwoZoneBuildings.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06));

@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model AirHeating
   "Example model with an air-based heating system that conditions a thermal zone in EnergyPlus"
   extends Modelica.Icons.Example;
@@ -6,7 +6,7 @@ model AirHeating
     "Medium model";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     epwName=Modelica.Utilities.Files.loadResource(
@@ -21,7 +21,7 @@ model AirHeating
     "Outdoor air mass flow rate, assuming constant infiltration air flow rate";
   parameter Modelica.Units.SI.MassFlowRate mRec_flow_nominal=8*VRoo*1.2/3600
     "Nominal mass flow rate for recirculated air";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zon(
     redeclare package Medium=Medium,
     zoneName="LIVING ZONE",
     nPorts=4)
@@ -216,7 +216,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/AirHeating.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/AirHeating.mos" "Simulate and plot"),
     experiment(
       StopTime=86400,
       Tolerance=1e-06),

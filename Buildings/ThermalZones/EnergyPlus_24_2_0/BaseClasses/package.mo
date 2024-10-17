@@ -1,5 +1,5 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0;
-package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus_24_1_0"
+within Buildings.ThermalZones.EnergyPlus_24_2_0;
+package BaseClasses "Package with base classes for Buildings.ThermalZones.EnergyPlus_24_2_0"
   extends Modelica.Icons.BasesPackage;
     constant String buildingsRootFileLocation=
       Modelica.Utilities.Files.loadResource("modelica://Buildings/legal.html")
@@ -11,7 +11,7 @@ package BaseClasses "Package with base classes for Buildings.ThermalZones.Energy
       info="<html>
 <p>
 This package contains base classes that are used to construct the models in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0\">Buildings.ThermalZones.EnergyPlus_24_1_0</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0\">Buildings.ThermalZones.EnergyPlus_24_2_0</a>.
 </p>
 </html>",
       revisions="<html>

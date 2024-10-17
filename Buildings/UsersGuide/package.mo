@@ -153,9 +153,9 @@ particular package.<br/>
                     one or several building envelope models.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.UsersGuide\">ThermalZones.EnergyPlus_24_1_0.UsersGuide</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide\">ThermalZones.EnergyPlus_24_2_0.UsersGuide</a>
    </td>
-   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus 24.1.0 to simulate
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus 24.2.0 to simulate
                     one or several building envelope models.</td>
 </tr>
 

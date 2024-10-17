@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice.BaseClasses;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.BaseClasses;
 model Floor
   "Model of a floor of the building"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
@@ -51,37 +51,37 @@ model Floor
   Modelica.Units.SI.Temperature TAirNor=nor.TAir "Air temperature north zone";
   Modelica.Units.SI.Temperature TAirEas=eas.TAir "Air temperature east zone";
   Modelica.Units.SI.Temperature TAirWes=wes.TAir "Air temperature west zone";
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone sou(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone sou(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_1")
     "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone eas(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone eas(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_2")
     "East zone"
     annotation (Placement(transformation(extent={{300,68},{340,108}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone nor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone nor(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_3")
     "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone wes(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone wes(
     redeclare package Medium=Medium,
     nPorts=5,
     zoneName="Perimeter_ZN_4")
     "West zone"
     annotation (Placement(transformation(extent={{12,58},{52,98}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone cor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone cor(
     redeclare package Medium=Medium,
     nPorts=11,
     zoneName="Core_ZN")
     "Core zone"
     annotation (Placement(transformation(extent={{144,60},{184,100}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone att(
     redeclare package Medium=Medium,
     zoneName="Attic",
     T_start=275.15)
@@ -89,7 +89,7 @@ model Floor
     annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
   parameter String idfName=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
+    "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf")
     "Name of the IDF file";
   parameter String epwName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw")
@@ -99,7 +99,7 @@ model Floor
     "Name of the weather file";
 
 protected
-  inner Buildings.ThermalZones.EnergyPlus_24_1_0.Building building(
+  inner Buildings.ThermalZones.EnergyPlus_24_2_0.Building building(
     idfName=idfName,
     epwName=epwName,
     weaName=weaName,
@@ -402,8 +402,8 @@ the instances of
 Buildings.Airflow.Multizone.DoorOpen</a> are made smaller.
 Their length has been reduced proportionally
 to the difference in length of the walls of the core zone of the two buildings.
-See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SmallOffice</a>
+See also <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice</a>
 for a description of the differences in these buildings.
 </p>
 <h4>References</h4>

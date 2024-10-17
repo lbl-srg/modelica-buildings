@@ -1,11 +1,11 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model RadiantHeatingCooling_TSurface
   "Example model with one thermal zone with a radiant floor where the cooling is controlled based on the surface temperature set point"
   extends
-    Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned(
+    Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned(
       building(
         idfName=Modelica.Utilities.Files.loadResource(
-          "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
+          "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance_aboveSoil.idf")));
   package MediumW=Buildings.Media.Water
     "Water medium";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
@@ -126,11 +126,11 @@ model RadiantHeatingCooling_TSurface
     realTrue=mCoo_flow_nominal)
     "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-80,88},{-60,108}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction attFlo(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction attFlo(
     surfaceName="Attic:LivingFloor")
     "Floor of the attic above the living room"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=270,origin={102,90})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OpaqueConstruction livFlo(surfaceName="Living:Floor")
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OpaqueConstruction livFlo(surfaceName="Living:Floor")
     "Floor of the living room" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -231,7 +231,7 @@ equation
           {-186,-144},{-188,-144}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mos" "Simulate and plot"),
     experiment(
       StartTime=7776000,
       StopTime=9504000,
@@ -244,8 +244,8 @@ that has a radiant ceiling, used for cooling, and a radiant floor, used for heat
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 The model is constructed by extending
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
 and adding the radiant ceiling.
 For simplicity, this model provide heating with an idealized heater.
 </p>
@@ -285,8 +285,8 @@ This temperature is limited by the dew point of the zone air to avoid condensati
 </p>
 <p>
 See also the model
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
-Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
+Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
 which is controlled to track a set point for the room temperature.
 </p>
 <h4>Coupling of radiant floor to EnergyPlus model</h4>

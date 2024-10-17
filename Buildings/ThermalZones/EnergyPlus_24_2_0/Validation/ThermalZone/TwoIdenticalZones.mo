@@ -1,10 +1,10 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Validation.ThermalZone;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone;
 model TwoIdenticalZones
   "Validation model with two identical zones"
   extends Modelica.Icons.Example;
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Validation/TwoIdenticalZones/TwoIdenticalZones.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Validation/TwoIdenticalZones/TwoIdenticalZones.idf"),
     epwName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
@@ -23,7 +23,7 @@ model TwoIdenticalZones
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Validation/TwoIdenticalZones/TwoIdenticalZones.dat"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Validation/TwoIdenticalZones/TwoIdenticalZones.dat"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="EnergyPlus",
     columns=2:5,
@@ -39,7 +39,7 @@ model TwoIdenticalZones
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable inf1(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable inf1(
     name="Zone Infiltration Current Density Volume Flow Rate",
     key="Thermal Zone 1")
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -64,7 +64,7 @@ model TwoIdenticalZones
     Modelica.Blocks.Routing.Multiplex3 multiplex3_1
       "Multiplex to combine signals into a vector"
       annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-    Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zon(
+    Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zon(
       redeclare package Medium=Medium,
       zoneName=zoneName,
       nPorts=3)
@@ -176,7 +176,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Validation/ThermalZone/TwoIdenticalZones.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Validation/ThermalZone/TwoIdenticalZones.mos" "Simulate and plot"),
     experiment(
       StopTime=604800,
       Tolerance=1e-06),

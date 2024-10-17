@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.Validation;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.Validation;
 model FMUZoneAdapterZones1
   "Validation model for the class and functions that instantiate and communicate with an FMU for Model Exchange"
   extends Modelica.Icons.Example;
@@ -6,7 +6,7 @@ model FMUZoneAdapterZones1
     "Heat capacity of zone air";
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"),
     epwName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     weaName=Modelica.Utilities.Files.loadResource(
@@ -15,7 +15,7 @@ model FMUZoneAdapterZones1
     usePrecompiledFMU=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.BaseClasses.ThermalZoneAdapter fmuZonCor(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.ThermalZoneAdapter fmuZonCor(
     modelicaNameBuilding=building.modelicaNameBuilding,
     final spawnExe=building.spawnExe,
     final idfVersion=building.idfVersion,
@@ -104,7 +104,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/BaseClasses/Validation/FMUZoneAdapterZones1.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/BaseClasses/Validation/FMUZoneAdapterZones1.mos" "Simulate and plot"),
     experiment(
       StopTime=3600,
       Tolerance=1e-06),

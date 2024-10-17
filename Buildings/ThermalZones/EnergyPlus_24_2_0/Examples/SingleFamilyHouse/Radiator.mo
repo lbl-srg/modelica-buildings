@@ -1,4 +1,4 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model Radiator
   "Example model with an radiator that conditions a thermal zone in EnergyPlus"
   extends Modelica.Icons.Example;
@@ -7,7 +7,7 @@ model Radiator
 
   inner Building building(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
+      "modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse_TwoSpeed_ZoneAirBalance/SingleFamilyHouse_TwoSpeed_ZoneAirBalance.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     epwName=Modelica.Utilities.Files.loadResource(
@@ -34,7 +34,7 @@ model Radiator
   parameter Modelica.Units.SI.PressureDifference dpVal_nominal=6000
     "Pressure difference of valve";
 
-  Buildings.ThermalZones.EnergyPlus_24_1_0.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zon(
     redeclare package Medium=MediumA,
     zoneName="LIVING ZONE",
     nPorts=2)
@@ -222,7 +222,7 @@ This is for
 </ul>
 </html>"),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/Radiator.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/Radiator.mos" "Simulate and plot"),
     experiment(
       StopTime=259200,
       Tolerance=1e-06),

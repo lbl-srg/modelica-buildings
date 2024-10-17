@@ -1,8 +1,8 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Data;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Data;
 record RunPeriod "Record for EnergyPlus RunPeriod"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays startDayOfYear = Buildings.ThermalZones.EnergyPlus_24_1_0.Types.WeekDays.Sunday
+  parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays startDayOfYear = Buildings.ThermalZones.EnergyPlus_24_2_0.Types.WeekDays.Sunday
     "Week day of the first day that is simulated";
 
   parameter Boolean applyWeekEndHolidayRule = false "Set to true to apply week-end holiday rules";

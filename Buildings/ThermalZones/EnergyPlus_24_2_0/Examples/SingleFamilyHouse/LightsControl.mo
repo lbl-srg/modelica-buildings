@@ -1,15 +1,15 @@
-within Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse;
+within Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse;
 model LightsControl
   "Example model with one actuator that controls the lights in EnergyPlus"
-  extends Buildings.ThermalZones.EnergyPlus_24_1_0.Examples.SingleFamilyHouse.Unconditioned;
-  Buildings.ThermalZones.EnergyPlus_24_1_0.Actuator actLig(
-    unit=Buildings.ThermalZones.EnergyPlus_24_1_0.Types.Units.Power,
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned;
+  Buildings.ThermalZones.EnergyPlus_24_2_0.Actuator actLig(
+    unit=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.Units.Power,
     variableName="LIVING ZONE Lights",
     componentType="Lights",
     controlType="Electricity Rate")
     "Actuator for lights"
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
-  Buildings.ThermalZones.EnergyPlus_24_1_0.OutputVariable ligPow(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable ligPow(
     name="Lights Electricity Rate",
     key="LIVING ZONE Lights",
     isDirectDependent=true,
@@ -101,7 +101,7 @@ equation
     annotation (Line(points={{122,110},{130,110},{130,90},{88,90},{88,70},{98,70}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_1_0/Examples/SingleFamilyHouse/LightsControl.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_24_2_0/Examples/SingleFamilyHouse/LightsControl.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),
