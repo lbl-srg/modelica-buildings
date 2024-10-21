@@ -28,28 +28,20 @@ protected
     final unit="s")
     "Time instant when u became true";
 initial equation
-  pre(entryTime)=time;
-  pre(passed)=t <= 0;
+  entryTime = time;
+  passed = t <= 0;
 equation
-  when u and not reset then
-    entryTime=time;
-    // When u becomes true, and t=0, we want passed to be true
-    // at the first step (in superdense time).
-    passed=t <= 0;
-  elsewhen reset then
-    entryTime=time;
-    passed=false;
-  elsewhen
-          (u and time >= t + pre(entryTime)) then
-    passed=true;
-    entryTime=pre(entryTime);
+  when {u, reset} then
+    entryTime = time;
+    passed = u and t <= 0;
+  elsewhen u and time >= pre(entryTime) + t then
+    entryTime = pre(entryTime);
+    passed = true;
   elsewhen not u then
-    // Set passed to false.
-    // This is the behavior a timer would have if the threshold test is done with a greater block connected to the output of the timer
-    passed=false;
-    entryTime=pre(entryTime);
+    entryTime = pre(entryTime);
+    passed = false;
   end when;
-  y=if u then time - entryTime else 0.0;
+  y = if u then time - entryTime else 0.0;
   annotation (
     __cdl(
       extensionBlock=true),
@@ -124,6 +116,12 @@ equation
         preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 21, 2024, by Antoine Gautier:<br/>
+Refactored to ensure <code>passed=u</code> if <code>t=0</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
