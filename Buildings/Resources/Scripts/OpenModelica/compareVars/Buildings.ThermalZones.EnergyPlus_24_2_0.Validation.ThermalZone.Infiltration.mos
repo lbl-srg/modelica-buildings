@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "defInf.attFlo.heaPorFro.T",
+    "higInf.attFlo.heaPorFro.T",
+    "defInf.bou.weaBus.TDryBul"
+  };

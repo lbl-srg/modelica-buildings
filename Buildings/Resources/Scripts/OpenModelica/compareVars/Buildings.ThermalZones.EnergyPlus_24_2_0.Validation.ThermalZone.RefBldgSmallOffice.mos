@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "building.weaBus.TDryBul",
+    "att.TAir",
+    "cor.TAir",
+    "sou.TAir",
+    "eas.TAir",
+    "nor.TAir",
+    "wes.TAir",
+    "TOutEP",
+    "TAttEP",
+    "TCorEP",
+    "TSouEP",
+    "TEasEP",
+    "TNorEP",
+    "TWesEP"
+  };
