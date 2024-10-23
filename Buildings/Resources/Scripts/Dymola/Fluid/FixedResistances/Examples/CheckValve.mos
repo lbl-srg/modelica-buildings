@@ -1,4 +1,3 @@
 simulateModel("Buildings.Fluid.FixedResistances.Examples.CheckValve", method="Cvode", tolerance=1e-06, stopTime=1, resultFile="CheckValve");
 createPlot(id=1, position={0, 0, 988, 599}, y={"checkValve.dp", "checkValve_m_flow.dp"}, range={0.0, 1.0, -20000.0, 40000.0}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 988, 197}, y={"checkValve.m_flow", "checkValveDpFix.m_flow", "checkValve_m_flow.m_flow"}, range={0.0, 1.0, -2.0, 6.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=1, position={0, 0, 988, 197}, y={"checkValve.k", "checkValveDpFix.k", "checkValve_m_flow.k"}, range={0.0, 1.0, -0.02, 0.06}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}});

@@ -11,7 +11,7 @@ function basicFlowFunction_dp_der
     "Mass flow rate where transition to turbulent flow occurs";
   input Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  output Real m_flow_der(unit="kg/s2")
+  output Real m_flow_der
     "Derivative of mass flow rate in design flow direction";
 protected
   Modelica.Units.SI.PressureDifference dp_turbulent=(m_flow_turbulent/k)^2
@@ -30,8 +30,14 @@ Documentation(info="<html>
 <p>
 Function that implements the first order derivative of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
-with respect to the mass flow rate.
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>,
+assuming a constant flow coefficient.
+</p>
+<p>
+When called with <code>dp_der=der(dp)</code>, this function returns
+the time derivative of <code>m_flow</code>.
+When called with <code>dp_der=1</code>, this function returns
+the derivative of <code>m_flow</code> with respect to <code>dp</code>.
 </p>
 </html>",
 revisions="<html>
