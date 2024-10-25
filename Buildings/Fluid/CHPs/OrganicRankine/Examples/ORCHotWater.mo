@@ -38,9 +38,6 @@ model ORCHotWater "ORC that outputs hot water at a fixed temperature"
     etaPum=0.6) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
 
-  Modelica.Units.SI.Efficiency etaThe =orc.PExp  / max(orc.QEva_flow,1)
-    "Thermal efficiency of the ORC";
-
   Buildings.Fluid.Sources.MassFlowSource_T souHot(
     redeclare final package Medium = MediumHot,
     m_flow=mHot_flow_nominal,
@@ -210,11 +207,6 @@ can be integrated in a system.
 The three-way valve is controlled to track the hot water
 output temperature, which is the cold fluid of the ORC,
 at a set point of 55&deg;C.
-The system and control are similar to the one implemented in
-<a href=\"Modelica://Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller\">
-Buildings.DHC.ETS.Combined.Subsystems.Validation.Chiller</a>.
-</p>
-<p>
 In addition, a safety control sequence prevents the ORC from turning on
 until a minimum flow rate is established in the condenser water loop.
 </p>

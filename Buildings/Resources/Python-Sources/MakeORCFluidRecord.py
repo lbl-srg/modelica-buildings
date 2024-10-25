@@ -58,8 +58,6 @@ def WriteOneFile(fluid, dTRef = 30):
        T = np.linspace(TMin,TMax,10)
        p = CP.PropsSI('P','T',T,'Q',1,nCP)
        rhoLiq = CP.PropsSI('D','T',T,'Q',0,nCP)
-       pMin = CP.PropsSI('P','T',TMin,'Q',1,nCP)
-       pMax = CP.PropsSI('P','T',TMax,'Q',1,nCP)
        
        sSatLiq = CP.PropsSI('S','T',T,'Q',0,nCP) # Entropy of saturated liquid
        sSatVap = CP.PropsSI('S','T',T,'Q',1,nCP) # Entropy of saturated vapour

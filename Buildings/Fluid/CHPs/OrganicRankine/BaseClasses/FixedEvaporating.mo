@@ -112,7 +112,8 @@ model FixedEvaporating
   Modelica.Blocks.Logical.Hysteresis hys(
     uLow = mWor_flow_min,
     uHigh = mWor_flow_min + mWor_flow_hysteresis,
-    u = mWor_flow_internal)
+    u = mWor_flow_internal,
+    y(start = false))
     "Hysteresis for turning off cycle when working fluid flow too low";
 
 protected

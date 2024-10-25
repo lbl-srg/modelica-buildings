@@ -100,7 +100,7 @@ model ConstantEvaporation "Organic Rankine cycle as a bottoming cycle"
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-90})));
-  Modelica.Blocks.Interfaces.BooleanOutput on_actual
+  Modelica.Blocks.Interfaces.BooleanOutput on_actual(start = false)
     "Actual on off status of the cycle" annotation (Placement(transformation(
           extent={{100,-20},{140,20}}), iconTransformation(extent={{100,-10},{
             120,10}})));
