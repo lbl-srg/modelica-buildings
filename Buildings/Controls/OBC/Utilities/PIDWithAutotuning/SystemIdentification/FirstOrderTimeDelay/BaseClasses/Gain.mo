@@ -1,5 +1,5 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses;
-block Gain "Identify the gain of a first order time delayed model"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses;
+block Gain "Identify the gain of a first-order plus time-delay model"
   parameter Real yHig(min=1E-6)
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6)
@@ -95,7 +95,7 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the gain of a first-order time delayed model.</p>
+<p>This block calculates the gain of a first-order plus time-delay model.</p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,

@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification;
-package FirstOrderTimedelayed "Package with components related to a first-order time delayed model"
+package FirstOrderTimeDelay
+  "Package with components related to a first-order plus time-delay model"
 annotation (Documentation(info="<html>
 <p>This package contains the blocks to identify the parameters of a first-order time delayed model. </p>
 </html>"),
@@ -38,4 +39,4 @@ annotation (Documentation(info="<html>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}));
-end FirstOrderTimedelayed;
+end FirstOrderTimeDelay;

@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay;
 block ControlProcessModel
-  "Identify the parameters of a first-order time delayed model for the control process"
+  "Identify the parameters of a first-order plus time-delay (FOPTD) model of the control process"
   parameter Real yHig(min=1E-6)
     "Higher value for the output";
   parameter Real yLow(min=1E-6)
@@ -76,16 +76,14 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Divide div
     "The output of samtau divided by that of addPar"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain gain(
-    final yHig=yHig,
-    final yLow=yLow)
-    "Block that calculates the gain"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Gain
+    gain(final yHig=yHig, final yLow=yLow) "Block that calculates the gain"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay
     timConDel(
-      final yHig=yHig,
-      final yLow=yLow,
-      final deaBan=deaBan)
+    final yHig=yHig,
+    final yLow=yLow,
+    final deaBan=deaBan)
     "Block that calculate the time constant and the time delay"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
@@ -121,7 +119,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the autotuning completes successfully"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(message="In " +
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
+    final message="In " +
         getInstanceName() +
         ": an autotuning fails, the controller gains are unchanged.")
     "Warning message when an autotuning fails"
@@ -237,13 +236,13 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block calculates the model parameters of a first-order time delayed model.
+This block calculates the model parameters of a FOPTD model.
 Specifically, it employs
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain</a>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Gain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Gain</a>
 and
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay</a>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay</a>
 to identify the gain, the time constant and the time delay, respectively.
 </p>
 <p>

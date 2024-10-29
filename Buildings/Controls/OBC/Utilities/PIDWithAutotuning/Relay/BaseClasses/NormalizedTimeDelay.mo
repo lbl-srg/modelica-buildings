@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block NormalizedTimeDelay
-  "Calculate the normalized time delay of a response from a relay controller"
+  "Calculate the normalized time delay of the response of a relay controller"
   parameter Real gamma(min=1+1E-6) = 4
     "Asymmetry level of the relay controller";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rho
@@ -38,7 +38,9 @@ protected
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{20,-48},{40,-28}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Warning: the asymmetry level of the relay controller is lower than the half period ratio. Increase the level.")
+    final message="In " +
+        getInstanceName() +
+        ": the asymmetry level of the relay controller is lower than the half period ratio. Increase the level.")
     "Warning message when asymmetry level is less than the half period ratio"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(

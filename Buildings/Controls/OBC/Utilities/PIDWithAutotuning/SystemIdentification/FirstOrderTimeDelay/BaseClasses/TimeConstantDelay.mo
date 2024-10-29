@@ -1,6 +1,6 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses;
 block TimeConstantDelay
-  "Calculate the time constant and the time delay of a first order time delayed model"
+  "Calculate the time constant and the time delay of a first-order plus time-delay model"
   parameter Real yHig(min=1E-6)
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6)
@@ -194,7 +194,7 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block calculates the time constant and the time delay of a first-order time delayed model.
+This block calculates the time constant and the time delay of a first-order plus time-delay (FOPTD) model.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -208,7 +208,7 @@ where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are constants related to
 an asymmetric relay output.
 <code>t<sub>on</sub></code> is the length of the on period of the same asymmetric relay output.
 <code>&delta;</code> is the dead band of the same asymmetric relay output.
-<code>k</code> is the gain of the first-order time delayed model.
+<code>k</code> is the gain of this FOPTD model.
 <code>&tau;</code> is the normalized time delay.
 </p>
 <p>

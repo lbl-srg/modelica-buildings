@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay;
 package BaseClasses "Package with base classes"
     annotation (Icon(graphics={
         Rectangle(
@@ -14,8 +14,8 @@ package BaseClasses "Package with base classes"
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
 <p>
 This package contains base classes to construct blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay</a>.
 </p>
 </html>"));
 end BaseClasses;

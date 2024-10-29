@@ -15,7 +15,7 @@ Journal of Process Control 24.5 (2014): 568-577.
 <p>
 Åström, Karl Johan and Tore Hägglund  (2004)
 \"Revisiting the Ziegler–Nichols step response method for PID control.\"
-Journal of process control 14.6 (2004): 635-650.
+Journal of Process Control 14.6 (2004): 635-650.
 </p>
 </html>"),
     Icon(

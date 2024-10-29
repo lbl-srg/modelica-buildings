@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation.Gain", method="Cvode", tolerance=1e-06, resultFile="Gain");
+simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Validation.Gain", method="Cvode", tolerance=1e-06, resultFile="Gain");
 createPlot(id=1, position={34, 9, 995, 662}, y={"u.y"}, range={0.0, 1.0, 0.0, 1.5}, grid=true, subPlot=101, colors={{28,108,200}});
 createPlot(id=1, position={34, 9, 995, 662}, y={"tOn.y"}, range={0.0, 1.0, 0.0, 0.4}, grid=true, subPlot=102, colors={{28,108,200}});
 createPlot(id=1, position={34, 9, 995, 662}, y={"tOff.y"}, range={0.0, 1.0, -1.0, 1.0}, grid=true, subPlot=103, colors={{28,108,200}});

@@ -45,11 +45,11 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOnRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the on time"
+    "Sample the on time"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOffRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the off time"
+    "Sample the off time"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
 equation

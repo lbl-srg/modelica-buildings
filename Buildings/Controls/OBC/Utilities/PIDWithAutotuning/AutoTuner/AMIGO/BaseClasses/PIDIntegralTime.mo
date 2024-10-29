@@ -4,14 +4,14 @@ block PIDIntegralTime "Identify the integral time of a PID controller"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time constant of a first order time-delayed model"
+    "Time constant of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
@@ -96,14 +96,14 @@ First implementation<br/>
 T<sub>i</sub> = L (0.4 L + 0.8 T)/(L + 0.1 T),
 </p>
 <p>
-where <code>T</code> is the time constant of the first-order time delayed model
-and <code>L</code> is the time delay of the first-order time delayed model.
+where <code>T</code> is the time constant of the first order time delayed model
+and <code>L</code> is the time delay of the first order time delayed model.
 </p>
 <h4>References</h4>
 <p>
 Åström, Karl Johan and Tore Hägglund  (2004) 
 \"Revisiting the Ziegler–Nichols step response method for PID control.\"
-Journal of process control 14.6 (2004): 635-650.
+Journal of Process Control 14.6 (2004): 635-650.
 </p>
 </html>"));
 end PIDIntegralTime;

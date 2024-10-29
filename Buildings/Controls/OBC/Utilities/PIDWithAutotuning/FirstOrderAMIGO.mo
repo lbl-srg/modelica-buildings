@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "Autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
+  "Autotuning PID controller with an AMIGO tuner that employs a first-order system model"
 
   parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=
     Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
@@ -34,7 +34,9 @@ block FirstOrderAMIGO
     final min=1E-6)
     "Deadband for holding the relay output";
   parameter Real yRef
-    "Reference output for the tuning process. It should be greater than the lower and less than the higher value of the relay output";
+    "Reference output for the tuning process. It must be greater than the 
+       lower limit of the relay output and less than the upper limit of the 
+       relay output";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -134,7 +136,7 @@ block FirstOrderAMIGO
     final y_start=Td_start) if with_D
     "Recording the derivative time"
     annotation (Placement(transformation(extent={{-240,-250},{-220,-270}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.ControlProcessModel
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef - yLow,
@@ -161,7 +163,9 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    message="*** Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
+    final message="In " +
+        getInstanceName() +
+        ": the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
@@ -199,7 +203,9 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    message="*** Warning: An autotuning is ongoing and the new tuning request is ignored.")
+    final message="In " +
+        getInstanceName() +
+    ": an autotuning is ongoing and the new tuning request is ignored.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{242,-150},{262,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -231,7 +237,8 @@ protected
     final h=0.5*setHys)
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
+    final message=
     "In " + getInstanceName()
     + ": the setpoint must not change when an autotuning tuning is ongoing. This ongoing autotuning will thus abort.")
     "Warning message when the setpoint changes during tuning process"
@@ -380,10 +387,10 @@ This block implements a rule-based PID tuning method.
 </p>
 <p>
 The PID tuning method approximates the control process with a
-first-order time delayed (FOTD) model.
-It then determines the gain and delay of this FOTD model based on the responses of
+first-order plus time-delay (FOPTD) model.
+It then determines the gain and delay of this FOPTD model based on the responses of
 the control process to asymmetric relay feedback.
-After that, taking the gain and delay of this FOTD mode as inputs, this PID tuning
+After that, taking the gain and delay of this FOPTD mode as inputs, this PID tuning
 method calculates the PID gains with an Approximate M-constrained Integral Gain
 Optimization (AMIGO) Tuner.
 </p>

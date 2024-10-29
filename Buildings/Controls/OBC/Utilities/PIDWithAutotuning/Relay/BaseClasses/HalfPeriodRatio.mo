@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block HalfPeriodRatio
-  "Calculate the half period ratio of a response from a relay controller"
+  "Calculate the half period ratio of a response of a relay controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
