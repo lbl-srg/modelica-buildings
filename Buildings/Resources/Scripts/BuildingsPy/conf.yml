@@ -258,9 +258,9 @@
     comment: simulation terminated by an assertion at initialization.
     simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
-    optimica:
-      comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start; isEna.u = loa1.ctl.cha.pre_u_start'
-      translate: false
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
