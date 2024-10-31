@@ -116,7 +116,7 @@ model FlatPlateWithTank
   Modelica.Blocks.Math.BooleanToReal booToRea(
     realTrue=m_flow_nominal)
     "Conversion of control signal to real-valued signal"
-	annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+ annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(solCol.port_b,TOut. port_a) annotation (Line(
       points={{18,56},{30,56}},

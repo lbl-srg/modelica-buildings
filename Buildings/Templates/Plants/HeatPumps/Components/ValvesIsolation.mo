@@ -675,8 +675,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={2170,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 1,
           extent={{1860,-240},{1940,-160}},
@@ -736,8 +735,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={1370,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 2,
           extent={{1060,-240},{1140,-160}},
@@ -795,8 +793,7 @@ equation
           extent={{-100,-100},{100,100}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
-          origin={600,-200}),
-                                 Bitmap(
+          origin={600,-200}),    Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpInlIso and nHp >= 3,
           extent={{460,-240},{540,-160}},
@@ -805,8 +802,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={570,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 3,
           extent={{260,-240},{340,-160}},
@@ -866,8 +862,7 @@ equation
           extent={{-100,-100},{100,100}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
-          origin={-200,-200}),
-                                 Bitmap(
+          origin={-200,-200}),   Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpInlIso and nHp >= 4,
           extent={{-340,-240},{-260,-160}},
@@ -876,8 +871,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={-230,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 4,
           extent={{-540,-240},{-460,-160}},
@@ -935,8 +929,7 @@ equation
           extent={{-100,-100},{100,100}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
-          origin={-1000,-200}),
-                                 Bitmap(
+          origin={-1000,-200}),  Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpInlIso and nHp >= 5,
           extent={{-1140,-240},{-1060,-160}},
@@ -945,8 +938,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={-1030,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 5,
           extent={{-1340,-240},{-1260,-160}},
@@ -1004,8 +996,7 @@ equation
           extent={{-100,-100},{100,100}},
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
           rotation=360,
-          origin={-1800,-200}),
-                                 Bitmap(
+          origin={-1800,-200}),  Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpInlIso and nHp >= 6,
           extent={{-1940,-240},{-1860,-160}},
@@ -1014,8 +1005,7 @@ equation
           points={{0,30},{0,-30}},
           color={0,0,0},
           origin={-1830,-200},
-          rotation=-90),
-                                 Bitmap(
+          rotation=-90),         Bitmap(
           visible=typ == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
                and have_valHpOutIso and nHp >= 6,
           extent={{-2140,-240},{-2060,-160}},

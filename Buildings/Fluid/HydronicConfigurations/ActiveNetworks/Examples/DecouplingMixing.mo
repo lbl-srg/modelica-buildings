@@ -39,16 +39,14 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,230})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1.0,
-                                                                        y(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1.0,    y(
         final unit="1"))
     "One"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,230})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0.0,
-                                                                         y(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(final k=0.0,    y(
         final unit="1"))
     "Zero"
     annotation (Placement(transformation(

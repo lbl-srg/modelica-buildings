@@ -56,8 +56,8 @@ model StoragePlantDualSource
     annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
 
 // Second plant: chiller and tank
-  Buildings.DHC.Plants.Cooling.StoragePlant stoPla(redeclare
-      final package Medium = Medium,
+  Buildings.DHC.Plants.Cooling.StoragePlant stoPla(redeclare final
+            package Medium = Medium,
     mTan_flow_nominal=mTan_flow_nominal,
     mChi_flow_nominal=mChi_flow_nominal,
     dpPum_nominal=dp_nominal,

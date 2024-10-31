@@ -1,5 +1,4 @@
 within Buildings.Obsolete.Fluid;
-
 package SolarCollectors "Package with models for solar collectors"
   extends Modelica.Icons.Package;
 

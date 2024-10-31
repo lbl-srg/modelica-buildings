@@ -29,8 +29,8 @@ protected
   Modelica.Blocks.Interfaces.RealInput p_in_internal(final unit="Pa")
     "Needed to connect to conditional connector";
   Medium.BaseProperties medium(
-      T(start=Medium.T_default)
-    ) if verifyInputs "Medium in the source";
+      T(start=Medium.T_default))
+      if verifyInputs "Medium in the source";
   Modelica.Blocks.Interfaces.RealInput Xi_in_internal[Medium.nXi](
     each final unit = "kg/kg")
     "Needed to connect to conditional connector";

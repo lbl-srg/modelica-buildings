@@ -9,7 +9,7 @@ model FixedApproachWetBulb
       final computeWetBulbTemperature=true));
 equation
   connect(weaBus.TWetBul, tow.TAir) annotation (Line(
-      points={{-60,50},{0,50},{0,-46},{20,-46}},
+      points={{-59.95,50.05},{0,50.05},{0,-46},{20,-46}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

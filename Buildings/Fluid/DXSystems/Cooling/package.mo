@@ -42,7 +42,6 @@ This package contains air-source and water-source DX cooling coil models.
           pattern=LinePattern.None),
         Line(
           points={{-28,-66},{44,84},{10,80},{-178,86},{-36,46},{-56,52},{-70,36}},
-
           color={0,0,0},
           pattern=LinePattern.None),
         Polygon(

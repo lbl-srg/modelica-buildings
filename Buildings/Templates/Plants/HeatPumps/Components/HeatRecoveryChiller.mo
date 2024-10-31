@@ -13,7 +13,8 @@ model HeatRecoveryChiller
   which allows better integration into the HP plant diagram.
   Ideally, with PR#1781, port_a1 and port_b1 should be moved to be vertically
   aligned with port_a2 and port_b2, respectively.
-  */replaceable package MediumChiWat=Buildings.Media.Water
+  */
+    replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
     annotation (__Linkage(enable=false));

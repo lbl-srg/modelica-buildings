@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
-model YorkCalc
+model CoolTools
   "Test model for cooling tower using the York performance correlation"
   extends Modelica.Icons.Example;
   extends BaseClasses.PartialStaticTwoPortCoolingTower(
-    redeclare CoolingTowers.YorkCalc tow,
+    redeclare CoolToolsCrossFlow     tow,
     weaDat(
       final computeWetBulbTemperature=true));
 
@@ -65,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end YorkCalc;
+end CoolTools;

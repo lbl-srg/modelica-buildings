@@ -89,8 +89,7 @@ model HeatRecoveryChiller
     "Source for DO signals"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSupSet(
-    y(
-      unit="K",
+    y(unit="K",
       displayUnit="degC"))
     "HRC supply temperature setpoint"
     annotation (Placement(transformation(extent={{30,150},{50,170}})));

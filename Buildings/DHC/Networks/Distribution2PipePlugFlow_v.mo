@@ -10,7 +10,7 @@ model Distribution2PipePlugFlow_v
       each final roughness=roughness,
       each final cPip=cPip,
       each final rhoPip=rhoPip,
-      each final thickness=thickness), 
+      each final thickness=thickness),
       redeclare model Model_pipDis = Buildings.Fluid.FixedResistances.PlugFlowPipe(
         final length=lEnd,
         final dIns=dIns,

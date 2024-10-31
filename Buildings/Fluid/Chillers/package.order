@@ -3,6 +3,7 @@ Carnot_TEva
 Carnot_y
 ElectricEIR
 ElectricReformulatedEIR
+ElectricEIR_falseloading
 ModularReversible
 Data
 Examples
