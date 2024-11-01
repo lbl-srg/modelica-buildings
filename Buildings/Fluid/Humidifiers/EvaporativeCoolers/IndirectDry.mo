@@ -18,7 +18,7 @@ model IndirectDry
 
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium
-    "Medium  rejected to outdoor air"
+    "Medium rejected to outdoor air"
     annotation (choices(
       choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
@@ -69,19 +69,19 @@ model IndirectDry
     final m1_flow_nominal = m1_flow_nominal,
     final m2_flow_nominal = m2_flow_nominal)
     "Heat exchanger for heat transfer between primary and secondary air"
-    annotation (Placement(transformation(origin={0,8}, extent = {{-10, -10}, {10, 10}})));
+    annotation (Placement(transformation(origin={0,10},extent = {{-10, -10}, {10, 10}})));
 
 equation
   connect(port_a2, dirEvaCoo.port_a)
     annotation (Line(points={{-100,-60},{-10,-60}}));
   connect(dirEvaCoo.port_b, hex.port_a2)
-    annotation (Line(points={{10,-60},{10,2}}, color={0,127,255}));
+    annotation (Line(points={{10,-60},{10,4}}, color={0,127,255}));
   connect(hex.port_b2, port_b2) annotation (
-    Line(points={{-10,2},{-10,-19},{100,-19},{100,-60}}, color = {0, 127, 255}));
+    Line(points={{-10,4},{-10,-21},{100,-21},{100,-60}}, color = {0, 127, 255}));
   connect(port_a1, hex.port_a1) annotation (
-    Line(points={{-100,60},{-12,60},{-12,14},{-10,14}}));
+    Line(points={{-100,60},{-10,60},{-10,16}}));
   connect(hex.port_b1, port_b1) annotation (
-    Line(points={{10,14},{10,48},{100,48},{100,60}}, color = {0, 127, 255}));
+    Line(points={{10,16},{10,60},{100,60}},          color = {0, 127, 255}));
   connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
           -56},{60,90},{120,90}}, color={0,0,127}));
 
@@ -94,7 +94,7 @@ Model for a indirect dry evaporative cooler.
 This model contains two components, a direct evaporative cooler 
 (<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct\">
 Buildings.Fluid.Humidifiers.EvaporativeCoolers.Direct</a>) 
-and an air-to-air heat exchanger with constant effectiveness.
+and an air-to-air heat exchanger with constant effectiveness
 (<a href=\"modelica://Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>). 
 The secondary air travels through the rigid media pad of the direct evaporative

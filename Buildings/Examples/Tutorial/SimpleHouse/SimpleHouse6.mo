@@ -15,7 +15,7 @@ model SimpleHouse6 "Free cooling model"
     dpDamper_nominal=dpAir_nominal)
     "Damper" annotation (Placement(transformation(extent={{-10,10},{10,
             -10}}, origin={110,130})));
-  Fluid.Movers.Preconfigured.FlowControlled_dp fan(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp fan(
     redeclare package Medium = MediumAir,
     show_T=true,
     dp_nominal=dpAir_nominal,
@@ -52,11 +52,21 @@ model SimpleHouse6 "Free cooling model"
   Modelica.Blocks.Math.BooleanToReal booRea3(realTrue=dpAir_nominal)
     "Boolean to real"
     annotation (Placement(transformation(extent={{30,80},{10,100}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanIn(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    tau=0) "Temperature at fan inlet"
+    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TFanOut(
+    redeclare final package Medium = MediumAir,
+    final m_flow_nominal=mAir_flow_nominal,
+    tau=0) "Temperature at fan outlet"
+    annotation (Placement(transformation(extent={{20,120},{40,140}})));
 equation
   connect(hexRec.port_a1, zon.ports[1]) annotation (Line(points={{-55,149.6},{169,
           149.6},{169,50},{170,50}},     color={0,127,255}));
-  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-130,
-          144},{-130,0}},       color={0,0,127}));
+  connect(bouAir.T_in, weaBus.TDryBul) annotation (Line(points={{-122,144},{-129.95,
+          144},{-129.95,0.05}}, color={0,0,127}));
   connect(vavDam.port_b, zon.ports[2]) annotation (Line(points={{120,130},{142,130},
           {142,50},{170,50}},
                            color={0,127,255}));
@@ -64,12 +74,8 @@ equation
     annotation (Line(points={{101,90},{110,90},{110,118}}, color={0,0,127}));
   connect(hysAir.y, booRea2.u)
     annotation (Line(points={{50,99},{50,90},{78,90}}, color={255,0,255}));
-  connect(vavDam.port_a, fan.port_b)
-    annotation (Line(points={{100,130},{10,130}}, color={0,127,255}));
   connect(bouAir.ports[1], hexRec.port_a2) annotation (Line(points={{-100,139},{
           -100,130.4},{-85,130.4}},   color={0,127,255}));
-  connect(fan.port_a, hexRec.port_b2) annotation (Line(points={{-10,130},{-32,130},
-          {-32,130.4},{-55,130.4}}, color={0,127,255}));
   connect(hexRec.port_b1, bouAir.ports[2]) annotation (Line(points={{-85,149.6},
           {-100,149.6},{-100,141}}, color={0,127,255}));
   connect(booRea1.y, pum.m_flow_in) annotation (Line(points={{21,-150},{100,
@@ -80,11 +86,25 @@ equation
     annotation (Line(points={{9,90},{0,90},{0,118}}, color={0,0,127}));
   connect(booRea3.u, hysAir.y)
     annotation (Line(points={{32,90},{50,90},{50,99}}, color={255,0,255}));
+  connect(hexRec.port_b2, TFanIn.port_a) annotation (Line(points={{-55,130.4},{
+          -54,130},{-40,130}}, color={0,127,255}));
+  connect(TFanIn.port_b, fan.port_a)
+    annotation (Line(points={{-20,130},{-10,130}}, color={0,127,255}));
+  connect(vavDam.port_a, TFanOut.port_b)
+    annotation (Line(points={{100,130},{40,130}}, color={0,127,255}));
+  connect(TFanOut.port_a, fan.port_b)
+    annotation (Line(points={{20,130},{10,130}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
             -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
+<li>
+August 5, 2024, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>sta_*.T</code>
+in reference results. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
 <li>
 September 4, 2023, by Jelger Jansen:<br/>
 First implementation.

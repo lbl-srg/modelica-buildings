@@ -1,0 +1,37 @@
+simulateModel("Buildings.Templates.Plants.Controls.Setpoints.Validation.PlantReset",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=20000.0,
+    resultFile="PlantReset");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"res.u1Ena", "res.u1StaPro", "res.nReqRes"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"res.triRes.y", "res.resDp_max", "res.resTSup_min"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    position={310, 5, 300, 500},
+    y={"res.dpSet[1]", "res.dpSet[2]", "res.dpSet_max[1]", "res.dpSet_max[2]", "res.dpSet_min"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"res.TSupSet", "res.TSup_nominal", "res.TSupSetLim"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

@@ -35,16 +35,12 @@ model SingleToMultiple "Single inlet port, multiple outlet ports"
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 
-  parameter Integer icon_offset = 0
-    "Offset in y-direction between inlet and outlet in icon layer"
-    annotation(Dialog(tab="Graphics", enable=false));
-  parameter Integer icon_dy = 100
-    "Distance in y-direction between each branch in icon layer"
-    annotation(Dialog(tab="Graphics", enable=false));
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
-    Buildings.Templates.Components.Types.IconPipe.Supply
-    "Pipe symbol"
-    annotation(Dialog(tab="Graphics", enable=false));
+  constant Integer icon_offset = 0
+    "Offset in y-direction between inlet and outlet in icon layer";
+  constant Integer icon_dy = 100
+    "Distance in y-direction between each branch in icon layer";
+  constant Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
+      Buildings.Templates.Components.Types.IntegrationPoint.None "Pipe symbol";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
@@ -114,39 +110,63 @@ equation
     Text( extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
           textString="%name"),
+    Line( points={{-100, 0}, {100, 0}},
+          color={0,127,255},
+          visible=icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.None),
     Line( points={{-100,0},{0,0},{0,icon_offset},{100,icon_offset}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash),
-    Line( visible=nPorts>=2,
+    Line( visible=nPorts>=2 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset}, {0,icon_offset+icon_dy}, {100,icon_offset+icon_dy}}
             elseif icon_offset>0 and icon_offset+icon_dy<0 or icon_offset<0 and icon_offset+icon_dy>0 then
             {{0, 0}, {0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}}
             else {{0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}},
           color={0,0,0},
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash,
           thickness=5),
-    Line( visible=nPorts>=3,
+    Line( visible=nPorts>=3 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset+icon_dy},{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}}
             elseif icon_offset>0 and icon_offset+2*icon_dy<0 or icon_offset<0 and icon_offset+2*icon_dy>0 then
             {{0, 0},{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}}
             else {{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}},
           color={0,0,0},
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash,
           thickness=5),
-    Line( visible=nPorts>=4,
+    Line( visible=nPorts>=4 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset+2*icon_dy},{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}}
             elseif icon_offset>0 and icon_offset+3*icon_dy<0 or icon_offset<0 and icon_offset+3*icon_dy>0 then
             {{0, 0},{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}}
             else {{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}},
           color={0,0,0},
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
+          then LinePattern.Solid else LinePattern.Dash,
+          thickness=5),
+    Line( visible=nPorts>=5 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+          points=if icon_offset*icon_dy>=0 then
+            {{0, icon_offset+3*icon_dy},{0, icon_offset+4*icon_dy},{100, icon_offset+4*icon_dy}}
+            elseif icon_offset>0 and icon_offset+4*icon_dy<0 or icon_offset<0 and icon_offset+4*icon_dy>0 then
+            {{0, 0},{0, icon_offset+4*icon_dy},{100, icon_offset+4*icon_dy}}
+            else {{0, icon_offset+4*icon_dy},{100, icon_offset+4*icon_dy}},
+          color={0,0,0},
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
+          then LinePattern.Solid else LinePattern.Dash,
+          thickness=5),
+    Line( visible=nPorts>=6 and icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None,
+          points=if icon_offset*icon_dy>=0 then
+            {{0, icon_offset+4*icon_dy},{0, icon_offset+5*icon_dy},{100, icon_offset+5*icon_dy}}
+            elseif icon_offset>0 and icon_offset+5*icon_dy<0 or icon_offset<0 and icon_offset+5*icon_dy>0 then
+            {{0, 0},{0, icon_offset+5*icon_dy},{100, icon_offset+5*icon_dy}}
+            else {{0, icon_offset+5*icon_dy},{100, icon_offset+5*icon_dy}},
+          color={0,0,0},
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash,
           thickness=5)}),
     Diagram(

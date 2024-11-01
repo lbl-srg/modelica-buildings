@@ -13,7 +13,7 @@ model PipeGroundCoupling
   parameter Boolean steadyStateInitial = false
     "true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using TpipSta and TGrouBouSta" annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
   parameter Modelica.Units.SI.Length dep = 10 "Depth of buried pipe to calculate ground temperature";
-  replaceable parameter Buildings.Experimental.DHC.Examples.Combined.BaseClasses.Zurich cliCon
+  replaceable parameter Buildings.DHC.Examples.Combined.BaseClasses.Zurich cliCon
     "Surface temperature climatic conditions";
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic soiDat(
     k=1.58,c=1150,d=1600) "Soil thermal properties" annotation (Placement(transformation(extent={{-90,72},{-70,92}})));

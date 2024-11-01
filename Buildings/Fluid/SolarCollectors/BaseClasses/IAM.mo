@@ -1,28 +1,38 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
-function IAM "Function for incident angle modifer"
+function IAM "Function for incident angle modifier"
+  extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.Angle incAng "Incident angle";
-  input Real B0 "1st incident angle modifer coefficient";
-  input Real B1 "2nd incident angle modifer coefficient";
+  input Modelica.Units.SI.Angle[:] incAngDat "Incident angle data";
+  input Real[size(incAngDat,1)] incAngModDat(
+    each final min=0,
+    each final max=1,
+    each final unit="1") "Incident angle modifier data";
+  input Real[size(incAngDat,1)] dMonotone "Incident angle modifier spline derivatives";
   output Real incAngMod "Incident angle modifier coefficient";
 protected
-  constant Modelica.Units.SI.Angle incAngMin=Modelica.Constants.pi/2 - 0.1
-    "Minimum incidence angle to avoid division by zero";
+  Integer i "Counter to pick the interpolation interval";
   constant Real delta = 0.0001 "Width of the smoothing function";
-  constant Real cosIncAngMin = Modelica.Math.cos(incAngMin) "Cosine of minimum incidence angle";
-  Real k = 1/Buildings.Utilities.Math.Functions.smoothMax(Modelica.Math.cos(incAng),
-         cosIncAngMin, delta) - 1
-         "Term 1/cos(theta)-1 with regularization to avoid division by zero";
-algorithm
-  // E+ Equ (555), except that we do no longer set incAngMod to zero
-  // at incidence angle larger than 60, see
-  // https://github.com/lbl-srg/modelica-buildings/issues/785
 
-  incAngMod :=
-  Buildings.Utilities.Math.Functions.smoothLimit(
-    x = (1 + B0*k + B1*k^2),
-    l = 0,
-    u = 1,
+algorithm
+  i := 1;
+  for j in 1:size(incAngDat, 1) - 1 loop
+    if incAng > incAngDat[j] then
+      i := j;
+    end if;
+  end for;
+  // Extrapolate or interpolate the data and sets its value to 0 if
+  // the incident angle modifier becomes negative.
+  incAngMod := Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+      x=incAng,
+      x1=incAngDat[i],
+      x2=incAngDat[i + 1],
+      y1=incAngModDat[i],
+      y2=incAngModDat[i + 1],
+      y1d=dMonotone[i],
+      y2d=dMonotone[i + 1]),
+    x2 = 0,
     deltaX = delta);
 
   annotation (
@@ -30,23 +40,25 @@ algorithm
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This function computes the incidence angle modifier for solar insolation
-striking the surface of the solar thermal collector. It is calculated using
-Eq 555 in the EnergyPlus 7.0.0 Engineering Reference.
+This function computes the incidence angle modifier for solar irradiation
+striking the surface of the solar thermal collector.
+It is calculated using cubic spline interpolation and
+measurement data for the incident angle modifier provided in data sheets.
 </p>
-<h4>Notice</h4>
-<p>
-As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly
-at angles greater than 60 degrees. This model outputs 0 whenever the incidence
-angle is greater than 60 degrees.
-</p>
+
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>,
-October 13, 2011.
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v23.2.0/EngineeringReference.pdf\">
+EnergyPlus 23.2.0 Engineering Reference</a>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 May 31, 2017, by Michael Wetter and Filip Jorissen:<br/>
 Change limits for incident angle modifier to avoid dip in temperature
