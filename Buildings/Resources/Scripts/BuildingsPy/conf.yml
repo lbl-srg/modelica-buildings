@@ -219,6 +219,10 @@
   openmodelica:
     comment: 'TimeoutExpired: translation timed out after 300 seconds'
     time_out: 600
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
+  openmodelica:
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
   openmodelica:
     comment: Timeout on travis
