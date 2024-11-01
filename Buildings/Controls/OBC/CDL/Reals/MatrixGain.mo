@@ -5,10 +5,10 @@ block MatrixGain
     1,0;
     0,1]
     "Gain matrix which is multiplied with the input";
-  Interfaces.RealInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
     "Connector of Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
     "Connector of Real output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

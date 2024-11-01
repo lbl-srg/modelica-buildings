@@ -2,8 +2,8 @@ within Buildings.BoundaryConditions.WeatherData;
 expandable connector Bus "Data bus that stores weather data"
   extends Modelica.Icons.SignalBus;
 
-  Modelica.Units.SI.Temperature TDryBul "Dry bulb temperature";
-  Modelica.Units.SI.Temperature TWetBul "Wet bulb temperature";
+  Modelica.Units.SI.Temperature TDryBul(start=293.15) "Dry bulb temperature";
+  Modelica.Units.SI.Temperature TWetBul(start=293.15) "Wet bulb temperature";
   Modelica.Units.SI.Temperature TDewPoi "Dew point temperature";
   Modelica.Units.SI.Temperature TBlaSky "Black-body sky temperature";
 
@@ -49,6 +49,12 @@ This component is an expandable connector that is used to implement a bus that c
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 September 22, 2023, by Michael Wetter:<br/>
 Declared the variables that are on the bus.<br/>

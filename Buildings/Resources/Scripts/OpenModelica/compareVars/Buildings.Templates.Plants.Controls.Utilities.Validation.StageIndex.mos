@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "ena.y",
+    "u1UpHol.y",
+    "u1DowHol.y",
+    "u1AvaSta[1].y",
+    "u1AvaSta[2].y",
+    "u1AvaSta[3].y",
+    "u1AvaSta[4].y",
+    "idxSta.y",
+    "idxStaUna.y",
+    "idxStaRun.y",
+    "idxStaRunUna.y"
+  };

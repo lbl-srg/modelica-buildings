@@ -73,6 +73,50 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   Buildings.Controls.OBC.CDL.Reals.MovingAverage PCoo(delta=3600)
     "Hourly averaged cooling power"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
+  Modelica.Blocks.Sources.RealExpression hGloHor(
+    y(final unit="W/m2")=weaDat.weaBus.HGloHor)
+    "Global horizontal solar irradiance"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Modelica.Blocks.Continuous.Integrator gloHor(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual global horizontal solar irradiance"
+    annotation (Placement(transformation(extent={{74,26},{82,34}})));
+  Modelica.Blocks.Continuous.Integrator gloSou(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(final unit="W/m2"),
+    y(final unit="J/m2"))
+    "Annual south global solar irradiance"
+    annotation (Placement(transformation(extent={{80,2},{88,10}})));
+  Modelica.Blocks.Continuous.Integrator traSol(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(final unit="W"),
+    y(final unit="J"))
+    "Annual transmitted solar irradiance"
+    annotation (Placement(transformation(extent={{88,-12},{96,-4}})));
+  Modelica.Blocks.Sources.RealExpression TSkyTem(
+    y(final unit="K", displayUnit="degC")=weaDat.weaBus.TBlaSky)
+    "Black body sky temperature"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemHou(
+    delta=3600,
+    u(final unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"))
+    "Hourly averaged sky temperature"
+    annotation (Placement(transformation(extent={{88,-48},{96,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage TSkyTemAnn(
+    delta=86400*365,
+    u(final unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"))
+    "Annual averaged sky temperature"
+    annotation (Placement(transformation(extent={{88,-60},{96,-52}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
       points={{1.5,-15},{-80,-15},{-80,24},{-68,24},{-68,29.2}},
@@ -134,6 +178,16 @@ equation
       points={{6,24},{16,24},{16,-15},{50.25,-15}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(hGloHor.y, gloHor.u)
+    annotation (Line(points={{61,30},{73.2,30}}, color={0,0,127}));
+  connect(TSkyTem.y, TSkyTemHou.u) annotation (Line(points={{61,-50},{70,-50},{70,
+          -44},{87.2,-44}}, color={0,0,127}));
+  connect(TSkyTem.y, TSkyTemAnn.u) annotation (Line(points={{61,-50},{70,-50},{70,
+          -56},{87.2,-56}}, color={0,0,127}));
+  connect(roo.QTraGlo[1], traSol.u) annotation (Line(points={{67.5,-25.5},{78,-25.5},
+          {78,-8},{87.2,-8}}, color={0,0,127}));
+  connect(roo.HGlo[1], gloSou.u) annotation (Line(points={{67.5,-22.5},{72,-22.5},
+          {72,6},{79.2,6}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600.mos"
         "Simulate and plot"),
         experiment(

@@ -3,11 +3,11 @@ block IndirectWetCalculations
   "Calculates the heat transfer in an indirect wet evaporative cooler"
 
   parameter Real maxEff(
-    displayUnit="1")
+    unit="1")
     "Maximum efficiency of heat exchanger coil";
 
   parameter Real floRat(
-    displayUnit="1")
+    unit="1")
     "Coil flow efficency ratio of actual to maximum heat transfer rate";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
@@ -65,7 +65,7 @@ block IndirectWetCalculations
       iconTransformation(origin={140,0}, extent={{-20,-20},{20,20}})));
 
   Real eff(
-    displayUnit="1")
+    unit="1")
     "Actual efficiency of component";
 
 equation
