@@ -2,24 +2,14 @@ within Buildings.Fluid.Humidifiers.EvaporativeCoolers;
 model Direct
   "Direct Evaporative cooler"
 
-  extends Buildings.Fluid.Interfaces.PartialTwoPort;
-
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal air mass flow rate";
-
-  parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    displayUnit="Pa")
-    "Pressure drop at nominal mass flow rate";
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Modelica.Units.SI.Area padAre
     "Area of the rigid media evaporative pad";
 
   parameter Modelica.Units.SI.Length dep
     "Depth of the rigid media evaporative pad";
-
-  parameter Modelica.Units.SI.Time tau=30
-    "Time constant at nominal flow rate (if energyDynamics <> SteadyState)"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dmWat_flow(
     final unit="kg/s",
@@ -28,43 +18,6 @@ model Direct
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final T_start=298.15)
-    "Dry bulb temperature sensor"
-    annotation (Placement(transformation(origin={-70,0}, extent={{-10,-10},{10,10}})));
-
-  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senTemWetBul(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final initType=Modelica.Blocks.Types.Init.InitialOutput,
-    final TWetBul_start=296.15)
-    "Wet bulb temperature sensor"
-    annotation (Placement(transformation(origin={-40,0}, extent={{-10,-10},{10,10}})));
-
-  Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
-    redeclare final package Medium =  Medium,
-    final m_flow_nominal=m_flow_nominal)
-    "Volume flow rate sensor"
-    annotation (Placement(transformation(origin={-10,0}, extent={{-10,-10},{10,10}})));
-
-  Buildings.Fluid.FixedResistances.PressureDrop res(
-    redeclare final package Medium = Medium,
-    final dp_nominal=dp_nominal,
-    final m_flow_nominal = m_flow_nominal)
-    "Pressure drop"
-    annotation (Placement(transformation(origin={30,0}, extent={{-10,-10},{10,10}})));
-
-  Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal = m_flow_nominal,
-    final V=m_flow_nominal*tau/rho_default,
-    final nPorts = 2)
-    "Moist air mixing volume"
-    annotation (Placement(transformation(origin={80,20}, extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
@@ -72,49 +25,57 @@ model Direct
     "Direct evaporative cooling calculator"
     annotation (Placement(transformation(origin={30,60}, extent={{-10,-10},{10,10}})));
 
-  Buildings.Fluid.Sensors.Pressure senPre(
-    redeclare final package Medium = Medium)
-    "Pressure"
-    annotation (Placement(transformation(origin={-90,54}, extent={{-10,-10},{10,10}})));
-
 protected
-  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
-    T=Medium.T_default,
-    p=Medium.p_default,
-    X=Medium.X_default)
-    "Default state of medium";
+  Medium.ThermodynamicState staInl=Medium.setState_phX(
+    p=port_a.p, h=inStream(port_a.h_outflow), X=inStream(port_a.Xi_outflow))
+    "State of inlet medium";
 
-  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
-    "Density, used to compute fluid volume";
+  Modelica.Blocks.Sources.RealExpression TDryBul(
+    y=Medium.temperature(state=staInl))
+    "Inlet air drybulb temperature"
+    annotation (Placement(transformation(extent={{-80,82},{-60,98}})));
+
+  Modelica.Blocks.Sources.RealExpression XInl[Medium.nXi](
+    y=inStream(port_a.Xi_outflow))
+    "Inlet air humidity ratio"
+    annotation (Placement(transformation(extent={{-80,72},{-60,88}})));
+
+  Modelica.Blocks.Sources.RealExpression pInl(
+    y=port_a.p)
+    "Inlet air pressure"
+    annotation (Placement(transformation(extent={{-80,62},{-60,78}})));
+
+  Modelica.Blocks.Sources.RealExpression V_flow(
+    y=port_a.m_flow/Medium.density(staInl))
+    "Inlet air volume flowrate"
+    annotation (Placement(transformation(extent={{-80,52},{-60,68}})));
+
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
+    redeclare package Medium = Medium)
+    "Calculate wet bulb temperature from inlet medium state"
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
 equation
-  connect(senVolFlo.V_flow, dirEvaCoo.V_flow) annotation (Line(points={{-10,11},
-          {-10,58},{18,58}}, color={0,0,127}));
-  connect(senTemWetBul.T, dirEvaCoo.TWetBulIn)
-    annotation (Line(points={{-40,11},{-40,66},{18,66}}, color={0,0,127}));
-  connect(senTem.T, dirEvaCoo.TDryBulIn)
-    annotation (Line(points={{-70,11},{-70,62},{18,62}}, color={0,0,127}));
-  connect(senTem.port_b, senTemWetBul.port_a)
-    annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
-  connect(senTemWetBul.port_b,senVolFlo. port_a)
-    annotation (Line(points={{-30,0},{-20,0}}));
-  connect(res.port_b, vol.ports[1])
-    annotation (Line(points={{40,0},{78,0},{78,10}}, color = {0, 127, 255}));
-  connect(port_a, senTem.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}));
-  connect(vol.ports[2], port_b)
-    annotation (Line(points={{82,10},{82,0},{100,0}}, color = {0, 127, 255}));
-  connect(senTem.port_a, senPre.port)
-    annotation (Line(points={{-80,0},{-90,0},{-90,44}}, color={0,127,255}));
-  connect(senPre.p, dirEvaCoo.p)
-    annotation (Line(points={{-79,54},{18,54}}, color={0,0,127}));
   connect(dirEvaCoo.dmWat_flow, vol.mWat_flow)
-    annotation (Line(points={{42,60},{60,60},{60,28},{68,28}}, color={0,0,127}));
-  connect(senVolFlo.port_b, res.port_a)
-    annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
+    annotation (Line(points={{42,60},{60,60},{60,40},{-30,40},{-30,-18},{-11,-18}},
+                                                               color={0,0,127}));
   connect(dirEvaCoo.dmWat_flow, dmWat_flow)
     annotation (Line(points={{42,60},{60,60},{60,80},{120,80}}, color={0,0,127}));
 
+  connect(TDryBul.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-59,90},{-30,
+          90},{-30,62},{18,62}}, color={0,0,127}));
+  connect(TDryBul.y, wetBul.TDryBul) annotation (Line(points={{-59,90},{-30,90},
+          {-30,88},{-21,88}}, color={0,0,127}));
+  connect(wetBul.TWetBul, dirEvaCoo.TWetBulIn) annotation (Line(points={{1,80},{
+          10,80},{10,66},{18,66}}, color={0,0,127}));
+  connect(XInl.y, wetBul.Xi)
+    annotation (Line(points={{-59,80},{-21,80}}, color={0,0,127}));
+  connect(pInl.y, wetBul.p) annotation (Line(points={{-59,70},{-40,70},{-40,72},
+          {-21,72}}, color={0,0,127}));
+  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-59,70},{-40,70},{-40,54},
+          {18,54}}, color={0,0,127}));
+  connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-59,60},{-30,60},
+          {-30,58},{18,58}}, color={0,0,127}));
 annotation (defaultComponentName="dirEvaCoo",
 Icon(graphics={
   Rectangle(lineColor = {0, 0, 255}, fillColor = {95, 95, 95}, pattern = LinePattern.None,

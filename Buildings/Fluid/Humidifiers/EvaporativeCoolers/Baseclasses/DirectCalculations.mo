@@ -40,7 +40,7 @@ block DirectCalculations
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput p(
     final unit="Pa",
-    final quantity="AbsolutePressure")
+    final quantity="Pressure")
     "Pressure"
     annotation (Placement(transformation(origin={-120,-60},extent={{-20,-20},{20,20}}),
       iconTransformation(origin={-120,-60}, extent={{-20,-20},{20,20}})));
