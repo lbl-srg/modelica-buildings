@@ -257,13 +257,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   optimica:
-    comment: The rootfinding function failed in an unrecoverable manner. At time 32431.252047.
-    simulate: false
+    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
