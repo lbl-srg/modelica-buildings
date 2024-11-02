@@ -70,6 +70,10 @@
   openmodelica:
     comment: 'TimeoutExpired: Command ''[''omc'', ''Buildings.Examples.VAVReheat.Validation.TraceSubstance_simulate.mos'']'' timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.Borefield
+  openmodelica:
+    comment: Simulation terminated at time 5400
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
