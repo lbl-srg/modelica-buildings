@@ -18,8 +18,7 @@ model PumpParallel "Example that tests the model pump parallels"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     threshold=thr1,
     tau=1,
-    use_inputFilter=false)
-    "Pumps with speed controlled"
+    use_riseTime=false) "Pumps with speed controlled"
     annotation (Placement(transformation(extent={{-18,30},{2,50}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop dp2(

@@ -96,14 +96,13 @@ model BenchmarkFlowDistribution2
     lDis=fill(6, nLoa),
     lEnd=1) annotation (Placement(transformation(extent={{40,-90},{80,-70}})));
   Fluid.Movers.FlowControlled_dp pum(
-    redeclare package Medium=Medium1,
-    per(
-      final motorCooledByFluid=false),
+    redeclare package Medium = Medium1,
+    per(final motorCooledByFluid=false),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     dp_nominal=dp_nominal)
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
   Fluid.MixingVolumes.MixingVolume vol(

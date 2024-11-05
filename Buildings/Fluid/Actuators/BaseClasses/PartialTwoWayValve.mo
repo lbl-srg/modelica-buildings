@@ -47,12 +47,12 @@ initial equation
       fillColor={255,255,255},
       fillPattern=FillPattern.Solid),
     Line(
-      visible=use_inputFilter,
+      visible=use_strokeTime,
       points={{-30,40},{30,40}}),
     Line(
       points={{0,40},{0,0}}),
     Line(
-      visible=not use_inputFilter,
+      visible=not use_strokeTime,
       points={{0,100},{0,40}})}),
 Documentation(info="<html>
 <p>

@@ -49,9 +49,8 @@ model HexElementLatentLoop
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
     dp_nominal=5,
-    use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                  "Fan"
+    use_riseTime=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Fan"
     annotation (Placement(transformation(extent={{10,-82},{30,-62}})));
   Buildings.Utilities.Psychrometrics.pW_TDewPoi TDewPoi
     "Model to compute the water vapor pressure at the dew point"
