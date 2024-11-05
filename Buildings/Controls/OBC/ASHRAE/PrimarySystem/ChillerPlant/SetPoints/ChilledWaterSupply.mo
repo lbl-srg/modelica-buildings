@@ -22,7 +22,6 @@ block ChilledWaterSupply
     displayUnit="degC")
     "Minimum chilled water supply temperature. This is the lowest minimum chilled water supply temperature of chillers in the plant";
   parameter Real TChiWatSupMax(
-    final min=TChiWatSupMin,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") = 288.706
