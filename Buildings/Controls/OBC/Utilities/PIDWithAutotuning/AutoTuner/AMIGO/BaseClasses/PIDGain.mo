@@ -88,9 +88,9 @@ First implementation<br/>
 k = 1/k<sub>p</sub> + (0.2 + 0.45 T/L),
 </p>
 <p>
-where <code>k<sub>p</sub></code> is the gain of the first order time delayed model,
-<code>T</code> is the time constant of the first order time delayed model,
-and <code>L</code> is the time delay of the first order time delayed model.
+where <code>k<sub>p</sub></code> is the gain of the first-order plus time-delay (FOPTD) model,
+<code>T</code> is the time constant of the FOPTD model,
+and <code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>

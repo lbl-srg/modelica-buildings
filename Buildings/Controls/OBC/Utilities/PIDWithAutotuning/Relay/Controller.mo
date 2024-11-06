@@ -160,8 +160,8 @@ Documentation(info="<html>
 <p>
 This block generates a relay output <code>yDif</code> which equals to
 <code>u_m - u_s</code>. It also generates the control output <code>y</code>,
-and a boolean relay switch output <code>yOn</code>,
-which are calculated as below.
+and a boolean relay switch output <code>yOn</code>.
+<code>y</code> and <code>yOn</code> are calculated as below.
 </p>
 <p>
 Step 1: Calculate control error,
@@ -169,8 +169,8 @@ Step 1: Calculate control error,
 <ul>
 <li>
 If the parameter <code>reverseActing = true</code>, set the control error to
-<code>err = u_s - u_m</code>,
-else set it to <code>err = u_m - u_s</code>.
+<code>u_s - u_m</code>,
+else set it to <code>u_m - u_s</code>.
 </li>
 </ul>
 <p>
@@ -197,9 +197,12 @@ are the higher value and the lower value of the output <code>y</code>, respectiv
 </p>
 
 <h4>References</h4>
-<p>Josefin Berner (2017)
-\"Automatic Controller Tuning using Relay-based Model Identification.\"
-Department of Automatic Control, Lund Institute of Technology, Lund University.</p>
+<p>
+J. Berner (2017).
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+Department of Automatic Control, Lund University.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

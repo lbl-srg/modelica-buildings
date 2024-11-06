@@ -108,8 +108,11 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </p>
 
 <h4>References</h4>
-<p>Josefin Berner (2017)
-\"Automatic Controller Tuning using Relay-based Model Identification.\"
-Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
+<p>
+J. Berner (2017).
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+Department of Automatic Control, Lund University.
+</p>
 </html>"));
 end HalfPeriodRatio;

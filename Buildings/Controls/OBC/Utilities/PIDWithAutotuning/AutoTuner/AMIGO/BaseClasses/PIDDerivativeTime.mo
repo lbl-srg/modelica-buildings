@@ -82,8 +82,8 @@ First implementation<br/>
 T<sub>d</sub> = 0.5 L T/(0.3 L + T),
 </p>
 <p>
-where <code>T</code> is the time constant of the first order time delayed model
-and <code>L</code> is the time delay of the first order time delayed model.
+where <code>T</code> is the time constant of the first-order plus time-delay (FOPTD) model
+and <code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>

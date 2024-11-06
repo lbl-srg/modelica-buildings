@@ -388,11 +388,11 @@ This block implements a rule-based PID tuning method.
 <p>
 The PID tuning method approximates the control process with a
 first-order plus time-delay (FOPTD) model.
-It then determines the gain and delay of this FOPTD model based on the responses of
+It then determines the parameters of this FOPTD model based on the responses of
 the control process to asymmetric relay feedback.
-After that, taking the gain and delay of this FOPTD mode as inputs, this PID tuning
-method calculates the PID gains with an Approximate M-constrained Integral Gain
-Optimization (AMIGO) Tuner.
+After that, taking the parameters of this FOPTD mode as inputs, this PID tuning
+method calculates the PID gains with the Approximate M-constrained Integral Gain
+Optimization (AMIGO) method.
 </p>
 <p>
 This block is implemented using
@@ -405,7 +405,7 @@ PID controller.
 
 <h4>Autotuning Process</h4>
 <p>
-To use this block, place it in a control loop as any other PID controllers.
+To use this block, insert it into a feedback control loop.
 Before the PID tuning process starts, this block is equivalent to
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
@@ -425,12 +425,13 @@ at which point this block turns back to a PID controller but with tuned PID para
 <ul>
 <li>
 If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
-a new request for performing autotuning will be ignored.
+a new request for performing autotuning will be ignored and a warning
+will be generated.
 </li>
 <li>
-In addition, if the set point is changed during an autotuning process, a warning
-will be generated. This tuning process will be stopped and the control parameters
-from the begining the current process will be used.
+If the set point is changed during an autotuning process, a warning
+will be generated. This tuning process will be stopped and no changes will be
+made to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -440,7 +441,7 @@ typical range of control error, <code>r</code>,
 the reference output for the tuning process, <code>yRef</code>, the higher and the
 lower values for the relay output, <code>yHig</code> and <code>yLow</code>, and the
 deadband, <code>deaBan</code>.
-The following procedure can be used to determine the values of those parameters. 
+Here are some suggestions for determining the values of those parameters
 </p>
 <ol>
 <li>
@@ -463,10 +464,9 @@ asymmetric relay output, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
 When determining the <code>deaBan</code>, we first divide the maximum and the 
-minimum difference of measurement from the setpoint by the typical range of control
-error <code>r</code>, then find the absolute value of the two deviations. 
-The <code>deaBan</code> can be set as half of the smaller one between the two
-absolute deviations.
+minimum deviations of measurement from the setpoint by <code>r</code>. 
+The <code>deaBan</code> can then be set as half of the smaller absolute value 
+of those two deviations.
 </li>
 </ol>
 <h4>References</h4>
