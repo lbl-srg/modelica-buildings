@@ -20,7 +20,7 @@ block Pulse
   parameter Integer offset=0
     "Offset of output signals";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Pulse output signal"
+    "Output connector with pulse value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

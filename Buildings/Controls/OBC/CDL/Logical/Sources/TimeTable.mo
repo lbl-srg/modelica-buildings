@@ -11,7 +11,7 @@ block TimeTable
     final unit="s")
     "Periodicity of table";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
-    "Output of the table"
+    "Output with tabulated value"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -37,16 +37,11 @@ protected
 initial equation
   // Check that all values in the second column are Integer values
   for i in 1:nT loop
-    for j in 2:size(
-      table,
-      2) loop
-      assert(
-        (abs(
-          table[i,j]) < Constants.small) or
-                                           (abs(
-          table[i,j]-1.0) < Constants.small),
-        "Table value table["+String(i)+", "+String(j)+"] = "+String(
-          table[i,j])+" does not equal either 0 or 1.");
+    for j in 2:size(table, 2) loop
+      assert((abs(table[i,j]) < Constants.small) or
+             (abs(table[i,j]-1.0) < Constants.small),
+             "Table value table[" + String(i) + ", " + String(j) + "] = "
+               + String(table[i,j]) + " does not equal either 0 or 1.");
     end for;
   end for;
 

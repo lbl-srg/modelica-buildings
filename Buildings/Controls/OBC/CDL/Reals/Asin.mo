@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Asin "Output the arc sine of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input for the arc sine function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
-    "Connector of Real output signal"
+    "Arc sin of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   y = Modelica.Math.asin(u);

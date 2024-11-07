@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Acos "Output the arc cosine of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input for arc cosine function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(final unit="rad")
+    "Arc cosine of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   y = Modelica.Math.acos(u);

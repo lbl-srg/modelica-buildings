@@ -16,7 +16,7 @@ block Pulse
     final unit="s")=0
     "Shift time for output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with pulse value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

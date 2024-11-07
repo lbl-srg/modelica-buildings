@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Tan
   "Output the tangent of the input"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(unit="rad")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(final unit="rad")
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y

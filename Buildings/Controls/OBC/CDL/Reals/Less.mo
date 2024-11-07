@@ -1,21 +1,20 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Less
   "Output y is true, if input u1 is less than input u2"
-  parameter Real h(
-    final min=0)=0
+  parameter Real h(final min=0)=0
     "Hysteresis"
     annotation (Evaluate=true);
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Input u1"
+    "First input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Input u2"
+    "Second input u2"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output y"
+    "Outputs true if u1 is less than u2"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -62,8 +61,7 @@ protected
 
   block LessWithHysteresis
     "Less block without hysteresis"
-    parameter Real h(
-      final min=0)=0
+    parameter Real h(final min=0)=0
       "Hysteresis"
       annotation (Evaluate=true);
     parameter Boolean pre_y_start=false
@@ -80,8 +78,7 @@ protected
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   initial equation
-    assert(
-      h >= 0,
+    assert(h >= 0,
       "Hysteresis must not be negative");
     pre(y)=pre_y_start;
 
