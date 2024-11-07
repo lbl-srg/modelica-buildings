@@ -1,7 +1,7 @@
 within Buildings.Fluid.Examples.FlowSystem;
 model Basic "Example implementation of flow system"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Water "Medium model";
+  package Medium = Buildings.Media.Water(p_default=1) "Medium model. Fixme: set absolute pressure to near 0";
   Buildings.Fluid.Movers.FlowControlled_dp pmpSouth(
     redeclare package Medium = Medium,
     redeclare replaceable
@@ -373,9 +373,9 @@ equation
           {30,-110}}, color={0,127,255}));
   connect(spl3.port_2, pumpCoo.port_a) annotation (Line(points={{40,-130},{43,-130},
           {46,-130}}, color={0,127,255}));
-  connect(vol.ports[1], pumpCoo.port_b) annotation (Line(points={{66,-100},{66,-100},
+  connect(vol.ports[1], pumpCoo.port_b) annotation (Line(points={{65,-100},{66,-100},
           {66,-130}}, color={0,127,255}));
-  connect(vol.ports[2], spl2.port_1) annotation (Line(points={{62,-100},{62,-100},
+  connect(vol.ports[2], spl2.port_1) annotation (Line(points={{63,-100},{63,-100},
           {40,-100}}, color={0,127,255}));
   connect(Tcold.port, vol.heatPort)
     annotation (Line(points={{80,-90},{77,-90},{74,-90}}, color={191,0,0}));

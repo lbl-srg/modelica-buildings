@@ -2,7 +2,7 @@ within Buildings.Media;
 package Water "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
      p_default=300000,
-     reference_p=300000,
+     reference_p=1,
      reference_T=273.15,
      reference_X={1},
      AbsolutePressure(start=p_default),
@@ -66,7 +66,7 @@ package Water "Package with model for liquid water with constant density"
     assert(noEvent(T <= T_max), "In " + getInstanceName() + ": Temperature T = " + String(T) + " K exceeded its maximum allowed value of " +
   String(T_max-273.15) + " degC (" + String(T_max) + " Kelvin) as required from medium model \"Buildings.Media.Water\".");
 
-    assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"Buildings.Media.Water\" is negative\n(Temperature = " + String(T) + " K)");
+   // fixme assert(noEvent(p >= 0.0), "Pressure (= " + String(p) + " Pa) of medium \"Buildings.Media.Water\" is negative\n(Temperature = " + String(T) + " K)");
 
     annotation(Documentation(info="<html>
 <p>

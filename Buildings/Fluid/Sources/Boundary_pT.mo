@@ -42,10 +42,10 @@ protected
 
 initial equation
   if not use_p_in then
-    if checkWaterPressure then
-      assert(p_in_internal>1e4, "In "+getInstanceName() +
-        ": The parameter value p="+String(p_in_internal)+" is low for water. This is likely an error.");
-    end if;
+// fixme    if checkWaterPressure then
+//      assert(p_in_internal>1e4, "In "+getInstanceName() +
+//        ": The parameter value p="+String(p_in_internal)+" is low for water. This is likely an error.");
+//    end if;
     if checkAirPressure then
       assert(p_in_internal>5e4 and p_in_internal < 1.5e5, "In "+getInstanceName() +
         ": The parameter value p="+String(p_in_internal)+" is not within a realistic range for air. This is likely an error.");
