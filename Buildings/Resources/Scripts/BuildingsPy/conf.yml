@@ -1,27 +1,3 @@
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
-  openmodelica:
-    comment: 'division by zero at time 6393600, (a=3.874900467232077e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
-    simulate: false
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
-  openmodelica:
-    comment: 'division by zero at time 15984000, (a=2.95791846399214e-05) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
-    simulate: false
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
-  openmodelica:
-    comment: 'division by zero at time 0, (a=2.918588003374964e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
-    simulate: false
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
 - model_name: Buildings.Airflow.Multizone.Examples.PressurizationData
   optimica:
     comment: High solver tolerance required to avoid time out.
@@ -78,8 +54,8 @@
     simulate: false
 - model_name: Buildings.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETSDHWTank
   openmodelica:
-    comment: simulation terminated by an assertion at initialization [works ok in Ubuntu 20 with OM 1.22.0]
-    translate: false
+    comment: simulation terminated by an assertion at initialization.
+    simulate: false
 - model_name: Buildings.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
@@ -101,12 +77,12 @@
     time_out: 600
   openmodelica:
     comment: 'Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910'
-    translate: false
+    simulate: false
   optimica:
     time_out: 600
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
-    comment:  "Simulation times out"
+    comment: Simulation times out
     simulate: false
 - model_name: Buildings.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
@@ -203,10 +179,6 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-- model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.SingleBuriedPipe
-  openmodelica:
-    comment: Simulation terminated at time 4.59003e+07.
-    simulate: false
 - model_name: Buildings.Fluid.FixedResistances.BuriedPipes.Examples.TwoPipesConduit
   openmodelica:
     comment: Assertion due to what looks like wrong results, see https://github.com/lbl-srg/modelica-buildings/issues/3687
@@ -285,24 +257,14 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
-  openmodelica:
-    comment: Timeout after 600 s on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/600714398#L489
-    simulate: false
   optimica:
-    comment: The rootfinding function failed in an unrecoverable manner. At time 32431.252047.
-    simulate: false
+    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayCheckValve
-  openmodelica:
-    comment: 'Singular system of equations when both load valves are fully closed but pump is running'
-    simulate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
@@ -315,30 +277,6 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerHydraulic
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerInput
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
-- model_name: Buildings.Fluid.Movers.Validation.ComparePowerTotal
-  openmodelica:
-    comment: 'Fail to translate due to OpenModelica glitch. Fixed in https://github.com/OpenModelica/OpenModelica/issues/12484'
-    translate: false
-- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
-- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
 - model_name: Buildings.Obsolete.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -355,10 +293,6 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit
-  openmodelica:
-    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Templates.Components.HeatPumps.Validation.HeatPumpEquationFit_translate.mos'']'' returned non-zero exit status 2.'
-    translate: false
 - model_name: Buildings.Templates.Components.Validation.PumpMultipleRecord
   openmodelica:
     comment: Translation failed.
@@ -366,22 +300,6 @@
 - model_name: Buildings.Templates.Components.Validation.Pumps
   openmodelica:
     comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.Plants.Controls.HeatPumps.Validation.AirToWater
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerDualMode
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.StagingHeadered
-  openmodelica:
-    comment: Translation failed.
-    translate: false
-- model_name: Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeed
-  openmodelica:
-    comment: 'CalledProcessError: Command ''[''omc'', ''Buildings.Templates.Plants.Controls.Pumps.Primary.Validation.VariableSpeedNoDpControl_translate.mos'']'' returned non-zero exit status 2.'
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatPumpGroupAirToWater
   openmodelica:
@@ -540,23 +458,14 @@
   optimica:
     rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
-  openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
-    simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
-  openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
-    simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
-  openmodelica:
-    comment: "Could not load the FMU binary: libc.so.6: version `GLIBC_2.34' not found"
-    simulate: false
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
@@ -579,7 +488,7 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: Timeout on travis
-    time_out: 600
+    time_out: 900
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
