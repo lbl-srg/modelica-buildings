@@ -35,7 +35,7 @@
 #endif
 
 
-FILE *file_log;
+extern FILE *file_log;
 
 /*
 	* Check the residual of equation
