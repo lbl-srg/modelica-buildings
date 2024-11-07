@@ -40,7 +40,8 @@ protected
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="In " +
         getInstanceName() +
-        ": the asymmetry level of the relay controller is lower than the half period ratio. Increase the level.")
+        ": the asymmetry level of the relay controller is lower than the half period ratio. 
+        Increase the asymmetry level.")
     "Warning message when asymmetry level is less than the half period ratio"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(
@@ -98,7 +99,6 @@ First implementation<br/>
 <p>
 This block calculates the normalized time delay of the output from a relay controller.
 </p>
-<h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 &tau; = (&gamma; - &rho;)/(&gamma; - 1)/(&rho;*0.35+0.65),
 </p>

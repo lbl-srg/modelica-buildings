@@ -70,10 +70,10 @@ protected
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract meaSetDif
     "Inputs difference, (measurement - setpoint)"
-    annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiYDif(final k=1/r)
     "Gain to normalized control error by r"
-    annotation (Placement(transformation(extent={{20,-4},{40,16}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiRevActErr(final k=1/r) if reverseActing
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
@@ -104,14 +104,16 @@ equation
   connect(hys.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,34},{50,
           34},{50,50},{58,50}}, color={255,0,255}));
   connect(hys.y, yOn) annotation (Line(points={{82,-60},{120,-60}}, color={255,0,255}));
-  connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{-30,-40},{-30,
-          12},{-22,12}}, color={0,0,127}));
-  connect(u_s, meaSetDif.u2) annotation (Line(points={{-120,0},{-22,0}},
+  connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{-30,-40},{
+          -30,6},{-22,6}},
+                         color={0,0,127}));
+  connect(u_s, meaSetDif.u2) annotation (Line(points={{-120,0},{-72,0},{-72,-6},
+          {-22,-6}},
                 color={0,0,127}));
   connect(meaSetDif.y, gaiYDif.u)
-    annotation (Line(points={{2,6},{18,6}}, color={0,0,127}));
+    annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(gaiYDif.y, yDif)
-    annotation (Line(points={{42,6},{60,6},{60,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
   connect(revActErr.y, gaiRevActErr.u)
     annotation (Line(points={{2,-30},{18,-30}}, color={0,0,127}));
   connect(gaiRevActErr.y, hys.u) annotation (Line(points={{42,-30},{48,-30},{48,
@@ -153,13 +155,18 @@ annotation (defaultComponentName = "relCon",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
-             {28,108,200})}), Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
+            ={28,108,200})}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
 This block generates a relay output <code>yDif</code> which equals to
-<code>u_m - u_s</code>. It also generates the control output <code>y</code>,
+<code>(u_m - u_s)/r</code>,where <code>u_m</code> and <code>u_s</code>
+are the measurement and the setpoint, respectively.
+<code>r</code> is the typical range of control error.
+</p>
+<p>
+This block also generates the control output <code>y</code>,
 and a boolean relay switch output <code>yOn</code>.
 <code>y</code> and <code>yOn</code> are calculated as below.
 </p>
@@ -168,9 +175,9 @@ Step 1: Calculate control error,
 </p>
 <ul>
 <li>
-If the parameter <code>reverseActing = true</code>, set the control error to
-<code>u_s - u_m</code>,
-else set it to <code>u_m - u_s</code>.
+If the parameter <code>reverseActing = true</code>, set the control error <code>err</code> to
+<code>(u_s - u_m)/r</code>,
+else set it to <code>(u_m - u_s)/r</code>.
 </li>
 </ul>
 <p>

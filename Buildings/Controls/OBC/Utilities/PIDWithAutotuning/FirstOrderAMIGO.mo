@@ -6,7 +6,7 @@ block FirstOrderAMIGO
     Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Start value of the gain of controller"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
   parameter Real Ti_start(unit="s")=0.5
@@ -20,7 +20,7 @@ block FirstOrderAMIGO
     "Start value of the set point"
     annotation (Dialog(tab="Advanced",group="Initialization"));
   parameter Real r(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yHig(
      final min = 0,
@@ -44,11 +44,11 @@ block FirstOrderAMIGO
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.9
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation (Dialog(tab="Advanced",group="Integrator anti-windup"));
   parameter Real Nd(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
     "The higher the Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Advanced",group="Derivative block",
       enable=controllerType ==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
@@ -203,9 +203,8 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="In " +
-        getInstanceName() +
-    ": an autotuning is ongoing and the new tuning request is ignored.")
+    final message="In " + getInstanceName() +
+    ": a new tuning request is ignored as the autotuning is ongoing.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{242,-150},{262,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -240,7 +239,9 @@ protected
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
     final message=
     "In " + getInstanceName()
-    + ": the setpoint must not change when an autotuning tuning is ongoing. This ongoing autotuning will thus abort.")
+    + ": the setpoint must not change when an autotuning tuning is ongoing. 
+    This ongoing autotuning will be aborted and the control gains will not
+    be changed.")
     "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
 
@@ -384,17 +385,13 @@ annotation (defaultComponentName = "PIDWitTun",
 Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
-</p>
-<p>
-The PID tuning method approximates the control process with a
+This method approximates the control process with a
 first-order plus time-delay (FOPTD) model.
 It then determines the parameters of this FOPTD model based on the responses of
 the control process to asymmetric relay feedback.
-After that, taking the parameters of this FOPTD mode as inputs, this PID tuning
-method calculates the PID gains with the Approximate M-constrained Integral Gain
+After that, taking the parameters of this FOPTD mode as inputs, this method 
+calculates the PID gains with the Approximate M-constrained Integral Gain
 Optimization (AMIGO) method.
-</p>
-<p>
 This block is implemented using
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
@@ -403,7 +400,7 @@ and inherits most of its configuration. However, through the parameter
 PID controller.
 </p>
 
-<h4>Autotuning Process</h4>
+<h4>Autotuning process</h4>
 <p>
 To use this block, insert it into a feedback control loop.
 Before the PID tuning process starts, this block is equivalent to
@@ -441,7 +438,7 @@ typical range of control error, <code>r</code>,
 the reference output for the tuning process, <code>yRef</code>, the higher and the
 lower values for the relay output, <code>yHig</code> and <code>yLow</code>, and the
 deadband, <code>deaBan</code>.
-Here are some suggestions for determining the values of those parameters
+Here are some suggestions for determining the values of those parameters.
 </p>
 <ol>
 <li>

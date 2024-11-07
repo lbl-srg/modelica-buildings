@@ -95,12 +95,11 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the gain of a first-order plus time-delay model.</p>
-<h4>Main equations</h4>
+<p>This block calculates the gain of a first-order plus time-delay model.
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
-
 <p><i>I<sub>y</sub></i> is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
 I<sub>y</sub> = &int; u(t) dt;</p>
@@ -119,8 +118,11 @@ an asymmetric relay output.
 period and the off period of the same asymmetric relay output, respectively.
 </p>
 <h4>References</h4>
-<p>Josefin Berner (2017).
-\"Automatic Controller Tuning using Relay-based Model Identification\".
-Department of Automatic Control, Lund Institute of Technology, Lund University. </p>
+<p>
+J. Berner (2017).
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+Department of Automatic Control, Lund University.
+</p>
 </html>"));
 end Gain;
