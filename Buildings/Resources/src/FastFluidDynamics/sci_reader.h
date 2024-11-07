@@ -34,7 +34,7 @@
 #include "utility.h"
 #endif
 
-extern FILE *file_params;
+FILE *file_params;
 
 /*
 * Read the basic index information from input.cfd

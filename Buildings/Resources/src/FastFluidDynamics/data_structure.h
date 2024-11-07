@@ -339,4 +339,4 @@ typedef struct {
   int feedback;
 }ReceivedCommand;
 
-extern char msg[1000];
+char msg[1000];

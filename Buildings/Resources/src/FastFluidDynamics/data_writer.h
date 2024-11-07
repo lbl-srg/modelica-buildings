@@ -30,7 +30,7 @@
 #include "utility.h"
 #endif
 
-extern FILE *file1;
+FILE *file1;
 
 /*
 	* Write standard output data in a format for tecplot
