@@ -4,36 +4,38 @@ model MassTransfer
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
   parameter String substanceName[:] = {"CO2"}
     "Name of trace substance";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[size(substanceName,1)](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
     each final unit = "1",
     each final min = 0,
     each final max= 1)
     "Mass transfer coefficient"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[size(substanceName,1)](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nConSub](
     each final unit = "kg/s")
     "Contaminant mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 
 protected
+  parameter Integer nConSub = size(substanceName,1)
+    "Total types of contaminant substances";
   parameter Real s1[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName[j],
                                             caseSensitive=false))
     then 1 else 0 for i in 1:Medium.nC}
-    for j in 1:size(substanceName,1)}
+    for j in 1:nConSub}
     "Vector to check if the trace substances are included in the medium"
     annotation(Evaluate=true);
   parameter Real s2[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName[j],
                                             caseSensitive=false))
-    then 1 else 0 for i in 1:size(substanceName,1)}
+    then 1 else 0 for i in 1:nConSub}
     for j in 1:Medium.nC}
     "Vector to check if the trace substances in the medium are included in the performance dataset"
     annotation(Evaluate=true);
 initial equation
-  assert(abs(sum(s1) - size(substanceName,1)) < 0.1,
+  assert(abs(sum(s1) - nConSub) < 0.1,
          "In " + getInstanceName() + ":Some specified trace substances are 
          not present in medium '" + Medium.mediumName + "'.\n"
          + "Check filter parameter and medium model.",
@@ -44,7 +46,7 @@ equation
   // Modify the substances individually.
   for i in 1:Medium.nC loop
       if max(s2[i]) > 0.9 then
-        for j in 1:size(substanceName,1) loop
+        for j in 1:nConSub loop
             if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                               string2=substanceName[j],
                                               caseSensitive=false)) then
@@ -58,7 +60,7 @@ equation
       end if;
   end for;
   // Calculate the amount of removed contaminants.
-  for i in 1:size(substanceName,1) loop
+  for i in 1:nConSub loop
       if max(s1[i]) > 0.9 then
         for j in 1:Medium.nC loop
             if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[j],

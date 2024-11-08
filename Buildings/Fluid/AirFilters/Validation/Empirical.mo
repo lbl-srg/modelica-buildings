@@ -6,7 +6,7 @@ model Empirical "Example for using the empirical air filter model"
   parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
     mCon_nominal=10,
     substanceName={"CO2","VOC"},
-    filterationEfficiencyParameters(
+    filEffPar(
       rat={{0,0.5,1},{0,0.5,1}},
       eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}))
     "Performance dataset"

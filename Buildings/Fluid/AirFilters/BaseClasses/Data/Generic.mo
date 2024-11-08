@@ -3,13 +3,13 @@ record Generic "Generic data record for air filters"
   extends Modelica.Icons.Record;
   parameter Real mCon_nominal(
     final unit = "kg")
-    "Maximum mass of the contaminant can be captured by the filter";
+    "Maximum mass of the contaminant that can be captured by the filter";
   parameter String substanceName[:] = {"CO2"}
     "Name of trace substance";
   parameter
-    Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters
-    filterationEfficiencyParameters
-    "Filtration efficiency vs. relative mass of the contaminant";
+    Buildings.Fluid.AirFilters.BaseClasses.Characteristics.FiltrationEfficiencyParameters
+    filEffPar
+    "Filtration efficiency versus relative mass of the contaminant";
   parameter Real b = 1.1
     "Resistance coefficient";
   annotation (

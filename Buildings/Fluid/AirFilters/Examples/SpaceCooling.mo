@@ -55,7 +55,8 @@ model SpaceCooling
   parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
     mCon_nominal=5,
     substanceName={"PM10"},
-    filterationEfficiencyParameters(rat={{0,0.5,1}}, eps={{0.5,0.4,0.2}}),
+    filEffPar(rat={{0,0.5,1}},
+    eps={{0.5,0.4,0.2}}),
     b=1.3)
     "Performance dataset of the air filter"
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));

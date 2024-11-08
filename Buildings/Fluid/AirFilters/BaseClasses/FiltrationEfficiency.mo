@@ -1,14 +1,21 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FiltrationEfficiency
   "Component that calculates the filtration efficiency"
-  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
-    "Record with performance data"
-    annotation (Placement(transformation(extent={{20,62},{40,82}})));
+
+  parameter Real mCon_nominal(
+    final unit = "kg")
+    "Maximum mass of the contaminant that can be captured by the filter";
+  parameter String substanceName[:] = {"CO2"}
+    "Name of trace substance";
+  parameter
+    Buildings.Fluid.AirFilters.BaseClasses.Characteristics.FiltrationEfficiencyParameters
+    filEffPar
+    "Filtration efficiency versus relative mass of the contaminant";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
     final unit="kg")
     "Mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[size(per.substanceName, 1)](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nConSub](
     each final unit="1",
     each final min=0,
     each final max=1) "Filtration efficiency"
@@ -19,17 +26,20 @@ model FiltrationEfficiency
     each final max=1)
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
+protected
+  parameter Integer nConSub = size(substanceName,1)
+    "Total types of contaminant substances";
 equation
   rat = Buildings.Utilities.Math.Functions.smoothMin(
                 x1=1,
-                x2= mCon/per.mCon_nominal,
+                x2= mCon/mCon_nominal,
                 deltaX=0.1)
                 "Calculate the relative mass of the contaminant captured by the filter";
-  for i in 1:size(per.substanceName, 1) loop
+  for i in 1:nConSub loop
      y[i] = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=rat,
-                xSup=per.filterationEfficiencyParameters.rat[i],
-                ySup=per.filterationEfficiencyParameters.eps[i])
+                xSup=filEffPar.rat[i],
+                ySup=filEffPar.eps[i])
                 "Calculate the filtration efficiency";
   end for;
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -1,6 +1,6 @@
 within Buildings.Fluid.AirFilters.BaseClasses.Characteristics;
-record filtrationEfficiencyParameters
-  "Record for filtration efficiency vs. relative mass of the contaminant captured by the filter"
+record FiltrationEfficiencyParameters
+  "Record for filtration efficiency verse relative mass of the contaminant captured by the filter"
   extends Modelica.Icons.Record;
   parameter Real rat[:,:](each max=1, each min=0)
     "Relative mass of the contaminant captured by the filter";
@@ -9,8 +9,8 @@ record filtrationEfficiencyParameters
 
   annotation (Documentation(info="<html>
 <p>
-Data record that describes the relative mass of the contaminant captured by the filter <code>rat</code> versus
-the filtration efficiency <code>eps</code>.
+Data record that describes the relative mass of the contaminant <code>rat</code> that is captured by the filter when it has the filtration efficiency 
+specified as <code>eps</code>.
 The elements of the vector <code>rat</code> should be in ascending order, 
 i.e.,<code>rat[i] &lt; rat[i+1]</code>.
 Both vectors, <code>rat</code> and <code>eps</code>
@@ -24,4 +24,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end filtrationEfficiencyParameters;
+end FiltrationEfficiencyParameters;

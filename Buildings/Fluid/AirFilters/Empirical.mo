@@ -15,7 +15,7 @@ model Empirical "Empirical air filter model"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
     "Replacing the filter when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps[size(per.substanceName, 1)](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps[nConSub](
     each final unit="1",
     each final min=0,
     each final max=1)
@@ -33,6 +33,8 @@ model Empirical "Empirical air filter model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
+  parameter Integer nConSub = size(per.substanceName,1)
+    "Total types of contaminant substances";
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
     res(
     redeclare package Medium = Medium,
@@ -47,17 +49,19 @@ protected
     "Contaminant removal"
     annotation (Placement(transformation(extent={{36,-10},{56,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
-    final per=per)
+    final mCon_nominal = per.mCon_nominal,
+    final substanceName=per.substanceName,
+    final filEffPar=per.filEffPar)
     "Filter characterization"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassAccumulation masAcc(
-    final per=per,
+    final mCon_nominal = per.mCon_nominal,
     final mCon_reset=0,
-    final nin=size(per.substanceName, 1))
+    final nConSub=nConSub)
     "Contaminant accumulation"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Fluid.AirFilters.BaseClasses.FlowCoefficientCorrection coeCor(
-    final per=per)
+    final b=per.b)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
