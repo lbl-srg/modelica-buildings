@@ -11,17 +11,13 @@ block TimeTable
     final unit="s")
     "Periodicity of table";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
-    "Output with tabulated value"
+    "Output with tabulated values"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Integer nout=size(
-    table,
-    2)-1
+  final parameter Integer nout=size(table, 2)-1
     "Dimension of output vector";
-  final parameter Integer nT=size(
-    table,
-    1)
+  final parameter Integer nT=size(table, 1)
     "Number of table points";
   Integers.Sources.TimeTable intTimTab(
     final table=table,
@@ -29,8 +25,7 @@ protected
     final period=period)
     "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-  Integers.GreaterThreshold intGreThr[nout](
-    each t=0)
+  Integers.GreaterThreshold intGreThr[nout](each t=0)
     "Converts to boolean"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

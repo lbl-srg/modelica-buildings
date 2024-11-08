@@ -20,7 +20,7 @@ block Sin
     final unit="s")=0
     "Output = offset for time < startTime";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Sine output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -87,6 +87,11 @@ Block that outputs a <code>sine</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
 <li>
 April 13, 2023, by Michael Wetter:<br/>
 Renamed block from <code>Sine</code> to <code>Sin</code>

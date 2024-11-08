@@ -2,14 +2,15 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Sqrt
   "Output the square root of the input (input >= 0 required)"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to square root function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Output with square root of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
   y=sqrt(u);
+
   annotation (
     defaultComponentName="sqr",
     Icon(

@@ -7,7 +7,9 @@ block Atan2
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
     "Input u2 for the atan2(u1/u2) function"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="rad",
+    displayUnit="deg")
     "Output with atan2(u1/u2)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -40,6 +42,11 @@ gives a solution in the range
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
 <li>
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the output.<br/>

@@ -12,7 +12,7 @@ block TimeTable
     min=1E-6)
     "Periodicity of table";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
-    "Output connector with tabulated value"
+    "Output with tabulated values"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

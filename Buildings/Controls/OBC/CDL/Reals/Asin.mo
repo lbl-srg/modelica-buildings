@@ -3,7 +3,9 @@ block Asin "Output the arc sine of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input for the arc sine function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="rad",
+    displayUnit="deg")
     "Arc sin of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
@@ -58,6 +60,11 @@ Block that outputs <code>y = asin(u)</code>, where <code>u</code> is an input.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
 <li>
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the output.<br/>

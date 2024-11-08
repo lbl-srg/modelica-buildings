@@ -8,7 +8,7 @@ block Switch
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u3
-    "Integer u3"
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Output with u1 if u2 is true, else u3"
