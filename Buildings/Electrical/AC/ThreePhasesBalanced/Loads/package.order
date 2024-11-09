@@ -1,10 +1,6 @@
-UsersGuide
-AC
-DC
-Icons
-PhaseSystems
-Transmission
-Utilities
-Types
+Capacitive
+Impedance
+Inductive
+Resistive
+MotorDrive
 Examples
-Interfaces
