@@ -1,10 +1,12 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block AddParameter "Output the sum of an input plus a parameter"
   parameter Integer p
-    "Value to be added";
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u "Connector of Integer input signal"
+    "Parameter to be added to the input";
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
+    "Input to be added to the parameter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y "Connector of Integer output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
+    "Sum of the parameter and the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

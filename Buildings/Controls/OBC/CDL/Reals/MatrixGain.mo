@@ -1,25 +1,19 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block MatrixGain
   "Output the product of a gain matrix with the input signal vector"
-  parameter Real K[:,:]=[
-    1,0;
-    0,1]
+  parameter Real K[:,:]=[1, 0; 0, 1]
     "Gain matrix which is multiplied with the input";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+    "Input to be multiplied with the gain matrix"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
-    "Connector of Real output signals"
+    "Product of gain matrix times the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Integer nin=size(
-    K,
-    2)
+  parameter Integer nin=size(K, 2)
     "Number of inputs";
-  parameter Integer nout=size(
-    K,
-    1)
+  parameter Integer nout=size(K, 1)
     "Number of outputs";
 
 equation

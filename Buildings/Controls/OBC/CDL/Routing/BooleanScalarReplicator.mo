@@ -1,19 +1,16 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block BooleanScalarReplicator
-  "Boolean signal replicator"
+block BooleanScalarReplicator "Boolean signal replicator"
   parameter Integer nout=1
     "Number of outputs";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Input signal to be replicated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
-    "Connector of Boolean output signals"
+    "Output with replicated input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=fill(
-    u,
-    nout);
+  y=fill(u, nout);
   annotation (
     defaultComponentName="booScaRep",
     Icon(

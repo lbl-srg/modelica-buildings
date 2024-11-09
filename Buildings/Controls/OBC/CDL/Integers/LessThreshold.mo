@@ -4,10 +4,10 @@ block LessThreshold
   parameter Integer t=0
     "Threshold for comparison";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+    "Input to be compared against the threshold"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Outputs true if u is less than the threshold"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

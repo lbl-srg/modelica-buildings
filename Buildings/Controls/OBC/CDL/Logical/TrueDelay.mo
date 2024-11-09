@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block TrueDelay
-  "Delay a rising edge of the input, but do not delay a falling edge."
+  "Delay a rising edge of the input, but do not delay a falling edge"
   parameter Real delayTime(
     final quantity="Time",
     final unit="s")
@@ -8,10 +8,10 @@ block TrueDelay
   parameter Boolean delayOnInit=false
     "Set to true to delay initial true input";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Input signal to be delayed when it switches to true"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with delayed input signal after it switched to true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -32,22 +32,11 @@ initial equation
 
 equation
   when initial() then
-    t_next=
-      if not delayOnInit then
-        t_past
-      else
-        time+delayTime;
-    y=if not
-            (delayOnInit and delayTime > 0) then
-        u
-      else
-        false;
+    t_next=if not delayOnInit then t_past else time+delayTime;
+    y=if not (delayOnInit and delayTime > 0) then u else false;
   elsewhen u then
     t_next=time+delayTime;
-    y=if delayTime > 0 then
-        false
-      else
-        true;
+    y=if delayTime > 0 then false else true;
   elsewhen not u then
     t_next=t_past;
     y=false;

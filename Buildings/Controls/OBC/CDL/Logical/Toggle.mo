@@ -8,7 +8,7 @@ block Toggle
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output signal"
+    "Output with toggled signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -19,25 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=if clr then
-        false
-      else
-        u;
-  elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == false) then
+    y=if clr then false else u;
+      elsewhen
+	(not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == false)
+      then
     //scenario = 2
     y=true;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == true) then
+        (not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == true)
+  then
     //scenario = 3
     y=false;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == true) then
+       (not clr) and change(u) and
+       (pre(u) == true)
+  then
     //scenario = 4
     y=pre(y);
   elsewhen clr then
