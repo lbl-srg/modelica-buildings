@@ -88,8 +88,6 @@ int ffd(int cosimulation);
 ****************************************************************************/
 int allocate_memory(PARA_DATA* para);
 
-int write_output_data(PARA_DATA *para, REAL **var, int **BINDEX);
-
 /****************************************************************************
 |  Write error message to Modelica
 |
