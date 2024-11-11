@@ -1,37 +1,37 @@
-/*
-	*
-	* \file   interpolation.c
-	*
-	* \brief  Interpolate the data for advection step
-	*
-	* \author Mingang Jin, Qingyan Chen
-	*         Purdue University
-	*         Jin55@purdue.edu, YanChen@purdue.edu
-	*         Wangda Zuo
-	*         University of Miami
-	*         W.Zuo@miami.edu
-	*
-	* \date   8/3/2013
-	*
-	*/
+/****************************************************************************
+| 
+|  \file   interpolation.c
+| 
+|  \brief  Interpolate the data for advection step
+| 
+|  \author Wangda Zuo
+|          University of Miami, University of Colorado Boulder
+|          W.Zuo@miami.edu, wangda.zuo@colorado.edu
+|          Mingang Jin, Qingyan Chen
+|          Purdue University
+|          Jin55@purdue.edu, YanChen@purdue.edu
+| 
+|  \date   8/3/2013
+| 
+****************************************************************************/
 #include "interpolation.h"
 
-/*
-	* Entrance of interpolation
-	*
-	* @param para Pointer to FFD parameters
-	* @param d0 Pointer to the variable for interpolation
-	* @param p I-index of the control volume
-	* @param q J-index of the control volume
-	* @param r K-index of the control volume
-	* @param x_1 Reciprocal of X-length
-	* @param y_1 Reciprocal of Y-length
-	* @param z_1 Reciprocal of Z-length
-	*
-	* @return Interpolated value
-	*/
+/****************************************************************************
+|  Entrance of interpolation
+| 
+| \param para Pointer to FFD parameters
+| \param d0 Pointer to the variable for interpolation
+| \param p I-index of the control volume
+| \param q J-index of the control volume
+| \param r K-index of the control volume
+| \param x_1 Reciprocal of X-length
+| \param y_1 Reciprocal of Y-length
+| \param z_1 Reciprocal of Z-length
+| 
+| \return Interpolated value
+****************************************************************************/
 REAL interpolation(PARA_DATA *para, REAL *d0, REAL x_1, REAL y_1, REAL z_1,
-                   int p, int q, int r) {
+   int p, int q, int r) {
   int imax = para->geom->imax, jmax = para->geom->jmax;
   int IMAX = imax+2, IJMAX = (imax+2)*(jmax+2);
 
@@ -48,27 +48,27 @@ REAL interpolation(PARA_DATA *para, REAL *d0, REAL x_1, REAL y_1, REAL z_1,
       ffd_log(msg, FFD_ERROR);
       return -1;
   }
-} /* End of interpolation()*/
+} /* End of interpolation() */
 
-	/*
-		* Bilinear interpolation
-		*
-		* @param x_1 Reciprocal of X-length
-		* @param y_1 Reciprocal of Y-length
-		* @param z_1 Reciprocal of Z-length
-		* @param d000 parameter for interpolation
-		* @param d010 parameter for interpolation
-		* @param d100 parameter for interpolation
-		* @param d110 parameter for interpolation
-		* @param d001 parameter for interpolation
-		* @param d011 parameter for interpolation
-		* @param d101 parameter for interpolation
-		* @param d111 parameter for interpolation
-		*
-		* @return Interpolated value
-		*/
+/****************************************************************************
+|  Bilinear interpolation
+| 
+| \param x_1 Reciprocal of X-length
+| \param y_1 Reciprocal of Y-length
+| \param z_1 Reciprocal of Z-length
+| \param d000 parameter for interpolation
+| \param d010 parameter for interpolation
+| \param d100 parameter for interpolation
+| \param d110 parameter for interpolation
+| \param d001 parameter for interpolation
+| \param d011 parameter for interpolation
+| \param d101 parameter for interpolation
+| \param d111 parameter for interpolation
+| 
+| \return Interpolated value
+****************************************************************************/
 REAL interpolation_bilinear(REAL x_1, REAL y_1, REAL z_1,
-                            REAL d000, REAL d010, REAL d100, REAL d110,
+							REAL d000, REAL d010, REAL d100, REAL d110,
                             REAL d001, REAL d011, REAL d101, REAL d111) {
   REAL x_0, y_0, z_0;
   REAL tmp0, tmp1;
@@ -85,4 +85,5 @@ REAL interpolation_bilinear(REAL x_1, REAL y_1, REAL z_1,
 
   return z_0*tmp0+z_1*tmp1;
 
-} /* End of interpolation_bilinear()*/
+} /* End of interpolation_bilinear() */
+

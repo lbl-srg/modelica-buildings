@@ -37,12 +37,12 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
     </td>
     </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
