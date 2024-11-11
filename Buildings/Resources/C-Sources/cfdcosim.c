@@ -102,7 +102,6 @@ void *cfdcosim() {
   cosim->para->nSou = 0;
   cosim->para->souName = NULL;
   cosim->modelica->sourceHeat = NULL;
-  cosim->started = 0;
 
   return (void*) cosim;
 } /* End of cfdcosim()*/
