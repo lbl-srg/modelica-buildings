@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TBorFieIn[1].T",
+    "TBorFieOut[1].T",
+    "TBorFieIn[2].T",
+    "TBorFieOut[2].T",
+    "borHol.TBorAve[1]",
+    "borHol.TBorAve[2]"
+  };

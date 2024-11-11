@@ -201,7 +201,7 @@ partial model PartialReversibleRefrigerantMachine
   parameter Boolean linearized=false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation (Dialog(tab="Advanced", group="Flow resistance"));
-  parameter Real ySet_small=0.01
+  parameter Real ySet_small(min=0.002)=0.01
     "Threshold for relative speed for the device to be considered on"
     annotation (Dialog(tab="Advanced", group="Diagnostics"));
   parameter Boolean calEff=true
@@ -315,7 +315,7 @@ partial model PartialReversibleRefrigerantMachine
         rotation=0)));
 
   Modelica.Blocks.Logical.Hysteresis hys(
-    final uLow=Modelica.Constants.eps,
+    final uLow=0.001,
     final uHigh=ySet_small,
     final pre_y_start=false) "Use default ySet value" annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=180,
@@ -382,7 +382,9 @@ partial model PartialReversibleRefrigerantMachine
         rotation=180,
         origin={110,30})));
 // To avoid using the bus, set the section below to protected
+//@modelica_select_start @remove_AixLib
 protected
+//@modelica_select_end
   RefrigerantMachineControlBus sigBus
     "Bus with model outputs and possibly inputs" annotation (Placement(transformation(
           extent={{-156,-58},{-126,-24}}),iconTransformation(extent={{-108,-52},
@@ -391,12 +393,12 @@ protected
   parameter Boolean use_busConOnl=false
     "=true to allow input to bus connector,
     not applicable with internal safety control"
-    annotation(choices(checkBox=true), Dialog(group="Input Connectors", enable=not
-          use_intSafCtr));
+    annotation(choices(checkBox=true),
+                Dialog(group="Input Connectors", enable=not use_intSafCtr));
 
-// <!-- @include_AixLib
-protected
-// -->
+//@modelica_select_start @remove_Buildings @remove_BuildingSystems @remove_IDEAS
+// removed: protected
+//@modelica_select_end
   parameter Boolean use_COP "=true to enable COP output";
   parameter Boolean use_EER "=true to enable EER output";
   parameter MediumCon.ThermodynamicState staCon_nominal=MediumCon.setState_pTX(
@@ -690,6 +692,17 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>August 19, 2024</i> by Michael Wetter:<br/>
+    Changed markup commands for code merge.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1919\">IBPSA #1919</a>.
+  </li>
+  <li>
+    <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
+    Adjust hysteresis bandwidth (see issue
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">IBPSA #1908</a>)
+  </li>
   <li>
     May 2, 2024, by Michael Wetter:<br/>
     Refactored check for device identifiers.<br/>

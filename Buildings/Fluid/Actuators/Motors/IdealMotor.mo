@@ -84,7 +84,7 @@ The output <code>y</code> is bounded between <code>0</code> and <code>1</code>.
 <p>
 <b>Note:</b> This model can introduce state events which increase the computation time.
 For a more efficient implementation that approximates a motor, set in
-the valve or damper model the parameter <code>use_inputFilter=true</code>
+the valve or damper model the parameter <code>use_strokeTime=true</code>
 instead of using this motor model.
 See also
 <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">

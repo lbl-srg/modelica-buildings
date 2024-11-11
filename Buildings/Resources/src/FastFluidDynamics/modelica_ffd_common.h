@@ -82,6 +82,7 @@ typedef struct {
 }ffdSharedData;
 
 typedef struct{
+  int started; /* Flag to indicate if the Co-simulation has started or not. */
   ParameterSharedData *para;
   ffdSharedData *ffd;
   ModelicaSharedData *modelica;

@@ -2,23 +2,20 @@ within Buildings.Controls.OBC.CDL.Integers;
 block Switch
   "Switch between two integer signals"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
-    "Integer input signal"
+    "Input u1"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u3
-    "Integer input signal"
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Integer output signal"
+    "Output with u1 if u2 is true, else u3"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=if u2 then
-      u1
-    else
-      u3;
+  y=if u2 then u1 else u3;
   annotation (
     defaultComponentName="intSwi",
     Documentation(

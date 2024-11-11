@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block GreaterThreshold
-  "Output y is true, if input u is greater than threshold"
+  "Output y is true, if input u is greater than threshold with hysteresis"
   parameter Real t=0
     "Threshold for comparison";
   parameter Real h(
@@ -11,10 +11,10 @@ block GreaterThreshold
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Input"
+    "Input to be compared against the threshold"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output"
+    "Outputs true if u is greater than the threshold with hysteresis"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

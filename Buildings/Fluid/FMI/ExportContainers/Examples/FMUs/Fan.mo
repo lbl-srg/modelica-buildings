@@ -5,9 +5,8 @@ block Fan "Declaration of an FMU that exports a fan"
      redeclare final Movers.FlowControlled_dp com(
       nominalValuesDefineDefaultPressureCurve=true,
       final m_flow_nominal=m_flow_nominal,
-      final use_inputFilter=
-                          false,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      final use_riseTime=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.01
     "Nominal mass flow rate";

@@ -91,7 +91,11 @@ record Generic "Generic data record for movers"
                        enable =  etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
   final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
-    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    if etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    then Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    else Buildings.Fluid.Movers.BaseClasses.Euler.peak(V_flow=V_flow_max/2,
+                                                   dp=dpMax/2,
+                                                   eta=max(efficiency.eta))
     "Internal peak variable";
   // The getPeak() function automatically handles the estimation of peak point
   //   when insufficient information is provided from the pressure curve.
@@ -105,11 +109,13 @@ record Generic "Generic data record for movers"
     then
       if powerOrEfficiencyIsHydraulic
         then max(power.P)*1.2
-      else max(power.P)
+        else max(power.P)
     else
       if havePressureCurve
-        then V_flow_max/2 * dpMax/2 /0.7*1.2
-      else 0
+        then if powerOrEfficiencyIsHydraulic
+          then V_flow_max/2 * dpMax/2 /peak.eta*1.2
+          else V_flow_max/2 * dpMax/2 /0.7*1.2
+        else 0
     "Rated motor power"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
@@ -160,6 +166,15 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+August 20, 2024, by Hongxiang Fu:<br/>
+Now the function
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
+is not called unless the Euler number method is selected.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA, #1912</a>.
+</li>
 <li>
 April 8, 2024, by Hongxiang Fu:<br/>
 Default efficiency methods now depend on whether a pressure curve is available.

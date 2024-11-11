@@ -5,15 +5,8 @@ simulateModel("Buildings.Templates.Components.Controls.Validation.StatusEmulator
     resultFile="StatusEmulator");
 createPlot(
     id=1,
-    position={5, 5, 300, 500},
+    position={5, 5, 300, 300},
     y={"sta.y1", "sta.y1_actual"},
-    autoscale=true,
-    grid=true
-);
-createPlot(
-    id=1,
-    subPlot=2,
-    y={"sta.fil.y", "sta.yLim"},
     autoscale=true,
     grid=true
 );
