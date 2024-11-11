@@ -197,10 +197,12 @@ int ffd(int cosimulation) {
 
   #ifdef FFD_ISAT
 	/* Write output data to ffdoutput[] */
+  /*---------------------------------------------------------------------------
 	if (write_output_data(&para, var, BINDEX)) {
 		ffd_log("ffd(): Could not write output data to ISAT.", FFD_ERROR);
 		return 1;
 	}
+  ---------------------------------------------------------------------------*/
 	ffd_log("ffd(): successfully write ouput data to ISAT.", FFD_NORMAL);
   #endif
   
