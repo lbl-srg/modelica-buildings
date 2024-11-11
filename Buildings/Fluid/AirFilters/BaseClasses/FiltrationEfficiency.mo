@@ -56,26 +56,26 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
   defaultComponentName="eps",
 Documentation(info="<html>
 <p>
-This model calculates the filtration efficiency, <i>eps</i>, based on the cubic hermite spline interpolation of
+This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite spline interpolation of
 the filter dataset (see 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters\">
 Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters</a>)
 with respect to <i>rat</i>.
 </p>
 <p>
-The <i>rat</i> is the relative mass of the contaminant captured by the filter
+The <i>rat</i> is the relative mass of the contaminant that is captured by the filter,
 and is calculated by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 rat =  mCon/mCon_nominal,
 </p>
 <p>
-where <i>mCon</i> is the mass of the contaminant captured by the filter, and
-<i>mCon_nominal</i> is the maximum mass of the contaminant captured by the filter.
+where <i>mCon</i> is the mass of the contaminant that is captured by the filter, and
+<i>mCon_nominal</i> is the filter's maximum contaminant capacity.
 </p>
 <P>
 <b>Note:</b>
-The upper limit of <i>rat</i> is 1 and any value above it is overwritten by 1.
+The upper limit of <i>rat</i> is 1 and any value exceeding 1 will be capped at 1.
 </p>
 </html>", revisions="<html>
 <ul>

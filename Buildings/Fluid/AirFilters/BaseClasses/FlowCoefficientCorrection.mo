@@ -43,8 +43,8 @@ This model calculates the flow coefficient of the filter by
  kCor = b<sup>rat</sup>,
 </p>
 <p>
-where <code>b</code> is the resistance coefficient and it has to be greater than 1,
-<code>rat</code> is the relative mass of the contaminant captured by the filter
+where <code>b</code> is the resistance coefficient and it must be greater than 1,
+<code>rat</code> is the relative mass of the contaminant that is captured by the filter
 (see descriptions in 
 <a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency\">
 Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).

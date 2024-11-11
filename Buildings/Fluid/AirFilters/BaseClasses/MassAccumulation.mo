@@ -21,7 +21,9 @@ model MassAccumulation
     final unit = "kg")
     "Mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes
+  Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(
+    final k=1,
+    final y_start=mCon_reset)
     "Calculate the mass of contaminant"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
@@ -36,7 +38,7 @@ model MassAccumulation
     "Constant"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    message="In " + getInstanceName() + ": The filter needs to be replaced.")
+    final message="In " + getInstanceName() + ": The filter needs to be replaced.")
     "Warning message when the filter is full"
     annotation (Placement(transformation(extent={{72,40},{92,60}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
@@ -71,7 +73,7 @@ Documentation(info="<html>
 This model mimics the process for a filter to capture the contaminants.
 The mass of the contaminants, <code>mCon</code>, increases by time.
 However, when the input signal <code>uRep</code> changes from <code>false</code>
-to <code>true</code>, <code>mCon</code> is reinitialized to a constant, <code>mCon_reset</code>.
+to <code>true</code>, <code>mCon</code> is reset to a constant, <code>mCon_reset</code>.
 </p>
 </html>", revisions="<html>
 <ul>

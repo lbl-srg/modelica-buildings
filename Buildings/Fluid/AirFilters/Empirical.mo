@@ -264,21 +264,21 @@ The dynamic characteristics of the filters are defined by the following paramete
 </p>
 <ul>
 <li>
-The <code>mCon_nominal</code> determines the maximum mass of the contaminants that the
-filter can hold.
+The <code>mCon_nominal</code> determines the maximum amount of contaminants the filter can accumulate 
+before reaching its nominal capacity.
 </li>
 <li>
 A performance dataset <code>per</code> that determines 
 <ul>
 <li>
-how the flow coefficient changes with the contaminant accumulation;
+the types of contaminants can be captured by the filter;
 </li>
 <li>
-the types of contaminants;
+how the flow coefficient changes as contaminants build up;
 </li>
 <li>
 how the filtration efficiency changes 
-with the contaminant accumulation for each contaminant.
+with the contaminant accumulation, specific to each type.
 </li>
 </ul>
 </li>
@@ -293,18 +293,18 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>, respectively.
 <p>
 The input boolean flag, <code>uRep</code>, triggers the filter replacement, i.e.,
 when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
-mass of the captured contaminants becomes <i>0</i>.
+mass of the captured contaminants is reset to <i>0</i>.
 </p>
 <b>Note:</b>
 Warnings will be triggered 
 <ul>
 <li>
-when the captured contaminant mass becomes greater than the
+when the captured contaminant mass exceeds the
 <code>mCon_nominal</code>.
 </li>
 <li>
 when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
-defined in the <code>per</code>.
+specified in the <code>per</code>.
 </li>
 </ul>
 </html>", revisions="<html>
