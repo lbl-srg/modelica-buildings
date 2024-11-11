@@ -25,8 +25,8 @@
 
 /*Extern global variables from ISAT*/
 #ifdef FFD_ISAT
-extern char filepath[];
-extern double ffdInput[];
+char filepath[];
+double ffdInput[];
 #endif
 
 /****************************************************************************
