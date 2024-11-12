@@ -302,7 +302,7 @@ equation
   connect(conOpa.fluid, TAirConExt.port)
     annotation (Line(points={{54,-75},{64,-75}}, color={191,0,0}));
   connect(weaBus.TDryBul, TAirConExt.T) annotation (Line(
-      points={{4,-92},{4,-96},{78,-96},{78,-75},{75,-75}},
+      points={{4.04,-91.96},{4.04,-96},{78,-96},{78,-75},{75,-75}},
       color={255,204,51},
       thickness=0.5));
   connect(conOpa.solid, roo.surf_conBou[1]) annotation (Line(points={{44,-75},{

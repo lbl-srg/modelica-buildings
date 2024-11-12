@@ -75,6 +75,15 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with blocks to export thermofluid flow models as Functional Mockup Units.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.Borefields\">Fluid.Geothermal.Borefields</a>
+   </td>
+   <td valign=\"top\">Package with models for geothermal borefields.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Geothermal.ZonedBorefields\">Fluid.Geothermal.ZonedBorefields</a>
+   </td>
+   <td valign=\"top\">Package with models for zoned geothermal borefields in which individual zones of the borefield can be
+   operated independently of other zones of the borefield.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.ActiveBeams.UsersGuide\">Fluid.HeatExchangers.ActiveBeams</a>
    </td>
    <td valign=\"top\">Package with active beams.</td>
@@ -138,9 +147,15 @@ particular package.<br/>
                     the computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide\">ThermalZones.EnergyPlus.UsersGuide</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide\">ThermalZones.EnergyPlus_9_6_0.UsersGuide</a>
    </td>
-   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus to simulate
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus 9.6.0 to simulate
+                    one or several building envelope models.</td>
+</tr>
+
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_24_2_0.UsersGuide\">ThermalZones.EnergyPlus_24_2_0.UsersGuide</a>
+   </td>
+   <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus 24.2.0 to simulate
                     one or several building envelope models.</td>
 </tr>
 

@@ -281,6 +281,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   | Implicitly launch DLL module.
   ****************************************************************************/
   ffd_dll(cosim);
+  cosim->started = 1;
 
   return 0;
 } /* End of cfdStartCosimulation()*/

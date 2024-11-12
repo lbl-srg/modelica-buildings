@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Integers;
 block Equal
   "Output y is true, if input u1 is equal to input u2"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
-    "Connector of first Integer input signal"
+    "Input to be checked for equality with other input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u2
-    "Connector of second Integer input signal"
+    "Input to be checked for equality with other input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Outputs that is true if the two inputs are equal, and false otherwise"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

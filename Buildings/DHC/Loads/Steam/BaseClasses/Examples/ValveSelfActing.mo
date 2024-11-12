@@ -25,19 +25,16 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntIn(
     redeclare final package Medium = MediumSte,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    tau=0)
     "Upstream specific enthalpy"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort speEntOut(
     redeclare final package Medium = MediumSte,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    tau=0)
     "Downstream specific enthalpy"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Modelica.Blocks.Noise.UniformNoise pInSig(
-    samplePeriod(displayUnit="s") = 1,
-    y_min=500000 + 200000,
-    y_max=500000 - 200000) "Noisy signal for inlet pressure"
-    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumSte,
     p=200000,
@@ -49,9 +46,11 @@ model ValveSelfActing
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000) "Pressure drop"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  inner Modelica.Blocks.Noise.GlobalSeed globalSeed
-    "Setting for sublibrary noise"
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+  Controls.OBC.CDL.Reals.Sources.Ramp pInSig(
+    height=400000,
+    duration=15,
+    offset=500000 - 200000) "Signal for inlet pressure"
+    annotation (Placement(transformation(extent={{-120,-2},{-100,18}})));
 equation
   connect(sou.ports[1], speEntIn.port_a)
     annotation (Line(points={{-60,0},{-50,0}}, color={0,127,255}));
@@ -60,14 +59,16 @@ equation
                                              color={0,127,255}));
   connect(prv.port_b, speEntOut.port_a)
     annotation (Line(points={{0,0},{10,0}},  color={0,127,255}));
-  connect(pInSig.y, sou.p_in) annotation (Line(points={{-81,50},{-90,50},{-90,8},
-          {-82,8}}, color={0,0,127}));
   connect(sin.ports[1], res.port_b)
     annotation (Line(points={{80,0},{60,0}}, color={0,127,255}));
   connect(res.port_a, speEntOut.port_b)
     annotation (Line(points={{40,0},{30,0}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
-    Diagram(coordinateSystem(preserveAspectRatio=false)),
+  connect(pInSig.y, sou.p_in)
+    annotation (Line(points={{-98,8},{-82,8}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
+            100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/DHC/Loads/Steam/BaseClasses/Examples/ValveSelfActing.mos"
     "Simulate and plot"),
     experiment(StopTime=15, Tolerance=1e-06),
@@ -81,6 +82,12 @@ at the setpoint, unless the inlet pressure drops below the setpoint
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+June 13, 2024, by Michael Wetter:<br/>
+Changed inlet pressure to be a ramp, and removed dynamics of sensor.<br/>
+This is for
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/12569\">OpenModelica, #12569</a>.
+</li>
 <li>
 March 2, 2022 by Saranya Anbarasu:<br/>
 First implementation.

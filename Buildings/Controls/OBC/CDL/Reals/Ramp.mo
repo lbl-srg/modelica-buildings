@@ -16,14 +16,14 @@ block Ramp "Limit the changing rate of the input"
     "Derivative time constant";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input that is being rate limited"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
     "Set to true to enable rate limiter"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Rate limited output if active is true, else output is equal to input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -33,11 +33,9 @@ protected
     "Internal variable to track the slew limited value";
 
 initial equation
-  assert(
-    raisingSlewRate > 0,
+  assert(raisingSlewRate > 0,
     "raisingSlewRate must be larger than zero.");
-  assert(
-    fallingSlewRate < 0,
+  assert(fallingSlewRate < 0,
     "fallingSlewRate must be less than zero.");
   y_internal = u;
 
@@ -50,10 +48,9 @@ equation
         if thr < fallingSlewRate then
           fallingSlewRate
         else
-          if thr > raisingSlewRate then
-            raisingSlewRate
-          else
-            thr));
+          if thr > raisingSlewRate then raisingSlewRate else thr
+        )
+     );
   y = if active then y_internal else u;
 
 annotation (defaultComponentName="ram",

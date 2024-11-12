@@ -23,6 +23,10 @@ model ThermalZoneAdapter
     "Name of the Energyplus weather file including the epw extension";
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
+  parameter Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod runPeriod
+      "EnergyPlus RunPeriod configuration"
+    annotation (Dialog(tab="Run period"));
+
   parameter String zoneName
     "Name of the thermal zone as specified in the EnergyPlus input";
   parameter Boolean usePrecompiledFMU=false
@@ -111,6 +115,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=zoneName,
     usePrecompiledFMU=usePrecompiledFMU,

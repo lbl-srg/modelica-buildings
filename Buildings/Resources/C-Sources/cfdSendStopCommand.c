@@ -29,7 +29,7 @@ void cfdSendStopCommand(void *thread) {
   cosim->para->flag = 0;
 
   /* Wait for the feedback from FFD*/
- while(cosim->para->flag==0 && i<imax) {
+ while(cosim->started==1 && cosim->para->flag==0 && i<imax) {
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
     }
@@ -43,7 +43,7 @@ void cfdSendStopCommand(void *thread) {
     if (cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
     }
-    else {
+    else if (cosim->started==1) {
       ModelicaMessage("Successfully stopped the FFD simulation.\n");
     }
   }
@@ -156,6 +156,9 @@ void cfdSendStopCommand(void *thread) {
   }
   if (cosim != NULL) {
     free(cosim);
+    /* If it is not explicitly set to NULL - then the check in cfdcosim()
+       will fail if a second simulation is performed. */
+    cosim = NULL;
   }
 
 } /* End of cfdSendStopCommand*/

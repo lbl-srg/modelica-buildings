@@ -121,10 +121,9 @@ model PartialHeatPump
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal2,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     m_flow_nominal=mEva_flow_nominal,
-    dp_nominal=dp2_nominal + 6000)
-    "Heat pump evaporator water pump"
+    dp_nominal=dp2_nominal + 6000) "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{8,-88},{-12,-68}})));
 
   Modelica.Blocks.Math.Add addPPum "Electricity use for pumps"

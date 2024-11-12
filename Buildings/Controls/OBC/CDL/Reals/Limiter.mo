@@ -6,15 +6,14 @@ block Limiter
   parameter Real uMin
     "Lower limit of input signal";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to be limited"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Limited value of input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  assert(
-    uMin < uMax,
+  assert(uMin < uMax,
     "uMin must be smaller than uMax. Check parameters.");
 
 equation

@@ -15,7 +15,7 @@ block Ramp
     final unit="s")=0
     "Output = offset for time < startTime";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Ramp output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -23,7 +23,7 @@ equation
     if time < startTime then
       0
     else
-      if time <(startTime+duration) then
+      if time < (startTime+duration) then
         (time-startTime)*height/duration
       else
         height);

@@ -1,20 +1,19 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block LessThreshold
-  "Output y is true, if input u is less than threshold"
+  "Output y is true, if input u is less than threshold with hysteresis"
   parameter Real t=0
     "Threshold for comparison";
-  parameter Real h(
-    final min=0)=0
+  parameter Real h(final min=0)=0
     "Hysteresis"
     annotation (Evaluate=true);
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Input"
+    "Input to be compared against the threshold"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output"
+    "Outputs true if u is less than the threshold with hysteresis"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -79,8 +78,7 @@ protected
       annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   initial equation
-    assert(
-      h >= 0,
+    assert(h >= 0,
       "Hysteresis must not be negative");
     pre(y)=pre_y_start;
 

@@ -27,14 +27,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-ab07bde9bb-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-ab07bde9bb-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-win64.zip\">
-https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-ab07bde9bb-win64.zip\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-ab07bde9bb-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -51,9 +51,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/builds/Spawn-light-0.4.3-7048a72798-Linux.tar.gz;
-tar xzf Spawn-light-0.4.3-7048a72798-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.4.3-7048a72798-Linux/bin
+wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.5.0-ab07bde9bb-Linux.tar.gz;
+tar xzf Spawn-light-0.5.0-ab07bde9bb-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.5.0-ab07bde9bb-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -69,10 +69,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.4.3-7048a72798-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.5.0-ab07bde9bb-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.4.3-7048a72798-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.5.0-ab07bde9bb-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
@@ -85,17 +85,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.4.3-7048a72798[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.5.0-ab07bde9bb[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.4.3-7048a72798/linux64/bin/spawn-0.4.3-7048a72798
+Buildings[ x.y.z]/Resources/bin/spawn-0.5.0-ab07bde9bb/linux64/bin/spawn-0.5.0-ab07bde9bb
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.4.3-7048a72798/win64/bin/spawn-0.4.3-7048a72798.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.5.0-ab07bde9bb/win64/bin/spawn-0.5.0-ab07bde9bb.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -103,11 +103,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.4.3-7048a72798[.exe]</code>.
+<code>spawn-0.5.0-ab07bde9bb[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.4.3-7048a72798[.exe]</code>.
+<code>spawn-0.5.0-ab07bde9bb[.exe]</code>.
 </li>
 </ol>
 <p>
@@ -289,6 +289,16 @@ The following conventions are made:
 </p>
 <ul>
 <li>
+The entries of the EnergyPlus <code>RunPeriod</code> object are ignored.
+See <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
+for how the run period and the day of the week are handled.
+</li>
+<li>
+In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
+This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
+</li>
+<li>
 If a zone is in the idf file but not modeled in Modelica, then
 <ul>
 <li>
@@ -329,10 +339,6 @@ method can be used.
 <li>
 The coupling time step is determined by EnergyPlus based on the zone time step,
 as declared in the idf file.
-</li>
-<li>
-In EnergyPlus, a year of simulation always has 365 days, i.e., leap years are not considered.
-This is done because in the Modelica Buildings Library, weather files are assumed to have a periodicity of 365 days.
 </li>
 </ul>
 </html>"));
@@ -506,13 +512,6 @@ coincide with an EnergyPlus time step, the change in value may be ignored for th
 of the current EnergyPlus time step.<br/>
 This will be addressed through
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
-</p>
-<h5>Simulation must not start at a negative time</h5>
-<p>
-If a simulation starts at a time smaller than <i>0</i>, then an error will be issued and
-the simulation won't start.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">issue 1938</a>.
 </p>
 </html>"));
   end KnownIssues;

@@ -8,12 +8,12 @@ model Pump_stratos "Stratos pumps with speed as input"
     dp_nominal=floMacSta.per.pressure.dp[3]/2,
     redeclare Buildings.Fluid.Movers.SpeedControlled_y floMacSta(
       redeclare package Medium = Medium,
-      use_inputFilter=false,
-      per=per),
+      per=per,
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y floMacDyn(
       redeclare package Medium = Medium,
-      use_inputFilter=false,
-      per=per));
+      per=per,
+      use_riseTime=false));
   parameter Data.Pumps.Wilo.Stratos25slash1to6 per
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 equation

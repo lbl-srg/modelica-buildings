@@ -4,10 +4,10 @@ block FallingEdge
   parameter Boolean pre_u_start=false
     "Start value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Input to be monitored"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Outputs true when the input switches to false"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
