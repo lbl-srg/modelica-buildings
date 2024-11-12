@@ -1,3 +1,0 @@
-﻿simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples.SquirrelCageDriveValidation", tolerance=1e-6, stopTime=2, method="dassl", resultFile="SquirrelCageDriveValidation");
-createPlot(id=1, position={0, 0, 741, 532}, y={"simMot.omega_r","temSet1.y"}, range={0.0, 2.0, 0.0, 150.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"rad/s","rad/s"});
-createPlot(id=1, position={0, 0, 741, 532}, y={"simMot.tau_e" }, range={0.0, 2.0, 0.0, 800.0}, grid=true, subPlot=102, colors={{238,46,47}}, timeUnit="s", displayUnits={"N.m"});

@@ -1,5 +1,0 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples.SquirrelCage", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="SquirrelCage");
-createPlot(id=1, position={0, 0, 741, 547}, x="simMot.s", y={"simMot.tau_e", "simMot.tau_m"}, range={0.15000000000000002, 1.0, -50.0, 100.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="1", displayUnits={"N.m", "N.m"});
-createPlot(id=1, position={0, 0, 741, 547}, y={"simMot.P", "simMot.Q"}, range={0.0, 3600.0, 0.0, 30000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "var"});
-createPlot(id=1, position={0, 0, 741, 547}, y={"simMot.s"}, range={0.0, 3600.0, 0.0, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-
