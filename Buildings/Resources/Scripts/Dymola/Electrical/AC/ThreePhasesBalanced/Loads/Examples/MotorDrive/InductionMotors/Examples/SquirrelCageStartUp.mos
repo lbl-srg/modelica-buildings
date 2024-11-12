@@ -1,0 +1,4 @@
+﻿simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples.SquirrelCageStartUp", tolerance=1e-6, stopTime=1, method="dassl", resultFile="SquirrelCageStartUp");
+createPlot(id=1, position={0, 0, 741, 532}, y={"motDri.speBlo.tau_e", "motDri.speBlo.tau_m"}, range={0.0, 1.0, -50.0, 100.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"N.m", "N.m"});
+createPlot(id=1, position={0, 0, 741, 532}, y={"Speed_ref.y", "motDri.speBlo.N"}, range={0.0, 4.0, -1000.0, 2000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={0, 0, 741, 532}, y={"sou.P.real", "sou.P.apparent"}, range={0.0, 4.0, 0.0, 200000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "var"});
