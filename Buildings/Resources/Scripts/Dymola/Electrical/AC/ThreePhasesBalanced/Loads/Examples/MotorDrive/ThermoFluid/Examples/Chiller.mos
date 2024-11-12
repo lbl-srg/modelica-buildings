@@ -1,0 +1,6 @@
+simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Examples.Chiller", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Chiller");
+createPlot(id=1, position={0, 0, 741, 505}, y={"chi.shaft.tau"}, range={0.0, 3600.0, -20.0, 40.0}, grid=true, subPlot=101, colors={{238,46,47}}, timeUnit="s", displayUnits={"N.m"});
+plotExpression(apply( -Chiller[end].chi.tauSor.y), false, "-Chiller[end].chi.tauSor.y", 1);
+createPlot(id=1, position={0, 0, 741, 505}, y={"chi.to_rpm.y"}, range={0.0, 3600.0, -2000.0, 4000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"rev/min"});
+createPlot(id=1, position={0, 0, 741, 505}, y={"chi.chi.P"}, range={0.0, 3600.0, -5000.0, 10000.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+
