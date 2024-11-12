@@ -18,15 +18,7 @@ model MassTransfer
 protected
   parameter Integer nConSub = size(substanceName,1)
     "Total types of contaminant substances";
-  parameter Real s1[:,:]= {
-    {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName[j],
-                                            caseSensitive=false))
-    then 1 else 0 for i in 1:Medium.nC}
-    for j in 1:nConSub}
-    "Vector to check if the trace substances are included in the medium"
-    annotation(Evaluate=true);
-  parameter Real s2[:,:]= {
+  parameter Real s[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName[j],
                                             caseSensitive=false))
@@ -35,7 +27,7 @@ protected
     "Vector to check if the trace substances in the medium are included in the performance dataset"
     annotation(Evaluate=true);
 initial equation
-  assert(abs(sum(s1) - nConSub) < 0.1,
+  assert(abs(sum(s) - nConSub) < 0.1,
          "In " + getInstanceName() + ":Some specified trace substances are 
          not present in medium '" + Medium.mediumName + "'.\n"
          + "Check filter parameter and medium model.",
@@ -45,32 +37,17 @@ initial equation
 equation
   // Modify the substances individually.
   for i in 1:Medium.nC loop
-      if max(s2[i]) > 0.9 then
+      if max(s[i]) > 0.9 then
         for j in 1:nConSub loop
-            if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                              string2=substanceName[j],
-                                              caseSensitive=false)) then
-                port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j]);
-                port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
-            end if;
+           if s[i,j]>0.9 then
+              port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
+              port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
+              mCon_flow[j] = inStream(port_a.C_outflow[j])* eps[j];
+           end if;
         end for;
       else
         port_b.C_outflow[i] = inStream(port_a.C_outflow[i]);
         port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
-      end if;
-  end for;
-  // Calculate the amount of removed contaminants.
-  for i in 1:nConSub loop
-      if max(s1[i]) > 0.9 then
-        for j in 1:Medium.nC loop
-            if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[j],
-                                              string2=substanceName[i],
-                                              caseSensitive=false)) then
-                mCon_flow[i] = inStream(port_a.C_outflow[j])* eps[i];
-            end if;
-        end for;
-      else
-        mCon_flow[i] = 0;
       end if;
   end for;
   // Mass balance (no storage).
