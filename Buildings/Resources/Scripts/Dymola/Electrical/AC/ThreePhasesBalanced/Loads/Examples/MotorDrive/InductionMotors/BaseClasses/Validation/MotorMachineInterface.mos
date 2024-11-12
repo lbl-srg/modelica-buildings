@@ -1,5 +1,0 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.Validation.MotorMachineInterface", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="MotorMachineInterface");
-createPlot(id=1, position={0, 0, 741, 547}, x="torSpe.s", y={"torSpe.tau_e"}, range={0.0, 1.0, -200.0, 400.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="1", displayUnits={"N.m"});
-createPlot(id=1, position={0, 0, 741, 547}, y={"torSpe.omega_r", "torSpe.omega_s"}, range={0.0, 3600.0, -1000.0, 2000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"rpm", "rpm"});
-createPlot(id=1, position={0, 0, 741, 547}, y={"torSpe.s"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
-
