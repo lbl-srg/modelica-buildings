@@ -99,7 +99,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-From 0 to 12 seconds, the testing case is warming-up and the inlet trace substances of 
+From 0 to 12 seconds, the testing case is warming-up and the inlet trace substances
 are fixed at <i>0.1kg/kg</i>.
 </p>
 <p>
@@ -109,8 +109,8 @@ From 20 to 50 seconds, the inlet trace substances changes from <i>0.1</i> to <i>
 At the 30 seconds, the filter replacement signal <code>repSig</code> changes from <i>false</i> to <i>true</i>.
 </p>
 <p>
-From 12 to 30 seconds, the trace substance of the outlet port <code>C_out</code> doesn't change much;
-From 30 to 45 seconds, the outlet trace substances first decrease and then becomes relatively smooth.
+From 12 to 30 seconds, the trace substances of the outlet port <code>C_out</code> don't change much;
+From 30 to 45 seconds, the outlet trace substances first decrease and then become relatively smooth.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-100},{140,100}})),

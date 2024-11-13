@@ -22,7 +22,7 @@ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-The input relative mass of the contaminant captured by the filter <code>rat</code> 
+The relative mass of the captured contaminant <code>rat</code> 
 changes from <i>0</i> to <i>1</i> from 0 to 1 second.
 </p>
 <p>

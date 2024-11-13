@@ -36,7 +36,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-The input contaminant mass flow rate <code>mCon_flow</code> changes 
+The contaminant mass flow rate <code>mCon_flow</code> changes 
 from <i>0</i> to <i>1.2kg/s</i> during the period from 0 to 1 second;
 The filter replacement signal changes from <i>false</i> to <i>true</i> at 0.5 seconds.
 </p>

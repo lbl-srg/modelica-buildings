@@ -3,9 +3,9 @@ record FiltrationEfficiencyParameters
   "Record for filtration efficiency verse relative mass of the contaminant captured by the filter"
   extends Modelica.Icons.Record;
 
-  parameter Real rat[:,:](each max=1, each min=0)
+  parameter Real rat[:,:](each final max=1, each final min=0)
     "Relative mass of the contaminant captured by the filter";
-  parameter Real eps[:,:](each max=1, each min=0)
+  parameter Real eps[:,:](each final max=1, each final min=0)
     "Filtration efficiency";
 
   annotation (Documentation(info="<html>

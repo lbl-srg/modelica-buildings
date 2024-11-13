@@ -22,8 +22,8 @@ annotation (experiment(Tolerance=1e-6, StopTime=1.0),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-The input mass of the contaminant captured by the filter <code>mCon</code> 
-changes from <i>0</i> to <i>1.2kg/s</i> from 0 to 1 second.
+The mass of the captured contaminant <code>mCon</code> 
+changes from <i>0</i> to <i>1.2kg/s</i> duting the period from 0 to 1 second.
 </p>
 <p>
 The filtration efficiency, <code>eps.y</code>, changes from 0.98 to 0.88 during the period from

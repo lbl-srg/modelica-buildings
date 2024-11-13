@@ -92,11 +92,11 @@ annotation (experiment(Tolerance=1e-6, StopTime=30),
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-From 0 to 5 seconds, the testing case is warming-up and the input mass transfer
+From 0 to 5 seconds, the testing case is warming-up and the mass transfer
 efficiencies are fixed at <i>0.9</i>.
 </p>
 <p>
-From 5 to 25 seconds, the input mass transfer efficiencies change
+From 5 to 25 seconds, the mass transfer efficiencies change
 from <i>0.9</i> to <i>0.2</i>. After 25 seconds, they are fixed at <i>0.2</i>.
 </p>
 <p>
