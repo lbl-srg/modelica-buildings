@@ -22,7 +22,7 @@ model WaterBasedHeating "Hot water coil"
     final typ=typVal,
     redeclare final package Medium = MediumHeaWat,
     final energyDynamics=energyDynamics,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversalLiq,
     final show_T=show_T,
     final dat=datVal)

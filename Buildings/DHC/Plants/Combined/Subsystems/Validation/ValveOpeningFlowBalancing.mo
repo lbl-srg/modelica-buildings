@@ -32,7 +32,7 @@ model ValveOpeningFlowBalancing
     m_flow_nominal=m1_flow,
     linearized=true,
     dpValve_nominal=dpv1,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpFixed_nominal=dpf1)
     "Valve #1"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
@@ -41,7 +41,7 @@ model ValveOpeningFlowBalancing
     m_flow_nominal=m2_flow,
     linearized=true,
     dpValve_nominal=dpv2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpFixed_nominal=dpf2)
     "Valve #1"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));

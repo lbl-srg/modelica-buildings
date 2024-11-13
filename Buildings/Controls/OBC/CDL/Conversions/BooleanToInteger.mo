@@ -6,10 +6,10 @@ block BooleanToInteger
   parameter Integer integerFalse=0
     "Output signal for false Boolean input";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Boolean signal to be converted to an Integer signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signal"
+    "Converted input signal as an Integer"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

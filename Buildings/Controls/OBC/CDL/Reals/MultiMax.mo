@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block MultiMax
   "Output the maximum element of the input vector"
-  parameter Integer nin(
-    min=0)=0
-    "Number of input connections"
+  parameter Integer nin(min=0)=0
+    "Number of input signals"
     annotation (Dialog(connectorSizing=true),HideResult=true);
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+    "Input to max function"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signals"
+    "Largest element of the input vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

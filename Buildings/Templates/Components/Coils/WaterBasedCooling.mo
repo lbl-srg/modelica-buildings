@@ -22,7 +22,7 @@ model WaterBasedCooling "Chilled water coil"
     redeclare final package Medium = MediumChiWat,
     final typ=typVal,
     final energyDynamics=energyDynamics,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversalLiq,
     final show_T=show_T,
     final dat=datVal)

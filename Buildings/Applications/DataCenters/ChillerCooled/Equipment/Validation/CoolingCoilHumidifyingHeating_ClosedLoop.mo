@@ -39,7 +39,7 @@ model CoolingCoilHumidifyingHeating_ClosedLoop
     yValve_start=1,
     dp1_nominal=3000,
     dp2_nominal=200,
-    use_inputFilterValve=false,
+    use_strokeTime=false,
     QHeaMax_flow=10000,
     yValSwi=yValMin + 0.1,
     yValDeaBan=0.05)

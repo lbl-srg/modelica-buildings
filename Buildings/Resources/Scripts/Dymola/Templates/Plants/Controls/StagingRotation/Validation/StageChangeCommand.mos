@@ -7,7 +7,7 @@ createPlot(
     id=1,
     position={5, 5, 300, 600},
     subPlot=1,
-    y={"chaSta.capReq.y", "chaSta.capSta.y", "chaSta.capStaLow.y", "capHea_nominal"},
+    y={"chaSta.capReq.QReq_flow", "chaSta.capSta.y", "chaSta.capStaLow.y", "capHea_nominal"},
     autoscale=true,
     grid=true,
     timeUnit="min"

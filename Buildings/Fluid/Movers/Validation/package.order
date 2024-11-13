@@ -1,11 +1,11 @@
+ComparePowerHydraulic
+ComparePowerInput
+ComparePowerTotal
 ControlledFlowMachine
 ControlledFlowMachineDynamic
 FlowControlled_dp
 FlowControlled_dpSystem
 FlowControlled_m_flow
-PowerEuler
-PowerExact
-PowerSimplified
 PressureCurve
 PumpCurveConstruction
 PumpCurveDerivatives

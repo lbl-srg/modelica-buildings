@@ -4,14 +4,13 @@ model ArrayVariable "Fan array - Variable speed"
     final typ=Buildings.Templates.Components.Types.Fan.ArrayVariable);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final per=dat.per,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
-    final allowFlowReversal=allowFlowReversal)
-    "Fan array"
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal) "Fan array"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta

@@ -4,6 +4,7 @@ model ConventionalWinter
   extends Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring;
 
   annotation (experiment(
+      StartTime=0,
       StopTime=604800,
       Tolerance=1e-06),
       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Air/Systems/SingleZone/VAV/Examples/OptimalStart/ConventionalWinter.mos"

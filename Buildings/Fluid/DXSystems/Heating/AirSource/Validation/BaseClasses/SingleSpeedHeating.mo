@@ -110,12 +110,6 @@ model SingleSpeedHeating
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-152,110},{-132,130}})));
 
-  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse
-    plrToPul(
-    final tPer=3600)
-    "Convert PLR signal to on-off signal"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     final use_Xi_in=true,
@@ -138,6 +132,9 @@ model SingleSpeedHeating
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Constant pAtm(final k=101325) "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
+  Controls.OBC.CDL.Logical.VariablePulse plrToPul(period=3600)
+    "Convert part load ratio to pulse signal"
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
 equation
   connect(sinSpeDX.port_b, sin.ports[1])
     annotation (Line(
@@ -169,11 +166,6 @@ equation
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
   connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{50,19},{50,20},
           {78,20}}, color={0,0,127}));
-  connect(datRea.y[14], plrToPul.uPLR)
-    annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
-  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-30,
-          120},{-30,18},{-11,18}},
-                              color={255,0,255}));
   connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
           120},{-108,49.6},{-102,49.6}}, color={0,0,127}));
   connect(datRea.y[9], toTotAirOut.XiDry) annotation (Line(points={{-131,120},{-108,
@@ -213,6 +205,10 @@ equation
           {-66,66},{-66,72},{-61,72}}, color={0,0,127}));
   connect(sinSpeDX.phi, phi.phi) annotation (Line(points={{-11,2},{-32,2},{-32,
           80},{-39,80}}, color={0,0,127}));
+  connect(plrToPul.u, datRea.y[14])
+    annotation (Line(points={{-62,120},{-131,120}}, color={0,0,127}));
+  connect(plrToPul.y, sinSpeDX.on) annotation (Line(points={{-38,120},{-20,120},
+          {-20,18},{-11,18}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
             {180,160}})),
   Documentation(info="<html>
@@ -240,6 +236,13 @@ Buildings.Fluid.DXSystems.Heating.AirSource.Validation.SingleSpeed_TimedReverseC
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 9, 2024, by Michael Wetter:<br/>
+Replaced instance <code>plrToPul</code> with model from <code>CDL</code> package as the earlier
+implementation caused problems in cross-tool validation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3936\">#3939</a>.
+</li>
 <li>
 May 31, 2023, by Michael Wetter:<br/>
 Changed implementation to use <code>phi</code> rather than water vapor concentration
