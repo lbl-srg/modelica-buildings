@@ -387,8 +387,8 @@ Documentation(info="<html>
 This block implements a rule-based PID tuning method.
 This method approximates the control process with a
 first-order plus time-delay (FOPTD) model.
-It then determines the parameters of this FOPTD model based on the responses of
-the control process to asymmetric relay feedback.
+It then determines the parameters of this FOPTD model based on the control process's responses 
+to asymmetric relay feedback.
 After that, taking the parameters of this FOPTD mode as inputs, this method 
 calculates the PID gains with the Approximate M-constrained Integral Gain
 Optimization (AMIGO) method.
