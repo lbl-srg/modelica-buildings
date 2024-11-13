@@ -161,14 +161,15 @@ annotation (defaultComponentName = "relCon",
 Documentation(info="<html>
 <p>
 This block generates a relay output <code>yDif</code> which equals to
-<code>(u_m - u_s)/r</code>,where <code>u_m</code> and <code>u_s</code>
+<code>(u_m - u_s)/r</code>.
+<code>u_m</code> and <code>u_s</code>
 are the measurement and the setpoint, respectively.
 <code>r</code> is the typical range of control error.
 </p>
 <p>
 This block also generates the control output <code>y</code>,
-and a boolean relay switch output <code>yOn</code>.
-<code>y</code> and <code>yOn</code> are calculated as below.
+and a boolean relay switch output <code>yOn</code> using the following
+procedure.
 </p>
 <p>
 Step 1: Calculate control error,

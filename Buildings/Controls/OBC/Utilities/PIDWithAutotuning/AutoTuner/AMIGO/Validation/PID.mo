@@ -70,7 +70,7 @@ and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 <p>
 The control gain,
-time constant of the integral term and time constant of the derivative term are calculated
+the time constant of the integral term, and the time constant of the derivative term are calculated
 based on the equations shown in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.BaseClasses.AMIGO.PIDGain</a>,

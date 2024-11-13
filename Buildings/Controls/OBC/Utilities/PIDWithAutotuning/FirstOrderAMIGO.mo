@@ -416,7 +416,7 @@ The PID tuning process ends automatically
 (see details in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
-at which point this block turns back to a PID controller but with tuned PID parameters.
+at which point this block reverts to a PID controller, but with tuned PID parameters.
 </p>
 <p>Note:</p>
 <ul>
@@ -427,8 +427,8 @@ will be generated.
 </li>
 <li>
 If the set point is changed during an autotuning process, a warning
-will be generated. This tuning process will be stopped and no changes will be
-made to the PID parameters.
+will be generated. This tuning process will be halted, and no adjustments will be made 
+to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -438,7 +438,7 @@ typical range of control error, <code>r</code>,
 the reference output for the tuning process, <code>yRef</code>, the higher and the
 lower values for the relay output, <code>yHig</code> and <code>yLow</code>, and the
 deadband, <code>deaBan</code>.
-Here are some suggestions for determining the values of those parameters.
+Below are some recommendations for selecting appropriate values for those parameters.
 </p>
 <ol>
 <li>
@@ -475,10 +475,6 @@ Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 3, 2024, by Sen Huang:<br/>
-Made <code>yMax</code> and <code>yMin</code> changeable.
-</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Propagated range of control error <code>r</code> to relay controller.

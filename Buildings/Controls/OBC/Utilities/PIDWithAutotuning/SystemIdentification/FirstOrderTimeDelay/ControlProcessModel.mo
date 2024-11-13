@@ -243,12 +243,12 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrd
 and
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.TimeConstantDelay</a>
-to identify the gain, the time constant and the time delay, respectively.
+to identify the gain, the time constant, and the time delay, respectively.
 </p>
 <p>
 The calculations are disabled by default. They will be enabled once the tuning period starts,
 i.e., <code>triSta</code> becomes <code>true</code>.
-It then calculates the model parameters at the time when the tuning period ends,
+The calculations complete when the tuning period ends,
 i.e., <code>triEnd</code> becomes <code>true</code>.
 </p>
 <p>

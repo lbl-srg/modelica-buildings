@@ -8,14 +8,14 @@ block PI "Identify control gain and integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -26,7 +26,7 @@ block PI "Identify control gain and integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
