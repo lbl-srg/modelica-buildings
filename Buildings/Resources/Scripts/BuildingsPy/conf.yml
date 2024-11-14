@@ -219,6 +219,7 @@
     translate: false
     comment: python incompatible with docker image
   optimica:
+    translate: false
     comment: Optimica uses Python 3.9, while the examples use Python 3.8
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
