@@ -47,7 +47,7 @@ The temperature <i>T</i> is the temperature of the heat port if <code>useHeatPor
 <li>November 2, 2024, by Michael Wetter:<br/>
 Changed guarding against division by zero.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4032\">#4032</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4032\">Buildings #4032</a>.
 </li>
 <li>November 3, 2015, by Michael Wetter:<br/>
 Set default value for <code>P_nominal</code> to avoid an error when translating
