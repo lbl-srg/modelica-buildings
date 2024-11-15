@@ -31,10 +31,6 @@ partial model PartialBorefieldWithTough
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
 
-  // Simulation parameters
-  parameter Integer nSeg(min=1)=10
-    "Number of segments to use in vertical discretization of the boreholes";
-
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -62,6 +58,19 @@ partial model PartialBorefieldWithTough
   parameter Real dT_dz(final unit="K/m", min=0) = 0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initialization", group="Temperature profile"));
+
+  parameter Integer nSeg(min=1)=10
+    "Number of segments to use in vertical discretization of the boreholes"
+    annotation (Dialog(group="Ground response"));
+  parameter Integer nInt=10
+    "Number of points in the ground to be investigated"
+    annotation (Dialog(group="Ground response"));
+  parameter Modelica.Units.SI.Time samplePeriod=60
+    "Sample period of component"
+    annotation (Dialog(group="Ground response"));
+  parameter Integer flag=0
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
+    annotation (Dialog(group="Ground response"));
 
   Modelica.Blocks.Interfaces.RealOutput TBorAve(
     final quantity="ThermodynamicTemperature",
@@ -94,7 +103,10 @@ partial model PartialBorefieldWithTough
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse
-    touRes(final nSeg=nSeg)
+    touRes(final nSeg=nSeg,
+    final nInt=nInt,
+    final samplePeriod=samplePeriod,
+    final flag=flag)
     "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
 

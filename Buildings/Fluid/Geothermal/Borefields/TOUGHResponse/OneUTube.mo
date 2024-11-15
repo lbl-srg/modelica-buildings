@@ -2,10 +2,8 @@ within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse;
 model OneUTube
   "Borefield model containing single U-tube boreholes, with ground response calcuted by TOUGH"
   extends Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.PartialBorefieldWithTough(
-    touRes(samplePeriod=samplePeriod),
     redeclare Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.OneUTube borHol);
 
-  parameter Modelica.Units.SI.Time samplePeriod=30 "Sample period of component";
   annotation (
   defaultComponentName="borFie",
   Documentation(info="<html>

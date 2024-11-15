@@ -150,8 +150,8 @@ equation
           64},{-64,64}}, color={0,0,127}));
   connect(watTem.y,sou1. T_in) annotation (Line(points={{-98,-20},{-80,-20},{-80,
           -56},{-64,-56}}, color={0,0,127}));
-  connect(ambTem.y, borFieUTubWitTou.TOut) annotation (Line(points={{-98,-90},{0,
-          -90},{0,-55},{9,-55}},          color={0,0,127}));
+  connect(ambTem.y, borFieUTubWitTou.TOut) annotation (Line(points={{-98,-90},{
+          -20,-90},{-20,-55},{9,-55}},    color={0,0,127}));
   connect(borFieUTub1.port_b, TUTubOut2.port_a)
     annotation (Line(points={{30,0},{50,0}},color={0,127,255}));
   connect(TUTubOut2.port_b, sin2.ports[1])
@@ -177,7 +177,11 @@ with different <code>nCel</code> (Number of cells per aggregation level) and
 <code>tLoaAgg</code> (Time resolution of load aggregation). The third one calls
 TOUGH simulator to calculate the ground response.
 However in this example, the dummy function <code>def tough_avatar(heatFlux, T_out)</code>
-is used to imitate the ground response calculated by TOUGH simulator. 
+is used to imitate the ground response calculated by TOUGH simulator.
+</p>
+<p>
+Note the dummy function cannot run the ground modeling as TOUGH. It is created
+to show the coupling workflow.
 </p>
 </html>",
 revisions="<html>

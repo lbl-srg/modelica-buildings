@@ -123,7 +123,7 @@ Note that the initial input files are in
 <ul>
 <li>
 <code>writeincon.inp</code>: the file contains the initial borehole wall temperature and 
-the heat flow rate. The initial brehole wall temperature will be updated with the
+the heat flow rate. The initial borehole wall temperature will be updated with the
 borehole wall temperature stored in the state. The heat flow rate is the heat flow rate
 measured in the Modelica model.
 </li>
@@ -157,19 +157,19 @@ new borehole wall temperatures at each section.
 </li>
 </ol>
 <p>
-The programs should be updated if there is change in the TOUGH inputs
+The program <code>GroundReponse</code> should be updated if there is change in the TOUGH inputs
 files <code>MESH</code> and <code>INFILE</code>. The reason is that the Python
 script hardcodes the position of the nodes in the MESH and INFILE. In particular
-the assumption if that all the revelant nodes are at the top of <code>MESH</code> and
-<code>INFILE</code>. The functions that need to be updated are:
+the assumption is that all the revelant nodes are at the top of <code>MESH</code> and
+<code>INFILE</code>. The sub-functions that need to be updated are:
 </p>
 <ul>
 <li>
-<code>modelica_mesh</code>: This function finds the size of the modelica mesh.
+<code>modelica_mesh</code>: This function finds the size of the Modelica mesh.
 </li>
 <li>
 <code>mesh_to_mesh</code>: This function maps the mesh difference between TOUGH and
-modelica and calculates <code>T</code> and <code>Q</code> for the respective nodes.
+Modelica and calculates <code>T</code> and <code>Q</code> for the respective nodes.
 The code assumes that the <code>MESH</code> is bidimensional on the x-z axis.
 If a different type of mesh is used (i.e. radial), following two functions also need to
 be updated.

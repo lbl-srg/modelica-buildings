@@ -500,8 +500,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="3410"
-     inkscape:window-height="2043"
+     inkscape:window-width="4946"
+     inkscape:window-height="2683"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -857,7 +857,10 @@
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.72446px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0771884"
        x="299.00754"
        y="186.42957"
-       id="text920-7-2"><tspan
+       id="text920-7-2"
+       inkscape:export-filename="/home/jianjunhu/GitFolder/modelica-buildings/Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png"
+       inkscape:export-xdpi="450"
+       inkscape:export-ydpi="450"><tspan
          sodipodi:role="line"
          id="tspan2363"
          x="299.00754"
@@ -871,7 +874,7 @@
          y="191.42451"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.0771884">of the borehole to ground, at tim<tspan
    style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.72446px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;stroke-width:0.0771884"
-   id="tspan2397">i-1</tspan></tspan></text>
+   id="tspan2397">i</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.17085px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0864399"
