@@ -1,0 +1,32 @@
+within GED.DistrictElectrical.CHP.BaseClasses;
+block SteamTurbineGeneratorEfficiency
+  "Efficiency curve for steam turbine electrical generation efficiency, function of two input variables"
+
+  extends Modelica.Blocks.Icons.Block;
+
+  parameter Real a[3] "Coefficient";
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
+    final unit="degC") "Exhaust gas temperature inlet temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta_BC(
+    final unit="1") "Steam turbine electrical generation efficiency"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+protected
+  Modelica.Units.NonSI.Temperature_degF TExh_degF
+   "Exhaust gas temperature in degree Fahrenheit";
+
+algorithm
+  TExh_degF := TExh*(9/5) +32;
+
+
+equation
+  eta_BC =Functions.ExhaustExergyEfficiency(
+    a=a,
+    TExh_degF=TExh_degF)
+    "Exhaust gas mass flow rate calculated as a function of load factor and ambient temperature";
+
+end SteamTurbineGeneratorEfficiency;
