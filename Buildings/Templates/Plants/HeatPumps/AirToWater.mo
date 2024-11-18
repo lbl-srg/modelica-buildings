@@ -1048,6 +1048,7 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="pla",
     Documentation(
       info="<html>
@@ -1056,7 +1057,7 @@ equation
 This template represents an air-to-water heat pump plant
 with closed-loop controls. While the heat pump plant configuration can be changed
 through parameters, the image below shows a typical configuration with
-two reversible air-to-water heat pumps, a primary-secondary distribution system 
+two reversible air-to-water heat pumps, a primary-secondary distribution system
 and a sidestream heat recovery chiller.
 For a detailed schematic of the actual plant configuration, refer to the diagram
 view of the plant component. In Dymola, for example, you can access this by right-clicking
