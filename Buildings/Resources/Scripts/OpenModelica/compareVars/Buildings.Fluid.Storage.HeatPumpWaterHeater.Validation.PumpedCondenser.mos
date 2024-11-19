@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "datRea.y[16]",
+    "heaPumWatHeaPum.tan.vol[1].T",
+    "datRea.y[11]",
+    "heaPumWatHeaPum.sinSpeDXCoo.watCooCon.Q_flow",
+    "datRea.y[18]",
+    "boundary.m_flow_in",
+    "datRea.y[3]",
+    "heaPumWatHeaPum.tan.indTanHex.vol[6].T",
+    "datRea.y[14]"
+  };
