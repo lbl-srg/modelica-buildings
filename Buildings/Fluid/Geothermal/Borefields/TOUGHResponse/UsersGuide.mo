@@ -148,7 +148,7 @@ Then it invokes TOUGH simulator.
 <li>
 With the function <code>readsave</code>, it extracts the borehole wall temperature and
 the temperature of ground on the interested points, from TOUGH simulation result
-file SAVE.
+file <code>SAVE</code>.
 </li>
 <li>
 Update the state to store the TOUGH simulation stop time, the heat flow
@@ -159,9 +159,10 @@ new borehole wall temperatures at each section.
 <p>
 The program <code>GroundReponse</code> should be updated if there is change in the TOUGH inputs
 files <code>MESH</code> and <code>INFILE</code>. The reason is that the Python
-script hardcodes the position of the nodes in the MESH and INFILE. In particular
-the assumption is that all the revelant nodes are at the top of <code>MESH</code> and
-<code>INFILE</code>. The sub-functions that need to be updated are:
+script hardcodes the position of the nodes in the <code>MESH</code> and <code>INFILE</code>.
+In particular the assumption is that all the relevant nodes are at the top of
+<code>MESH</code> and <code>INFILE</code>. The sub-functions that need to be updated
+are:
 </p>
 <ul>
 <li>
@@ -214,10 +215,11 @@ temperature.
 </ul>
 <h4>TOUGH setup</h4>
 <p>
-A mesh file for the simulation domain should be prepared for the TOUGH simulation
-and the simulation domain should be initialized. It also requires the
-<code>INFILE</code> to specificy the ground properties and to set the start and
-end simulation time. Please see TOUGH manual of how to setup the inputs files.
+A mesh file (<code>MESH</code>) for the simulation domain should be prepared for the
+TOUGH simulation and the simulation domain should be initialized (<code>INCON</code>).
+It also requires the <code>INFILE</code> to specificy the ground properties and to
+set the start and end simulation time. Please see TOUGH manual of how to setup the
+inputs files.
 </p>
 <h4>Example</h4>
 <p>
@@ -226,9 +228,9 @@ The class
 Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields</a>
 shows the comparisons between the g-function based ground response model and the
 TOUGH ground response model.
-In the case when the TOUGH simulator is not installed, the Python interface model includes
-a dummy code to imitate the TOUGH response for updating the ground temperatures,
-<code>def tough_avatar(heatFlux, T_out)</code>.
+In the case when the TOUGH simulator is not installed, for the demonstration purpose
+the Python interface model includes a dummy code to imitate the TOUGH response for
+updating the ground temperatures, <code>def tough_avatar(heatFlux, T_out)</code>.
 </p>
 <pre>
 def tough_avatar(heatFlux, T_out):
@@ -244,6 +246,16 @@ def tough_avatar(heatFlux, T_out):
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 </pre>
+    
+<h4>References</h4>
+<p>
+J. Hu, C. Doughty, P. Dobson, P. Nico, M. Wetter.
+<i>Coupling subsurface and above-surface models for design of borefields and
+geothermal district heating and cooling systems.</i>
+Proceedings, 45th Workshop on Geothermal Reservior Engineering.
+<a href=\"https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2020/Hu.pdf\">
+https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2020/Hu.pdf</a>.
+</p>
 
 </html>"));
 end UsersGuide;
