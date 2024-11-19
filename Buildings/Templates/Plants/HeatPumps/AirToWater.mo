@@ -13,8 +13,10 @@ model AirToWater
       final typMod=hp.typMod));
   parameter Boolean is_dpBalYPumSetCal(start=false)=false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
-    annotation(Evaluate=true, Dialog(tab="Advanced",
-      enable=typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2));
+    annotation(Evaluate=true,
+      Dialog(tab="Advanced",
+      enable=typDis==Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2),
+      __ctrlFlow(enable=false));
   // The check valve pressure drop is scaled for configurations with common dedicated CHW and HW pumps.
   final parameter Modelica.Units.SI.PressureDifference dpValCheHeaWat_nominal=
     dat.dpValCheHeaWat_nominal * (hp.mHeaWatHp_flow_nominal / max(dat.pumHeaWatPri.m_flow_nominal))^2

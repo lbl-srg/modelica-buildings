@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants;
-package HeatPumps "Heat pump plant"
+package HeatPumps "Heat pump plants"
   extends Modelica.Icons.Package;
   annotation (
     __ctrlFlow_template,

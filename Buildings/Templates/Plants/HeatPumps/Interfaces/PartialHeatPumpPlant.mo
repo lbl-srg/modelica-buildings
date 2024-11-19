@@ -397,13 +397,16 @@ partial model PartialHeatPumpPlant
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),
-    Evaluate=true);
+    Evaluate=true,
+    __ctrlFlow(enable=false));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for all valves"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
+    annotation(Evaluate=true, Dialog(tab="Advanced"),
+    __ctrlFlow(enable=false));
   parameter Boolean show_T=false
     "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced",group="Diagnostics"));
+    annotation (Dialog(tab="Advanced",group="Diagnostics"),
+    __ctrlFlow(enable=false));
   final parameter MediumHeaWat.Density rhoHeaWat_default=MediumHeaWat.density(staHeaWat_default)
     "HW default density"
     annotation (Evaluate=true);
