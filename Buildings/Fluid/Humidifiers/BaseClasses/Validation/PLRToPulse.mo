@@ -44,8 +44,8 @@ equation
   Documentation(info="<html>
 <p>
 This model validates 
-<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse\">
-Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse</a> 
+<a href=\"modelica://Buildings.Fluid.Humidifiers.BaseClasses.PLRToPulse\">
+Buildings.Fluid.Humidifiers.BaseClasses.PLRToPulse</a> 
 by providing it a time-varying input signal for the part-load ratio, and then 
 comparing the enabled time results against required calculated values.
 </p>
@@ -58,6 +58,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Heating/AirSource/Validation/BaseClasses/Validation/PLRToPulse.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/BaseClasses/Validation/PLRToPulse.mos"
         "Simulate and plot"));
 end PLRToPulse;
