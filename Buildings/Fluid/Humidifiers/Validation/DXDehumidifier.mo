@@ -25,7 +25,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "DX dehumidifier"
     annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
 
-  Buildings.Fluid.DXSystems.Heating.AirSource.Validation.BaseClasses.PLRToPulse plrToPul(
+  Buildings.Fluid.Humidifiers.BaseClasses.PLRToPulse plrToPul(
     final tPer=3600,
     final tDel=0.1)
     "Convert PLR signal to on-off signal"
