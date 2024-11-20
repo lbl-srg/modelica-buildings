@@ -4,14 +4,14 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time constant of a first order time-delayed model"
+    "Time constant of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
@@ -131,8 +131,8 @@ First implementation<br/>
 T<sub>i</sub> = 0.35 L + 13 L T<sup>2</sup>/(T<sup>2</sup> + 12 L T + 7 L<sup>2</sup>),
 </p>
 <p>
-where <code>T</code> is the time constant of the first-order time delayed model
-and <code>L</code> is the time delay of the first-order time delayed model.
+where <code>T</code> is the time constant of the first-order plus time-delay (FOPTD) model
+and <code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>

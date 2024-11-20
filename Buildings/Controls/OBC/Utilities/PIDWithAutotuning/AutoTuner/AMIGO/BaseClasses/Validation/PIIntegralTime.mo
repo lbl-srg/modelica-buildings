@@ -8,13 +8,13 @@ model PIIntegralTime "Test model for calculating the integral time for a PI cont
     duration=1,
     offset=0.5,
     height=0.5)
-    "Time constant of a first order time-delayed model"
+    "Time constant of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(T.y, PIIntTim.T) annotation (Line(points={{-38,20},{-20,20},{-20,6},{-12,

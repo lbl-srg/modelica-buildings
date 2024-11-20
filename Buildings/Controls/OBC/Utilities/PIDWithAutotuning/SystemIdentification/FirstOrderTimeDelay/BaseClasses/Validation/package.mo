@@ -1,13 +1,13 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
-package Validation "Collection of models that validate the blocks in the FirstOrderTimedelayed"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses;
+package Validation "Collection of validation models"
   annotation (
     preferredView="info",
     Documentation(
       info="<html>
 <p>
 This package contains models that validate the blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses</a>.
 </p>
 </html>"),
     Icon(

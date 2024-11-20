@@ -7,19 +7,19 @@ model PID "Test model for calculating parameters of a PID controller"
     duration=1,
     offset=1,
     height=1)
-    "Gain of a first order time-delayed model"
+    "Gain of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp T(
     duration=1,
     offset=0.5,
     height=0.5)
-    "Time constant of a first order time-delayed model"
+    "Time constant of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(kp.y, PID.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-12,
@@ -70,7 +70,7 @@ and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 <p>
 The control gain,
-time constant of the integral term and time constant of the derivative term are calculated
+the time constant of the integral term, and the time constant of the derivative term are calculated
 based on the equations shown in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.BaseClasses.AMIGO.PIDGain</a>,

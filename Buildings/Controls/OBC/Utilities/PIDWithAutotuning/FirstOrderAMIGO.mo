@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "Autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
+  "Autotuning PID controller with an AMIGO tuner that employs a first-order system model"
 
   parameter Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController controllerType=
     Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Start value of the gain of controller"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
   parameter Real Ti_start(unit="s")=0.5
@@ -20,7 +20,7 @@ block FirstOrderAMIGO
     "Start value of the set point"
     annotation (Dialog(tab="Advanced",group="Initialization"));
   parameter Real r(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yHig(
      final min = 0,
@@ -34,7 +34,9 @@ block FirstOrderAMIGO
     final min=1E-6)
     "Deadband for holding the relay output";
   parameter Real yRef
-    "Reference output for the tuning process. It should be greater than the lower and less than the higher value of the relay output";
+    "Reference output for the tuning process. It must be greater than the 
+       lower limit of the relay output and less than the upper limit of the 
+       relay output";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -42,11 +44,11 @@ block FirstOrderAMIGO
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.9
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.9
     "Ni*Ti is time constant of anti-windup compensation"
     annotation (Dialog(tab="Advanced",group="Integrator anti-windup"));
   parameter Real Nd(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=10
     "The higher the Nd, the more ideal the derivative block"
     annotation (Dialog(tab="Advanced",group="Derivative block",
       enable=controllerType ==Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
@@ -134,7 +136,7 @@ block FirstOrderAMIGO
     final y_start=Td_start) if with_D
     "Recording the derivative time"
     annotation (Placement(transformation(extent={{-240,-250},{-220,-270}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.ControlProcessModel
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef - yLow,
@@ -161,7 +163,9 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    message="*** Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
+    final message="In " +
+        getInstanceName() +
+        ": the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
@@ -199,7 +203,8 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    message="*** Warning: An autotuning is ongoing and the new tuning request is ignored.")
+    final message="In " + getInstanceName() +
+    ": a new tuning request is ignored as the autotuning is ongoing.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{242,-150},{262,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -231,9 +236,12 @@ protected
     final h=0.5*setHys)
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(message=
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
+    final message=
     "In " + getInstanceName()
-    + ": the setpoint must not change when an autotuning tuning is ongoing. This ongoing autotuning will thus abort.")
+    + ": the setpoint must not change when an autotuning tuning is ongoing. 
+    This ongoing autotuning will be aborted and the control gains will not
+    be changed.")
     "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
 
@@ -377,17 +385,13 @@ annotation (defaultComponentName = "PIDWitTun",
 Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
-</p>
-<p>
-The PID tuning method approximates the control process with a
-first-order time delayed (FOTD) model.
-It then determines the gain and delay of this FOTD model based on the responses of
-the control process to asymmetric relay feedback.
-After that, taking the gain and delay of this FOTD mode as inputs, this PID tuning
-method calculates the PID gains with an Approximate M-constrained Integral Gain
-Optimization (AMIGO) Tuner.
-</p>
-<p>
+This method approximates the control process with a
+first-order plus time-delay (FOPTD) model.
+It then determines the parameters of this FOPTD model based on the control process's responses 
+to asymmetric relay feedback.
+After that, taking the parameters of this FOPTD mode as inputs, this method 
+calculates the PID gains with the Approximate M-constrained Integral Gain
+Optimization (AMIGO) method.
 This block is implemented using
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
@@ -396,9 +400,9 @@ and inherits most of its configuration. However, through the parameter
 PID controller.
 </p>
 
-<h4>Autotuning Process</h4>
+<h4>Autotuning process</h4>
 <p>
-To use this block, place it in a control loop as any other PID controllers.
+To use this block, insert it into a feedback control loop.
 Before the PID tuning process starts, this block is equivalent to
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
@@ -412,18 +416,19 @@ The PID tuning process ends automatically
 (see details in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
-at which point this block turns back to a PID controller but with tuned PID parameters.
+at which point this block reverts to a PID controller, but with tuned PID parameters.
 </p>
 <p>Note:</p>
 <ul>
 <li>
 If an autotuning is ongoing, i.e., <code>inTunPro.y = true</code>,
-a new request for performing autotuning will be ignored.
+a new request for performing autotuning will be ignored and a warning
+will be generated.
 </li>
 <li>
-In addition, if the set point is changed during an autotuning process, a warning
-will be generated. This tuning process will be stopped and the control parameters
-from the begining the current process will be used.
+If the set point is changed during an autotuning process, a warning
+will be generated. This tuning process will be halted, and no adjustments will be made 
+to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -433,7 +438,7 @@ typical range of control error, <code>r</code>,
 the reference output for the tuning process, <code>yRef</code>, the higher and the
 lower values for the relay output, <code>yHig</code> and <code>yLow</code>, and the
 deadband, <code>deaBan</code>.
-The following procedure can be used to determine the values of those parameters. 
+Below are some recommendations for selecting appropriate values for those parameters.
 </p>
 <ol>
 <li>
@@ -456,10 +461,9 @@ asymmetric relay output, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
 When determining the <code>deaBan</code>, we first divide the maximum and the 
-minimum difference of measurement from the setpoint by the typical range of control
-error <code>r</code>, then find the absolute value of the two deviations. 
-The <code>deaBan</code> can be set as half of the smaller one between the two
-absolute deviations.
+minimum deviations of measurement from the setpoint by <code>r</code>. 
+The <code>deaBan</code> can then be set as half of the smaller absolute value 
+of those two deviations.
 </li>
 </ol>
 <h4>References</h4>
@@ -471,10 +475,6 @@ Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-April 3, 2024, by Sen Huang:<br/>
-Made <code>yMax</code> and <code>yMin</code> changeable.
-</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Propagated range of control error <code>r</code> to relay controller.

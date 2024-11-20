@@ -8,19 +8,19 @@ model PIGain "Test model for calculating the gain for a PI controller"
     duration=1,
     offset=1,
     height=1)
-    "Gain of a first order time-delayed model"
+    "Gain of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp T(
     duration=1,
     offset=0.5,
     height=0.5)
-    "Time constant of a first order time-delayed model"
+    "Time constant of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp L(
     duration=1,
     offset=0.3,
     height=0.3)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(L.y, PIGai.L) annotation (Line(points={{-38,-30},{-20,-30},{-20,-6},{

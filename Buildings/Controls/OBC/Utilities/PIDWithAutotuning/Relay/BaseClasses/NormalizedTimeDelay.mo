@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block NormalizedTimeDelay
-  "Calculate the normalized time delay of a response from a relay controller"
+  "Calculate the normalized time delay of the response of a relay controller"
   parameter Real gamma(min=1+1E-6) = 4
     "Asymmetry level of the relay controller";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rho
@@ -38,7 +38,10 @@ protected
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{20,-48},{40,-28}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Warning: the asymmetry level of the relay controller is lower than the half period ratio. Increase the level.")
+    final message="In " +
+        getInstanceName() +
+        ": the asymmetry level of the relay controller is lower than the half period ratio. 
+        Increase the asymmetry level.")
     "Warning message when asymmetry level is less than the half period ratio"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(
@@ -96,7 +99,6 @@ First implementation<br/>
 <p>
 This block calculates the normalized time delay of the output from a relay controller.
 </p>
-<h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 &tau; = (&gamma; - &rho;)/(&gamma; - 1)/(&rho;*0.35+0.65),
 </p>
@@ -106,9 +108,10 @@ the relay controller and the half-period ratio, respectively.
 </p>
 <h4>References</h4>
 <p>
-Josefin Berner (2017)
-\"Automatic Controller Tuning using Relay-based Model Identification.\"
-Department of Automatic Control, Lund Institute of Technology, Lund University.
+J. Berner (2017).
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+Department of Automatic Control, Lund University.
 </p>
 </html>"));
 end NormalizedTimeDelay;

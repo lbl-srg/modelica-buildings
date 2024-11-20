@@ -189,18 +189,18 @@ Documentation(info="<html>
 This example is identical to 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl\">
 Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPControl</a> except that the PI controller
-is replaced by an autotuning PI controller.
+is replaced with an autotuning PI controller.
 </p>
 The autotuning is triggered twice.
 <ul>
 <li>
-The first one occurs at <i>100</i> seconds and it completes successfully.
-The tuned PI parameters are put into effect at <i>215</i> seconds.
+The first one occurs at <i>100</i> seconds and it completes successfully,
+with the tuned PI parameters taking effect at <i>215</i> seconds.
 </li>
 <li>
 The second one occurs at <i>2100</i> seconds and it fails because the setpoint
 changes at <i>2400</i> seconds.
-The PI parameters are kept unchanged.
+As a result, the PI parameters remain unchanged.
 </li>
 </ul>
 </html>",

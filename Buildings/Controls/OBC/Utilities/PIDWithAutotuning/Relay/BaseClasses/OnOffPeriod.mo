@@ -45,11 +45,11 @@ protected
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOnRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the on time"
+    "Sample the on time"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.SamplerWithResetThreshold timOffRec(
      final lowLim=0, final y_reset=0)
-    "Sampling the off time"
+    "Sample the off time"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
 equation
@@ -116,9 +116,10 @@ Likewise, <code>tOff</code> is sampled when the relay switch output becomes true
 </p>
 <h4>References</h4>
 <p>
-Josefin Berner (2017)
-\"Automatic Controller Tuning using Relay-based Model Identification.\"
-Department of Automatic Control, Lund Institute of Technology, Lund University.
+J. Berner (2017).
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+Department of Automatic Control, Lund University.
 </p>
 </html>"));
 end OnOffPeriod;

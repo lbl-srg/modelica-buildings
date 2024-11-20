@@ -2,21 +2,21 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PID "Identify control gain, integral time, and derivative time of the PID model"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
-    "Gain of a first order time-delayed model"
+    "Gain of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time constant of a first order time-delayed model"
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    "Time constant of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time delay of a first order time-delayed model"
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
@@ -26,13 +26,13 @@ block PID "Identify control gain, integral time, and derivative time of the PID 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    final min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));

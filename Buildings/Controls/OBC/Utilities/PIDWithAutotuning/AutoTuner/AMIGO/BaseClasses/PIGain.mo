@@ -2,25 +2,25 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseCl
 block PIGain "Identify the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
-    "Gain of a first order time-delayed model"
+    "Gain of a first-order plus time-delay (FOPTD) model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time constant of a first order time-delayed model"
+    "Time constant of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time delay of a first order time-delayed model"
+    "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-140,-96},{-100,-56}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
-    "Control gain of a PI controller"
+    "Control gain"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -129,9 +129,9 @@ First implementation<br/>
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 </p>
 <p>
-where <code>k<sub>p</sub></code> is the gain of the first-order time delayed model,
-<code>T</code> is the time constant of the first-order time delayed model, and
-<code>L</code> is the time delay of the first-order time delayed model.
+where <code>k<sub>p</sub></code> is the gain of the first-order plus time-delay (FOPTD) model,
+<code>T</code> is the time constant of the FOPTD model, and
+<code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>
