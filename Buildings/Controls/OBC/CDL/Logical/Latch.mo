@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Latch
-  "Maintains a true signal until change condition"
+  "Maintains a true signal until cleared"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Latch input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -8,42 +8,13 @@ block Latch
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output signal"
+    "Output with latched signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
-initial equation
-  pre(y)=false;
-  pre(u)=false;
-  pre(clr)=false;
-
 equation
   when initial() then
-    //scenario = 1;
-    y=if clr then
-        false
-      else
-        u;
-  elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) then
-    //scenario = 2;
-    y=not clr;
-  elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == true) then
-    //scenario = 3;
-    y=if clr then
-        false
-      else
-        pre(y);
-  elsewhen change(clr) and
-                          (pre(clr) == true) and
-                                                (not u) then
-    //scenario = 4;
-    y=false;
-  elsewhen clr then
-    //scenario = 5;
-    y=false;
+    y=not clr and u;
+  elsewhen {clr, u} then
+    y=not clr and u;
   end when;
   annotation (
     defaultComponentName="lat",
@@ -147,6 +118,11 @@ At initial time, if <code>clr = false</code>, then the output will be
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 15, 2024, by Antoine Gautier:<br/>
+Simplified the implementation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3796\">issue 3796</a>.
+</li>
 <li>
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be

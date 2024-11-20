@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block PIDWithReset
   "P, PI, PD, and PID controller with output reset"
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
-  parameter Real k(
-    min=100*Constants.eps)=1
+  parameter Real k(min=100*Constants.eps)=1
     "Gain of controller"
     annotation (Dialog(group="Control gains"));
   parameter Real Ti(
@@ -19,8 +19,7 @@ block PIDWithReset
     min=100*Constants.eps)=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
-  parameter Real r(
-    min=100*Constants.eps)=1
+  parameter Real r(min=100*Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yMax=1
     "Upper limit of output"
@@ -62,7 +61,8 @@ block PIDWithReset
   Buildings.Controls.OBC.CDL.Reals.Subtract controlError
     "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-16},{-180,4}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter P(final k=k) "Proportional action"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter P(final k=k)
+    "Proportional action"
     annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset I(
     final k=k/Ti,
@@ -91,16 +91,16 @@ block PIDWithReset
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 protected
-  final parameter Real revAct=
-    if reverseActing then
-      1
-    else
-      -1
+  final parameter Real revAct= if reverseActing then 1 else -1
     "Switch for sign for reverse or direct acting controller";
-  final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  final parameter Boolean with_I =
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
     annotation (Evaluate=true,HideResult=true);
-  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  final parameter Boolean with_D =
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+    controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
   Sources.Constant kDer(k=k*Td) if with_D

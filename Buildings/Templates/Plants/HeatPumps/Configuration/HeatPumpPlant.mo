@@ -80,6 +80,9 @@ record HeatPumpPlant
   parameter Boolean have_pumHeaWatPriVar
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanHeaWat
+    "Specify if there is a HW buffer tank and where it is integrated into the system"
+    annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumHeaWatSec
     "Type of secondary HW pumps"
     annotation (Evaluate=true);
@@ -110,6 +113,9 @@ record HeatPumpPlant
     annotation (Evaluate=true);
   parameter Boolean have_pumChiWatPriVar
     "Set to true for variable speed primary CHW pumps"
+    annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.IntegrationPoint typTanChiWat
+    "Specify if there is a CHW buffer tank and where it is integrated into the system"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary typPumChiWatSec
     "Type of secondary CHW pumps"

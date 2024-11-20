@@ -6,10 +6,10 @@ block MovingAverage "Block to output moving average"
     min=1E-5)
     "Time horizon over which the input is averaged";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to be averaged"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Moving average of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -33,9 +33,7 @@ initial equation
 
 equation
   u=der(mu);
-  muDel=delay(
-    mu,
-    delta);
+  muDel=delay(mu, delta);
   // Compute the mode so that Dymola generates
   // time and not state events as it would with
   // an if-then construct

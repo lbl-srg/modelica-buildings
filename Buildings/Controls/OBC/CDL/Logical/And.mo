@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Logical;
 block And
   "Logical 'and': y = u1 and u2"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
-    "Connector of first Boolean input signal"
+    "Input signal for logical 'and'"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
-    "Connector of second Boolean input signal"
+    "Input signal for logical 'and'"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Outputs true if u1 and u2 are both true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

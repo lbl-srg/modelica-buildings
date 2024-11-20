@@ -8,7 +8,10 @@ model NumberOfRequests
     kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Sine sine(f=2)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=0.35)
+  Modelica.Blocks.Sources.Pulse pulse(
+    amplitude=1-pulse.offset,
+    period=0.35,
+    offset=-0.01)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(sine.y, numReq.u[1]) annotation (Line(points={{-39,-10},{-19.5,-10},{
@@ -20,6 +23,12 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/C
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
+<li>
+June 16, 2024, by Hongxiang Fu:<br/>
+Changed pulse input from 0 to 1 to 0.01 to 1.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1897\">#1897</a>.
+</li>
 <li>
 January 12, 2017, by Thierry S. Nouidui:<br/>
 Modified example to prevent simultaneous events

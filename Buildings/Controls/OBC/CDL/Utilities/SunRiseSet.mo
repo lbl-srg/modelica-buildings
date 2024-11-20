@@ -29,7 +29,7 @@ block SunRiseSet
     "Time of next sunset"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sunUp
-    "Output true if the sun is up"
+    "Output with true if the sun is up"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 protected

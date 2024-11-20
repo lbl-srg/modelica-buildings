@@ -1,11 +1,12 @@
 within Buildings.Controls.OBC.CDL.Reals;
-block Cos
-  "Output the cosine of the input"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(unit="rad")
-    "Connector of Real input signal"
+block Cos "Output the cosine of the input"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
+    final unit="rad",
+    displayUnit="deg")
+    "Input for the cosine function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Cosine of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -71,6 +72,11 @@ where
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
 <li>
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the input.<br/>

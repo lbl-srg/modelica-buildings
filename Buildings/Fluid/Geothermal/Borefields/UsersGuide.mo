@@ -17,7 +17,7 @@ Buildings.Fluid.Geothermal.Borefields.Validation</a>,
 respectively.
 </p>
 <p>
-The major features and configurations currently supported are:
+The following major features and configurations are supported:
 <ul>
 <li> User-defined borefield characteristics and geometry (borehole radius, pipe radius, shank spacing, etc.),
 including single U-tube, double U-tube in parallel and double U-tube in series configurations.
@@ -131,7 +131,8 @@ Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperature
 Other parameters which can be modified include the dynamics, initial conditions,
 and further information regarding the fluid flow, for example whether the flow is reversible.
 It is worth noting that regardless of the <code>energyDynamics</code> chosen,
-the <code>dynFil</code> parameter can be set to <code>false</code>
+the <code>steadyState</code> parameter can be set to <code>true</code>
+in the data record for the filling material
 to remove the effect of the thermal capacitance
 of the filling material in the borehole(s).
 The <code>nSeg</code> parameter specifies the number of segments for the vertical discretization of the borehole(s).
@@ -178,7 +179,8 @@ short-term thermal effects in the borehole. The borehole segments do not take in
 thus only radial (horizontal) effects are considered within the borehole(s). The thermal
 behavior between the pipes and borehole wall are modeled as a resistance-capacitance network, with
 the grout capacitance being split in the number of pipes present in a borehole section.
-The capacitance is only present if the <code>dynFil</code> parameter is set to <code>true</code>.
+The capacitance is only present if the parameter <code>steadyState</code> of the filling
+material data record is <code>false</code>, which is the default setting.
 The figure below shows an example for a borehole section within a single U-tube configuration.
 </p>
 <p align=\"center\">

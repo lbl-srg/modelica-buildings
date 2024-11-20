@@ -14,5 +14,15 @@ compareVars :=
     "sorDes.y[2]",
     "sorDes.y[3]",
     "sorDes.y[4]",
-    "sorDes.y[5]"
+    "sorDes.y[5]",
+    "sorAsc.yIdx[1]",
+    "sorAsc.yIdx[2]",
+    "sorAsc.yIdx[3]",
+    "sorAsc.yIdx[4]",
+    "sorAsc.yIdx[5]",
+    "sorDes.yIdx[1]",
+    "sorDes.yIdx[2]",
+    "sorDes.yIdx[3]",
+    "sorDes.yIdx[4]",
+    "sorDes.yIdx[5]"
   };

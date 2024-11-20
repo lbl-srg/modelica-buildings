@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "valOPPoi.m_flow",
+    "valOpePoi.m_flow",
     "valKv.m_flow",
     "valCv.m_flow",
     "valAv.m_flow"

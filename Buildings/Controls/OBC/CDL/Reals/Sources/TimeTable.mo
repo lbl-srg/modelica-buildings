@@ -7,21 +7,17 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-  parameter Real offset[:]=fill(
-    0,
-    nout)
+  parameter Real offset[:]=fill(0, nout)
     "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
   parameter Real timeScale(
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
-    "Output of the table"
+    "Output with tabulated values"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Integer nout=size(
-    table,
-    2)-1
+  final parameter Integer nout=size(table,2)-1
     "Dimension of output vector";
   parameter Real t0(
     final quantity="Time",
@@ -59,11 +55,7 @@ protected
         Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
     final startTime=
-      if
-        (extrapolation == Types.Extrapolation.Periodic) then
-        t0
-      else
-        0,
+      if (extrapolation == Types.Extrapolation.Periodic) then t0 else 0,
     final timeScale=timeScale)
     "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));

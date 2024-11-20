@@ -22,7 +22,7 @@ model StorageTankWithExternalHeatExchanger
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumHex(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     riseTime=10,
     m_flow_nominal=dat.mHex_flow_nominal,
     dp_nominal=dat.dpHexHea_nominal) "Pump with head as input" annotation (
@@ -92,7 +92,7 @@ model StorageTankWithExternalHeatExchanger
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear divVal(
     redeclare package Medium = MediumHea,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_strokeTime=false,
     m_flow_nominal=dat.mHex_flow_nominal,
     dpValve_nominal=1000) "Diversion valve to reduce mixing in tank"
     annotation (Placement(transformation(extent={{30,-40},{10,-60}})));
@@ -210,7 +210,7 @@ Buildings.DHC.Loads.HotWater.Data.GenericDomesticHotWaterWithHeatExchanger</a>.
 <p>
 It is based on Fig. 3 in <i>Evaluations of different domestic hot water
 preparing methods with ultra-low-temperature district heating</i> by X. Yang,
-H. Li, and S. Svendsen at <a href=\"https:/doi.org/10.1016/j.energy.2016.04.109\">
+H. Li, and S. Svendsen at <a href=\"https://doi.org/10.1016/j.energy.2016.04.109\">
 doi.org/10.1016/j.energy.2016.04.109</a>, as well as the
 <i>Advanced Energy Design Guide for Multifamily Buildings-Achieving Zero Energy</i>
 published by ASHRAE in 2022 at <a href=\"https://www.ashrae.org/technical-resources/aedgs/zero-energy-aedg-free-download\">
