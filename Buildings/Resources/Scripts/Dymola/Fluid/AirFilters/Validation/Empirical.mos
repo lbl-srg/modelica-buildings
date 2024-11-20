@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.AirFilters.Validation.Empirical", stopTime=50, method="Cvode", tolerance=1e-06, resultFile="Generic");
+createPlot(id=1, position={39, 36, 696, 557}, y={"senTraSubCO2In.C", "senTraSubCO2Out.C", "senTraSubVOCIn.C", "senTraSubVOCOut.C"}, range={0.0, 50.0, -0.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s");
+createPlot(id=1, position={39, 36, 696, 557}, y={"airFil.eps[1]", "airFil.eps[2]"}, range={0.0, 50.0, 0.4, 0.9}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={39, 36, 696, 557}, y={"airFil.uRep"}, range={0.0, 50.0, -0.2, 1.2000000000000002}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
