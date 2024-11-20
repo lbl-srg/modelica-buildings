@@ -38,10 +38,7 @@ protected
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{20,-48},{40,-28}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="In " +
-        getInstanceName() +
-        ": the asymmetry level of the relay controller is lower than the half period ratio. 
-        Increase the asymmetry level.")
+    final message="Warning: the asymmetry level of the relay controller is lower than the half period ratio. Increase the asymmetry level.")
     "Warning message when asymmetry level is less than the half period ratio"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre(

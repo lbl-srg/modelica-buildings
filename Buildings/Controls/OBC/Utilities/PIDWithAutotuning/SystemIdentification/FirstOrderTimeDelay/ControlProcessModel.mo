@@ -120,9 +120,7 @@ protected
     "Check if the autotuning completes successfully"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="In " +
-        getInstanceName() +
-        ": an autotuning fails, the controller gains are unchanged.")
+    final message="Warning: an autotuning fails, the controller gains are unchanged.")
     "Warning message when an autotuning fails"
     annotation (Placement(transformation(extent={{134,50},{154,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if an error occurs"
@@ -139,8 +137,7 @@ equation
   connect(timConDel.T, samT.u)
     annotation (Line(points={{82,28},{100,28},{100,20},{118,20}}, color={0,0,127}));
   connect(samT.y, T)
-    annotation (Line(points={{142,20},{148,20},{148,40},{180,40}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{142,20},{148,20},{148,40},{180,40}}, color={0,0,127}));
   connect(samT.trigger, triEnd) annotation (Line(points={{130,8},{130,-120}},
          color={255,0,255}));
   connect(L, samL.y)
@@ -150,8 +147,7 @@ equation
   connect(samL.trigger, triEnd) annotation (Line(points={{110,-52},{110,-70},{130,
           -70},{130,-120}},  color={255,0,255}));
   connect(samk.y, timConDel.k)
-    annotation (Line(points={{-38,20},{58,20}},
-         color={0,0,127}));
+    annotation (Line(points={{-38,20},{58,20}}, color={0,0,127}));
   connect(samk.trigger, triEnd) annotation (Line(points={{-50,8},{-50,-90},{130,
           -90},{130,-120}},color={255,0,255}));
   connect(samk.y, k) annotation (Line(points={{-38,20},{52,20},{52,80},{180,80}},

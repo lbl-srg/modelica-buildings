@@ -34,9 +34,7 @@ block FirstOrderAMIGO
     final min=1E-6)
     "Deadband for holding the relay output";
   parameter Real yRef
-    "Reference output for the tuning process. It must be greater than the 
-       lower limit of the relay output and less than the upper limit of the 
-       relay output";
+    "Reference output for the tuning process. It must be greater than the lower limit of the relay output and less than the upper limit of the relay output";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -72,7 +70,7 @@ block FirstOrderAMIGO
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
-    annotation (Placement(transformation(origin={0,-300},  extent={{20,-20},{-20,20}},rotation=270),
+    annotation (Placement(transformation(origin={0,-300}, extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRes
     "Connector for resetting the controller output"
@@ -163,9 +161,7 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="In " +
-        getInstanceName() +
-        ": the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
+    final message="Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
@@ -203,8 +199,7 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="In " + getInstanceName() +
-    ": a new tuning request is ignored as the autotuning is ongoing.")
+    final message="Warning: a new tuning request is ignored as the autotuning is ongoing.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{242,-150},{262,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
@@ -237,9 +232,7 @@ protected
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message=
-    "In " + getInstanceName()
-    + ": the setpoint must not change when an autotuning tuning is ongoing. 
+    final message="Warning: the setpoint must not change when an autotuning tuning is ongoing. 
     This ongoing autotuning will be aborted and the control gains will not
     be changed.")
     "Warning message when the setpoint changes during tuning process"
