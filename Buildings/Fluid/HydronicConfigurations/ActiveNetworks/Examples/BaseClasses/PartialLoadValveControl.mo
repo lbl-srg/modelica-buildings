@@ -1,6 +1,6 @@
 within Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses;
-model PartialLoadValveControl
-  "Model of a load on hydronic circuit with flow rate modulation by control valve"
+partial model PartialLoadValveControl
+  "Partial model of a load on hydronic circuit with flow rate modulation by control valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumLiq,
     final m_flow_nominal=mLiq_flow_nominal);

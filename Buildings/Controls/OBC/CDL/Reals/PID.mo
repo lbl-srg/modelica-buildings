@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block PID
   "P, PI, PD, and PID controller"
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(
     min=100*Constants.eps)=1
@@ -45,13 +46,13 @@ block PID
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
+    "Setpoint input signal"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector of measurement input signal"
+    "Measurement input signal"
     annotation (Placement(transformation(origin={0,-220},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of actuator output signal"
+    "Actuator output signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract controlError "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-16},{-180,4}})));
@@ -86,16 +87,16 @@ block PID
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
 protected
-  final parameter Real revAct=
-    if reverseActing then
-      1
-    else
-      -1
+  final parameter Real revAct= if reverseActing then 1 else -1
     "Switch for sign for reverse or direct acting controller";
-  final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    final parameter Boolean with_I =
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
     annotation (Evaluate=true,HideResult=true);
-  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    final parameter Boolean with_D =
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
   Sources.Constant kDer(k=k*Td) if with_D
@@ -104,8 +105,8 @@ protected
   Sources.Constant TDer(k=Td/Nd) if with_D
     "Time constant for approximation in derivative block"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Dzero(
-    final k=0) if not with_D
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Dzero(final k=0)
+    if not with_D
     "Zero input signal"
     annotation (Evaluate=true,HideResult=true,Placement(transformation(extent={{-50,90},
             {-30,110}})));
@@ -136,16 +137,16 @@ protected
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Izero(
-    final k=0) if not with_I
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Izero(final k=0)
+    if not with_I
     "Zero input signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=0) if with_I
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
+    if with_I
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false) if with_I
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
+    if with_I
     "Constant false"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 

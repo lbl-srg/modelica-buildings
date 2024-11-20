@@ -20,8 +20,7 @@ partial model PartialCoolingTowersSubsystem
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false)
-    "Pump for condenser water loop"
+    use_riseTime=false) "Pump for condenser water loop"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

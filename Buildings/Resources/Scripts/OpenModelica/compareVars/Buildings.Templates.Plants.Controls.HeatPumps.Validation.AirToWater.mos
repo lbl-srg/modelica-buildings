@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "ctl.chaStaHea.capReq.y",
-    "ctl.chaStaCoo.capReq.y",
+    "ctl.chaStaHea.capReq.QReq_flow",
+    "ctl.chaStaCoo.capReq.QReq_flow",
     "capHea_nominal",
     "capCoo_nominal",
     "ctl.TOut",
@@ -44,5 +44,14 @@ compareVars :=
     "ctl.dpHeaWatRemSet_max[1]",
     "ctl.dpHeaWatRemSet_min",
     "ctl.dpChiWatRemSet_max[1]",
-    "ctl.dpChiWatRemSet_min"
+    "ctl.dpChiWatRemSet_min",
+    "ctl.y1Hrc",
+    "ctl.y1CooHrc",
+    "ctl.y1PumChiWatHrc",
+    "ctl.y1PumHeaWatHrc",
+    "ctl.hrc.loaChiWat.QReq_flow",
+    "ctl.hrc.loaHeaWat.QReq_flow",
+    "ctl.capCooHrc_min",
+    "ctl.capHeaHrc_min",
+    "ctl.hrc.setMod.QEvaHea_flow.y"
   };

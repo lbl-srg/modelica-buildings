@@ -30,7 +30,10 @@ model PartialMixingVolume
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.Units.SI.Volume V "Volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
+      redeclare each package Medium = Medium,
+      each h_outflow(nominal=Medium.h_default),
+      each Xi_outflow(each nominal=0.01)
+      ) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
@@ -119,12 +122,15 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem(
+    port(T(start=T_start)))
     "Port temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
     annotation (Placement(transformation(extent={{-10,-10},{-30,10}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen(
+    port_a(T(start=T_start)),
+    port_b(T(start=T_start)))
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 equation
@@ -304,6 +310,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 October 24, 2022, by Michael Wetter:<br/>
 Improved conversion from <code>Xi</code> to <code>X</code> so that it also works

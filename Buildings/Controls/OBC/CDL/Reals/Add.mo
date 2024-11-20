@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Add
   "Output the sum of the two inputs"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Input to be added"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Input to be added"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Sum of the inputs"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

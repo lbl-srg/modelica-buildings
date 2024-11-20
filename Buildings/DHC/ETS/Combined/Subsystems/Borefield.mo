@@ -38,17 +38,18 @@ model Borefield
     iconTransformation(extent={{-140,60},{-100,100}})));
   // COMPONENTS
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear val(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=m_flow_nominal,
     final dpValve_nominal=dpValBorFie_nominal,
-    final dpFixed_nominal=fill(
-      dp_nominal,
-      2))
-    "Mixing valve controlling entering temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-80,0})));
+    final dpFixed_nominal=fill(dp_nominal, 2))
+    "Mixing valve controlling entering temperature" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-80,0})));
   Buildings.DHC.ETS.BaseClasses.Pump_m_flow pum(
     redeclare final package Medium=Medium,
     final m_flow_nominal=m_flow_nominal,

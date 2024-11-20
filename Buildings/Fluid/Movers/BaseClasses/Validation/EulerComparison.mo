@@ -95,14 +95,13 @@ Its results of calculated efficiency and power are compared with those obtained
 using power curves.
 </p>
 <p>
-Note that full performance curves are needed in this validation model
-because otherwise
+Note that the power curve is still provided because it is required by
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
-would not know the pressure of the mover.
-See <a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-for a more typical use case where only the peak point itself is supplied.
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
+See <a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerHydraulic\">
+Buildings.Fluid.Movers.Validation.ComparePowerHydraulic</a>
+for a use case where the mover model is agnostic to the power curve and
+only the peak values are provided.
 </p>
 </html>", revisions="<html>
 <ul>

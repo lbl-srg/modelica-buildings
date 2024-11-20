@@ -15,15 +15,6 @@ model EventSequencing "Validation model for event sequencing logic"
     period=4500)
     "Command signal – Index 1 for heating command, 2 for cooling command"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Convert command signal to real value"
-    annotation (Placement(transformation(extent={{50,50},{30,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=1)
-    "Hold signal value"
-    annotation (Placement(transformation(extent={{20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr
-    "Compare to zero to compute equipment status"
-    annotation (Placement(transformation(extent={{-10,50},{-30,70}})));
   Buildings.Templates.Plants.Controls.StagingRotation.EventSequencing seqEveHeaCoo(
     have_heaWat=true,
     have_chiWat=true,
@@ -35,41 +26,28 @@ model EventSequencing "Validation model for event sequencing logic"
     have_pumChiWatSec=false)
     "Event sequencing – Heating and cooling system with primary-only distribution"
     annotation (Placement(transformation(extent={{20,-34},{40,-6}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
-    "Convert command signal to real value"
-    annotation (Placement(transformation(extent={{50,-70},{30,-50}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1(samplePeriod=1)
-    "Hold signal value"
-    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
-    "Compare to zero to compute equipment status"
-    annotation (Placement(transformation(extent={{-10,-70},{-30,-50}})));
+  Components.Controls.StatusEmulator y1Pum_actual "Pump Status"
+    annotation (Placement(transformation(extent={{40,50},{20,70}})));
+  Components.Controls.StatusEmulator y1Pum_actual1 "Pump Status"
+    annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
 equation
   connect(u1.y[1], seqEveHea.u1Hea) annotation (Line(points={{-58,0},{0,0},{0,
           32},{18,32}},    color={255,0,255}));
   connect(u1.y[1], seqEveHea.u1PumHeaWatSec_actual) annotation (Line(points={{-58,0},
           {0,0},{0,14},{18,14}},        color={255,0,255}));
-  connect(booToRea.y,zerOrdHol. u)
-    annotation (Line(points={{28,60},{22,60}},
-                                             color={0,0,127}));
-  connect(zerOrdHol.y,greThr. u)
-    annotation (Line(points={{-2,60},{-8,60}},  color={0,0,127}));
-  connect(seqEveHea.y1PumHeaWatPri, booToRea.u) annotation (Line(points={{42,12},
-          {60,12},{60,60},{52,60}},   color={255,0,255}));
-  connect(greThr.y, seqEveHea.u1PumHeaWatPri_actual) annotation (Line(points={{-32,60},
-          {-40,60},{-40,20},{18,20}}, color={255,0,255}));
   connect(u1.y[1], seqEveHeaCoo.u1Hea) annotation (Line(points={{-58,0},{0,0},{
           0,-8},{18,-8}}, color={255,0,255}));
-  connect(booToRea1.y, zerOrdHol1.u)
-    annotation (Line(points={{28,-60},{22,-60}}, color={0,0,127}));
-  connect(zerOrdHol1.y, greThr1.u)
-    annotation (Line(points={{-2,-60},{-8,-60}}, color={0,0,127}));
-  connect(seqEveHeaCoo.y1PumHeaWatPri, booToRea1.u) annotation (Line(points={{
-          42,-28},{60,-28},{60,-60},{52,-60}}, color={255,0,255}));
-  connect(greThr1.y, seqEveHeaCoo.u1PumHeaWatPri_actual) annotation (Line(
-        points={{-32,-60},{-40,-60},{-40,-20},{18,-20}}, color={255,0,255}));
   connect(u1.y[2], seqEveHeaCoo.u1Coo) annotation (Line(points={{-58,0},{0,0},{
           0,-12},{18,-12}}, color={255,0,255}));
+  connect(seqEveHea.y1PumHeaWatPri, y1Pum_actual.y1) annotation (Line(points={{
+          42,12},{60,12},{60,60},{42,60}}, color={255,0,255}));
+  connect(y1Pum_actual.y1_actual, seqEveHea.u1PumHeaWatPri_actual) annotation (
+      Line(points={{18,60},{10,60},{10,20},{18,20}}, color={255,0,255}));
+  connect(seqEveHeaCoo.y1PumHeaWatPri, y1Pum_actual1.y1) annotation (Line(
+        points={{42,-28},{60,-28},{60,-60},{42,-60}}, color={255,0,255}));
+  connect(y1Pum_actual1.y1_actual, seqEveHeaCoo.u1PumHeaWatPri_actual)
+    annotation (Line(points={{18,-60},{10,-60},{10,-20},{18,-20}}, color={255,0,
+          255}));
   annotation (
     __Dymola_Commands(
       file=
@@ -108,6 +86,10 @@ Heating and cooling plant with primary-only distribution (component <code>seqEve
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 10, 2024, by Antoine Gautier:<br/>
+Updated the model with <code>StatusEmulator</code>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

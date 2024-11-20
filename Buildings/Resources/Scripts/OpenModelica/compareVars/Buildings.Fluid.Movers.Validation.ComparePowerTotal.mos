@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "mov1.eta",
+    "mov1.etaHyd",
+    "mov1.etaMot",
+    "mov2.eta",
+    "mov2.etaHyd",
+    "mov2.etaMot",
+    "mov3.eta",
+    "mov3.etaHyd",
+    "mov3.etaMot",
+    "ramSpe.y",
+    "ramDam.y",
+    "mov1.P",
+    "mov2.P",
+    "mov3.P"
+  };

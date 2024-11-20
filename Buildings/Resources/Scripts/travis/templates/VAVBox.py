@@ -27,7 +27,7 @@ Details:
     - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
 """
 
-from core import *
+import core
 
 MODELS = [
     'Buildings.Templates.ZoneEquipment.Validation.VAVBoxCoolingOnly',
@@ -74,4 +74,6 @@ REMOVE_MODIF = None
 
 
 if __name__ == '__main__':
-    main(models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF)
+    core.main(
+        models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF
+    )
