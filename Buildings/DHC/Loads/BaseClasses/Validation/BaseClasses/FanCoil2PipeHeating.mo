@@ -36,15 +36,14 @@ model FanCoil2PipeHeating
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare final package Medium=Medium2,
+    redeclare final package Medium = Medium2,
     final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
-    final dp_nominal=dpLoa_nominal)
-    "Fan"
+    use_riseTime=false,
+    final dp_nominal=dpLoa_nominal) "Fan"
     annotation (Placement(transformation(extent={{50,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset con(
     final k=k,

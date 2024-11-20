@@ -1,11 +1,12 @@
 within Buildings.Controls.OBC.CDL.Reals;
-block AddParameter
-  "Output the sum of an input plus a parameter"
+block AddParameter "Output the sum of an input plus a parameter"
   parameter Real p
-    "Value to be added";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
+    "Parameter to be added to the input";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input to be added to the parameter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Sum of the parameter and the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

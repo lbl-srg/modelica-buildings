@@ -6,6 +6,14 @@ class Version_12_0_0 "Version 12.0.0"
 <p>
 Version 12.0.0 is ... xxx
 </p>
+<p>
+The following major changes have been done compared to release 11:
+</p>
+<ul>
+<li>
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -53,12 +61,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Updated the EnergyPlus coupling to use
+                       EnergyPlus version 24.2.0.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
     </td>
     </tr>
 </table>
@@ -69,6 +80,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPlantParallel
+    </td>
+    <td valign=\"top\">Added input filter to the isolation valve 2.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Air.Systems.SingleZone</b>
     </td>
 </tr>
@@ -178,8 +198,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr>
     <td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0
     </td>
-    <td valign=\"top\">Updated EnergyPlus binaries to support simulations that start with a negative start time.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.
+    <td valign=\"top\">Updated EnergyPlus binaries.<br/><br/>
+                       With this update, simulations that start with a negative start time are supported.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1938\">#1938</a>.<br/><br/>
+                       This update also adds support for specifying entries for the EnergyPlus run period.
+                       See the documentation of <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</code> for details.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -216,6 +240,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Applications.DataCenters.ChillerCooled.Controls.ConstantSpeedPumpStage<br/>
+                       Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                       Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Added plant on signal to pumps control.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -225,9 +260,38 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">The blocks have been moved to the <code>Obsolete</code> package.
                        Users are encouraged to use <code>TrueFalseHold(falseHoldDuration=0)</code>
                        instead.<br/>
-                       For Dymola, the conversion script will automatically
-                       update existing models.<br/>
+                       The conversion script will automatically update existing models.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBox<br/>
+                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br/>
+                       Buildings.Fluid.Actuators.Dampers.PressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayTable<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayButterfly<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPolynomial<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening<br/>
+                       Buildings.Fluid.Actuators.Valves.TwoWayTable
+    </td>
+    <td valign=\"top\">Changed model for actuator position. The new implementation changes the actuator position
+                       at a constant speed defined by the stroke time rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> and <code>riseTime</code> to
+                       <code>use_strokeTime</code> and <code>strokeTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
@@ -243,6 +307,79 @@ have been <b style=\"color:blue\">improved</b> in a
                        declaration of the energy balance configuration for the borehole filling.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
+    </td>
+</tr>
+
+
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsDp<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsFlow<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed
+    </td>
+    <td valign=\"top\">Changed model for change in pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel<br/>
+                       Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.ChillerGroup<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup<br/>
+                       Buildings.DHC.Plants.Combined.Subsystems.HeatPumpGroup
+    </td>
+    <td valign=\"top\">Changed model for actuator position. The new implementation changes the actuator position
+                       at a constant speed defined by the stroke time rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> and <code>riseTime</code> to
+                       <code>use_strokeTime</code> and <code>strokeTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HydronicConfigurations</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.HydronicConfigurations.Components.ThreeWayValve<br/>
+                       Buildings.Fluid.HydronicConfigurations.Components.TwoWayValve<br/>
+                       Buildings.Fluid.HydronicConfigurations.Components.Pump
+    </td>
+    <td valign=\"top\">Changed model for change in pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp<br/>
+                       Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow<br/>
+                       Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y
+    </td>
+    <td valign=\"top\">Changed model for change in fan or pump rotational speed. The new implementation changes the rotational speed
+                       at a constant rate rather than a second order filter.<br/>
+                       This update changes the parameter <code>use_inputFilter</code> to <code>use_riseTime</code>.<br/>
+                       The conversion script will automatically update existing models.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a> and
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
@@ -299,6 +436,16 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Added load limit depending on operating mode.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TimerWithReset
+    </td>
+    <td valign=\"top\">Refactored to ensure <code>passed=u</code> if <code>t=0</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

@@ -3,25 +3,16 @@ block MatrixMax
   "Output vector of row- or column-wise maximum of the input matrix"
   parameter Boolean rowMax=true
     "If true, outputs row-wise maximum, otherwise column-wise";
-  parameter Integer nRow(
-    final min=1)
+  parameter Integer nRow(final min=1)
     "Number of rows in input matrix";
-  parameter Integer nCol(
-    final min=1)
+  parameter Integer nCol(final min=1)
     "Number of columns in input matrix";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nRow,nCol]
-    "Connector of Real input signals"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nRow, nCol]
+    "Input for the matrix max function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[
-    if rowMax then
-      size(
-        u,
-        1)
-    else
-      size(
-        u,
-        2)]
-    "Connector of Real output signals"
+    if rowMax then size(u, 1) else size(u, 2)]
+    "Output with vector of row- or colum-wise maximum of the input matrix"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

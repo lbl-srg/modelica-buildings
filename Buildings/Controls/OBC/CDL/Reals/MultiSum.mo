@@ -1,25 +1,20 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block MultiSum
   "Sum of Reals, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
-  parameter Integer nin(
-    min=0)=0
-    "Number of input connections"
+  parameter Integer nin(min=0)=0
+    "Number of input signals"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  parameter Real k[nin]=fill(
-    1,
-    nin)
+  parameter Real k[nin]=fill(1, nin)
     "Input gains";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+    "Input to multiplied by gain and then added"
     annotation (Placement(transformation(extent={{-140,20},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Sum of inputs times gains"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  if size(
-    u,
-    1) > 0 then
+  if size(u, 1) > 0 then
     y=k*u;
   else
     y=0;

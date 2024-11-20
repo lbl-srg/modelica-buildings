@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "zon.TAir",
+    "building.weaBus.TDryBul",
+    "sitDirSol.y",
+    "building.weaBus.HDirNor",
+    "sitOutDryBul.y",
+    "building.weaBus.TDryBul"
+  };

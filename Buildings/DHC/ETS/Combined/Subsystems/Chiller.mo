@@ -179,29 +179,31 @@ model Chiller
     "Flow splitter"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={120,60})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valEva(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=dat.mEva_flow_nominal,
     final dpValve_nominal=dpValEva_nominal,
-    final dpFixed_nominal=fill(
-      dpEva_nominal,
-      2))
+    final dpFixed_nominal=fill(dpEva_nominal, 2))
     "Control valve for maximum evaporator water entering temperature"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=180,origin={120,-60})));
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={120,-60})));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valCon(
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     final m_flow_nominal=dat.mCon_flow_nominal,
     final dpValve_nominal=dpValCon_nominal,
-    final dpFixed_nominal=fill(
-      dpCon_nominal,
-      2))
+    final dpFixed_nominal=fill(dpCon_nominal, 2))
     "Control valve for minimum condenser water entering temperature"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},rotation=0,origin={-140,60})));
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={-140,60})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Constant speed primary pumps control signal"
     annotation (Placement(transformation(extent={{-60,170},{-80,190}})));

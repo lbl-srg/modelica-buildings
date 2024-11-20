@@ -33,7 +33,7 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
@@ -49,7 +49,7 @@ model NumberOfBeams
     m_flow_nominal=0.094,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Fluid.HeatExchangers.ActiveBeams.CoolingAndHeating beaCooHea(
@@ -81,7 +81,7 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     nominalValuesDefineDefaultPressureCurve=true) "Pump for hot water"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
@@ -90,7 +90,7 @@ model NumberOfBeams
     addPowerToMedium=false,
     m_flow_nominal=0.094*nBeams,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     nominalValuesDefineDefaultPressureCurve=true) "Pump for chilled water"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 

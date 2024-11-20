@@ -6,13 +6,13 @@ block Derivative
     annotation (Dialog(group="Initialization"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput k
-    "Connector for gain signal"
+    "Input for the gain"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Time constant (T>0 required; T=0 is ideal derivative block)"
+    "Input for the time constant (T>0 required; T=0 is ideal derivative block)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Input to be differentiated"

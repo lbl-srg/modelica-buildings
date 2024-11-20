@@ -33,7 +33,7 @@ model EntropyFlowRate "Test model for the entropy flow rate sensors"
     m_flow_nominal=2,
     tau=0)            "Specific entropy sensor"
                 annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flow(
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,-20},{48,0}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu
@@ -51,13 +51,13 @@ equation
   connect(senS_flow.port_b,senS. port_a) annotation (Line(
       points={{-10,-10},{-5.55112e-16,-10}},
       color={0,127,255}));
-  connect(senS.port_b, senM_flow.port_a) annotation (Line(
+  connect(senS.port_b, senMasFlo.port_a) annotation (Line(
       points={{20,-10},{28,-10}},
       color={0,127,255}));
-  connect(senM_flow.port_b, sin.ports[1]) annotation (Line(
+  connect(senMasFlo.port_b, sin.ports[1]) annotation (Line(
       points={{48,-10},{60,-10}},
       color={0,127,255}));
-  connect(senM_flow.m_flow, pro.u2) annotation (Line(
+  connect(senMasFlo.m_flow, pro.u2) annotation (Line(
       points={{38,1},{38,36},{-10,36},{-10,58},{-2,58}},
       color={0,0,127}));
   connect(pro.y, assEqu.u2) annotation (Line(

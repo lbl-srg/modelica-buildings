@@ -4,7 +4,7 @@ model Pump_m_flow
   extends Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow(
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false);
+    use_riseTime=false);
   annotation (
     Icon(
       graphics={

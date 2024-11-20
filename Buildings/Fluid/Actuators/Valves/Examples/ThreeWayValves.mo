@@ -8,7 +8,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     redeclare package Medium = Medium,
     l={0.05,0.05},
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Valve model, linear opening characteristics"
@@ -39,7 +39,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     redeclare package Medium = Medium,
     R=10,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -53,7 +53,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
   Buildings.Fluid.Actuators.Valves.ThreeWayTable valTab(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpValve_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     flowCharacteristics1=Buildings.Fluid.Actuators.Valves.Data.Linear(),
