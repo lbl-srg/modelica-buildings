@@ -2,25 +2,54 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput C_inflow[Medium.nC]
-    "Input trace substance rate"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-      rotation=-90, origin={0,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps(
-    final unit = "1",
-    final min = 0,
-    final max= 1)
+  parameter String substanceName[:] = {"CO2"}
+    "Name of trace substance";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
+    each final unit = "1",
+    each final min = 0,
+    each final max= 1)
     "Mass transfer coefficient"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nConSub](
+    each final unit = "kg/s")
+    "Contaminant mass flow rate"
+    annotation (Placement(transformation(extent={{100,40},{140,80}})));
+
+protected
+  parameter Integer nConSub = size(substanceName,1)
+    "Total types of contaminant substances";
+  parameter Real s[:,:]= {
+    {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName[j],
+                                            caseSensitive=false))
+    then 1 else 0 for i in 1:nConSub}
+    for j in 1:Medium.nC}
+    "Vector to check if the trace substances in the medium are included in the performance dataset"
+    annotation(Evaluate=true);
+initial equation
+  assert(abs(sum(s) - nConSub) < 0.1,
+         "In " + getInstanceName() + ":Some specified trace substances are 
+         not present in medium '" + Medium.mediumName + "'.\n"
+         + "Check filter parameter and medium model.",
+         level = AssertionLevel.warning)
+         "Check if all the specified substances are included in the medium";
 
 equation
-  if allowFlowReversal then
-    port_b.C_outflow =inStream(port_a.C_outflow) - eps*C_inflow;
-    port_a.C_outflow = inStream(port_a.C_outflow);
-  else
-    port_b.C_outflow = inStream(port_a.C_outflow);
-    port_a.C_outflow = inStream(port_b.C_outflow);
-  end if;
+  // Modify the substances individually.
+  for i in 1:Medium.nC loop
+      if max(s[i]) > 0.9 then
+        for j in 1:nConSub loop
+           if s[i,j]>0.9 then
+              port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
+              port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
+              mCon_flow[j] = inStream(port_a.C_outflow[j])* eps[j];
+           end if;
+        end for;
+      else
+        port_b.C_outflow[i] = inStream(port_a.C_outflow[i]);
+        port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
+      end if;
+  end for;
   // Mass balance (no storage).
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -55,9 +84,7 @@ where <code>eps</code> is an input mass transfer efficiency and
 <code>C_inflow</code> is an input trace substance rate.
 </p>
 <p>
-This model has no pressure drop. In the case of reverse flow,
-the fluid that leaves <code>port_a</code> has the same
-properties as the fluid that enters <code>port_b</code>.
+This model has no pressure drop.
 </p>
 </html>", revisions="<html>
 <ul>
