@@ -162,7 +162,7 @@ equation
 annotation (
   Diagram(coordinateSystem(extent={{-200,-180},{180,180}})),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-  experiment(StartTime=350000, StopTime=604800, Interval=600, Tolerance=1e-6),
+  experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Validation/IndirectDry.mos"
       "Simulate and plot"),
   Documentation(info="<html>
