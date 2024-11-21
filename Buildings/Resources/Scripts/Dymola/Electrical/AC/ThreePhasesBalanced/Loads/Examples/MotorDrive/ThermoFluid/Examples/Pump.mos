@@ -1,6 +1,0 @@
-simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Examples.Pump", tolerance=1e-6, stopTime=3600, method="dassl", resultFile="Pump");
-createPlot(id=1, position={0, 0, 741, 505}, y={"torSou.tau"}, range={0.0, 3600.0, -0.05, 0.10000000000000002}, grid=true, subPlot=101, colors={{238,46,47}}, timeUnit="s", displayUnits={"N.m"});
-plotExpression(apply( -Pump[end].pum.tauSor.y), false, "-Pump[end].pum.tauSor.y", 1);
-createPlot(id=1, position={0, 0, 741, 505}, y={"pum.to_rpm.y"}, range={0.0, 3600.0, -500.0, 1000.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"rev/min"});
-createPlot(id=1, position={0, 0, 741, 505}, y={"pum.pum.P"}, range={0.0, 3600.0, -5.0, 10.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
-
