@@ -1,0 +1,1019 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Validation.UserProject",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "BASControlPoints",
+          "description_string": "Emulation of control points from the BAS",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nZon",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of served zones"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "busTer",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Terminal unit control bus",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 200,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  },
+                                  "iconTransformation": {
+                                    "origin": {
+                                      "x": 100,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Logical.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1OccSch",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Scheduled occupancy",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 50
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Integers.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "yOveFloSet",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Override flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum; 4: set to heating maximum",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 30
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Logical.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1OveHeaOff",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Override heating coil valve position, true: close valve",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -50
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Integers.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "yOveDamPos",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Override damper position, 1: set to close; 2: set to open",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Reals.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TZonHeaOccSet",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "293.15"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Occupied heating setpoint",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 50
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Reals.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TZonCooOccSet",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "297.15"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Occupied cooling setpoint",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 30
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Reals.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TZonHeaUnoSet",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "285.15"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Unoccupied heating setpoint",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Reals.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TZonCooUnoSet",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "303.15"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Unoccupied cooling setpoint",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -50
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.OBC.CDL.Reals.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ppmCO2Set",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1000"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Zone CO2 concentration setpoint",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -110
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -90
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1OccSch"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1OccSch"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "yOveFloSet"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "yOveFloSet"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "yOveDamPos"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "yOveDamPos"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1OveHeaOff"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1OveHeaOff"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonHeaOccSet"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonHeaOccSet"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonCooOccSet"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonCooOccSet"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonHeaUnoSet"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonHeaUnoSet"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonCooUnoSet"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TZonCooUnoSet"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "ppmCO2Set"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "busTer"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "ppmCO2Set"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"sigBAS\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -200,
+                                    "y": -180
+                                  },
+                                  {
+                                    "x": 200,
+                                    "y": 180
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis class generates signals typically provided by the BAS.\nIt is aimed for validation purposes only.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Validation/UserProject/BASControlPoints.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Validation/UserProject/BASControlPoints.mo",
+  "checksum": "aed46400a9a04e05b73355ac84ab2e62"
+}

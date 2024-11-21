@@ -1,0 +1,3124 @@
+{
+  "within": "Buildings.Templates.Plants.HeatPumps.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "HeatPumpPlant",
+          "description_string": "Record for heat pump plant",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Plants.HeatPumps.Configuration.HeatPumpPlant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cfg"
+                      },
+                      "description": {
+                        "description_string": "Configuration parameters",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "false"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "String",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "id",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "\"\""
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "System tag",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Plants.HeatPumps.Components.Data.Controller",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ctl",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "cfg",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Controller",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Controls\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Plants.HeatPumps.Components.Data.HeatPumpGroup",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hp",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.typ"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nHp",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.nHp"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "is_rev",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.is_rev"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typMod",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.typMod"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "cpHeaWat_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.cpHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "cpSou_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.cpSou_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TChiWatSupHp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.TChiWatSup_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "capCooHp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.capCooHp_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "mHeaWatHp_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.VHeaWatHp_flow_nominal*cfg.rhoHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "capHeaHp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.capHeaHp_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "mChiWatHp_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.VChiWatHp_flow_nominal*cfg.rhoChiWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "THeaWatSupHp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.THeaWatSup_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat pumps\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpBalHeaWatHp_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HP HW balancing valve pressure drop at design HW flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat pumps\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumHeaWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpBalChiWatHp_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HP CHW balancing valve pressure drop at design CHW flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat pumps\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpMultiple",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumHeaWatPri",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nPum",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.nPumHeaWatPri"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumHeaWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Multiple"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "fill",
+                                          "arguments": [
+                                            {
+                                              "name": "hp.nHp*(if [object Object] then [object Object] else hp.mHeaWatHp_flow_nominal)/max(cfg.nPumHeaWatPri,1)"
+                                            },
+                                            {
+                                              "name": "cfg.nPumHeaWatPri"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Primary HW pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary HW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpSingle",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumHeaWatPriSin",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "cfg.nPumHeaWatPri"
+                                    },
+                                    {
+                                      "name": "1"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pumHeaWatPri.typ"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "pumHeaWatPri.typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "{0}"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "pumHeaWatPri.m_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "pumHeaWatPri.typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "{0}"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "pumHeaWatPri.dp_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "pressure",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "V_flow",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumHeaWatPri.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "=="
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "[0]"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "pumHeaWatPri.per.pressure.V_flow"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "dp",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumHeaWatPri.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "=="
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "[0]"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "pumHeaWatPri.per.pressure.dp"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pumHeaWatPri.rho_default"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Cast multiple pump record into single pump record array"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpValCheHeaWat_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Buildings.Templates.Data.Defaults.dpValChe"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Primary (HW or common HW and CHW) pump check valve pressure drop at design flow rate (selection conditions)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary HW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.Valve",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "valHeaWatMinByp",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.Valve.TwoWayModulating"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_valHeaWatMinByp"
+                                            },
+                                            "then": {
+                                              "simple_expression": "ctl.VHeaWatHp_flow_min*cfg.rhoHeaWat_default"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dpValve_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Data.Defaults.dpValBypMin"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW minimum flow bypass valve",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary HW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "cfg.have_valHeaWatMinByp"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Volume",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "VTanHeaWat",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "cfg.have_heaWat"
+                                  },
+                                  "then": {
+                                    "simple_expression": "240*cfg.nHp*hp.mHeaWatHp_flow_nominal/cfg.rhoHeaWat_default"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume of HW buffer tank",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary HW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typTanHeaWat"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.IntegrationPoint.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpMultiple",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumHeaWatSec",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nPum",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.nPumHeaWatSec"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumHeaWatSec"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Multiple"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Secondary HW pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Secondary HW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumHeaWatSec"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpMultiple",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumChiWatPri",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nPum",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.nPumChiWatPri"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoChiWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Multiple"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "fill",
+                                          "arguments": [
+                                            {
+                                              "name": "hp.mChiWatHp_flow_nominal*hp.nHp/max(cfg.nPumChiWatPri,1)"
+                                            },
+                                            {
+                                              "name": "cfg.nPumChiWatPri"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Primary CHW pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary CHW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpSingle",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumChiWatPriSin",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "cfg.nPumChiWatPri"
+                                    },
+                                    {
+                                      "name": "1"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pumChiWatPri.typ"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "pumChiWatPri.typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "{0}"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "pumChiWatPri.m_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "pumChiWatPri.typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "{0}"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "pumChiWatPri.dp_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "pressure",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "V_flow",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumChiWatPri.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "=="
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "[0]"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "pumChiWatPri.per.pressure.V_flow"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "dp",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumChiWatPri.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "=="
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "[0]"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "pumChiWatPri.per.pressure.dp"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pumChiWatPri.rho_default"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Cast multiple pump record into single pump record array"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpValCheChiWat_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Buildings.Templates.Data.Defaults.dpValChe"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Primary CHW pump check valve pressure drop at design CHW flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary CHW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatPri"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.Valve",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "valChiWatMinByp",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.Valve.TwoWayModulating"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_valChiWatMinByp"
+                                            },
+                                            "then": {
+                                              "simple_expression": "ctl.VChiWatHp_flow_min*cfg.rhoChiWat_default"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dpValve_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Data.Defaults.dpValBypMin"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW minimum flow bypass valve",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary CHW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "cfg.have_valChiWatMinByp"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Volume",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "VTanChiWat",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "cfg.have_chiWat"
+                                  },
+                                  "then": {
+                                    "simple_expression": "120*cfg.nHp*hp.mChiWatHp_flow_nominal/cfg.rhoChiWat_default"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume of HW buffer tank",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Primary CHW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typTanChiWat"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.IntegrationPoint.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpMultiple",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumChiWatSec",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nPum",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.nPumChiWatSec"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoChiWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatSec"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Multiple"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Secondary CHW pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Secondary CHW loop\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typPumChiWatSec"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.Chiller",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hrc",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Chiller.WaterCooled"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Chiller.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "cpChiWat_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.cpChiWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "cpCon_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.cpHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "COP_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.COPHeaHrc_nominal -1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TChiWatSup_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.TChiWatSup_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TChiWatSup_min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.TChiWatSupHrc_min"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TConEnt_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            },
+                                            "then": {
+                                              "simple_expression": "hrc.TConLvg_nominal -hrc.QCon_flow_nominal/hrc.mCon_flow_nominal/hrc.cpCon_default"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "273.15"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TConLvg_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.THeaWatSup_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TConLvg_max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.THeaWatSupHrc_max"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "PLR_min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "abs",
+                                          "arguments": [
+                                            {
+                                              "name": "ctl.capCooHrc_min/hrc.cap_nominal"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Chiller",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Sidetream heat recovery chiller\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpSingle",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumChiWatHrc",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoChiWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Single"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "hrc.mChiWat_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "hrc.dpChiWat_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "pressure",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "V_flow",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumChiWatHrc.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "<>"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "{0,1,2}*pumChiWatHrc.m_flow_nominal/cfg.rhoChiWat_default"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "{0,0,0}"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "dp",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumChiWatHrc.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "<>"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "{1.14,1,0.42}*pumChiWatHrc.dp_nominal"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "{0,0,0}"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Sidetream heat recovery chiller\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpSingle",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pumHeaWatHrc",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "rho_default",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.rhoHeaWat_default"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            },
+                                            "then": {
+                                              "simple_expression": "Buildings.Templates.Components.Types.Pump.Single"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "Buildings.Templates.Components.Types.Pump.None"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "hrc.mCon_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "hrc.dpCon_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "pressure",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "V_flow",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumHeaWatHrc.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "<>"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "{0,1,2}*pumHeaWatHrc.m_flow_nominal/cfg.rhoHeaWat_default"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "{0,0,0}"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "dp",
+                                                      "modification": {
+                                                        "equal": true,
+                                                        "expression": {
+                                                          "if_expression": {
+                                                            "if_elseif": [
+                                                              {
+                                                                "condition": {
+                                                                  "simple_expression": {
+                                                                    "logical_expression": {
+                                                                      "logical_or": [
+                                                                        {
+                                                                          "logical_and": [
+                                                                            {
+                                                                              "arithmetic_expressions": [
+                                                                                {
+                                                                                  "name": "pumHeaWatHrc.typ"
+                                                                                },
+                                                                                {
+                                                                                  "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                                }
+                                                                              ],
+                                                                              "relation_operator": "<>"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "then": {
+                                                                  "simple_expression": "{1.14,1,0.42}*pumHeaWatHrc.dp_nominal"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "else_expression": {
+                                                              "simple_expression": "{0,0,0}"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "HRC HW pump",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Sidetream heat recovery chiller\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "cfg.have_hrc"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"dat\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis record provides the set of sizing and operating parameters for\nthe heat pump plant models within\n<a href=\\\"modelica://Buildings.Templates.Plants.HeatPumps\\\">\nBuildings.Templates.Plants.HeatPumps</a>.\n</p>\n<p>\nMost of the parameters should be assigned through the sub-record\ndedicated to the controller.\nAll parameters that are also needed to parameterize other plant\ncomponents are propagated from the controller sub-record\nto the corresponding equipment sub-records.\nNote that those parameter bindings are not final so they may be\noverwritten in case a component is parameterized at nominal\nconditions that differ from the design conditions specified\nin the controller sub-record.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/HeatPumps/Data/HeatPumpPlant.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/HeatPumps/Data/HeatPumpPlant.mo",
+  "checksum": "face55d5c018cbde5624f0c63b38c7b1"
+}

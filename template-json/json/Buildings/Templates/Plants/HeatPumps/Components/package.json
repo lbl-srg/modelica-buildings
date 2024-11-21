@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.Plants.HeatPumps",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Components",
+          "description_string": "Package with component models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains component models that are used in the templates\nwithin\n<a href=\\\"modelica://Buildings.Templates.Plants.HeatPumps\\\">\nBuildings.Templates.Plants.HeatPumps</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/HeatPumps/Components/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/HeatPumps/Components/package.mo",
+  "checksum": "c9706238130b1e4335b9d5e8b32bb575"
+}

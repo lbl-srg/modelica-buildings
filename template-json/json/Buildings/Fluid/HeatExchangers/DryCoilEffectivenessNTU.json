@@ -1,0 +1,362 @@
+{
+  "within": "Buildings.Fluid.HeatExchangers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "DryCoilEffectivenessNTU",
+          "description_string": "Heat exchanger with effectiveness - NTU relation and no moisture condensation",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "UA",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "1/(1/hA.hA_1 +1/hA.hA_2)"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "r_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2/3"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Ratio between air-side and water-side convective heat transfer (hA-value) at nominal condition"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hA",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "r_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "r_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "UA_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "UA_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal_w",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m1_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal_a",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m2_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "waterSideTemperatureDependent",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "airSideTemperatureDependent",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Model for convective heat transfer coefficient"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "hA.m1_flow",
+                        "rhs": {
+                          "simple_expression": "m1_flow"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hA.m2_flow",
+                        "rhs": {
+                          "simple_expression": "m2_flow"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hA.T_1",
+                        "rhs": {
+                          "simple_expression": "T_in1"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hA.T_2",
+                        "rhs": {
+                          "simple_expression": "T_in2"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": 78
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -82
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 95,
+                                      "g": 95,
+                                      "b": 95
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"hex\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel of a coil without humidity condensation.\nThis model transfers heat in the amount of\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  Q&#775; = Q&#775;<sub>max</sub>  &epsilon;<br/>\n  &epsilon; = f(NTU, Z, flowRegime),\n</p>\n<p>\nwhere\n<i>Q&#775;<sub>max</sub></i> is the maximum heat that can be transferred,\n<i>&epsilon;</i> is the heat transfer effectiveness,\n<i>NTU</i> is the Number of Transfer Units,\n<i>Z</i> is the ratio of minimum to maximum capacity flow rate and\n<i>flowRegime</i> is the heat exchanger flow regime.\nsuch as\nparallel flow, cross flow or counter flow.\n</p>\n<p>\nThe flow regimes depend on the heat exchanger configuration. All configurations\ndefined in\n<a href=\\\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\\\">\nBuildings.Fluid.Types.HeatExchangerConfiguration</a>\nare supported.\n</p>\n<p>\nThe convective heat transfer coefficients scale proportional to\n<i>(m&#775;/m&#775;<sub>0</sub>)<sup>n</sup></i>, where\n<i>m&#775;</i> is the mass flow rate,\n<i>m&#775;<sub>0</sub></i> is the nominal mass flow rate, and\n<i>n=0.8</i> on the air-side and <i>n=0.85</i> on the water side.\n</p>\n<p>\nFor a heat and moisture exchanger, use\n<a href=\\\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\\\">\nBuildings.Fluid.MassExchangers.ConstantEffectiveness</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 25, 2018, by Michael Wetter:<br/>\nRefactored model to use a common base class.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/HeatExchangers/DryCoilEffectivenessNTU.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/HeatExchangers/DryCoilEffectivenessNTU.mo",
+  "checksum": "0bef149880eaa6e86d29a60324b58f50"
+}

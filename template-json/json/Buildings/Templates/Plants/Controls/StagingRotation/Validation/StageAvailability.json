@@ -1,0 +1,528 @@
+{
+  "within": "Buildings.Templates.Plants.Controls.StagingRotation.Validation",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "StageAvailability",
+          "description_string": "Validation model for the evaluation of stage availability",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u1AvaEqu",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "table",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "[0,0,0,0;1,1,0,0;2,0,1,0;3,0,0,1;4,1,1,0;5,0,1,1;6,1,1,1;7,0,0,0]"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "timeScale",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "period",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "7"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Equipment available signal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "avaStaEqu",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "staEqu",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "[1/3,1/3,1/3;2/3,2/3,2/3;1,1,1]"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Compute stage availability – Equally sized units",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 30
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "avaStaOneTwo",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "staEqu",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "[1,0,0;0,1/2,1/2;1,1/2,1/2;0,1,1;1,1,1]"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Compute stage availability – One small equipment, two large equally sized equipment",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "u1AvaEqu"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "avaStaEqu"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u1Ava"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -58,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 20
+                                    },
+                                    {
+                                      "x": -12,
+                                      "y": 20
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "u1AvaEqu"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "avaStaOneTwo"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u1Ava"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -58,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -20
+                                    },
+                                    {
+                                      "x": -12,
+                                      "y": -20
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "__Dymola_Commands",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "file",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"modelica://Buildings/Resources/Scripts/Dymola/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mos\""
+                                }
+                              },
+                              "description_string": "Simulate and plot"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "experiment",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "StopTime",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "7"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "Tolerance",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "0.000001"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 75,
+                                      "g": 138,
+                                      "b": 73
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -36,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 64,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -36,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": -36,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 75,
+                                      "g": 138,
+                                      "b": 73
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model validates \n<a href=\\\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageAvailability\\\">\nBuildings.Templates.Plants.Controls.StagingRotation.StageAvailability</a>\nin a configuration with three equally sized units (component <code>avaStaEqu</code>) \nand in a configuration with one small unit and two large equally sized \nunits (component <code>avaStaOneTwo</code>).\nOnly the units of the same size are lead/lag alternated.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 29, 2024, by Antoine Gautier:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/Controls/StagingRotation/Validation/StageAvailability.mo",
+  "checksum": "186312d92b107a18a43e541d3b22d7fa"
+}

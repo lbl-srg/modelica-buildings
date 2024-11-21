@@ -1,0 +1,1126 @@
+{
+  "within": "Buildings.Fluid.FixedResistances",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Junction",
+          "description_string": "Flow splitter with fixed resistance at each port",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.BaseClasses.PartialThreeWayResistance",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "m_flow_small",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "mDyn_flow_nominal*0.0001"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "mDyn_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "sum",
+                                  "arguments": [
+                                    {
+                                      "name": "abs(m_flow_nominal[:])/3"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Fluid.FixedResistances.PressureDrop",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res1",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "from_dp",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "from_dp"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "m_flow_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "m_flow_nominal[1]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "dp_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "dp_nominal[1]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "linearized",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "linearized"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "homotopyInitialization",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "homotopyInitialization"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "deltaM",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "deltaM"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Fluid.FixedResistances.PressureDrop",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res2",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "from_dp",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "from_dp"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "m_flow_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "m_flow_nominal[2]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "dp_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "dp_nominal[2]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "linearized",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "linearized"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "homotopyInitialization",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "homotopyInitialization"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "deltaM",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "deltaM"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Fluid.FixedResistances.PressureDrop",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res3",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "from_dp",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "from_dp"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "m_flow_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "m_flow_nominal[3]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "dp_nominal",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "dp_nominal[3]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "linearized",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "linearized"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "homotopyInitialization",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "homotopyInitialization"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "deltaM",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "deltaM"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "homotopyInitialization",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use homotopy method",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "array_subscripts": [
+                    {
+                      "expression": {
+                        "simple_expression": "3"
+                      }
+                    }
+                  ],
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate. Set negative at outflowing ports.",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Pressure",
+                  "array_subscripts": [
+                    {
+                      "expression": {
+                        "simple_expression": "3"
+                      }
+                    }
+                  ],
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure drop at nominal mass flow rate, set to zero or negative number at outflowing ports.",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltaM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.3"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fraction of nominal mass flow rate where transition to turbulent occurs",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Transition to laminar\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not linearized"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "linearized",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use linear relation between m_flow and dp for any flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "homotopyInitialization"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.\""
+                              }
+                            },
+                            "function_arguments": {
+                              "named_arguments": [
+                                {
+                                  "identifier": "level",
+                                  "value": {
+                                    "expression": {
+                                      "simple_expression": "AssertionLevel.warning"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -100,
+                                        "y": -46
+                                      },
+                                      {
+                                        "x": -32,
+                                        "y": -40
+                                      },
+                                      {
+                                        "x": -32,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 30,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 30,
+                                        "y": -36
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 38
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 52
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -46
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 175,
+                                      "g": 175,
+                                      "b": 175
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -100,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": -18,
+                                        "y": -28
+                                      },
+                                      {
+                                        "x": -18,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 18,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 18,
+                                        "y": -26
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 38
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -34
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -151,
+                                        "y": 142
+                                      },
+                                      {
+                                        "x": 149,
+                                        "y": 102
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "visible": "not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"jun\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel of a flow junction with an optional fixed resistance in each flow leg\nand an optional mixing volume at the junction.\n</p>\n<p>\nThe pressure drop is implemented using the model\n<a href=\\\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\\\">\nBuildings.Fluid.FixedResistances.PressureDrop</a>.\nIf its nominal pressure drop is set to zero, then the pressure drop\nmodel will be removed.\nFor example, the pressure drop declaration\n</p>\n<pre>\n  m_flow_nominal={ 0.1, 0.1,  -0.2},\n  dp_nominal =   {500,    0, -6000}\n</pre>\n<p>\nwould model a flow mixer that has the nominal flow rates and associated pressure drops\nas shown in the figure below. Note that <code>port_3</code> is set to negative values.\nThe negative values indicate that at the nominal conditions, fluid is leaving the component.\n</p>\n<p align=\\\"center\\\">\n<img alt=\\\"image\\\" src=\\\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/Junction.png\\\"/>\n</p>\n<p>\nIf\n<code>energyDynamics &lt;&gt; Modelica.Fluid.Types.Dynamics.SteadyState</code>,\nthen at the flow junction, a fluid volume is modeled.\nThe fluid volume is implemented using the model\n<a href=\\\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\\\">\nBuildings.Fluid.Delays.DelayFirstOrder</a>.\nThe fluid volume has the size\n</p>\n<pre>\n  V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal\n</pre>\n<p>\nwhere <code>tau</code> is a parameter and <code>rho_nominal</code> is the density\nof the medium in the volume at nominal condition.\nSetting <code>energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial</code>\ncan help reducing the size of the nonlinear\nsystem of equations.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 14, 2020, by Michael Wetter:<br/>\nChanged <code>homotopyInitialization</code> to a constant.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\\\">IBPSA, #1341</a>.\n</li>\n<li>\nFebruary 26, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nMarch 26, 2018 by Filip Jorissen:<br/>\nRemoved <code>final allowFlowReversal=true</code> from all resistances\nsince this overrides the default simplification when the flow\nis not bidirectional.\nThis change can lead to smaller algebraic loops.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/898\\\">issue 898</a>.\n</li>\n<li>\nDecember 1, 2016, by Michael Wetter:<br/>\nRenamed model from <code>SplitterFixedResistanceDpM</code> to\n<code>FlowJunction</code> and removed the parameters\n<code>use_dh</code>, <code>dh</code> and <code>ReC</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/451\\\">issue 451</a>.\n</li>\n<li>\nOctober 14, 2016 by Michael Wetter:<br/>\nAdded to Annex 60 library.<br/>\nUpdated comment for parameter <code>use_dh</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/451\\\">issue 451</a>.\n</li>\n<li>\nRemoved parameter <code>dynamicBalance</code> that overwrote the setting\nof <code>energyDynamics</code> and <code>massDynamics</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/411\\\">\nAnnex 60, issue 411</a>.\n</li>\n<li>\nFebruary 1, 2012 by Michael Wetter:<br/>\nExpanded documentation.\n</li>\n<li>\nAugust 4, 2011 by Michael Wetter:<br/>\nAdded <code>final allowFlowReversal=true</code> to all resistances since it is impractical\nto avoid flow reversal in large flow networks where such a setting may be useful.\n</li>\n<li>\nJune 11, 2008 by Michael Wetter:<br/>\nBased class on\n<a href=\\\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\\\">\nBuildings.Fluid.BaseClasses.PartialThreeWayFixedResistance</a>.\n</li>\n<li>\nJuly 20, 2007 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/FixedResistances/Junction.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/FixedResistances/Junction.mo",
+  "checksum": "b890a2afbd76109e26be3f590614d004"
+}

@@ -1,0 +1,687 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Reals.Sources",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Sin",
+          "description_string": "Generate sine signal",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "amplitude",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Amplitude of sine wave"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "freqHz",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Frequency\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Hz\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Frequency of sine wave"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "phase",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Angle\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"rad\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"deg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Phase of sine wave"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "offset",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Offset of output signal"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "startTime",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Output = offset for time < startTime"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y"
+                      },
+                      "description": {
+                        "description_string": "Sine output signal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "y",
+                        "rhs": {
+                          "simple_expression": "offset +(if [object Object] then 0 else amplitude*Modelica.Math.sin(2*Buildings.Controls.OBC.CDL.Constants.pi*freqHz*(time -startTime) +phase))"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"sin\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -148,
+                                        "y": 104
+                                      },
+                                      {
+                                        "x": 152,
+                                        "y": 144
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -88,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -90,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 90,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": 8
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -8
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -68.7,
+                                        "y": 34.2
+                                      },
+                                      {
+                                        "x": -61.5,
+                                        "y": 53.1
+                                      },
+                                      {
+                                        "x": -55.1,
+                                        "y": 66.4
+                                      },
+                                      {
+                                        "x": -49.4,
+                                        "y": 74.6
+                                      },
+                                      {
+                                        "x": -43.8,
+                                        "y": 79.1
+                                      },
+                                      {
+                                        "x": -38.2,
+                                        "y": 79.8
+                                      },
+                                      {
+                                        "x": -32.6,
+                                        "y": 76.6
+                                      },
+                                      {
+                                        "x": -26.9,
+                                        "y": 69.7
+                                      },
+                                      {
+                                        "x": -21.3,
+                                        "y": 59.4
+                                      },
+                                      {
+                                        "x": -14.9,
+                                        "y": 44.1
+                                      },
+                                      {
+                                        "x": -6.83,
+                                        "y": 21.2
+                                      },
+                                      {
+                                        "x": 10.1,
+                                        "y": -30.8
+                                      },
+                                      {
+                                        "x": 17.3,
+                                        "y": -50.2
+                                      },
+                                      {
+                                        "x": 23.7,
+                                        "y": -64.2
+                                      },
+                                      {
+                                        "x": 29.3,
+                                        "y": -73.1
+                                      },
+                                      {
+                                        "x": 35,
+                                        "y": -78.4
+                                      },
+                                      {
+                                        "x": 40.6,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": 46.2,
+                                        "y": -77.6
+                                      },
+                                      {
+                                        "x": 51.9,
+                                        "y": -71.5
+                                      },
+                                      {
+                                        "x": 57.5,
+                                        "y": -61.9
+                                      },
+                                      {
+                                        "x": 63.9,
+                                        "y": -47.2
+                                      },
+                                      {
+                                        "x": 72,
+                                        "y": -24.8
+                                      },
+                                      {
+                                        "x": 80,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "smooth": "Smooth.Bezier"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -147,
+                                        "y": -152
+                                      },
+                                      {
+                                        "x": 153,
+                                        "y": -112
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 226,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 106,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(y",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nBlock that outputs a <code>sine</code>.\n</p>\n<p>\n<img src=\\\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Reals/Sources/Sin.png\\\"\n     alt=\\\"Sin.png\\\"/>\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 8, 2024, by Michael Wetter:<br/>\nAdded <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>\nAlso added <code>displayUnit</code> keyword.\n</li>\n<li>\nApril 13, 2023, by Michael Wetter:<br/>\nRenamed block from <code>Sine</code> to <code>Sin</code>\nto use consistent naming with\n<a href=\\\"modelica://Buildings.Controls.OBC.CDL.Reals.Sin\\\">\nBuildings.Controls.OBC.CDL.Reals.Sin</a>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3339\\\">#3339</a>\n</li>\n<li>\nNovember 12, 2020, by Michael Wetter:<br/>\nReformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2243\\\">issue 2243</a>.\n</li>\n<li>\nMarch 2, 2020, by Michael Wetter:<br/>\nChanged icon to display dynamically the output value.\n</li>\n<li>\nNovember 06, 2017, by Milica Grahovac:<br/>\nFirst CDL implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Reals/Sources/Sin.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Reals/Sources/Sin.mo",
+  "checksum": "5de45c9a03e464d727fd04dd7c4188ea"
+}

@@ -1,0 +1,2057 @@
+{
+  "within": "Buildings.Fluid.HeatExchangers.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialEffectivenessNTU",
+          "description_string": "Partial model for heat exchanger with effectiveness - NTU relation and no moisture condensation",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "sensibleOnly1",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "sensibleOnly2",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "Q1_flow",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "eps*QMax_flow"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "Q2_flow",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "-Q1_flow"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "mWat1_flow",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "mWat2_flow",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "import_clause": {
+                  "identifier": "con",
+                  "name": "Buildings.Fluid.Types.HeatExchangerConfiguration"
+                }
+              },
+              {
+                "import_clause": {
+                  "identifier": "flo",
+                  "name": "Buildings.Fluid.Types.HeatExchangerFlowRegime"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "con",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "configuration"
+                      },
+                      "description": {
+                        "description_string": "Heat exchanger configuration",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_dynamicFlowRegime",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "If true, flow regime is determined using actual flow rates"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_Q_flow_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal thermal performance\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Q_flow_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "use_Q_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal heat flow rate (positive for heat transfer from 1 to 2)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal thermal performance\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "use_Q_flow_nominal"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_a1_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "use_Q_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal temperature at port a1",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal thermal performance\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "use_Q_flow_nominal"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_a2_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "use_Q_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal temperature at port a2",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal thermal performance\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "use_Q_flow_nominal"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "eps_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "not use_Q_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal heat transfer effectiveness",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal thermal performance\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not use_Q_flow_nominal"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UA"
+                      },
+                      "description": {
+                        "description_string": "UA value"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "eps",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat exchanger effectiveness"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UA_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal UA value"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "NTU_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal number of transfer units"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium1.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sta1_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium1.T_default,p=Medium1.p_default,X=Medium1.X_default[1:Medium1.nXi]"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Default state for medium 1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium2.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sta2_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium2.T_default,p=Medium2.p_default,X=Medium2.X_default[1:Medium2.nXi]"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Default state for medium 2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cp1_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of medium 1 at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cp2_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of medium 2 at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "C1_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal capacity flow rate of Medium 1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "C2_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal capacity flow rate of Medium 2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "CMin_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimal capacity flow rate at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "CMax_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Maximum capacity flow rate at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "Z_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Ratio of capacity flow rate at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_b1_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal temperature at port b1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_b2_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal temperature at port b2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "flo",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "flowRegime_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Heat exchanger flow regime at nominal flow rates"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "flo",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "flowRegime",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "flowRegime_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Heat exchanger flow regime"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "m1_flow_nominal"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"m1_flow_nominal must be positive, m1_flow_nominal = \" +String(m1_flow_nominal)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "m2_flow_nominal"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"m2_flow_nominal must be positive, m2_flow_nominal = \" +String(m2_flow_nominal)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "cp1_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Medium1.specificHeatCapacityCp",
+                              "arguments": [
+                                {
+                                  "name": "sta1_default"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "cp2_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Medium2.specificHeatCapacityCp",
+                              "arguments": [
+                                {
+                                  "name": "sta2_default"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "C1_flow_nominal",
+                        "rhs": {
+                          "simple_expression": "m1_flow_nominal*cp1_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "C2_flow_nominal",
+                        "rhs": {
+                          "simple_expression": "m2_flow_nominal*cp2_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "CMin_flow_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "min",
+                              "arguments": [
+                                {
+                                  "name": "C1_flow_nominal"
+                                },
+                                {
+                                  "name": "C2_flow_nominal"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "CMax_flow_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "max",
+                              "arguments": [
+                                {
+                                  "name": "C1_flow_nominal"
+                                },
+                                {
+                                  "name": "C2_flow_nominal"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "Z_nominal",
+                        "rhs": {
+                          "simple_expression": "CMin_flow_nominal/CMax_flow_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "Q_flow_nominal",
+                        "rhs": {
+                          "simple_expression": "m1_flow_nominal*cp1_nominal*(T_a1_nominal -T_b1_nominal)"
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_Q_flow_nominal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "Q_flow_nominal",
+                                    "rhs": {
+                                      "simple_expression": "-m2_flow_nominal*cp2_nominal*(T_a2_nominal -T_b2_nominal)"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "eps_nominal",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "abs",
+                                          "arguments": [
+                                            {
+                                              "name": "Q_flow_nominal/((T_a1_nominal -T_a2_nominal)*CMin_flow_nominal)"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "Q_flow_nominal/(T_a1_nominal -T_a2_nominal)"
+                                                        },
+                                                        {
+                                                          "name": "0"
+                                                        }
+                                                      ],
+                                                      "relation_operator": ">="
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"In \" +getInstanceName() +\": Q_flow_nominal is defined with the wrong sign. \" +\"By convention, a positive value describes a heat flow from Medium1 to Medium2. \" +\"The parameter T_a1_nominal should then be larger than T_a2_nominal.\" +\"Future version of this library might enforce this convention and throw an error.\""
+                                          }
+                                        },
+                                        "function_arguments": {
+                                          "named_arguments": [
+                                            {
+                                              "identifier": "level",
+                                              "value": {
+                                                "expression": {
+                                                  "simple_expression": "AssertionLevel.warning"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_a1_nominal",
+                              "rhs": {
+                                "simple_expression": "Medium1.T_default"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_a2_nominal",
+                              "rhs": {
+                                "simple_expression": "Medium2.T_default"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_b1_nominal",
+                              "rhs": {
+                                "simple_expression": "Medium1.T_default"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_b2_nominal",
+                              "rhs": {
+                                "simple_expression": "Medium2.T_default"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "eps_nominal"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        },
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "eps_nominal"
+                                            },
+                                            {
+                                              "name": "1"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"eps_nominal out of bounds, eps_nominal = \" +String(eps_nominal) +\"\\n  To achieve the required heat transfer rate at epsilon=0.8, set |T_a1_nominal-T_a2_nominal| = \" +String(abs(Q_flow_nominal/0.8/CMin_flow_nominal)) +\"\\n  or increase flow rates. The current parameters result in \" +\"\\n  CMin_flow_nominal = \" +String(CMin_flow_nominal) +\"\\n  CMax_flow_nominal = \" +String(CMax_flow_nominal)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "flowRegime_nominal",
+                                    "rhs": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "([object Object])"
+                                            },
+                                            "then": {
+                                              "simple_expression": "flo.CrossFlowCMinMixedCMaxUnmixed"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "flo.CrossFlowCMinUnmixedCMaxMixed"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "flowRegime_nominal",
+                                    "rhs": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "([object Object])"
+                                            },
+                                            "then": {
+                                              "simple_expression": "flo.CrossFlowCMinUnmixedCMaxMixed"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "flo.CrossFlowCMinMixedCMaxUnmixed"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "flowRegime_nominal",
+                                    "rhs": {
+                                      "simple_expression": "flo.ParallelFlow"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "flowRegime_nominal",
+                                    "rhs": {
+                                      "simple_expression": "flo.CounterFlow"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "flowRegime_nominal",
+                                    "rhs": {
+                                      "simple_expression": "flo.CrossFlowUnmixed"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "flowRegime_nominal",
+                              "rhs": {
+                                "simple_expression": "flo.CrossFlowUnmixed"
+                              }
+                            }
+                          },
+                          {
+                            "function_call_equation": {
+                              "function_name": "assert",
+                              "function_call_args": {
+                                "function_argument": {
+                                  "expression": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "configuration"
+                                                  },
+                                                  {
+                                                    "name": "con.ParallelFlow"
+                                                  }
+                                                ],
+                                                "relation_operator": ">="
+                                              },
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "configuration"
+                                                  },
+                                                  {
+                                                    "name": "con.CrossFlowStream1UnmixedStream2Mixed"
+                                                  }
+                                                ],
+                                                "relation_operator": "<="
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "function_arguments": {
+                                  "function_argument": {
+                                    "expression": {
+                                      "simple_expression": "\"Invalid heat exchanger configuration.\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "NTU_nominal",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "([object Object])"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "Buildings.Fluid.HeatExchangers.BaseClasses.ntu_epsilonZ",
+                                      "arguments": [
+                                        {
+                                          "name": "eps=eps_nominal,Z=Z_nominal,flowRegime=Integer(flowRegime_nominal)"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "UA_nominal",
+                        "rhs": {
+                          "simple_expression": "NTU_nominal*CMin_flow_nominal"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_dynamicFlowRegime"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "([object Object])"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "flowRegime",
+                                                "rhs": {
+                                                  "if_expression": {
+                                                    "if_elseif": [
+                                                      {
+                                                        "condition": {
+                                                          "simple_expression": "([object Object])"
+                                                        },
+                                                        "then": {
+                                                          "simple_expression": "flo.ParallelFlow"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "else_expression": {
+                                                      "simple_expression": "flo.CounterFlow"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "condition": {
+                                          "simple_expression": "([object Object])"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "flowRegime",
+                                                "rhs": {
+                                                  "if_expression": {
+                                                    "if_elseif": [
+                                                      {
+                                                        "condition": {
+                                                          "simple_expression": "([object Object])"
+                                                        },
+                                                        "then": {
+                                                          "simple_expression": "flo.CounterFlow"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "else_expression": {
+                                                      "simple_expression": "flo.ParallelFlow"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "condition": {
+                                          "simple_expression": "([object Object])"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "flowRegime",
+                                                "rhs": {
+                                                  "simple_expression": "flo.CrossFlowUnmixed"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "condition": {
+                                          "simple_expression": "([object Object])"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "flowRegime",
+                                                "rhs": {
+                                                  "if_expression": {
+                                                    "if_elseif": [
+                                                      {
+                                                        "condition": {
+                                                          "simple_expression": "([object Object])"
+                                                        },
+                                                        "then": {
+                                                          "simple_expression": "flo.CrossFlowCMinMixedCMaxUnmixed"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "else_expression": {
+                                                      "simple_expression": "flo.CrossFlowCMinUnmixedCMaxMixed"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "flowRegime",
+                                          "rhs": {
+                                            "if_expression": {
+                                              "if_elseif": [
+                                                {
+                                                  "condition": {
+                                                    "simple_expression": "([object Object])"
+                                                  },
+                                                  "then": {
+                                                    "simple_expression": "flo.CrossFlowCMinUnmixedCMaxMixed"
+                                                  }
+                                                }
+                                              ],
+                                              "else_expression": {
+                                                "simple_expression": "flo.CrossFlowCMinMixedCMaxUnmixed"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "flowRegime",
+                              "rhs": {
+                                "simple_expression": "flowRegime_nominal"
+                              }
+                            }
+                          },
+                          {
+                            "function_call_equation": {
+                              "function_name": "assert",
+                              "function_call_args": {
+                                "function_argument": {
+                                  "expression": {
+                                    "simple_expression": "noEvent(m1_flow > -0.1*m1_flow_nominal) and noEvent(m2_flow > -0.1*m2_flow_nominal)"
+                                  }
+                                },
+                                "function_arguments": {
+                                  "function_argument": {
+                                    "expression": {
+                                      "simple_expression": "\"*** Warning in \" +getInstanceName() +\": The flow direction reversed.\n      However, because the constant use_dynamicFlowRegime is set to false,\n      the model does not change equations based on the actual flow regime.\n      To switch equations based on the actual flow regime during the simulation,\n      set the constant use_dynamicFlowRegime=true.\n      Note that this can lead to slow simulation because of events.\""
+                                    }
+                                  },
+                                  "function_arguments": {
+                                    "named_arguments": [
+                                      {
+                                        "identifier": "level",
+                                        "value": {
+                                          "expression": {
+                                            "simple_expression": "AssertionLevel.warning"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "eps",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C",
+                              "arguments": [
+                                {
+                                  "name": "UA=UA,C1_flow=C1_flow,C2_flow=C2_flow,flowRegime=Integer(flowRegime),CMin_flow_nominal=CMin_flow_nominal,CMax_flow_nominal=CMax_flow_nominal,delta=delta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": 78
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -82
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 95,
+                                      "g": 95,
+                                      "b": 95
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"hex\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial model of a heat exchanger without humidity condensation.\nThis model transfers heat in the amount of\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  Q = Q<sub>max</sub>  &epsilon;<br/>\n  &epsilon; = f(NTU, Z, flowRegime),\n</p>\n<p>\nwhere\n<i>Q<sub>max</sub></i> is the maximum heat that can be transferred,\n<i>&epsilon;</i> is the heat transfer effectiveness,\n<i>NTU</i> is the Number of Transfer Units,\n<i>Z</i> is the ratio of minimum to maximum capacity flow rate and\n<i>flowRegime</i> is the heat exchanger flow regime.\nsuch as\nparallel flow, cross flow or counter flow.\n</p>\n<p>\nThe flow regimes depend on the heat exchanger configuration. All configurations\ndefined in\n<a href=\\\"modelica://Buildings.Fluid.Types.HeatExchangerConfiguration\\\">\nBuildings.Fluid.Types.HeatExchangerConfiguration</a>\nare supported.\n</p>\n<p>\nBy default, the flow regime, such as counter flow or parallel flow,\nis kept constant based on the parameter value <code>configuration</code>.\nIf a flow reverses direction, it is not changed, e.g.,\na heat exchanger does not change from counter flow to parallel flow\nif one flow changes direction.\nTo dynamically change the flow regime,\nset the constant <code>use_dynamicFlowRegime</code> to\n<code>true</code>.\nHowever, <code>use_dynamicFlowRegime=true</code>\ncan cause slower simulation due to events.\n</p>\n<p>\nModels that extend from this partial model need to provide an assignment\nfor <code>UA</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nFebruary 3, 2023, by Jianjun Hu:<br/>\nAdded <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1690\\\">issue 1690</a>.\n</li>\n<li>\nJanuary 24, 2023, by Hongxiang Fu:<br/>\nSet <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>\nby default. Added an assertion warning to inform the user about how to change\nthis behaviour if the flow direction does need to change.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\\\">issue 1682</a>.\n</li>\n<li>\nNovember 11, 2023, by Michael Wetter:<br/>\nCorrected wrong temperature in assignment of <code>sta2_default</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3151\\\">Buildings, issue 3151</a>.\n</li>\n<li>\nFebruary 25, 2021 by Baptiste Ravache:<br/>\nAdded a warning for when Q_flow_nominal is specified with the wrong sign.\n</li>\n<li>\nJanuary 10, 2018 by Michael Wetter:<br/>\nRemoved variable <code>Z</code> that is not used.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1328\\\">issue 1328</a>.\n</li>\n<li>\nJanuary 10, 2018 by Filip Jorissen:<br/>\nCorrected an error where the value of NTU was assigned to Z.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1328\\\">issue 1328</a>.\n</li>\n<li>\nFebruary 27, 2016 by Michael Wetter:<br/>\nIntroduced <code>sta1_default</code> and <code>sta2_default</code>\nto enable translation under OpenModelica.\nRemoved <code>max=1</code> attribute for <code>Z</code>. This is needed as near\nzero flow, <code>Z</code> can be larger than one due to the regularization.\nAs <code>Z</code> is not used in this model other than for reporting, this bound\nneed not be enforced (and the calculation of <code>eps</code> is fine at these small flow rates).\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/490\\\">issue 490</a>.\n</li>\n<li>\nApril 29, 2014 by Michael Wetter:<br/>\nChanged <code>assert</code> statement to avoid comparing\nenumeration with an integer, which triggers a warning\nin Dymola 2015.\n</li>\n<li>\nJuly 30, 2013 by Michael Wetter:<br/>\nUpdated model to use new variable <code>mWat_flow</code>\nin the base class.\n</li>\n<li>\nFebruary 12, 2010, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectivenessNTU.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectivenessNTU.mo",
+  "checksum": "36ae29f7abdc2f5fa72dbbd316a07494"
+}

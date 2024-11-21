@@ -1,0 +1,748 @@
+{
+  "within": "Buildings.Fluid.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialTwoPortTransport",
+          "description_string": "Partial element transporting fluid between two ports without storage of mass or energy",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialTwoPort"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp_start",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Guess value of dp = port_a.p - port_b.p",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_start",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Guess value of m_flow = port_a.m_flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_small"
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization of zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "show_T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, if temperatures at port_a and port_b are computed",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Diagnostics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "show_V_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, if volume flow rate at inflowing port is computed",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Diagnostics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "allowFlowReversal"
+                                            },
+                                            "then": {
+                                              "simple_expression": "-Modelica.Constants.inf"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m_flow_start"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate in design flow direction"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "dp_start"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure difference between port_a and port_b (= port_a.p - port_b.p)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.VolumeFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "V_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "m_flow/Modelica.Fluid.Utilities.regStep(m_flow,Medium.density(Medium.setState_phX(p=port_a.p,h=inStream(port_a.h_outflow),X=inStream(port_a.Xi_outflow))),Medium.density(Medium.setState_phX(p=port_b.p,h=inStream(port_b.h_outflow),X=inStream(port_b.Xi_outflow))),m_flow_small)"
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_V_flow"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume flow rate at inflowing port (positive when flow from port_a to port_b)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_a_T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "Modelica.Fluid.Utilities.regStep",
+                                "arguments": [
+                                  {
+                                    "name": "port_a.m_flow"
+                                  },
+                                  {
+                                    "name": "Medium.temperature(Medium.setState_phX(p=port_a.p,h=inStream(port_a.h_outflow),X=inStream(port_a.Xi_outflow))),Medium.temperature(Medium.setState_phX(port_a.p,port_a.h_outflow,port_a.Xi_outflow)),m_flow_small"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature close to port_a, if show_T = true"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_b_T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "Modelica.Fluid.Utilities.regStep",
+                                "arguments": [
+                                  {
+                                    "name": "port_b.m_flow"
+                                  },
+                                  {
+                                    "name": "Medium.temperature(Medium.setState_phX(p=port_b.p,h=inStream(port_b.h_outflow),X=inStream(port_b.Xi_outflow))),Medium.temperature(Medium.setState_phX(port_b.p,port_b.h_outflow,port_b.Xi_outflow)),m_flow_small"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature close to port_b, if show_T = true"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "dp",
+                        "rhs": {
+                          "simple_expression": "port_a.p -port_b.p"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "m_flow",
+                        "rhs": {
+                          "simple_expression": "port_a.m_flow"
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "m_flow"
+                                            },
+                                            {
+                                              "name": "-m_flow_small"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Reverting flow occurs even though allowFlowReversal is false\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.m_flow +port_b.m_flow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.Xi_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.Xi_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "Medium.X_default[1:Medium.nXi]"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.Xi_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.C_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.C_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "zeros",
+                                  "arguments": [
+                                    {
+                                      "name": "Medium.nC"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.C_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis component transports fluid between its two ports, without storing mass or energy.\nEnergy may be exchanged with the environment though, e.g., in the form of work.\n<code>PartialTwoPortTransport</code> is intended as base class for devices like orifices, valves and simple fluid machines.</p>\n<p>\nThree equations need to be added by an extending class using this component:\n</p>\n<ul>\n<li>The momentum balance specifying the relationship between the pressure drop <code>dp</code> and the mass flow rate <code>m_flow</code>,</li>\n<li><code>port_b.h_outflow</code> for flow in design direction, and</li>\n<li><code>port_a.h_outflow</code> for flow in reverse direction.</li>\n</ul>\n<p>\nMoreover appropriate values shall be assigned to the following parameters:\n</p>\n<ul>\n<li><code>dp_start</code> for a guess of the pressure drop</li>\n<li><code>m_flow_small</code> for regularization of zero flow.</li>\n</ul>\n<h4>Implementation</h4>\n<p>\nThis is similar to\n<a href=\\\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\\\">\nModelica.Fluid.Interfaces.PartialTwoPortTransport</a>\nexcept that it does not use the <code>outer system</code> declaration.\nThis declaration is omitted as in building energy simulation,\nmany models use multiple media, and in practice,\nusers have not used this global definition to assign parameters.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 30, 2021, by Michael Wetter:<br/>\nAdded annotation <code>HideResult=true</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\\\">IBPSA, #1459</a>.\n</li>\n<li>\nSeptember 15, 2016, by Michael Wetter:<br/>\nRemoved wrong annotation, which caused an error in the pedantic model check\nof Dymola 2017 FD01.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/516\\\">#516</a>.\n</li>\n<li>\nJanuary 22, 2016, by Henning Francke:<br/>\nCorrected type declaration of pressure.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/404\\\">#404</a>.\n</li>\n<li>\nNovember 19, 2015, by Michael Wetter:<br/>\nRemoved assignments of parameters\n<code>port_a_exposesState</code> and\n<code>port_b_exposesState</code> in base class.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/351\\\">#351</a>.\n</li>\n<li>\nAugust 15, 2015, by Filip Jorissen:<br/>\nImplemented more efficient computation of <code>port_a.Xi_outflow</code>\nand <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/305\\\">#305</a>.\n</li>\n<li>\nJune 6, 2015, by Michael Wetter:<br/>\nRemoved protected conditional variables <code>state_a</code> and <code>state_b</code>,\nas they were used outside of a connect statement, which causes an\nerror during pedantic model check in Dymola 2016.\nThis fixes\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/128\\\">#128</a>.\n</li>\n<li>\nApril 1, 2015, by Michael Wetter:<br/>\nMade computation of <code>state_a</code> and <code>state_p</code>\nconditional on <code>show_T</code> or <code>show_V_flow</code>.\nThis avoids computing temperature from enthalpy if temperature is\na state of the medium, and the result is not used.\n</li>\n<li>\nOctober 21, 2014, by Michael Wetter:<br/>\nRevised implementation.\n</li>\n<li>\nOctober 20, 2014, by Filip Jorisson:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Interfaces/PartialTwoPortTransport.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Interfaces/PartialTwoPortTransport.mo",
+  "checksum": "ea11bb4ded880c62e4e77ee2252254b1"
+}

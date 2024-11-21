@@ -1,0 +1,1032 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialSurfaceCondition",
+          "description_string": "Partial block for apparatus dew and dry point calculation",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.DXSystems.Cooling.BaseClasses.EssentialParameters"
+                }
+              },
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialCondensingGases",
+                        "description": {
+                          "description_string": "Medium model",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choicesAllMatching",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "variableSpeedCoil"
+                      },
+                      "description": {
+                        "description_string": "Flag, set to true to interpolate data"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_small",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "datCoi.m_flow_small"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for the evaporator, used for regularization"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.AngularVelocity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "maxSpe",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1/min\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "datCoi.sta[nSta].spe"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum rotational speed"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "speRat"
+                      },
+                      "description": {
+                        "description_string": "Speed index",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 80
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Q_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Power\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"W\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Cooling capacity of the coil",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 29
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 49
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Evaporator air mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pressure\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Evaporator air static pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "XEvaIn"
+                      },
+                      "description": {
+                        "description_string": "Evaporator inlet air mass fraction",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -40
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hEvaIn",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"SpecificEnergy\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"J/kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Evaporator air inlet specific enthalpy",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -90
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.IntegerInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "stage"
+                      },
+                      "description": {
+                        "description_string": "Stage of coil, or 0/1 for variable-speed coil",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 110
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 110
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "bypass",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0.25"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Bypass factor"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.AngularVelocity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "spe",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1/min\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Rotational speed"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.BaseClasses.UACp",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "uacp",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "datCoi.sta.nomVal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Calculates UA/Cp of the coil",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "output",
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_nonzero"
+                          },
+                          "description": {
+                            "description_string": "Evaporator air mass flow rate, bounded away from zero"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "output",
+                      "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "delta_h",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "40000"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Enthalpy required to be removed from the inlet air to attain apparatus dry point condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "output",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "UAcp",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "UA/Cp of coil"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "stage"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": "<>"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_nonzero",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                          "arguments": [
+                                            {
+                                              "name": "x1=m_flow,x2=m_flow_small,deltaX=0.1*m_flow_small"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "spe",
+                                    "rhs": {
+                                      "simple_expression": "speRat*maxSpe"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "UAcp",
+                                    "rhs": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "variableSpeedCoil"
+                                            },
+                                            "then": {
+                                              "simple_expression": {
+                                                "function_call": {
+                                                  "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                                  "arguments": [
+                                                    {
+                                                      "name": "x1=Buildings.Fluid.DXSystems.Cooling.BaseClasses.Functions.speedShift(spe=spe,speSet={datCoi.sta[iSpe].spe for iSpe in 1:nSta},u={uacp[iSpe].UAcp for iSpe in 1:nSta}),x2=uacp[nSta].UAcp/1000,deltaX=uacp[nSta].UAcp/10000"
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "uacp[stage].UAcp"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "bypass",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.smoothLimit",
+                                          "arguments": [
+                                            {
+                                              "name": "x=Modelica.Math.exp(-UAcp/m_flow_nonzero),l=0.01,u=0.99,deltaX=0.001"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "delta_h",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.smoothMin",
+                                          "arguments": [
+                                            {
+                                              "name": "x1=-Q_flow/m_flow_nonzero/(1 -bypass),x2=0.999*hEvaIn,deltaX=0.0001"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_nonzero",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "spe",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "UAcp",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "bypass",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "delta_h",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial block is the base class for\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint</a> and\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDryPoint\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDryPoint</a>.\n</p>\n<p>\nThis block calculates the <i>UA/c<sub>p</sub></i> value, the bypass factor and the\nenthalpy difference across the coil.\nIt uses the function\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Functions.speedShift\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.Functions.speedShift</a>\nfor intermediate compressor speeds.\n</p>\n<h4>Implementation</h4>\n<p>\nFor coils that only have discrete compressor speeds, this block does not do an interpolation\nfor intermediate speeds.\nFor coils with variable speed compressors, the computations are also done if the coil is off,\nas this ensures that the derivatives are continuous near the off conditions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 26, 2018, by Michael Wetter:<br/>\nReplaced <code>algorithm</code> with <code>equation</code>.\n</li>\n<li>\nOctober 9, 2013 by Michael Wetter:<br/>\nCorrected invalid Modelica syntax.\n</li>\n<li>\nSeptember 24, 2012 by Michael Wetter:<br/>\nRevised implementation.\n</li>\n<li>\nAugust 24, 2012, by Michael Wetter:<br/>\nMoved function from\n<code>Buildings.Fluid.DXSystems.BaseClasses</code>\nto\n<code>Buildings.Fluid.DXSystems.Cooling.BaseClasses.Functions</code>\nbecause the package\n<code>Buildings.Fluid.DXSystems.BaseClasses</code>\nalready contains a block called\n<code>SpeedShift</code> which gives a clash in file names on file systems\nthat do not distinguish between upper and lower case letters.\n</li>\n<li>\nAugust 1, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/BaseClasses/PartialSurfaceCondition.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/BaseClasses/PartialSurfaceCondition.mo",
+  "checksum": "d9e693afeed257fdc5a5626e1bae0f36"
+}

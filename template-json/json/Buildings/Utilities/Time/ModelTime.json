@@ -1,0 +1,467 @@
+{
+  "within": "Buildings.Utilities.Time",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ModelTime",
+          "description_string": "Model time",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y"
+                      },
+                      "description": {
+                        "description_string": "Model time",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "y",
+                        "rhs": {
+                          "simple_expression": "time"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"modTim\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": 80,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    },
+                                    "fillColor": {
+                                      "r": 215,
+                                      "g": 215,
+                                      "b": 215
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 37,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 26,
+                                        "y": 50
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 70,
+                                        "y": 38
+                                      },
+                                      {
+                                        "x": 49,
+                                        "y": 26
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 71,
+                                        "y": -37
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": -27
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 39,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 29,
+                                        "y": -51
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -39,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": -29,
+                                        "y": -52
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -71,
+                                        "y": -37
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": -26
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -71,
+                                        "y": 37
+                                      },
+                                      {
+                                        "x": -54,
+                                        "y": 28
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -38,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": -28,
+                                        "y": 51
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 160,
+                                      "g": 160,
+                                      "b": 164
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": 50
+                                      }
+                                    ],
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "thickness": 0.5
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis component outputs the model time, which starts at the value at which the simulation starts.\nFor example, if a simulation starts at <i>t=-1</i>, then this block outputs first <i>t=-1</i>,\nand its output is advanced at the same rate as the simulation time.\n</p>\n<p>\nThe model is used to allow the simulation to start from any time without having to set\nthe parameters for the clock, as would be necessary for the model\n<a href=\\\"modelica://Modelica.Blocks.Sources.ContinuousClock\\\">Modelica.Blocks.Sources.ContinuousClock</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMay 2, 2022, by Michael Wetter:<br/>\nCorrected hyperlink in documentation.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1609\\\">IBPSA, #1609</a>.\n</li>\n<li>\nApril 17, 2020, by Michael Wetter:<br/>\nRefactored so that the output connector has a better comment string, because\nthis comment string is displayed on the weather data bus.\n</li>\n<li>\nJanuary 16, 2015, by Michael Wetter:<br/>\nMoved block from\n<code>Buildings.Utilities.SimulationTime</code>\nto\n<code>Buildings.Utilities.Time.ModelTime</code>.\n</li>\n<li>\nMay 18, 2010, by Wangda Zuo:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Utilities/Time/ModelTime.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Utilities/Time/ModelTime.mo",
+  "checksum": "0de52c68b26aa02c94d4de6b0edf23a2"
+}

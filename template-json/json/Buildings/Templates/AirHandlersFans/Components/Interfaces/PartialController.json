@@ -1,0 +1,560 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Components.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialController",
+          "description_string": "Interface class for AHU controller",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.AirHandlersFans.Types.Controller",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "typ"
+                      },
+                      "description": {
+                        "description_string": "Type of controller",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Configuration\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nZon"
+                      },
+                      "description": {
+                        "description_string": "Number of served zones"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "outer": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Data.AllSystems",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "datAll"
+                      },
+                      "description": {
+                        "description_string": "Top-level (whole building) system parameters"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Types.Fan",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "typFanSup"
+                      },
+                      "description": {
+                        "description_string": "Type of supply fan"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Types.Fan",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "typFanRel"
+                      },
+                      "description": {
+                        "description_string": "Type of relief fan"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Types.Fan",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "typFanRet"
+                      },
+                      "description": {
+                        "description_string": "Type of return fan"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nFanSup"
+                      },
+                      "description": {
+                        "description_string": "Number of supply fans"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nFanRel"
+                      },
+                      "description": {
+                        "description_string": "Number of relief fans"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nFanRet"
+                      },
+                      "description": {
+                        "description_string": "Number of return fans"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.AirHandlersFans.Components.Data.PartialController",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dat",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "typ"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typFanSup",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "typFanSup"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typFanRel",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "typFanRel"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typFanRet",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "typFanRet"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Design and operating parameters",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 190,
+                                        "y": 170
+                                      },
+                                      {
+                                        "x": 210,
+                                        "y": 190
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.AirHandlersFans.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "bus"
+                      },
+                      "description": {
+                        "description_string": "AHU control bus",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -200,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  },
+                                  "iconTransformation": {
+                                    "origin": {
+                                      "x": -100,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.ZoneEquipment.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "busTer",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nZon"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Terminal unit control bus",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 220,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  },
+                                  "iconTransformation": {
+                                    "origin": {
+                                      "x": 100,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -151,
+                                        "y": -114
+                                      },
+                                      {
+                                        "x": 149,
+                                        "y": -154
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -200,
+                                    "y": -200
+                                  },
+                                  {
+                                    "x": 220,
+                                    "y": 200
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial class provides a standard interface for air handler controllers.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Components/Interfaces/PartialController.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Components/Interfaces/PartialController.mo",
+  "checksum": "641a8ecc6f2d909d977f0233edbebf56"
+}

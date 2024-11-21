@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Sensors",
+          "description_string": "Sensor models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains models for sensors.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Sensors/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Components/Sensors/package.mo",
+  "checksum": "ae9d4136c529b0919448b164f6327c7f"
+}

@@ -1,0 +1,93 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "OutdoorAirSection",
+          "value": {
+            "description": {
+              "description_string": "Enumeration to configure the outdoor air section",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration to define how minimum outdoor air and economizer function being\ndesigned in multizone AHU. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>DedicatedDampersAirflow</code></td>\n<td>\nSeparate dampers for ventilation and economizer, with airflow measurement station.\n</td></tr>\n<tr><td><code>DedicatedDampersPressure</code></td>\n<td>\nSeparate dampers for ventilation and economizer, with differential pressure sensor.\n</td></tr>\n<tr><td><code>SingleDamper</code></td>\n<td>\nSingle damper for ventilation and economizer, with airflow measurement station.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nDecember 15, 2022, by Jianjun Hu:<br/>\nRemoved the no-economizer option.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3139\\\">issue 3139</a>.\n</li>\n<li>\nAugust 1, 2020, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "DedicatedDampersAirflow",
+                "description": {
+                  "description_string": "Separate dampers for ventilation and economizer, with airflow measurement station"
+                }
+              },
+              {
+                "identifier": "DedicatedDampersPressure",
+                "description": {
+                  "description_string": "Separate dampers for ventilation and economizer, with differential pressure sensor"
+                }
+              },
+              {
+                "identifier": "SingleDamper",
+                "description": {
+                  "description_string": "Single damper for ventilation and economizer, with airflow measurement station"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/OutdoorAirSection.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/OutdoorAirSection.mo",
+  "checksum": "fa158ecbb03a9a2607e1a0f458ffba6b"
+}

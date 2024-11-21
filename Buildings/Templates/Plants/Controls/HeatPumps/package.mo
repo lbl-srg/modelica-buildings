@@ -1,6 +1,8 @@
 within Buildings.Templates.Plants.Controls;
-package HeatPumps
-  annotation (Documentation(info="<html>
+package HeatPumps "Heat pump plant controllers"
+  annotation (
+  __ctrlFlow_template,
+  Documentation(info="<html>
 <p>
 This package contains control sequences for heat pump plants.
 </p>

@@ -1,0 +1,151 @@
+{
+  "within": "Buildings.Templates.Plants.Controls.Enabling",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Validation",
+          "description_string": "Collection of validation models",
+          "composition": {
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "radius": 25,
+                                    "lineColor": {
+                                      "r": 200,
+                                      "g": 200,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 248,
+                                      "g": 248,
+                                      "b": 248
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -58,
+                                        "y": 46
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -14
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": -74
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": 46
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 8,
+                                      "y": 14
+                                    },
+                                    "lineColor": {
+                                      "r": 78,
+                                      "g": 138,
+                                      "b": 73
+                                    },
+                                    "fillColor": {
+                                      "r": 78,
+                                      "g": 138,
+                                      "b": 73
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "radius": 25,
+                                    "lineColor": {
+                                      "r": 128,
+                                      "g": 128,
+                                      "b": 128
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains validation models.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/Controls/Enabling/Validation/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/Controls/Enabling/Validation/package.mo",
+  "checksum": "baaccee4517165f93fdfed588c863c85"
+}

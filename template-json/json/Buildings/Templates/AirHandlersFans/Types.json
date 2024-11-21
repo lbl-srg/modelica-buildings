@@ -1,0 +1,280 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Configuration",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the AHU"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "SupplyOnly",
+                            "description": {
+                              "description_string": "Supply only system"
+                            }
+                          },
+                          {
+                            "identifier": "ExhaustOnly",
+                            "description": {
+                              "description_string": "Exhaust only system"
+                            }
+                          },
+                          {
+                            "identifier": "DualDuct",
+                            "description": {
+                              "description_string": "Dual duct system with supply and return"
+                            }
+                          },
+                          {
+                            "identifier": "SingleDuct",
+                            "description": {
+                              "description_string": "Single duct system with supply and return"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Controller",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the AHU controller"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "G36VAVMultiZone",
+                            "description": {
+                              "description_string": "Guideline 36 controller for multiple-zone VAV"
+                            }
+                          },
+                          {
+                            "identifier": "OpenLoop",
+                            "description": {
+                              "description_string": "Open loop controller"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "ControlFanReturn",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the return fan control"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "AirflowMeasured",
+                            "description": {
+                              "description_string": "Airflow tracking with airflow measurement stations"
+                            }
+                          },
+                          {
+                            "identifier": "BuildingPressure",
+                            "description": {
+                              "description_string": "Building pressure (via discharge static pressure)"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "HeatRecovery",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the heat recovery"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No heat recovery"
+                            }
+                          },
+                          {
+                            "identifier": "FlatPlate",
+                            "description": {
+                              "description_string": "Flat plate heat exchanger"
+                            }
+                          },
+                          {
+                            "identifier": "EnthalpyWheel",
+                            "description": {
+                              "description_string": "Enthalpy wheel"
+                            }
+                          },
+                          {
+                            "identifier": "RunAroundCoil",
+                            "description": {
+                              "description_string": "Run-around coil"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "OutdoorReliefReturnSection",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the outdoor/relief/return air section"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "HundredPctOutdoorAir",
+                            "description": {
+                              "description_string": "100 % outdoor air system"
+                            }
+                          },
+                          {
+                            "identifier": "MixedAirWithDamper",
+                            "description": {
+                              "description_string": "Mixed air system with return air damper - Optional economizer function"
+                            }
+                          },
+                          {
+                            "identifier": "MixedAirNoDamper",
+                            "description": {
+                              "description_string": "Mixed air system without return air damper - No economizer function"
+                            }
+                          },
+                          {
+                            "identifier": "MixedAirNoRelief",
+                            "description": {
+                              "description_string": "Mixed air system without relief branch - Optional economizer function"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "ReliefReturnSection",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the relief/return air section"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "NoRelief",
+                            "description": {
+                              "description_string": "No relief branch"
+                            }
+                          },
+                          {
+                            "identifier": "NoReturn",
+                            "description": {
+                              "description_string": "No return branch"
+                            }
+                          },
+                          {
+                            "identifier": "ReliefDamper",
+                            "description": {
+                              "description_string": "Modulating relief damper without fan"
+                            }
+                          },
+                          {
+                            "identifier": "ReliefFan",
+                            "description": {
+                              "description_string": "Relief fan with two-position relief damper"
+                            }
+                          },
+                          {
+                            "identifier": "ReturnFan",
+                            "description": {
+                              "description_string": "Return fan with modulating relief damper"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Types.mo",
+  "checksum": "166b505954a94b96fd9c014cabebb043"
+}

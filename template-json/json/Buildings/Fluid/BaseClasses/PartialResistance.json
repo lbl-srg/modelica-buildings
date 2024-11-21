@@ -1,0 +1,1019 @@
+{
+  "within": "Buildings.Fluid.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialResistance",
+          "description_string": "Partial model for a hydraulic resistance",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialTwoPortInterface",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "show_T",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "dp",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "nominal",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "if_expression": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": {
+                                                  "logical_expression": {
+                                                    "logical_or": [
+                                                      {
+                                                        "logical_and": [
+                                                          {
+                                                            "arithmetic_expressions": [
+                                                              {
+                                                                "name": "dp_nominal_pos"
+                                                              },
+                                                              {
+                                                                "name": "Modelica.Constants.eps"
+                                                              }
+                                                            ],
+                                                            "relation_operator": ">"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "then": {
+                                                "simple_expression": "dp_nominal_pos"
+                                              }
+                                            }
+                                          ],
+                                          "else_expression": {
+                                            "simple_expression": "1"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "m_flow",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "nominal",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "if_expression": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": {
+                                                  "logical_expression": {
+                                                    "logical_or": [
+                                                      {
+                                                        "logical_and": [
+                                                          {
+                                                            "arithmetic_expressions": [
+                                                              {
+                                                                "name": "m_flow_nominal_pos"
+                                                              },
+                                                              {
+                                                                "name": "Modelica.Constants.eps"
+                                                              }
+                                                            ],
+                                                            "relation_operator": ">"
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "then": {
+                                                "simple_expression": "m_flow_nominal_pos"
+                                              }
+                                            }
+                                          ],
+                                          "else_expression": {
+                                            "simple_expression": "1"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "m_flow_small",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "0.0001*abs(m_flow_nominal)"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "homotopyInitialization",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use homotopy method",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "from_dp",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use m_flow = f(dp) else dp = f(m_flow)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure drop at nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "linearized",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use linear relation between m_flow and dp for any flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_turbulent",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Turbulent flow if |m_flow| >= m_flow_turbulent"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sta_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium.T_default,p=Medium.p_default,X=Medium.X_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.DynamicViscosity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "eta_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.dynamicViscosity",
+                                    "arguments": [
+                                      {
+                                        "name": "sta_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Dynamic viscosity, used to compute transition to turbulent flow regime"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_nominal_pos",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "abs",
+                                    "arguments": [
+                                      {
+                                        "name": "m_flow_nominal"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Absolute value of nominal flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_nominal_pos",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "displayUnit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"Pa\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "abs",
+                                    "arguments": [
+                                      {
+                                        "name": "dp_nominal"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Absolute value of nominal pressure difference"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "homotopyInitialization"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.\""
+                              }
+                            },
+                            "function_arguments": {
+                              "named_arguments": [
+                                {
+                                  "identifier": "level",
+                                  "value": {
+                                    "expression": {
+                                      "simple_expression": "AssertionLevel.warning"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.h_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.h_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "Medium.h_default"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.h_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.h_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.m_flow +port_b.m_flow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.Xi_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.Xi_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "Medium.X_default[1:Medium.nXi]"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.Xi_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.C_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.C_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "zeros",
+                                  "arguments": [
+                                    {
+                                      "name": "Medium.nC"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.C_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -40
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "visible": "linearized",
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Backward"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": null,
+                                        "y": null
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"res\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial model for a flow resistance, possible with variable flow coefficient.\nModels that extend this class need to implement an equation that relates\n<code>m_flow</code> and <code>dp</code>, and they need to assign the parameter\n<code>m_flow_turbulent</code>.\n</p>\n<p>\nSee for example\n<a href=\\\"modelica://Buildings.Fluid.FixedResistances.PressureDrop\\\">\nBuildings.Fluid.FixedResistances.PressureDrop</a> for a model that extends\nthis base class.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 14, 2020, by Michael Wetter:<br/>\nChanged <code>homotopyInitialization</code> to a constant.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\\\">IBPSA, #1341</a>.\n</li>\n<li>\nFebruary 26, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nOctober 25, 2019, by Jianjun Hu:<br/>\nImproved icon graphics annotation. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\\\">#1225</a>.\n</li>\n<li>\nNovember 3, 2016, by Michael Wetter:<br/>\nRemoved start value for pressure difference\nto simplify the parameter window.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/552\\\">#552</a>.\n</li>\n<li>\nJanuary 26, 2016, by Michael Wetter:<br/>\nAvoided assignment of <code>dp(nominal=0)</code> if <code>dp_nominal_pos = 0</code>\nand of <code>m_flow(nominal=0)</code> if <code>m_flow_nominal_pos = 0</code>\nas nominal values are not allowed to be zero.\n</li>\n<li>\nJanuary 22, 2016, by Michael Wetter:<br/>\nCorrected type declaration of pressure difference.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/404\\\">#404</a>.\n</li>\n<li>\nAugust 15, 2015, by Filip Jorissen:<br/>\nImplemented more efficient computation of <code>port_a.Xi_outflow</code>,\n<code>port_a.h_outflow</code>\nand <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/281\\\">#281</a>.\n</li>\n<li>\nJanuary 13, 2015, by Marcus Fuchs:<br/>\nRevised revisions section (there were two revisions statements)\n</li>\n<li>\nNovember 20, 2014 by Michael Wetter:<br/>\nRemoved <code>start</code> attribute for <code>m_flow</code>\nas this is already set in its base class.\n</li>\n<li>\nOctober 8, 2013 by Michael Wetter:<br/>\nRemoved propagation of <code>show_V_flow</code>\nto base class as it has no longer this parameter.\n</li>\n<li>\nDecember 14, 2012 by Michael Wetter:<br/>\nRenamed protected parameters for consistency with the naming conventions.\n</li>\n<li>\nFebruary 12, 2012, by Michael Wetter:<br/>\nRemoved duplicate declaration of <code>m_flow_nominal</code>.\n</li>\n<li>\nFebruary 3, 2012, by Michael Wetter:<br/>\nMade assignment of <code>m_flow_small</code> <code>final</code> as it is no\nlonger used in the base class.\n</li>\n<li>\nJanuary 16, 2012, by Michael Wetter:<br/>\nTo simplify object inheritance tree, revised base classes\n<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>\nand model\n<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.\n</li>\n<li>\nAugust 5, 2011, by Michael Wetter:<br/>\nMoved linearized pressure drop equation from the function body to the equation\nsection. With the previous implementation,\nthe symbolic processor may not rearrange the equations, which can lead\nto coupled equations instead of an explicit solution.\n</li>\n<li>\nJune 20, 2011, by Michael Wetter:<br/>\nSet start values for <code>m_flow</code> and <code>dp</code> to zero, since\nmost HVAC systems start at zero flow. With this change, the start values\nappear in the GUI and can be set by the user.\n</li>\n<li>\nApril 2, 2011 by Michael Wetter:<br/>\nAdded <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow\nproviding negative nominal values which will be used, for example, to set start\nvalues of flow splitters which may have negative flow rates and pressure drop\nat the initial condition.\n</li>\n<li>\nMarch 27, 2011, by Michael Wetter:<br/>\nAdded <code>homotopy</code> operator.\n</li>\n<li>\nMarch 23, 2011 by Michael Wetter:<br/>\nAdded homotopy operator.\n</li>\n<li>\nMarch 30, 2010 by Michael Wetter:<br/>\nChanged base classes to allow easier initialization.\n</li>\n<li>\nApril 13, 2009, by Michael Wetter:<br/>\nExtracted pressure drop computation and implemented it in the\nnew model\n<a href=\\\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\\\">\nBuildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.\n</li>\n<li>\nSeptember 18, 2008, by Michael Wetter:<br/>\nAdded equations for the mass balance of extra species flow,\ni.e., <code>C</code> and <code>mC_flow</code>.\n</li>\n<li>\nJuly 20, 2007 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/BaseClasses/PartialResistance.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/BaseClasses/PartialResistance.mo",
+  "checksum": "05b5d82f490304a328f06cd318051a31"
+}

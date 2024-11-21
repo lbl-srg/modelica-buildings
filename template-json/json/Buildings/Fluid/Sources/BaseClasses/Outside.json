@@ -1,0 +1,1040 @@
+{
+  "within": "Buildings.Fluid.Sources.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Outside",
+          "description_string": "Boundary that takes weather data, and optionally trace substances, as an input",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Sources.BaseClasses.PartialAirSource",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "verifyInputs",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_C_in",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Get the trace substances from the input connector",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.ExtraProperty",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Medium.extraPropertiesNames"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "fill",
+                                "arguments": [
+                                  {
+                                    "name": "0"
+                                  },
+                                  {
+                                    "name": "Medium.nC"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fixed values of trace substances",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "Medium.nC"
+                                                            },
+                                                            {
+                                                              "name": "0"
+                                                            }
+                                                          ],
+                                                          "relation_operator": ">"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C_in",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Medium.extraPropertiesNames"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_C_in"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Prescribed boundary trace substances",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -60
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.BoundaryConditions.WeatherData.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "weaBus"
+                      },
+                      "description": {
+                        "description_string": "Bus with weather data",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -18
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 22
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "singleSubstance",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "([object Object])"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "True if single substance medium"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Buildings.Utilities.Psychrometrics.X_pTphi",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "x_pTphi"
+                          },
+                          "condition_attribute": {
+                            "expression": {
+                              "simple_expression": "not singleSubstance"
+                            }
+                          },
+                          "description": {
+                            "description_string": "Block to compute water vapor concentration"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_in_internal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"K\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "displayUnit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"degC\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Needed to connect to conditional connector"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "h_internal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.specificEnthalpy",
+                                    "arguments": [
+                                      {
+                                        "name": "Medium.setState_pTX(p_in_internal,T_in_internal,X_in_internal)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "Modelica.Fluid.Utilities.checkBoundary",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "Medium.mediumName"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "Medium.substanceNames"
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "Medium.singleState"
+                                }
+                              },
+                              "function_arguments": {
+                                "function_argument": {
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                },
+                                "function_arguments": {
+                                  "function_argument": {
+                                    "expression": {
+                                      "simple_expression": "X_in_internal"
+                                    }
+                                  },
+                                  "function_arguments": {
+                                    "function_argument": {
+                                      "expression": {
+                                        "simple_expression": "\"Boundary_pT\""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "C_in"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "C_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_C_in"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "C_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "C"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "weaBus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TDryBul"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "T_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "p_in_internal"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "x_pTphi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "p_in"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "T_in_internal"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "x_pTphi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "T"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "weaBus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "relHum"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "x_pTphi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "phi"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "X_in_internal"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "x_pTphi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "X"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "singleSubstance"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "X_in_internal",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "ones",
+                                          "arguments": [
+                                            {
+                                              "name": "Medium.nX"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "X_in_internal",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "1:Medium.nXi"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "Xi_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "ports.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "fill",
+                              "arguments": [
+                                {
+                                  "name": "C_in_internal"
+                                },
+                                {
+                                  "name": "nPorts"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not verifyInputs"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "h_internal",
+                                    "rhs": {
+                                      "simple_expression": "Medium.h_default"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "p_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "Medium.p_default"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "X_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "Medium.X_default"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "T_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "Medium.T_default"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "medium"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "h"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "h_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "medium"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "Xi"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "Xi_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "i",
+                            "expression": {
+                              "simple_expression": "1:nPorts"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "ports[i].p",
+                              "rhs": {
+                                "simple_expression": "p_in_internal"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "ports[i].h_outflow",
+                              "rhs": {
+                                "simple_expression": "h_internal"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "ports[i].Xi_outflow",
+                              "rhs": {
+                                "simple_expression": "Xi_in_internal"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 110
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 150
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -100,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "visible": "use_C_in"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -164,
+                                        "y": -90
+                                      },
+                                      {
+                                        "x": -62,
+                                        "y": -130
+                                      }
+                                    ],
+                                    "textString": "\"C\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "visible": "use_C_in",
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Sphere"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 62,
+                                        "y": 28
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(weaBus.TDryBul -273.15",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis is the base class for models that describes boundary conditions for\npressure, enthalpy, and species concentration that can be obtained\nfrom weather data, and that may be modified based on the wind pressure.\n</p>\n<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option),\nthe <code>C</code> parameter\nis used as the trace substance for flow that leaves the component, and the\n<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>,\nthen the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p>\n<p>\nNote that boundary temperature,\nmass fractions and trace substances have only an effect if the mass flow\nis from the boundary into the port. If mass is flowing from\nthe port into the boundary, the boundary definitions,\nwith exception of boundary pressure, do not have an effect.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 11, 2024, by Michael Wetter:<br/>\nCorrected use of <code>HideResult</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\\\">#1850</a>.\n</li>\n<li>\nJanuary 09, 2023, by Jianjun Hu:<br/>\nChanged base class to constrain medium to moist air.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\\\">IBPSA, #1681</a>.\n</li>\n<li>\nFebruary 25, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nNovember 14, 2019, by Michael Wetter:<br/>\nRemoved duplicate connector.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1248\\\"> #1248</a>.\n</li>\n<li>\nJanuary 14, 2019 by Jianjun Hu:<br/>\nChanged to extend <a href=\\\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\\\">\nBuildings.Fluid.Sources.BaseClasses.PartialSource</a>. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\\\"> #1050</a>.\n</li>\n<li>\nMay 30, 2017 by Jianjun Hu:<br/>\nCorrected <code>X_in_internal = zeros()</code> to be <code>X_in_internal = ones()</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/787\\\"> #787</a>.\n</li>\n<li>\nApril, 25, 2016 by Marcus Fuchs:<br/>\nIntroduced missing <code>each</code> keyword. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/454\\\"> #454</a>,\nto prevent a warning in OpenModelica.\n</li>\n<li>\nJanuary 26, 2016, by Michael Wetter:<br/>\nAdded <code>unit</code> and <code>quantity</code> attributes.\n</li>\n<li>\nMay 30, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nOctober 26, 2011 by Michael Wetter:<br/>\nIntroduced new base class to allow implementation of wind pressure for natural ventilation.\n</li>\n<li>\nApril 27, 2011 by Michael Wetter:<br/>\nRevised implementation to allow medium model that do not have water vapor.\n</li>\n<li>\nFeb. 9, 2011 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sources/BaseClasses/Outside.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sources/BaseClasses/Outside.mo",
+  "checksum": "62188b357fdf877b07021a3443a5ea0d"
+}

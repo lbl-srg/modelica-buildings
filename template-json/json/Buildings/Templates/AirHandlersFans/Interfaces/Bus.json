@@ -1,0 +1,335 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "expandable connector",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Bus",
+          "description_string": "Control bus for air handler",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.SignalBus"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "fanSup"
+                      },
+                      "description": {
+                        "description_string": "Supply fan points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "fanRel"
+                      },
+                      "description": {
+                        "description_string": "Relief fan points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "fanRet"
+                      },
+                      "description": {
+                        "description_string": "Return fan points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "coiHea"
+                      },
+                      "description": {
+                        "description_string": "Heating coil (preheat or reheat position, only one coil allowed) points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "coiCoo"
+                      },
+                      "description": {
+                        "description_string": "Cooling coil points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damOut"
+                      },
+                      "description": {
+                        "description_string": "OA damper points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damOutMin"
+                      },
+                      "description": {
+                        "description_string": "Minimum OA damper points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damRel"
+                      },
+                      "description": {
+                        "description_string": "Relief damper points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Interfaces.Bus",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damRet"
+                      },
+                      "description": {
+                        "description_string": "Return damper points",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "false"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"bus\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis expandable connector provides a standard interface for\nall control signals required by an air handler controller.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Interfaces/Bus.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Interfaces/Bus.mo",
+  "checksum": "207d4622a4619a7f9a6e588d1572fbcb"
+}

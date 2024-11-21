@@ -1,0 +1,58 @@
+{
+  "within": "Buildings.Fluid.Movers.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Characteristics",
+          "description_string": "Functions for fan or pump characteristics",
+          "composition": {
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package implements performance curves for fans and pumps,\nand records for parameter that can be used with these performance\ncurves.\n</p>\n<p>\nSee the\n<a href=\\\"modelica://Buildings.Fluid.Movers.UsersGuide\\\">\nUser's Guide</a> for information about these performance curves.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 8, 2016, by Michael Wetter:<br/>\nDeleted function <code>performanceCurve</code> as it is no longer needed. Instead, the function\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\\\">\nBuildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>\nis used for all speeds.<br/>\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/458\\\">#458</a>.\n</li>\n<li>\nSeptember 29, 2011, by Michael Wetter:<br/>\nNew implementation due to changes from polynomial to cubic hermite splines.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Movers/BaseClasses/Characteristics/package.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Movers/BaseClasses/Characteristics/package.mo",
+  "checksum": "1358582372299dfdc2c012a01a3cf6b8"
+}

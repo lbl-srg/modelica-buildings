@@ -1,0 +1,2307 @@
+{
+  "within": "Buildings.Templates.Components.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialHeatPumpEquationFit",
+          "description_string": "Interface for heat pump using equation fit model",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.Components.Interfaces.PartialHeatPump",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "typMod",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Templates.Components.Types.HeatPumpModel.EquationFit"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "datPerFit",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dpHeaSou_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "have_dpSou"
+                                            },
+                                            "then": {
+                                              "simple_expression": "dat.perFit.dpHeaSou_nominal"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dpHeaLoa_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": "have_dpChiHeaWat"
+                                            },
+                                            "then": {
+                                              "simple_expression": "dat.perFit.dpHeaLoa_nominal"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "hea",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TRefLoa",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.TRefLoa"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TRefSou",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.TRefSou"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "Q_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.Q_flow"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "P",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.P"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mSou_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.mSou_flow"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mLoa_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.mLoa_flow"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "coeQ",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.coeQ"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "coeP",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.hea.coeP"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "coo",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TRefSou",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.TRefSou"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TRefLoa",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.TRefLoa"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "Q_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.Q_flow"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "P",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.P"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "coeQ",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.coeQ"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "coeP",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "dat.perFit.coo.coeP"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Performance data - Equation fit model"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Routing.BooleanPassThrough",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1Hea"
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "is_rev"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Operating mode command: true=heating, false=cooling",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -80,
+                                      "y": 130
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Logical.Sources.Constant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1HeaNonRev",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "k",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "not is_rev"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Placeholder signal for non-reversible heat pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -40,
+                                      "y": 130
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Controls.StatusEmulator",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1_actual"
+                      },
+                      "description": {
+                        "description_string": "Compute heat pump status",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 40,
+                                      "y": 130
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Fluid.Sensors.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mChiHeaWat_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW/HW mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -90,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Fluid.Sensors.TemperatureTwoPort",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiHeaWatEnt",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "max",
+                                          "arguments": [
+                                            {
+                                              "name": "mChiWat_flow_nominal"
+                                            },
+                                            {
+                                              "name": "mHeaWat_flow_nominal"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW/HW entering temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -60,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -40,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Fluid.Sensors.TemperatureTwoPort",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiHeaWatLvg",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "max",
+                                          "arguments": [
+                                            {
+                                              "name": "mChiWat_flow_nominal"
+                                            },
+                                            {
+                                              "name": "mHeaWat_flow_nominal"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW/HW leaving temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 70,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Fluid.Sensors.TemperatureTwoPort",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSouEnt",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumSou"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "mSouHea_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Source fluid entering temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 40,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Fluid.Sensors.TemperatureTwoPort",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSouLvg",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumSou"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "mSouHea_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Source fluid leaving temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -30,
+                                      "y": -20
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.HeatPumps.EquationFitReversible",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hp",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "uMod",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium1",
+                                    "value": {
+                                      "name": "MediumHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium2",
+                                    "value": {
+                                      "name": "MediumSou"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "per",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "datPerFit"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "energyDynamics",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "energyDynamics"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat pump",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -16
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 4
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1Int"
+                      },
+                      "description": {
+                        "description_string": "Convert on/off command into integer",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -20,
+                                      "y": 90
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y1HeaInt",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "y",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "integerTrue",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "integerFalse",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "-1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Convert heating mode command into integer",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -80,
+                                      "y": 90
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Integers.Multiply",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mulInt"
+                      },
+                      "description": {
+                        "description_string": "Combine on/off and operating mode command signals",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -20,
+                                      "y": 50
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1Hea"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1Hea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 0,
+                                      "y": 160
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 156
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 156
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 142
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 204,
+                                    "b": 51
+                                  },
+                                  "thickness": 0.5
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mChiHeaWat_flow"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -100,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -90,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mChiHeaWat_flow"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TChiHeaWatEnt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -70,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -60,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TChiHeaWatLvg"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 90,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 100,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TSouLvg"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_bSou"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -40,
+                                      "y": -20
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": -20
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": -140
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1Hea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1HeaInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -80,
+                                      "y": 119
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 110.5
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 110.5
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 102
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1HeaNonRev"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1HeaInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -40,
+                                      "y": 118
+                                    },
+                                    {
+                                      "x": -40,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 102
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1HeaInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mulInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u2"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -80,
+                                      "y": 78
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": 62
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1Int"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mulInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u1"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -20,
+                                      "y": 78
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": -14,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": -14,
+                                      "y": 62
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TChiHeaWatEnt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a1"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -40,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b1"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TChiHeaWatLvg"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 10,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 70,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TSouLvg"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b2"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -20,
+                                      "y": -20
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -12
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": -12
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TSouEnt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a2"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 20,
+                                      "y": -20
+                                    },
+                                    {
+                                      "x": 20,
+                                      "y": -12
+                                    },
+                                    {
+                                      "x": 10,
+                                      "y": -12
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1Int"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 0,
+                                      "y": 160
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": 102
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 204,
+                                    "b": 51
+                                  },
+                                  "thickness": 0.5
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TSet"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TSet"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 0,
+                                      "y": 160
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 86
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 86
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 10
+                                    },
+                                    {
+                                      "x": -16,
+                                      "y": 10
+                                    },
+                                    {
+                                      "x": -16,
+                                      "y": 3
+                                    },
+                                    {
+                                      "x": -11.4,
+                                      "y": 3
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 204,
+                                    "b": 51
+                                  },
+                                  "thickness": 0.5
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mulInt"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "hp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "uMod"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -20,
+                                      "y": 38
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -6
+                                    },
+                                    {
+                                      "x": -11,
+                                      "y": -6
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1_actual"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1_actual"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1_actual"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 40,
+                                      "y": 142
+                                    },
+                                    {
+                                      "x": 40,
+                                      "y": 156
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 156
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 160
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y1_actual"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y1"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 0,
+                                      "y": 160
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": 40,
+                                      "y": 110
+                                    },
+                                    {
+                                      "x": 40,
+                                      "y": 118
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 204,
+                                    "b": 51
+                                  },
+                                  "thickness": 0.5
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"heaPum\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis is a model for an air-to-water heat pump where the capacity\nand drawn power are computed based on the equation fit method.\nThe model can be configured with the parameter <code>is_rev</code>\nto represent either a non-reversible heat pump (heating only) or a\nreversible heat pump.\nThis model uses\n<a href=\\\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\\\">\nBuildings.Fluid.HeatPumps.EquationFitReversible</a>,\nwhich the user may refer to for the modeling assumptions.\n</p>\n<h4>Control points</h4>\n<p>\nThe following input and output points are available.\n</p>\n<ul>\n<li>\nHeat pump on/off command signal <code>y1</code>:\nDO signal, with a dimensionality of zero\n</li>\n<li>For reversible heat pumps only (<code>is_rev=true</code>),\nHeat pump operating mode command signal <code>y1Hea</code>:\nDO signal, with a dimensionality of zero<br/>\n(<code>y1Hea=true</code> for heating mode,\n<code>y1Hea=false</code> for cooling mode)\n</li>\n<li>\nHeat pump supply temperature setpoint <code>TSet</code>:\nAO signal, with a dimensionality of zero<br/>\n(for reversible heat pumps, the setpoint value must be\nswitched externally between HW and CHW supply temperature)\n</li>\n<li>\nHeat pump status <code>y1_actual</code>:\nDI signal, with a dimensionality of zero\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 29, 2024, by Antoine Gautier:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Interfaces/PartialHeatPumpEquationFit.mo",
+  "fullMoFilePath": "Buildings/Templates/Components/Interfaces/PartialHeatPumpEquationFit.mo",
+  "checksum": "b4db8b355514171c47d7d2d3681287e4"
+}

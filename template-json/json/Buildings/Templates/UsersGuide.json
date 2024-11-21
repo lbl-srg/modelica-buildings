@@ -1,0 +1,137 @@
+{
+  "within": "Buildings.Templates",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "UsersGuide",
+          "description_string": "Templates user guide",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Information"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "class",
+                  "class_specifier": {
+                    "long_class_specifier": {
+                      "identifier": "Conventions",
+                      "description_string": "Conventions",
+                      "composition": {
+                        "element_list": [
+                          {
+                            "extends_clause": {
+                              "name": "Modelica.Icons.Information"
+                            }
+                          }
+                        ],
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "preferredView",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"info\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Documentation",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "info",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"<html>\n<h4>Control point connections</h4>\n<p>\nInside a template class, the connect clauses involving control points\ntypically do not have\nany graphical annotation and are therefore not rendered as\nconnection lines in the diagram view.\nThose connect clauses are grouped together in a dedicated section of\nthe equation section of each class, namely\n<code>/* Control point connection - (start | stop) */</code>.\n</p>\n\n<h4>Definitions</h4>\n<h5>System</h5>\n<p>\nWe adopt the definition hereafter from ASHRAE (2021).\n</p>\n<p>\nA set of components is a system if they share a load in\ncommon (i.e., collectively act as a source to downstream\nequipment, such as a set of chillers in a lead/lag relation-\nship serving air handlers).\n</p>\n<ul>\n<li>\nEach air handler constitutes its own separate system\nbecause it does not share a load (terminal unit) in common with\nthe other air handlers.\n</li>\n<li>\nEach VAV box constitutes its own system because it does\nnot share a load (conditioned space) in common with the other VAV boxes.\n</li>\n</ul>\n\n<h4>Abbreviations</h4>\n<p>\nThe following abbreviations are used in that package.<br/>\n</p>\n<table summary=\\\"log levels\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\" style=\\\"border-collapse:collapse;\\\">\n<tr><th>Abbreviation</th><th>Description</th></tr>\n<tr><td>AI</td><td>Analog input (integer or real)</td></tr>\n<tr><td>AFMS</td><td>Airflow measuring station</td></tr>\n<tr><td>AHU</td><td>Air handling unit</td></tr>\n<tr><td>AO</td><td>Analog output (integer or real)</td></tr>\n<tr><td>CHW</td><td>Chilled water</td></tr>\n<tr><td>CW</td><td>Condenser water</td></tr>\n<tr><td>DHW</td><td>Domestic hot water</td></tr>\n<tr><td>DI</td><td>Digital input (Boolean)</td></tr>\n<tr><td>DO</td><td>Digital output (Boolean)</td></tr>\n<tr><td>DOAS</td><td>Dedicated outdoor air system</td></tr>\n<tr><td>DP</td><td>Differential pressure</td></tr>\n<tr><td>HHW</td><td>Heating hot water</td></tr>\n<tr><td>OA</td><td>Outdoor air</td></tr>\n<tr><td>VAV</td><td>Variable air volume</td></tr>\n<tr><td>VFD</td><td>Variable frequency drive</td></tr>\n</table>\n\n<h4>References</h4>\n<ul>\n<li>\nASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation\nfor HVAC Systems. Atlanta, GA.\n</li>\n</ul>\n</html>\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 11, 2022, by Antoine Gautier:<br/>\nCreated user guide.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis user guide describes how to use the templates.\n</p>\n<h4>Physical boundaries</h4>\n<p>\nThe templates are defined at the system level, such as an air handler\nor a terminal unit (refer to\n<a href=\\\"modelica://Buildings.Templates.UsersGuide.Conventions\\\">\nBuildings.Templates.UsersGuide.Conventions</a>\nfor the definition of a system).\nA template is a self-contained model that can be reconfigured\nby redeclaring some of its components or modifying some \nstructural parameters.\nSuch configuration does not require any further modification\nof the template.\nIn particular, all connect clauses between replaceable components \nare resolved internally without user intervention.\nThe same applies to sensors that are required for a specific control\noption and instantiated only when that option is selected.\n</p>\n<h4>Creation of a simulation model</h4>\n<p>\nCurrently, there is no template that represents a complete HVAC system\nfrom the plant to the zone equipment.\nIn order to create a simulation model for a complete HVAC system,\none must\n</p>\n<ol>\n<li>\ninstantiate the templates (or any derived class representing a particular\nconfiguration) of the different subsystems (e.g., the CHW and HHW plants,\nthe air handlers and the terminal equipment),\n</li>\n<li>\nif necessary, configure these instances to represent project-specific\nsystem configurations if these configurations differ from the default\nconfiguration proposed for each template,\n</li>\n<li>\nconnect the fluid ports of the different instances together,\n</li>\n<li>\nconnect the signal busses of the different instances to each other,\n</li>\n<li>\nfill in the parameter records of the different instances with\nproper design and operating parameter values.\n</li>\n</ol>\n<p>\nWhen assembling a model for a complete HVAC system,\nthe user must ensure that the control\nsequence selected for one subsystem is compatible\nwith that selected for another subsystem.\nFor example, the AHU controller may require reset requests\nthat originate from the zone equipment controller.\nIf the controller selected for the zone equipment does not\ngenerate such requests, the simulation model will be singular.\nSelecting controllers from the same reference&mdash;e.g.,\nASHRAE (2021)&mdash;is the safest way \nto ensure consistency throughout the HVAC system model.\n</p>\n<h4>Model parameters</h4>\n<p>\nEach template contains an instance <code>dat</code> of a record class that \ncontains all design and operating parameters for parameterizing\nthe subcomponents of the template.\nFor example, the multiple-zone VAV template \n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\\\">\nBuildings.Templates.AirHandlersFans.VAVMultiZone</a>\ncontains an instance of the record class\n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans.Data.VAVMultiZone\\\">\nBuildings.Templates.AirHandlersFans.Data.VAVMultiZone</a>\nwhich contains the parameters for configuring the heating coil component,\nas an instance of the record class  \n<a href=\\\"modelica://Buildings.Templates.Components.Data.Coil\\\">\nBuildings.Templates.Components.Data.Coil</a>.\nAll design and operating parameters should be assigned through this record instance\nand are propagated down to each subcomponent.\n</p>\n<p>\nIn addition to these parameters, the record class also contains the configuration\nparameters that define the system layout and control options.\nThese configuration parameters are bound to the values that are assigned via\nthe template's parameter dialog.\nIn this way, only the set of parameters needed for the particular system layout \nfor which the template is configured is displayed in the parameter dialog.\nNote that these configuration parameters are disabled in the record class\nto avoid any modification by the user and preserve the bindings with the \ntemplate parameters.\n</p>\n<p>\nWhen creating a model for a complete HVAC system with multiple instances of \ndifferent templates, the class\n<a href=\\\"modelica://Buildings.Templates.Data.AllSystems\\\">\nBuildings.Templates.Data.AllSystems</a>\ncan be used at the top level of the model to assign all design and operating parameters.\nThis class allows the use of Modelica outer components to retrieve the configuration \nparameter values for each template instance based on the instance name.\nThus, it is the avatar in the modeling environment of an HVAC project datasheet.\nThe validation models within \n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans.Validation\\\">\nBuildings.Templates.AirHandlersFans.Validation</a>\nillustrate the use of this class.\n</p>\n<h4>References</h4>\n<ul>\n<li>\nASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation\nfor HVAC Systems. Atlanta, GA.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/UsersGuide.mo",
+  "fullMoFilePath": "Buildings/Templates/UsersGuide.mo",
+  "checksum": "0535340d8defa44621c88016fe364546"
+}

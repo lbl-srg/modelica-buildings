@@ -1,0 +1,741 @@
+{
+  "within": "Buildings.Templates.Components.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PumpMultiple",
+          "description_string": "Record for multiple-pump models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Types.Pump",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "typ"
+                      },
+                      "description": {
+                        "description_string": "Equipment type",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Configuration\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "false"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nPum",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of pumps",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Configuration\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "false"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_nominal",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nPum"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate - Each pump",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp_nominal",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nPum"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Total pressure rise - Each pump",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "<>"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "constraining_clause": {
+                  "name": "Buildings.Fluid.Movers.Data.Generic"
+                },
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Fluid.Movers.Data.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "per",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "nPum"
+                                    },
+                                    {
+                                      "name": "1"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "pressure",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "V_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": {
+                                                          "logical_expression": {
+                                                            "logical_or": [
+                                                              {
+                                                                "logical_and": [
+                                                                  {
+                                                                    "arithmetic_expressions": [
+                                                                      {
+                                                                        "name": "typ"
+                                                                      },
+                                                                      {
+                                                                        "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                      }
+                                                                    ],
+                                                                    "relation_operator": "<>"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": {
+                                                          "for_loop": {
+                                                            "expression": {
+                                                              "simple_expression": "{0,1,2}*m_flow_nominal[i]/rho_default"
+                                                            },
+                                                            "for_loop": [
+                                                              {
+                                                                "name": "i",
+                                                                "range": "1:nPum"
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "[0]"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dp",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": {
+                                                          "logical_expression": {
+                                                            "logical_or": [
+                                                              {
+                                                                "logical_and": [
+                                                                  {
+                                                                    "arithmetic_expressions": [
+                                                                      {
+                                                                        "name": "typ"
+                                                                      },
+                                                                      {
+                                                                        "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                                      }
+                                                                    ],
+                                                                    "relation_operator": "<>"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": {
+                                                          "for_loop": {
+                                                            "expression": {
+                                                              "simple_expression": "{1.14,1,0.42}*dp_nominal[i]"
+                                                            },
+                                                            "for_loop": [
+                                                              {
+                                                                "name": "i",
+                                                                "range": "1:nPum"
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "[0]"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "description": {
+                  "description_string": "Performance data - Each pump",
+                  "annotation": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "Dialog",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "enable",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": {
+                                          "logical_expression": {
+                                            "logical_or": [
+                                              {
+                                                "logical_and": [
+                                                  {
+                                                    "arithmetic_expressions": [
+                                                      {
+                                                        "name": "typ"
+                                                      },
+                                                      {
+                                                        "name": "Buildings.Templates.Components.Types.Pump.None"
+                                                      }
+                                                    ],
+                                                    "relation_operator": "<>"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Density",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "rho_default",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Modelica.Media.Water.ConstantPropertyLiquidWater.d_const"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Default medium density",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "false"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"datPum\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis record provides the set of sizing and operating parameters for \nthe multiple-pump model\n<a href=\\\"modelica://Buildings.Templates.Components.Pumps.Multiple\\\">\nBuildings.Templates.Components.Pumps.Multiple</a>.\n</p>\n<p>\nA default flow characteristic is provided, which goes through\nthe design operating point and spans over\n<i>0</i> and twice the design flow rate at maximum speed.\nThis default characteristic is based on a least squares\npolynomial fit of the characteristics from\n<a href=\\\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\\\">\nBuildings.Fluid.Movers.Data.Pumps.Wilo</a>.\nThe user may refer to the documentation of \n<a href=\\\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\\\">\nBuildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>\nfor further details.\nNote that a default medium density is used to parameterize \nthe pump characteristic. So models that use this record should\noverwrite this default value with the density of the medium\nin use, especially in the case of a water/glycol mix. \n</p>\n<p>\nIn order to modify the default characteristic, one may use either\nof the following methods.\n</p>\n<ul>\n<li>Assign the whole subrecord <code>per</code> or\nonly its component <code>per.pressure</code>.\nIn this case the elements <code>per[i]</code> may differ one from another.\nThis is the recommended approach for unequally sized units \nsuch as dedicated pumps.</li>\n<li>Redeclare the component <code>per</code>.\nIn this case the elements <code>per[i]</code> are all equal to the redeclared\nrecord instance.\nThis is the recommended approach for equally sized units \nsuch as headered pumps.</li>\n</ul>\n<p>\nThose various use cases are illustrated in\n<a href=\\\"modelica://Buildings.Templates.Components.Validation.PumpMultipleRecord\\\">\nBuildings.Templates.Components.Validation.PumpMultipleRecord</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Data/PumpMultiple.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Templates/Components/Data/PumpMultiple.mo",
+  "checksum": "64d1f56f617c015538c0bd222077fd2a"
+}

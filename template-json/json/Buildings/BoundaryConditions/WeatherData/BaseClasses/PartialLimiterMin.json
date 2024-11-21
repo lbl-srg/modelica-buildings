@@ -1,0 +1,155 @@
+{
+  "within": "Buildings.BoundaryConditions.WeatherData.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialLimiterMin",
+          "description_string": "Partial block to limit a signal",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u"
+                      },
+                      "description": {
+                        "description_string": "Connector of Real input signal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"limMin\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial block that is used to limit a signal by a minimum value.\n</p>\n<p>\nThis block is used because interpolation of weather data can lead to slightly\nnegative values. This block is extended by other blocks\nthat then provide the output connector.\nExtending this block is needed for the output connector to have the correct\ncomment string in the weather data bus, because the weather\ndata bus displays the comment string of the output signal\nthat is connected to the weather data bus.\nWithout this construct, the weather data bus would simply show\n\\\"Connector of Real output signal\\\".\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 14, 2020, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 30
+                                      },
+                                      {
+                                        "x": 98,
+                                        "y": -16
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/BoundaryConditions/WeatherData/BaseClasses/PartialLimiterMin.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/BoundaryConditions/WeatherData/BaseClasses/PartialLimiterMin.mo",
+  "checksum": "2461dd47dc9e3b5c8680ffd03e6fbeda"
+}

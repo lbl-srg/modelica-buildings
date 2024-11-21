@@ -1,0 +1,832 @@
+{
+  "within": "Buildings.Fluid.Sensors",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "RelativePressure",
+          "description_string": "Ideal relative pressure sensor",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.RectangularSensor"
+                }
+              },
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialMedium",
+                        "description": {
+                          "description_string": "Medium in the sensor",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choices",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Air",
+                                                          "description": {
+                                                            "description_string": "Moist air"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Water",
+                                                          "description": {
+                                                            "description_string": "Water"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Antifreeze.PropyleneGlycolWater",
+                                                          "class_modification": [
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "property_T",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "293.15"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "X_a",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "0.4"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ],
+                                                          "description": {
+                                                            "description_string": "Propylene glycol water, 40% mass fraction"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Interfaces.FluidPort_a",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_a",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.p_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_redeclaration": {
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fluid connector of stream a",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Interfaces.FluidPort_b",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_b",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.p_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_redeclaration": {
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fluid connector of stream b",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 110,
+                                        "y": -12
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 8
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": 110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p_rel",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"PressureDifference\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Relative pressure of port_a minus port_b",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": -90
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.m_flow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.m_flow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.h_outflow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.h_outflow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nXi"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nXi"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nC"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nC"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "p_rel",
+                        "rhs": {
+                          "simple_expression": "port_a.p -port_b.p"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"senRelPre\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -100,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 70,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 80
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 130,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 4,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "textString": "\"p_rel\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 32,
+                                        "y": 3
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": 3
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 22,
+                                        "y": 18
+                                      },
+                                      {
+                                        "x": 62,
+                                        "y": 3
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": -12
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": 18
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -56
+                                      },
+                                      {
+                                        "x": -140,
+                                        "y": -106
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(p_rel",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThe relative pressure <code>port_a.p - port_b.p</code> is determined between\nthe two ports of this component and is provided as output signal. The\nsensor should be connected in parallel with other equipment, no flow\nthrough the sensor is allowed.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nFebruary 25, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nJanuary 18, 2019, by Jianjun Hu:<br/>\nLimited the media choice.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\\\">#1050</a>.\n</li>\n<li>\nFebruary 19, 2016, by Michael Wetter:<br/>\nCorrected the quantity of the output signal from <code>Pressure</code>\nto <code>PressureDifference</code>.\nThis was needed for the model\n<a href=\\\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\\\">\nBuildings.Fluid.Movers.FlowControlled_m_flow</a>\nwhen revising it for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/417\\\">\nissue 417</a>.\n</li>\n<li>\nSeptember 29, 2009, by Michael Wetter:<br/>\nFirst implementation, based on <code>Modelica.Fluid</code>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sensors/RelativePressure.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sensors/RelativePressure.mo",
+  "checksum": "4d545342a5e10f5fa3baa3ab93b9baac"
+}

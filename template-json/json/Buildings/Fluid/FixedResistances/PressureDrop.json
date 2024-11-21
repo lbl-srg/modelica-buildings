@@ -1,0 +1,629 @@
+{
+  "within": "Buildings.Fluid.FixedResistances",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PressureDrop",
+          "description_string": "Fixed flow resistance with dp and m_flow as parameter",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.BaseClasses.PartialResistance",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "m_flow_turbulent",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "if_expression": {
+                                "if_elseif": [
+                                  {
+                                    "condition": {
+                                      "simple_expression": "computeFlowResistance"
+                                    },
+                                    "then": {
+                                      "simple_expression": "deltaM*m_flow_nominal_pos"
+                                    }
+                                  }
+                                ],
+                                "else_expression": {
+                                  "simple_expression": "0"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltaM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0.000001"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.3"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fraction of nominal mass flow rate where transition to turbulent occurs",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Transition to laminar\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not linearized"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "k",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "computeFlowResistance"
+                                  },
+                                  "then": {
+                                    "simple_expression": "m_flow_nominal_pos/sqrt(dp_nominal_pos)"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "computeFlowResistance",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "([object Object])"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flag to enable/disable computation of flow resistance",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "Evaluate",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "true"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "coeff",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "linearized and computeFlowResistance"
+                                      },
+                                      "then": {
+                                        "if_expression": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": "from_dp"
+                                              },
+                                              "then": {
+                                                "simple_expression": "k^2/m_flow_nominal_pos"
+                                              }
+                                            }
+                                          ],
+                                          "else_expression": {
+                                            "simple_expression": "m_flow_nominal_pos/k^2"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "0"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Precomputed coefficient to avoid division by parameter"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "computeFlowResistance"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "m_flow_turbulent"
+                                                        },
+                                                        {
+                                                          "name": "0"
+                                                        }
+                                                      ],
+                                                      "relation_operator": ">"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"m_flow_turbulent must be bigger than zero.\""
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "m_flow_nominal_pos"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"m_flow_nominal_pos must be non-zero. Check parameters.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "computeFlowResistance"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "linearized"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "if_equation": {
+                                                "if_elseif": [
+                                                  {
+                                                    "condition": {
+                                                      "simple_expression": "from_dp"
+                                                    },
+                                                    "then": [
+                                                      {
+                                                        "equation": {
+                                                          "assignment_equation": {
+                                                            "lhs": "m_flow",
+                                                            "rhs": {
+                                                              "simple_expression": "dp*coeff"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "else_equation": [
+                                                  {
+                                                    "assignment_equation": {
+                                                      "lhs": "dp",
+                                                      "rhs": {
+                                                        "simple_expression": "m_flow*coeff"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "if_equation": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": "homotopyInitialization"
+                                              },
+                                              "then": [
+                                                {
+                                                  "equation": {
+                                                    "if_equation": {
+                                                      "if_elseif": [
+                                                        {
+                                                          "condition": {
+                                                            "simple_expression": "from_dp"
+                                                          },
+                                                          "then": [
+                                                            {
+                                                              "equation": {
+                                                                "assignment_equation": {
+                                                                  "lhs": "m_flow",
+                                                                  "rhs": {
+                                                                    "simple_expression": {
+                                                                      "function_call": {
+                                                                        "name": "homotopy",
+                                                                        "arguments": [
+                                                                          {
+                                                                            "name": "actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent),simplified=m_flow_nominal_pos*dp/dp_nominal_pos"
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      ],
+                                                      "else_equation": [
+                                                        {
+                                                          "assignment_equation": {
+                                                            "lhs": "dp",
+                                                            "rhs": {
+                                                              "simple_expression": {
+                                                                "function_call": {
+                                                                  "name": "homotopy",
+                                                                  "arguments": [
+                                                                    {
+                                                                      "name": "actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent),simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "else_equation": [
+                                            {
+                                              "if_equation": {
+                                                "if_elseif": [
+                                                  {
+                                                    "condition": {
+                                                      "simple_expression": "from_dp"
+                                                    },
+                                                    "then": [
+                                                      {
+                                                        "equation": {
+                                                          "assignment_equation": {
+                                                            "lhs": "m_flow",
+                                                            "rhs": {
+                                                              "simple_expression": {
+                                                                "function_call": {
+                                                                  "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp",
+                                                                  "arguments": [
+                                                                    {
+                                                                      "name": "dp=dp,k=k,m_flow_turbulent=m_flow_turbulent"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                ],
+                                                "else_equation": [
+                                                  {
+                                                    "assignment_equation": {
+                                                      "lhs": "dp",
+                                                      "rhs": {
+                                                        "simple_expression": {
+                                                          "function_call": {
+                                                            "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                                                            "arguments": [
+                                                              {
+                                                                "name": "m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent"
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"res\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel of a flow resistance with a fixed flow coefficient.\nThe mass flow rate is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\nm&#775; = k\n&radic;<span style=\\\"text-decoration:overline;\\\">&Delta;p</span>,\n</p>\n<p>\nwhere\n<i>k</i> is a constant and\n<i>&Delta;p</i> is the pressure drop.\nThe constant <i>k</i> is equal to\n<code>k=m_flow_nominal/sqrt(dp_nominal)</code>,\nwhere <code>m_flow_nominal</code> and <code>dp_nominal</code>\nare parameters.\n</p>\n<h4>Assumptions</h4>\n<p>\nIn the region\n<code>abs(m_flow) &lt; m_flow_turbulent</code>,\nthe square root is replaced by a differentiable function\nwith finite slope.\nThe value of <code>m_flow_turbulent</code> is\ncomputed as\n<code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,\nwhere <code>deltaM=0.3</code> and\n<code>m_flow_nominal</code> are parameters that can be set by the user.\n</p>\n<p>\nThe figure below shows the pressure drop for the parameters\n<code>m_flow_nominal=5</code> kg/s,\n<code>dp_nominal=10</code> Pa and\n<code>deltaM=0.3</code>.\n</p>\n<p align=\\\"center\\\">\n<img alt=\\\"image\\\" src=\\\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/PressureDrop.png\\\"/>\n</p>\n<h4>Important parameters</h4>\n<p>\nThe parameter <code>from_dp</code> is used to determine\nwhether the mass flow rate is computed as a function of the\npressure drop (if <code>from_dp=true</code>), or vice versa.\nThis setting can affect the size of the nonlinear system of equations.\n</p>\n<p>\nIf the parameter <code>linearized</code> is set to <code>true</code>,\nthen the pressure drop is computed as a linear function of the\nmass flow rate.\n</p>\n<p>\nSetting <code>allowFlowReversal=false</code> can lead to simpler\nequations. However, this should only be set to <code>false</code>\nif one can guarantee that the flow never reverses its direction.\nThis can be difficult to guarantee, as pressure imbalance after\nthe initialization, or due to medium expansion and contraction,\ncan lead to reverse flow.\n</p>\n<p>\nIf the parameter\n<code>show_T</code> is set to <code>true</code>,\nthen the model will compute the\ntemperature at its ports. Note that this can lead to state events\nwhen the mass flow rate approaches zero,\nwhich can increase computing time.\n</p>\n<h4>Notes</h4>\n<p>\nFor more detailed models that compute the actual flow friction,\nmodels from the package\n<a href=\\\"modelica://Modelica.Fluid\\\">\nModelica.Fluid</a>\ncan be used and combined with models from the\n<code>Buildings</code> library.\n</p>\n<p>\nFor a model that uses the hydraulic parameter and flow velocity at nominal conditions\nas a parameter, use\n<a href=\\\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\\\">\nBuildings.Fluid.FixedResistances.HydraulicDiameter</a>.\n</p>\n<h4>Implementation</h4>\n<p>\nThe pressure drop is computed by calling a function in the package\n<a href=\\\"modelica://Buildings.Fluid.BaseClasses.FlowModels\\\">\nBuildings.Fluid.BaseClasses.FlowModels</a>,\nThis package contains regularized implementations of the equation\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m&#775; = sign(&Delta;p) k  &radic;<span style=\\\"text-decoration:overline;\\\">&nbsp;&Delta;p &nbsp;</span>\n</p>\n<p>\nand its inverse function.\n</p>\n<p>\nTo decouple the energy equation from the mass equations,\nthe pressure drop is a function of the mass flow rate,\nand not the volume flow rate.\nThis leads to simpler equations.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 21, 2018, by Michael Wetter:<br/>\nDecrease value of <code>deltaM(min=...)</code> attribute.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1026\\\">#1026</a>.\n</li>\n<li>\nFebruary 3, 2018, by Filip Jorissen:<br/>\nRevised implementation of pressure drop equation\nsuch that it depends on <code>from_dp</code>\nwhen <code>linearized=true</code>.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/884\\\">#884</a>.\n</li>\n<li>\nDecember 1, 2016, by Michael Wetter:<br/>\nSimplified model by removing the geometry dependent parameters into the new\nmodel\n<a href=\\\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\\\">\nBuildings.Fluid.FixedResistances.HydraulicDiameter</a>.\n</li>\n<li>\nNovember 23, 2016, by Filip Jorissen:<br/>\nRemoved <code>dp_nominal</code> and\n<code>m_flow_nominal</code> labels from icon.\n</li>\n<li>\nOctober 14, 2016, by Michael Wetter:<br/>\nUpdated comment for parameter <code>use_dh</code>.\n</li>\n<li>\nNovember 26, 2014, by Michael Wetter:<br/>\nAdded the required <code>annotation(Evaluate=true)</code> so\nthat the system of nonlinear equations in\n<a href=\\\"modelica://Buildings.Fluid.FixedResistances.Validation.PressureDropsExplicit\\\">\nBuildings.Fluid.FixedResistances.Validation.PressureDropsExplicit</a>\nremains the same.\n</li>\n<li>\nNovember 20, 2014, by Michael Wetter:<br/>\nRewrote the warning message using an <code>assert</code> with\n<code>AssertionLevel.warning</code>\nas this is the proper way to write warnings in Modelica.\n</li>\n<li>\nAugust 5, 2014, by Michael Wetter:<br/>\nCorrected error in documentation of computation of <code>k</code>.\n</li>\n<li>\nMay 29, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nOctober 8, 2013, by Michael Wetter:<br/>\nRemoved parameter <code>show_V_flow</code>.\n</li>\n<li>\nDecember 14, 2012 by Michael Wetter:<br/>\nRenamed protected parameters for consistency with the naming conventions.\n</li>\n<li>\nJanuary 16, 2012 by Michael Wetter:<br/>\nTo simplify object inheritance tree, revised base classes\n<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>\nand model\n<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.\n</li>\n<li>\nMay 30, 2008 by Michael Wetter:<br/>\nAdded parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.\n</li>\n<li>\nJuly 20, 2007 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/FixedResistances/PressureDrop.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/FixedResistances/PressureDrop.mo",
+  "checksum": "c52c1a69e88c90b700b07503225de811"
+}

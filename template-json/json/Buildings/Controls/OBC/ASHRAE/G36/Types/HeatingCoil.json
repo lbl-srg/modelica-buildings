@@ -1,0 +1,93 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "HeatingCoil",
+          "value": {
+            "description": {
+              "description_string": "Enumeration to configure the heating coil",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration to define heating coil options. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n\n<tr><td><code>None</code></td>\n<td>\nNo coil.\n</td></tr>\n<tr><td><code>WaterBased</code></td>\n<td>\nHot water coil.\n</td></tr>\n<tr><td><code>Electric</code></td>\n<td>\nModulating electric heating coil.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 22, 2023, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "None",
+                "description": {
+                  "description_string": "No coil"
+                }
+              },
+              {
+                "identifier": "WaterBased",
+                "description": {
+                  "description_string": "Hot water coil"
+                }
+              },
+              {
+                "identifier": "Electric",
+                "description": {
+                  "description_string": "Modulating electric heating coil"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/HeatingCoil.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/HeatingCoil.mo",
+  "checksum": "3e643cf2dd79b3660987a12f32cfc9f7"
+}

@@ -1,0 +1,192 @@
+{
+  "within": "Buildings.Fluid.Movers.BaseClasses.Characteristics",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "flowParametersInternal",
+          "description_string": "Record for flow parameters with prescribed size",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "n"
+                      },
+                      "description": {
+                        "description_string": "Number of elements in each array",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.VolumeFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "V_flow",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "n"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume flow rate at user-selected operating points"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "n"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fan or pump total pressure at these flow rates"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nData record for performance data that describe volume flow rate versus\npressure rise.\nThe volume flow rate <code>V_flow</code> must be increasing, i.e.,\n<code>V_flow[i] &lt; V_flow[i+1]</code>.\nBoth vectors, <code>V_flow</code> and <code>dp</code>\nmust have the same size.\n</p>\n<p>\nThis record is identical to\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters\\\">\nBuildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters</a>,\nexcept that it takes the size of the array as a parameter. This is required\nin Dymola 2014. Otherwise, the array size would need to be computed in\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\\\">\nBuildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>\nin the <code>initial algorithm</code> section, which is not supported.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 11, 2016 by Michael Wetter:<br/>\nCorrected wrong hyperlink in documentation for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/450\\\">issue 450</a>.\n</li>\n<li>\nJanuary 22, 2016, by Michael Wetter:<br/>\nCorrected type declaration of pressure difference.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/404\\\">#404</a>.\n</li>\n<li>\nMarch 22, 2013, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParametersInternal.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Movers/BaseClasses/Characteristics/flowParametersInternal.mo",
+  "checksum": "0f1487d54ccf28a244c498cdf4540394"
+}

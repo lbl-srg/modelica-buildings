@@ -1,0 +1,630 @@
+{
+  "within": "Buildings.Fluid.Actuators.Valves",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TwoWayTable",
+          "description_string": "Two way valve with table-specified flow characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "BaseClasses.PartialTwoWayValveKv",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "phi",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "0.1*l"
+                                    },
+                                    {
+                                      "name": "phiLooUp.y[1]"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "l",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "phiLooUp.table[1,2]"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Data.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "flowCharacteristics"
+                      },
+                      "description": {
+                        "description_string": "Table with flow characteristics",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "choicesAllMatching",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": 80
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Tables.CombiTable1Dv",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "phiLooUp",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "tableOnFile",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "table",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "[flowCharacteristics.y,[object Object]]"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "columns",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "2:2"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "smoothness",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "Modelica.Blocks.Types.Smoothness.ContinuousDerivative"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Normalized mass flow rate for the given valve position under the assumption of a constant pressure",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": 70,
+                                            "y": 60
+                                          },
+                                          {
+                                            "x": 90,
+                                            "y": 80
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "abs(flowCharacteristics.y[1])"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"flowCharateristics.y[1] must be 0.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "abs(flowCharacteristics.y[[object Object]] -1)"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"flowCharateristics.y[end] must be 1.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "abs(flowCharacteristics.phi[[object Object]] -1)"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"flowCharateristics.phi[end] must be 1.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "Buildings.Utilities.Math.Functions.isMonotonic",
+                                  "arguments": [
+                                    {
+                                      "name": "x=flowCharacteristics.y,strict=true"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"The values for y in flowCharacteristics must be strictly increasing.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "Buildings.Utilities.Math.Functions.isMonotonic",
+                                  "arguments": [
+                                    {
+                                      "name": "x=flowCharacteristics.phi,strict=true"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"The values for phi in flowCharacteristics must be strictly increasing.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "phiLooUp"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "1"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y_actual"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 68,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 50,
+                                      "y": 70
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"val\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nTwo way valve with opening characteristic that is configured through\na table.\n</p>\n<p>\nThe mass flow rate for the fully open valve is determined based\non the value of the parameter <code>CvData</code>.\nFor the different valve positions <i>y &isin; [0, 1]</i>, this nominal flow rate is\nscaled by the values of the parameter\n<code>flowCharacteristics</code>.\nThe parameter <code>flowCharacteristics</code> declares a table of the form\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\" style=\\\"border-collapse:collapse;\\\">\n<tr>\n<td><i>y</i></td>  <td>0</td>  <td>...</td>  <td>1</td>\n</tr>\n<tr>\n<td><i>&phi;</i></td>  <td><i>l</i></td>  <td>...</td>  <td>1</td>\n</tr>\n</table>\n<p>\nwhere <i>l = K<sub>v</sub>(y=0)/K<sub>v</sub>(y=1) &gt; 0</i> is the valve leakage.\nThe first row is the valve opening, and the second row is the\nmass flow rate, relative to the mass flow rate of the fully open\nvalve, under the assumption of a constant pressure difference across the\nvalve.\nA suggested value for the valve leakage is <i>l=0.0001</i>.\nIf <i>l = 0</i>, then this model will replace it with\n<i>l = 10<sup>-8</sup></i> for numerical reasons.\nFor example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and\na linear opening characteristics and\na valve leakage of <i>l=0.0001</i>, then one would set\n</p>\n<pre>\n CvData=Buildings.Fluid.Types.CvTypes.Kv\n Kv = 0.5\n flowCharacteristics(y={0,1}, phi={0.0001,1})\n </pre>\n<p>\nNote, however, that\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayLinear\\\">\nBuildings.Fluid.Actuators.Valves.TwoWayLinear</a> provides a more\nefficient implementation for this simple case.\n</p>\n<p>\nThe parameter <code>flowCharacteristics</code> must meet the following\nrequirements, otherwise the model stops with an error:\n</p>\n<ul>\n<li>\nTheir arrays\n<code>y</code> and <code>phi</code>\nmust be strictly increasing.\n</li>\n<li>\nThe first value must satisfy\n<code>y[1]=0</code>, and\n<code>phi[1]</code> must be equal to the\nleakage flow rate, which must be bigger than zero.\nOtherwise, a default value of <code>1E-8</code> is used.\n</li>\n<li>\nThe last values must satisfy\n<code>y[end]=1</code> and\n<code>phi[end]=1</code>.\n</li>\n</ul>\n<p>\nThis model is based on the partial valve model\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.\nCheck this model for more information, such\nas the regularization near the origin.\n</p>\n<p>\nFor an example that specifies an opening characteristics, see\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\\\">\nBuildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nAugust 7, 2020, by Ettore Zanetti:<br/>\nchanged the computation of <code>phi</code> using\n<code>max(0.1*l, . )</code> to avoid\nphi=0.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1376\\\">\nissue 1376</a>.\n</li>\n<li>\nNovember 9, 2019, by Filip Jorissen:<br/>\nGuarded the computation of <code>phi</code> using\n<code>max(0, . )</code> to avoid\nnegative phi.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\\\">\nissue 1223</a>.\n</li>\n<li>\nJanuary 26, 2016, by Michael Wetter:<br/>\nRemoved equality comparison for <code>Real</code> in the\n<code>assert</code> statements as this is not allowed in Modelica.\n</li>\n<li>\nAugust 12, 2014, by Michael Wetter:<br/>\nRemoved the <code>end</code> keyword when accessing array elements,\nas this language construct caused an error in OpenModelica.\n</li>\n<li>\nApril 4, 2014, by Michael Wetter:<br/>\nMoved the assignment of the flow function <code>phi</code>\nto the model instantiation because in its base class,\nthe keyword <code>input</code>\nhas been added to the variable <code>phi</code>.\n</li>\n<li>\nMarch 26, 2014 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -12,
+                                        "y": -11
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": 11
+                                      }
+                                    ],
+                                    "radius": 5,
+                                    "origin": {
+                                      "x": -56,
+                                      "y": -85
+                                    },
+                                    "lineColor": {
+                                      "r": 64,
+                                      "g": 64,
+                                      "b": 64
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 215,
+                                      "b": 136
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -68,
+                                        "y": -90
+                                      },
+                                      {
+                                        "x": -44,
+                                        "y": -90
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -56,
+                                        "y": -74
+                                      },
+                                      {
+                                        "x": -56,
+                                        "y": -96
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -68,
+                                        "y": -82
+                                      },
+                                      {
+                                        "x": -44,
+                                        "y": -82
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Valves/TwoWayTable.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Valves/TwoWayTable.mo",
+  "checksum": "7e102a2ea212cbc654d85b540b71c81f"
+}

@@ -1,0 +1,766 @@
+{
+  "within": "Buildings.Fluid.Chillers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ElectricReformulatedEIR",
+          "description_string": "Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Chillers.BaseClasses.PartialElectric",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "QEva_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.QEva_flow_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "COP_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.COP_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "PLRMax",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.PLRMax"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "PLRMinUnl",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.PLRMinUnl"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "PLRMin",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.PLRMin"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "etaMotor",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.etaMotor"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mEva_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.mEva_flow_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mCon_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.mCon_flow_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "TEvaLvg_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.TEvaLvg_nominal"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "per"
+                      },
+                      "description": {
+                        "description_string": "Performance data",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "choicesAllMatching",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 40,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 100
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.NonSI.Temperature_degC",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TConLvg_nominal_degC",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Modelica.Units.Conversions.to_degC",
+                                    "arguments": [
+                                      {
+                                        "name": "per.TConLvg_nominal"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Temperature of fluid leaving condenser at nominal condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.NonSI.Temperature_degC",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TConLvg_degC"
+                          },
+                          "description": {
+                            "description_string": "Temperature of fluid leaving condenser"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "Buildings.Utilities.Math.Functions.biquadratic",
+                                  "arguments": [
+                                    {
+                                      "name": "a=per.capFunT,x1=TEvaLvg_nominal_degC,x2=TConLvg_nominal_degC"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Capacity as a function of temperature \""
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "\"per.capFunT\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "TConLvg_degC",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Modelica.Units.Conversions.to_degC",
+                              "arguments": [
+                                {
+                                  "name": "TConLvg"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "on"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "capFunT",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                          "arguments": [
+                                            {
+                                              "name": "x1=0.000001,x2=Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT,x1=TEvaLvg_degC,x2=TConLvg_degC),deltaX=1e-7"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "EIRFunT",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.biquadratic",
+                                          "arguments": [
+                                            {
+                                              "name": "a=per.EIRFunT,x1=TEvaLvg_degC,x2=TConLvg_degC"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "EIRFunPLR",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.bicubic",
+                                          "arguments": [
+                                            {
+                                              "name": "a=per.EIRFunPLR,x1=TConLvg_degC,x2=PLR2"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "capFunT",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "EIRFunT",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "EIRFunPLR",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -104,
+                                        "y": 66
+                                      },
+                                      {
+                                        "x": 98,
+                                        "y": 54
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -2,
+                                        "y": 54
+                                      },
+                                      {
+                                        "x": 98,
+                                        "y": 66
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -44,
+                                        "y": 52
+                                      },
+                                      {
+                                        "x": -40,
+                                        "y": 12
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -56,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 58,
+                                        "y": 52
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -42,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": -52,
+                                        "y": 12
+                                      },
+                                      {
+                                        "x": -32,
+                                        "y": 12
+                                      },
+                                      {
+                                        "x": -42,
+                                        "y": 2
+                                      }
+                                    ],
+                                    "smooth": "Smooth.None",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -42,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": -52,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -32,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -42,
+                                        "y": 2
+                                      }
+                                    ],
+                                    "smooth": "Smooth.None",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -44,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -40,
+                                        "y": -50
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 38,
+                                        "y": 52
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -50
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 18,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": 62,
+                                        "y": -18
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 40,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": -8
+                                      },
+                                      {
+                                        "x": 58,
+                                        "y": -8
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 24
+                                      }
+                                    ],
+                                    "smooth": "Smooth.None",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel of an electric chiller, based on the model by\nHydeman et al. (2002) that has been developed in the CoolTools project\nand that is implemented in EnergyPlus as the model\n<code>Chiller:Electric:ReformulatedEIR</code>.\nThis empirical model is similar to\n<a href=\\\"modelica://Buildings.Fluid.Chillers.ElectricEIR\\\">\nBuildings.Fluid.Chillers.ElectricEIR</a>.\nThe difference is that to compute the performance, this model\nuses the condenser leaving temperature instead of the entering temperature,\nand it uses a bicubic polynomial to compute the part load performance.\n</p>\n\n<p>\nThis model uses three functions to predict capacity and power consumption:</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\" style=\\\"border-collapse:collapse;\\\">\n<thead>\n  <tr>\n    <th rowspan=\\\"2\\\">Function</th>\n    <th rowspan=\\\"2\\\">Description</th>\n    <th colspan=\\\"2\\\">Formulation</th>\n  </tr>\n  <tr>\n  <th><code><a href=\\\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\\\">ElectricEIR</a></code> (this model)</th>\n  <th><code><a href=\\\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\\\">ElectricReformulatedEIR</a></code> (this model)</th>\n  </tr>\n</thead>\n<tbody>\n  <tr>\n    <td><code>capFunT</code></td>\n    <td>Adjusts cooling capacity for current fluid temperatures</td>\n    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>\n    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>\n  </tr>\n  <tr>\n    <td><code>EIRFunPLR</code></td>\n    <td>Adjusts EIR for the current PLR</td>\n    <td>Quadratic on PLR</td>\n    <td>Bicubic on <code>TConLvg</code> and PLR</td>\n  </tr>\n  <tr>\n    <td><code>EIRFunT</code></td>\n    <td>Adjusts EIR for current fluid temperatures</td>\n    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>\n    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>\n  </tr>\n</tbody>\n</table>\n\n<p>\nThese curves are stored in the data record <code>per</code> and are available from\n<a href=\\\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\\\">\nBuildings.Fluid.Chillers.Data.ElectricReformulatedEIR</a>.\nHow they are used to compute the adjusted capacity and compressor power\ncan be found in the documentation of\n<a href=\\\"modelica://Buildings.Fluid.Chillers.BaseClasses.PartialElectric\\\">\nBuildings.Fluid.Chillers.BaseClasses.PartialElectric</a>.\nAdditional performance curves can be developed using\ntwo available techniques (Hydeman and Gillespie, 2002). The first technique is called the\nLeast-squares Linear Regression method and is used when sufficient performance data exist\nto employ standard least-square linear regression techniques. The second technique is called\nReference Curve Method and is used when insufficient performance data exist to apply linear\nregression techniques. A detailed description of both techniques can be found in\nHydeman and Gillespie (2002).\n</p>\n\n<p>\nThe model takes as an input the set point for the leaving chilled water temperature,\nwhich is met if the chiller has sufficient capacity.\nThus, the model has a built-in, ideal temperature control.\nThe model has three tests on the part load ratio and the cycling ratio:</p>\n<ol>\n<li>\nThe test<pre>\n  PLR1 =min(QEva_flow_set/QEva_flow_ava, per.PLRMax);\n</pre>\nensures that the chiller capacity does not exceed the chiller capacity specified\nby the parameter <code>per.PLRMax</code>.\n</li>\n<li>\nThe test <pre>\n  CR = min(PLR1/per.PRLMin, 1.0);\n</pre>\ncomputes a cycling ratio. This ratio expresses the fraction of time\nthat a chiller would run if it were to cycle because its load is smaller than\nthe minimal load at which it can operate.\nNote that this model continuously operates even if the part load ratio is below the minimum part load ratio.\nIts leaving evaporator and condenser temperature can therefore be considered as an\naverage temperature between the modes where the compressor is off and on.\n</li>\n<li>\nThe test <pre>\n  PLR2 = max(per.PLRMinUnl, PLR1);\n</pre>\ncomputes the part load ratio of the compressor.\nThe assumption is that for a part load ratio below <code>per.PLRMinUnl</code>,\nthe chiller uses hot gas bypass to reduce the capacity, while the compressor\npower draw does not change.\n</li>\n</ol>\n\n<p>\nThe electric power only contains the power for the compressor, but not any power for pumps or fans.\n</p>\n<p>\nThe model can be parametrized to compute a transient\nor steady-state response.\nThe transient response of the chiller is computed using a first\norder differential equation for the evaporator and condenser fluid volumes.\nThe chiller outlet temperatures are equal to the temperatures of these lumped volumes.\n</p>\n<p>\nOptionally, the model can be configured to represent heat recovery chillers with\na switchover option by setting the parameter <code>have_switchover</code> to\n<code>true</code>.\nIn that case an additional Boolean input connector <code>coo</code> is used.\nThe chiller is tracking a chilled water supply temperature setpoint at the\noutlet of the evaporator barrel if <code>coo</code> is <code>true</code>.\nOtherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking\na hot water supply temperature setpoint at the outlet of the condenser barrel.\nSee\n<a href=\\\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\\\">\nBuildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>\nfor an example with a chiller operating in heating mode.\n</p>\n<h4>References</h4>\n<ul>\n<li>\nHydeman, M., N. Webb, P. Sreedharan, and S. Blanc. 2002. Development and Testing of a\nReformulated Regression-Based Electric Chiller Model. <i>ASHRAE Transactions</i>, HI-02-18-2.\n</li>\n<li>\nHydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric Chiller\nComponent Models. <i>ASHRAE Transactions</i>, AC-02-9-1.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 12, 2015, by Michael Wetter:<br/>\nRefactored model to make it once continuously differentiable.\nThis is for issue <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/373\\\">373</a>.\n</li>\n<li>\nJan. 9, 2011, by Michael Wetter:<br/>\nAdded input signal to switch chiller off.\n</li>\n<li>\nSeptember 17, 2010, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Chillers/ElectricReformulatedEIR.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Chillers/ElectricReformulatedEIR.mo",
+  "checksum": "04ab36b20d71feed8f72a8ddd00135d4"
+}

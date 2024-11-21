@@ -1,0 +1,734 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ApparatusDewPoint",
+          "description_string": "Calculates air properties at apparatus dew point",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialSurfaceCondition"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hADP",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "40000"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"SpecificEnergy\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"J/kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Specific enthalpy of air at apparatus dew point",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "XADP",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Humidity mass fraction of air at  apparatus dew point",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 60
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TADP",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "283.15"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "233.15"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "373.15"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Dry bulb temperature of air at apparatus dew point",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": -40
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TSatMin",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "273.15 +3"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimum apparatus saturation temperature"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XSatMin",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0.004667"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Mass fraction at saturation of coil inlet conditions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "hMin",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimum enthalpy of apparatus dew point"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "hMin",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Medium.specificEnthalpy_pTX",
+                              "arguments": [
+                                {
+                                  "name": "p=Medium.p_default,T=TSatMin,X=cat(1,{XSatMin},{1 -sum({XSatMin})})"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "hADP",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.smoothMin",
+                              "arguments": [
+                                {
+                                  "name": "x1=Buildings.Utilities.Math.Functions.smoothMax(x1=hEvaIn -delta_h,x2=hMin,deltaX=10),x2=hEvaIn +100,deltaX=10"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "XADP",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Psychrometrics.Functions.X_pW",
+                              "arguments": [
+                                {
+                                  "name": "p_w=Medium.saturationPressure(TADP),p=p"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TADP",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Medium.temperature",
+                              "arguments": [
+                                {
+                                  "name": "Medium.setState_phX(p=p,h=hADP,X=cat(1,{XADP},{1 -sum({XADP})}))"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"appDewPt\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 68,
+                                        "y": 74
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -72
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": -72
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "thickness": 0.5,
+                                    "smooth": "Smooth.None"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 56,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 56
+                                      },
+                                      {
+                                        "x": 48,
+                                        "y": 32
+                                      },
+                                      {
+                                        "x": 38,
+                                        "y": 12
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": -8
+                                      },
+                                      {
+                                        "x": 6,
+                                        "y": -22
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": -28,
+                                        "y": -40
+                                      },
+                                      {
+                                        "x": -46,
+                                        "y": -46
+                                      },
+                                      {
+                                        "x": -62,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": -66,
+                                        "y": -50
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "thickness": 0.5,
+                                    "smooth": "Smooth.None"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -18,
+                                        "y": -36
+                                      },
+                                      {
+                                        "x": 56,
+                                        "y": -8
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5,
+                                    "smooth": "Smooth.None"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": -16,
+                                        "y": -38
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -86,
+                                        "y": 12
+                                      },
+                                      {
+                                        "x": -2,
+                                        "y": -50
+                                      }
+                                    ],
+                                    "textString": "\"ADP\"",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 54,
+                                        "y": -6
+                                      },
+                                      {
+                                        "x": 58,
+                                        "y": -10
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 0.5
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis blocks outputs the state of the moist air at the dew point of the coil.\nThe bypass factor of the coil and the resulting enthalpy difference is\ncomputed by its base class\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialSurfaceCondition\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.PartialSurfaceCondition</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 21, 2012 by Michael Wetter:<br/>\nRevised implementation and documentation.\n</li>\n<li>\nJuly 4, 2012 by Kaustubh Phalak:<br/>\nUpdated to handle zero mass flow rate and freezing coil condition.\n</li>\n<li>\nApril 9, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/BaseClasses/ApparatusDewPoint.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/BaseClasses/ApparatusDewPoint.mo",
+  "checksum": "3ed33020d37bac3d814918c9dde5836f"
+}

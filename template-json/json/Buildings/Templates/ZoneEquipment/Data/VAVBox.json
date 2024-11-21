@@ -1,0 +1,342 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "VAVBox",
+          "description_string": "Record for VAV terminal unit",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.ZoneEquipment.Configuration.VAVBox",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "cfg"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "ctl",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "stdVen",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "cfg.stdVen"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mAir_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "max(ctl.VAirHeaSet_flow_max,ctl.VAirCooSet_flow_max)*1.2"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.Damper",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damVAV",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.typDamVAV"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "mAir_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "VAV damper",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Equipment\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Components.Data.Coil",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "coiHea",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.typCoiHea"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typVal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.typValCoiHea"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "have_sou",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "cfg.have_souHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "mAir_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "ctl.VAirHeaSet_flow_max*1.2"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Reheat coil",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Equipment\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "cfg.typ"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxReheat"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"dat\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis record provides the set of sizing and operating parameters for the classes\n<a href=\\\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\\\">\nBuildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>\nand\n<a href=\\\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxReheat\\\">\nBuildings.Templates.ZoneEquipment.VAVBoxReheat</a>.\n</p>\n<p>\nThe tab <code>Advanced</code> contains some optional parameters that can be used \nfor workflow automation, but are not used for simulation.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Data/VAVBox.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Templates/ZoneEquipment/Data/VAVBox.mo",
+  "checksum": "32c1e004b3741a3f071c3884eff83efd"
+}

@@ -1,0 +1,1819 @@
+{
+  "within": "Buildings.Fluid.Movers.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Generic",
+          "description_string": "Generic data record for movers",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pressure",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "V_flow",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0,0}"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0,0}"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume flow rate vs. total pressure rise",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Pressure curve\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.VolumeFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "V_flow_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "havePressureCurve"
+                                  },
+                                  "then": {
+                                    "simple_expression": "(pressure.V_flow[end] -(pressure.V_flow[end] -pressure.V_flow[end -1])/(pressure.dp[end] -pressure.dp[end -1])*pressure.dp[end])"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume flow rate on the curve when pressure rise is zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpMax",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "havePressureCurve"
+                                  },
+                                  "then": {
+                                    "simple_expression": "(pressure.dp[1] -(pressure.dp[1] -pressure.dp[2])/(pressure.V_flow[1] -pressure.V_flow[2])*pressure.V_flow[1])"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure rise on the curve when flow rate is zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "etaHydMet",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "havePressureCurve"
+                                  },
+                                  "then": {
+                                    "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Efficiency computation method for the hydraulic efficiency etaHyd",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "etaMotMet",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "powerOrEfficiencyIsHydraulic and havePressureCurve"
+                                  },
+                                  "then": {
+                                    "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Efficiency computation method for the motor efficiency etaMot",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "powerOrEfficiencyIsHydraulic",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "=true if hydraulic power or efficiency is provided, instead of total",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "max(power.P)"
+                                                            },
+                                                            {
+                                                              "name": "Modelica.Constants.eps"
+                                                            }
+                                                          ],
+                                                          "relation_operator": ">"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "max(efficiency.eta)"
+                                                            },
+                                                            {
+                                                              "name": "Modelica.Constants.eps"
+                                                            }
+                                                          ],
+                                                          "relation_operator": ">"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "efficiency",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "V_flow",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0}"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "eta",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0.7}"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Total or hydraulic efficiency vs. volumetric flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaHydMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "motorEfficiency",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "V_flow",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0}"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "eta",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0.7}"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Motor efficiency vs. volumetric flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaMotMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "motorEfficiency_yMot",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "y",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0}"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "eta",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0.7}"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Motor efficiency vs. part load ratio yMot, where yMot = WHyd/WMot_nominal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaMotMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "power",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "V_flow",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0}"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "P",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "{0}"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Power (either consumed or hydraulic) vs. volumetric flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaHydMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Euler.peak",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "peak",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "V_flow",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "peak_internal.V_flow"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "dp",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "peak_internal.dp"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "eta",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "peak_internal.eta"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaHydMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Euler.peak",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "peak_internal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "etaHydMet"
+                                                  },
+                                                  {
+                                                    "name": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber"
+                                                  }
+                                                ],
+                                                "relation_operator": "=="
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "then": {
+                                    "simple_expression": {
+                                      "function_call": {
+                                        "name": "Buildings.Fluid.Movers.BaseClasses.Euler.getPeak",
+                                        "arguments": [
+                                          {
+                                            "name": "pressure=pressure,power=power"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Buildings.Fluid.Movers.BaseClasses.Euler.peak",
+                                    "arguments": [
+                                      {
+                                        "name": "V_flow=V_flow_max/2,dp=dpMax/2,eta=max(efficiency.eta)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Internal peak variable"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "motorCooledByFluid",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "If true, then motor heat is added to fluid stream",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Motor heat rejection\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Power",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "WMot_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "max(power.P)"
+                                                  },
+                                                  {
+                                                    "name": "Modelica.Constants.eps"
+                                                  }
+                                                ],
+                                                "relation_operator": ">"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "then": {
+                                    "if_expression": {
+                                      "if_elseif": [
+                                        {
+                                          "condition": {
+                                            "simple_expression": "powerOrEfficiencyIsHydraulic"
+                                          },
+                                          "then": {
+                                            "simple_expression": "max(power.P)*1.2"
+                                          }
+                                        }
+                                      ],
+                                      "else_expression": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "max",
+                                            "arguments": [
+                                              {
+                                                "name": "power.P"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "havePressureCurve"
+                                      },
+                                      "then": {
+                                        "if_expression": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": "powerOrEfficiencyIsHydraulic"
+                                              },
+                                              "then": {
+                                                "simple_expression": "V_flow_max/2*dpMax/2/peak.eta*1.2"
+                                              }
+                                            }
+                                          ],
+                                          "else_expression": {
+                                            "simple_expression": "V_flow_max/2*dpMax/2/0.7*1.2"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "0"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Rated motor power",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaMotMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaMotMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Efficiency",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "etaMot_max",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.7"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum motor efficiency",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Power computation\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "etaMotMet"
+                                                            },
+                                                            {
+                                                              "name": "Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve"
+                                                            }
+                                                          ],
+                                                          "relation_operator": "=="
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "motorEfficiency_yMot_generic",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve",
+                                "arguments": [
+                                  {
+                                    "name": "P_nominal=WMot_nominal,eta_max=etaMot_max"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Motor efficiency  vs. part load ratio",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "false"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "haveWMot_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "logical_expression": {
+                                "logical_or": [
+                                  {
+                                    "logical_and": [
+                                      {
+                                        "arithmetic_expressions": [
+                                          {
+                                            "name": "WMot_nominal"
+                                          },
+                                          {
+                                            "name": "Modelica.Constants.eps"
+                                          }
+                                        ],
+                                        "relation_operator": ">"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, if the rated motor power is provided"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "speed_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal rotational speed for flow characteristic",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Normalized speeds\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "constantSpeed",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Normalized speed set point, used if inputType = Buildings.Fluid.Types.InputType.Constant",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Normalized speeds\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "array_subscripts": [
+                    {
+                      "colon_op": true
+                    }
+                  ],
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "speeds",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "{1}"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Vector of normalized speed set points, used if inputType = Buildings.Fluid.Types.InputType.Stages",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Normalized speeds\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "havePressureCurve",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "logical_expression": {
+                                "logical_or": [
+                                  {
+                                    "logical_and": [
+                                      {
+                                        "arithmetic_expressions": [
+                                          {
+                                            "name": "sum(pressure.V_flow)"
+                                          },
+                                          {
+                                            "name": "Modelica.Constants.eps"
+                                          }
+                                        ],
+                                        "relation_operator": ">"
+                                      },
+                                      {
+                                        "arithmetic_expressions": [
+                                          {
+                                            "name": "sum(pressure.dp)"
+                                          },
+                                          {
+                                            "name": "Modelica.Constants.eps"
+                                          }
+                                        ],
+                                        "relation_operator": ">"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, if default record values are being used"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"per\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nAugust 20, 2024, by Hongxiang Fu:<br/>\nNow the function\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\\\">\nBuildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>\nis not called unless the Euler number method is selected.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\\\">IBPSA, #1912</a>.\n</li>\n<li>\nApril 8, 2024, by Hongxiang Fu:<br/>\nDefault efficiency methods now depend on whether a pressure curve is available.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3819\\\">#3819</a>.\n</li>\n<li>\nMarch 29, 2023, by Hongxiang Fu:<br/>\nDeleted angular speed parameters with the unit rpm.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\\\">IBPSA, #1704</a>.\n</li>\n<li>\nMarch 1, 2022, by Hongxiang Fu:<br/>\n<ul>\n<li>\nModified the record to allow separate specifications of different\nefficiency variables.\n</li>\n<li>\nAdded parameters for computation using Euler number.\n</li>\n<li>\nAdded parameters for providing the motor efficiency as an array\nvs. motor part load ratio.\n</li>\n<li>\nMoved the computation of <code>V_flow_max</code> here from\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\\\">\nBuildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>\nand <code>dpMax</code> here from\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\\\">\nBuildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>\n</li>\n</ul>\nThese are for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2668\\\">#2668</a>.\n</li>\n<li>\nFebruary 19, 2016, by Filip Jorissen:<br/>\nRefactored model such that <code>SpeedControlled_Nrpm</code>,\n<code>SpeedControlled_y</code> and <code>FlowControlled</code>\nare integrated into one record.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/417\\\">#417</a>.\n</li>\n<li>\nFebruary 17, 2016, by Michael Wetter:<br/>\nChanged parameter <code>N_nominal</code> to\n<code>speed_rpm_nominal</code> as it is the same quantity as <code>speeds_rmp</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/396\\\">#396</a>.\n</li>\n<li>\nJanuary 19, 2016, by Filip Jorissen:<br/>\nAdded parameter <code>speeds_rpm</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/396\\\">#396</a>.\n</li>\n<li>\nFebruary 13, 2015, by Michael Wetter:<br/>\nUpdated documentation.\n</li>\n<li>\nJanuary 6, 2015, by Michael Wetter:<br/>\nRevised record for OpenModelica.\n</li>\n<li>\nNovember 22, 2014 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nRecord containing parameters for pumps or fans.\n</p>\n<h4>Typical use</h4>\n<p>\nThis record may be used to assign for example fan performance data using\ndeclaration such as\n</p>\n<pre>\n  Buildings.Fluid.Movers.SpeedControlled_y fan(\n    redeclare package Medium = Medium,\n      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,\n                   dp={2*dp_nominal,dp_nominal,0}))) \\\"Fan\\\";\n</pre>\n<p>\nThis data record can be used with\n<a href=\\\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\\\">\nBuildings.Fluid.Movers.SpeedControlled_y</a>,\n<a href=\\\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\\\">\nBuildings.Fluid.Movers.FlowControlled_dp</a>,\n<a href=\\\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\\\">\nBuildings.Fluid.Movers.FlowControlled_m_flow</a>.\n</p>\n<p>\nAn example that uses manufacturer data can be found in\n<a href=\\\"modelica://Buildings.Fluid.Movers.Validation.Pump_y_stratos\\\">\nBuildings.Fluid.Movers.Validation.Pump_y_stratos</a>.\n</p>\n<h4>Declaration of the peak condition</h4>\n<p>\nThe variable <code>peak</code> is intentionally declared in a way that each of its\nelement is declared individually. If it was delcared the same way as does\n<code>peak_internal</code>, Modelica would prevent the modification of its\nspecific elements with the following error message:<br/>\n<code>\nRecord has a value, and attempt to modify specific elements.<br/>\nThe element modification of e.g. V_flow will be ignored.<br/>\n</code>\nThe other variable <code>peak_internal</code> uses a function call to compute its\ndefault values. By passing them to <code>peak</code> one by one, the model can\nboth have default values and also allow the user to override them easily.\nSee <a href=\\\"https://github.com/modelica/ModelicaSpecification/issues/791\\\">\nModelica Specification issue #791</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Movers/Data/Generic.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Movers/Data/Generic.mo",
+  "checksum": "73a6c80e20207fd22586fdc5f784a933"
+}

@@ -1,0 +1,1942 @@
+{
+  "within": "Buildings.Fluid.Actuators.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialDamperExponential",
+          "description_string": "Partial model for air dampers with exponential opening characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.BaseClasses.PartialResistance",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "dp_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "dpDamper_nominal +dpFixed_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "m_flow_turbulent",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "if_expression": {
+                                "if_elseif": [
+                                  {
+                                    "condition": {
+                                      "simple_expression": "use_deltaM"
+                                    },
+                                    "then": {
+                                      "simple_expression": "deltaM*m_flow_nominal"
+                                    }
+                                  }
+                                ],
+                                "else_expression": {
+                                  "simple_expression": "eta_default*ReC*sqrt(A)*facRouDuc"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpDamper_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure drop of fully open damper at nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpFixed_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure drop of duct and resistances other than the damper in series, at nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_deltaM",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to use deltaM for turbulent transition, else ReC is used"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltaM",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.3"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fraction of nominal mass flow rate where transition to turbulent occurs",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "use_deltaM"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Velocity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "v_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "(2/rho_default/k1*dpDamper_nominal)^0.5"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal face velocity"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Area",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "A",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "m_flow_nominal/rho_default/v_nominal"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Face area"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "roundDuct",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true for round duct, false for square cross section",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not use_deltaM"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ReC",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "4000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Reynolds number where transition to turbulence starts",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not use_deltaM"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "a",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "-1.51"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Coefficient a for damper characteristics",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "b",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.105*90"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Coefficient b for damper characteristics",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "yL",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "15/90"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Lower value for damper curve",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "yU",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "55/90"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Upper value for damper curve",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "k0",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2*rho_default*(A/kDamMin)^2"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Loss coefficient for y=0 (pressure drop divided by dynamic pressure)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "k1",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.45"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Loss coefficient for y=1 (pressure drop divided by dynamic pressure)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "l",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1e-10"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Damper coefficients\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_constant_density",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to use constant density for flow friction",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.Density",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "rho"
+                      },
+                      "description": {
+                        "description_string": "Medium density"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "kFixed",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "dpFixed_nominal"
+                                                  },
+                                                  {
+                                                    "name": "Modelica.Constants.eps"
+                                                  }
+                                                ],
+                                                "relation_operator": ">"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "then": {
+                                    "simple_expression": "m_flow_nominal/sqrt(dpFixed_nominal)"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "Modelica.Constants.inf"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "kDam"
+                      },
+                      "description": {
+                        "description_string": "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "k"
+                      },
+                      "description": {
+                        "description_string": "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.Density",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "rho_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.density",
+                                    "arguments": [
+                                      {
+                                        "name": "sta_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Density, used to compute fluid volume"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "facRouDuc",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "roundDuct"
+                                      },
+                                      "then": {
+                                        "simple_expression": "sqrt(Modelica.Constants.pi)/2"
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "1"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Shape factor used to compute the hydraulic diameter for round ducts"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kL",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(y=yL,a=a,b=b,cL=cL,cU=cU,yL=yL,yU=yU)^2"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Loss coefficient at the lower limit of the exponential characteristics"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kU",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(y=yU,a=a,b=b,cL=cL,cU=cU,yL=yL,yU=yU)^2"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Loss coefficient at the upper limit of the exponential characteristics"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "3"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cL",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "{(Modelica.Math.log(k0) -b -a)/yL^2,(-b*yL -2*Modelica.Math.log(k0) +2*b +2*a)/yL,Modelica.Math.log(k0)}"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficients for curve fit for y < yl"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "3"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cU",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "{(Modelica.Math.log(k1) -a)/(yU^2 -2*yU +1),(-b*yU^2 -2*Modelica.Math.log(k1)*yU -(-2*b -2*a)*yU -b)/(yU^2 -2*yU +1),(Modelica.Math.log(k1)*yU^2 +b*yU^2 +(-2*b -2*a)*yU +b +a)/(yU^2 -2*yU +1)}"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficients for curve fit for y > yu"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kDamMax",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "(2*rho_default/k1)^0.5*A"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flow coefficient of damper fully open, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kTotMax",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": {
+                                          "logical_expression": {
+                                            "logical_or": [
+                                              {
+                                                "logical_and": [
+                                                  {
+                                                    "arithmetic_expressions": [
+                                                      {
+                                                        "name": "dpFixed_nominal"
+                                                      },
+                                                      {
+                                                        "name": "Modelica.Constants.eps"
+                                                      }
+                                                    ],
+                                                    "relation_operator": ">"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "then": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "sqrt",
+                                            "arguments": [
+                                              {
+                                                "name": "1/(1/kFixed^2 +1/kDamMax^2)"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "kDamMax"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flow coefficient of damper fully open plus fixed resistance, with unit=(kg.m)^(1/2)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kDamMin",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "l*kDamMax"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flow coefficient of damper fully closed, with unit=(kg.m)^(1/2)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kTotMin",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": {
+                                          "logical_expression": {
+                                            "logical_or": [
+                                              {
+                                                "logical_and": [
+                                                  {
+                                                    "arithmetic_expressions": [
+                                                      {
+                                                        "name": "dpFixed_nominal"
+                                                      },
+                                                      {
+                                                        "name": "Modelica.Constants.eps"
+                                                      }
+                                                    ],
+                                                    "relation_operator": ">"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "then": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "sqrt",
+                                            "arguments": [
+                                              {
+                                                "name": "1/(1/kFixed^2 +1/kDamMin^2)"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "kDamMin"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flow coefficient of damper fully closed + fixed resistance, with unit=(kg.m)^(1/2)"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "dpDamper_nominal"
+                                            },
+                                            {
+                                              "name": "Modelica.Constants.eps"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": dpDamper_nominal must be strictly greater than zero.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "dpFixed_nominal"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">="
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": dpFixed_nominal must be greater than zero.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "yL"
+                                            },
+                                            {
+                                              "name": "yU"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": yL must be strictly lower than yU.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "m_flow_turbulent"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": m_flow_turbulent must be strictly greater than zero.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "k1"
+                                            },
+                                            {
+                                              "name": "0.2"
+                                            }
+                                          ],
+                                          "relation_operator": ">="
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": k1 must be greater than 0.2. k1=\" +String(k1)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "k1"
+                                            },
+                                            {
+                                              "name": "kU"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": k1 must be strictly lower than exp(a + b * (1 - yU)). k1=\" +String(k1) +\", exp(...) = \" +String(kU)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "k0"
+                                            },
+                                            {
+                                              "name": "10000000000"
+                                            }
+                                          ],
+                                          "relation_operator": "<="
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": k0 must be lower than 1e10. k0=\" +String(k0)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "k0"
+                                            },
+                                            {
+                                              "name": "kL"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": k0 must be strictly higher than exp(a + b * (1 - yL)). k0=\" +String(k0) +\", exp(...) = \" +String(kL)"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "rho",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "use_constant_density"
+                                },
+                                "then": {
+                                  "simple_expression": "rho_default"
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "Medium.density",
+                                  "arguments": [
+                                    {
+                                      "name": "Medium.setState_phX(port_a.p,inStream(port_a.h_outflow),inStream(port_a.Xi_outflow))"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "kDam",
+                        "rhs": {
+                          "simple_expression": "sqrt(2*rho)*A/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(y=y_actual,a=a,b=b,cL=cL,cU=cU,yL=yL,yU=yU)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "k",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": {
+                                    "logical_expression": {
+                                      "logical_or": [
+                                        {
+                                          "logical_and": [
+                                            {
+                                              "arithmetic_expressions": [
+                                                {
+                                                  "name": "dpFixed_nominal"
+                                                },
+                                                {
+                                                  "name": "Modelica.Constants.eps"
+                                                }
+                                              ],
+                                              "relation_operator": ">"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "sqrt",
+                                      "arguments": [
+                                        {
+                                          "name": "1/(1/kFixed^2 +1/kDam^2)"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "kDam"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial model for air dampers with exponential opening characteristics.\nThis is the base model for air dampers.\nThe model implements the functions that relate the opening signal and the\nflow coefficient.\nThe model also defines parameters that are used by different air damper\nmodels.\n</p>\n<p>\nThe model is as in ASHRAE 825-RP except that a control signal of\n<code>y=0</code> means the damper is closed, and <code>y=1</code> means\nthe damper is open.\nThis is opposite of the implementation of ASHRAE 825-RP, but used here\nfor consistency within this library.\n</p>\n<p>\nFor <code>yL &lt; y &lt; yU</code>, the damper characteristics is:\n</p>\n<p style=\\\"font-style:italic;\\\">\n  k<sub>d</sub>(y) = exp(a+b (1-y))\n</p>\n<p>\nwhere <i>kd</i> is the loss coefficient (total pressure drop divided\nby dynamic pressure) and <i>y</i> is the fractional opening.\n</p>\n<p>\nOutside this range, the damper characteristics is defined by a quadratic polynomial that\nmatches the damper resistance at <code>y=0</code> and <code>y=yL</code> or\n<code>y=yU</code> and <code>y=1</code>, respectively.\nIn addition, the polynomials are such that <i>k<sub>d</sub>(y)</i> is differentiable in\n<i>y</i> and the derivative is continuous.\n</p>\n<p>\nThe damper characteristics is then used to compute the flow coefficient <i>k(y)</i> as:\n</p>\n<p style=\\\"font-style:italic;\\\">\nk(y) = (2 &rho; &frasl; k<sub>d</sub>(y))<sup>1/2</sup> A\n</p>\n<p>\nwhere <i>A</i> is the face area, which is computed using the nominal\nmass flow rate <code>m_flow_nominal</code>, the nominal velocity\n<code>v_nominal</code> and the density of the medium.\n</p>\n<p>\nASHRAE 825-RP lists the following parameter values as typical (note that the\ndefault values in the model correspond to opposed blades).\n<br/>\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\"\nstyle=\\\"border-collapse:collapse;\\\">\n<tr>\n<td></td><th>opposed blades</th><th>single blades</th>\n</tr>\n<tr>\n<td>yL</td><td>15/90</td><td>15/90</td>\n</tr>\n<tr>\n<td>yU</td><td>55/90</td><td>65/90</td>\n</tr>\n<tr>\n<td>k1</td><td>0.2 to 0.5</td><td>0.2 to 0.5</td>\n</tr>\n<tr>\n<td>a</td><td>-1.51</td><td>-1.51</td>\n</tr>\n<tr>\n<td>b</td><td>0.105*90</td><td>0.0842*90</td>\n</tr>\n</table>\n<p>\n(The loss coefficient in fully closed position <code>k0</code> is computed based on the leakage coefficient\nand the coefficient in fully open position.)\n</p>\n<h4>References</h4>\n<p>\nP. Haves, L. K. Norford, M. DeSimone and L. Mei,\n<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>,\nASHRAE Final Report 825-RP, Atlanta, GA.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 21, 2021, by Michael Wetter:<br/>\nCorrected typo in comments.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\\\">#1525</a>.\n</li>\n<li>\nDecember 23, 2019, by Antoine Gautier:<br/>\nRemoved the equations involving <code>m_flow</code> and <code>dp</code> that now need\nto be added in each derived damper model.<br/>\nAdded the declaration of <code>dpDamper_nominal</code> and <code>dpFixed_nominal</code>.<br/>\nReplaced <code>k0</code> by leakage coefficient.<br/>\nModified the limiting values for <code>k0</code> and <code>k1</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\\\">#1188</a>.\n</li>\n<li>\nMarch 22, 2017, by Michael Wetter:<br/>\nAdded back <code>v_nominal</code>, but set the assignment of <code>A</code>\nto be final. This allows scaling the model with <code>m_flow_nominal</code>,\nwhich is generally known in the flow leg,\nand <code>v_nominal</code>, for which a default value can be specified.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/544\\\">#544</a>.\n</li>\n<li>\nOctober 12, 2016 by David Blum:<br/>\nRemoved parameter <code>v_nominal</code> and variable <code>area</code>,\nto simplify parameterization of the model.\nAlso added assertion statements upon initialization\nfor parameters <code>k0</code> and <code>k1</code> so that they fall within\nsuggested ranges found in ASHRAE 825-RP. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/544\\\">#544</a>.\n</li>\n<li>\nJanuary 27, 2015 by Michael Wetter:<br/>\nSet <code>Evaluate=true</code> for <code>use_constant_density</code>.\nThis is a structural parameter. Adding this annotation leads to fewer\nnumerical Jacobians for\n<code>Buildings.Examples.VAVReheat.ClosedLoop</code>\nwith\n<code>Buildings.Media.PerfectGases.MoistAirUnsaturated</code>.\n</li>\n<li>\nDecember 14, 2012 by Michael Wetter:<br/>\nRenamed protected parameters for consistency with the naming conventions.\n</li>\n<li>\nJanuary 16, 2012 by Michael Wetter:<br/>\nTo simplify object inheritance tree, revised base classes\n<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,\n<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>\nand model\n<code>Buildings.Fluid.FixedResistances.PressureDrop</code>.\n</li>\n<li>\nAugust 5, 2011, by Michael Wetter:<br/>\nMoved linearized pressure drop equation from the function body to the equation\nsection. With the previous implementation,\nthe symbolic processor may not rearrange the equations, which can lead\nto coupled equations instead of an explicit solution.\n</li>\n<li>\nJune 22, 2008 by Michael Wetter:<br/>\nExtended range of control signal from 0 to 1 by implementing the function\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\\\">\nexponentialDamper</a>.\n</li>\n<li>\nJune 10, 2008 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -24
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -42
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/BaseClasses/PartialDamperExponential.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/BaseClasses/PartialDamperExponential.mo",
+  "checksum": "b25b1ee93760b6bf03a55032de66f8ca"
+}

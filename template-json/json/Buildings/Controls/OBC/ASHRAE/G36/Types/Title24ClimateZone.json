@@ -1,0 +1,177 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "Title24ClimateZone",
+          "value": {
+            "description": {
+              "description_string": "Enumeration of California Title 24 climate zone",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration of different Title 24 climate zones. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>Not_Specified</code></td>\n<td>\nNot specified.\n</td></tr>\n<tr><td><code>Zone_1</code></td>\n<td>\nZone 1, Reference city: Eureka.\n</td></tr>\n<tr><td><code>Zone_2</code></td>\n<td>\nZone 2, Reference city: Napa.\n</td></tr>\n<tr><td><code>Zone_3</code></td>\n<td>\nReference city: San Francisco.\n</td></tr>\n<tr><td><code>Zone_4</code></td>\n<td>\nZone 4, Reference city: San Jose.\n</td></tr>\n<tr><td><code>Zone_5</code></td>\n<td>\nZone 5, Reference city: Santa Maria.\n</td></tr>\n<tr><td><code>Zone_6</code></td>\n<td>\nZone 6, Reference city: Los Angeles.\n</td></tr>\n<tr><td><code>Zone_7</code></td>\n<td>\nZone 7, Reference city: San Diego.\n</td></tr>\n<tr><td><code>Zone_8</code></td>\n<td>\nZone 8, Reference city: Long Beach.\n</td></tr>\n<tr><td><code>Zone_9</code></td>\n<td>\nZone 9, Reference city: Los Angeles (Civic Center).\n</td></tr>\n<tr><td><code>Zone_10</code></td>\n<td>\nZone 10, Reference city: Riverside.\n</td></tr>\n<tr><td><code>Zone_11</code></td>\n<td>\nZone 11, Reference city: Red Bluff.\n</td></tr>\n<tr><td><code>Zone_12</code></td>\n<td>\nZone 12, Reference city: Stockton.\n</td></tr>\n<tr><td><code>Zone_13</code></td>\n<td>\nZone 13, Reference city: Fresno.\n</td></tr>\n<tr><td><code>Zone_14</code></td>\n<td>\nZone 14, Reference city: Barstow.\n</td></tr>\n<tr><td><code>Zone_15</code></td>\n<td>\nZone 15, Reference city: Brawley.\n</td></tr>\n<tr><td><code>Zone_16</code></td>\n<td>\nZone 16, Reference city: Bishop.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 22, 2022, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "Not_Specified",
+                "description": {
+                  "description_string": "Not specified"
+                }
+              },
+              {
+                "identifier": "Zone_1",
+                "description": {
+                  "description_string": "Zone 1, Reference city: Eureka"
+                }
+              },
+              {
+                "identifier": "Zone_2",
+                "description": {
+                  "description_string": "Zone 2, Reference city: Napa"
+                }
+              },
+              {
+                "identifier": "Zone_3",
+                "description": {
+                  "description_string": "Zone 3, Reference city: San Francisco"
+                }
+              },
+              {
+                "identifier": "Zone_4",
+                "description": {
+                  "description_string": "Zone 4, Reference city: San Jose"
+                }
+              },
+              {
+                "identifier": "Zone_5",
+                "description": {
+                  "description_string": "Zone 5, Reference city: Santa Maria"
+                }
+              },
+              {
+                "identifier": "Zone_6",
+                "description": {
+                  "description_string": "Zone 6, Reference city: Los Angeles"
+                }
+              },
+              {
+                "identifier": "Zone_7",
+                "description": {
+                  "description_string": "Zone 7, Reference city: San Diego"
+                }
+              },
+              {
+                "identifier": "Zone_8",
+                "description": {
+                  "description_string": "Zone 8, Reference city: Long Beach"
+                }
+              },
+              {
+                "identifier": "Zone_9",
+                "description": {
+                  "description_string": "Zone 9, Reference city: Los Angeles (Civic Center)"
+                }
+              },
+              {
+                "identifier": "Zone_10",
+                "description": {
+                  "description_string": "Zone 10, Reference city: Riverside"
+                }
+              },
+              {
+                "identifier": "Zone_11",
+                "description": {
+                  "description_string": "Zone 11, Reference city: Red Bluff"
+                }
+              },
+              {
+                "identifier": "Zone_12",
+                "description": {
+                  "description_string": "Zone 12, Reference city: Stockton"
+                }
+              },
+              {
+                "identifier": "Zone_13",
+                "description": {
+                  "description_string": "Zone 13, Reference city: Fresno"
+                }
+              },
+              {
+                "identifier": "Zone_14",
+                "description": {
+                  "description_string": "Zone 14, Reference city: Barstow"
+                }
+              },
+              {
+                "identifier": "Zone_15",
+                "description": {
+                  "description_string": "Zone 15, Reference city: Brawley"
+                }
+              },
+              {
+                "identifier": "Zone_16",
+                "description": {
+                  "description_string": "Zone 16, Reference city: Bishop"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/Title24ClimateZone.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/Title24ClimateZone.mo",
+  "checksum": "8d07102eaec8f2576231fd024f5efdb0"
+}

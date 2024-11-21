@@ -1,0 +1,61 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "DefrostOperation",
+          "value": {
+            "description": {
+              "description_string": "Enumeration defining two methods for defrost",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration for the method of defrost.\nThe possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>reverseCycle</code></td>\n<td>\nCycle the refrigerant in flow in reverse to defrost the outdoor coil.\n</td></tr>\n<tr><td><code>resistive</code></td>\n<td>\nUse a resistive heating element on the outdoor coil for defrost.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "reverseCycle",
+                "description": {
+                  "description_string": "Cycle DX coil in reverse flow to defrost outdoor coil"
+                }
+              },
+              {
+                "identifier": "resistive",
+                "description": {
+                  "description_string": "Use resistive element on outdoor coil to defrost"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Heating/BaseClasses/Types/DefrostOperation.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Heating/BaseClasses/Types/DefrostOperation.mo",
+  "checksum": "473055de6f327ead34f72ff1c42a3383"
+}

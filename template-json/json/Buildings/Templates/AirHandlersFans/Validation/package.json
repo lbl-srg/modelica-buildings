@@ -1,0 +1,65 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Validation",
+          "description_string": "Package with validation models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.ExamplesPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains models validating the templates within\n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans\\\">\nBuildings.Templates.AirHandlersFans</a>.\n</p>\n<p>\nThe models also illustrate parameter propagation from a top-level\nHVAC system record.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Validation/package.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Validation/package.mo",
+  "checksum": "b22ca822d16a5cc753a329381d325fcc"
+}

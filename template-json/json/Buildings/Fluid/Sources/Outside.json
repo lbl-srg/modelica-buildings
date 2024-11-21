@@ -1,0 +1,132 @@
+{
+  "within": "Buildings.Fluid.Sources",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Outside",
+          "description_string": "Boundary that takes weather data, and optionally trace substances, as an input",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Sources.BaseClasses.Outside"
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "weaBus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "pAtm"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "p_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "weaBus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TDryBul"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "T_in_internal"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"out\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model describes boundary conditions for\npressure, enthalpy, and species concentration that can be obtained\nfrom weather data.\n</p>\n<p>\nTo use this model, connect weather data from\n<a href=\\\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\\\">\nBuildings.BoundaryConditions.WeatherData.ReaderTMY3</a> to the port\n<code>weaBus</code> of this model.\nThis will cause the medium of this model to be\nat the pressure that is obtained from the weather file, and any flow that\nleaves this model to be at the temperature and humidity that are obtained\nfrom the weather data.\n</p>\n<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option),\nthe <code>C</code> parameter\nis used as the trace substance for flow that leaves the component, and the\n<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>,\nthen the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p>\n<p>\nNote that boundary temperature,\nmass fractions and trace substances have only an effect if the mass flow\nis from the boundary into the port. If mass is flowing from\nthe port into the boundary, the boundary definitions,\nwith exception of boundary pressure, do not have an effect.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nOctober 26, 2011 by Michael Wetter:<br/>\nIntroduced new base class to allow implementation of wind pressure for natural ventilation.\n</li>\n<li>\nApril 27, 2011 by Michael Wetter:<br/>\nRevised implementation to allow medium model that do not have water vapor.\n</li>\n<li>\nFeb. 9, 2011 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sources/Outside.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sources/Outside.mo",
+  "checksum": "bd6b7565bd58b748f3c16a88963b7ff9"
+}

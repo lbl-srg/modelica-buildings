@@ -1,0 +1,215 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Stage",
+          "description_string": "Generic data record for a stage of a air source DX coil",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.AngularVelocity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "spe",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1/min\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Rotational speed"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nomVal"
+                      },
+                      "description": {
+                        "description_string": "Nominal values",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 60,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 80,
+                                        "y": 80
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.PerformanceCurve",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "perCur"
+                      },
+                      "description": {
+                        "description_string": "Performance curves for this stage",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "choicesAllMatching",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 60,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 80,
+                                        "y": 40
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"per\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n  <p>This is the base record for air source DX coil model at a particular compressor \n  speed.\nSee the information section of\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a> for a description of the data. </p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>\nAdded Boolean parameter <code>is_cooCoi</code> and propogated it in instance \n<code>nomVal</code>.<br/>\nUpdated information section.\n</li>\n<li>\nSeptember 25, 2012 by Michael Wetter:<br/>\nRevised documentation.\n</li>\n<li>\nAugust 13, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/AirSource/Data/Generic/BaseClasses/Stage.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/AirSource/Data/Generic/BaseClasses/Stage.mo",
+  "checksum": "073def36dc7ff27d1ff145a247fbedcc"
+}

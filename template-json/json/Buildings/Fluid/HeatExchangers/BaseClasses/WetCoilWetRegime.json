@@ -1,0 +1,1383 @@
+{
+  "within": "Buildings.Fluid.HeatExchangers.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "WetCoilWetRegime",
+          "description_string": "Fully wet coil model using esilon_C.mo function",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpEff0",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2050"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Used for scaling"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpWat0",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "4200"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Used for scaling"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "delta",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.001"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small value used for smoothing"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpDum",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Dummy cp to eliminate the warning message of the unit mismatch when using the eps-NTU model for the wet coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.TemperatureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dTWat",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature differential used to compute the finite difference of the saturated specific enthalpy"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "tau",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "6*60"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time constant for state estimation: introduced to avoid the algebraic loop of the wet coil equations"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UAWat"
+                      },
+                      "description": {
+                        "description_string": "UA for water side"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWatNonZer_flow"
+                      },
+                      "description": {
+                        "description_string": "Non-zero mass flow rate of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpWat"
+                      },
+                      "description": {
+                        "description_string": "Specific heat capacity of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWatIn"
+                      },
+                      "description": {
+                        "description_string": "Water temperature at inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate of water at nominal conditions"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.Pressure",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pAir"
+                      },
+                      "description": {
+                        "description_string": "Pressure on air-side of coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UAAir"
+                      },
+                      "description": {
+                        "description_string": "UA for air side"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate of air"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAirNonZer_flow"
+                      },
+                      "description": {
+                        "description_string": "Non-zero mass flow rate of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpAir"
+                      },
+                      "description": {
+                        "description_string": "Specific heat capacity of moist air at constant pressure"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAirIn"
+                      },
+                      "description": {
+                        "description_string": "Temperature of air at inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFraction",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "X_wAirIn"
+                      },
+                      "description": {
+                        "description_string": "Mass fraction of water in moist air at inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Buildings.Fluid.Types.HeatExchangerFlowRegime",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cfg"
+                      },
+                      "description": {
+                        "description_string": "Configuration of the heat exchanger"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate of air at nominal conditions"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hAirIn"
+                      },
+                      "description": {
+                        "description_string": "Specific enthalpy of air at inlet conditions"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Utilities.Psychrometrics.hSat_pTSat",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatWatInM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TSat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "TWatIn"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Model to calculate saturated specific enthalpy of air at water inlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatWatIn"
+                      },
+                      "description": {
+                        "description_string": "Saturated specific enthalpy of air at water inlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Utilities.Psychrometrics.hSat_pTSat",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatWatIn_dT_M",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TSat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "TWatIn +dTWat"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Model to calculate derivative of saturated specific enthalpy of air at water inlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dhSatdTWatIn"
+                      },
+                      "description": {
+                        "description_string": "Finite difference of saturated moist air enthalpy at water inlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "NonZerDelWatTem"
+                      },
+                      "description": {
+                        "description_string": "Regularization water temperature difference between inlet and outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hAirOut"
+                      },
+                      "description": {
+                        "description_string": "Specific enthalpy of moist air at the air outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Utilities.Psychrometrics.hSat_pTSat",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatWatOutM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TSat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "TWatOutEst"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Model to calculate saturated specific enthalpy of air at water outlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatWatOut"
+                      },
+                      "description": {
+                        "description_string": "Saturated specific enthalpy of air at water outlet temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSurEff"
+                      },
+                      "description": {
+                        "description_string": "Effective surface temperature of the coil to split sensible and latent heat from total heat transfer rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatSurEff"
+                      },
+                      "description": {
+                        "description_string": "Enthalpy of saturated moist air at the effective surface temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Utilities.Psychrometrics.hSat_pTSat",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatSurEffM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TSat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "TSurEff"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "An object to calculate the saturated enthalpy of moist air at the coil surface temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Utilities.Psychrometrics.hSat_pTSat",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hSatSurEffMinM",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "p",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "pAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "TSat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "273.15 +1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "An object to calculate a lower bound of the saturated enthalpy of moist\n    air at the coil surface temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpEff"
+                      },
+                      "description": {
+                        "description_string": "Effective specific heat: change in enthalpy with respect to temperature\n     along the saturation line at the local water temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UASta"
+                      },
+                      "description": {
+                        "description_string": "Overall mass transfer coefficient for dry coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "NTUAirSta",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of transfer units for air-side only (NTU_a*)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "epsSta",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0.66"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Effectiveness for heat exchanger (e*)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CStaMin"
+                      },
+                      "description": {
+                        "description_string": "Min of product of mass flow rates and specific heats; analogous to Cmin"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CStaMin_flow_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "min",
+                                "arguments": [
+                                  {
+                                    "name": "mAir_flow_nominal"
+                                  },
+                                  {
+                                    "name": "mWat_flow_nominal*cpEff0/cpWat0"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Analogus to CMin_flow_nominal, only for a regularization"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CStaMax_flow_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "max",
+                                "arguments": [
+                                  {
+                                    "name": "mAir_flow_nominal"
+                                  },
+                                  {
+                                    "name": "mWat_flow_nominal*cpEff0/cpWat0"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Analogus to CMax_flow_nominal, only for a regularization"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltaCStaMin",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "delta*min(mAir_flow_nominal,mWat_flow_nominal*cpEff0/cpWat0)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Min of product of mass flow rates and specific heats, analogous to Cmin"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWatOutEst"
+                      },
+                      "description": {
+                        "description_string": "State estimation of temperature of water at outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QTot_flow"
+                      },
+                      "description": {
+                        "description_string": "Total heat flow from water to air stream"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QSen_flow"
+                      },
+                      "description": {
+                        "description_string": "Sensible heat flow from water to air stream"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWatOut"
+                      },
+                      "description": {
+                        "description_string": "Temperature at the water outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSurAirIn"
+                      },
+                      "description": {
+                        "description_string": "Coil surface temperature at the air inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAirOut"
+                      },
+                      "description": {
+                        "description_string": "Temperature at the air outlet"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "TWatOutEst",
+                        "rhs": {
+                          "simple_expression": "0.5*(TWatIn +TAirIn)"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "hAirIn",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Media.Air.specificEnthalpy_pTX",
+                              "arguments": [
+                                {
+                                  "name": "p=pAir,T=TAirIn,X={X_wAirIn,1 -X_wAirIn}"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hSatWatIn",
+                        "rhs": {
+                          "simple_expression": "hSatWatInM.hSat"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "dhSatdTWatIn",
+                        "rhs": {
+                          "simple_expression": "(hSatWatIn_dT_M.hSat -hSatWatInM.hSat)/dTWat"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hSatWatOut",
+                        "rhs": {
+                          "simple_expression": "hSatWatOutM.hSat"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "NonZerDelWatTem",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.regNonZeroPower",
+                              "arguments": [
+                                {
+                                  "name": "x=TWatOutEst -TWatIn,n=1,delta=0.1"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "cpEff",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                              "arguments": [
+                                {
+                                  "name": "(hSatWatOut -hSatWatIn)/NonZerDelWatTem"
+                                },
+                                {
+                                  "name": "dhSatdTWatIn,cpEff0*delta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "CStaMin",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.smoothMin",
+                              "arguments": [
+                                {
+                                  "name": "mAir_flow"
+                                },
+                                {
+                                  "name": "mWat_flow*cpWat/cpEff,deltaCStaMin/4"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "UASta",
+                        "rhs": {
+                          "simple_expression": "(UAAir/cpAir)/(1 +(cpEff*UAAir)/(cpAir*UAWat))"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "epsSta",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "epsilon_C",
+                              "arguments": [
+                                {
+                                  "name": "UA=UASta*cpDum,C1_flow=mWat_flow*cpWat/cpEff*cpDum,C2_flow=mAir_flow*cpDum,flowRegime=Integer(cfg),CMin_flow_nominal=CStaMin_flow_nominal*cpDum,CMax_flow_nominal=CStaMax_flow_nominal*cpDum,delta=delta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "QTot_flow",
+                        "rhs": {
+                          "simple_expression": "epsSta*CStaMin*(hAirIn -hSatWatIn)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "QTot_flow",
+                        "rhs": {
+                          "simple_expression": "mAir_flow*(hAirIn -hAirOut)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TWatOut",
+                        "rhs": {
+                          "simple_expression": "TWatIn +QTot_flow/(mWatNonZer_flow*cpWat)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "NTUAirSta",
+                        "rhs": {
+                          "simple_expression": "UAAir/(mAir_flow*cpAir)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hSatSurEff",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                              "arguments": [
+                                {
+                                  "name": "x1=hSatSurEffMinM.hSat,x2=hAirIn +(hAirOut -hAirIn)/(1 -exp(-NTUAirSta)),deltaX=delta*10000"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "hSatSurEffM.hSat",
+                        "rhs": {
+                          "simple_expression": "hSatSurEff"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TAirOut",
+                        "rhs": {
+                          "simple_expression": "TSurEff +(TAirIn -TSurEff)*exp(-NTUAirSta)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "QSen_flow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.smoothMin",
+                              "arguments": [
+                                {
+                                  "name": "x1=mAir_flow*cpAir*(TAirIn -TAirOut),x2=QTot_flow,deltaX=delta*mWatNonZer_flow*cpWat0*5"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TSurAirIn",
+                        "rhs": {
+                          "simple_expression": "(TAirIn*UAAir +TWatOut*UAWat)/(UAWat +UAAir)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "der(TWatOutEst)",
+                        "rhs": {
+                          "simple_expression": "-1/tau*TWatOutEst +1/tau*TWatOut"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 170,
+                                      "g": 213,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 18, 2023, by Michael Wetter:<br/>\nSet start value for <code>NTUAirSta</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1728\\\">IBPSA, #1728</a>.\n</li>\n<li>\nJan 21, 2021, by Donghun Kim:<br/>First implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model implements the calculation for a 100% wet coil.\n</p>\n<p>\nThe equations from Braun (1988) and Mitchell and Braun (2012a and b),\nwhich are essentially the extension of the <i>&epsilon;-NTU</i> approach to\nsimultaneous sensible and latent heat transfer, are utilized.\n</p>\n<p>\nThe mathematical equations are analogous to that of the sensible heat exchanger.\nHowever, the key distinction is that the heat transfer is driven by an enthalpy difference\nnot by an temperature difference. This change in the driving potential results in re-defining\ncapacitances and heat transfer coefficients accordingly.\n</p>\n\n<p>\nThe total heat transfer rate is expressed as\n</p>\n<p align=\\\"center\\\">\n<i> Q<sub>tot</sub>=&epsilon;* C*<sub>min </sub>\n(h<sub>air,in</sub>-h<sub>sat</sub>(T<sub>wat,in</sub>))</i>,\n</p>\n<p>\nwhere <i>&epsilon;*=f(Cr*,NTU*)</i> and <i>f</i> is the same <i>&epsilon;-NTU</i> relationships\n(depending on the heat exchanger configuration) for the sensible heat exchanger.\n</p>\n<p>\n<i>h<sub>air,in</sub> </i> and <i>h<sub>sat</sub></i>(<i>T<sub>wat,in</sub></i>) are\nthe specific enthalpies of the incoming moist air and saturated moist air\nat the water inlet temperature.\n</p>\n<p>\nThe capacitances of water and air streams are defined as\n</p>\n<p align=\\\"center\\\"><i>C*<sub>air</sub>=m<sub>air</sub></i> and\n<i>C*<sub>wat</sub>=m<sub>wat</sub>c<sub>p,wat</sub>/csat</i>,\n</p>\n<p>\nwhere <i>csat</i> is an specific heat capacity, which indicates the sensitivity\nof the enthalpy of the staturated moist air w.r.t. the temperature, and is defined\nhere as <i>csat=(h<sub>sat</sub>(T<sub>wat,out</sub>)-h<sub>sat</sub>(T<sub>wat,in</sub>))\n/(T<sub>wat,out</sub>-T<sub>wat,in</sub>)</i>.\n</p>\n<p>\nThe capacitance ratio and minimum capacitance are naturally defined as\n</p>\n<p align=\\\"center\\\"> <i>Cr*=min(C*<sub>air</sub>,C*<sub>wat</sub>)/max(C*<sub>air</sub>,C*<sub>wat</sub>)</i>\nand <i>C*<sub>min</sub>=min(C*<sub>air</sub>,C*<sub>wat</sub>)</i>.\n</p>\n<p><br/>\nThe number of transfer unit for the wet-coil is defined as <i>NTU*=UA*/C*<sub>min</sub></i>, where\n</p>\n<p align=\\\"center\\\">\n<i>UA*=1/(1/(UA<sub>air</sub>/c<sub>p,air</sub>)+1/(UA<sub>wat</sub>/csat)</i>.\n</p>\n\n<h4>References </h4>\n<p>\nBraun, James E. 1988.\n&quot;Methodologies for the Design and Control of Central Cooling Plants&quot;.\nPhD Thesis. University of Wisconsin - Madison.\nAvailable\n<a href=\\\"https://minds.wisconsin.edu/handle/1793/46694\\\">\nonline</a>.\n</p>\n<p>\nMitchell, John W., and James E. Braun. 2012a.\nPrinciples of heating, ventilation, and air conditioning in buildings.\nHoboken, N.J.: Wiley.\n</p>\n<p>\nMitchell, John W., and James E. Braun. 2012b.\n&quot;Supplementary Material Chapter 2: Heat Exchangers for Cooling Applications&quot;.\nExcerpt from Principles of heating, ventilation, and air conditioning in buildings.\nHoboken, N.J.: Wiley.\nAvailable\n<a href=\\\"http://bcs.wiley.com/he-bcs/Books?action=index&amp;itemId=0470624574&amp;bcsId=7185\\\">\nonline</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilWetRegime.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilWetRegime.mo",
+  "checksum": "cee42e909a632bc7fbf35aedd62485d2"
+}

@@ -1,0 +1,257 @@
+{
+  "within": "Buildings.Fluid.Delays",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "DelayFirstOrder",
+          "description_string": "Delay element, approximated by a first order differential equation",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.MixingVolumes.MixingVolume",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "V",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "V_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "massDynamics",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "energyDynamics"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mSenFac",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "1"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Time",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "tau",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "60"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time constant at nominal flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Delay time\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Volume",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "V_nominal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "m_flow_nominal*tau/rho_default"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Volume of delay element"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": -26
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -66
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"del\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model approximates a transport delay using first order differential equations.\n</p>\n<p>\nThe model consists of a mixing volume with two ports. The size of the\nmixing volume is such that at the nominal mass flow rate\n<code>m_flow_nominal</code>,\nthe time constant of the volume is equal to the parameter <code>tau</code>.\n</p>\n<p>\nThe heat flux connector is optional and need not be connnected.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJuly 12, 2024, by Michael Wetter:<br/>\nMoved parameter <code>tau</code> to the main parameter tab.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1906\\\">#1906</a>.\n</li>\n<li>\nMarch 7, 2022, by Michael Wetter:<br/>\nSet <code>final massDynamics=energyDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nSeptember 14, 2013, by Michael Wetter:<br/>\nRenamed <code>V0</code> to <code>V_nominal</code> to use consistent notation.\n</li>\n<li>\nSeptember 24, 2008, by Michael Wetter:<br/>\nChanged base class from <code>Modelica.Fluid</code> to <code>Buildings</code> library.\nThis was done to track the auxiliary species flow <code>mC_flow</code>.\n</li>\n<li>\nSeptember 4, 2008, by Michael Wetter:<br/>\nFixed bug in assignment of parameter <code>sta0</code>.\nThe earlier implementation\nrequired temperature to be a state, which is not always the case.\n</li>\n<li>\nMarch 17, 2008, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Delays/DelayFirstOrder.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Delays/DelayFirstOrder.mo",
+  "checksum": "b6c0074c784f4bba5f86140e32f5f871"
+}

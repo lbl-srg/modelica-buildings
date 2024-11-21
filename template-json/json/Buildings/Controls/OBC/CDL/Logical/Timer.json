@@ -1,0 +1,856 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Logical",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Timer",
+          "description_string": "Timer measuring the time from the time instant where the Boolean input became true",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "t",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Threshold time for comparison"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u"
+                      },
+                      "description": {
+                        "description_string": "Input that switches timer on if true, and off if false",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Elapsed time",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "passed"
+                      },
+                      "description": {
+                        "description_string": "Output with true if the elapsed time is greater than threshold",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": -60
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": -60
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "discrete",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "entryTime",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "quantity",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"Time\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"s\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Time instant when u became true"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": {
+                          "function_call": {
+                            "name": "pre",
+                            "arguments": [
+                              {
+                                "name": "entryTime"
+                              }
+                            ]
+                          }
+                        },
+                        "rhs": {
+                          "simple_expression": "time"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": {
+                          "function_call": {
+                            "name": "pre",
+                            "arguments": [
+                              {
+                                "name": "passed"
+                              }
+                            ]
+                          }
+                        },
+                        "rhs": {
+                          "simple_expression": {
+                            "logical_expression": {
+                              "logical_or": [
+                                {
+                                  "logical_and": [
+                                    {
+                                      "arithmetic_expressions": [
+                                        {
+                                          "name": "t"
+                                        },
+                                        {
+                                          "name": "0"
+                                        }
+                                      ],
+                                      "relation_operator": "<="
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "when_equation": [
+                        {
+                          "condition": {
+                            "simple_expression": "u"
+                          },
+                          "then": [
+                            {
+                              "assignment_equation": {
+                                "lhs": "entryTime",
+                                "rhs": {
+                                  "simple_expression": "time"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "condition": {
+                            "simple_expression": "([object Object])"
+                          },
+                          "then": [
+                            {
+                              "assignment_equation": {
+                                "lhs": "passed",
+                                "rhs": {
+                                  "simple_expression": {
+                                    "logical_expression": {
+                                      "logical_or": [
+                                        {
+                                          "logical_and": [
+                                            {
+                                              "arithmetic_expressions": [
+                                                {
+                                                  "name": "t"
+                                                },
+                                                {
+                                                  "name": "0"
+                                                }
+                                              ],
+                                              "relation_operator": "<="
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "condition": {
+                            "simple_expression": "not u"
+                          },
+                          "then": [
+                            {
+                              "assignment_equation": {
+                                "lhs": "passed",
+                                "rhs": {
+                                  "simple_expression": "true"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "y",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "u"
+                                },
+                                "then": {
+                                  "simple_expression": "time -entryTime"
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"tim\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "borderPattern": "BorderPattern.Raised",
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -66,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": 82,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -58,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 90,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -52
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -68
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -58,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -66,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": 90
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -56,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": -38,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": -38,
+                                        "y": -16
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": -16
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -58,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -40,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 58
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 150
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 110
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -64,
+                                        "y": 62
+                                      },
+                                      {
+                                        "x": 62,
+                                        "y": 92
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -83,
+                                        "y": 7
+                                      },
+                                      {
+                                        "x": -69,
+                                        "y": -7
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 71,
+                                        "y": -73
+                                      },
+                                      {
+                                        "x": 85,
+                                        "y": -87
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 226,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 106,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(y",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nIf the Boolean input <code>u</code> is <code>true</code>,\nthe output <code>y</code> is the time that has elapsed since <code>u</code> became <code>true</code>.\nOtherwise, <code>y</code> is <i>0</i>.\nIf the output <code>y</code> becomes greater than the threshold time <code>t</code>,\nthe output <code>passed</code> is <code>true</code>.\nOtherwise it is <code>false</code>.\n</p>\n<p>\nIn the limiting case where the timer value reaches the threshold <code>t</code>\nand the input <code>u</code> becomes <code>false</code> simultaneously,\nthe output <code>passed</code> remains <code>false</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 12, 2020, by Michael Wetter:<br/>\nReformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2243\\\">issue 2243</a>.\n</li>\n<li>\nAugust 28, 2020, by Michael Wetter:<br/>\nRevised implementation to correctly deal with non-zero simulation start time,\nand to avoid state events.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2101\\\">issue 2101</a>.\n</li>\n<li>\nAugust 26, 2020, by Jianjun Hu:<br/>\nRemoved <code>reset</code> boolean input and added output <code>passed</code>\nto show if the time becomes greater than threshold time.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2101\\\">issue 2101</a>.\n</li>\n<li>\nJuly 31, 2020, by Jianjun Hu:<br/>\nFixed the reset input. This is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2056\\\">issue 2056</a>.\n</li>\n<li>\nNovember 8, 2019, by Michael Wetter:<br/>\nRevised implementation. This is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1221\\\">issue 1221</a>.\n</li>\n<li>\nJuly 23, 2018, by Jianjun Hu:<br/>\nAdded conditional boolean input for cumulative time measuring. This is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1221\\\">issue 1221</a>.\n</li>\n<li>\nJuly 18, 2018, by Jianjun Hu:<br/>\nUpdated implementation to output accumulated true input time.  This is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1212\\\">issue 1212</a>.\n</li>\n<li>\nJanuary 3, 2017, by Michael Wetter:<br/>\nFirst implementation, based on the implementation of the\nModelica Standard Library.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Logical/Timer.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Logical/Timer.mo",
+  "checksum": "1ebf707b1a14e16b87f281364f077e2c"
+}

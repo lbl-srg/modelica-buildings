@@ -1,0 +1,1063 @@
+{
+  "within": "Buildings.Fluid.Movers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "SpeedControlled_y",
+          "description_string": "Fan or pump with ideally controlled normalized speed y as input signal",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "preVar",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "nominalValuesDefineDefaultPressureCurve",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "computePowerUsingSimilarityLaws",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "stageInputs",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "each": true,
+                                  "final": true,
+                                  "element_modification": {
+                                    "name": "unit",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "\"1\""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.speeds"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "constInput",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "final": true,
+                                  "element_modification": {
+                                    "name": "unit",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "\"1\""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "per.constantSpeed"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "motSpe",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "final": true,
+                                  "element_modification": {
+                                    "name": "y_start",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "y_start"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "u",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "final": true,
+                                            "element_modification": {
+                                              "name": "unit",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "\"1\""
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "y",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "final": true,
+                                            "element_modification": {
+                                              "name": "unit",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "\"1\""
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "eff",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "per",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "final": true,
+                                            "element_modification": {
+                                              "name": "pressure",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "per.pressure"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "final": true,
+                                            "element_modification": {
+                                              "name": "etaHydMet",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "per.etaHydMet"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "final": true,
+                                            "element_modification": {
+                                              "name": "etaMotMet",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "per.etaMotMet"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "r_N",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "element_modification": {
+                                              "name": "start",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "y_start"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y_start",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Initial value of speed",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Dynamics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Motor speed\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "use_riseTime"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": {
+                            "logical_expression": {
+                              "logical_or": [
+                                {
+                                  "logical_and": [
+                                    {
+                                      "arithmetic_expressions": [
+                                        {
+                                          "name": "inputType"
+                                        },
+                                        {
+                                          "name": "Buildings.Fluid.Types.InputType.Continuous"
+                                        }
+                                      ],
+                                      "relation_operator": "=="
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Constant normalized rotational speed",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": 120
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  },
+                                  "iconTransformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": 120
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": -90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Math.Gain",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "gain",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "k",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "-1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Pressure gain",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "origin": {
+                                          "x": -10,
+                                          "y": -20
+                                        },
+                                        "extent": [
+                                          {
+                                            "x": 10,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": -10,
+                                            "y": 10
+                                          }
+                                        ],
+                                        "rotation": 270
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "per.havePressureCurve"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "inputSwitch"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -22,
+                                      "y": 50
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": 50
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": 0,
+                                      "y": 120
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "eff"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "dp"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "gain"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -11,
+                                      "y": -50
+                                    },
+                                    {
+                                      "x": -6,
+                                      "y": -50
+                                    },
+                                    {
+                                      "x": -6,
+                                      "y": -42
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": -42
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": -32
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "gain"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "preSou"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "dp_in"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -10,
+                                      "y": -9
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": 14
+                                    },
+                                    {
+                                      "x": 56,
+                                      "y": 14
+                                    },
+                                    {
+                                      "x": 56,
+                                      "y": 8
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_riseTime"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "motSpe"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "y"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "eff"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "y_in"
+                                      }
+                                    ]
+                                  },
+                                  "description": {
+                                    "annotation": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "Line": {
+                                              "points": [
+                                                {
+                                                  "x": 41,
+                                                  "y": 70
+                                                },
+                                                {
+                                                  "x": 44,
+                                                  "y": 70
+                                                },
+                                                {
+                                                  "x": 44,
+                                                  "y": 26
+                                                },
+                                                {
+                                                  "x": -26,
+                                                  "y": 26
+                                                },
+                                                {
+                                                  "x": -26,
+                                                  "y": -46
+                                                }
+                                              ],
+                                              "color": {
+                                                "r": 0,
+                                                "g": 0,
+                                                "b": 127
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "inputSwitch"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "y"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "eff"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "y_in"
+                                }
+                              ]
+                            },
+                            "description": {
+                              "annotation": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "Line": {
+                                        "points": [
+                                          {
+                                            "x": 1,
+                                            "y": 50
+                                          },
+                                          {
+                                            "x": 44,
+                                            "y": 50
+                                          },
+                                          {
+                                            "x": 44,
+                                            "y": 26
+                                          }
+                                        ],
+                                        "color": {
+                                          "r": 0,
+                                          "g": 0,
+                                          "b": 127
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"mov\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -40,
+                                        "y": 126
+                                      },
+                                      {
+                                        "x": -160,
+                                        "y": 76
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"y\",if [object Object] then [object Object] else [object Object])",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "visible": ",visible="
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model describes a fan or pump with prescribed normalized speed.\nThe input connector provides the normalized rotational speed (between 0 and 1).\nThe head is computed based on the performance curve that take as an argument\nthe actual volume flow rate divided by the maximum flow rate and the relative\nspeed of the fan.\n</p>\n<p>\nSee the\n<a href=\\\"modelica://Buildings.Fluid.Movers.UsersGuide\\\">\nUser's Guide</a> for more information.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nAugust 26, 2024, by Michael Wetter:<br/>\nImplemented linear dynamics for change in motor speed.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3965\\\">Buildings, #3965</a> and\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\\\">IBPSA, #1926</a>.\n</li>\n<li>\nMarch 29, 2023, by Hongxiang Fu:<br/>\nRemoved the modification that normalised the speed input\nbecause it is no longer needed. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\\\">IBPSA, #1704</a>.\n</li>\n<li>\nMarch 1, 2023, by Hongxiang Fu:<br/>\nRemoved the modification of <code>m_flow_nominal</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\\\">#1705</a>.\n</li>\n<li>\nMarch 8, 2022, by Hongxiang Fu:<br/>\nRefactored the model by replacing <code>not use_powerCharacteristic</code>\nwith the enumeration\n<a href=\\\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\\\">\nBuildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2668\\\">#2668</a>.\nMarch 7, 2022, by Michael Wetter:<br/>\nSet <code>final massDynamics=energyDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nJune 17, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nFebruary 21, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating stage.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nMarch 24, 2017, by Michael Wetter:<br/>\nRenamed <code>filteredSpeed</code> to <code>use_inputFilter</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/665\\\">#665</a>.\n</li>\n<li>\nDecember 2, 2016, by Michael Wetter:<br/>\nRemoved <code>min</code> attribute as otherwise numerical noise can cause\nthe assertion on the limit to fail.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/606\\\">#606</a>.\n</li>\n<li>\nMarch 2, 2016, by Filip Jorissen:<br/>\nRefactored model such that it directly extends <code>PartialFlowMachine</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/417\\\">#417</a>.\n</li>\n<li>\nFebruary 17, 2016, by Michael Wetter:<br/>\nUpdated parameter names for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/396\\\">#396</a>.\n</li>\n<li>\nApril 2, 2015, by Filip Jorissen:<br/>\nAdded code for supporting stage input and constant input.\n</li>\n<li>\nJanuary 6, 2015, by Michael Wetter:<br/>\nRevised model for OpenModelica.\n</li>\n<li>\nNovember 22, 2014, by Michael Wetter:<br/>\nRevised implementation that uses the new performance data as a record.\n</li>\n<li>\nFebruary 14, 2012, by Michael Wetter:<br/>\nAdded filter for start-up and shut-down transient.\n</li>\n<li>\nMay 25, 2011, by Michael Wetter:<br/>\nRevised implementation of energy balance to avoid having to use conditionally removed models.\n</li>\n<li>\nJuly 27, 2010, by Michael Wetter:<br/>\nRedesigned model to fix bug in medium balance.\n</li>\n<li>March 24, 2010, by Michael Wetter:<br/>\nRevised implementation to allow zero flow rate.\n</li>\n<li>\nOctober 1, 2009, by Michael Wetter:<br/>\nModel added to the Buildings library. Changed control signal from rpm to normalized value between 0 and 1</li>\n<li>\nOctober 31, 2005 by <a href=\\\"mailto:francesco.casella@polimi.it\\\">Francesco Casella</a>:<br/>\nModel added to the Fluid library\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Movers/SpeedControlled_y.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Movers/SpeedControlled_y.mo",
+  "checksum": "3dd9dc614abe0fa282f850338fe960ef"
+}

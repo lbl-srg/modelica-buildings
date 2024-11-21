@@ -1,0 +1,794 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Reals",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Hysteresis",
+          "description_string": "Transform Real to Boolean signal with Hysteresis",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "uLow"
+                      },
+                      "description": {
+                        "description_string": "if y=true and u<uLow, switch to y=false"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "uHigh"
+                      },
+                      "description": {
+                        "description_string": "if y=false and u>uHigh, switch to y=true"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pre_y_start",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Value of pre(y) at initial time"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u"
+                      },
+                      "description": {
+                        "description_string": "Input to be compared against hysteresis values",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y"
+                      },
+                      "description": {
+                        "description_string": "Output value of comparison",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "uHigh"
+                                            },
+                                            {
+                                              "name": "uLow"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Hysteresis limits wrong. uHigh must be larger than uLow\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": {
+                          "function_call": {
+                            "name": "pre",
+                            "arguments": [
+                              {
+                                "name": "y"
+                              }
+                            ]
+                          }
+                        },
+                        "rhs": {
+                          "simple_expression": "pre_y_start"
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "y",
+                        "rhs": {
+                          "simple_expression": {
+                            "logical_expression": {
+                              "logical_or": [
+                                {
+                                  "logical_and": [
+                                    {
+                                      "arithmetic_expressions": [
+                                        {
+                                          "name": "u"
+                                        },
+                                        {
+                                          "name": "uHigh"
+                                        }
+                                      ],
+                                      "relation_operator": ">"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "logical_and": [
+                                    {
+                                      "arithmetic_expressions": [
+                                        {
+                                          "name": "u"
+                                        },
+                                        {
+                                          "name": "uLow"
+                                        }
+                                      ],
+                                      "relation_operator": ">="
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"hys\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "borderPattern": "BorderPattern.Raised",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 5
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 71,
+                                        "y": 7
+                                      },
+                                      {
+                                        "x": 85,
+                                        "y": -7
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -88,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -29
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 92,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -21
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -37
+                                      },
+                                      {
+                                        "x": 92,
+                                        "y": -29
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -79,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": 84,
+                                        "y": -29
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -79,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": 41,
+                                        "y": -29
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -15,
+                                        "y": -21
+                                      },
+                                      {
+                                        "x": 1,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": -15,
+                                        "y": -36
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 41,
+                                        "y": 51
+                                      },
+                                      {
+                                        "x": 41,
+                                        "y": -29
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 33,
+                                        "y": 3
+                                      },
+                                      {
+                                        "x": 41,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": 3
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -49,
+                                        "y": 51
+                                      },
+                                      {
+                                        "x": 81,
+                                        "y": 51
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -4,
+                                        "y": 59
+                                      },
+                                      {
+                                        "x": -19,
+                                        "y": 51
+                                      },
+                                      {
+                                        "x": -4,
+                                        "y": 43
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -59,
+                                        "y": 29
+                                      },
+                                      {
+                                        "x": -49,
+                                        "y": 11
+                                      },
+                                      {
+                                        "x": -39,
+                                        "y": 29
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -49,
+                                        "y": 51
+                                      },
+                                      {
+                                        "x": -49,
+                                        "y": -29
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -92,
+                                        "y": -49
+                                      },
+                                      {
+                                        "x": -9,
+                                        "y": -92
+                                      }
+                                    ],
+                                    "textString": "\"%uLow\"",
+                                    "textColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 2,
+                                        "y": -49
+                                      },
+                                      {
+                                        "x": 91,
+                                        "y": -92
+                                      }
+                                    ],
+                                    "textString": "\"%uHigh\"",
+                                    "textColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -91,
+                                        "y": -49
+                                      },
+                                      {
+                                        "x": -8,
+                                        "y": -92
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -49,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": -49,
+                                        "y": -49
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 2,
+                                        "y": -49
+                                      },
+                                      {
+                                        "x": 91,
+                                        "y": -92
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 41,
+                                        "y": -29
+                                      },
+                                      {
+                                        "x": 41,
+                                        "y": -49
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 150
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 110
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nBlock that transforms a <code>Real</code> input signal into a <code>Boolean</code>\noutput signal:\n</p>\n<ul>\n<li> When the output was <code>false</code> and the input becomes\n     greater than the parameter <code>uHigh</code>, the output\n     switches to <code>true</code>.\n</li>\n<li> When the output was <code>true</code> and the input becomes\n     less than the parameter <code>uLow</code>, the output\n     switches to <code>false</code>.\n</li>\n</ul>\n<p>\nThe start value of the output is defined via parameter\n<code>pre_y_start</code> (= value of <code>pre(y)</code> at initial time).\nThe default value of this parameter is <code>false</code>.\n</p>\n<p align=\\\"center\\\">\n<img src=\\\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Reals/Hysteresis.png\\\"\n     alt=\\\"Hysteresis.png\\\" />\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nOctober 3, 2017, by Michael Wetter:<br/>\nRemoved start value for parameters, and moved assertion to <code>initial equation</code>.\n</li>\n<li>\nJanuary 3, 2017, by Michael Wetter:<br/>\nFirst implementation, based on the implementation of the\nModelica Standard Library.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Reals/Hysteresis.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Reals/Hysteresis.mo",
+  "checksum": "03aea0e92c1e6633d069dc24fbabb0e2"
+}

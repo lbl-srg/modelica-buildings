@@ -1,0 +1,205 @@
+{
+  "within": "Buildings.Fluid.MixingVolumes.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "MixingVolumeHeatPort",
+          "description_string": "Mixing volume with heat port and initialize_p not set to final",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "heatPort",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "T",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "T_start"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat port for heat exchange with the control volume",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heaFloSen"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heatPort"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -90,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -100,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -100,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 191,
+                                    "g": 0,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"vol\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nMixing volume with a heat port.\n</p>\n<p>\nThis model is identical to\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\\\">\nBuildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>,\nexcept that it has a heat port.\n</p>\n<p>\nNote that this model is typically only used to implement new component models that\nhave staggered volumes.\nIn contrast to\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\\\">\nBuildings.Fluid.MixingVolumes.MixingVolume</a>, it does\nnot set <code>initialize_p</code> to <code>final</code> in order\nfor this model to be usable in staggered volumes which require one\npressure to be set to <code>initialize_p = not Medium.singleState</code>\nand all others to <code>false</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 9, 2021, by Michael Wetter:<br/>\nCorrected annotation.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1547\\\">IBPSA, issue 1547</a>.\n</li>\n<li>\nOctober 19, 2017, by Michael Wetter:<br/>\nFirst implementation for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1013\\\">Buildings, issue 1013</a>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/MixingVolumes/BaseClasses/MixingVolumeHeatPort.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/MixingVolumes/BaseClasses/MixingVolumeHeatPort.mo",
+  "checksum": "5fa6240744074bce97dde4f31efb9df4"
+}

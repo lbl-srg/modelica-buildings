@@ -1,0 +1,152 @@
+{
+  "within": "Buildings",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Reset",
+                      "value": {
+                        "description": {
+                          "description_string": "Options for integrator reset",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration to define the choice of integrator reset\n(to be selected via choices menu):\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td>Disabled</td>\n<td>\nUse this setting to disable the integrator reset.\n</td></tr>\n<tr><td>Parameter</td>\n<td>\nUse this setting to use reset the integrator to the value of the parameter.\n</td></tr>\n<tr><td>Input</td>\n<td>Use this setting to reset the integrator to the value obtained\nfrom the input signal.\n</td></tr>\n </table>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 29, 2016, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Disabled",
+                            "description": {
+                              "description_string": "Disabled"
+                            }
+                          },
+                          {
+                            "identifier": "Parameter",
+                            "description": {
+                              "description_string": "Use parameter value"
+                            }
+                          },
+                          {
+                            "identifier": "Input",
+                            "description": {
+                              "description_string": "Use input signal"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 30 2010, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Types/package.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Types/package.mo",
+  "checksum": "130820dfa2fb337a4c915bcfca27d8be"
+}

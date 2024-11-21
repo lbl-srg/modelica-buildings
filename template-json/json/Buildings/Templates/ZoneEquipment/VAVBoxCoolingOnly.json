@@ -1,0 +1,131 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "VAVBoxCoolingOnly",
+          "description_string": "VAV terminal unit cooling only",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Interfaces.VAVBox",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "typ",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Templates.ZoneEquipment.Types.Configuration.VAVBoxCoolingOnly"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "final": true,
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.Components.Coils.None",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "coiHea"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "element_replaceable": {
+                          "component_clause1": {
+                            "type_specifier": "Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxCoolingOnly",
+                            "component_declaration1": {
+                              "declaration": {
+                                "identifier": "ctl"
+                              },
+                              "description": {
+                                "description_string": "Guideline 36 controller for VAV terminal unit cooling only"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "__ctrlFlow_template"
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"VAVBox\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<h4>Description</h4>\n<p>\nThis template represents a cooling-only VAV terminal unit\n(or shut off box).\n</p>\n<p>\nThe possible configuration options are enumerated in the table below.\nThe user may refer to ASHRAE (2021) for further details.\nThe first option displayed in bold characters corresponds to the default configuration.<br/>\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\">\n<tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>\n<tr><td>VAV damper</td>\n<td>\n<b>Modulating damper</b><br/>\n</td>\n<td></td>\n</tr>\n<tr><td>Controller</td>\n<td>\n<b>ASHRAE Guideline 36 controller</b>\n</td>\n<td>\nAn open loop controller is also available for validation purposes only.\n</td>\n</table>\n<h4>References</h4>\n<ul>\n<li>\nASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation\nfor HVAC Systems. Atlanta, GA.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nFebruary 11, 2022, by Antoine Gautier:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/VAVBoxCoolingOnly.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Templates/ZoneEquipment/VAVBoxCoolingOnly.mo",
+  "checksum": "24af3f531dfa38d6ab5bc56f30563e58"
+}

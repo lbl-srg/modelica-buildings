@@ -1,0 +1,1467 @@
+{
+  "within": "Buildings.Fluid.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TwoPortHeatMassExchanger",
+          "description_string": "Partial model transporting one fluid stream with storing mass or energy",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialTwoPortInterface",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "port_a",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "h_outflow",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "element_modification": {
+                                              "name": "start",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "h_outflow_start"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "port_b",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "h_outflow",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_modification_or_replaceable": {
+                                            "element_modification": {
+                                              "name": "start",
+                                              "modification": {
+                                                "equal": true,
+                                                "expression": {
+                                                  "simple_expression": "h_outflow_start"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "computeFlowResistance",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "homotopyInitialization",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, use homotopy method",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Time",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "tau",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time constant at nominal flow (if energyDynamics <> SteadyState)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Dynamics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Fluid.Types.Dynamics",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "energyDynamics",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Modelica.Fluid.Types.Dynamics.DynamicFreeInitial"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Type of energy balance: dynamic (3 initialization options) or steady state",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Dynamics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Conservation equations\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.AbsolutePressure",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p_start",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.p_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Start value of pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Initialization\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_start",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.T_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Start value of temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Initialization\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.MassFraction",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "X_start",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nX"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Medium.substanceNames"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.X_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Start value of mass fractions m_i/m",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Initialization\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "Medium.nXi"
+                                                            },
+                                                            {
+                                                              "name": "0"
+                                                            }
+                                                          ],
+                                                          "relation_operator": ">"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.ExtraProperty",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C_start",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Medium.extraPropertiesNames"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "fill",
+                                "arguments": [
+                                  {
+                                    "name": "0"
+                                  },
+                                  {
+                                    "name": "Medium.nC"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Start value of trace substances",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Initialization\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": {
+                                                "logical_expression": {
+                                                  "logical_or": [
+                                                    {
+                                                      "logical_and": [
+                                                        {
+                                                          "arithmetic_expressions": [
+                                                            {
+                                                              "name": "Medium.nC"
+                                                            },
+                                                            {
+                                                              "name": "0"
+                                                            }
+                                                          ],
+                                                          "relation_operator": ">"
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "constraining_clause": {
+                  "name": "Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "final": true,
+                        "short_class_definition": {
+                          "class_prefixes": "package",
+                          "short_class_specifier": {
+                            "identifier": "Medium",
+                            "value": {
+                              "name": "Medium"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "nPorts",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "2"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "V",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "m_flow_nominal*tau/rho_default"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "allowFlowReversal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "allowFlowReversal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mSenFac",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "1"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "m_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "m_flow_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "energyDynamics",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "energyDynamics"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "massDynamics",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "energyDynamics"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "p_start",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "p_start"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "T_start",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "T_start"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "X_start",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "X_start"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "C_start",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "C_start"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.MixingVolumes.MixingVolume",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "vol"
+                      }
+                    }
+                  ]
+                },
+                "description": {
+                  "description_string": "Volume for fluid stream",
+                  "annotation": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "Placement": {
+                            "transformation": {
+                              "extent": [
+                                {
+                                  "x": -9,
+                                  "y": 0
+                                },
+                                {
+                                  "x": 11,
+                                  "y": -20
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.FixedResistances.PressureDrop",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "preDro",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "deltaM",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "deltaM"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "allowFlowReversal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "allowFlowReversal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "show_T",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "from_dp",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "from_dp"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "linearized",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "linearizeFlowResistance"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "homotopyInitialization",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "homotopyInitialization"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "dp_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "dp_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Flow resistance",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -60,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -40,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sta_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium.T_default,p=Medium.p_default,X=Medium.X_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Density",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "rho_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.density",
+                                    "arguments": [
+                                      {
+                                        "name": "sta_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Density, used to compute fluid volume"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sta_start",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=T_start,p=p_start,X=X_start"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "h_outflow_start",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.specificEnthalpy",
+                                    "arguments": [
+                                      {
+                                        "name": "sta_start"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Start value for outflowing enthalpy"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "algorithm_section": {
+                  "initial": true,
+                  "statement": [
+                    {},
+                    {}
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "vol"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "ports",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "2"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 1,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 100,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "preDro"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -100,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -90,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -90,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -60,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "preDro"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "vol"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "ports",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "1"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -40,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 1,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis component transports one fluid stream.\nIt provides the basic model for implementing dynamic and steady-state\nmodels that exchange heat and water vapor with the fluid stream.\nThe model also computes the pressure drop due to the flow resistance.\nBy setting the parameter <code>dp_nominal=0</code>, the computation\nof the pressure drop can be avoided.\nThe variable <code>vol.heatPort.T</code> always has the value of\nthe temperature of the medium that leaves the component.\nFor the actual temperatures at the port, the variables <code>sta_a.T</code>\nand <code>sta_b.T</code> can be used. These two variables are provided by\nthe base class\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\\\">\nBuildings.Fluid.Interfaces.PartialTwoPortInterface</a>.\n</p>\n\nFor models that extend this model, see for example\n<ul>\n<li>\nthe ideal heater or cooler\n<a href=\\\"modelica://Buildings.Fluid.HeatExchangers.HeaterCooler_u\\\">\nBuildings.Fluid.HeatExchangers.HeaterCooler_u</a>, and\n</li>\n<li>\nthe ideal humidifier\n<a href=\\\"modelica://Buildings.Fluid.Humidifiers.Humidifier_u\\\">\nBuildings.Fluid.Humidifiers.Humidifier_u</a>.\n</li>\n</ul>\n\n<h4>Implementation</h4>\n<p>\nThe variable names follow the conventions used in\n<a href=\\\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\\\">\nModelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\n</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 3, 2022, by Michael Wetter:<br/>\nRemoved <code>massDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">issue 1542</a>.\n</li>\n<li>\nApril 14, 2020, by Michael Wetter:<br/>\nChanged <code>homotopyInitialization</code> to a constant.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\\\">IBPSA, #1341</a>.\n</li>\n<li>\nDecember 1, 2016, by Michael Wetter:<br/>\nUpdated model as <code>use_dh</code> is no longer a parameter in the pressure drop model.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/480\\\">#480</a>.\n</li>\n<li>\nJanuary 26, 2016, by Michael Wetter:<br/>\nAdded <code>final quantity=Medium.substanceNames</code> for <code>X_start</code>.\n</li>\n<li>\nMay 6, 2015, by Michael Wetter:<br/>\nAdded missing propagation of <code>allowFlowReversal</code> to\ninstance <code>vol</code>.\nThis is for issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/412\\\">#412</a>.\n</li>\n<li>\nMay 1, 2015, by Marcus Fuchs:<br/>\nFixed links in documentation.\n</li>\n<li>\nOctober 6, 2014, by Michael Wetter:<br/>\nChanged medium declaration in pressure drop element to be final.\n</li>\n<li>\nMay 28, 2014, by Michael Wetter:<br/>\nRemoved <code>annotation(Evaluate=true)</code> for parameter <code>tau</code>.\nThis is needed to allow changing the time constant after translation.\n</li>\n<li>\nNovember 12, 2013, by Michael Wetter:<br/>\nRemoved <code>import Modelica.Constants</code> statement.\n</li>\n<li>\nOctober 8, 2013, by Michael Wetter:<br/>\nRemoved parameter <code>show_V_flow</code>.\n</li>\n<li>\nDecember 14, 2012 by Michael Wetter:<br/>\nRenamed protected parameters for consistency with the naming conventions.\n</li>\n<li>\nOctober 17, 2012, by Michael Wetter:<br/>\nFixed broken link in documentation.\n</li>\n<li>\nFebruary 3, 2012, by Michael Wetter:<br/>\nRemoved assignment of <code>m_flow_small</code> as it is no\nlonger used in the pressure drop model.\n</li>\n<li>\nJanuary 15, 2011, by Michael Wetter:<br/>\nFixed wrong class reference in information section.\n</li>\n<li>\nSeptember 13, 2011, by Michael Wetter:<br/>\nChanged assignment of <code>vol(mass/energyDynamics=...)</code> as the\nprevious assignment caused a non-literal start value that was ignored.\n</li>\n<li>\nJuly 29, 2011, by Michael Wetter:<br/>\nAdded start value for outflowing enthalpy.\n</li>\n<li>\nJuly 11, 2011, by Michael Wetter:<br/>\nChanged parameterization of fluid volume so that steady-state balance is\nused when <code>tau = 0</code>.\n</li>\n<li>\nMay 25, 2011, by Michael Wetter:<br/>\nRemoved temperature sensor and changed implementation of fluid volume\nto allow use of this model for the steady-state and dynamic humidifier\n<a href=\\\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\\\">\nBuildings.Fluid.MassExchangers.HumidifierPrescribed</a>.\n</li>\n<li>\nMarch 25, 2011, by Michael Wetter:<br/>\nAdded homotopy operator.\n</li>\n<li>\nMarch 21, 2010 by Michael Wetter:<br/>\nChanged pressure start value from <code>system.p_start</code>\nto <code>Medium.p_default</code> since HVAC models may have water and\nair, which are typically at different pressures.\n</li>\n<li>\nApril 13, 2009, by Michael Wetter:<br/>\nAdded model to compute flow friction.\n</li>\n<li>\nJanuary 29, 2009 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 95,
+                                      "g": 95,
+                                      "b": 95
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -101,
+                                        "y": 5
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -4
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 0,
+                                        "y": -4
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 5
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Interfaces/TwoPortHeatMassExchanger.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Interfaces/TwoPortHeatMassExchanger.mo",
+  "checksum": "0def67ca4cfb080d9c54c6be5849bbb9"
+}

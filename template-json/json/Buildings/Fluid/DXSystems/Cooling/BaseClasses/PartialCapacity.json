@@ -1,0 +1,1631 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialCapacity",
+          "description_string": "Calculates performance curve value at given temperature and mass flow rate",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_mCon_flow"
+                      },
+                      "description": {
+                        "description_string": "Set to true to enable connector for the condenser mass flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.IntegerInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "stage",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Stage of coil, or 0/1 for variable-speed coil",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -124,
+                                        "y": 88
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 112
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 110
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConIn",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature of air entering the condenser coil ",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 38
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 58
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air mass flow rate at the evaporator",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TEvaIn",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -58
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -38
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mCon_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_mCon_flow"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water mass flow rate at the condenser",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -110
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -90
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nSta",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of coil stages (not counting the off stage)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Performance data for this stage"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Real",
+                  "array_subscripts": [
+                    {
+                      "expression": {
+                        "simple_expression": "nSta"
+                      }
+                    }
+                  ],
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ff",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air flow fraction: ratio of actual air flow rate by rated mass flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Q_flow",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"W\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Total cooling capacity",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": -30
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "EIR",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Energy Input Ratio",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": 30
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 50
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cap_T",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Cooling capacity modification factor as a function of temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cap_FF",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Cooling capacity modification factor as a function of flow fraction"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "EIR_T",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "EIR modification factor as a function of temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "EIR_FF",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "EIR modification factor as a function of flow fraction"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "corFac",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_small",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0.0001*sta[nSta].nomVal.m_flow_nominal"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Small mass flow rate for regularization"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "checkBoundsTEva",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "nSta"
+                                }
+                              }
+                            ]
+                          },
+                          "description": {
+                            "description_string": "Flag, used to check for out of bounds data"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "checkBoundsTCon",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "nSta"
+                                }
+                              }
+                            ]
+                          },
+                          "description": {
+                            "description_string": "Flag, used to check for out of bounds data"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "algorithm_section": {
+                  "initial": true,
+                  "statement": [
+                    {
+                      "for_statement": {
+                        "for_indices": [
+                          {
+                            "identifier": "iSta",
+                            "expression": {
+                              "simple_expression": "1:nSta"
+                            }
+                          }
+                        ],
+                        "loop_statements": [
+                          {},
+                          {},
+                          {},
+                          {}
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_statement": {
+                        "identifier": [
+                          {
+                            "dot_op": false,
+                            "identifier": "checkBoundsTEva"
+                          }
+                        ],
+                        "value": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "fill",
+                              "arguments": [
+                                {
+                                  "name": "true"
+                                },
+                                {
+                                  "name": "nSta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_statement": {
+                        "identifier": [
+                          {
+                            "dot_op": false,
+                            "identifier": "checkBoundsTCon"
+                          }
+                        ],
+                        "value": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "fill",
+                              "arguments": [
+                                {
+                                  "name": "true"
+                                },
+                                {
+                                  "name": "nSta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "iSta",
+                            "expression": {
+                              "simple_expression": "1:nSta"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "when_equation": [
+                              {
+                                "condition": {
+                                  "simple_expression": "([object Object])"
+                                },
+                                "then": [
+                                  {
+                                    "function_call_equation": {
+                                      "function_name": "assert",
+                                      "function_call_args": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "not ([object Object])"
+                                          }
+                                        },
+                                        "function_arguments": {
+                                          "function_argument": {
+                                            "expression": {
+                                              "simple_expression": "\"*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = \" +String(time) +\".\n    stage     = \" +String(iSta) +\"\n    TEvaInMin = \" +String(sta[iSta].perCur.TEvaInMin) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) +\" degC)\n    TEvaIn    = \" +String(TEvaIn) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(TEvaIn)) +\" degC)\n    TEvaInMax = \" +String(sta[iSta].perCur.TEvaInMax) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) +\" degC)\n    Extrapolation can introduce large errors.\n    This warning will only be reported once for each stage.\""
+                                            }
+                                          },
+                                          "function_arguments": {
+                                            "named_arguments": [
+                                              {
+                                                "identifier": "level",
+                                                "value": {
+                                                  "expression": {
+                                                    "simple_expression": "AssertionLevel.warning"
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "when_equation": [
+                              {
+                                "condition": {
+                                  "simple_expression": "([object Object])"
+                                },
+                                "then": [
+                                  {
+                                    "function_call_equation": {
+                                      "function_name": "assert",
+                                      "function_call_args": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "not ([object Object])"
+                                          }
+                                        },
+                                        "function_arguments": {
+                                          "function_argument": {
+                                            "expression": {
+                                              "simple_expression": "\"*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = \" +String(time) +\".\n    stage     = \" +String(iSta) +\"\n    TConInMin = \" +String(sta[iSta].perCur.TConInMin) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMin)) +\" degC)\n    TConIn    = \" +String(TConIn) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(TConIn)) +\" degC)\n    TConInMax = \" +String(sta[iSta].perCur.TConInMax) +\" Kelvin (\" +String(Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMax)) +\" degC)\n    Extrapolation can introduce large errors.\n    This warning will only be reported once for each stage.\""
+                                            }
+                                          },
+                                          "function_arguments": {
+                                            "named_arguments": [
+                                              {
+                                                "identifier": "level",
+                                                "value": {
+                                                  "expression": {
+                                                    "simple_expression": "AssertionLevel.warning"
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "stage"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "for_equation": {
+                                    "for_indices": [
+                                      {
+                                        "identifier": "iSta",
+                                        "expression": {
+                                          "simple_expression": "1:nSta"
+                                        }
+                                      }
+                                    ],
+                                    "loop_equations": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "ff[iSta]",
+                                          "rhs": {
+                                            "simple_expression": "Buildings.Utilities.Math.Functions.smoothMax(x1=m_flow,x2=m_flow_small,deltaX=m_flow_small/10)/sta[iSta].nomVal.m_flow_nominal"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "cap_T[iSta]",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                                "arguments": [
+                                                  {
+                                                    "name": "x1=Buildings.Utilities.Math.Functions.biquadratic(a=sta[iSta].perCur.capFunT,x1=Modelica.Units.Conversions.to_degC(TEvaIn),x2=Modelica.Units.Conversions.to_degC(TConIn)),x2=0.001,deltaX=0.0001"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "description": {
+                                          "description_string": "Cooling capacity modification factor as function of temperature"
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "cap_FF[iSta]",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Fluid.Utilities.extendedPolynomial",
+                                                "arguments": [
+                                                  {
+                                                    "name": "x=ff[iSta],c=sta[iSta].perCur.capFunFF,xMin=sta[iSta].perCur.ffMin,xMax=sta[iSta].perCur.ffMax"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "EIR_T[iSta]",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                                "arguments": [
+                                                  {
+                                                    "name": "x1=Buildings.Utilities.Math.Functions.biquadratic(a=sta[iSta].perCur.EIRFunT,x1=Modelica.Units.Conversions.to_degC(TEvaIn),x2=Modelica.Units.Conversions.to_degC(TConIn)),x2=0.001,deltaX=0.0001"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "EIR_FF[iSta]",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Fluid.Utilities.extendedPolynomial",
+                                                "arguments": [
+                                                  {
+                                                    "name": "x=ff[iSta],c=sta[iSta].perCur.EIRFunFF,xMin=sta[iSta].perCur.ffMin,xMax=sta[iSta].perCur.ffMax"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "description": {
+                                          "description_string": "Cooling capacity modification factor as function of flow fraction"
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "corFac[iSta]",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Utilities.Math.Functions.smoothHeaviside",
+                                                "arguments": [
+                                                  {
+                                                    "name": "x=ff[iSta] -sta[iSta].perCur.ffMin/4,delta=max(Modelica.Constants.eps,sta[iSta].perCur.ffMin/8)"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "ff",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "cap_T",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "cap_FF",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "EIR_T",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "EIR_FF",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "corFac",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "fill",
+                                    "arguments": [
+                                      {
+                                        "name": "0"
+                                      },
+                                      {
+                                        "name": "nSta"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"cooCap\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "textString": "\"f(T,m)\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<h4>Cooling capacity modifiers</h4>\n<p>\nThere are two cooling capacity modifier functions: The function\n<i>cap<sub>&theta;</sub></i> accounts for a performance change due to different temperatures at the condenser and evaporator and the function\ncap<sub>FF </sub> accounts for a performance change due to different air flow rates at the evaporator,\nrelative to the nominal condition.\nThese cooling capacity modifiers are multiplied with nominal cooling capacity\nto obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate.\nSee<a href=\\\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\\\">\nBuildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.\n<p>\nThe temperature dependent cooling capacity modifier function is</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\" >\n  cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub>\n+ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> +\na<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>,\n</p>\n<p>\nwhere the six coefficients are obtained from the coil performance data record.\n</p>\n<p>\nThe flow fraction dependent cooling capacity modifier function is a polynomial\nwith the normalized mass flow rate <i>ff</i> (flow fraction) at the evaporator as the time dependent variable.\nThe normalized mass flow rate is defined as\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  ff = m&#775; &frasl;  m&#775;<sub>nom</sub>,\n</p>\n<p>\nwhere\n<i>m&#775;</i> is the mass flow rate at the evaporator and\n<i>m&#775;<sub>nom</sub></i> is the nominal mass flow rate.\nIf the coil has multiple stages, then the nominal mass flow rate of the respective stage is used.\nHence,\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup>\n+ b<sub>4</sub>ff<sup>3</sup> + ...\n</p>\n<p>\nThe coefficients of the equation are obtained from the coil performance data record.\n</p>\n<p>\nIt is important to specify limits of the flow fraction to ensure validity of the\n<i>cap<sub>FF</sub>(&sdot;)</i> function\nin performance record. A non-zero value of\n<i>cap<sub>FF</sub>(0)</i> will lead to an infinite large change in fluid temperatures because\n<i>Q&#775; &ne; 0</i> but\n<i>m&#775; = 0</i>.\nHence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,\nthe coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.\n</p>\n\n<h4>Energy Input Ratio (EIR) modifiers</h4>\n<p>\nThe Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).\nSimilar to the cooling rate, the EIR of the coil is the product of a function\nthat takes into account changes in condenser and evaporator inlet temperatures,\nand changes in mass flow rate.\n</p>\n<p>\nAs for the cooling rate,\n<i>EIR<sub>&theta;</sub>(&sdot;, &sdot;)</i> is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = c<sub>1</sub> + c<sub>2</sub> &theta;<sub>e,in</sub>\n+ c<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + c<sub>4</sub> &theta;<sub>c,in</sub> +\nc<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + c<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>.\n</p>\n<p>\nwhere the six coefficients are obtained from the coil performance data record, and\n<i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry, or\nthe wet-bulb temperature otherwise.\n</p>\n<p>\nSimilar to the cooling ratio, the change in EIR due to a change in air mass flow rate\nis\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup>\n+ d<sub>4</sub>ff<sup>3</sup> + ...\n</p>\n<h4>Obtaining the polynomial coefficients</h4>\n<p>\nThe package\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves</a>\ncontains performance curves.\nAlternatively, users can enter their own performance curves by\nmaking an instance of a curve in\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves</a>\nand specifying custom coefficients for the above polynomials.\nThe polynomial coefficients can be obtained by doing a curve fit that fits the\npolynomials to a set of data.\nThe site\n<a href=\\\"http://www.scipy.org/Cookbook/FittingData\\\">\nhttp://www.scipy.org/Cookbook/FittingData</a>\nshows examples for how to fit data.\nIf a coil has multiple stages, then the fit need to be done for each stage.\nFor variable frequency coils, multiple fits need to be done for user selected\ncompressor speeds. For intermediate speeds, the performance data will be interpolated\nby the model\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed</a>.\n</p>\n<p>\nThe table below shows the polynomials explained above,\nthe name of the polynomial coefficients in\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.Examples.PerformanceCurves</a>\nand the independent parameters against which the data need to be fitted.\n</p>\n  <table summary=\\\"summary\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\" style=\\\"border-collapse:collapse;\\\">\n  <tr>\n      <th>Modelica name of coefficient in data record</th>\n      <th>Polynomial of the above info section</th>\n       <th>Parameters for curve fit</th>\n    </tr>\n    <tr>\n      <td><code>capFunT</code></td>\n      <td><i>\n        cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub>\n+ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> +\na<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>\n        </i></td>\n        <td><i>\n        cap<sub>&theta;</sub>, &theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>\n        </i></td>\n    </tr>\n    <tr>\n      <td><code>capFunFF</code></td>\n      <td><i>\n        cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup>\n        + b<sub>4</sub>ff<sup>3</sup> + ...\n        </i></td>\n        <td><i>\n        cap<sub>FF</sub>, ff\n        </i></td>\n    </tr>\n    <tr>\n      <td><code>EIRFunT</code></td>\n      <td><i>\n        EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub>\n+ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> +\na<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>\n        </i></td>\n        <td><i>\n        EIR<sub>&theta;</sub>, &theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>\n        </i></td>\n    </tr>\n    <tr>\n      <td><code>EIRFunFF</code></td>\n      <td><i>\n        EIR<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup>\n        + b<sub>4</sub>ff<sup>3</sup> + ...\n        </i></td>\n        <td><i>\n        EIR<sub>FF</sub>, ff\n        </i></td>\n    </tr>\n  </table>\n\n<p>\nNote that for the above polynomials, the units for temperature is degree Celsius and not Kelvins.\n</p>\n<h4>Implementation</h4>\n<p>\nA parameter of the performance curve is the range of mass flow fraction <i>ff</i> for\nwhich the data are valid.\nBelow this range, this model reduces the cooling capacity and the energy input ratio\nso that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where\n<i>ff<sub>min</sub></i> is the minimum flow fraction for which the performance curves are valid.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 5, 2023, by Xing Lu:<br/>\nChanged class name from <code>PartialCoolingCapacity</code> to\n<code>PartialCoilCapacity</code>.\n</li>\n<li>\nNovember 8, 2022, by Michael Wetter:<br/>\nCorrected calculation of performance which used the wrong upper bound.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\\\">issue 3146</a>.\n</li>\n<li>\nOctober 21, 2019, by Michael Wetter:<br/>\nEnsured that transition interval for computation of <code>corFac</code> is non-zero.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\\\">issue 1202</a>.\n</li>\n<li>\nFebruary 27, 2017 by Yangyang Fu:<br/>\nRevised the documentation.\n</li>\n<li>\nDecember 18, 2012 by Michael Wetter:<br/>\nAdded warning if the evaporator or condenser inlet temperature of the current stage\ncross the minimum and maximum allowed values.\n</li>\n<li>\nSeptember 20, 2012 by Michael Wetter:<br/>\nRevised model and documentation.\n</li>\n<li>\nMay 18, 2012 by Kaustubh Phalak:<br/>\nCombined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.\nAdded heaviside function.\n</li>\n<li>\nApril 20, 2012 by Michael Wetter:<br/>\nAdded unit conversion directly to function calls to avoid doing\nthe conversion when the coil is switched off.\n</li>\n<li>\nApril 6, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/BaseClasses/PartialCapacity.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/BaseClasses/PartialCapacity.mo",
+  "checksum": "a277e3297ab05a2d460698917e97174c"
+}

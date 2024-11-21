@@ -1,0 +1,425 @@
+{
+  "within": "Buildings.Fluid",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "EfficiencyCurves",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to define the efficiency curves"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Constant",
+                            "description": {
+                              "description_string": "constant"
+                            }
+                          },
+                          {
+                            "identifier": "Polynomial",
+                            "description": {
+                              "description_string": "Polynomial"
+                            }
+                          },
+                          {
+                            "identifier": "QuadraticLinear",
+                            "description": {
+                              "description_string": "quadratic in x1, linear in x2"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "CvTypes",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to define the choice of valve flow coefficient",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n\n<p>\nEnumeration to define the choice of valve flow coefficient\n(to be selected via choices menu):\n</p>\n\n<table summary=\\\"summary\\\"  border=\\\"1\\\">\n<tr><th>Enumeration</th>\n    <th>Description</th></tr>\n\n<tr><td>OpPoint</td>\n    <td>flow coefficient defined by ratio m_flow_nominal/sqrt(dp_nominal)</td></tr>\n\n<tr><td>Kv</td>\n    <td>Kv (metric) flow coefficient</td></tr>\n\n<tr><td>Cv</td>\n    <td>Cv (US) flow coefficient</td></tr>\n\n<tr><td>Av</td>\n    <td>Av (metric) flow coefficient</td></tr>\n\n</table>\n\n<p>\nThe details of the coefficients are explained in the\n<a href=\\\"modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\\\">\nUsers Guide</a>.\n</p>\n\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "OpPoint",
+                            "description": {
+                              "description_string": "flow coefficient defined by m_flow_nominal/sqrt(dp_nominal)"
+                            }
+                          },
+                          {
+                            "identifier": "Kv",
+                            "description": {
+                              "description_string": "Kv (metric) flow coefficient"
+                            }
+                          },
+                          {
+                            "identifier": "Cv",
+                            "description": {
+                              "description_string": "Cv (US) flow coefficient"
+                            }
+                          },
+                          {
+                            "identifier": "Av",
+                            "description": {
+                              "description_string": "Av (metric) flow coefficient"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "HeatExchangerConfiguration",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration for heat exchanger construction",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\n Enumeration that defines the heat exchanger construction.\n</p>\n<p>\nThe following heat exchanger configurations are available in this enumeration:\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\">\n<tr><th>Enumeration</th><th>Description</th></tr>\n<tr><td>ParallelFlow</td><td>Parallel flow</td></tr>\n<tr><td>CounterFlow</td><td>Counter flow</td></tr>\n<tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>\n<tr><td>CrossFlowStream1MixedStream2Unmixed</td><td>Cross flow, stream 1 mixed, stream 2 unmixed</td></tr>\n<tr><td>CrossFlowStream1UnmixedStream2Mixed</td><td>Cross flow, stream 1 unmixed, stream 2 mixed</td></tr>\n<tr><td>ConstantTemperaturePhaseChange</td><td>Constant temperature phase change in one stream</td></tr>\n</table>\n<p>\nNote that for a given heat exchanger, the\n <code>HeatExchangerConfiguration</code> is fixed. However, if the capacity\n flow rates change, then the\n <a href=\\\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\\\">\n Buildings.Fluid.Types.HeatExchangerFlowRegime</a> may change. For example,\n a counter flow heat exchanger has <code>HeatExchangerConfiguration=CounterFlow</code>,\n but the <a href=\\\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime\\\">\n Buildings.Fluid.Types.HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts\n its direction.\n </p>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 27, 2017, by Michael Wetter:<br/>\nAdded <code>ConstantTemperaturePhaseChange</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/694\\\">\nBuildings #694</a>.\n</li>\n<li>\nFebruary 18, 2009, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "ParallelFlow",
+                            "description": {
+                              "description_string": "Parallel flow"
+                            }
+                          },
+                          {
+                            "identifier": "CounterFlow",
+                            "description": {
+                              "description_string": "Counter flow"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowUnmixed",
+                            "description": {
+                              "description_string": "Cross flow, both streams unmixed"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowStream1MixedStream2Unmixed",
+                            "description": {
+                              "description_string": "Cross flow, stream 1 mixed, stream 2 unmixed"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowStream1UnmixedStream2Mixed",
+                            "description": {
+                              "description_string": "Cross flow, stream 1 unmixed, stream 2 mixed"
+                            }
+                          },
+                          {
+                            "identifier": "ConstantTemperaturePhaseChange",
+                            "description": {
+                              "description_string": "Constant temperature phase change in one stream"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "HeatExchangerFlowRegime",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration for heat exchanger flow configuration",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\n Enumeration to define the heat exchanger flow regime.\n</p>\n<p>\nThis enumeration defines for the current capacity flow rate the kind of\nheat transfer relation that will be used to compute the relation between\neffectiveness and Number of Transfer Units.\n</p>\n<p>\nThe following heat exchanger flow regimes are available in this enumeration:\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\">\n<tr><th>Enumeration</th><th>Description</th></tr>\n<tr><td>ParallelFlow</td><td>Parallel flow</td></tr>\n<tr><td>CounterFlow</td><td>Counter flow</td></tr>\n<tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>\n<tr><td>CrossFlowCMinMixedCMaxUnmixed</td><td>Cross flow, CMin mixed,   CMax unmixed</td></tr>\n<tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>\n<tr><td>ConstantTemperaturePhaseChange</td><td>Constant temperature phase change in one stream</td></tr>\n</table>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 27, 2017, by Michael Wetter:<br/>\nAdded <code>ConstantTemperaturePhaseChange</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/694\\\">\nBuildings #694</a>.\n</li>\n<li>\nFebruary 18, 2009, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "ParallelFlow",
+                            "description": {
+                              "description_string": "Parallel flow"
+                            }
+                          },
+                          {
+                            "identifier": "CounterFlow",
+                            "description": {
+                              "description_string": "Counter flow"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowUnmixed",
+                            "description": {
+                              "description_string": "Cross flow, both streams unmixed"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowCMinMixedCMaxUnmixed",
+                            "description": {
+                              "description_string": "Cross flow, CMin mixed,   CMax unmixed"
+                            }
+                          },
+                          {
+                            "identifier": "CrossFlowCMinUnmixedCMaxMixed",
+                            "description": {
+                              "description_string": "Cross flow, CMin unmixed, CMax mixed"
+                            }
+                          },
+                          {
+                            "identifier": "ConstantTemperaturePhaseChange",
+                            "description": {
+                              "description_string": "Constant temperature phase change in one stream"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "InputType",
+                      "value": {
+                        "description": {
+                          "description_string": "Input options for movers",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nThis type allows defining which type of input should be used for movers.\nThis can either be\n</p>\n<ol>\n<li>\na constant set point declared by a parameter,\n</li>\n<li>\na series of possible set points that can be switched using an integer input, or\n</li>\n<li>\na continuously variable set point.\n</li>\n</ol>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nApril 2, 2015, by Filip Jorissen:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Constant",
+                            "description": {
+                              "description_string": "Use parameter to set stage"
+                            }
+                          },
+                          {
+                            "identifier": "Stages",
+                            "description": {
+                              "description_string": "Use integer input to select stage"
+                            }
+                          },
+                          {
+                            "identifier": "Continuous",
+                            "description": {
+                              "description_string": "Use continuous, real input"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Types.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Types.mo",
+  "checksum": "c31f86762044ece4344553d0f8042e3d"
+}

@@ -1,0 +1,2320 @@
+{
+  "within": "Buildings.Fluid.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "StaticTwoPortConservationEquation",
+          "description_string": "Partial model for static energy and mass conservation equations",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "simplify_mWat_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "prescribedHeatFlowRate",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_mWat_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to enable input connector for moisture mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_C_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to enable input connector for trace substance",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Q_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"W\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Sensible plus latent heat flow rate transferred into the medium",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_mWat_flow"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Moisture mass flow rate added to the medium",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 60
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "array_subscripts": [
+                    {
+                      "expression": {
+                        "simple_expression": "Medium.nC"
+                      }
+                    }
+                  ],
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C_flow"
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_C_flow"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Trace substance mass flow rate added to the medium",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "hOut",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"J/kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Leaving specific enthalpy of the component",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -50,
+                                      "y": 110
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  },
+                                  "iconTransformation": {
+                                    "origin": {
+                                      "x": -50,
+                                      "y": 110
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "XiOut",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nXi"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0.01*ones(Medium.nXi)"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Leaving species concentration of the component",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": 110
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COut",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Leaving trace substances of the component",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 50,
+                                      "y": 110
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "use_m_flowInv",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "(prescribedHeatFlowRate or use_mWat_flow or use_C_flow)"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flag, true if m_flowInv is used in the model",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "Evaluate",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "true"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "s",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "Medium.nXi"
+                                }
+                              }
+                            ],
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "for_loop": {
+                                    "expression": {
+                                      "if_expression": {
+                                        "if_elseif": [
+                                          {
+                                            "condition": {
+                                              "simple_expression": {
+                                                "function_call": {
+                                                  "name": "Modelica.Utilities.Strings.isEqual",
+                                                  "arguments": [
+                                                    {
+                                                      "name": "string1=Medium.substanceNames[i],string2=\"Water\",caseSensitive=false"
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            "then": {
+                                              "simple_expression": "1"
+                                            }
+                                          }
+                                        ],
+                                        "else_expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    },
+                                    "for_loop": [
+                                      {
+                                        "name": "i",
+                                        "range": "1:Medium.nXi"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Vector with zero everywhere except where species is"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flowInv",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"s/kg\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Regularization of 1/m_flow of port_a"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "mXi_flow",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "Medium.nXi"
+                                }
+                              }
+                            ]
+                          },
+                          "description": {
+                            "description_string": "Mass flow rates of independent substances added to the medium"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "deltaReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "m_flow_small/1000"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Smoothing region for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "deltaInvReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1/deltaReg"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Inverse value of delta for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "aReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "-15*deltaInvReg"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "bReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "119*deltaInvReg^2"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "-361*deltaInvReg^3"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "534*deltaInvReg^4"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "eReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "-380*deltaInvReg^5"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "fReg",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "104*deltaInvReg^6"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Polynomial coefficient for inverseXRegularized"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium.T_default,p=Medium.p_default,X=Medium.X_default[1:Medium.nXi]"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Medium state at default values"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cp_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.specificHeatCapacityCp",
+                                    "arguments": [
+                                      {
+                                        "name": "state=state_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity, used to verify energy conservation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.TemperatureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dTMax",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "200"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Maximum temperature difference across the StaticTwoPortConservationEquation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "mWat_flow_internal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"kg/s\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Needed to connect to conditional connector"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "C_flow_internal",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "Medium.nC"
+                                }
+                              }
+                            ]
+                          },
+                          "description": {
+                            "description_string": "Needed to connect to conditional connector"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_mWat_flow"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "Medium.nXi"
+                                                        },
+                                                        {
+                                                          "name": "0"
+                                                        }
+                                                      ],
+                                                      "relation_operator": "=="
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "abs(sum(s) -1)"
+                                                        },
+                                                        {
+                                                          "name": "0.00001"
+                                                        }
+                                                      ],
+                                                      "relation_operator": "<"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"If Medium.nXi > 1, then substance 'water' must be present for one component.'\" +Medium.mediumName +\"'.\\n\" +\"Check medium model.\""
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mWat_flow"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mWat_flow_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_mWat_flow"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "mWat_flow_internal",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "C_flow"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "C_flow_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_C_flow"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "C_flow_internal",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "zeros",
+                                          "arguments": [
+                                            {
+                                              "name": "Medium.nC"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "mXi_flow",
+                        "rhs": {
+                          "simple_expression": "mWat_flow_internal*s"
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_m_flowInv"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flowInv",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.inverseXRegularized",
+                                          "arguments": [
+                                            {
+                                              "name": "x=port_a.m_flow,delta=deltaReg,deltaInv=deltaInvReg,a=aReg,b=bReg,c=cReg,d=dReg,e=eReg,f=fReg"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flowInv",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "prescribedHeatFlowRate"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "function_call": {
+                                              "name": "noEvent",
+                                              "arguments": [
+                                                {
+                                                  "name": "abs(Q_flow) < dTMax*cp_default*max(m_flow_small/1000,abs(m_flow))"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"In \" +getInstanceName() +\":\n   The heat flow rate equals \" +String(Q_flow) +\" W and the mass flow rate equals \" +String(m_flow) +\" kg/s,\n   which results in a temperature difference \" +String(abs(Q_flow)/(cp_default*max(m_flow_small/1000,abs(m_flow)))) +\" K > dTMax=\" +String(dTMax) +\" K.\n   This may indicate that energy is not conserved for small mass flow rates.\n   The implementation may require prescribedHeatFlowRate = false.\""
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "allowFlowReversal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "hOut",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.regStep",
+                                          "arguments": [
+                                            {
+                                              "name": "y1=port_b.h_outflow,y2=port_a.h_outflow,x=port_a.m_flow,x_small=m_flow_small/1000"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "XiOut",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.regStep",
+                                          "arguments": [
+                                            {
+                                              "name": "y1=port_b.Xi_outflow,y2=port_a.Xi_outflow,x=port_a.m_flow,x_small=m_flow_small/1000"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "COut",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Utilities.Math.Functions.regStep",
+                                          "arguments": [
+                                            {
+                                              "name": "y1=port_b.C_outflow,y2=port_a.C_outflow,x=port_a.m_flow,x_small=m_flow_small/1000"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "hOut",
+                              "rhs": {
+                                "simple_expression": "port_b.h_outflow"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "XiOut",
+                              "rhs": {
+                                "simple_expression": "port_b.Xi_outflow"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "COut",
+                              "rhs": {
+                                "simple_expression": "port_b.C_outflow"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.m_flow +port_b.m_flow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "simplify_mWat_flow"
+                                },
+                                "then": {
+                                  "simple_expression": "0"
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "-mWat_flow_internal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_m_flowInv"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "port_b.Xi_outflow",
+                                    "rhs": {
+                                      "simple_expression": "inStream(port_a.Xi_outflow) +mXi_flow*m_flowInv"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "function_call_equation": {
+                              "function_name": "assert",
+                              "function_call_args": {
+                                "function_argument": {
+                                  "expression": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "use_mWat_flow"
+                                                  },
+                                                  {
+                                                    "name": "false"
+                                                  }
+                                                ],
+                                                "relation_operator": "=="
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "function_arguments": {
+                                  "function_argument": {
+                                    "expression": {
+                                      "simple_expression": "\"In \" +getInstanceName() +\": Wrong implementation for forward flow.\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "port_b.Xi_outflow",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "inStream",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a.Xi_outflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "allowFlowReversal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "use_m_flowInv"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "port_a.Xi_outflow",
+                                                "rhs": {
+                                                  "simple_expression": "inStream(port_b.Xi_outflow) -mXi_flow*m_flowInv"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "function_call_equation": {
+                                          "function_name": "assert",
+                                          "function_call_args": {
+                                            "function_argument": {
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "logical_expression": {
+                                                    "logical_or": [
+                                                      {
+                                                        "logical_and": [
+                                                          {
+                                                            "arithmetic_expressions": [
+                                                              {
+                                                                "name": "use_mWat_flow"
+                                                              },
+                                                              {
+                                                                "name": "false"
+                                                              }
+                                                            ],
+                                                            "relation_operator": "=="
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "function_arguments": {
+                                              "function_argument": {
+                                                "expression": {
+                                                  "simple_expression": "\"In \" +getInstanceName() +\": Wrong implementation for reverse flow.\""
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "port_a.Xi_outflow",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "inStream",
+                                                "arguments": [
+                                                  {
+                                                    "name": "port_b.Xi_outflow"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "port_a.Xi_outflow",
+                              "rhs": {
+                                "simple_expression": "Medium.X_default[1:Medium.nXi]"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "prescribedHeatFlowRate"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "port_b.h_outflow",
+                                    "rhs": {
+                                      "simple_expression": "inStream(port_a.h_outflow) +Q_flow*m_flowInv"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "allowFlowReversal"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "port_a.h_outflow",
+                                                "rhs": {
+                                                  "simple_expression": "inStream(port_b.h_outflow) -Q_flow*m_flowInv"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "port_a.h_outflow",
+                                          "rhs": {
+                                            "simple_expression": "Medium.h_default"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "port_a.m_flow*(inStream(port_a.h_outflow) -port_b.h_outflow)",
+                              "rhs": {
+                                "simple_expression": "-Q_flow"
+                              }
+                            }
+                          },
+                          {
+                            "if_equation": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal"
+                                  },
+                                  "then": [
+                                    {
+                                      "equation": {
+                                        "assignment_equation": {
+                                          "lhs": "port_a.m_flow*(inStream(port_b.h_outflow) -port_a.h_outflow)",
+                                          "rhs": {
+                                            "simple_expression": "+Q_flow"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "else_equation": [
+                                {
+                                  "assignment_equation": {
+                                    "lhs": "port_a.h_outflow",
+                                    "rhs": {
+                                      "simple_expression": "Medium.h_default"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_m_flowInv and use_C_flow"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "port_b.C_outflow",
+                                    "rhs": {
+                                      "simple_expression": "inStream(port_a.C_outflow) +C_flow_internal*m_flowInv"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "function_call_equation": {
+                              "function_name": "assert",
+                              "function_call_args": {
+                                "function_argument": {
+                                  "expression": {
+                                    "simple_expression": "not use_C_flow"
+                                  }
+                                },
+                                "function_arguments": {
+                                  "function_argument": {
+                                    "expression": {
+                                      "simple_expression": "\"In \" +getInstanceName() +\": Wrong implementation of trace substance balance for forward flow.\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "port_b.C_outflow",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "inStream",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a.C_outflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "allowFlowReversal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "use_C_flow"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "port_a.C_outflow",
+                                                "rhs": {
+                                                  "simple_expression": "inStream(port_b.C_outflow) -C_flow_internal*m_flowInv"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "port_a.C_outflow",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "inStream",
+                                                "arguments": [
+                                                  {
+                                                    "name": "port_b.C_outflow"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "port_a.C_outflow",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "zeros",
+                                    "arguments": [
+                                      {
+                                        "name": "Medium.nC"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.p",
+                        "rhs": {
+                          "simple_expression": "port_b.p"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model transports fluid between its two ports, without storing mass or energy.\nIt implements a steady-state conservation equation for energy and mass fractions.\nThe model has zero pressure drop between its ports.\n</p>\n\n<h4>Typical use and important parameters</h4>\n<p>\nSet the parameter <code>use_mWat_flow_in=true</code> to enable an\ninput connector for <code>mWat_flow</code>.\nOtherwise, the model uses <code>mWat_flow = 0</code>.\n</p>\n<p>\nIf the constant <code>simplify_mWat_flow = true</code>, which is its default value,\nthen the equation\n</p>\n<pre>\n  port_a.m_flow + port_b.m_flow = - mWat_flow;\n</pre>\n<p>\nis simplified as\n</p>\n<pre>\n  port_a.m_flow + port_b.m_flow = 0;\n</pre>\n<p>\nThis causes an error in the mass balance of about <i>0.5%</i>, but generally leads to\nsimpler equations because the pressure drop equations are then decoupled from the\nmass exchange in this component.\n</p>\n\n<p>\nTo increase the numerical robustness of the model, the constant\n<code>prescribedHeatFlowRate</code> can be set.\nUse the following settings:\n</p>\n<ul>\n<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer\nat the <code>heatPort</code> is a prescribed heat flow rate that\nis <i>not</i> a function of the temperature difference\nbetween the medium and an ambient temperature. Examples include an ideal electrical heater,\na pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.\nIf the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as\nin this case, <code>heatPort.Q_flow=0</code>.\n</li>\n<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>\ncomputed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,\nwhich may itself be a function of temperature or mass flow rate.<br/>\nIf there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,\nfor example a solar collector that dissipates heat to the ambient and receives heat from\nthe solar radiation, then set <code>prescribedHeatFlowRate=false</code>.\n</li>\n</ul>\n<p>\nIf <code>prescribedHeatFlow=true</code>, then energy and mass balance\nequations are formulated to guard against numerical problems near\nzero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>\nare the results of an iterative solver.\n</p>\n<h4>Implementation</h4>\n<p>\nInput connectors of the model are\n</p>\n<ul>\n<li>\n<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium,\n</li>\n<li>\n<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium, and\n</li>\n<li>\n<code>C_flow</code>, which is the trace substance mass flow rate added to the medium.\n</li>\n</ul>\n\n<p>\nThe model can only be used as a steady-state model with two fluid ports.\nFor a model with a dynamic balance, and more fluid ports, use\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\\\">\nBuildings.Fluid.Interfaces.ConservationEquation</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nOctober 24, 2022, by Michael Wetter:<br/>\nConditionally removed assertion that checks for water content as this is\nonly required if water is added to the medium.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\\\">#1650</a>.\n</li>\n<li>\nSeptember 9, 2022, by Michael Wetter:<br/>\nSet nominal attribute for <code>XiOut</code>.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\\\">1634</a>.\n</li>\n<li>\nSeptember 18, 2020, by Michael Wetter:<br/>\nRemoved start value for <code>hOut</code> as it will be set by\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume\\\">\nBuildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</a>.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1397\\\">#1397</a>.\n</li>\n<li>\nFebruary 12, 2019, by Filip Jorissen:<br/>\nRemoved obsolete division by <code>TMax</code> in assert.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1097\\\">#1097</a>.\n</li>\n<li>\nJune 23, 2018, by Filip Jorissen:<br/>\nAdded more details to energy conservation assert to facilitate\ndebugging.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/962\\\">#962</a>.\n</li>\n<li>\nMarch 30, 2018, by Filip Jorissen:<br/>\nAdded <code>getInstanceName()</code> in asserts to facilitate\ndebugging.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/901\\\">#901</a>.\n</li>\n<li>\nApril 24, 2017, by Michael Wetter and Filip Jorissen:<br/>\nReimplemented check for energy conversion.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/741\\\">#741</a>.\n</li>\n<li>\nApril 24, 2017, by Michael Wetter:<br/>\nReverted change from April 21, 2017.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/741\\\">#741</a>.\n</li>\n<li>\nApril 21, 2017, by Filip Jorissen:<br/>\nRevised test for energy conservation at small mass flow rates.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/741\\\">#741</a>.\n</li>\n<li>\nOctober 23, 2016, by Filip Jorissen:<br/>\nAdded test for energy conservation at small mass flow rates.\n</li>\n<li>\nMarch 17, 2016, by Michael Wetter:<br/>\nRefactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/247\\\">#247</a>\nand for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/300\\\">#300</a>.\n</li>\n<li>\nSeptember 3, 2015, by Filip Jorissen:<br/>\nRevised implementation of conservation of vapor mass.\nAdded new variable <code>mFlow_inv_b</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/247\\\">#247</a>.\n</li>\n<li>\nJanuary 22, 2016, by Michael Wetter:<br/>\nRemoved <code>constant sensibleOnly</code> as this is no longer used because\nthe model uses <code>use_mWat_flow</code>.<br/>\nChanged condition that determines whether <code>m_flowInv</code> needs to be\ncomputed because the change from January 20 introduced an error in\n<a href=\\\"modelica://Buildings.Fluid.MassExchangers.Examples.ConstantEffectiveness\\\">\nBuildings.Fluid.MassExchangers.Examples.ConstantEffectiveness</a>.\n</li>\n<li>\nJanuary 20, 2016, by Filip Jorissen:<br/>\nRemoved if-else block in code for parameter <code>sensibleOnly</code>\nsince this is no longer needed to simplify the equations.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/372\\\">#372</a>.\n</li>\n<li>\nJanuary 17, 2016, by Michael Wetter:<br/>\nAdded parameter <code>use_C_flow</code> and converted <code>C_flow</code>\nto a conditionally removed connector.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/372\\\">#372</a>.\n</li>\n<li>\nDecember 16, 2015, by Michael Wetter:<br/>\nRemoved the units of <code>C_flow</code> to allow for PPM.\n</li>\n<li>\nDecember 2, 2015, by Filip Jorissen:<br/>\nAdded input <code>C_flow</code> and code for handling trace substance insertions.\nNovember 19, 2015, by Michael Wetter:<br/>\nRemoved assignment of parameter\n<code>showDesignFlowDirection</code> in <code>extends</code> statement.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/349\\\">#349</a>.\n</li>\n<li>\nSeptember 14, 2015, by Filip Jorissen:<br/>\nRewrote some equations for better readability.\n</li>\n<li>\nAugust 11, 2015, by Michael Wetter:<br/>\nRefactored implementation of\n<a href=\\\"modelica://Buildings.Utilities.Math.Functions.inverseXRegularized\\\">\nBuildings.Utilities.Math.Functions.inverseXRegularized</a>\nto allow function to be inlined and to factor out the computation\nof arguments that only depend on parameters.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/302\\\">issue 302</a>.\n</li>\n<li>\nJuly 17, 2015, by Michael Wetter:<br/>\nCorrected bug for situation with latent heat exchange and flow reversal not\nallowed.\nThe previous formulation was singular.\nThis caused some models to not translate.\nThe error was introduced in\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/282\\\">#282</a>.\n</li>\n<li>\nJuly 17, 2015, by Michael Wetter:<br/>\nAdded constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop\ncalculation on the moisture balance.\n</li>\n<li>\nJuly 2, 2015 by Michael Wetter:<br/>\nRevised implementation of conservation equations,\nadded default values for outlet quantities at <code>port_a</code>\nif <code>allowFlowReversal=false</code> and\nupdated documentation.\nSee\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/281\\\">\nissue 281</a> for a discussion.\n</li>\n<li>\nJuly 1, 2015, by Filip Jorissen:<br/>\nRevised implementation so that equations are always consistent\nand do not lead to division by zero,\nalso when connecting a <code>prescribedHeatFlowRate</code>\nto <code>MixingVolume</code> instances.\nRenamed <code>use_safeDivision</code> into <code>prescribedHeatFlowRate</code>.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/282\\\">#282</a>\nfor a discussion.\n</li>\n<li>\nMay 6, 2015, by Michael Wetter:<br/>\nCorrected documentation.\n</li>\n<li>\nFebruary 11, 2014 by Michael Wetter:<br/>\nImproved documentation for <code>Q_flow</code> input.\n</li>\n<li>\nOctober 21, 2013 by Michael Wetter:<br/>\nCorrected sign error in the equation that is used if <code>use_safeDivision=false</code>\nand <code>sensibleOnly=true</code>.\nThis only affects internal numerical tests, but not any examples in the library\nas the constant <code>use_safeDivision</code> is set to <code>true</code> by default.\n</li>\n<li>\nSeptember 25, 2013 by Michael Wetter:<br/>\nReformulated computation of outlet properties to avoid an event at zero mass flow rate.\n</li>\n<li>\nSeptember 17, 2013 by Michael Wetter:<br/>\nAdded start value for <code>hOut</code>.\n</li>\n<li>September 10, 2013 by Michael Wetter:<br/>\nRemoved unrequired parameter <code>i_w</code>.\n</li>\n<li>\nMay 7, 2013 by Michael Wetter:<br/>\nRemoved <code>for</code> loops for species balance and trace substance balance,\nas they cause the error <code>Error: Operand port_a.Xi_outflow[1] to operator inStream is not a stream variable.</code>\nin OpenModelica.\n</li>\n<li>\nMarch 27, 2013 by Michael Wetter:<br/>\nRemoved wrong unit attribute of <code>COut</code>,\nand added min and max attributes for <code>XiOut</code>.\n</li>\n<li>\nJune 22, 2012 by Michael Wetter:<br/>\nReformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>\nif <code>use_safeDivision=false</code>. This avoids a division by zero if\n<code>port_a.m_flow=0</code>.\n</li>\n<li>\nFebruary 7, 2012 by Michael Wetter:<br/>\nRevised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.\n</li>\n<li>\nDecember 14, 2011 by Michael Wetter:<br/>\nChanged assignment of <code>hOut</code>, <code>XiOut</code> and\n<code>COut</code> to no longer declare that it is continuous.\nThe declaration of continuity, i.e, the\n<code>smooth(0, if (port_a.m_flow >= 0) then ...)</code> declaration,\nwas required for Dymola 2012 to simulate, but it is no longer needed\nfor Dymola 2012 FD01.\n</li>\n<li>\nAugust 19, 2011, by Michael Wetter:<br/>\nChanged assignment of <code>hOut</code>, <code>XiOut</code> and\n<code>COut</code> to declare that it is not differentiable.\n</li>\n<li>\nAugust 4, 2011, by Michael Wetter:<br/>\nMoved linearized pressure drop equation from the function body to the equation\nsection. With the previous implementation,\nthe symbolic processor may not rearrange the equations, which can lead\nto coupled equations instead of an explicit solution.\n</li>\n<li>\nMarch 29, 2011, by Michael Wetter:<br/>\nChanged energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.\n</li>\n<li>\nMarch 27, 2011, by Michael Wetter:<br/>\nAdded <code>homotopy</code> operator.\n</li>\n<li>\nAugust 19, 2010, by Michael Wetter:<br/>\nFixed bug in energy and moisture balance that affected results if a component\nadds or removes moisture to the air stream.\nIn the old implementation, the enthalpy and species\noutflow at <code>port_b</code> was multiplied with the mass flow rate at\n<code>port_a</code>. The old implementation led to small errors that were proportional\nto the amount of moisture change. For example, if the moisture added by the component\nwas <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.\nAlso, the results for forward flow and reverse flow differed by this amount.\nWith the new implementation, the energy and moisture balance is exact.\n</li>\n<li>\nMarch 22, 2010, by Michael Wetter:<br/>\nAdded constant <code>sensibleOnly</code> to\nsimplify species balance equation.\n</li>\n<li>\nApril 10, 2009, by Michael Wetter:<br/>\nAdded model to compute flow friction.\n</li>\n<li>\nApril 22, 2008, by Michael Wetter:<br/>\nRevised to add mass balance.\n</li>\n<li>\nMarch 17, 2008, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "fillColor": {
+                                      "r": 135,
+                                      "g": 135,
+                                      "b": 135
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -93,
+                                        "y": 72
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": 89
+                                      }
+                                    ],
+                                    "textString": "\"Q_flow\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -93,
+                                        "y": 37
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": 54
+                                      }
+                                    ],
+                                    "textString": "\"mWat_flow\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -41,
+                                        "y": 103
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 117
+                                      }
+                                    ],
+                                    "textString": "\"hOut\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 10,
+                                        "y": 103
+                                      },
+                                      {
+                                        "x": 41,
+                                        "y": 117
+                                      }
+                                    ],
+                                    "textString": "\"XiOut\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 61,
+                                        "y": 103
+                                      },
+                                      {
+                                        "x": 92,
+                                        "y": 117
+                                      }
+                                    ],
+                                    "textString": "\"COut\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -42,
+                                        "y": 55
+                                      },
+                                      {
+                                        "x": -42,
+                                        "y": -84
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -42,
+                                        "y": 67
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": 45
+                                      },
+                                      {
+                                        "x": -34,
+                                        "y": 45
+                                      },
+                                      {
+                                        "x": -42,
+                                        "y": 67
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 87,
+                                        "y": -73
+                                      },
+                                      {
+                                        "x": 65,
+                                        "y": -65
+                                      },
+                                      {
+                                        "x": 65,
+                                        "y": -81
+                                      },
+                                      {
+                                        "x": 87,
+                                        "y": -73
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -56,
+                                        "y": -73
+                                      },
+                                      {
+                                        "x": 81,
+                                        "y": -73
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 6,
+                                        "y": 14
+                                      },
+                                      {
+                                        "x": 6,
+                                        "y": -37
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 54,
+                                        "y": 14
+                                      },
+                                      {
+                                        "x": 6,
+                                        "y": 14
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 6,
+                                        "y": -37
+                                      },
+                                      {
+                                        "x": -42,
+                                        "y": -37
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Interfaces/StaticTwoPortConservationEquation.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Interfaces/StaticTwoPortConservationEquation.mo",
+  "checksum": "a4d67c19f49099d1bd0f6e16b00e5f8a"
+}

@@ -1,0 +1,917 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Logical.Sources",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TimeTable",
+          "description_string": "Table look-up with respect to time with constant segments",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "table",
+                        "array_subscripts": [
+                          {
+                            "colon_op": true
+                          },
+                          {
+                            "colon_op": true
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Table matrix with time as a first column (in seconds, unless timeScale is not 1) and 0 for False or 1 for True in all other columns"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "timeScale",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time scale of first table column. Set to 3600 if time in table is in hours"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "period",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Periodicity of table"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nout"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Output with tabulated values",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 120,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 160,
+                                        "y": 20
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "nout",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "size(table,2) -1"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Dimension of output vector"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "nT",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "size",
+                                    "arguments": [
+                                      {
+                                        "name": "table"
+                                      },
+                                      {
+                                        "name": "1"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Number of table points"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Integers.Sources.TimeTable",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "intTimTab",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "table",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "table"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "timeScale",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "timeScale"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "period",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "period"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Time table",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": -12,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": 8,
+                                            "y": 10
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Integers.GreaterThreshold",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "intGreThr",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "nout"
+                                }
+                              }
+                            ],
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "t",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Converts to boolean",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": 40,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": 60,
+                                            "y": 10
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "i",
+                            "expression": {
+                              "simple_expression": "1:nT"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "for_equation": {
+                              "for_indices": [
+                                {
+                                  "identifier": "j",
+                                  "expression": {
+                                    "simple_expression": "2:size(table,2)"
+                                  }
+                                }
+                              ],
+                              "loop_equations": [
+                                {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": "([object Object]) or ([object Object])"
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"Table value table[\" +String(i) +\", \" +String(j) +\"] = \" +String(table[i,j]) +\" does not equal either 0 or 1.\""
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "intTimTab"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "intGreThr"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 10,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 38,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "intGreThr"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 62,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 96,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 96,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": 140,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"booTimTab\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nBlock that outputs <code>true</code>/<code>false</code> time table values.\n</p>\n<p>\nThe block takes as a parameter a time table of a format:\n</p>\n<pre>\ntable = [ 0*3600, 0;\n          6*3600, 1;\n          6*3600, 0;\n         18*3600, 1;\n         18*3600, 1];\nperiod = 24*3600;\n</pre>\n<p>\nwhere the first column of <code>table</code> is time and the remaining column(s) are the table values.\nThe time column contains <code>Real</code> values that are in units of seconds if <code>timeScale = 1</code>.\nThe parameter <code>timeScale</code> can be used to scale the time values, for example, use\n<code>timeScale = 3600</code> if the values in the first column are interpreted as hours.\n</p>\n<p>\nThe values in column two and higher must be <code>0</code> or <code>1</code>, otherwise the model stops with an error.\n</p>\n<p>\nUntil a new tabulated value is set, the previous tabulated value is returned.\n</p>\n<p>\nThe table scope is repeated periodically with periodicity <code>period</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nOctober 21, 2021, by Michael Wetter:<br/>\nRemoved writing output value in icon (as it is an array of values).\n</li>\n<li>\nNovember 12, 2020, by Michael Wetter:<br/>\nReformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2243\\\">issue 2243</a>.\n</li>\n<li>\nOctober 8, 2020, by Michael Wetter:<br/>\nRevised implementation to use integer time table for its implementation.\n</li>\n<li>\nSeptember 14, 2020, by Milica Grahovac:<br/>\nInitial CDL implementation based on continuous time table implementation in CDL.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "borderPattern": "BorderPattern.Raised",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 5
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 150
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 110
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": -88,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": 90
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 217,
+                                      "g": 67,
+                                      "b": 180
+                                    },
+                                    "fillColor": {
+                                      "r": 217,
+                                      "g": 67,
+                                      "b": 180
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -90,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 82,
+                                        "y": -70
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 90,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -62
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -78
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": -70
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -48,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": 2,
+                                        "y": 70
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 215,
+                                      "b": 136
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -48,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": -50
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 2,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": 2,
+                                        "y": -51
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Logical/Sources/TimeTable.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Logical/Sources/TimeTable.mo",
+  "checksum": "9b0d2673ec98e7d5cb6b6070cbb2daad"
+}

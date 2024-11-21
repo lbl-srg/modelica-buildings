@@ -1,0 +1,359 @@
+{
+  "within": "Buildings.Templates",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Utilities",
+          "description_string": "Package with utility functions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Package"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -15,
+                                        "y": 93.333
+                                      },
+                                      {
+                                        "x": -15,
+                                        "y": 68.333
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 58.333
+                                      },
+                                      {
+                                        "x": 15,
+                                        "y": 68.333
+                                      },
+                                      {
+                                        "x": 15,
+                                        "y": 93.333
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 93.333
+                                      },
+                                      {
+                                        "x": 25,
+                                        "y": 83.333
+                                      },
+                                      {
+                                        "x": 25,
+                                        "y": 58.333
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 43.333
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -41.667
+                                      },
+                                      {
+                                        "x": 25,
+                                        "y": -56.667
+                                      },
+                                      {
+                                        "x": 25,
+                                        "y": -76.667
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -91.667
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -91.667
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -81.667
+                                      },
+                                      {
+                                        "x": 5,
+                                        "y": -81.667
+                                      },
+                                      {
+                                        "x": 15,
+                                        "y": -71.667
+                                      },
+                                      {
+                                        "x": 15,
+                                        "y": -61.667
+                                      },
+                                      {
+                                        "x": 5,
+                                        "y": -51.667
+                                      },
+                                      {
+                                        "x": -5,
+                                        "y": -51.667
+                                      },
+                                      {
+                                        "x": -15,
+                                        "y": -61.667
+                                      },
+                                      {
+                                        "x": -15,
+                                        "y": -71.667
+                                      },
+                                      {
+                                        "x": -5,
+                                        "y": -81.667
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -81.667
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -91.667
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": -91.667
+                                      },
+                                      {
+                                        "x": -25,
+                                        "y": -76.667
+                                      },
+                                      {
+                                        "x": -25,
+                                        "y": -56.667
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": -41.667
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 43.333
+                                      },
+                                      {
+                                        "x": -25,
+                                        "y": 58.333
+                                      },
+                                      {
+                                        "x": -25,
+                                        "y": 83.333
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 93.333
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 1.3835,
+                                      "y": -4.1418
+                                    },
+                                    "rotation": 45,
+                                    "fillColor": {
+                                      "r": 64,
+                                      "g": 64,
+                                      "b": 64
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -15,
+                                        "y": 87.273
+                                      },
+                                      {
+                                        "x": 15,
+                                        "y": 87.273
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 82.273
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 27.273
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 17.273
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 7.273
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 2.273
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -2.727
+                                      },
+                                      {
+                                        "x": 5,
+                                        "y": -2.727
+                                      },
+                                      {
+                                        "x": 5,
+                                        "y": -77.727
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": -87.727
+                                      },
+                                      {
+                                        "x": 5,
+                                        "y": -112.727
+                                      },
+                                      {
+                                        "x": -5,
+                                        "y": -112.727
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": -87.727
+                                      },
+                                      {
+                                        "x": -5,
+                                        "y": -77.727
+                                      },
+                                      {
+                                        "x": -5,
+                                        "y": -2.727
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": -2.727
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 2.273
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 7.273
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 17.273
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 27.273
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 82.273
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 10.1018,
+                                      "y": 5.218
+                                    },
+                                    "rotation": -45,
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains utility functions that are used\nin HVAC system templates.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Utilities/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Utilities/package.mo",
+  "checksum": "fc45ea603ea6e5ad3618db826d0b54c4"
+}

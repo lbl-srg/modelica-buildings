@@ -1,0 +1,184 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Components.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialControllerVAVBox",
+          "description_string": "Interface class for VAV terminal unit controller",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialController",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "dat",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "stdVen",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "stdVen"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "have_CO2Sen",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true if the zone has CO2 sensor",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Configuration\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "stdVen",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "datAll.stdVen"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Ventilation standard"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "outer": true,
+                "replaceable": true,
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Coils.None",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "coiHea"
+                      },
+                      "description": {
+                        "description_string": "Heating coil"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial class provides a standard interface for VAV terminal unit controllers.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Components/Interfaces/PartialControllerVAVBox.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Components/Interfaces/PartialControllerVAVBox.mo",
+  "checksum": "6d9921fe9e845a365670a75f1a945e05"
+}

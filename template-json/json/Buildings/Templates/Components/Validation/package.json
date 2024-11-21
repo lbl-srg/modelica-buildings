@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Validation",
+          "description_string": "Package with validation models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.ExamplesPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains validation models for the classes within\n<a href=\\\"modelica://Buildings.Templates.Components\\\">\nBuildings.Templates.Components</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Validation/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Components/Validation/package.mo",
+  "checksum": "d4446ea55a8eac755326901399643e15"
+}

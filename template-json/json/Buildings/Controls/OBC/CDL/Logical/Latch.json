@@ -1,0 +1,520 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Logical",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Latch",
+          "description_string": "Maintains a true signal until cleared",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u"
+                      },
+                      "description": {
+                        "description_string": "Latch input",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "clr"
+                      },
+                      "description": {
+                        "description_string": "Clear input",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -40
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "y"
+                      },
+                      "description": {
+                        "description_string": "Output with latched signal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 140,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "when_equation": [
+                        {
+                          "condition": {
+                            "simple_expression": "initial()"
+                          },
+                          "then": [
+                            {
+                              "assignment_equation": {
+                                "lhs": "y",
+                                "rhs": {
+                                  "simple_expression": "not clr and u"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "condition": {
+                            "simple_expression": "{clr,u}"
+                          },
+                          "then": [
+                            {
+                              "assignment_equation": {
+                                "lhs": "y",
+                                "rhs": {
+                                  "simple_expression": "not clr and u"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"lat\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "borderPattern": "BorderPattern.Raised",
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 5
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -73,
+                                        "y": 9
+                                      },
+                                      {
+                                        "x": -87,
+                                        "y": -5
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 81,
+                                        "y": 7
+                                      },
+                                      {
+                                        "x": 95,
+                                        "y": -7
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -73,
+                                        "y": -53
+                                      },
+                                      {
+                                        "x": -87,
+                                        "y": -67
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillColor": {
+                                      "r": 235,
+                                      "g": 235,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -68,
+                                        "y": -62
+                                      },
+                                      {
+                                        "x": 4,
+                                        "y": -62
+                                      },
+                                      {
+                                        "x": 4,
+                                        "y": -22
+                                      },
+                                      {
+                                        "x": 74,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -68,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 56
+                                      },
+                                      {
+                                        "x": -16,
+                                        "y": 56
+                                      },
+                                      {
+                                        "x": -16,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": 24,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": 24,
+                                        "y": 56
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 56
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": 74,
+                                        "y": 24
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -14,
+                                        "y": -8
+                                      },
+                                      {
+                                        "x": 14,
+                                        "y": -18
+                                      }
+                                    ],
+                                    "textString": "\"Clear\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -16,
+                                        "y": 72
+                                      },
+                                      {
+                                        "x": 24,
+                                        "y": 58
+                                      }
+                                    ],
+                                    "textString": "\"Latch input\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 210,
+                                      "g": 210,
+                                      "b": 210
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 150
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 110
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nBlock that generates a <code>true</code> output when the latch input <code>u</code>\nrises from <code>false</code> to <code>true</code>, provided that the clear input\n<code>clr</code> is <code>false</code> or also became at the same time <code>false</code>.\nThe output remains <code>true</code> until the clear input <code>clr</code> rises\nfrom <code>false</code> to <code>true</code>.\n</p>\n<p>\nIf the clear input <code>clr</code> is <code>true</code>, the output <code>y</code>\nswitches to <code>false</code> (if it was <code>true</code>) and it remains <code>false</code>,\nregardless of the value of the latch input <code>u</code>.\n</p>\n<p>\nAt initial time, if <code>clr = false</code>, then the output will be\n<code>y = u</code>. Otherwise it will be <code>y=false</code>\n(because the clear input <code>clr</code> is <code>true</code>).\n</p>\n\n<p align=\\\"center\\\">\n<img src=\\\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/Latch.png\\\"\n     alt=\\\"Latch.png\\\" />\n</p>\n\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 15, 2024, by Antoine Gautier:<br/>\nSimplified the implementation.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3796\\\">issue 3796</a>.\n</li>\n<li>\nOctober 13, 2020, by Jianjun Hu:<br/>\nRemoved the parameter <code>pre_y_start</code>, and made the initial output to be\nequal to latch input when the clear input is <code>false</code>.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2177\\\">issue 2177</a>.\n</li>\n<li>\nMarch 9, 2020, by Michael Wetter:<br/>\nSimplified implementation, and made model work with OpenModelica.\n</li>\n<li>\nApril 4, 2019, by Jianjun Hu:<br/>\nCorrected implementation that causes wrong output at initial stage.\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\\\">issue 1402</a>.\n</li>\n<li>\nDecember 1, 2017, by Michael Wetter:<br/>\nRevised documentation.\n</li>\n<li>\nMarch 30, 2017, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Logical/Latch.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Logical/Latch.mo",
+  "checksum": "2221f9704603b34b51edd7160bf30332"
+}

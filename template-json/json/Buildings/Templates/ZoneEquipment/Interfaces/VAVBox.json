@@ -1,0 +1,2294 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "VAVBox",
+          "description_string": "Interface class for VAV terminal unit",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "final": true,
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.ZoneEquipment.Configuration.VAVBox",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "cfg",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "typCoiHea",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "coiHea.typ"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "typValCoiHea",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "coiHea.typVal"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "typDamVAV",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "damVAV.typ"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "typCtl",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "ctl.typ"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "stdVen",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "ctl.stdVen"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Templates.ZoneEquipment.Data.VAVBox",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "dat"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "have_souChiWat",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "have_souHeaWat",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "coiHea.have_sou"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mAirPri_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "mAir_flow_nominal"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mChiWat_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "mHeaWat_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "if_expression": {
+                                "if_elseif": [
+                                  {
+                                    "condition": {
+                                      "simple_expression": "coiHea.have_sou"
+                                    },
+                                    "then": {
+                                      "simple_expression": "dat.coiHea.mWat_flow_nominal"
+                                    }
+                                  }
+                                ],
+                                "else_expression": {
+                                  "simple_expression": "0"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "QChiWat_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "0"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "QHeaWat_flow_nominal",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "if_expression": {
+                                "if_elseif": [
+                                  {
+                                    "condition": {
+                                      "simple_expression": "coiHea.have_sou"
+                                    },
+                                    "then": {
+                                      "simple_expression": "dat.coiHea.Q_flow_nominal"
+                                    }
+                                  }
+                                ],
+                                "else_expression": {
+                                  "simple_expression": "0"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "inner": true,
+                "replaceable": true,
+                "constraining_clause": {
+                  "name": "Buildings.Templates.Components.Interfaces.PartialCoil",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "final": true,
+                        "short_class_definition": {
+                          "class_prefixes": "package",
+                          "short_class_specifier": {
+                            "identifier": "MediumAir",
+                            "value": {
+                              "name": "MediumAir"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "dat",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "datCoiHea"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "energyDynamics",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "energyDynamics"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "allowFlowReversalAir",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "allowFlowReversalAir"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "allowFlowReversalLiq",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "allowFlowReversalLiq"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "show_T",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "show_T"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Coils.WaterBasedHeating",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "coiHea",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "MediumHeaWat",
+                                    "value": {
+                                      "name": "MediumHeaWat"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typVal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.Valve.TwoWayModulating"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "description": {
+                  "description_string": "Heating coil",
+                  "annotation": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "choices",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "choice",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_redeclaration": {
+                                            "element_replaceable": {
+                                              "component_clause1": {
+                                                "type_specifier": "Buildings.Templates.Components.Coils.WaterBasedHeating",
+                                                "component_declaration1": {
+                                                  "declaration": {
+                                                    "identifier": "coiHea",
+                                                    "modification": {
+                                                      "class_modification": [
+                                                        {
+                                                          "element_redeclaration": {
+                                                            "final": true,
+                                                            "short_class_definition": {
+                                                              "class_prefixes": "package",
+                                                              "short_class_specifier": {
+                                                                "identifier": "MediumHeaWat",
+                                                                "value": {
+                                                                  "name": "MediumHeaWat"
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        {
+                                                          "element_modification_or_replaceable": {
+                                                            "final": true,
+                                                            "element_modification": {
+                                                              "name": "typVal",
+                                                              "modification": {
+                                                                "equal": true,
+                                                                "expression": {
+                                                                  "simple_expression": "Buildings.Templates.Components.Types.Valve.TwoWayModulating"
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "description": {
+                                                    "description_string": "Hot water coil with two-way valve"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "choice",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_redeclaration": {
+                                            "element_replaceable": {
+                                              "component_clause1": {
+                                                "type_specifier": "Buildings.Templates.Components.Coils.ElectricHeating",
+                                                "component_declaration1": {
+                                                  "declaration": {
+                                                    "identifier": "coiHea"
+                                                  },
+                                                  "description": {
+                                                    "description_string": "Modulating electric heating coil"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "Dialog",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "group",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "\"Configuration\""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "Placement": {
+                            "transformation": {
+                              "extent": [
+                                {
+                                  "x": -10,
+                                  "y": -210
+                                },
+                                {
+                                  "x": 10,
+                                  "y": -190
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Actuators.Damper",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "damVAV",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.Damper.Modulating"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "use_strokeTime",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "logical_expression": {
+                                          "logical_or": [
+                                            {
+                                              "logical_and": [
+                                                {
+                                                  "arithmetic_expressions": [
+                                                    {
+                                                      "name": "energyDynamics"
+                                                    },
+                                                    {
+                                                      "name": "Modelica.Fluid.Types.Dynamics.SteadyState"
+                                                    }
+                                                  ],
+                                                  "relation_operator": "<>"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "allowFlowReversal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "allowFlowReversalAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "show_T",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "show_T"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "dat",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "datDamVAV"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "typBla",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.DamperBlades.VAV"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "VAV damper",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Configuration\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -120,
+                                      "y": -200
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "inner": true,
+                "replaceable": true,
+                "constraining_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialControllerVAVBox",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "dat",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "dat.ctl"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ctl"
+                      }
+                    }
+                  ]
+                },
+                "description": {
+                  "description_string": "Control selections",
+                  "annotation": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "Dialog",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "group",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "\"Controller\""
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "Placement": {
+                            "transformation": {
+                              "extent": [
+                                {
+                                  "x": -10,
+                                  "y": -10
+                                },
+                                {
+                                  "x": 10,
+                                  "y": 10
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Sensors.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAirDis",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "allowFlowReversal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "allowFlowReversalAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "have_sen",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "logical_expression": {
+                                          "logical_or": [
+                                            {
+                                              "logical_and": [
+                                                {
+                                                  "arithmetic_expressions": [
+                                                    {
+                                                      "name": "ctl.typ"
+                                                    },
+                                                    {
+                                                      "name": "Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat"
+                                                    }
+                                                  ],
+                                                  "relation_operator": "=="
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "logical_and": [
+                                                {
+                                                  "arithmetic_expressions": [
+                                                    {
+                                                      "name": "ctl.typ"
+                                                    },
+                                                    {
+                                                      "name": "Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly"
+                                                    }
+                                                  ],
+                                                  "relation_operator": "=="
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "mAir_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.SensorTemperature.Standard"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Discharge air temperature sensor",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 90,
+                                        "y": -210
+                                      },
+                                      {
+                                        "x": 110,
+                                        "y": -190
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Templates.Components.Sensors.VolumeFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "VAirDis_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "MediumAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "allowFlowReversal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "allowFlowReversalAir"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "have_sen",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": {
+                                        "logical_expression": {
+                                          "logical_or": [
+                                            {
+                                              "logical_and": [
+                                                {
+                                                  "arithmetic_expressions": [
+                                                    {
+                                                      "name": "ctl.typ"
+                                                    },
+                                                    {
+                                                      "name": "Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat"
+                                                    }
+                                                  ],
+                                                  "relation_operator": "=="
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "logical_and": [
+                                                {
+                                                  "arithmetic_expressions": [
+                                                    {
+                                                      "name": "ctl.typ"
+                                                    },
+                                                    {
+                                                      "name": "Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly"
+                                                    }
+                                                  ],
+                                                  "relation_operator": "=="
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "m_flow_nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "mAir_flow_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "typ",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Airflow sensor",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -200,
+                                        "y": -210
+                                      },
+                                      {
+                                        "x": -180,
+                                        "y": -190
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Buildings.Templates.Components.Data.Damper",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "datDamVAV",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "typ",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "damVAV.typ"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "m_flow_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.damVAV.m_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "dp_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.damVAV.dp_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "dpFixed_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "if_expression": {
+                                            "if_elseif": [
+                                              {
+                                                "condition": {
+                                                  "simple_expression": {
+                                                    "logical_expression": {
+                                                      "logical_or": [
+                                                        {
+                                                          "logical_and": [
+                                                            {
+                                                              "arithmetic_expressions": [
+                                                                {
+                                                                  "name": "damVAV.typ"
+                                                                },
+                                                                {
+                                                                  "name": "Buildings.Templates.Components.Types.Damper.None"
+                                                                }
+                                                              ],
+                                                              "relation_operator": "=="
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                },
+                                                "then": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            ],
+                                            "else_expression": {
+                                              "simple_expression": "dat.coiHea.dpAir_nominal"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Local record for VAV damper with lumped flow resistance"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Buildings.Templates.Components.Data.Coil",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "datCoiHea",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "typ",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "coiHea.typ"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "typVal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "coiHea.typVal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "have_sou",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "coiHea.have_sou"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "mAir_flow_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.mAir_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "mWat_flow_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.mWat_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "dpWat_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.dpWat_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "dpValve_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.dpValve_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "cap_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.cap_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "TWatEnt_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.TWatEnt_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "TAirEnt_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "dat.coiHea.TAirEnt_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "dpAir_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "if_expression": {
+                                            "if_elseif": [
+                                              {
+                                                "condition": {
+                                                  "simple_expression": {
+                                                    "logical_expression": {
+                                                      "logical_or": [
+                                                        {
+                                                          "logical_and": [
+                                                            {
+                                                              "arithmetic_expressions": [
+                                                                {
+                                                                  "name": "damVAV.typ"
+                                                                },
+                                                                {
+                                                                  "name": "Buildings.Templates.Components.Types.Damper.None"
+                                                                }
+                                                              ],
+                                                              "relation_operator": "=="
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                },
+                                                "then": {
+                                                  "simple_expression": "dat.coiHea.dpAir_nominal"
+                                                }
+                                              }
+                                            ],
+                                            "else_expression": {
+                                              "simple_expression": "0"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Local record for coil with lumped flow resistance"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "damVAV"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "damVAV"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TAirDis"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "TAirDis"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "VAirDis_flow"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "VAirDis_flow"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_aHeaWat"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_aSou"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 20,
+                                      "y": -280
+                                    },
+                                    {
+                                      "x": 20,
+                                      "y": -260
+                                    },
+                                    {
+                                      "x": 5,
+                                      "y": -260
+                                    },
+                                    {
+                                      "x": 5,
+                                      "y": -210
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_bSou"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_bHeaWat"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -5,
+                                      "y": -210
+                                    },
+                                    {
+                                      "x": -5,
+                                      "y": -260
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -260
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -280
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "damVAV"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -110,
+                                      "y": -200
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": -200
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "ctl"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "bus"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -300,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -10,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 204,
+                                    "b": 51
+                                  },
+                                  "thickness": 0.5
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "coiHea"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TAirDis"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 10,
+                                      "y": -200
+                                    },
+                                    {
+                                      "x": 90,
+                                      "y": -200
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "TAirDis"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_Dis"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 110,
+                                      "y": -200
+                                    },
+                                    {
+                                      "x": 300,
+                                      "y": -200
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "port_Sup"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "VAirDis_flow"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -300,
+                                      "y": -200
+                                    },
+                                    {
+                                      "x": -200,
+                                      "y": -200
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "VAirDis_flow"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "damVAV"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_a"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -180,
+                                      "y": -200
+                                    },
+                                    {
+                                      "x": -130,
+                                      "y": -200
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 127,
+                                    "b": 255
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 300,
+                                        "y": -190
+                                      },
+                                      {
+                                        "x": -300,
+                                        "y": -190
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 300,
+                                        "y": -210
+                                      },
+                                      {
+                                        "x": -300,
+                                        "y": -210
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"VAVBox\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial class provides a standard interface for VAV terminal unit templates.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 5, 2023, by Antoine Gautier:<br/>\nRefactored with a record class for configuration parameters.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3500\\\">#3500</a>.\n</li>\n<li>\nFebruary 11, 2022, by Antoine Gautier:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -200,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 200,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 127
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 127
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -134,
+                                        "y": 4
+                                      },
+                                      {
+                                        "x": -126,
+                                        "y": -4
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -120,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 50,
+                                        "y": -200
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": -194
+                                      },
+                                      {
+                                        "x": 14,
+                                        "y": -194
+                                      },
+                                      {
+                                        "x": 14,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 238,
+                                      "g": 46,
+                                      "b": 47
+                                    },
+                                    "thickness": 5,
+                                    "visible": "have_souHeaWat"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -50,
+                                        "y": -200
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": -194
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": -194
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 238,
+                                      "g": 46,
+                                      "b": 47
+                                    },
+                                    "pattern": "LinePattern.Dash",
+                                    "thickness": 5,
+                                    "visible": "have_souHeaWat"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -14,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 16,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "visible": "coiHea.typ <> Buildings.Templates.Components.Types.Coil.None",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 95,
+                                      "g": 95,
+                                      "b": 95
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 16,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": -14,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5,
+                                    "visible": "coiHea.typ <> Buildings.Templates.Components.Types.Coil.None"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Interfaces/VAVBox.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Templates/ZoneEquipment/Interfaces/VAVBox.mo",
+  "checksum": "ea5ec040f006876ecd8987bf7eebeeaa"
+}

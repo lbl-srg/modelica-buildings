@@ -1,0 +1,1194 @@
+{
+  "within": "Buildings.Fluid.Sources",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Boundary_pT",
+          "description_string": "Boundary with prescribed pressure, temperature, composition and trace substances",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Sources.BaseClasses.PartialSource_Xi_C"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_p_in",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Get the pressure from the input connector",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Conditional inputs\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.AbsolutePressure",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.p_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fixed value of pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not use_p_in"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Fixed inputs\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "use_T_in",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Get the temperature from the input connector",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Conditional inputs\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.T_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fixed value of temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not use_T_in"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Fixed inputs\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p_in",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_p_in"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Prescribed boundary pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_in",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "use_T_in"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Prescribed boundary temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 60
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "checkWaterPressure",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "logical_expression": {
+                                    "logical_or": [
+                                      {
+                                        "logical_and": [
+                                          {
+                                            "arithmetic_expressions": [
+                                              {
+                                                "name": "Medium.mediumName"
+                                              },
+                                              {
+                                                "name": "\"SimpleLiquidWater\""
+                                              }
+                                            ],
+                                            "relation_operator": "=="
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Evaluates to true if the pressure should be checked"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "checkAirPressure",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "logical_expression": {
+                                    "logical_or": [
+                                      {
+                                        "logical_and": [
+                                          {
+                                            "arithmetic_expressions": [
+                                              {
+                                                "name": "Medium.mediumName"
+                                              },
+                                              {
+                                                "name": "\"Air\""
+                                              }
+                                            ],
+                                            "relation_operator": "=="
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Evaluates to true if the pressure should be checked"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_in_internal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"K\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "displayUnit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"degC\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Needed to connect to conditional connector"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "h_internal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.specificEnthalpy",
+                                    "arguments": [
+                                      {
+                                        "name": "Medium.setState_pTX(p_in_internal,T_in_internal,X_in_internal)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Internal connector for enthalpy"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_p_in"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "checkWaterPressure"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "function_call_equation": {
+                                                "function_name": "assert",
+                                                "function_call_args": {
+                                                  "function_argument": {
+                                                    "expression": {
+                                                      "simple_expression": {
+                                                        "logical_expression": {
+                                                          "logical_or": [
+                                                            {
+                                                              "logical_and": [
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "10000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": ">"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "function_arguments": {
+                                                    "function_argument": {
+                                                      "expression": {
+                                                        "simple_expression": "\"In \" +getInstanceName() +\": The parameter value p=\" +String(p_in_internal) +\" is low for water. This is likely an error.\""
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "checkAirPressure"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "function_call_equation": {
+                                                "function_name": "assert",
+                                                "function_call_args": {
+                                                  "function_argument": {
+                                                    "expression": {
+                                                      "simple_expression": {
+                                                        "logical_expression": {
+                                                          "logical_or": [
+                                                            {
+                                                              "logical_and": [
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "50000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": ">"
+                                                                },
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "150000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": "<"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "function_arguments": {
+                                                    "function_argument": {
+                                                      "expression": {
+                                                        "simple_expression": "\"In \" +getInstanceName() +\": The parameter value p=\" +String(p_in_internal) +\" is not within a realistic range for air. This is likely an error.\""
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "use_p_in"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "checkWaterPressure"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "function_call_equation": {
+                                                "function_name": "assert",
+                                                "function_call_args": {
+                                                  "function_argument": {
+                                                    "expression": {
+                                                      "simple_expression": {
+                                                        "logical_expression": {
+                                                          "logical_or": [
+                                                            {
+                                                              "logical_and": [
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "10000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": ">"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "function_arguments": {
+                                                    "function_argument": {
+                                                      "expression": {
+                                                        "simple_expression": "\"In \" +getInstanceName() +\": The value of p_in=\" +String(p_in_internal) +\" is low for water. This is likely an error.\""
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "checkAirPressure"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "function_call_equation": {
+                                                "function_name": "assert",
+                                                "function_call_args": {
+                                                  "function_argument": {
+                                                    "expression": {
+                                                      "simple_expression": {
+                                                        "logical_expression": {
+                                                          "logical_or": [
+                                                            {
+                                                              "logical_and": [
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "50000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": ">"
+                                                                },
+                                                                {
+                                                                  "arithmetic_expressions": [
+                                                                    {
+                                                                      "name": "p_in_internal"
+                                                                    },
+                                                                    {
+                                                                      "name": "150000"
+                                                                    }
+                                                                  ],
+                                                                  "relation_operator": "<"
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "function_arguments": {
+                                                    "function_argument": {
+                                                      "expression": {
+                                                        "simple_expression": "\"In \" +getInstanceName() +\": The value of p_in=\" +String(p_in_internal) +\" is not within a realistic range for air. This is likely an error.\""
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "p_in"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "p_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_p_in"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "p_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "p"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "i",
+                            "expression": {
+                              "simple_expression": "1:nPorts"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "ports[i].p",
+                              "rhs": {
+                                "simple_expression": "p_in_internal"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "T_in"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "T_in_internal"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not use_T_in"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "T_in_internal",
+                                    "rhs": {
+                                      "simple_expression": "T"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "i",
+                            "expression": {
+                              "simple_expression": "1:nPorts"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "ports[i].h_outflow",
+                              "rhs": {
+                                "simple_expression": "h_internal"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "medium"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "h"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "h_internal"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"bou\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nDefines prescribed values for boundary conditions:\n</p>\n<ul>\n<li> Prescribed boundary pressure.</li>\n<li> Prescribed boundary temperature.</li>\n<li> Boundary composition (only for multi-substance or trace-substance flow).</li>\n</ul>\n<h4>Typical use and important parameters</h4>\n<p>\nIf <code>use_p_in</code> is false (default option),\nthe <code>p</code> parameter is used as boundary pressure,\nand the <code>p_in</code> input connector is disabled;\nif <code>use_p_in</code> is true, then the <code>p</code>\nparameter is ignored, and the value provided by the\ninput connector is used instead.\n</p>\n<p>\nThe same applies to the temperature <i>T</i>, composition <i>X<sub>i</sub></i> or <i>X</i> and trace substances <i>C</i>.\n</p>\n<h4>Options</h4>\n<p>\nInstead of using <code>Xi_in</code> (the <i>independent</i> composition fractions),\nthe advanced tab provides an option for setting all\ncomposition fractions using <code>X_in</code>.\n<code>use_X_in</code> and <code>use_Xi_in</code> cannot be used\nat the same time.\n</p>\n<p>\nParameter <code>verifyInputs</code> can be set to <code>true</code>\nto enable a check that verifies the validity of the used temperatures\nand pressures.\nThis removes the corresponding overhead from the model, which is\na substantial part of the overhead of this model.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/882\\\">#882</a>\nfor more information.\n</p>\n<p>\nNote, that boundary temperature,\nmass fractions and trace substances have only an effect if the mass flow\nis from the boundary into the port. If mass is flowing from\nthe port into the boundary, the boundary definitions,\nwith exception of boundary pressure, do not have an effect.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 11, 2024, by Michael Wetter:<br/>\nCorrected use of <code>HideResult</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1850\\\">#1850</a>.\n</li>\n<li>\nFebruary 25, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nJuni 7, 2019, by Michael Wetter:<br/>\nAdded constant boolean expressions to avoid a potential string comparison in an equation section.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\\\">#1148</a>.\n</li>\n<li>\nJuni 4, 2019, by Filip Jorissen:<br/>\nAdded check for the value of <code>p</code> and <code>p_in</code>.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1148\\\">#1148</a>.\n</li>\n<li>\nJanuary 25, 2019, by Michael Wetter:<br/>\nRefactored use of base classes.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\\\">#1072</a>.\n</li>\n<li>\nFebruary 2nd, 2018 by Filip Jorissen<br/>\nMade <code>medium</code> conditional and refactored inputs.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/882\\\">#882</a>.\n</li>\n<li>\nApril 18, 2017, by Filip Jorissen:<br/>\nChanged <code>checkBoundary</code> implementation\nsuch that it is run as an initial equation\nwhen it depends on parameters only.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/728\\\">#728</a>.\n</li>\n<li>\nJanuary 26, 2016, by Michael Wetter:<br/>\nAdded <code>unit</code> and <code>quantity</code> attributes.\n</li>\n<li>\nMay 29, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nSeptember 29, 2009, by Michael Wetter:<br/>\nFirst implementation.\nImplementation is based on <code>Modelica.Fluid</code>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -152,
+                                        "y": 134
+                                      },
+                                      {
+                                        "x": -68,
+                                        "y": 94
+                                      }
+                                    ],
+                                    "textString": "\"p\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "visible": "use_p_in",
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -162,
+                                        "y": 34
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": -6
+                                      }
+                                    ],
+                                    "textString": "\"T\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "visible": "use_T_in",
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 110
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 150
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Sphere"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 62,
+                                        "y": 28
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String((if use_T_in then T_in else T) -273.15",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sources/Boundary_pT.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sources/Boundary_pT.mo",
+  "checksum": "9997f57af8aa02352f11f0f1cccb5166"
+}

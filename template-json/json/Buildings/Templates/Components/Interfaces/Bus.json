@@ -1,0 +1,65 @@
+{
+  "within": "Buildings.Templates.Components.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "expandable connector",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Bus",
+          "description_string": "Control bus",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.SignalBus"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"bus\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis expandable connector provides a standard interface for\nall control signals of the component models.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Interfaces/Bus.mo",
+  "fullMoFilePath": "Buildings/Templates/Components/Interfaces/Bus.mo",
+  "checksum": "d2e792511379d33812379901306d5c8c"
+}

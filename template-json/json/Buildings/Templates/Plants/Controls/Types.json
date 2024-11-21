@@ -1,0 +1,139 @@
+{
+  "within": "Buildings.Templates.Plants.Controls",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Application",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of application"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Cooling",
+                            "description": {
+                              "description_string": "Cooling system"
+                            }
+                          },
+                          {
+                            "identifier": "Heating",
+                            "description": {
+                              "description_string": "Heating system"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Actuator",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of actuator"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Modulating",
+                            "description": {
+                              "description_string": "Modulating"
+                            }
+                          },
+                          {
+                            "identifier": "TwoPosition",
+                            "description": {
+                              "description_string": "Two-position"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "EquipmentConnection",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of connection between equipment and primary loop"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Parallel",
+                            "description": {
+                              "description_string": "Parallel piped"
+                            }
+                          },
+                          {
+                            "identifier": "Series",
+                            "description": {
+                              "description_string": "Series piped"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package provides type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/Controls/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/Controls/Types.mo",
+  "checksum": "a5c79700562d987b6b73efc3fe0a4908"
+}

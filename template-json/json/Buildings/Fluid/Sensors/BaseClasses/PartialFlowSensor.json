@@ -1,0 +1,364 @@
+{
+  "within": "Buildings.Fluid.Sensors.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialFlowSensor",
+          "description_string": "Partial component to model sensors that measure flow properties",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialTwoPort"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate, used for regularization near zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_small",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001*m_flow_nominal"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.m_flow",
+                        "rhs": {
+                          "simple_expression": "-port_a.m_flow"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.p",
+                        "rhs": {
+                          "simple_expression": "port_b.p"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.h_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.h_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "Medium.h_default"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.h_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.h_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.Xi_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.Xi_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "Medium.X_default[1:Medium.nXi]"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.Xi_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_a.C_outflow",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": "allowFlowReversal"
+                                },
+                                "then": {
+                                  "simple_expression": {
+                                    "function_call": {
+                                      "name": "inStream",
+                                      "arguments": [
+                                        {
+                                          "name": "port_b.C_outflow"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "zeros",
+                                  "arguments": [
+                                    {
+                                      "name": "Medium.nC"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port_b.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "inStream",
+                              "arguments": [
+                                {
+                                  "name": "port_a.C_outflow"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial component to model a sensor.\nThe sensor is ideal. It does not influence mass, energy,\nspecies or substance balance, and it has no flow friction.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nAugust 15, 2015, by Filip Jorissen:<br/>\nImplemented more efficient computation of <code>port_a.Xi_outflow</code>,\n<code>port_a.h_outflow</code>\nand <code>port_a.C_outflow</code> when <code>allowFlowReversal=false</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/281\\\">#281</a>.\n</li>\n<li>\nJune 19, 2015, by Michael Wetter:<br/>\nMoved <code>m_flow_small</code> to the <code>Advanced</code> tab\nas it usually need not be changed by the user.\nOther models such as heat exchangers also have this parameter\non the <code>Advanced</code> tab.\n</li>\n<li>\nFebruary 12, 2011, by Michael Wetter:<br/>\nFirst implementation.\nImplementation is based on <code>Modelica.Fluid</code>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sensors/BaseClasses/PartialFlowSensor.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sensors/BaseClasses/PartialFlowSensor.mo",
+  "checksum": "8fd70267df9a483d2aa5c676ffc307ea"
+}

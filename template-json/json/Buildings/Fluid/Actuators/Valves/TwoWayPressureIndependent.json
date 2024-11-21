@@ -1,0 +1,967 @@
+{
+  "within": "Buildings.Fluid.Actuators.Valves",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TwoWayPressureIndependent",
+          "description_string": "Model of a pressure-independent two way valve",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "linearized",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "from_dp",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "phi",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "0.1*l"
+                                    },
+                                    {
+                                      "name": "l +y_actual*(1 -l)"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "l2",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1e-10"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.01"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Gain for mass flow increase if pressure is above nominal pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltax",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.02"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Transition interval for flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "coeff1",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "l2/dp_nominal*m_flow_nominal"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Parameter for avoiding unnecessary computations"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "coeff2",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1/coeff1"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Parameter for avoiding unnecessary computations"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "y2dd",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Second derivative at second support point"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_set"
+                          },
+                          "description": {
+                            "description_string": "Requested mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_min",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "displayUnit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"Pa\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimum pressure difference required for delivering requested mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_y2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_y1"
+                          },
+                          "description": {
+                            "description_string": "Support points for interpolation flow functions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_y2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_y1"
+                          },
+                          "description": {
+                            "description_string": "Support points for interpolation flow functions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_smooth"
+                          },
+                          "description": {
+                            "description_string": "Smooth interpolation result between two flow regimes"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_smooth"
+                          },
+                          "description": {
+                            "description_string": "Smooth interpolation result between two flow regimes"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "m_flow_set",
+                        "rhs": {
+                          "simple_expression": "m_flow_nominal*phi"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "kVal",
+                        "rhs": {
+                          "simple_expression": "Kv_SI"
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "([object Object])"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "k",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "sqrt",
+                                          "arguments": [
+                                            {
+                                              "name": "1/(1/kFixed^2 +1/kVal^2)"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "k",
+                              "rhs": {
+                                "simple_expression": "kVal"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "dp_min",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                              "arguments": [
+                                {
+                                  "name": "m_flow=m_flow_set,k=k,m_flow_turbulent=m_flow_turbulent"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "from_dp"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x1",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x2",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_y1",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_y2",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_smooth",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x",
+                                    "rhs": {
+                                      "simple_expression": "dp -dp_min"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x1",
+                                    "rhs": {
+                                      "simple_expression": "-dp_x2"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x2",
+                                    "rhs": {
+                                      "simple_expression": "deltax*dp_min"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_y1",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp",
+                                          "arguments": [
+                                            {
+                                              "name": "dp=min(dp,dp_min +dp_x1),k=k,m_flow_turbulent=m_flow_turbulent"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_y2",
+                                    "rhs": {
+                                      "simple_expression": "m_flow_set +coeff1*max(dp_x,dp_x2)"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_smooth",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "noEvent",
+                                          "arguments": [
+                                            {
+                                              "name": "smooth(2,if [object Object] then m_flow_y1 elseif [object Object] then m_flow_y2 else [object Object])"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x1",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x2",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_y1",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_y2",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_smooth",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x",
+                              "rhs": {
+                                "simple_expression": "m_flow -m_flow_set"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x1",
+                              "rhs": {
+                                "simple_expression": "-m_flow_x2"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x2",
+                              "rhs": {
+                                "simple_expression": "deltax*m_flow_set"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_y1",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                                    "arguments": [
+                                      {
+                                        "name": "m_flow=min(m_flow,m_flow_set +m_flow_x1),k=k,m_flow_turbulent=m_flow_turbulent"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_y2",
+                              "rhs": {
+                                "simple_expression": "dp_min +coeff2*max(m_flow_x,m_flow_x2)"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_smooth",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "noEvent",
+                                    "arguments": [
+                                      {
+                                        "name": "smooth(2,if [object Object] then dp_y1 elseif [object Object] then dp_y2 else [object Object])"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "homotopyInitialization"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "from_dp"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "m_flow",
+                                                "rhs": {
+                                                  "simple_expression": {
+                                                    "function_call": {
+                                                      "name": "homotopy",
+                                                      "arguments": [
+                                                        {
+                                                          "name": "actual=m_flow_smooth,simplified=m_flow_nominal_pos*dp/dp_nominal_pos"
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "dp",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "homotopy",
+                                                "arguments": [
+                                                  {
+                                                    "name": "actual=dp_smooth,simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "if_equation": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "from_dp"
+                                  },
+                                  "then": [
+                                    {
+                                      "equation": {
+                                        "assignment_equation": {
+                                          "lhs": "m_flow",
+                                          "rhs": {
+                                            "simple_expression": "m_flow_smooth"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "else_equation": [
+                                {
+                                  "assignment_equation": {
+                                    "lhs": "dp",
+                                    "rhs": {
+                                      "simple_expression": "dp_smooth"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"val\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nTwo way valve with a pressure-independent valve opening characteristic.\nThe mass flow rate is controlled such that it is nearly equal to its\nset point <code>y*m_flow_nominal</code>, unless the pressure\n<code>dp</code> is too low, in which case a regular <code>Kv</code>\ncharacteristic is used.\n</p>\n<h4>Main equations</h4>\n<p>\nFirst the minimum pressure head <code>dp_min</code>\nrequired for delivering the requested mass flow rate\n<code>y*m_flow_nominal</code> is computed. If\n<code>dp &gt; dp_min</code> then the requested mass flow\nrate is supplied. If <code>dp &lt; dp_min</code> then\n<code>m_flow = Kv/sqrt(dp)</code>. Transition between\nthese two flow regimes happens in a smooth way.\n</p>\n<h4>Typical use and important parameters</h4>\n<p>\nThis model is configured by setting <code>m_flow_nominal</code>\nto the mass flow rate that the valve should supply when it is\ncompletely open, i.e., <code>y = 1</code>. The pressure drop corresponding\nto this working point can be set using <code>dpValve_nominal</code>,\nor using a <code>Kv</code>, <code>Cv</code> or <code>Av</code>\nvalue. The parameter <code>dpValve_fixed</code> can be used to add\nadditional pressure drops, although in this valve it is equivalent to\nadd these to <code>dpValve_nominal</code>.\n</p>\n<p>\nThe parameter <code>l2</code> represents the non-ideal\nleakage behaviour of this valve for high pressures.\nIt is assumed that the mass flow rate will rise beyond\nthe requested mass flow rate <code>y*m_flow_nominal</code>\nif <code>dp &gt; dpValve_nominal+dpFixed_nominal</code>.\nThe parameter <code>l2</code> represents the slope\nof this rise:\n<code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>.\nIn the ideal case <code>l2=0</code>, but\nthis may introduce singularities, for instance when\nconnecting this component with a fixed mass flow source.\n</p>\n<h4>Options</h4>\n<p>\nParameter <code>deltax</code> sets the duration of\nthe transition region between the two flow regimes\nas a fraction of <code>dp_nominal</code> or <code>m_flow_nominal</code>,\ndepending on the value of <code>from_dp</code>.\n</p>\n<h4>Implementation</h4>\n<p>\nNote that the result in the transition region when\nusing <code>from_dp = true</code> is not identical to\nthe result when using <code>from_dp = false</code>.\n</p>\n<p>\nVariables <code>*_y1</code> and <code>*_y2</code>\nserve a dual use.\nThey are used to\n1) compute the support points at <code>*_x1</code> and <code>*_x2</code>,\nwhich should not depend on <code>m_flow</code> or <code>dp</code> and\n2) to compute the flow functions when outside of this regime,\nwhich does depend on <code>m_flow</code> or <code>dp</code>.\nMin and max functions are therefore used such that one equation\ncan serve both puroposes.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nAugust 7, 2020, by Ettore Zanetti:<br/>\nchanged the computation of <code>phi</code> using\n<code>max(0.1*l, . )</code> to avoid\nphi=0.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1376\\\">\nissue 1376</a>.\n</li>\n<li>\nNovember 9, 2019, by Filip Jorissen:<br/>\nGuarded the computation of <code>phi</code> using\n<code>max(0, . )</code> to avoid\nnegative phi.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\\\">\nissue 1223</a>.\n</li>\n<li>\nOctober 25, 2019, by Jianjun Hu:<br/>\nRemoved icon graphics annotation. This is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1225\\\">#1225</a>.\n</li>\n<li>\nApril 14, 2017, by Filip Jorissen:<br/>\nRevised implementation using <code>cubicHermite</code>\nsuch that it does not have a local maximum\nand such that it is C2-continuous.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/156\\\">#156</a>.\n</li>\n<li>\nMarch 24, 2017, by Michael Wetter:<br/>\nRenamed <code>filteredInput</code> to <code>use_inputFilter</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/665\\\">#665</a>.\n</li>\n<li>\nMarch 15, 2016, by Michael Wetter:<br/>\nReplaced <code>spliceFunction</code> with <code>regStep</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/300\\\">issue 300</a>.\n</li>\n<li>\nJanuary 22, 2016, by Michael Wetter:<br/>\nCorrected type declaration of pressure difference.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/404\\\">#404</a>.\n</li>\n<li>\nJanuary 29, 2015, by Filip Jorissen:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Valves/TwoWayPressureIndependent.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Valves/TwoWayPressureIndependent.mo",
+  "checksum": "983ac47963dc08afb8e296c5ed9d7ef2"
+}

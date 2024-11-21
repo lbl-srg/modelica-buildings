@@ -1960,6 +1960,7 @@ equation
   connect(VHeaWatLoa_flow.y, hrc.VHeaWatLoa_flow) annotation (Line(points={{-118,
           -60},{-98,-60},{-98,-318},{198,-318}}, color={0,0,127}));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="ctl",
     Icon(
       coordinateSystem(

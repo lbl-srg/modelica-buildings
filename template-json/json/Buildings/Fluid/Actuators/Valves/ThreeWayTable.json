@@ -1,0 +1,548 @@
+{
+  "within": "Buildings.Fluid.Actuators.Valves",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ThreeWayTable",
+          "description_string": "Three way valve with table-specified characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "BaseClasses.PartialThreeWayValve",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "l",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "{0,0}"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "TwoWayTable",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res1",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "flowCharacteristics",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "flowCharacteristics1"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "TwoWayTable",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res3",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "flowCharacteristics",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "flowCharacteristics3"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Data.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "flowCharacteristics1"
+                      },
+                      "description": {
+                        "description_string": "Table with flow characteristics for direct flow path at port_1",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "choicesAllMatching",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -90,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": 100
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Data.Generic",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "flowCharacteristics3"
+                      },
+                      "description": {
+                        "description_string": "Table with flow characteristics for bypass flow path at port_3",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "choicesAllMatching",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -50,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": -30,
+                                        "y": 100
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "inv"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "res3"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -62.6,
+                                      "y": 46
+                                    },
+                                    {
+                                      "x": 30,
+                                      "y": 46
+                                    },
+                                    {
+                                      "x": 30,
+                                      "y": -50
+                                    },
+                                    {
+                                      "x": 12,
+                                      "y": -50
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y_actual"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "inv"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u2"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 50,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -68,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -68,
+                                      "y": 41.2
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y_actual"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "res1"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 50,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -50,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -50,
+                                      "y": 12
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"val\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThree way valve with table-specified opening characteristics.\nA separate characteristic for each flow path is used.\n</p>\n<p>\nEach flow path uses an instance of the model\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\\\">\nBuildings.Fluid.Actuators.Valves.TwoWayTable</a>.\nTherefore, this model needs to be parameterized the same way as\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayTable\\\">\nBuildings.Fluid.Actuators.Valves.TwoWayTable</a>.\nSpecifically,\nthe mass flow rate for the fully open valve is determined based\non the value of the parameter <code>CvData</code>.\nFor the different valve positions <i>y &isin; [0, 1]</i>, this nominal flow rate is\nscaled by the values of the parameter\n<code>flowCharacteristics1</code> and <code>flowCharacteristics3</code>, respectively.\nThese parameters declare a table of the form\n</p>\n<table summary=\\\"summary\\\" border=\\\"1\\\" cellspacing=\\\"0\\\" cellpadding=\\\"2\\\" style=\\\"border-collapse:collapse;\\\">\n<tr>\n<td><i>y</i></td>  <td>0</td>  <td>...</td>  <td>1</td>\n</tr>\n<tr>\n<td><i>&phi;</i></td>  <td><i>l</i></td>  <td>...</td>  <td>1</td>\n</tr>\n</table>\n<p>\nwhere <i>l = K<sub>v</sub>(y=0)/K<sub>v</sub>(y=1) &gt; 0</i> is the valve leakage.\nThe first row is the valve opening, and the second row is the\nmass flow rate, relative to the mass flow rate of the fully open\nvalve, under the assumption of a constant pressure difference across the\nvalve.\nA suggested value for the valve leakage is <i>l=0.0001</i>.\nIf <i>l = 0</i>, then this model will replace it with\n<i>l = 10<sup>-8</sup></i> for numerical reasons.\nFor example, if a valve has <i>K<sub>v</sub>=0.5</i> [m<sup>3</sup>/h/bar<sup>1/2</sup>] and\na linear opening characteristics and\na valve leakage of <i>l=0.0001</i>, then one would set\n</p>\n<pre>\n CvData=Buildings.Fluid.Types.CvTypes.Kv\n Kv = 0.5\n flowCharacteristics1(y={0,1}, phi={0.0001,1})\n flowCharacteristics3(y={0,1}, phi={0.0001,1})\n</pre>\n<p>\nNote, however, that\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.ThreeWayLinear\\\">\nBuildings.Fluid.Actuators.Valves.ThreeWayLinear</a> provides a more\nefficient implementation for this simple case.\n</p>\n<p>\nThe parameters <code>flowCharacteristics1</code> and <code>flowCharacteristics3</code> must meet the following\nrequirements, otherwise the model stops with an error:\n</p>\n<ul>\n<li>\nTheir arrays\n<code>y</code> and <code>phi</code>\nmust be strictly monotonic increasing.\n</li>\n<li>\nThe first value must satisfy\n<code>y[1]=0</code>, and\n<code>phi[1]</code> must be equal to the\nleakage flow rate, which must be bigger than zero.\nOtherwise, a default value of <code>1E-8</code> is used.\n</li>\n<li>\nThe last values must satisfy\n<code>y[end]=1</code> and\n<code>phi[end]=1</code>.\n</li>\n</ul>\n<p>\nThis model is based on the partial valve model\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.\nCheck this model for more information, such\nas the regularization near the origin.\n</p>\n<p>\nFor an example that specifies an opening characteristics, see\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable\\\">\nBuildings.Fluid.Actuators.Valves.Examples.TwoWayValveTable</a>.\n</p>\n\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 7, 2022, by Michael Wetter:<br/>\nSet <code>final massDynamics=energyDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nNovember 28, 2019, by Michael Wetter:<br/>\nRevised implementation.\n</li>\n<li>\nNovember 15, 2019, by Alexander K&uuml;mpel:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -12,
+                                        "y": -11
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": 11
+                                      }
+                                    ],
+                                    "radius": 5,
+                                    "origin": {
+                                      "x": -80,
+                                      "y": -79
+                                    },
+                                    "lineColor": {
+                                      "r": 64,
+                                      "g": 64,
+                                      "b": 64
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 215,
+                                      "b": 136
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": -68
+                                      },
+                                      {
+                                        "x": -80,
+                                        "y": -90
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -92,
+                                        "y": -76
+                                      },
+                                      {
+                                        "x": -68,
+                                        "y": -76
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -92,
+                                        "y": -84
+                                      },
+                                      {
+                                        "x": -68,
+                                        "y": -84
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Valves/ThreeWayTable.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Valves/ThreeWayTable.mo",
+  "checksum": "de73afb5b2f908a4a7b7c7068ef61e95"
+}

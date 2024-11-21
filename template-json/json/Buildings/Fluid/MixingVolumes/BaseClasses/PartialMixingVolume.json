@@ -1,0 +1,2813 @@
+{
+  "within": "Buildings.Fluid.MixingVolumes.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialMixingVolume",
+          "description_string": "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "initialize_p",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "not Medium.singleState"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true to set up initial equations for pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "prescribedHeatFlowRate",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "simplify_mWat_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nPorts",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of ports",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "connectorSizing",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "true"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"General\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Ports\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_small",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001*abs(m_flow_nominal)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization of zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "allowFlowReversal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports.",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Assumptions\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Volume",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "V"
+                      },
+                      "description": {
+                        "description_string": "Volume"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "ports",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nPorts"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "each": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "h_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.h_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "Xi_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "each": true,
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0.01"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fluid inlets and outlets",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": -100
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -40,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "Medium.temperature_phX",
+                                "arguments": [
+                                  {
+                                    "name": "p=p,h=hOut_internal,X=if Medium.reducedX then [object Object] else Xi"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature of the fluid"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "U",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"J\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Internal energy of the component"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.Pressure",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": {
+                                      "logical_expression": {
+                                        "logical_or": [
+                                          {
+                                            "logical_and": [
+                                              {
+                                                "arithmetic_expressions": [
+                                                  {
+                                                    "name": "nPorts"
+                                                  },
+                                                  {
+                                                    "name": "0"
+                                                  }
+                                                ],
+                                                "relation_operator": ">"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "then": {
+                                    "simple_expression": "ports[1].p"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": "p_start"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure of the fluid"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass of the component"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFraction",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Xi",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nXi"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "XiOut_internal"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Species concentration of the fluid"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mXi",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nXi"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Species mass of the component"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium.ExtraProperty",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "C_nominal"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "COut_internal"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Trace substance mixture content"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mC",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nC"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "each": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Trace substance mass of the component"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "steBal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "simplify_mWat_flow",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "simplify_mWat_flow"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_redeclaration": {
+                                    "final": true,
+                                    "short_class_definition": {
+                                      "class_prefixes": "package",
+                                      "short_class_specifier": {
+                                        "identifier": "Medium",
+                                        "value": {
+                                          "name": "Medium"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "m_flow_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "m_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "allowFlowReversal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "allowFlowReversal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "m_flow_small",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "m_flow_small"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "prescribedHeatFlowRate",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "prescribedHeatFlowRate"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "hOut",
+                                      "modification": {
+                                        "class_modification": [
+                                          {
+                                            "element_modification_or_replaceable": {
+                                              "element_modification": {
+                                                "name": "start",
+                                                "modification": {
+                                                  "equal": true,
+                                                  "expression": {
+                                                    "simple_expression": {
+                                                      "function_call": {
+                                                        "name": "Medium.specificEnthalpy_pTX",
+                                                        "arguments": [
+                                                          {
+                                                            "name": "p=p_start,T=T_start,X=X_start"
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "condition_attribute": {
+                            "expression": {
+                              "simple_expression": "useSteadyStateTwoPort"
+                            }
+                          },
+                          "description": {
+                            "description_string": "Model for steady-state balance if nPorts=2",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": 20,
+                                            "y": 0
+                                          },
+                                          {
+                                            "x": 40,
+                                            "y": 20
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Buildings.Fluid.Interfaces.ConservationEquation",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dynBal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "simplify_mWat_flow",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "simplify_mWat_flow"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_redeclaration": {
+                                    "final": true,
+                                    "short_class_definition": {
+                                      "class_prefixes": "package",
+                                      "short_class_specifier": {
+                                        "identifier": "Medium",
+                                        "value": {
+                                          "name": "Medium"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "energyDynamics",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "energyDynamics"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "massDynamics",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "massDynamics"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "p_start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "p_start"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "T_start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "T_start"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "X_start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "X_start"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "C_start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "C_start"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "C_nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "C_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "fluidVolume",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "V"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "initialize_p",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "initialize_p"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "m",
+                                      "modification": {
+                                        "class_modification": [
+                                          {
+                                            "element_modification_or_replaceable": {
+                                              "element_modification": {
+                                                "name": "start",
+                                                "modification": {
+                                                  "equal": true,
+                                                  "expression": {
+                                                    "simple_expression": "V*rho_start"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "nPorts",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "nPorts"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "mSenFac",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "mSenFac"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "condition_attribute": {
+                            "expression": {
+                              "simple_expression": "not useSteadyStateTwoPort"
+                            }
+                          },
+                          "description": {
+                            "description_string": "Model for dynamic energy balance",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": 60,
+                                            "y": 0
+                                          },
+                                          {
+                                            "x": 80,
+                                            "y": 20
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Density",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "rho_start",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.density",
+                                    "arguments": [
+                                      {
+                                        "name": "state=state_start"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Density, used to compute start and guess values"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=Medium.T_default,p=Medium.p_default,X=Medium.X_default[1:Medium.nXi]"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Medium state at default values"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Density",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "rho_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.density",
+                                    "arguments": [
+                                      {
+                                        "name": "state=state_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Density, used to compute fluid mass"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Medium.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_start",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.setState_pTX",
+                                    "arguments": [
+                                      {
+                                        "name": "T=T_start,p=p_start,X=X_start[1:Medium.nXi]"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Medium state at start values"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "useSteadyStateTwoPort",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "([object Object]) and (prescribedHeatFlowRate or (not allowFlowReversal)) and ([object Object]) and ([object Object]) and ([object Object]) and ([object Object])"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Flag, true if the model has two ports only and uses a steady state balance",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "Evaluate",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "true"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "hOut_internal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"J/kg\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Internal connector for leaving temperature of the component"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XiOut_internal",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "Medium.nXi"
+                                }
+                              }
+                            ],
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"1\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Internal connector for leaving species concentration of the component"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "COut_internal",
+                            "array_subscripts": [
+                              {
+                                "expression": {
+                                  "simple_expression": "Medium.nC"
+                                }
+                              }
+                            ],
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"1\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Internal connector for leaving trace substances of the component"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Buildings.HeatTransfer.Sources.PrescribedTemperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "preTem",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "port",
+                                      "modification": {
+                                        "class_modification": [
+                                          {
+                                            "element_modification_or_replaceable": {
+                                              "element_modification": {
+                                                "name": "T",
+                                                "modification": {
+                                                  "class_modification": [
+                                                    {
+                                                      "element_modification_or_replaceable": {
+                                                        "element_modification": {
+                                                          "name": "start",
+                                                          "modification": {
+                                                            "equal": true,
+                                                            "expression": {
+                                                              "simple_expression": "T_start"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Port temperature",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": -40,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": -60,
+                                            "y": 10
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Sources.RealExpression",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "portT",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "y",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "T"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Port temperature",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": -10,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": -30,
+                                            "y": 10
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "heaFloSen",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "port_a",
+                                      "modification": {
+                                        "class_modification": [
+                                          {
+                                            "element_modification_or_replaceable": {
+                                              "element_modification": {
+                                                "name": "T",
+                                                "modification": {
+                                                  "class_modification": [
+                                                    {
+                                                      "element_modification_or_replaceable": {
+                                                        "element_modification": {
+                                                          "name": "start",
+                                                          "modification": {
+                                                            "equal": true,
+                                                            "expression": {
+                                                              "simple_expression": "T_start"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "port_b",
+                                      "modification": {
+                                        "class_modification": [
+                                          {
+                                            "element_modification_or_replaceable": {
+                                              "element_modification": {
+                                                "name": "T",
+                                                "modification": {
+                                                  "class_modification": [
+                                                    {
+                                                      "element_modification_or_replaceable": {
+                                                        "element_modification": {
+                                                          "name": "start",
+                                                          "modification": {
+                                                            "equal": true,
+                                                            "expression": {
+                                                              "simple_expression": "T_start"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Heat flow sensor",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": -90,
+                                            "y": -10
+                                          },
+                                          {
+                                            "x": -70,
+                                            "y": 10
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "not allowFlowReversal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "function_call_equation": {
+                                    "function_name": "assert",
+                                    "function_call_args": {
+                                      "function_argument": {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "ports[1].m_flow"
+                                                        },
+                                                        {
+                                                          "name": "-m_flow_small"
+                                                        }
+                                                      ],
+                                                      "relation_operator": ">"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "function_arguments": {
+                                        "function_argument": {
+                                          "expression": {
+                                            "simple_expression": "\"In \" +getInstanceName() +\": Model has flow reversal,\n  but the parameter allowFlowReversal is set to false.\n  m_flow_small    = \" +String(m_flow_small) +\"\n  ports[1].m_flow = \" +String(ports[1].m_flow) +\"\n\""
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "useSteadyStateTwoPort"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "steBal"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "port_a"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "ports",
+                                        "array_subscripts": [
+                                          {
+                                            "expression": {
+                                              "simple_expression": "1"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "description": {
+                                    "annotation": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "Line": {
+                                              "points": [
+                                                {
+                                                  "x": 20,
+                                                  "y": 10
+                                                },
+                                                {
+                                                  "x": 10,
+                                                  "y": 10
+                                                },
+                                                {
+                                                  "x": 10,
+                                                  "y": -20
+                                                },
+                                                {
+                                                  "x": 0,
+                                                  "y": -20
+                                                },
+                                                {
+                                                  "x": 0,
+                                                  "y": -20
+                                                },
+                                                {
+                                                  "x": 0,
+                                                  "y": -100
+                                                }
+                                              ],
+                                              "color": {
+                                                "r": 0,
+                                                "g": 127,
+                                                "b": 255
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "steBal"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "port_b"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "ports",
+                                        "array_subscripts": [
+                                          {
+                                            "expression": {
+                                              "simple_expression": "2"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "description": {
+                                    "annotation": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "Line": {
+                                              "points": [
+                                                {
+                                                  "x": 40,
+                                                  "y": 10
+                                                },
+                                                {
+                                                  "x": 46,
+                                                  "y": 10
+                                                },
+                                                {
+                                                  "x": 46,
+                                                  "y": -20
+                                                },
+                                                {
+                                                  "x": 0,
+                                                  "y": -20
+                                                },
+                                                {
+                                                  "x": 0,
+                                                  "y": -100
+                                                }
+                                              ],
+                                              "color": {
+                                                "r": 0,
+                                                "g": 127,
+                                                "b": 255
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "U",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "mXi",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "zeros",
+                                          "arguments": [
+                                            {
+                                              "name": "Medium.nXi"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "mC",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "zeros",
+                                          "arguments": [
+                                            {
+                                              "name": "Medium.nC"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "hOut_internal"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "steBal"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "hOut"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "XiOut_internal"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "steBal"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "XiOut"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "connect_clause": {
+                                    "from": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "COut_internal"
+                                      }
+                                    ],
+                                    "to": [
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "steBal"
+                                      },
+                                      {
+                                        "dot_op": true
+                                      },
+                                      {
+                                        "dot_op": false,
+                                        "identifier": "COut"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "ports"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "ports"
+                                }
+                              ]
+                            },
+                            "description": {
+                              "annotation": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "Line": {
+                                        "points": [
+                                          {
+                                            "x": 70,
+                                            "y": 0
+                                          },
+                                          {
+                                            "x": 70,
+                                            "y": -80
+                                          },
+                                          {
+                                            "x": 62,
+                                            "y": -80
+                                          },
+                                          {
+                                            "x": 2.22045e-15,
+                                            "y": -80
+                                          },
+                                          {
+                                            "x": 2.22045e-15,
+                                            "y": -90
+                                          },
+                                          {
+                                            "x": 2.22045e-15,
+                                            "y": -100
+                                          }
+                                        ],
+                                        "color": {
+                                          "r": 0,
+                                          "g": 127,
+                                          "b": 255
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "U"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "UOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "mXi"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "mXiOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "m"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "mOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "mC"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "mCOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "hOut_internal"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "hOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "XiOut_internal"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "XiOut"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "connect_clause": {
+                              "from": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "COut_internal"
+                                }
+                              ],
+                              "to": [
+                                {
+                                  "dot_op": false,
+                                  "identifier": "dynBal"
+                                },
+                                {
+                                  "dot_op": true
+                                },
+                                {
+                                  "dot_op": false,
+                                  "identifier": "COut"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "portT"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "preTem"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "T"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -31,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -38,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heaFloSen"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port_b"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "preTem"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "port"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -70,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -65,
+                                      "y": 0
+                                    },
+                                    {
+                                      "x": -60,
+                                      "y": 0
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 191,
+                                    "g": 0,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heaFloSen"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "Q_flow"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "steBal"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "Q_flow"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -80,
+                                      "y": -10
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": -16
+                                    },
+                                    {
+                                      "x": 6,
+                                      "y": -16
+                                    },
+                                    {
+                                      "x": 6,
+                                      "y": 18
+                                    },
+                                    {
+                                      "x": 18,
+                                      "y": 18
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heaFloSen"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "Q_flow"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "dynBal"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "Q_flow"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -80,
+                                      "y": -10
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": -10
+                                    },
+                                    {
+                                      "x": -80,
+                                      "y": -16
+                                    },
+                                    {
+                                      "x": 6,
+                                      "y": -16
+                                    },
+                                    {
+                                      "x": 6,
+                                      "y": 24
+                                    },
+                                    {
+                                      "x": 50,
+                                      "y": 24
+                                    },
+                                    {
+                                      "x": 50,
+                                      "y": 16
+                                    },
+                                    {
+                                      "x": 58,
+                                      "y": 16
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"vol\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis is a partial model of an instantaneously mixed volume.\nIt is used as the base class for all fluid volumes of the package\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes\\\">\nBuildings.Fluid.MixingVolumes</a>.\n</p>\n\n\n<h4>Typical use and important parameters</h4>\n<p>\nSet the constant <code>sensibleOnly=true</code> if the model that extends\nor instantiates this model sets <code>mWat_flow = 0</code>.\n</p>\n<p>\nSet the constant <code>simplify_mWat_flow = true</code> to simplify the equation\n</p>\n<pre>\n  port_a.m_flow + port_b.m_flow = - mWat_flow;\n</pre>\n<p>\nto\n</p>\n<pre>\n  port_a.m_flow + port_b.m_flow = 0;\n</pre>\n<p>\nThis causes an error in the mass balance of about <i>0.5%</i>, but generally leads to\nsimpler equations because the pressure drop equations are then decoupled from the\nmass exchange in this component.\n</p>\n\n<p>\nTo increase the numerical robustness of the model, the constant\n<code>prescribedHeatFlowRate</code> can be set by the user.\nThis constant only has an effect if the model has exactly two fluid ports connected,\nand if it is used as a steady-state model.\nUse the following settings:\n</p>\n<ul>\n<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer\nat the <code>heatPort</code> is a prescribed heat flow rate that\nis <i>not</i> a function of the temperature difference\nbetween the medium and an ambient temperature. Examples include an ideal electrical heater,\na pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.\nIf the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as\nin this case, <code>heatPort.Q_flow=0</code>.\n</li>\n<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>\ncomputed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,\nwhich may itself be a function of temperature or mass flow rate.<br/>\nIf there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,\nfor example a solar collector that dissipates heat to the ambient and receives heat from\nthe solar radiation, then set <code>prescribedHeatFlowRate=false</code>.\n</li>\n</ul>\n<p>\nSet the parameter <code>use_C_flow = true</code> to enable an input connector\nfor the trace substance flow rate.\n</p>\n<h4>Implementation</h4>\n<p>\nIf the model is (i) operated in steady-state,\n(ii) has two fluid ports connected, and\n(iii) <code>prescribedHeatFlowRate=true</code> or <code>allowFlowReversal=false</code>,\nthen the model uses\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\\\">\nBuildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>\nin order to use\nthe same energy and mass balance implementation as is used as in\nsteady-state component models.\nIn this situation, the functions <code>inStream</code> are used for the two\nflow directions rather than the function\n<code>actualStream</code>, which is less efficient.\nHowever, the use of <code>inStream</code> has the disadvantage\nthat <code>hOut</code> has to be computed, in\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\\\">\nBuildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>,\nusing\n</p>\n<pre>\nif allowFlowReversal then\n  hOut = Buildings.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,\n                                                    y2=port_a.h_outflow,\n                                                    x=port_a.m_flow,\n                                                    x_small=m_flow_small/1E3);\nelse\n  hOut = port_b.h_outflow;\nend if;\n</pre>\n<p>\nHence, for <code>allowFlowReversal=true</code>, if <code>hOut</code>\nwere to be used to compute the temperature that\ndrives heat transfer such as by conduction,\nthen the heat transfer would depend on upstream and the <i>downstream</i>\ntemperatures for small mass flow rates.\nThis can give wrong results. Consider for example a mass flow rate that is positive\nbut very close to zero. Suppose the upstream temperature is <i>20</i>&deg;C,\nthe downstream temperature is <i>10</i>&deg;C, and the heat port is\nconnected through a heat conductor to a boundary condition of <i>20</i>&deg;C.\nThen, <code>hOut = (port_b.h_outflow + port_a.h_outflow)/2</code> and hence\nthe temperature <code>heatPort.T</code>\nis <i>15</i>&deg;C. Therefore, heat is added to the component.\nAs the mass flow rate is by assumption very small, the fluid that leaves the component\nwill have a very high temperature, violating the 2nd law.\nTo avoid this situation, if\n<code>prescribedHeatFlowRate=false</code>, then the model\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\\\">\nBuildings.Fluid.Interfaces.ConservationEquation</a>\nis used instead of\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\\\">\nBuildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.\n</p>\n<p>\nFor simple models that uses this model, see\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes\\\">\nBuildings.Fluid.MixingVolumes</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 18, 2024, by Michael Wetter:<br/>\nAdded <code>start</code> and <code>nominal</code> attributes\nto avoid warnings in OpenModelica due to conflicting values.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\\\">IBPSA, #1890</a>.\n</li>\n<li>\nOctober 24, 2022, by Michael Wetter:<br/>\nImproved conversion from <code>Xi</code> to <code>X</code> so that it also works\nwith media that have <code>reducedX=true</code>.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\\\">#1650</a>.\n</li>\n<li>\nSeptember 18, 2020, by Michael Wetter:<br/>\nSet start value for <code>steBal.hOut</code> so that <code>T_start</code>\ncan be used which is not known in that instance.<br/>\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1397\\\">#1397</a>.\n</li>\n<li>\nFebruary 21, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nOctober 30, 2019 by Filip Jorissen:<br/>\nAdded <code>getInstanceName()</code> to flow\nreversal check.\nThis if or <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1228\\\">\nissue 1228</a>.\n</li>\n<li>\nOctober 19, 2017, by Michael Wetter:<br/>\nChanged initialization of pressure from a <code>constant</code> to a <code>parameter</code>.<br/>\nRemoved <code>partial</code> keyword as this model is not partial.<br/>\nMoved <code>C_flow</code> and <code>use_C_flow</code> to child classes.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1013\\\">Buildings, issue 1013</a>.\n</li>\n<li>\nApril 11, 2017, by Michael Wetter:<br/>\nMoved heat port to the extending classes to provide better comment.\nOtherwise, the mixing volume without water input would have a comment\nthat says latent heat can be added at this port.<br/>\nRemoved blocks <code>QSen_flow</code> and\n<code>QLat_flow</code>.<br/>\nThis is for issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/704\\\">Buildings #704</a>.\n</li>\n<li>\nFebruary 19, 2016 by Filip Jorissen:<br/>\nAdded outputs U, m, mXi, mC for being able to\ncheck conservation of quantities.\nThis if or <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/247\\\">\nissue 247</a>.\n</li>\n<li>\nJanuary 22, 2016 by Michael Wetter:<br/>\nUpdated model to use the new parameter <code>use_mWat_flow</code>\nrather than <code>sensibleOnly</code>.\n</li>\n<li>\nJanuary 17, 2016, by Michael Wetter:<br/>\nRemoved <code>protected</code> block <code>masExc</code> as\nthis revision introduces a conditional connector for the\nmoisture flow rate in the energy and mass balance models.\nThis change was done to use the same modeling concept for the\nmoisture input as is used for the trace substance input.\n</li>\n<li>\nDecember 2, 2015, by Filip Jorissen:<br/>\nAdded conditional input <code>C_flow</code> for\nhandling trace substance insertions.\n</li>\n<li>\nJuly 17, 2015, by Michael Wetter:<br/>\nAdded constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop\ncalculation on the moisture balance.\n</li>\n<li>\nJuly 1, 2015, by Filip Jorissen:<br/>\nSet <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\\\">\nBuildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.\nThis results in equations that are solved more easily.\nSee\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/282\\\">\nissue 282</a> for a discussion.\n</li>\n<li>\nJune 9, 2015 by Michael Wetter:<br/>\nSet start value for <code>heatPort.T</code> and changed\ntype of <code>T</code> to <code>Medium.Temperature</code> rather than\n<code>Modelica.Units.SI.Temperature</code>\nto avoid an\nerror because of conflicting start values if\n<code>Buildings.Fluid.Chillers.Carnot_y</code>\nis translated using pedantic mode in Dymola 2016.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/426\\\">#426</a>.\n</li>\n<li>\nJune 5, 2015, by Michael Wetter:<br/>\nMoved assignment of <code>dynBal.U.start</code>\nfrom instance <code>dynBal</code> to the actual model implementation.\nThis is required for a pedantic model check in Dymola 2016.\nIt addresses\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/266\\\">\nissue 266</a>.\n</li>\n<li>\nMay 6, 2015, by Michael Wetter:<br/>\nImproved documentation and changed the test\n<pre>\n final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and\n prescribedHeatFlowRate and ...\n</pre>\nto\n<pre>\n final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and\n (prescribedHeatFlowRate or (not allowFlowReversal)) and ...\n</pre>\nThe reason is that if there is no flow reversal, then\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\\\">\nBuildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>\ncomputes <code>hOut =  port_b.h_outflow;</code>, and hence\nit is correct to use <code>hOut</code> to compute\ntemperature-driven heat flow, such as by conduction or convection.\nSee also the model documentation.<br/>\nThis is for issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/412\\\">\n#412</a>.\n</li>\n<li>\nFebruary 5, 2015, by Michael Wetter:<br/>\nChanged <code>initalize_p</code> from a <code>parameter</code> to a\n<code>constant</code>. This is only required in finite volume models\nof heat exchangers (to avoid consistent but redundant initial conditions)\nand hence it should be set as a <code>constant</code>.\n</li>\n<li>\nOctober 29, 2014, by Michael Wetter:<br/>\nMade assignment of <code>mFactor</code> final, and changed computation of\ndensity to use default medium states as are also used to compute the\nspecific heat capacity.\n</li>\n<li>\nOctober 21, 2014, by Filip Jorissen:<br/>\nAdded parameter <code>mFactor</code> to increase the thermal capacity.\n</li>\n<li>\nJuly 3, 2014, by Michael Wetter:<br/>\nAdded parameter <code>initialize_p</code>. This is required\nto enable the coil models to initialize the pressure in the first\nvolume, but not in the downstream volumes. Otherwise,\nthe initial equations will be overdetermined, but consistent.\nThis change was done to avoid a long information message that appears\nwhen translating models.\n</li>\n<li>\nMay 29, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nFebruary 11, 2014 by Michael Wetter:<br/>\nRemoved <code>Q_flow</code> and added <code>QSen_flow</code>.\nThis was done to clarify what is sensible and total heat flow rate\nas part of the correction of issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/197\\\">#197</a>.\n</li>\n<li>\nOctober 8, 2013 by Michael Wetter:<br/>\nRemoved propagation of <code>show_V_flow</code>\nto instance <code>steBal</code> as it has no longer this parameter.\n</li>\n<li>\nSeptember 13, 2013 by Michael Wetter:<br/>\nRenamed <code>rho_nominal</code> to <code>rho_start</code>\nbecause this quantity is computed using start values and not\nnominal values.\n</li>\n<li>\nApril 18, 2013 by Michael Wetter:<br/>\nRemoved the check of multiple connections to the same element\nof a fluid port, as this check required the use of the deprecated\n<code>cardinality</code> function.\n</li>\n<li>\nFebruary 7, 2012 by Michael Wetter:<br/>\nRevised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.\n</li>\n<li>\nSeptember 17, 2011 by Michael Wetter:<br/>\nRemoved instance <code>medium</code> as this is already used in <code>dynBal</code>.\nRemoving the base properties led to 30% faster computing time for a solar thermal system\nthat contains many fluid volumes.\n</li>\n<li>\nSeptember 13, 2011 by Michael Wetter:<br/>\nChanged in declaration of <code>medium</code> the parameter assignment\n<code>preferredMediumStates=true</code> to\n<code>preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)</code>.\nOtherwise, for a steady-state model, Dymola 2012 may differentiate the model to obtain <code>T</code>\nas a state. See ticket Dynasim #13596.\n</li>\n<li>\nJuly 26, 2011 by Michael Wetter:<br/>\nRevised model to use new declarations from\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\\\">\nBuildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.\n</li>\n<li>\nJuly 14, 2011 by Michael Wetter:<br/>\nAdded start values for mass and internal energy of dynamic balance\nmodel.\n</li>\n<li>\nMay 25, 2011 by Michael Wetter:<br/>\n<ul>\n<li>\nChanged implementation of balance equation. The new implementation uses a different model if\nexactly two fluid ports are connected, and in addition, the model is used as a steady-state\ncomponent. For this model configuration, the same balance equations are used as were used\nfor steady-state component models, i.e., instead of <code>actualStream(...)</code>, the\n<code>inStream(...)</code> formulation is used.\nThis changed required the introduction of a new parameter <code>m_flow_nominal</code> which\nis used for smoothing in the steady-state balance equations of the model with two fluid ports.\nThis implementation also simplifies the implementation of\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\\\">\nBuildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,\nwhich now uses the same equations as this model.\n</li>\n<li>\nAnother revision was the removal of the parameter <code>use_HeatTransfer</code> as there is\nno noticeable overhead in always having the <code>heatPort</code> connector present.\n</li>\n</ul>\n</li>\n<li>\nJuly 30, 2010 by Michael Wetter:<br/>\nAdded nominal value for <code>mC</code> to avoid wrong trajectory\nwhen concentration is around 1E-7.\nSee also <a href=\\\"https://trac.modelica.org/Modelica/ticket/393\\\">\nhttps://trac.modelica.org/Modelica/ticket/393</a>.\n</li>\n<li>\nFebruary 7, 2010 by Michael Wetter:<br/>\nSimplified model and its base classes by removing the port data\nand the vessel area.\nEliminated the base class <code>PartialLumpedVessel</code>.\n</li>\n<li>\nOctober 12, 2009 by Michael Wetter:<br/>\nChanged base class to\n<a href=\\\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume\\\">\nBuildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -60,
+                                        "y": -26
+                                      },
+                                      {
+                                        "x": 56,
+                                        "y": -58
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -152,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 148,
+                                        "y": 140
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 98
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -102
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 170,
+                                      "g": 213,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Sphere"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 62,
+                                        "y": 28
+                                      },
+                                      {
+                                        "x": -58,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(T -273.15",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/MixingVolumes/BaseClasses/PartialMixingVolume.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/MixingVolumes/BaseClasses/PartialMixingVolume.mo",
+  "checksum": "b19c761733b12af5e346162aa2b3f3ed"
+}

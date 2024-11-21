@@ -1,0 +1,1608 @@
+{
+  "within": "Buildings.Templates.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Defaults",
+          "description_string": "Package with default sizing parameters",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.MaterialPropertiesPackage"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatSup",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "7 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW supply temperature (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatSup_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "3.3 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum CHW supply temperature (typical)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatSup_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "16 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum CHW supply temperature (typical)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatRet",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "12 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW return temperature (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConWatSup",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CW supply temperature (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConWatRet",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "35 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CW return temperature (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutChi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "35 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air temperature for air-cooled chiller (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConEnt_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "13 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum condenser entering fluid temperature (air or water)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConEnt_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "45 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum condenser entering fluid temperature (air or water)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConLvg_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "16 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum condenser leaving fluid temperature (air or water)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConLvg_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum condenser leaving fluid temperature (air or water)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatEcoEnt",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "18 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE entering CHW temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TChiWatEcoLvg",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "11 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE leaving CHW temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConWatEcoEnt",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "9 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE entering CW temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TConWatEcoLvg",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "16 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE leaving CW temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutChiWatLck",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "16 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air lockout temperature below which the CHW system is prevented from operating"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.TemperatureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dTLifChi_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum chiller lift at minimum load"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutDryCoo",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "TOutChi"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Dry cooler entering air drybulb temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWetBulTowEnt",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "24 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CT entering air wetbulb temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "PFanByFloConWatTow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"W/(kg/s)\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "340"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CT fan power divided by CW mass flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mConWatFloByAirTow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1.45"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CT CW mass flow rate divided by air mass flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpConWatFriTow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "10000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CW flow-friction losses through open-circuit tower and piping only (without elevation head or valve)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpConWatStaTow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CW elevation head (for open cooling towers only)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpConWatTowClo",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CW flow-friction losses through closed-circuit tower and piping only (without valve)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAirFloByCapChi",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"(kg/s)/W\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air mass flow rate divided by capacity for air-cooled chiller"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPChiAirCoo",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2.99"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPChiWatCoo",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5.33"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water-cooled chiller COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpValIso",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Isolation or bypass valve pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpValBypMin",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum flow bypass valve pressure drop at design minimum flow for the largest chiller"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpValChe",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "10000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Check valve pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpChiWatChi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "40000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Chiller CHW pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpChiWatSet_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5*6894"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum CHW differential pressure setpoint used in CHW plant reset logic"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpChiWatRemSet_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum CHW differential pressure setpoint remote from the CHW plant"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpChiWatLocSet_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "150000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum CHW differential pressure setpoint local to the CHW plant"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpConWatChi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "40000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Chiller CW pressure drop (water-cooled)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpAirChi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "500"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Chiller air pressure drop across condenser (air-cooled)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpChiWatEco",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE CHW pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpConWatEco",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "WSE CW pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pChiWat_rel_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "100000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "CHW system gauge pressure at design conditions"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pHeaWat_rel_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "250000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HHW system gauge pressure at design conditions"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpHeaWatBoi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Boiler HW pressure drop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatSup",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "80 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW supply temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatConSup",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "65 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW supply temperature for condensing boilers"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatRet",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "55 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW return temperature"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutHeaWatLck",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "21 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air lockout temperature above which the HW system is prevented from operating"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpHeaWatSet_min",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5*6894"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum HW differential pressure setpoint used in HW plant reset logic"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpHeaWatRemSet_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum HW differential pressure setpoint remote from the HW plant"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpHeaWatLocSet_max",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "150000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum HW differential pressure setpoint local to the CHW plant"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpHeaWatHp",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30000"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat pump HW pressure drop across condenser barrel"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatSupHig",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "60 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW supply temperature - High temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatRetHig",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW return temperature - High temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatSupMed",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW supply temperature - Medium temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatRetMed",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "42 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW return temperature - Medium temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatSupLow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "40 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW supply temperature - Low temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "THeaWatRetLow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "35 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "HW return temperature - Low temperature level (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutHpCoo",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "TOutChi"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air temperature for air-to-water heat pump rating - Cooling (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutHpHeaHig",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "8 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air temperature for air-to-water heat pump rating - High heating (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TOutHpHeaLow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "-8 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Outdoor air temperature for air-to-water heat pump rating - Low heating (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSouHpCoo",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "30 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Source fluid entering temperature for water-to-water heat pump rating - Cooling (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSouHpHea",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "12 +273.15"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Source fluid entering temperature for water-to-water heat pump rating - Heating (AHRI 551/591)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPHpAwHea",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1.75"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, -8 °C OAT)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPHpAwCoo",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "2.84"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C OAT)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPHpWwHea",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "3.61"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water(brine)-to-water heat pump heating COP (ASHRAE 90.1 2022 at 50 °C HWST, 7 °C source LWT)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "constant",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "COPHpWwCoo",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "5.07"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water(brine)-to-water heat pump cooling COP (ASHRAE 90.1 2022 at 7 °C CHWST, 35 °C source LWT)"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package defines some constants that are either\n</p>\n<ul>\n<li>\ntypical values used as default parameter values\nfor models inside the package\n<a href=\\\"modelica://Buildings.Templates\\\">\nBuildings.Templates</a>, or\n</li>\n<li>\narbitrary values used for validation purposes only.\nThose are typically project-specific characteristics (e.g.,\nchiller COP at nominal conditions) and should not\nbe considered as generic default values.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 18, 2022, by Antoine Gautier:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Data/Defaults.mo",
+  "fullMoFilePath": "Buildings/Templates/Data/Defaults.mo",
+  "checksum": "d8dfbad122d5e7bd56b72c16b81a0a8b"
+}

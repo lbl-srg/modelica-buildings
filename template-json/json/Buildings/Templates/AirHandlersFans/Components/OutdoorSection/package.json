@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "OutdoorSection",
+          "description_string": "Models for outdoor air section",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nComponents inside that package represent the outdoor air section of an\nair handler.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Components/OutdoorSection/package.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Components/OutdoorSection/package.mo",
+  "checksum": "53ac8614a940ff271c55336c5b530c30"
+}

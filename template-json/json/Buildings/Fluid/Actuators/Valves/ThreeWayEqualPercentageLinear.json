@@ -1,0 +1,467 @@
+{
+  "within": "Buildings.Fluid.Actuators.Valves",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ThreeWayEqualPercentageLinear",
+          "description_string": "Three way valve with equal percentage and linear characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "BaseClasses.PartialThreeWayValve",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "TwoWayEqualPercentage",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res1",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "R",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "R"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "element_modification": {
+                                        "name": "delta0",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "delta0"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "l",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "l[1]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "component_clause1": {
+                          "type_specifier": "TwoWayLinear",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "res3",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "l",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "l[2]"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "R",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "50"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Rangeability, R=50...100 typically"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "delta0",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.01"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Range of significant deviation from equal percentage law"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "inv"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "res3"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -62.6,
+                                      "y": 46
+                                    },
+                                    {
+                                      "x": 30,
+                                      "y": 46
+                                    },
+                                    {
+                                      "x": 30,
+                                      "y": -50
+                                    },
+                                    {
+                                      "x": 12,
+                                      "y": -50
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y_actual"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "inv"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u2"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 50,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -68,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -68,
+                                      "y": 41.2
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "y_actual"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "res1"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": 50,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 70
+                                    },
+                                    {
+                                      "x": 88,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -50,
+                                      "y": 34
+                                    },
+                                    {
+                                      "x": -50,
+                                      "y": 12
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -72,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": -34,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "textString": "\"%%\"",
+                                    "textColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": null
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"val\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThree way valve with equal percentage characteristics\nbetween <code>port_1</code> and <code>port_2</code>\nand linear opening characteristic between <code>port_3</code> and <code>port_2</code>.\nSuch opening characteristics were typical for valves from Landis &amp; Gyr (now\nSiemens).\n</p><p>\nThis model is based on the partial valve models\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a> and\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.\nSee\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>\nfor the implementation of the three way valve\nand see\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>\nfor the implementation of the regularization near the origin.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 7, 2022, by Michael Wetter:<br/>\nSet <code>final massDynamics=energyDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nFebruary 21, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating stage.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nNovember 5, 2019, by Michael Wetter:<br/>\nMoved assignment of leakage from <a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>\nto the parent classes.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1227\\\">#1227</a>.\n</li>\n<li>\nFebruary 20, 2012 by Michael Wetter:<br/>\nRenamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,\nand added new parameter <code>dpFixed_nominal</code>.\nSee\n<a href=\\\"modelica://Buildings.Fluid.Actuators.UsersGuide\\\">\nBuildings.Fluid.Actuators.UsersGuide</a>.\n</li>\n<li>\nFebruary 14, 2012 by Michael Wetter:<br/>\nAdded filter to approximate the travel time of the actuator.\n</li>\n<li>\nMarch 25, 2011, by Michael Wetter:<br/>\nAdded homotopy method.\n</li>\n<li>\nJune 16, 2008 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Valves/ThreeWayEqualPercentageLinear.mo",
+  "checksum": "160f640e39c5855380a0cdaea941cb0f"
+}

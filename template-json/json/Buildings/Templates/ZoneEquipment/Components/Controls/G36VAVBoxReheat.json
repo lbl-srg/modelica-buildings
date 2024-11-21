@@ -1,0 +1,121 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Components.Controls",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "G36VAVBoxReheat",
+          "description_string": "Guideline 36 controller",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.ZoneEquipment.Components.Interfaces.ControllerG36VAVBox",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "typ",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"ctl\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<h4>Description</h4>\n<p>\nThis is an implementation of the control sequence specified in\n<a href=\\\"#ASHRAE2021\\\">ASHRAE (2021)</a>\nfor VAV terminal units with reheat.\nIt contains the following components.\n</p>\n<ul>\n<li>\n<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\\\">\nBuildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a>:\nMain controller for the terminal unit\n</li>\n<li>\n<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\\\">\nBuildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:\nComputation of the zone temperature setpoints\n</li>\n<li>\n<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\\\">\nBuildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus</a>:\nComputation of the zone warm-up and cooldown time\n</li>\n</ul>\n<h4>References</h4>\n<ul>\n<li id=\\\"ASHRAE2021\\\">\nASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation\nfor HVAC Systems. Atlanta, GA.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Templates/ZoneEquipment/Components/Controls/G36VAVBoxReheat.mo",
+  "checksum": "345744c6cde4f3ca2c5679b00ab8cec6"
+}

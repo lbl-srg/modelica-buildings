@@ -1,0 +1,61 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "DefrostTimeMethods",
+          "value": {
+            "description": {
+              "description_string": "Enumeration defining two methods for defrost time fraction calculation.",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration for the calculation methods for defrost time fraction.\nThe possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>timed</code></td>\n<td>\nRun the defrost operation for a fixed time duration fraction of the timestep.\n</td></tr>\n<tr><td><code>onDemand</code></td>\n<td>\nRun the defrost operation for on a time duration fraction for the timestep, that \nis calculated from the outdoor air temperature and humidity ratio.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "timed",
+                "description": {
+                  "description_string": "Timed defrost"
+                }
+              },
+              {
+                "identifier": "onDemand",
+                "description": {
+                  "description_string": "On-demand defrost"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Heating/BaseClasses/Types/DefrostTimeMethods.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Heating/BaseClasses/Types/DefrostTimeMethods.mo",
+  "checksum": "5c2608ec0f11358a0bbc1aecf892ec07"
+}

@@ -1,0 +1,593 @@
+{
+  "within": "Buildings.HeatTransfer.Sources",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PrescribedHeatFlow",
+          "description_string": "Prescribed heat flow boundary condition",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Q_flow"
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -100,
+                                      "y": 0
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": 20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": 180
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port"
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 90,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 110,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "port.Q_flow",
+                        "rhs": {
+                          "simple_expression": "-Q_flow"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"preHeaFlo\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -60,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -60,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 40,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 40,
+                                        "y": -40
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 40,
+                                        "y": -40
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 70,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": -40
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -150,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 150,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model allows a specified amount of heat flow rate to be \\\"injected\\\"\ninto a thermal system at a given port.  The amount of heat\nis given by the input signal Q_flow into the model. The heat flows into the\ncomponent to which the component PrescribedHeatFlow is connected,\nif the input signal is positive.\n</p>\n<p>\nThis model is identical to\n<a href=\\\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\\\">\nModelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>, except that\nthe parameters <code>alpha</code> and <code>T_ref</code> have\nbeen deleted as these can cause division by zero in some fluid flow models.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 29 2011, by Michael Wetter:<br/>\nFirst implementation based on <a href=\\\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\\\">\nModelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -60,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -60,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 68,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 60,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 20
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 60,
+                                        "y": -40
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": -40
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/HeatTransfer/Sources/PrescribedHeatFlow.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/HeatTransfer/Sources/PrescribedHeatFlow.mo",
+  "checksum": "f88db4d0e70844576fe76700573e6a6a"
+}

@@ -1,0 +1,1018 @@
+{
+  "within": "Buildings.Fluid.Humidifiers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Humidifier_u",
+          "description_string": "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger",
+                  "class_modification": [
+                    {
+                      "element_redeclaration": {
+                        "element_replaceable": {
+                          "short_class_definition": {
+                            "class_prefixes": "package",
+                            "short_class_specifier": {
+                              "identifier": "Medium",
+                              "value": {
+                                "name": "Modelica.Media.Interfaces.PartialCondensingGases"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_redeclaration": {
+                        "final": true,
+                        "component_clause1": {
+                          "type_specifier": "Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir",
+                          "component_declaration1": {
+                            "declaration": {
+                              "identifier": "vol",
+                              "modification": {
+                                "class_modification": [
+                                  {
+                                    "element_modification_or_replaceable": {
+                                      "final": true,
+                                      "element_modification": {
+                                        "name": "prescribedHeatFlowRate",
+                                        "modification": {
+                                          "equal": true,
+                                          "expression": {
+                                            "simple_expression": "true"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Water mass flow rate at u=1, positive for humidification"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "u",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Control input",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 80
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 50
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water added to the fluid",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": 50
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "heatPort"
+                      },
+                      "description": {
+                        "description_string": "Heat port for total heat exchange with the control volume",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -110,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": -50
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Blocks.Math.Gain",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "gai",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "k",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "mWat_flow_nominal"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Gain",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "Placement": {
+                                      "transformation": {
+                                        "extent": [
+                                          {
+                                            "x": -80,
+                                            "y": 50
+                                          },
+                                          {
+                                            "x": -60,
+                                            "y": 70
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "gai"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -120,
+                                      "y": 60
+                                    },
+                                    {
+                                      "x": -82,
+                                      "y": 60
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "gai"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "vol"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "mWat_flow"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -59,
+                                      "y": 60
+                                    },
+                                    {
+                                      "x": -30,
+                                      "y": 60
+                                    },
+                                    {
+                                      "x": -30,
+                                      "y": -18
+                                    },
+                                    {
+                                      "x": -11,
+                                      "y": -18
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "vol"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "heatPort"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "heatPort"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -9,
+                                      "y": -10
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -10
+                                    },
+                                    {
+                                      "x": -20,
+                                      "y": -60
+                                    },
+                                    {
+                                      "x": -100,
+                                      "y": -60
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 191,
+                                    "g": 0,
+                                    "b": 0
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "gai"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "mWat_flow"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -59,
+                                      "y": 60
+                                    },
+                                    {
+                                      "x": 110,
+                                      "y": 60
+                                    },
+                                    {
+                                      "x": 110,
+                                      "y": 60
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -52,
+                                        "y": -60
+                                      },
+                                      {
+                                        "x": 58,
+                                        "y": -120
+                                      }
+                                    ],
+                                    "textString": ",textString=",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "pattern": "LinePattern.None"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 61
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": 58
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -114,
+                                        "y": 104
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": 76
+                                      }
+                                    ],
+                                    "textString": "\"u\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 5
+                                      },
+                                      {
+                                        "x": 101,
+                                        "y": -5
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 62,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 42,
+                                        "y": 42
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 34
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 34
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 28
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 30
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": 34
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": 34
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 42
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 58,
+                                        "y": -54
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 52
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 70,
+                                        "y": 61
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 58
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 30,
+                                        "y": 112
+                                      },
+                                      {
+                                        "x": 96,
+                                        "y": 58
+                                      }
+                                    ],
+                                    "textString": "\"mWat_flow\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 42,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -4
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -2
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": 2
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 8
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 42,
+                                        "y": -26
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": 54,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -40
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -38
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": 50,
+                                        "y": -34
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -28
+                                      },
+                                      {
+                                        "x": 42,
+                                        "y": -26
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -98,
+                                        "y": -57
+                                      },
+                                      {
+                                        "x": -70,
+                                        "y": -60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"hum\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel for an air humidifier or dehumidifier.\n</p>\n<p>\nThis model adds (or removes) moisture from the air stream.\nThe amount of exchanged moisture is equal to\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\nm&#775;<sub>wat</sub> = u  m&#775;<sub>wat,nom</sub>,\n</p>\n<p>\nwhere <i>u</i> is the control input signal and\n<i>m&#775;<sub>wat,nom</sub></i> is equal to the parameter <code>mWat_flow_nominal</code>.\nThe parameter <code>mWat_flow_nominal</code> can be positive or negative.\nIf <i>m&#775;<sub>wat</sub></i> is positive, then moisture is added\nto the air stream, otherwise it is removed.\n</p>\n<p>\nIf the heat port <code>heatPort</code> is unconnected, then the enthalpy of the\nair that flows through the device remains unchanged, e.g., the humidification\nis adiabatic. To change the enthalpy of the air, add heat flow to the connector\n<code>heatPort</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nFebruary 9, 2023, by Michael Wetter:<br/>\nRemoved access to parameter <code>use_T_in</code> which does not exist\nin this model.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1697\\\">#1697</a>.\n</li>\n<li>\nMarch 7, 2022, by Michael Wetter:<br/>\nRemoved <code>massDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nApril 12, 2017, by Michael Wetter:<br/>\nRemoved parameters <code>use_T_in</code> and <code>T</code>.\nThis removes the optional specification of temperature through the parameter <code>T</code>\nor the input connector <code>T_in</code>.\nExposed the heat port of the control volume to allow adding heat,\nfor example, to use the model as a steam humidifier.<br/>\nThis is for issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/704\\\">\nBuildings #704</a>.\n</li>\n<li>\nMay 6, 2015, by Michael Wetter:<br/>\nSet <code>prescribedHeatFlowRate=true</code>.\nThis is for issue\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/412\\\">\n#412</a>.\n</li>\n<li>\nMay 29, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nFebruary 11, 2014 by Michael Wetter:<br/>\nCorrected issue <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/197\\\">#197</a>\nwhich led to twice the amount of latent heat being added to the fluid stream.\n</li>\n<li>\nOctober 14, 2013 by Michael Wetter:<br/>\nConstrained medium to be a subclass of\n<code>Modelica.Media.Interfaces.PartialCondensingGases</code>,\nas this base class declares the function\n<code>enthalpyOfCondensingGas</code>.\n</li>\n<li>\nJuly 30, 2013 by Michael Wetter:<br/>\nUpdated model to use new variable <code>mWat_flow</code>\nin the base class.\n</li>\n<li>\nMay 24, 2011, by Michael Wetter:<br/>\nChanged base class to allow using the model as a dynamic or a steady-state model.\n</li>\n<li>\nApril 14, 2010, by Michael Wetter:<br/>\nConverted temperature input to a conditional connector.\n</li>\n<li>\nApril 17, 2008, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Humidifiers/Humidifier_u.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Humidifiers/Humidifier_u.mo",
+  "checksum": "abdcedf5ac7a40b5150d0a3244c3c7f8"
+}

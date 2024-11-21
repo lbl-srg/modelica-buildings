@@ -1,0 +1,89 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "Carrier_Centurion_50PG06",
+          "value": {
+            "name": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.SingleSpeed.Generic",
+            "class_modification": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "sta",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "{Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(spe=1800,nomVal=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(Q_flow_nominal=-18276.96,COP_nominal=4.15,SHR_nominal=0.74,m_flow_nominal=1.2*0.944),perCur=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.PerformanceCurve(capFunT={0.9953455,-0.0118418,0.0012277,0.0030246,-0.0000702,-0.0003685},capFunFF={0.7705358,0.2848007,-0.0580891},EIRFunT={0.3802131,0.0199468,-0.0006682,0.0058933,0.0004646,-0.0004072},EIRFunFF={1.3439758,-0.5111244,0.1732549},TConInMin=273.15 +15.56,TConInMax=273.15 +51.67,TEvaInMin=273.15 +12.22,TEvaInMax=273.15 +26.67,ffMin=0.75,ffMax=1.25))}"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "description": {
+              "description_string": "Carrier Centurion 50PG06",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "defaultComponentName",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "\"datCoi\""
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "defaultComponentPrefixes",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "\"parameter\""
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>Performance data for DX single speed air source cooling coil model.\nThis data corresponds to the following EnergyPlus model:\n</p>\n<pre>\nCoil:Cooling:DX:SingleSpeed,\n    Carrier Centurion 50PG06,              !- Name\n    CoolingCoilAvailSched,                 !- Availability Schedule Name\n    18276.96,                              !- Rated Total Cooling Capacity {W}\n    0.74,                                  !- Rated Sensible Heat Ratio\n    4.15,                                  !- Rated COP\n    0.944,                                 !- Rated Air Flow Rate {m3/s}\n    ,                                      !- Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}\n    DXCoilAirInletNode,                    !- Air Inlet Node Name\n    DXCoilAirOutletNode,                   !- Air Outlet Node Name\n    Carrier Centurion 50PG06 CapFT,        !- Total Cooling Capacity Function of Temperature Curve Name\n    Carrier Centurion 50PG06 CapFFF,       !- Total Cooling Capacity Function of Flow Fraction Curve Name\n    Carrier Centurion 50PG06 EIRFT,        !- Energy Input Ratio Function of Temperature Curve Name\n    Carrier Centurion 50PG06 EIRFFF,       !- Energy Input Ratio Function of Flow Fraction Curve Name\n    Carrier Centurion 50PG06 PLFFPLR;      !- Part Load Fraction Correlation Curve Name\n</pre>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/AirSource/Data/SingleSpeed/Carrier_Centurion_50PG06.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/AirSource/Data/SingleSpeed/Carrier_Centurion_50PG06.mo",
+  "checksum": "9ae053484b886fd152a905a507694fe5"
+}

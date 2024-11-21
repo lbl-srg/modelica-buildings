@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Validation.UserProject",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Data",
+          "description_string": "Package with classes for storing system parameters",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.MaterialPropertiesPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package provides records for design and operating parameters\nthat are used for validation purposes.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Validation/UserProject/Data/package.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Validation/UserProject/Data/package.mo",
+  "checksum": "413b933bc44bb42e1e122ebd77807d36"
+}

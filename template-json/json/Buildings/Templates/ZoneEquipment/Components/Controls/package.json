@@ -1,0 +1,51 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Controls",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nAll control blocks that form the control sequence of a system\nare instantiated into one single class, a so-called control section.\nThis package contains such control sections.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Components/Controls/package.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Components/Controls/package.mo",
+  "checksum": "3962dc330bb55c6af287b8a2d48ee78b"
+}

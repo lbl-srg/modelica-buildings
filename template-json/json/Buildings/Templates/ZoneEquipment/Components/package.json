@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Components",
+          "description_string": "Package with component models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains component models that are used in\n<a href=\\\"modelica://Buildings.Templates.ZoneEquipment\\\">\nBuildings.Templates.ZoneEquipment</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Components/package.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Components/package.mo",
+  "checksum": "76e6b7117b8d3dafdd5d0f069f9d097b"
+}

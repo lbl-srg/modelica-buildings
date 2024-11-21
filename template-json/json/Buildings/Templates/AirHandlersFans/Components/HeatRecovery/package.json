@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "HeatRecovery",
+          "description_string": "Models for heat recovery",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\nThis package contains models for heat recovery units.\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Components/HeatRecovery/package.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Components/HeatRecovery/package.mo",
+  "checksum": "34bd37f55b77a98a42091a6efed3afa6"
+}

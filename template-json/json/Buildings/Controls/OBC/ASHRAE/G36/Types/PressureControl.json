@@ -1,0 +1,105 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "PressureControl",
+          "value": {
+            "description": {
+              "description_string": "Enumeration defining types of building pressure control system",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration of define types of building pressure control system.\nPossible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>BarometricRelief</code></td>\n<td>\nNonactuated barometric relief.\n</td></tr>\n<tr><td><code>ReliefDamper</code></td>\n<td>\nActuated relief damper, without fan.\n</td></tr>\n<tr><td><code>RelieFan</code></td>\n<td>\nActuated relief damper, with relief fan(s).\n</td></tr>\n<tr><td><code>ReturnFanMeasuredAir</code></td>\n<td>\nReturn fan control, tracking measured supply and return airflow.\n</td></tr>\n<tr><td><code>ReturnFanDp</code></td>\n<td>\nReturn fan control with direct building pressure controls.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nDecember 15, 2022, by Jianjun Hu:<br/>\nRemoved the option of using return fan with tracking calculated supply and return airflow.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3139\\\">issue 3139</a>.\n</li>\n<li>\nAugust 1, 2020, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "BarometricRelief",
+                "description": {
+                  "description_string": "Nonactuated barometric relief"
+                }
+              },
+              {
+                "identifier": "ReliefDamper",
+                "description": {
+                  "description_string": "Actuated relief damper, without fan"
+                }
+              },
+              {
+                "identifier": "ReliefFan",
+                "description": {
+                  "description_string": "Actuated relief damper, with relief fan(s)"
+                }
+              },
+              {
+                "identifier": "ReturnFanMeasuredAir",
+                "description": {
+                  "description_string": "Return fan, tracking measured supply and return airflow"
+                }
+              },
+              {
+                "identifier": "ReturnFanDp",
+                "description": {
+                  "description_string": "Return fan, with direct building pressure control"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/PressureControl.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/PressureControl.mo",
+  "checksum": "8b20d70ce7d5bb2956bf9c8acbbc0950"
+}

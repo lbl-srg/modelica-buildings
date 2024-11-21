@@ -1,0 +1,61 @@
+{
+  "within": "Buildings.Controls.OBC.CDL.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "Smoothness",
+          "value": {
+            "description": {
+              "description_string": "Enumeration defining the smoothness of table interpolation",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration for the type of smoothness that is used when interpolating data from a table.\nThe possible values are:\n</p>\n\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>LinearSegments</code></td>\n<td>\nLinearly interpolate table points.\n</td></tr>\n<tr><td><code>ConstantSegments</code></td>\n<td>\nDo not interpolate, but rather use the previously tabulated value.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "LinearSegments",
+                "description": {
+                  "description_string": "Table points are linearly interpolated"
+                }
+              },
+              {
+                "identifier": "ConstantSegments",
+                "description": {
+                  "description_string": "Table points are not interpolated, but the previous tabulated value is returned"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/CDL/Types/Smoothness.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/CDL/Types/Smoothness.mo",
+  "checksum": "fdff308722626923d1302663f19686c0"
+}

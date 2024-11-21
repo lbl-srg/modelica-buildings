@@ -1,0 +1,68 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Components.OutdoorSection",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "DedicatedDampersPressure",
+          "description_string": "Separate dampers for ventilation and economizer, with differential pressure sensor",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSectionDedicatedDampers",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "typ",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model represents a configuration with an air economizer and\nminimum OA control with a separate minimum OA damper and differential\npressure control.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Components/OutdoorSection/DedicatedDampersPressure.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Components/OutdoorSection/DedicatedDampersPressure.mo",
+  "checksum": "cc16ab1fe90d109a26be5dd46cf2c6a6"
+}

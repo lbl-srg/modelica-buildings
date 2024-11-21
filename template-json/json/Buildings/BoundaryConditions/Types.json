@@ -1,0 +1,287 @@
+{
+  "within": "Buildings.BoundaryConditions",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "DataSource",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to define data source",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration to define the data source used in the weather data reader.\n</p>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nJuly 20, 2011, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "File",
+                            "description": {
+                              "description_string": "Use data from file"
+                            }
+                          },
+                          {
+                            "identifier": "Parameter",
+                            "description": {
+                              "description_string": "Use parameter"
+                            }
+                          },
+                          {
+                            "identifier": "Input",
+                            "description": {
+                              "description_string": "Use input connector"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "RadiationDataSource",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to define solar radiation data source",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration to define the data source used in the weather data reader.\n</p>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nAugust 13, 2012, by Wangda Zuo:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "File",
+                            "description": {
+                              "description_string": "Use data from file"
+                            }
+                          },
+                          {
+                            "identifier": "Input_HGloHor_HDifHor",
+                            "description": {
+                              "description_string": "Global horizontal and diffuse horizontal radiation from connector"
+                            }
+                          },
+                          {
+                            "identifier": "Input_HDirNor_HDifHor",
+                            "description": {
+                              "description_string": "Direct normal and diffuse horizontal radiation from connector"
+                            }
+                          },
+                          {
+                            "identifier": "Input_HDirNor_HGloHor",
+                            "description": {
+                              "description_string": "Direct normal and global horizontal radiation from connector"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "SkyTemperatureCalculation",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration for computation of sky temperature",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration to define the method used to compute the sky temperature.\n</p>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "revisions",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<ul>\n<li>\nOctober 3, 2011, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "HorizontalRadiation",
+                            "description": {
+                              "description_string": "Use horizontal irradiation"
+                            }
+                          },
+                          {
+                            "identifier": "TemperaturesAndSkyCover",
+                            "description": {
+                              "description_string": "Use dry-bulb and dew-point temperatures and sky cover"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\nThis package contains type definitions.\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/BoundaryConditions/Types.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/BoundaryConditions/Types.mo",
+  "checksum": "82fdf07dff2a0a6a329e6e7e87659af9"
+}

@@ -1,0 +1,153 @@
+{
+  "within": "Buildings.Fluid.Actuators.Valves",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TwoWayLinear",
+          "description_string": "Two way valve with linear flow characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "BaseClasses.PartialTwoWayValveKv",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "phi",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": {
+                                "function_call": {
+                                  "name": "max",
+                                  "arguments": [
+                                    {
+                                      "name": "0.1*l"
+                                    },
+                                    {
+                                      "name": "l +y_actual*(1 -l)"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "l"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Valve leakage parameter l must be bigger than zero.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"val\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nTwo way valve with linear opening characteristic.\n</p><p>\nThis model is based on the partial valve model\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.\nCheck this model for more information, such\nas the regularization near the origin.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nAugust 7, 2020, by Ettore Zanetti:<br/>\nchanged the computation of <code>phi</code> using\n<code>max(0.1*l, . )</code> to avoid\nphi=0.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1376\\\">\nissue 1376</a>.\n</li>\n<li>\nNovember 9, 2019, by Filip Jorissen:<br/>\nGuarded the computation of <code>phi</code> using\n<code>max(0, . )</code> to avoid\nnegative phi.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1223\\\">\nissue 1223</a>.\n</li>\n<li>\nApril 4, 2014, by Michael Wetter:<br/>\nMoved the assignment of the flow function <code>phi</code>\nto the model instantiation because in its base class,\nthe keyword <code>input</code>\nhas been added to the variable <code>phi</code>.\n</li>\n<li>\nMarch 27, 2014 by Michael Wetter:<br/>\nRevised model for implementation of new valve model that computes the flow function\nbased on a table.\n</li>\n<li>\nFebruary 20, 2012 by Michael Wetter:<br/>\nRenamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,\nand added new parameter <code>dpFixed_nominal=0</code>.\nSee\n<a href=\\\"modelica://Buildings.Fluid.Actuators.UsersGuide\\\">\nBuildings.Fluid.Actuators.UsersGuide</a>.\n</li>\n<li>\nJune 3, 2008 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Valves/TwoWayLinear.mo",
+  "checksum": "2fafcf3f5b93f86222f34314fc48462e"
+}

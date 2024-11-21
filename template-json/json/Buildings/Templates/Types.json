@@ -1,0 +1,188 @@
+{
+  "within": "Buildings.Templates",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Buildings",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the building type"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Education",
+                            "description": {
+                              "description_string": "Buildings used for academic or technical classroom instruction"
+                            }
+                          },
+                          {
+                            "identifier": "FoodSales",
+                            "description": {
+                              "description_string": "Buildings used for retail or wholesale of food"
+                            }
+                          },
+                          {
+                            "identifier": "FoodServices",
+                            "description": {
+                              "description_string": "Buildings used for preparation and sale of food and beverages for consumption"
+                            }
+                          },
+                          {
+                            "identifier": "HealthCare",
+                            "description": {
+                              "description_string": "Buildings used as diagnostic and treatment facilities for inpatient care"
+                            }
+                          },
+                          {
+                            "identifier": "Lodging",
+                            "description": {
+                              "description_string": "Buildings used to offer multiple accommodations for short-term or long-term residents"
+                            }
+                          },
+                          {
+                            "identifier": "MercantileRetail",
+                            "description": {
+                              "description_string": "Buildings used for the sale and display of goods other than food"
+                            }
+                          },
+                          {
+                            "identifier": "MercantileMall",
+                            "description": {
+                              "description_string": "Shopping malls comprised of multiple connected establishments"
+                            }
+                          },
+                          {
+                            "identifier": "Office",
+                            "description": {
+                              "description_string": "Buildings used for general office space, professional office, or administrative offices"
+                            }
+                          },
+                          {
+                            "identifier": "PublicAssembly",
+                            "description": {
+                              "description_string": "Buildings in which people gather for social or recreational activities"
+                            }
+                          },
+                          {
+                            "identifier": "PublicOrderSafety",
+                            "description": {
+                              "description_string": "Buildings used for the preservation of law and order or public safety"
+                            }
+                          },
+                          {
+                            "identifier": "ReligiousWorkshop",
+                            "description": {
+                              "description_string": "Buildings in which people gather for religious activities"
+                            }
+                          },
+                          {
+                            "identifier": "Service",
+                            "description": {
+                              "description_string": "Buildings in which some types of services is provided"
+                            }
+                          },
+                          {
+                            "identifier": "WarehouseStorage",
+                            "description": {
+                              "description_string": "Buildings used to store goods, manufactured products, merchandise, raw materials, or personal belongings"
+                            }
+                          },
+                          {
+                            "identifier": "Other",
+                            "description": {
+                              "description_string": "All other miscellaneous buildings that do not fit into any other category"
+                            }
+                          },
+                          {
+                            "identifier": "Vacant",
+                            "description": {
+                              "description_string": "Buildings in which more floor space was vacant than was used for any single commercial activity"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Units",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the system of units"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "SI",
+                            "description": {
+                              "description_string": "SI - International units"
+                            }
+                          },
+                          {
+                            "identifier": "IP",
+                            "description": {
+                              "description_string": "IP - Imperial units"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/Types.mo",
+  "checksum": "9fe7c9bfc8ee19cdc2d65153b9a65fc3"
+}

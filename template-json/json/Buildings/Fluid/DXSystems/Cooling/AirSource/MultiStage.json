@@ -1,0 +1,729 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.AirSource",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "MultiStage",
+          "description_string": "Multi-stage DX cooling coil",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "dxCoi",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "final": true,
+                                  "element_modification": {
+                                    "name": "variableSpeedCoil",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "false"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "wetCoi",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_redeclaration": {
+                                            "component_clause1": {
+                                              "type_specifier": "Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource",
+                                              "component_declaration1": {
+                                                "declaration": {
+                                                  "identifier": "coiCap"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "dryCoi",
+                                    "modification": {
+                                      "class_modification": [
+                                        {
+                                          "element_redeclaration": {
+                                            "component_clause1": {
+                                              "type_specifier": "Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource",
+                                              "component_declaration1": {
+                                                "declaration": {
+                                                  "identifier": "coiCap"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "use_mCon_flow",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.IntegerInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "stage"
+                      },
+                      "description": {
+                        "description_string": "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 90
+                                      }
+                                    ]
+                                  },
+                                  "iconTransformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 90
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.BaseClasses.SpeedSelect",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "speSel",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "nSta",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "datCoi.nSta"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "speSet",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "datCoi.sta.spe"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Normalize the speed signal based on the compressor stage input",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -68,
+                                        "y": 72
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Math.IntegerToBoolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "onSwi",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "threshold",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "On/off switch",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -56,
+                                        "y": -68
+                                      },
+                                      {
+                                        "x": -44,
+                                        "y": -56
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "onSwi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "y"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "watVapEva"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "on"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -43.4,
+                                      "y": -62
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": -62
+                                    },
+                                    {
+                                      "x": -26,
+                                      "y": -56
+                                    },
+                                    {
+                                      "x": -12,
+                                      "y": -56
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 0,
+                                    "b": 255
+                                  },
+                                  "smooth": "Smooth.None"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "onSwi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "u"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "stage"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -57.2,
+                                      "y": -62
+                                    },
+                                    {
+                                      "x": -92,
+                                      "y": -62
+                                    },
+                                    {
+                                      "x": -92,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": -110,
+                                      "y": 80
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  },
+                                  "smooth": "Smooth.None"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "stage"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "speSel"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "stage"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -110,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": -92,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": -92,
+                                      "y": 66
+                                    },
+                                    {
+                                      "x": -80.6,
+                                      "y": 66
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  },
+                                  "smooth": "Smooth.None"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "speSel"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "speRat"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "dxCoi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "speRat"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -67.4,
+                                      "y": 66
+                                    },
+                                    {
+                                      "x": -40,
+                                      "y": 66
+                                    },
+                                    {
+                                      "x": -40,
+                                      "y": 59.6
+                                    },
+                                    {
+                                      "x": -21,
+                                      "y": 59.6
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 0,
+                                    "g": 0,
+                                    "b": 127
+                                  },
+                                  "smooth": "Smooth.None"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "connect_clause": {
+                        "from": [
+                          {
+                            "dot_op": false,
+                            "identifier": "stage"
+                          }
+                        ],
+                        "to": [
+                          {
+                            "dot_op": false,
+                            "identifier": "dxCoi"
+                          },
+                          {
+                            "dot_op": true
+                          },
+                          {
+                            "dot_op": false,
+                            "identifier": "stage"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Line": {
+                                  "points": [
+                                    {
+                                      "x": -110,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": -30,
+                                      "y": 80
+                                    },
+                                    {
+                                      "x": -30,
+                                      "y": 62
+                                    },
+                                    {
+                                      "x": -21,
+                                      "y": 62
+                                    }
+                                  ],
+                                  "color": {
+                                    "r": 255,
+                                    "g": 127,
+                                    "b": 0
+                                  },
+                                  "smooth": "Smooth.None"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"mulStaDXCoo\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model can be used to simulate an air source DX cooling coil with multiple\noperating stages. Depending on the used performance curves, each\nstage could be a different compressor speed, or a different mode\nof operation, such as with or without hot gas reheat.\n</p>\n<p>\nSee\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\\\">\nBuildings.Fluid.DXSystems.Cooling.UsersGuide</a>\nfor an explanation of the model.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>\nRenamed class to <code>MultiStageCooling</code> to differentiate it from DX\nheating coils.<br/>\nExtended class changed to <a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil</a>.<br/>\nUpdated connection statements because of coil capacity block instance being\nrenamed from <code>dxCoo</code> to <code>dxCoi</code>.<br/>\nUpdated formatting for readability.\n</li>\n<li>\nMarch 7, 2022, by Michael Wetter:<br/>\nSet <code>final massDynamics=energyDynamics</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\\\">#1542</a>.\n</li>\n<li>\nSeptember 6, 2012 by Michael Wetter:<br/>\nChanged control signal from a real number to an integer that is equal to the stage of\nthe coil.\nRemoved filter at the control input signal because there is anyway an\nevent when the signal changes, and because the filter led in\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Examples.SpaceCooling\\\">\nBuildings.Fluid.DXSystems.Examples.SpaceCooling</a>\nto a higher computing time.\n</li>\n<li>\nJuly 28, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -102,
+                                        "y": 94
+                                      },
+                                      {
+                                        "x": -44,
+                                        "y": 76
+                                      }
+                                    ],
+                                    "textString": "\"stage\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -120,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": -88,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": -88,
+                                        "y": 23.8672
+                                      },
+                                      {
+                                        "x": -2,
+                                        "y": 24
+                                      },
+                                      {
+                                        "x": -2,
+                                        "y": 2.02148
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 2
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 128,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/AirSource/MultiStage.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/AirSource/MultiStage.mo",
+  "checksum": "540b51898614be7c628e86efd262d2e9"
+}

@@ -1,0 +1,826 @@
+{
+  "within": "Buildings.Fluid.HeatExchangers.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialEffectiveness",
+          "description_string": "Partial model to implement heat exchangers based on effectiveness model",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Fluid.Interfaces.StaticFourPortHeatMassExchanger",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "prescribedHeatFlowRate1",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "prescribedHeatFlowRate2",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "show_T",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium1.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_in1",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal1"
+                                  },
+                                  "then": {
+                                    "simple_expression": "fra_a1*Medium1.temperature(state_a1_inflow) +fra_b1*Medium1.temperature(state_b1_inflow)"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.temperature",
+                                    "arguments": [
+                                      {
+                                        "name": "state_a1_inflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Inlet temperature medium 1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium2.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_in2",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal2"
+                                  },
+                                  "then": {
+                                    "simple_expression": "fra_a2*Medium2.temperature(state_a2_inflow) +fra_b2*Medium2.temperature(state_b2_inflow)"
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.temperature",
+                                    "arguments": [
+                                      {
+                                        "name": "state_a2_inflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Inlet temperature medium 2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C1_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m1_flow_nominal*cp1_default"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "abs(m1_flow)*(if allowFlowReversal1 then fra_a1*Medium1.specificHeatCapacityCp(state_a1_inflow) +fra_b1*Medium1.specificHeatCapacityCp(state_b1_inflow) else [object Object])"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat capacity flow rate medium 1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "C2_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "m2_flow_nominal*cp2_default"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "abs(m2_flow)*(if allowFlowReversal2 then fra_a2*Medium2.specificHeatCapacityCp(state_a2_inflow) +fra_b2*Medium2.specificHeatCapacityCp(state_b2_inflow) else [object Object])"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heat capacity flow rate medium 2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CMin_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "min",
+                                "arguments": [
+                                  {
+                                    "name": "C1_flow"
+                                  },
+                                  {
+                                    "name": "C2_flow"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum heat capacity flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QMax_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "CMin_flow*(T_in2 -T_in1)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum heat flow rate into medium 1"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "delta",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0.001"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Parameter used for smoothing"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cp1_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.specificHeatCapacityCp",
+                                    "arguments": [
+                                      {
+                                        "name": "Medium1.setState_pTX(Medium1.p_default,Medium1.T_default,Medium1.X_default)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of medium 1 at default medium state"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cp2_default",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.specificHeatCapacityCp",
+                                    "arguments": [
+                                      {
+                                        "name": "Medium2.setState_pTX(Medium2.p_default,Medium2.T_default,Medium2.X_default)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of medium 2 at default medium state"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "CMin_flow_small",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "min",
+                                    "arguments": [
+                                      {
+                                        "name": "m1_flow_small*cp1_default"
+                                      },
+                                      {
+                                        "name": "m2_flow_small*cp2_default"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Small value for smoothing of minimum heat capacity flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "fra_a1",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "allowFlowReversal1"
+                                      },
+                                      "then": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "Modelica.Fluid.Utilities.regStep",
+                                            "arguments": [
+                                              {
+                                                "name": "m1_flow"
+                                              },
+                                              {
+                                                "name": "1,0,m1_flow_small"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "1"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Fraction of incoming state taken from port a1 (used to avoid excessive calls to regStep)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "fra_b1",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "allowFlowReversal1"
+                                      },
+                                      "then": {
+                                        "simple_expression": "1 -fra_a1"
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "0"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Fraction of incoming state taken from port b1 (used to avoid excessive calls to regStep)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "fra_a2",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "allowFlowReversal2"
+                                      },
+                                      "then": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "Modelica.Fluid.Utilities.regStep",
+                                            "arguments": [
+                                              {
+                                                "name": "m2_flow"
+                                              },
+                                              {
+                                                "name": "1,0,m2_flow_small"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "1"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "fra_b2",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "allowFlowReversal2"
+                                      },
+                                      "then": {
+                                        "simple_expression": "1 -fra_a2"
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "0"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -70,
+                                        "y": 78
+                                      },
+                                      {
+                                        "x": 70,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 95,
+                                      "g": 95,
+                                      "b": 95
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial model to implement heat exchanger models.\n</p>\n<p>\nClasses that extend this model need to implement heat and\nmass balance equations in a form like\n</p>\n<pre>\n  // transferred heat\n  Q1_flow = eps * QMax_flow;\n  // no heat loss to ambient\n  0 = Q1_flow + Q2_flow;\n  // no mass exchange\n  mXi1_flow = zeros(Medium1.nXi);\n  mXi2_flow = zeros(Medium2.nXi);\n</pre>\n<p>\nThus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>\nand <code>QMax_flow &gt; 0</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 27, 2023, by Michael Wetter:<br/>\nSet nominal and min attributes for capacity flow rates.<br/>\nMoved assignments from <code>initial equation</code> to parameter declaration.\nThis avoids a warning in Dymola 2023x about non-literal nominal values.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3360\\\">#3360</a>.\n</li>\n<li>\nFebruary 21, 2019, by Filip Jorissen:<br/>\nRevised implementation of all equations\nsuch that a binding equation is used.\nI.e. we set the variable value at the variable definition\ninstead of using the equation section.\nThis allows overwriting the equation\nwhen extending the model.<br/>\nSee\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1102\\\">#1102</a>.\n</li>\n<li>\nApril 30, 2018, by Filip Jorissen:<br/>\nSet <code>prescribedHeatFlowRate1=true</code> and\n<code>prescribedHeatFlowRate2=true</code>.<br/>\nSee\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/907\\\">#907</a>.\n</li>\n<li>\nJune 9, 2015 by Michael Wetter:<br/>\nChanged type of <code>T_in1</code> and <code>T_in2</code>\nto <code>Medium1.Temperature</code> and <code>Medium2.Temperature</code>\nto avoid an error because of conflicting start values if\n<a href=\\\"modelica://Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl\\\">\nBuildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl</a>\nis translated using pedantic mode in Dymola 2016.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/426\\\">#426</a>.\n</li>\n<li>\nOctober 8, 2011, by Michael Wetter:<br/>\nSet <code>show_T=false</code> to avoid state events near zero flow.\n</li>\n<li>\nAugust 31, 2011, by Michael Wetter:<br/>\nRemoved unused variables <code>gai1</code> and <code>gai2</code>.\n</li>\n<li>\nFebruary 12, 2010, by Michael Wetter:<br/>\nChanged model structure to implement effectiveness-NTU model.\n</li>\n<li>\nJanuary 28, 2010, by Michael Wetter:<br/>\nAdded regularization near zero flow.\n</li>\n<li>\nOctober 2, 2009, by Michael Wetter:<br/>\nChanged computation of inlet temperatures to use\n<code>state_*_inflow</code> which is already known in base class.\n</li>\n<li>\nApril 28, 2008, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectiveness.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/HeatExchangers/BaseClasses/PartialEffectiveness.mo",
+  "checksum": "5107854c4ad88e1eb6bd1a17890c6b7e"
+}

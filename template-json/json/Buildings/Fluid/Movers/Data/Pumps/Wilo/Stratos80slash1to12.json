@@ -1,0 +1,194 @@
+{
+  "within": "Buildings.Fluid.Movers.Data.Pumps.Wilo",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Stratos80slash1to12",
+          "description_string": "Pump data for a Wilo Stratos 80/1-12 pump",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Generic",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "powerOrEfficiencyIsHydraulic",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "etaHydMet",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "power",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "V_flow",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "{0.00000879043600562,0.00277777777778,0.00556874120956,0.00776635021097,0.00978815049226,0.0113484528833,0.0127329465541,0.013985583685,0.0154360056259}"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "P",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "{437.425146701,588.954435301,792.603370491,931.705429399,1048.15648043,1115.77190985,1154.92222088,1171.51603429,1166.47479929}"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "pressure",
+                          "modification": {
+                            "class_modification": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "V_flow",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "{0.00000879043600562,0.00277777777778,0.00556874120956,0.00776635021097,0.00978815049226,0.0113484528833,0.0127329465541,0.013985583685,0.0154360056259}"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "dp",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "{78355.8975904,78243.6144578,78054.5060241,75596.0963855,70490.1686747,63682.2650602,55361.4939759,45527.8554217,30966.5060241}"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"per\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n  <p>Data from:\n  <a href=\\\"http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet\\\">\n  http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet\n  </a>\n  </p>\n  <p>See\n  <a href=\\\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\\\">\n  Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\n  </a>\n  for more information about how the data is derived.\n  </p>\n  </html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 29, 2023, by Hongxiang Fu:<br/>\nDeleted angular speed parameters with the unit rpm.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\\\">IBPSA, #1704</a>.\n</li>\n<li>\nOctober 14, 2021, by Hongxiang Fu:<br/>\nRewrote the statements using <code>use_powerCharacteristic</code>\nto support the implementation of\n<a href=\\\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler\\\">\n<code>Buildings.Fluid.Movers.BaseClasses.Euler</code></a>.\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/2668\\\">#2668</a>.\n</li>\n<li>\nFebruary 17, 2016, by Michael Wetter:<br/>\nUpdated parameter names for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/396\\\">#396</a>.\n</li>\n<li>\nDecember 12, 2014, by Michael Wetter:<br/>\nAdded <code>defaultComponentPrefixes</code> and\n<code>defaultComponentName</code> annotations.\n</li>\n<li>April 22, 2014\n    by Filip Jorissen:<br/>\n       Initial version\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos80slash1to12.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Movers/Data/Pumps/Wilo/Stratos80slash1to12.mo",
+  "checksum": "d420721766b2b633e7461a10eb09907d"
+}

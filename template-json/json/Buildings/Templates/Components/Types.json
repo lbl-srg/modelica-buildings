@@ -1,0 +1,788 @@
+{
+  "within": "Buildings.Templates.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Chiller",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of chiller"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "AirCooled",
+                            "description": {
+                              "description_string": "Air-cooled compression chiller"
+                            }
+                          },
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No chiller"
+                            }
+                          },
+                          {
+                            "identifier": "WaterCooled",
+                            "description": {
+                              "description_string": "Water-cooled compression chiller"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Coil",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the coil"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "ElectricHeating",
+                            "description": {
+                              "description_string": "Modulating electric heating coil"
+                            }
+                          },
+                          {
+                            "identifier": "EvaporatorMultiStage",
+                            "description": {
+                              "description_string": "Evaporator coil with multi-stage compressor"
+                            }
+                          },
+                          {
+                            "identifier": "EvaporatorVariableSpeed",
+                            "description": {
+                              "description_string": "Evaporator coil with variable speed compressor"
+                            }
+                          },
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No coil"
+                            }
+                          },
+                          {
+                            "identifier": "WaterBasedCooling",
+                            "description": {
+                              "description_string": "Chilled water coil"
+                            }
+                          },
+                          {
+                            "identifier": "WaterBasedHeating",
+                            "description": {
+                              "description_string": "Hot water coil"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Cooler",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the condenser water cooling equipment"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No external cooler (typically for air-cooled chillers)"
+                            }
+                          },
+                          {
+                            "identifier": "CoolingTowerClosed",
+                            "description": {
+                              "description_string": "Closed-circuit cooling tower"
+                            }
+                          },
+                          {
+                            "identifier": "CoolingTowerOpen",
+                            "description": {
+                              "description_string": "Open-circuit cooling tower"
+                            }
+                          },
+                          {
+                            "identifier": "DryCooler",
+                            "description": {
+                              "description_string": "Dry cooler"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Damper",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the damper"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Modulating",
+                            "description": {
+                              "description_string": "Modulating damper"
+                            }
+                          },
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No damper"
+                            }
+                          },
+                          {
+                            "identifier": "PressureIndependent",
+                            "description": {
+                              "description_string": "Pressure independent damper"
+                            }
+                          },
+                          {
+                            "identifier": "TwoPosition",
+                            "description": {
+                              "description_string": "Two-position damper"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "DamperBlades",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of damper blades"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Opposed",
+                            "description": {
+                              "description_string": "Opposed blades"
+                            }
+                          },
+                          {
+                            "identifier": "Parallel",
+                            "description": {
+                              "description_string": "Parallel blades"
+                            }
+                          },
+                          {
+                            "identifier": "VAV",
+                            "description": {
+                              "description_string": "VAV damper"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Fan",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the fan"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No fan"
+                            }
+                          },
+                          {
+                            "identifier": "SingleConstant",
+                            "description": {
+                              "description_string": "Single fan - Constant speed"
+                            }
+                          },
+                          {
+                            "identifier": "SingleVariable",
+                            "description": {
+                              "description_string": "Single fan - Variable speed"
+                            }
+                          },
+                          {
+                            "identifier": "ArrayVariable",
+                            "description": {
+                              "description_string": "Fan array - Variable speed"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "FanSingle",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of single fan"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Housed",
+                            "description": {
+                              "description_string": "Housed centrifugal fan"
+                            }
+                          },
+                          {
+                            "identifier": "Plug",
+                            "description": {
+                              "description_string": "Plug fan"
+                            }
+                          },
+                          {
+                            "identifier": "Propeller",
+                            "description": {
+                              "description_string": "Propeller fan"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "HeatPump",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of heat pump"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "AirToWater",
+                            "description": {
+                              "description_string": "Air-to-water heat pump"
+                            }
+                          },
+                          {
+                            "identifier": "WaterToWater",
+                            "description": {
+                              "description_string": "Water(or brine)-to-water heat pump"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "HeatPumpModel",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the heat pump model"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "EquationFit",
+                            "description": {
+                              "description_string": "Heat pump model based on the equation fit method"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "IntegrationPoint",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the integration point of equipment"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "None"
+                            }
+                          },
+                          {
+                            "identifier": "Return",
+                            "description": {
+                              "description_string": "Return side"
+                            }
+                          },
+                          {
+                            "identifier": "Supply",
+                            "description": {
+                              "description_string": "Supply side"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Pump",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the pump"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No pump"
+                            }
+                          },
+                          {
+                            "identifier": "Single",
+                            "description": {
+                              "description_string": "Single pump"
+                            }
+                          },
+                          {
+                            "identifier": "Multiple",
+                            "description": {
+                              "description_string": "Multiple pumps in parallel"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "PumpArrangement",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the pump arrangement"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Dedicated",
+                            "description": {
+                              "description_string": "Dedicated pumps"
+                            }
+                          },
+                          {
+                            "identifier": "Headered",
+                            "description": {
+                              "description_string": "Headered pumps"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Sensor",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the sensor"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "DifferentialPressure",
+                            "description": {
+                              "description_string": "Differential pressure"
+                            }
+                          },
+                          {
+                            "identifier": "HumidityRatio",
+                            "description": {
+                              "description_string": "Humidity ratio"
+                            }
+                          },
+                          {
+                            "identifier": "PPM",
+                            "description": {
+                              "description_string": "PPM"
+                            }
+                          },
+                          {
+                            "identifier": "RelativeHumidity",
+                            "description": {
+                              "description_string": "Relative humidity"
+                            }
+                          },
+                          {
+                            "identifier": "SpecificEnthalpy",
+                            "description": {
+                              "description_string": "Specific enthalpy"
+                            }
+                          },
+                          {
+                            "identifier": "Temperature",
+                            "description": {
+                              "description_string": "Temperature"
+                            }
+                          },
+                          {
+                            "identifier": "VolumeFlowRate",
+                            "description": {
+                              "description_string": "Volume flow rate"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "SensorTemperature",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of temperature sensor"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Standard",
+                            "description": {
+                              "description_string": "Standard sensor"
+                            }
+                          },
+                          {
+                            "identifier": "Averaging",
+                            "description": {
+                              "description_string": "Averaging sensor"
+                            }
+                          },
+                          {
+                            "identifier": "InWell",
+                            "description": {
+                              "description_string": "Sensor in well"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "SensorVolumeFlowRate",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of volume flow rate sensor"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "AFMS",
+                            "description": {
+                              "description_string": "Airflow measuring station"
+                            }
+                          },
+                          {
+                            "identifier": "FlowCross",
+                            "description": {
+                              "description_string": "Flow cross"
+                            }
+                          },
+                          {
+                            "identifier": "FlowMeter",
+                            "description": {
+                              "description_string": "Flow meter"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Valve",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the valve"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No valve"
+                            }
+                          },
+                          {
+                            "identifier": "ThreeWayModulating",
+                            "description": {
+                              "description_string": "Three-way modulating valve"
+                            }
+                          },
+                          {
+                            "identifier": "ThreeWayTwoPosition",
+                            "description": {
+                              "description_string": "Three-way two-position valve"
+                            }
+                          },
+                          {
+                            "identifier": "TwoWayModulating",
+                            "description": {
+                              "description_string": "Two-way modulating valve"
+                            }
+                          },
+                          {
+                            "identifier": "TwoWayTwoPosition",
+                            "description": {
+                              "description_string": "Two-way two-position valve"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "ValveCharacteristicTwoWay",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the characteristic of two-way valves",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration that defines the characteristic of two-way valves.\n</p>\n<table summary=\\\"summary\\\"  border=\\\"1\\\">\n<tr><th>Enumeration</th>\n    <th>Description</th></tr>\n<tr><td>EqualPercentage</td>\n    <td>Equal percentage</td></tr>\n<tr><td>Linear</td>\n    <td>Linear</td></tr>\n<tr><td>PressureIndependent</td>\n    <td>Pressure independent (mass flow rate only dependent of input signal)</td></tr>\n<tr><td>Table</td>\n    <td>Table-specified</td></tr>\n</table>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "EqualPercentage",
+                            "description": {
+                              "description_string": "Equal percentage"
+                            }
+                          },
+                          {
+                            "identifier": "Linear",
+                            "description": {
+                              "description_string": "Linear"
+                            }
+                          },
+                          {
+                            "identifier": "PressureIndependent",
+                            "description": {
+                              "description_string": "Pressure independent (mass flow rate only dependent of input signal)"
+                            }
+                          },
+                          {
+                            "identifier": "Table",
+                            "description": {
+                              "description_string": "Table-specified"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "ValveCharacteristicThreeWay",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the characteristic of the bypass valve",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Documentation",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "info",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "\"<html>\n<p>\nEnumeration that defines the characteristic of three-way valves.\n</p>\n<table summary=\\\"summary\\\"  border=\\\"1\\\">\n<tr><th>Enumeration</th>\n    <th>Description</th></tr>\n<tr><td>EqualPercentageLinear</td>\n    <td>Equal percentage (direct) and linear (bypass)</td></tr>\n<tr><td>Linear</td>\n    <td>Linear (both direct and bypass)</td></tr>\n<tr><td>Table</td>\n<td>Table-specified (both direct and bypass)</td></tr>\n</table>\n</html>\""
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "EqualPercentageLinear",
+                            "description": {
+                              "description_string": "Equal percentage (direct) and linear (bypass)"
+                            }
+                          },
+                          {
+                            "identifier": "Linear",
+                            "description": {
+                              "description_string": "Linear (both direct and bypass)"
+                            }
+                          },
+                          {
+                            "identifier": "Table",
+                            "description": {
+                              "description_string": "Table-specified (both direct and bypass)"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Components/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/Components/Types.mo",
+  "checksum": "fc3a03a72dd41973dcf569c2b6e76374"
+}

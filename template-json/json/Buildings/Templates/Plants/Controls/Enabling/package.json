@@ -1,0 +1,215 @@
+{
+  "within": "Buildings.Templates.Plants.Controls",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Enabling",
+          "description_string": "Plant enable/disable",
+          "composition": {
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "radius": 25,
+                                    "lineColor": {
+                                      "r": 200,
+                                      "g": 200,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 248,
+                                      "g": 248,
+                                      "b": 248
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 10,
+                                      "y": 10
+                                    },
+                                    "lineColor": {
+                                      "r": 128,
+                                      "g": 128,
+                                      "b": 128
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 0,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 10,
+                                      "y": 10
+                                    },
+                                    "fillColor": {
+                                      "r": 128,
+                                      "g": 128,
+                                      "b": 128
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 0,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 10,
+                                      "y": 10
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "origin": {
+                                      "x": 10,
+                                      "y": 10
+                                    },
+                                    "fillColor": {
+                                      "r": 76,
+                                      "g": 76,
+                                      "b": 76
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": 100
+                                      }
+                                    ],
+                                    "radius": 25,
+                                    "lineColor": {
+                                      "r": 128,
+                                      "g": 128,
+                                      "b": 128
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains control sequences to enable or disable\nchilled water or hot water plants.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/Controls/Enabling/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/Controls/Enabling/package.mo",
+  "checksum": "e8cca64e927d12fa4f4a1b08f132e001"
+}

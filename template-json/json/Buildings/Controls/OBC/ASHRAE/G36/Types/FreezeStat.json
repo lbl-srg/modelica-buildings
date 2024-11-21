@@ -1,0 +1,93 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "FreezeStat",
+          "value": {
+            "description": {
+              "description_string": "Enumeration of different freeze stat options",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration to define freeze stat options. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>No_freeze_stat</code></td>\n<td>\nNo freeze stat.\n</td></tr>\n<tr><td><code>Hardwired_to_equipment</code></td>\n<td>\nFreeze stat only hardwired to the equipment, no sequence needed.\n</td></tr>\n<tr><td><code>Hardwired_to_BAS</code></td>\n<td>\nFreeze stat hardwired to the equipment and the BAS.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nDecember 15, 2022, by Jianjun Hu:<br/>\nRemoved the polarity option.<br/>\nThis is for <a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3139\\\">issue 3139</a>.\n</li>\n<li>\nMarch 22, 2022, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "No_freeze_stat",
+                "description": {
+                  "description_string": "No freeze stat"
+                }
+              },
+              {
+                "identifier": "Hardwired_to_equipment",
+                "description": {
+                  "description_string": "Freeze stat only hardwired to the equipment"
+                }
+              },
+              {
+                "identifier": "Hardwired_to_BAS",
+                "description": {
+                  "description_string": "Freeze stat hardwired to the equipment and the BAS"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/FreezeStat.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/FreezeStat.mo",
+  "checksum": "85815f9e11fb30f26503fc83b5c1f2ea"
+}

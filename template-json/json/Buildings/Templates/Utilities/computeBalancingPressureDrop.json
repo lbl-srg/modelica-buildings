@@ -1,0 +1,208 @@
+{
+  "within": "Buildings.Templates.Utilities",
+  "class_definition": [
+    {
+      "class_prefixes": "function",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "computeBalancingPressureDrop",
+          "description_string": "Compute the design pressure drop of a balancing valve",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Function"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Design mass flow rate (target)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp_nominal"
+                      },
+                      "description": {
+                        "description_string": "Pressure drop of equipment in series at design flow rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Buildings.Templates.Components.Data.PumpSingle",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "datPum"
+                      },
+                      "description": {
+                        "description_string": "Pump parameters"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "r_N",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Relative revolution, r_N=N/N_nominal"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dpBal_nominal"
+                      },
+                      "description": {
+                        "description_string": "Pressure drop of balancing valve at design flow rate"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dpPum_nominal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure",
+                                    "arguments": [
+                                      {
+                                        "name": "V_flow=m_flow_nominal/datPum.rho_default,r_N=r_N,d=Buildings.Utilities.Math.Functions.splineDerivatives(x=datPum.per.pressure.V_flow,y=datPum.per.pressure.dp),dpMax=max(datPum.per.pressure.dp),V_flow_max=max(datPum.per.pressure.V_flow),per=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal(n=size(datPum.per.pressure.V_flow,1),V_flow=datPum.per.pressure.V_flow,dp=datPum.per.pressure.dp)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Pump head at target design flow"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "algorithm_section": {
+                  "statement": [
+                    {
+                      "assignment_statement": {
+                        "identifier": [
+                          {
+                            "dot_op": false,
+                            "identifier": "dpBal_nominal"
+                          }
+                        ],
+                        "value": {
+                          "simple_expression": "dpPum_nominal -dp_nominal"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nGiven the design mass flow rate, the design pressure drop\nof all equipment in series, the pump parameters and the \npump speed, the function returns the pressure drop\nof a balancing valve at design flow, so that the total \npressure drop is equal to the pump head.\n</p>\n<p>\nThe model \n<a href=\\\"modelica://Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated\\\">\nBuildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated</a>\nserves as a validation model for this function and illustrates how the function\ncan be used to calculate either the design pressure drop of balancing \nvalves or the primary pump speed required to provide the design flow.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Utilities/computeBalancingPressureDrop.mo",
+  "fullMoFilePath": "Buildings/Templates/Utilities/computeBalancingPressureDrop.mo",
+  "checksum": "2ac58aa70b7bc900aebd576af9fe9709"
+}

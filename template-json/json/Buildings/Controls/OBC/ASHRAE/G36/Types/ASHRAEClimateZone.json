@@ -1,0 +1,183 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "ASHRAEClimateZone",
+          "value": {
+            "description": {
+              "description_string": "Enumeration of ASHRAE climate zone",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration of different ASHRAE climate zones. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>Not_Specified</code></td>\n<td>\nNot specified.\n</td></tr>\n<tr><td><code>Zone_1A</code></td>\n<td>\nZone 1A, Very Hot and Humid.\n</td></tr>\n<tr><td><code>Zone_1B</code></td>\n<td>\nZone 1B, Very Hot and Dry.\n</td></tr>\n<tr><td><code>Zone_2A</code></td>\n<td>\nZone 2A, Hot and Humid.\n</td></tr>\n<tr><td><code>Zone_2B</code></td>\n<td>\nZone 2B, Hot and Dry.\n</td></tr>\n<tr><td><code>Zone_3A</code></td>\n<td>\nZone 3A, Warm and Humid.\n</td></tr>\n<tr><td><code>Zone_3B</code></td>\n<td>\nZone 3B, Warm and Dry.\n</td></tr>\n<tr><td><code>Zone_3C</code></td>\n<td>\nZone 3C, Warm and Marine.\n</td></tr>\n<tr><td><code>Zone_4A</code></td>\n<td>\nZone 4A, Mixed and Humid.\n</td></tr>\n<tr><td><code>Zone_4B</code></td>\n<td>\nZone 4B, Mixed and Dry.\n</td></tr>\n<tr><td><code>Zone_4C</code></td>\n<td>\nZone 4C, Mixed and Marine.\n</td></tr>\n<tr><td><code>Zone_5A</code></td>\n<td>\nZone 5A, Cool and Humid.\n</td></tr>\n<tr><td><code>Zone_5B</code></td>\n<td>\nZone 5B, Cool and Dry.\n</td></tr>\n<tr><td><code>Zone_5C</code></td>\n<td>\nZone 5C, Cool and Marine.\n</td></tr>\n<tr><td><code>Zone_6A</code></td>\n<td>\nZone 6A, Cold and Humid.\n</td></tr>\n<tr><td><code>Zone_6B</code></td>\n<td>\nZone 6B, Cold and Dry.\n</td></tr>\n<tr><td><code>Zone_7</code></td>\n<td>\nZone 7, Very Cold.\n</td></tr>\n<tr><td><code>Zone_8</code></td>\n<td>\nZone 8, Subarctic.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 22, 2022, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "Not_Specified",
+                "description": {
+                  "description_string": "Not specified"
+                }
+              },
+              {
+                "identifier": "Zone_1A",
+                "description": {
+                  "description_string": "Zone 1A, Very Hot and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_1B",
+                "description": {
+                  "description_string": "Zone 1B, Very Hot and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_2A",
+                "description": {
+                  "description_string": "Zone 2A, Hot and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_2B",
+                "description": {
+                  "description_string": "Zone 2B, Hot and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_3A",
+                "description": {
+                  "description_string": "Zone 3A, Warm and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_3B",
+                "description": {
+                  "description_string": "Zone 3B, Warm and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_3C",
+                "description": {
+                  "description_string": "Zone 3C, Warm and Marine"
+                }
+              },
+              {
+                "identifier": "Zone_4A",
+                "description": {
+                  "description_string": "Zone 4A, Mixed and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_4B",
+                "description": {
+                  "description_string": "Zone 4B, Mixed and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_4C",
+                "description": {
+                  "description_string": "Zone 4C, Mixed and Marine"
+                }
+              },
+              {
+                "identifier": "Zone_5A",
+                "description": {
+                  "description_string": "Zone 5A, Cool and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_5B",
+                "description": {
+                  "description_string": "Zone 5B, Cool and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_5C",
+                "description": {
+                  "description_string": "Zone 5C, Cool and Marine"
+                }
+              },
+              {
+                "identifier": "Zone_6A",
+                "description": {
+                  "description_string": "Zone 6A, Cold and Humid"
+                }
+              },
+              {
+                "identifier": "Zone_6B",
+                "description": {
+                  "description_string": "Zone 6B, Cold and Dry"
+                }
+              },
+              {
+                "identifier": "Zone_7",
+                "description": {
+                  "description_string": "Zone 7, Very Cold"
+                }
+              },
+              {
+                "identifier": "Zone_8",
+                "description": {
+                  "description_string": "Zone 8, Subarctic"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/ASHRAEClimateZone.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/ASHRAEClimateZone.mo",
+  "checksum": "382541e974d755e62b82fa793b66a571"
+}

@@ -1,0 +1,105 @@
+{
+  "within": "Buildings.Controls.OBC.ASHRAE.G36.Types",
+  "class_definition": [
+    {
+      "class_prefixes": "type",
+      "class_specifier": {
+        "short_class_specifier": {
+          "identifier": "ControlEconomizer",
+          "value": {
+            "description": {
+              "description_string": "Enumeration to configure the economizer enable and disable control",
+              "annotation": [
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Evaluate",
+                      "modification": {
+                        "equal": true,
+                        "expression": {
+                          "simple_expression": "true"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "element_modification_or_replaceable": {
+                    "element_modification": {
+                      "name": "Documentation",
+                      "modification": {
+                        "class_modification": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "info",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<p>\nEnumeration to define economizer divice type for enable and disable it. Possible values are:\n</p>\n<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">\n<tr>\n<th>Enumeration</th>\n<th>Description</th></tr>\n<tr><td><code>FixedDryBulb</code></td>\n<td>\nFixed dry bulb.\n</td></tr>\n<tr><td><code>DifferentialDryBulb</code></td>\n<td>\nDifferential dry bulb.\n</td></tr>\n<tr><td><code>FixedDryBulbWithDifferentialDryBulb</code></td>\n<td>\nFixed dry bulb with differential dry bulb.\n</td></tr>\n<tr><td><code>FixedEnthalpyWithFixedDryBulb</code></td>\n<td>\nFixed enthalpy with fixed dry bulb.\n</td></tr>\n<tr><td><code>DifferentialEnthalpyWithFixedDryBulb</code></td>\n<td>\nDifferential enthalpy with fixed dry bulb.\n</td></tr>\n</table>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "revisions",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 22, 2022, by Jianjun Hu:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "enum_list": [
+              {
+                "identifier": "FixedDryBulb",
+                "description": {
+                  "description_string": "Fixed dry bulb"
+                }
+              },
+              {
+                "identifier": "DifferentialDryBulb",
+                "description": {
+                  "description_string": "Differential dry bulb"
+                }
+              },
+              {
+                "identifier": "FixedDryBulbWithDifferentialDryBulb",
+                "description": {
+                  "description_string": "Fixed dry bulb with differential dry bulb"
+                }
+              },
+              {
+                "identifier": "FixedEnthalpyWithFixedDryBulb",
+                "description": {
+                  "description_string": "Fixed enthalpy with fixed dry bulb"
+                }
+              },
+              {
+                "identifier": "DifferentialEnthalpyWithFixedDryBulb",
+                "description": {
+                  "description_string": "Differential enthalpy with fixed dry bulb"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Controls/OBC/ASHRAE/G36/Types/ControlEconomizer.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Controls/OBC/ASHRAE/G36/Types/ControlEconomizer.mo",
+  "checksum": "40390297aed7b89e1e014b3676cacb49"
+}

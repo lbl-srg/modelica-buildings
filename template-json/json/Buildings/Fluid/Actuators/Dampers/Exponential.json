@@ -1,0 +1,360 @@
+{
+  "within": "Buildings.Fluid.Actuators.Dampers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Exponential",
+          "description_string": "Air damper with exponential opening characteristics",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "linearized"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow*m_flow_nominal_pos",
+                                    "rhs": {
+                                      "simple_expression": "k^2*dp"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "if_equation": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "homotopyInitialization"
+                                  },
+                                  "then": [
+                                    {
+                                      "equation": {
+                                        "if_equation": {
+                                          "if_elseif": [
+                                            {
+                                              "condition": {
+                                                "simple_expression": "from_dp"
+                                              },
+                                              "then": [
+                                                {
+                                                  "equation": {
+                                                    "assignment_equation": {
+                                                      "lhs": "m_flow",
+                                                      "rhs": {
+                                                        "simple_expression": {
+                                                          "function_call": {
+                                                            "name": "homotopy",
+                                                            "arguments": [
+                                                              {
+                                                                "name": "actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent),simplified=m_flow_nominal_pos*dp/max(Modelica.Constants.eps,dp_nominal_pos)"
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "else_equation": [
+                                            {
+                                              "assignment_equation": {
+                                                "lhs": "dp",
+                                                "rhs": {
+                                                  "simple_expression": {
+                                                    "function_call": {
+                                                      "name": "homotopy",
+                                                      "arguments": [
+                                                        {
+                                                          "name": "actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent),simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos"
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "else_equation": [
+                                {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "from_dp"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "m_flow",
+                                                "rhs": {
+                                                  "simple_expression": {
+                                                    "function_call": {
+                                                      "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp",
+                                                      "arguments": [
+                                                        {
+                                                          "name": "dp=dp,k=k,m_flow_turbulent=m_flow_turbulent"
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "dp",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                                                "arguments": [
+                                                  {
+                                                    "name": "m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"damExp\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel of two flow resistances in series:\n</p>\n<ul>\n<li>\none resistance has a fixed flow coefficient;\n</li>\n<li>\nthe other resistance represents a damper whose flow coefficient is an\nexponential function of the opening angle.\n</li>\n</ul>\n<p>\nThe lumped flow coefficient <i>k(y)</i> (function of the fractional opening\n<i>y</i>) is used to compute the mass flow rate versus pressure drop relation as:\n</p>\n<p style=\\\"font-style:italic;\\\">\n  m&#775; = sign(&Delta;p) k(y)  &radic;<span style=\\\"text-decoration:overline;\\\">&nbsp;&Delta;p &nbsp;</span>\n</p>\n<p>\nwith regularization near the origin.\n<p>\nFor a description of the damper opening characteristics and typical\nparameter values, see the partial model\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">#1498</a>.\n</li>\n<li>\nApril 12, 2021, by Michael Wetter:<br/>\nGuarded against division by zero if the pressure equation is removed.\nThis then leads to a more meaningful error message.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1243\\\">IBPSA, #1243</a>.\n</li>\n<li>\nDecember 23, 2019, by Antoine Gautier:<br/>\nAdded the pressure drop calculation as it is no longer in the base class.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\\\">IBPSA, #1188</a>.\n</li>\n<li>\nMarch 22, 2017, by Michael Wetter:<br/>\nUpdated documentation.\n</li>\n<li>\nApril 14, 2014 by Michael Wetter:<br/>\nImproved documentation.\n</li>\n<li>\nSeptember 26, 2013 by Michael Wetter:<br/>\nMoved assignment of <code>kDam_default</code> and <code>kThetaSqRt_default</code>\nfrom <code>initial algorithm</code> to the variable declaration, to avoid a division\nby zero in OpenModelica.\n</li>\n<li>\nDecember 14, 2012 by Michael Wetter:<br/>\nRenamed protected parameters for consistency with the naming conventions.\n</li>\n<li>\nJune 22, 2008 by Michael Wetter:<br/>\nExtended range of control signal from 0 to 1 by implementing the function\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\\\">\nBuildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>.\n</li>\n<li>\nJune 10, 2008 by Michael Wetter:<br/>\nIntroduced new partial base class,\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\\\">\nPartialDamperExponential</a>.\n</li>\n<li>\nJune 30, 2007 by Michael Wetter:<br/>\nIntroduced new partial base class,\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialActuator\\\">PartialActuator</a>.\n</li>\n<li>\nJuly 27, 2007 by Michael Wetter:<br/>\nIntroduced partial base class.\n</li>\n<li>\nJuly 20, 2007 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -26,
+                                        "y": 12
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": 54
+                                      },
+                                      {
+                                        "x": 22,
+                                        "y": 42
+                                      },
+                                      {
+                                        "x": -26,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -26,
+                                        "y": 12
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -22,
+                                        "y": -32
+                                      },
+                                      {
+                                        "x": 26,
+                                        "y": 10
+                                      },
+                                      {
+                                        "x": 26,
+                                        "y": -2
+                                      },
+                                      {
+                                        "x": -22,
+                                        "y": -44
+                                      },
+                                      {
+                                        "x": -22,
+                                        "y": -32
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Dampers/Exponential.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Dampers/Exponential.mo",
+  "checksum": "13687cde00fbea96ffbb63c5a96a0316"
+}

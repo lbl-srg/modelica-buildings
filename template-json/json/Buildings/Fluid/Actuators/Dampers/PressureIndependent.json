@@ -1,0 +1,2134 @@
+{
+  "within": "Buildings.Fluid.Actuators.Dampers",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PressureIndependent",
+          "description_string": "Model for an air damper whose mass flow is proportional to the input signal",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "linearized",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "false"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "final": true,
+                        "element_modification": {
+                          "name": "casePreInd",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "from_dp",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "phi",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "l +y_internal*(1 -l)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Ratio actual to nominal mass flow rate of damper, phi=kDam(y)/kDam(y=1)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "l2",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1e-10"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.01"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Gain for mass flow increase if pressure is above nominal pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "deltax",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0.00001"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.02"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Transition interval for flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "y_min",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0.02"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimum value of control signal before zeroing of the opening"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sizeSupSplBnd",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "5"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Number of support points on each quadratic domain for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "sizeSupSpl",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "2*sizeSupSplBnd +3"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Total number of support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "y2dd",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Second derivative at second support point"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "ySupSpl_raw",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "cat",
+                                    "arguments": [
+                                      {
+                                        "name": "1"
+                                      },
+                                      {
+                                        "name": "linspace(1,yU,sizeSupSplBnd),{yU -1/3*(yU -yL),(yU +yL)/2,yU -2/3*(yU -yL)},linspace(yL,0,sizeSupSplBnd)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "y values of unsorted support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kSupSpl_raw",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(y=ySupSpl_raw,a=a,b=b,cL=cL,cU=cU,yL=yL,yU=yU).^2"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "k values of unsorted support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "ySupSpl",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "y values of sorted support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kSupSpl",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "k values of sorted support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "idx_sorted",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Indices of sorted support points"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "array_subscripts": [
+                        {
+                          "expression": {
+                            "simple_expression": "sizeSupSpl"
+                          }
+                        }
+                      ],
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "invSplDer",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "each": true,
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Derivatives at support points for spline interpolation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "coeff1",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "l2/dpDamper_nominal*m_flow_nominal"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Parameter for avoiding unnecessary computations"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "coeff2",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1/coeff1"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Parameter for avoiding unnecessary computations"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kSquInv"
+                          },
+                          "description": {
+                            "description_string": "Square inverse of flow coefficient (damper plus fixed resistance)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "kDamSquInv"
+                          },
+                          "description": {
+                            "description_string": "Square inverse of flow coefficient (damper only)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_set"
+                          },
+                          "description": {
+                            "description_string": "Requested mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_min",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "displayUnit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"Pa\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Minimum pressure difference required for delivering requested mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_x2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_y2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_y1"
+                          },
+                          "description": {
+                            "description_string": "Support points for interpolation flow functions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_x2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_y2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_y1"
+                          },
+                          "description": {
+                            "description_string": "Support points for interpolation flow functions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "m_flow_smooth"
+                          },
+                          "description": {
+                            "description_string": "Smooth interpolation result between two flow regimes"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dp_smooth"
+                          },
+                          "description": {
+                            "description_string": "Smooth interpolation result between two flow regimes"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "y_actual_smooth",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"1\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Fractional opening computed based on m_flow_smooth and dp"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "class_definition": {
+                      "class_prefixes": "function",
+                      "class_specifier": {
+                        "long_class_specifier": {
+                          "identifier": "basicFlowFunction_dp_m_flow",
+                          "description_string": "Inverse of flow function that computes that computes the square inverse of flow coefficient",
+                          "composition": {
+                            "element_list": [
+                              {
+                                "extends_clause": {
+                                  "name": "Modelica.Icons.Function"
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "m_flow"
+                                      },
+                                      "description": {
+                                        "description_string": "Mass flow rate in design flow direction"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "dp"
+                                      },
+                                      "description": {
+                                        "description_string": "Pressure difference between port_a and port_b (= port_a.p - port_b.p)"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "m_flow_small"
+                                      },
+                                      "description": {
+                                        "description_string": "Minimum value of mass flow rate guarding against k=(0)/sqrt(dp)"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "dp_small"
+                                      },
+                                      "description": {
+                                        "description_string": "Minimum value of pressure drop guarding against k=m_flow/(0)"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "output",
+                                  "type_specifier": "Real",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "kSquInv"
+                                      },
+                                      "description": {
+                                        "description_string": "Square inverse of flow coefficient"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "element_sections": [
+                              {
+                                "protected_element_list": [
+                                  {
+                                    "component_clause": {
+                                      "type_specifier": "Modelica.Units.SI.PressureDifference",
+                                      "component_list": [
+                                        {
+                                          "declaration": {
+                                            "identifier": "dpPos",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "dp"
+                                                      },
+                                                      {
+                                                        "name": "-dp,dp_small"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "description": {
+                                            "description_string": "Regularized absolute value of pressure drop"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "component_clause": {
+                                      "type_specifier": "Real",
+                                      "component_list": [
+                                        {
+                                          "declaration": {
+                                            "identifier": "mSqu_flow",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "Buildings.Utilities.Math.Functions.smoothMax",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "m_flow^2"
+                                                      },
+                                                      {
+                                                        "name": "m_flow_small^2,m_flow_small^2"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "description": {
+                                            "description_string": "Regularized square value of mass flow rate"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "algorithm_section": {
+                                  "statement": [
+                                    {
+                                      "assignment_statement": {
+                                        "identifier": [
+                                          {
+                                            "dot_op": false,
+                                            "identifier": "kSquInv"
+                                          }
+                                        ],
+                                        "value": {
+                                          "simple_expression": "dpPos/mSqu_flow"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "smoothOrder",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "1"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "class_definition": {
+                      "class_prefixes": "function",
+                      "class_specifier": {
+                        "long_class_specifier": {
+                          "identifier": "exponentialDamper_inv",
+                          "description_string": "Inverse function of the exponential damper characteristics",
+                          "composition": {
+                            "element_list": [
+                              {
+                                "extends_clause": {
+                                  "name": "Modelica.Icons.Function"
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Real",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "kTheta"
+                                      },
+                                      "description": {
+                                        "description_string": "Loss coefficient"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Real",
+                                  "array_subscripts": [
+                                    {
+                                      "colon_op": true
+                                    }
+                                  ],
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "kSupSpl"
+                                      },
+                                      "description": {
+                                        "description_string": "k values of support points"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Real",
+                                  "array_subscripts": [
+                                    {
+                                      "colon_op": true
+                                    }
+                                  ],
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "ySupSpl"
+                                      },
+                                      "description": {
+                                        "description_string": "y values of support points"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "input",
+                                  "type_specifier": "Real",
+                                  "array_subscripts": [
+                                    {
+                                      "colon_op": true
+                                    }
+                                  ],
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "invSplDer"
+                                      },
+                                      "description": {
+                                        "description_string": "Derivatives at support points"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "component_clause": {
+                                  "type_prefix": "output",
+                                  "type_specifier": "Real",
+                                  "component_list": [
+                                    {
+                                      "declaration": {
+                                        "identifier": "y"
+                                      },
+                                      "description": {
+                                        "description_string": "Fractional opening"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "element_sections": [
+                              {
+                                "protected_element_list": [
+                                  {
+                                    "component_clause": {
+                                      "type_prefix": "parameter",
+                                      "type_specifier": "Integer",
+                                      "component_list": [
+                                        {
+                                          "declaration": {
+                                            "identifier": "sizeSupSpl",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "size",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "kSupSpl"
+                                                      },
+                                                      {
+                                                        "name": "1"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "description": {
+                                            "description_string": "Number of spline support points"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    "component_clause": {
+                                      "type_specifier": "Integer",
+                                      "component_list": [
+                                        {
+                                          "declaration": {
+                                            "identifier": "i"
+                                          },
+                                          "description": {
+                                            "description_string": "Integer to select data interval"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "algorithm_section": {
+                                  "statement": [
+                                    {
+                                      "assignment_statement": {
+                                        "identifier": [
+                                          {
+                                            "dot_op": false,
+                                            "identifier": "i"
+                                          }
+                                        ],
+                                        "value": {
+                                          "simple_expression": "1"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "for_statement": {
+                                        "for_indices": [
+                                          {
+                                            "identifier": "j",
+                                            "expression": {
+                                              "simple_expression": "2:sizeSupSpl"
+                                            }
+                                          }
+                                        ],
+                                        "loop_statements": [
+                                          {
+                                            "if_statement": {
+                                              "if_elseif": [
+                                                {
+                                                  "condition": {
+                                                    "simple_expression": {
+                                                      "logical_expression": {
+                                                        "logical_or": [
+                                                          {
+                                                            "logical_and": [
+                                                              {
+                                                                "arithmetic_expressions": [
+                                                                  {
+                                                                    "name": "kTheta"
+                                                                  },
+                                                                  {
+                                                                    "name": "kSupSpl[j]"
+                                                                  }
+                                                                ],
+                                                                "relation_operator": "<="
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  },
+                                                  "then": [
+                                                    {
+                                                      "assignment_statement": {
+                                                        "identifier": [
+                                                          {
+                                                            "dot_op": false,
+                                                            "identifier": "i"
+                                                          }
+                                                        ],
+                                                        "value": {
+                                                          "simple_expression": "j"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "break": true
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "assignment_statement": {
+                                        "identifier": [
+                                          {
+                                            "dot_op": false,
+                                            "identifier": "y"
+                                          }
+                                        ],
+                                        "value": {
+                                          "simple_expression": {
+                                            "function_call": {
+                                              "name": "Buildings.Utilities.Math.Functions.smoothLimit",
+                                              "arguments": [
+                                                {
+                                                  "name": "Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(x=kTheta,x1=kSupSpl[i -1],x2=kSupSpl[i],y1=ySupSpl[i -1],y2=ySupSpl[i],y1d=invSplDer[i -1],y2d=invSplDer[i])"
+                                                },
+                                                {
+                                                  "name": "0,1,0.001"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "smoothOrder",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "1"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "(kSupSpl,idx_sorted)",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Modelica.Math.Vectors.sort",
+                              "arguments": [
+                                {
+                                  "name": "kSupSpl_raw"
+                                },
+                                {
+                                  "name": "ascending=true"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "for_equation": {
+                        "for_indices": [
+                          {
+                            "identifier": "i",
+                            "expression": {
+                              "simple_expression": "1:sizeSupSpl"
+                            }
+                          }
+                        ],
+                        "loop_equations": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "ySupSpl[i]",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "sum",
+                                    "arguments": [
+                                      {
+                                        "expression": {
+                                          "simple_expression": {
+                                            "if_expression": [
+                                              {
+                                                "if_elseif": [
+                                                  {
+                                                    "condition": {
+                                                      "logical_expression": {
+                                                        "logical_or": [
+                                                          {
+                                                            "logical_and": [
+                                                              {
+                                                                "arithmetic_expressions": [
+                                                                  {
+                                                                    "name": "k"
+                                                                  },
+                                                                  {
+                                                                    "name": "idx_sorted[i]"
+                                                                  }
+                                                                ],
+                                                                "relation_operator": "=="
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    "then": "ySupSpl_raw[k]"
+                                                  }
+                                                ],
+                                                "else": "0"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "for_loop": [
+                                          {
+                                            "name": "k",
+                                            "range": "1:sizeSupSpl"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "invSplDer",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.splineDerivatives",
+                              "arguments": [
+                                {
+                                  "name": "x=kSupSpl_raw,y=ySupSpl_raw"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "m_flow_set",
+                        "rhs": {
+                          "simple_expression": "m_flow_nominal*phi"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "dp_min",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                              "arguments": [
+                                {
+                                  "name": "m_flow=m_flow_set,k=kTotMax,m_flow_turbulent=m_flow_turbulent"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "from_dp"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x1",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_x2",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_y1",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_y2",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_smooth",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x",
+                                    "rhs": {
+                                      "simple_expression": "dp -dp_min"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x1",
+                                    "rhs": {
+                                      "simple_expression": "-dp_x2"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "dp_x2",
+                                    "rhs": {
+                                      "simple_expression": "deltax*dp_min"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_y1",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp",
+                                          "arguments": [
+                                            {
+                                              "name": "dp=min(dp,dp_min +dp_x1),k=kTotMax,m_flow_turbulent=m_flow_turbulent"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_y2",
+                                    "rhs": {
+                                      "simple_expression": "m_flow_set +coeff1*max(dp_x,dp_x2)"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "m_flow_smooth",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "noEvent",
+                                          "arguments": [
+                                            {
+                                              "name": "smooth(2,if [object Object] then m_flow_y1 elseif [object Object] then m_flow_y2 else [object Object])"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x1",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_x2",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_y1",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_y2",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_smooth",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x",
+                              "rhs": {
+                                "simple_expression": "m_flow -m_flow_set"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x1",
+                              "rhs": {
+                                "simple_expression": "-m_flow_x2"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m_flow_x2",
+                              "rhs": {
+                                "simple_expression": "deltax*m_flow_set"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_y1",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow",
+                                    "arguments": [
+                                      {
+                                        "name": "m_flow=min(m_flow,m_flow_set +m_flow_x1),k=kTotMax,m_flow_turbulent=m_flow_turbulent"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_y2",
+                              "rhs": {
+                                "simple_expression": "dp_min +coeff2*max(m_flow_x,m_flow_x2)"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "dp_smooth",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "noEvent",
+                                    "arguments": [
+                                      {
+                                        "name": "smooth(2,if [object Object] then dp_y1 elseif [object Object] then dp_y2 else [object Object])"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "kSquInv",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "basicFlowFunction_dp_m_flow",
+                              "arguments": [
+                                {
+                                  "name": "m_flow=m_flow,dp=dp,m_flow_small=0.001*abs(m_flow_nominal),dp_small=0.0001*dp_nominal_pos"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "kDamSquInv",
+                        "rhs": {
+                          "if_expression": {
+                            "if_elseif": [
+                              {
+                                "condition": {
+                                  "simple_expression": {
+                                    "logical_expression": {
+                                      "logical_or": [
+                                        {
+                                          "logical_and": [
+                                            {
+                                              "arithmetic_expressions": [
+                                                {
+                                                  "name": "dpFixed_nominal"
+                                                },
+                                                {
+                                                  "name": "Modelica.Constants.eps"
+                                                }
+                                              ],
+                                              "relation_operator": ">"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": {
+                                  "simple_expression": "kSquInv -1/kFixed^2"
+                                }
+                              }
+                            ],
+                            "else_expression": {
+                              "simple_expression": "kSquInv"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "y_actual_smooth",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Math.Functions.regStep",
+                              "arguments": [
+                                {
+                                  "name": "x=y_internal -y_min,y1=exponentialDamper_inv(kTheta=kDamSquInv*2*rho*A^2,kSupSpl=kSupSpl,ySupSpl=ySupSpl,invSplDer=invSplDer),y2=0,x_small=0.001"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "homotopyInitialization"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "from_dp"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "m_flow",
+                                                "rhs": {
+                                                  "simple_expression": {
+                                                    "function_call": {
+                                                      "name": "homotopy",
+                                                      "arguments": [
+                                                        {
+                                                          "name": "actual=m_flow_smooth,simplified=m_flow_nominal_pos*dp/dp_nominal_pos"
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "dp",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "homotopy",
+                                                "arguments": [
+                                                  {
+                                                    "name": "actual=dp_smooth,simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "y_actual",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "homotopy",
+                                          "arguments": [
+                                            {
+                                              "name": "actual=y_actual_smooth,simplified=y"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "if_equation": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "from_dp"
+                                  },
+                                  "then": [
+                                    {
+                                      "equation": {
+                                        "assignment_equation": {
+                                          "lhs": "m_flow",
+                                          "rhs": {
+                                            "simple_expression": "m_flow_smooth"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              ],
+                              "else_equation": [
+                                {
+                                  "assignment_equation": {
+                                    "lhs": "dp",
+                                    "rhs": {
+                                      "simple_expression": "dp_smooth"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "y_actual",
+                              "rhs": {
+                                "simple_expression": "y_actual_smooth"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"damPreInd\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nModel for an air damper whose airflow is proportional to the input signal, assuming\nthat at <code>y = 1</code>, <code>m_flow = m_flow_nominal</code>. This is unless the pressure difference\n<code>dp</code> is too low,\nin which case a <code>kDam = m_flow_nominal/sqrt(dp_nominal)</code> characteristic is used.\n</p>\n<p>\nThe model is similar to\n<a href=\\\"modelica://Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent\\\">\nBuildings.Fluid.Actuators.Valves.TwoWayPressureIndependent</a>,\nexcept for adaptations for damper parameters.\nPlease see that documentation for more information.\n</p>\n<h4>Computation of the damper opening</h4>\n<p>\nThe fractional opening of the damper is computed by\n</p>\n<ul>\n<li>\ninverting the quadratic flow function to compute the flow coefficient\nfrom the flow rate and the pressure drop values (under the assumption\nof a turbulent flow regime);\n</li>\n<li>\ninverting the exponential characteristics to compute the fractional opening\nfrom the loss coefficient value (directly derived from the flow coefficient).\n</li>\n</ul>\n<p>\nThe quadratic interpolation used outside the exponential domain in the function\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\\\">\nBuildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>\nyields a local extremum.\nTherefore, the formal inversion of the function is not possible.\nA cubic spline is used instead to fit the inverse of the damper characteristics.\nThe central domain of the characteritics having a monotonous exponential profile, its\ninverse can be properly approximated with three equidistant support points.\nHowever, the quadratic functions used outside of the exponential domain can have\nvarious profiles depending on the damper coefficients.\nTherefore, five linearly distributed support points are used on each side domain to\nensure a good fit of the inverse.\n</p>\n<p>\nNote that below a threshold value of the input control signal (fixed at 0.02),\nthe fractional opening is forced to zero and no more related to the actual\nflow coefficient of the damper.\nThis avoids steep transients of the computed opening while transitioning from reverse flow.\nThis is to be considered as a modeling workaround (avoiding the introduction of\nan additional state variable) to prevent control chattering during\nshut off operation where the pressure difference at the damper boundaries\ncan vary between slightly positive and negative values due to outdoor pressure\nvariations.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nAugust 11, 2021, by Michael Wetter:<br/>\nReformulated initial equation section to avoid warning in OPTIMICA about\nvariable array index.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1513\\\">IBPSA #1513</a>.\n</li>\n<li>\nJune 10, 2021, by Michael Wetter:<br/>\nChanged implementation of the filter and changed the parameter <code>order</code> to a constant\nas most users need not change this value.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\\\">IBPSA #1498</a>.\n</li>\n<li>\nApril 6, 2020, by Antoine Gautier:<br/>\nAdded the computation of the damper opening.\n</li>\n<li>\nDecember 23, 2019 by Antoine Gautier:<br/>\nRefactored as the model can now extend directly\n<a href=\\\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\\\">\nBuildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1188\\\">IBPSA #1188</a>.\n</li>\n<li>\nMarch 21, 2017 by David Blum:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": -24
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -42
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 192,
+                                      "g": 192,
+                                      "b": 192
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 127,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.HorizontalCylinder"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Actuators/Dampers/PressureIndependent.mo",
+  "checksum": "0b38382467cc113377b3270b023a2ad5"
+}

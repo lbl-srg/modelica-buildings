@@ -1,0 +1,685 @@
+{
+  "within": "Buildings.Fluid.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialTwoPort",
+          "description_string": "Partial component with two ports",
+          "composition": {
+            "element_list": [
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialMedium",
+                        "description": {
+                          "description_string": "Medium in the component",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choices",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Air",
+                                                          "description": {
+                                                            "description_string": "Moist air"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Water",
+                                                          "description": {
+                                                            "description_string": "Water"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Antifreeze.PropyleneGlycolWater",
+                                                          "class_modification": [
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "property_T",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "293.15"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "X_a",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "0.4"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ],
+                                                          "description": {
+                                                            "description_string": "Propylene glycol water, 40% mass fraction"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "allowFlowReversal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= false to simplify equations, assuming, but not enforcing, no flow reversal",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Assumptions\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Interfaces.FluidPort_a",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_a",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": "allowFlowReversal"
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": "-Modelica.Constants.inf"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "0"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "h_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.h_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.h_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Xi_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "each": true,
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0.01"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fluid connector a (positive design flow direction is from port_a to port_b)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Interfaces.FluidPort_b",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port_b",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "final": true,
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": "allowFlowReversal"
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": "+Modelica.Constants.inf"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "0"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "h_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "start",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.h_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Medium.h_default"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "Xi_outflow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "each": true,
+                                          "element_modification": {
+                                            "name": "nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0.01"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fluid connector b (positive design flow direction is from port_a to port_b)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 110,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 90,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial model defines an interface for components with two ports.\nThe treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.\nThe component may transport fluid and may have internal storage for a given fluid <code>Medium</code>.\n</p>\n<h4>Implementation</h4>\n<p>\nThis model is similar to\n<a href=\\\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\\\">\nModelica.Fluid.Interfaces.PartialTwoPort</a>\nbut it does not use the <code>outer system</code> declaration.\nThis declaration is omitted as in building energy simulation,\nmany models use multiple media, an in practice,\nusers have not used this global definition to assign parameters.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJune 18, 2024, by Michael Wetter:<br/>\nAdded <code>start</code> and <code>nominal</code> attributes\nto avoid warnings in OpenModelica due to conflicting values.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\\\">IBPSA, #1890</a>.\n</li>\n<li>\nJanuary 18, 2019, by Jianjun Hu:<br/>\nLimited the media choice.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\\\">#1050</a>.\n</li>\n<li>\nJuly 8, 2018, by Filip Jorissen:<br/>\nAdded nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/977\\\">#977</a>.\n</li>\n<li>\nNovember 19, 2015, by Michael Wetter:<br/>\nRemoved parameters\n<code>port_a_exposesState</code> and\n<code>port_b_exposesState</code>\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/351\\\">#351</a>\nand\n<code>showDesignFlowDirection</code>\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/349\\\">#349</a>.\n</li>\n<li>\nNovember 13, 2015, by Michael Wetter:<br/>\nAssinged <code>start</code> attribute for leaving\nenthalpy at <code>port_a</code> and <code>port_b</code>.\nThis was done to make the model similar to\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.PartialFourPort\\\">\nBuildings.Fluid.Interfaces.PartialFourPort</a>.\n</li>\n<li>\nNovember 12, 2015, by Michael Wetter:<br/>\nRemoved import statement.\n</li>\n<li>\nOctober 21, 2014, by Michael Wetter:<br/>\nRevised implementation.\nDeclared medium in ports to be <code>final</code>.\n</li>\n<li>\nOctober 20, 2014, by Filip Jorisson:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 20,
+                                        "y": -70
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": -85
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -100
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -70
+                                      }
+                                    ],
+                                    "visible": "not allowFlowReversal",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 55,
+                                        "y": -85
+                                      },
+                                      {
+                                        "x": -60,
+                                        "y": -85
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    },
+                                    "visible": "not allowFlowReversal"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -149,
+                                        "y": -114
+                                      },
+                                      {
+                                        "x": 151,
+                                        "y": -154
+                                      }
+                                    ],
+                                    "textString": "\"%name\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 255
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Interfaces/PartialTwoPort.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Interfaces/PartialTwoPort.mo",
+  "checksum": "26fb16e8cba515f23e06a59ad1d64336"
+}

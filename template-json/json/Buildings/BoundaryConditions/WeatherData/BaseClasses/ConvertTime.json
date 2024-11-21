@@ -1,0 +1,519 @@
+{
+  "within": "Buildings.BoundaryConditions.WeatherData.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "ConvertTime",
+          "description_string": "Converts the simulation time to calendar time in scale of 1 year (365 days), or a multiple of a year",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "PartialConvertTime"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "modTim",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Simulation time",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "calTim",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Time\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Calendar time",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.Time",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "shiftSolarRad",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1800"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Number of seconds for the shift for solar radiation calculation"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "calTim",
+                        "rhs": {
+                          "simple_expression": "calTimAux"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "modTimAux",
+                        "rhs": {
+                          "simple_expression": "modTim"
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "canRepeatWeatherFile or noEvent((time -weaDatEndTim) < shiftSolarRad)"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": Insufficient weather data provided for the desired simulation period.\n    The simulation time \" +String(time) +\" exceeds the end time \" +String(weaDatEndTim) +\" of the weather data file.\""
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "AssertionLevel.error"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "canRepeatWeatherFile or noEvent(time >= weaDatStaTim)"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"In \" +getInstanceName() +\": Insufficient weather data provided for the desired simulation period.\n    The simulation time \" +String(time) +\" is less than the start time \" +String(weaDatStaTim) +\" of the weather data file.\""
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "AssertionLevel.error"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"conTim\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis component converts the simulation time to calendar time in a scale of 1 year (365 days),\nor a multiple of it, if this is the length of the weather file.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 27, 2023, by Ettore Zanetti:<br/>\nUpdated to use partial class for conversion from simulation time to calendar time.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\\\">IBPSA #1716</a>.\n</li>\n<li>\nApril 15, 2020, by Michael Wetter:<br/>\nAdded <code>noEvent</code> to assertion to remove zero crossing function in OPTIMICA.\n</li>\n<li>\nJanuary 29, 2020, by Filip Jorissen:<br/>\nRevised end time assert and added assert that verifies whether the time is before the\nstart time of the weather file.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1281\\\">#1281</a>.\n</li>\n<li>\nJune 12, 2019, by Michael Wetter:<br/>\nReformulated model to avoid having to evaluate the weather file during compilation\n(as it determined the structural parameter <code>lenWea</code>). The new formulation\nallows inclusion of the weather file in JModelica-generated FMUs, and it works with\nDymola as well.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1147\\\">#1147</a>.\n</li>\n<li>\nMay 21, 2019, by Michael Wetter:<br/>\nCorrected code to avoid wrong type conversion.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1142\\\">#1142</a>.\n</li>\n<li>\nMarch 4, 2019, by Michael Wetter:<br/>\nRefactored implementation to correctly account for negative start times.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/842\\\">#842</a>.\n</li>\n<li>\nJuly 27, 2018, by Ana Constantin:<br/>\nAdded shift for multiple time spans.\n</li>\n<li>\nSeptember 27, 2011, by Wangda Zuo and Michael Wetter:<br/>\nModify it to convert negative value of time.\nUse the when-then to allow dymola differentiating this model when\nconducting index reduction which is not allowed in previous implementation.\n</li>\n<li>\nFebruary 27, 2011, by Wangda Zuo:<br/>\nRenamed the component.\n</li>\n<li>\nJuly 08, 2010, by Wangda Zuo:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -98,
+                                        "y": 6
+                                      },
+                                      {
+                                        "x": -74,
+                                        "y": -4
+                                      }
+                                    ],
+                                    "textString": "\"modTim\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 74,
+                                        "y": 6
+                                      },
+                                      {
+                                        "x": 98,
+                                        "y": -4
+                                      }
+                                    ],
+                                    "textString": "\"calTim\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -66,
+                                        "y": 76
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": 58
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 120,
+                                      "g": 120,
+                                      "b": 120
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -66,
+                                        "y": 58
+                                      },
+                                      {
+                                        "x": 60,
+                                        "y": -62
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -24,
+                                        "y": -62
+                                      },
+                                      {
+                                        "x": -24,
+                                        "y": 58
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 18,
+                                        "y": -62
+                                      },
+                                      {
+                                        "x": 18,
+                                        "y": 58
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 60,
+                                        "y": 28
+                                      },
+                                      {
+                                        "x": -66,
+                                        "y": 28
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 60,
+                                        "y": -2
+                                      },
+                                      {
+                                        "x": -66,
+                                        "y": -2
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 60,
+                                        "y": -32
+                                      },
+                                      {
+                                        "x": -66,
+                                        "y": -32
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/BoundaryConditions/WeatherData/BaseClasses/ConvertTime.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/BoundaryConditions/WeatherData/BaseClasses/ConvertTime.mo",
+  "checksum": "698ee2171346eca522e16fa07d529d4e"
+}

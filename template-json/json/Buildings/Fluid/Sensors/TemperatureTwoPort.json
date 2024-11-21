@@ -1,0 +1,1278 @@
+{
+  "within": "Buildings.Fluid.Sensors",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TemperatureTwoPort",
+          "description_string": "Ideal two port temperature sensor",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "T_start"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Temperature of the passing fluid",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": 110
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": 10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 270
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "T_start",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.T_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Initial or guess value of output (= state)",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Initialization\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "transferHeat",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "if true, temperature T converges towards TAmb when no flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat transfer\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAmb",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Medium.T_default"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Fixed ambient temperature for heat transfer",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "transferHeat"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat transfer\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Time",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "tauHeaTra",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "1200"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time constant for heat transfer, default 20 minutes",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "transferHeat"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Heat transfer\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "tauHeaTraInv",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"1/s\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": {
+                                          "logical_expression": {
+                                            "logical_or": [
+                                              {
+                                                "logical_and": [
+                                                  {
+                                                    "arithmetic_expressions": [
+                                                      {
+                                                        "name": "tauHeaTra"
+                                                      },
+                                                      {
+                                                        "name": "1e-10"
+                                                      }
+                                                    ],
+                                                    "relation_operator": "<"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "then": {
+                                        "simple_expression": "0"
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "1/tauHeaTra"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Dummy parameter to avoid division by tauHeaTra"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "ratTau",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "if_expression": {
+                                  "if_elseif": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": "dynamic"
+                                      },
+                                      "then": {
+                                        "simple_expression": "tauHeaTra/tau"
+                                      }
+                                    }
+                                  ],
+                                  "else_expression": {
+                                    "simple_expression": "1"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Ratio of tau"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TMed",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "T_start"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Medium temperature to which the sensor is exposed"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_a_inflow"
+                          },
+                          "description": {
+                            "description_string": "Temperature of inflowing fluid at port_a"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_b_inflow"
+                          },
+                          "description": {
+                            "description_string": "Temperature of inflowing fluid at port_b, or T_a_inflow if uni-directional flow"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "dynamic"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "initType"
+                                                        },
+                                                        {
+                                                          "name": "Modelica.Blocks.Types.Init.SteadyState"
+                                                        }
+                                                      ],
+                                                      "relation_operator": "=="
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "der(T)",
+                                                "rhs": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "condition": {
+                                          "simple_expression": {
+                                            "logical_expression": {
+                                              "logical_or": [
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "initType"
+                                                        },
+                                                        {
+                                                          "name": "Modelica.Blocks.Types.Init.InitialState"
+                                                        }
+                                                      ],
+                                                      "relation_operator": "=="
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "logical_and": [
+                                                    {
+                                                      "arithmetic_expressions": [
+                                                        {
+                                                          "name": "initType"
+                                                        },
+                                                        {
+                                                          "name": "Modelica.Blocks.Types.Init.InitialOutput"
+                                                        }
+                                                      ],
+                                                      "relation_operator": "=="
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "T",
+                                                "rhs": {
+                                                  "simple_expression": "T_start"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "allowFlowReversal"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "T_a_inflow",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Medium.temperature",
+                                          "arguments": [
+                                            {
+                                              "name": "state=Medium.setState_phX(p=port_b.p,h=port_b.h_outflow,X=port_b.Xi_outflow)"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "T_b_inflow",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Medium.temperature",
+                                          "arguments": [
+                                            {
+                                              "name": "state=Medium.setState_phX(p=port_a.p,h=port_a.h_outflow,X=port_a.Xi_outflow)"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "TMed",
+                                    "rhs": {
+                                      "simple_expression": {
+                                        "function_call": {
+                                          "name": "Modelica.Fluid.Utilities.regStep",
+                                          "arguments": [
+                                            {
+                                              "name": "x=port_a.m_flow,y1=T_a_inflow,y2=T_b_inflow,x_small=m_flow_small"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "TMed",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium.temperature",
+                                    "arguments": [
+                                      {
+                                        "name": "state=Medium.setState_phX(p=port_b.p,h=port_b.h_outflow,X=port_b.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_a_inflow",
+                              "rhs": {
+                                "simple_expression": "TMed"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "T_b_inflow",
+                              "rhs": {
+                                "simple_expression": "TMed"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "dynamic"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "transferHeat"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "der(T)",
+                                                "rhs": {
+                                                  "simple_expression": "(TMed -T)*k*tauInv +(TAmb -T)*tauHeaTraInv/(ratTau*k +1)"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "der(T)",
+                                          "rhs": {
+                                            "simple_expression": "(TMed -T)*k*tauInv"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "T",
+                              "rhs": {
+                                "simple_expression": "TMed"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"senTem\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -100,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 92,
+                                        "y": 0
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 128,
+                                      "b": 255
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Ellipse",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -58
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": -20
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid",
+                                    "lineThickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -40,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": 60
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -40,
+                                        "y": 30
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": 30
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -40,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": 0
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -12,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 191,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -12,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": -10,
+                                        "y": 86
+                                      },
+                                      {
+                                        "x": -6,
+                                        "y": 88
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 90
+                                      },
+                                      {
+                                        "x": 6,
+                                        "y": 88
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 86
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": 80
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": 60
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "lineThickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 102,
+                                        "y": 140
+                                      },
+                                      {
+                                        "x": -18,
+                                        "y": 90
+                                      }
+                                    ],
+                                    "textString": "\"T\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -12,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": -12,
+                                        "y": -25
+                                      }
+                                    ],
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 12,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 12,
+                                        "y": -24
+                                      }
+                                    ],
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 0,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 0,
+                                        "y": 50
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 43.5,
+                                        "y": 8.3333
+                                      },
+                                      {
+                                        "x": 37.5,
+                                        "y": 0.3333
+                                      },
+                                      {
+                                        "x": 21.5,
+                                        "y": -3.6667
+                                      },
+                                      {
+                                        "x": 37.5,
+                                        "y": -17.6667
+                                      },
+                                      {
+                                        "x": 7.5,
+                                        "y": -17.6667
+                                      },
+                                      {
+                                        "x": 19.5,
+                                        "y": -37.6667
+                                      },
+                                      {
+                                        "x": 3.5,
+                                        "y": -38.3333
+                                      },
+                                      {
+                                        "x": -2.5,
+                                        "y": -48.3333
+                                      }
+                                    ],
+                                    "smooth": "Smooth.Bezier",
+                                    "visible": "transferHeat"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -90,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": -84,
+                                        "y": -66
+                                      },
+                                      {
+                                        "x": -76,
+                                        "y": -74
+                                      },
+                                      {
+                                        "x": -90,
+                                        "y": -80
+                                      }
+                                    ],
+                                    "visible": "transferHeat",
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": 120
+                                      },
+                                      {
+                                        "x": -140,
+                                        "y": 70
+                                      }
+                                    ],
+                                    "textString": "DynamicSelect(\"\",String(T -273.15",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model outputs the temperature of the medium in the flow\nbetween its fluid ports. The sensor does not influence the fluid.\n</p>\n<h4>Typical use and important parameters</h4>\n<p>\nIf the parameter <code>tau</code> is non-zero, then its output <i>T</i>\nconverges to the temperature of the incoming fluid using\na first order differential equation.\nSetting <code>tau=0</code> is <i>not</i> recommend. See\n<a href=\\\"modelica://Buildings.Fluid.Sensors.UsersGuide\\\">\nBuildings.Fluid.Sensors.UsersGuide</a> for an explanation.\n</p>\n<p>\nIf <code>transferHeat = true</code>, then heat transfer with the ambient is\napproximated and <i>T</i> converges towards the fixed ambient\ntemperature <i>T<sub>Amb</sub></i> using a first order approximation\nwith a time constant of <code>tauHeaTra</code>\nwhen the flow rate is small.\nNote that no energy is exchanged with the fluid as the\nsensor does not influence the fluid temperature.\n</p>\n<p>\nSetting <code>transferHeat = true</code> is useful, for example,\nif the sensor is used to measure the fluid temperature in\na system with on/off control on the mass flow rate.\nIf <code>transferHeat</code> were <code>false</code>, then the sensor output <i>T</i>\nwould remain constant if the mass flow rate is set to zero, and hence\nthe controller may never switch the mass flow rate on again.\n</p>\n<p>\nIn general, applications in which the sensor output is not used to switch\nthe mass flow rate on should set <code>transferHeat=false</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nFebruary 21, 2020, by Michael Wetter:<br/>\nChanged icon to display its operating state.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1294\\\">#1294</a>.\n</li>\n<li>\nOctober 23, 2017 by Filip Jorissen:<br/>\nRevised implementation of equations\nwhen <code>transferHeat=true</code>.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/840\\\">#840</a>.\n</li>\n<li>\nJanuary 12, 2016 by Filip Jorissen:<br/>\nRemoved parameter <code>tauInv</code>\nsince this now exists in\n<a href=\\\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\\\">Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.\n</li>\n<li>\nJune 19, 2015 by Michael Wetter:<br/>\nRevised model and documentation.\n</li>\n<li>\nJune 18, 2015 by Filip Jorissen:<br/>\nAdded option for simulating thermal losses.\n</li>\n<li>\nJune 3, 2011 by Michael Wetter:<br/>\nRevised implementation to add dynamics in such a way that\nthe time constant increases as the mass flow rate tends to zero.\nThis significantly improves the numerics.\n</li>\n<li>\nFebruary 26, 2010 by Michael Wetter:<br/>\nSet start attribute for temperature output. Prior to this change,\nthe output was 0 at initial time, which caused the plot of the output to\nuse 0 Kelvin as the lower value of the ordinate.\n</li>\n<li>\nSeptember 10, 2008, by Michael Wetter:<br/>\nFirst implementation, based on\n<a href=\\\"modelica://Buildings.Fluid.Sensors.Temperature\\\">Buildings.Fluid.Sensors.Temperature</a>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sensors/TemperatureTwoPort.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sensors/TemperatureTwoPort.mo",
+  "checksum": "5887acaf301195751b3f001301466f5e"
+}

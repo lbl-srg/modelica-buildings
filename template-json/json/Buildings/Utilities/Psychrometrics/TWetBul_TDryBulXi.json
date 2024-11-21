@@ -1,0 +1,1177 @@
+{
+  "within": "Buildings.Utilities.Psychrometrics",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "TWetBul_TDryBulXi",
+          "description_string": "Model to compute the wet bulb temperature based on mass fraction",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialCondensingGases",
+                        "description": {
+                          "description_string": "Medium model",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choicesAllMatching",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "approximateWetBulb",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to approximate wet bulb temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Evaluate",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TDryBul",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "303"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Dry bulb temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": 70
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 90
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "p",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pressure\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -90
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -70
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWetBul",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "293"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Wet bulb temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "Xi",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "Medium.nXi"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Species concentration at dry bulb temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -120,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "uniCon1",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"1/rad\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Constant to satisfy unit check"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "uniConK",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "final": true,
+                                    "element_modification": {
+                                      "name": "unit",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "\"K/rad\""
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "1"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Constant to satisfy unit check"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.NonSI.Temperature_degC",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TDryBul_degC"
+                          },
+                          "description": {
+                            "description_string": "Dry bulb temperature in degree Celsius"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "rh_per",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Relative humidity in percentage"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XiSat",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "start",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0.01"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "nominal",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0.01"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at saturation"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XiSatRefIn"
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at saturation, referenced to inlet mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "iWat",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "sum",
+                                    "arguments": [
+                                      {
+                                        "name": "{(if [object Object] then i else 0) for i in 1:Medium.nX}"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Index of water in medium composition vector"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "iWat"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Did not find medium species 'water' in the medium model. Change medium model.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "approximateWetBulb"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "TDryBul_degC",
+                                    "rhs": {
+                                      "simple_expression": "TDryBul -273.15"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "rh_per",
+                                    "rhs": {
+                                      "simple_expression": "100*p/Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)*Xi[iWat]/(Xi[iWat] +Buildings.Utilities.Psychrometrics.Constants.k_mair*(1 -Xi[iWat]))"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "TWetBul",
+                                    "rhs": {
+                                      "simple_expression": "273.15 +uniCon1*TDryBul_degC*Modelica.Math.atan(0.151977*sqrt(rh_per +8.313659)) +uniConK*(Modelica.Math.atan(TDryBul_degC +rh_per) -Modelica.Math.atan(rh_per -1.676331) +0.00391838*rh_per^(1.5)*Modelica.Math.atan(0.023101*rh_per)) -4.686035"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "XiSat",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "assignment_equation": {
+                                    "lhs": "XiSatRefIn",
+                                    "rhs": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "XiSatRefIn",
+                              "rhs": {
+                                "simple_expression": "(1 -Xi[iWat])*XiSat/(1 -XiSat)"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "XiSat",
+                              "rhs": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi",
+                                    "arguments": [
+                                      {
+                                        "name": "pSat=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),p=p,phi=1"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "(TWetBul -Buildings.Utilities.Psychrometrics.Constants.T_ref)*((1 -Xi[iWat])*Buildings.Utilities.Psychrometrics.Constants.cpAir +XiSatRefIn*Buildings.Utilities.Psychrometrics.Constants.cpSte +(Xi[iWat] -XiSatRefIn)*Buildings.Utilities.Psychrometrics.Constants.cpWatLiq)",
+                              "rhs": {
+                                "simple_expression": "(TDryBul -Buildings.Utilities.Psychrometrics.Constants.T_ref)*((1 -Xi[iWat])*Buildings.Utilities.Psychrometrics.Constants.cpAir +Xi[iWat]*Buildings.Utilities.Psychrometrics.Constants.cpSte) +(Xi[iWat] -XiSatRefIn)*Buildings.Utilities.Psychrometrics.Constants.h_fg"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "TDryBul_degC",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "rh_per",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "extent": [
+                                  {
+                                    "x": -100,
+                                    "y": -100
+                                  },
+                                  {
+                                    "x": 100,
+                                    "y": 100
+                                  }
+                                ],
+                                "preserveAspectRatio": "true"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -92,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": -62,
+                                        "y": 56
+                                      }
+                                    ],
+                                    "textString": "\"TDryBul\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -86,
+                                        "y": 14
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": -6
+                                      }
+                                    ],
+                                    "textString": "\"Xi\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -90,
+                                        "y": -72
+                                      },
+                                      {
+                                        "x": -72,
+                                        "y": -90
+                                      }
+                                    ],
+                                    "textString": "\"p\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 62,
+                                        "y": 22
+                                      },
+                                      {
+                                        "x": 92,
+                                        "y": -22
+                                      }
+                                    ],
+                                    "textString": "\"TWetBul\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 127
+                                    }
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 78,
+                                        "y": -74
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": -74
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": 76,
+                                        "y": -78
+                                      },
+                                      {
+                                        "x": 86,
+                                        "y": -94
+                                      }
+                                    ],
+                                    "textString": "\"T\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 76,
+                                        "y": -46
+                                      },
+                                      {
+                                        "x": 26,
+                                        "y": -4
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 255,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "thickness": 0.5
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -48,
+                                        "y": -48
+                                      },
+                                      {
+                                        "x": -2,
+                                        "y": -30
+                                      },
+                                      {
+                                        "x": 28,
+                                        "y": -4
+                                      },
+                                      {
+                                        "x": 48,
+                                        "y": 32
+                                      },
+                                      {
+                                        "x": 52,
+                                        "y": 72
+                                      }
+                                    ],
+                                    "color": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "smooth": "Smooth.Bezier"
+                                  }
+                                },
+                                {
+                                  "name": "Line",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -48,
+                                        "y": 84
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": -74
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "name": "Text",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -44,
+                                        "y": 82
+                                      },
+                                      {
+                                        "x": -22,
+                                        "y": 64
+                                      }
+                                    ],
+                                    "textString": "\"X\"",
+                                    "textColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": 86,
+                                        "y": -74
+                                      },
+                                      {
+                                        "x": 76,
+                                        "y": -72
+                                      },
+                                      {
+                                        "x": 76,
+                                        "y": -76
+                                      },
+                                      {
+                                        "x": 86,
+                                        "y": -74
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                },
+                                {
+                                  "name": "Polygon",
+                                  "attribute": {
+                                    "points": [
+                                      {
+                                        "x": -48,
+                                        "y": 88
+                                      },
+                                      {
+                                        "x": -46,
+                                        "y": 74
+                                      },
+                                      {
+                                        "x": -50,
+                                        "y": 74
+                                      },
+                                      {
+                                        "x": -48,
+                                        "y": 88
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillColor": {
+                                      "r": 0,
+                                      "g": 0,
+                                      "b": 0
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"wetBul\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis block computes the wet bulb temperature for a given dry bulb temperature, mass fraction\nand atmospheric pressure.\n</p>\n<p>\nIf the constant <code>approximateWetBulb</code> is <code>true</code>,\nthen the block uses the approximation of Stull (2011) to compute\nthe wet bulb temperature without requiring a nonlinear equation.\nOtherwise, the model will introduce one nonlinear equation.\nThe approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,\na temperature range from <i>-20&deg;C</i> to <i>50&deg;C</i>\nand standard sea level pressure.\nFor this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,\nwith a mean error of less than <i>0.3</i> Kelvin.\n</p>\n<p>\nOtherwise a calculation based on an energy balance is used.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/474\\\">#474</a> for a discussion.\n</p>\n<p>\nFor a model that takes the relative humidity instead of the mass fraction as an input, see\n<a href=\\\"modelica://Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi\\\">\nBuildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.\n</p>\n<h4>References</h4>\n<p>\nStull, Roland.\n<i><a href=\\\"http://dx.doi.org/10.1175/JAMC-D-11-0143.1\\\">\nWet-Bulb Temperature from Relative Humidity and Air Temperature\nRoland Stull.</a></i>\nJournal of Applied Meteorology and Climatology.\nVolume 50, Issue 11, pp. 2267-2269. November 2011\nDOI: 10.1175/JAMC-D-11-0143.1\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nMarch 6, 2023, by Michael Wetter:<br/>\nAdded a constant in order for unit check to pass.<br/>\nSee  <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\\\">#1711</a>\nfor a discussion.\n</li>\n<li>\nMay 1, 2017, by Filip Jorissen:<br/>\nRevised computation of <code>iWat</code>\nsuch that it does not require an initial algorithm.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/759\\\">#759</a>.\n</li>\n<li>\nNovember 3, 2016, by Michael Wetter:<br/>\nChanged icon.\n</li>\n<li>\nMay 24, 2016, by Filip Jorissen:<br/>\nCorrected exact implementation.\nSee  <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/474\\\">#474</a>\nfor a discussion.\n</li>\n<li>\nApril 11, 2016 by Michael Wetter:<br/>\nCorrected wrong hyperlink in documentation for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/450\\\">issue 450</a>.\n</li>\n<li>\nNovember 17, 2014, by Michael Wetter:<br/>\nRemoved test on saturation pressure that avoids it to be larger than\n<code>p</code>.\nThis test is not needed as it is only active near or above the boiling temperature,\nand the result is only used in the computation of <code>rh_per</code>.\nI do not see any negative impact from removing this test.\n</li>\n<li>\nJuly 24, 2014 by Michael Wetter:<br/>\nRevised computation of <code>rh_per</code> to use\n<a href=\\\"modelica://Buildings.Utilities.Math.Functions.smoothMin\\\">\nBuildings.Utilities.Math.Functions.smoothMin</a> rather\nthan <code>min</code>.\n</li>\n<li>\nNovember 20, 2013 by Michael Wetter:<br/>\nUpdated model to use\n<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressure()</code>\nand\n<code>Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>\nas these functions have been moved from the medium to the psychrometrics package.\n</li>\n<li>\nSeptember 10, 2013 by Michael Wetter:<br/>\nAdded start value and nominal value for <code>XiSat</code> as this is an iteration\nvariable in OpenModelica.\n</li>\n<li>\nOctober 1, 2012 by Michael Wetter:<br/>\nRevised implementation to change the dimension of the nonlinear\nsystem of equations from two to one.\nAdded option to compute wet bulb temperature explicitly.\n</li>\n<li>\nFebruary 22, 2011 by Michael Wetter:<br/>\nChanged the code sections that obtain the water concentration. The old version accessed\nthe water concentration using the index of the vector <code>X</code>.\nHowever, Dymola 7.4 cannot differentiate the function if vector elements are accessed\nusing their index. In the new implementation, an inner product is used to access the vector element.\nIn addition, the medium substance name is searched using a case insensitive search.\n</li>\n<li>\nFebruary 17, 2010 by Michael Wetter:<br/>\nRenamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>\nand changed obsolete real connectors to input and output connectors.\n</li>\n<li>\nMay 19, 2008 by Michael Wetter:<br/>\nAdded relative humidity as a port.\n</li>\n<li>\nMay 7, 2008 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Utilities/Psychrometrics/TWetBul_TDryBulXi.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Utilities/Psychrometrics/TWetBul_TDryBulXi.mo",
+  "checksum": "3f4d432e0dfadf708c43af42cd1c3f5f"
+}

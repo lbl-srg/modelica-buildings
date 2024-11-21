@@ -1,0 +1,480 @@
+{
+  "within": "Buildings.Fluid.Sensors.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialAbsoluteSensor",
+          "description_string": "Partial component to model a sensor that measures a potential variable",
+          "composition": {
+            "element_list": [
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialMedium",
+                        "description": {
+                          "description_string": "Medium in the sensor",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choices",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Air",
+                                                          "description": {
+                                                            "description_string": "Moist air"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Water",
+                                                          "description": {
+                                                            "description_string": "Water"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Antifreeze.PropyleneGlycolWater",
+                                                          "class_modification": [
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "property_T",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "293.15"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element_modification_or_replaceable": {
+                                                                "element_modification": {
+                                                                  "name": "X_a",
+                                                                  "modification": {
+                                                                    "equal": true,
+                                                                    "expression": {
+                                                                      "simple_expression": "0.4"
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ],
+                                                          "description": {
+                                                            "description_string": "Propylene glycol water, 40% mass fraction"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "warnAboutOnePortConnection",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to false to suppress warning about potential numerical issues, see Buildings.Fluid.Sensors.UsersGuide for more information",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Fluid.Interfaces.FluidPort_a",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "port",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_redeclaration": {
+                                "short_class_definition": {
+                                  "class_prefixes": "package",
+                                  "short_class_specifier": {
+                                    "identifier": "Medium",
+                                    "value": {
+                                      "name": "Medium"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "m_flow",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 0,
+                                      "y": -100
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 10
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "String",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "instanceName",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "getInstanceName"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Name of the instance"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": "not warnAboutOnePortConnection"
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Sensor \" +instanceName +\" can lead to numerical problems if connected to a scalar fluid port.\n  Only connect it to a vectorized fluid port, such as used in 'Buildings.Fluid.MixingVolumes`.\n  See Buildings.Fluid.Sensors.UsersGuide for more information.\n  To disable this warning, set 'warnAboutOnePortConnection = false' in \" +instanceName +\".\""
+                              }
+                            },
+                            "function_arguments": {
+                              "named_arguments": [
+                                {
+                                  "identifier": "level",
+                                  "value": {
+                                    "expression": {
+                                      "simple_expression": "AssertionLevel.warning"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "port.m_flow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port.h_outflow",
+                        "rhs": {
+                          "simple_expression": "0"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port.Xi_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nXi"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "port.C_outflow",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "zeros",
+                              "arguments": [
+                                {
+                                  "name": "Medium.nC"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nPartial component to model an absolute sensor.\nThe component can be used for pressure sensor models.\nUse for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. For these properties, use\n<a href=\\\"modelica://Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor\\\">\nBuildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 20, 2020, by Michael Wetter:<br/>\nIntroduced parameter <code>warnAboutOnePortConnection</code> and added assertion with level set to warning.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1399\\\"> #1399</a>.\n</li>\n<li>\nJanuary 18, 2019, by Jianjun Hu:<br/>\nLimited the media choice.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\\\">#1050</a>.\n</li>\n<li>\nSeptember 7, 2018, by Michael Wetter:<br/>\nChanged\n<code>port(redeclare package Medium=Medium, m_flow(min=0, max=0))</code>\nto\n<code>port(redeclare package Medium=Medium, m_flow(min=0))</code>\nto avoid in Dymola 2019FD01 beta1 the message\n\\\"port.m_flow has the range [0,0] - which is suspicious since the max-value should be above the min-value\\\"\nwhich causes an error in pedantic mode.\nNote that the MSL also uses only a <code>min</code> value.\n</li>\n<li>\nMarch 22, 2017, by Filip Jorissen:<br/>\nSet <code>m_flow(max=0)</code>.\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/687\\\">#687</a>.\n</li>\n<li>\nFebruary 12, 2011, by Michael Wetter:<br/>\nFirst implementation.\nImplementation is based on <code>Modelica.Fluid</code>.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Bitmap",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -96,
+                                        "y": -82
+                                      },
+                                      {
+                                        "x": -64,
+                                        "y": -50
+                                      }
+                                    ],
+                                    "fileName": "\"modelica://Buildings/Resources/Images/Fluid/Sensors/warningIcon.png\"",
+                                    "visible": "warnAboutOnePortConnection"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Sensors/BaseClasses/PartialAbsoluteSensor.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Sensors/BaseClasses/PartialAbsoluteSensor.mo",
+  "checksum": "b66e7143a78eeeddc5675e44fa34a7f6"
+}

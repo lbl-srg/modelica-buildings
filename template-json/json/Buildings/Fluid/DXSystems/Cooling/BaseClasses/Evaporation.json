@@ -1,0 +1,2215 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Evaporation",
+          "description_string": "Model that computes evaporation of water that accumulated on the coil surface",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Blocks.Icons.Block"
+                }
+              },
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialCondensingGases",
+                        "description": {
+                          "description_string": "Medium model",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choicesAllMatching",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nomVal"
+                      },
+                      "description": {
+                        "description_string": "Nominal values",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 60,
+                                        "y": 60
+                                      },
+                                      {
+                                        "x": 80,
+                                        "y": 80
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow_small",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.1*abs(nomVal.m_flow_nominal)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization of zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.Mass",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mMax",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "false"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum mass of water that can accumulate on the coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "computeReevaporation",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "true"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Set to true to compute reevaporation of water that accumulated on coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.BooleanInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "on"
+                      },
+                      "description": {
+                        "description_string": "Control signal, true if compressor is on",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": 40
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 80
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water flow rate added into the medium",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -140,
+                                        "y": -80
+                                      },
+                                      {
+                                        "x": -100,
+                                        "y": -40
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "XEvaOut",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Water mass fraction",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": -60,
+                                      "y": -120
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealInput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TEvaOut",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"ThermodynamicTemperature\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"K\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"degC\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Air temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "origin": {
+                                      "x": 60,
+                                      "y": -120
+                                    },
+                                    "extent": [
+                                      {
+                                        "x": -20,
+                                        "y": -20
+                                      },
+                                      {
+                                        "x": 20,
+                                        "y": 20
+                                      }
+                                    ],
+                                    "rotation": 90
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Blocks.Interfaces.RealOutput",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mTotWat_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "quantity",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"MassFlowRate\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"kg/s\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Total moisture mass flow rate into the air stream",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": 100,
+                                        "y": -10
+                                      },
+                                      {
+                                        "x": 120,
+                                        "y": 10
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.Mass",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "nominal",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "-5000*1400/2257000"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "fixed",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "true"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass of water that accumulated on the coil"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mEva_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "start",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Moisture mass flow rate that evaporates into air stream"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "QSen_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal sensible heat flow rate (negative number)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "QLat_flow_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Nominal latent heat flow rate (negative number)"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XEvaIn_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Mass fraction at nominal inlet conditions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XEvaOut_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Mass fraction at nominal outlet conditions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XiSatRefOut_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at saturation, referenced to outlet mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TEvaOut_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Dry bulb temperature at nominal outlet conditions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TEvaWetBulOut_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Wet bulb temperature at nominal outlet conditions"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XEvaWetBulOut_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at nominal outlet wet bulb condition"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dX_nominal",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "-1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Driving potential for mass transfer"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Modelica.Units.SI.SpecificEnthalpy",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "h_fg",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Latent heat of vaporization"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "gammaMax",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Maximum value for gamma"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "logArg",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Argument for the log function"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "K",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Coefficient used for convective mass transfer"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "final": true,
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Real",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "K2",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "fixed",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "false"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Coefficient used for convective mass transfer"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XEvaWetBulOut"
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at wet bulb conditions at air inlet"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "XiSatRefOut"
+                          },
+                          "description": {
+                            "description_string": "Water vapor mass fraction at saturation, referenced to outlet mass flow rate"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Boolean",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "off",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "not on"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Signal, true when component is off"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "TEvaWetBulOut"
+                          },
+                          "description": {
+                            "description_string": "Wet bulb temperature at coil"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Modelica.Units.SI.MassFraction",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "dX",
+                            "modification": {
+                              "class_modification": [
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "min",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "-1"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "element_modification_or_replaceable": {
+                                    "element_modification": {
+                                      "name": "max",
+                                      "modification": {
+                                        "equal": true,
+                                        "expression": {
+                                          "simple_expression": "0"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "description": {
+                            "description_string": "Difference in water vapor concentration that drives mass transfer"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cpAir_nominal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Utilities.Psychrometrics.Constants.cpAir"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of air"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cpSte_nominal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Utilities.Psychrometrics.Constants.cpSte"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of water vapor"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "cpWatLiq_nominal",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Utilities.Psychrometrics.Constants.cpWatLiq"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Specific heat capacity of liquid water"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_prefix": "constant",
+                      "type_specifier": "Modelica.Units.SI.Temperature",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "T_ref",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "Buildings.Utilities.Psychrometrics.Constants.T_ref"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Reference temperature for psychrometric calculations"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "QSen_flow_nominal",
+                        "rhs": {
+                          "simple_expression": "nomVal.SHR_nominal*nomVal.Q_flow_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "QLat_flow_nominal",
+                        "rhs": {
+                          "simple_expression": "nomVal.Q_flow_nominal -QSen_flow_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "h_fg",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Medium.enthalpyOfVaporization",
+                              "arguments": [
+                                {
+                                  "name": "nomVal.TEvaIn_nominal"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "mMax",
+                        "rhs": {
+                          "simple_expression": "-QLat_flow_nominal*nomVal.tWet/h_fg"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "XEvaIn_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi",
+                              "arguments": [
+                                {
+                                  "name": "pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),p=nomVal.p_nominal,phi=nomVal.phiIn_nominal"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "XEvaOut_nominal",
+                        "rhs": {
+                          "simple_expression": "XEvaIn_nominal +QLat_flow_nominal/nomVal.m_flow_nominal/h_fg"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TEvaOut_nominal",
+                        "rhs": {
+                          "simple_expression": "(nomVal.TEvaIn_nominal*Medium.specificHeatCapacityCp(Medium.setState_pTX(p=nomVal.p_nominal,T=nomVal.TEvaIn_nominal,X=cat(1,{XEvaIn_nominal,1 -XEvaIn_nominal}))) +QSen_flow_nominal/nomVal.m_flow_nominal)/Medium.specificHeatCapacityCp(Medium.setState_pTX(p=nomVal.p_nominal,T=nomVal.TEvaIn_nominal,X=cat(1,{XEvaOut_nominal,1 -XEvaOut_nominal})))"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "XEvaWetBulOut_nominal",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi",
+                              "arguments": [
+                                {
+                                  "name": "pSat=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut_nominal),p=nomVal.p_nominal,phi=1"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "XiSatRefOut_nominal",
+                        "rhs": {
+                          "simple_expression": "(1 -XEvaOut_nominal)*XEvaWetBulOut_nominal/(1 -XEvaWetBulOut_nominal)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "(TEvaWetBulOut_nominal -T_ref)*((1 -XEvaOut_nominal)*cpAir_nominal +XiSatRefOut_nominal*cpSte_nominal +(XEvaOut_nominal -XiSatRefOut_nominal)*cpWatLiq_nominal)",
+                        "rhs": {
+                          "simple_expression": "(TEvaOut_nominal -T_ref)*((1 -XEvaOut_nominal)*cpAir_nominal +XEvaOut_nominal*cpSte_nominal) +(XEvaOut_nominal -XiSatRefOut_nominal)*Buildings.Utilities.Psychrometrics.Constants.h_fg"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "dX_nominal",
+                        "rhs": {
+                          "simple_expression": "XEvaOut_nominal -XEvaWetBulOut_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "dX_nominal"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"*** Warning: In DX coil model, dX_nominal = \" +String(dX_nominal) +\"\n    This means that the coil is not dehumidifying air at the nominal conditions.\n    Check nominal parameters.\n    \" +Buildings.Fluid.DXSystems.Cooling.BaseClasses.Functions.nominalValuesToString(nomVal)"
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "AssertionLevel.warning"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "gammaMax",
+                        "rhs": {
+                          "simple_expression": "0.8*nomVal.m_flow_nominal*dX_nominal*h_fg/QLat_flow_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "nomVal.gamma"
+                                            },
+                                            {
+                                              "name": "gammaMax"
+                                            }
+                                          ],
+                                          "relation_operator": "<="
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"*** Warning: In DX coil model, gamma is too large for these coil conditions.\n    Instead of gamma = \" +String(nomVal.gamma) +\", a value of \" +String(gammaMax) +\", which\n    corresponds to a mass transfer effectiveness of 0.8, will be used.\n    Coil nominal performance data are:\n    nomVal.m_flow_nominal = \" +String(nomVal.m_flow_nominal) +\"\n    dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = \" +String(XEvaOut_nominal) +\" - \" +String(XEvaWetBulOut_nominal) +\" = \" +String(dX_nominal) +\"\n    QLat_flow_nominal  = \" +String(QLat_flow_nominal) +\"\\n\""
+                              }
+                            },
+                            "function_arguments": {
+                              "function_argument": {
+                                "expression": {
+                                  "simple_expression": "AssertionLevel.warning"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "logArg",
+                        "rhs": {
+                          "simple_expression": "1 -min(nomVal.gamma,gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/dX_nominal"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "K",
+                        "rhs": {
+                          "simple_expression": "-Modelica.Math.log(logArg)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "K2",
+                        "rhs": {
+                          "simple_expression": "K/mMax*nomVal.m_flow_nominal^(-0.2)"
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "QLat_flow_nominal"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": "<"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"QLat_nominal must be a negative number. Check parameters.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "K"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Require K>0 but received \" +String(K) +\"\n    The parameter are:\n    QSen_flow_nominal     = \" +String(QSen_flow_nominal) +\"\n    QLat_flow_nominal     = \" +String(QLat_flow_nominal) +\"\n    XEvaOut_nominal        = \" +String(XEvaOut_nominal) +\"\n   \" +Buildings.Fluid.DXSystems.Cooling.BaseClasses.Functions.nominalValuesToString(nomVal) +\"\n  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "if_equation": {
+                        "if_elseif": [
+                          {
+                            "condition": {
+                              "simple_expression": "computeReevaporation"
+                            },
+                            "then": [
+                              {
+                                "equation": {
+                                  "when_equation": [
+                                    {
+                                      "condition": {
+                                        "simple_expression": {
+                                          "function_call": {
+                                            "name": "edge",
+                                            "arguments": [
+                                              {
+                                                "name": "off"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "then": [
+                                        {
+                                          "function_call_equation": {
+                                            "function_name": "reinit",
+                                            "function_call_args": {
+                                              "function_argument": {
+                                                "expression": {
+                                                  "simple_expression": "m"
+                                                }
+                                              },
+                                              "function_arguments": {
+                                                "function_argument": {
+                                                  "expression": {
+                                                    "simple_expression": {
+                                                      "function_call": {
+                                                        "name": "min",
+                                                        "arguments": [
+                                                          {
+                                                            "name": "m"
+                                                          },
+                                                          {
+                                                            "name": "mMax"
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "equation": {
+                                  "if_equation": {
+                                    "if_elseif": [
+                                      {
+                                        "condition": {
+                                          "simple_expression": "on"
+                                        },
+                                        "then": [
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "dX",
+                                                "rhs": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "mEva_flow",
+                                                "rhs": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "mTotWat_flow",
+                                                "rhs": {
+                                                  "simple_expression": "mWat_flow"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "der(m)",
+                                                "rhs": {
+                                                  "simple_expression": "-mWat_flow"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "TEvaWetBulOut",
+                                                "rhs": {
+                                                  "simple_expression": "293.15"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "XEvaWetBulOut",
+                                                "rhs": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "equation": {
+                                              "assignment_equation": {
+                                                "lhs": "XiSatRefOut",
+                                                "rhs": {
+                                                  "simple_expression": "0"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    "else_equation": [
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "XiSatRefOut",
+                                          "rhs": {
+                                            "simple_expression": "(1 -XEvaOut)*XEvaWetBulOut/(1 -XEvaWetBulOut)"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "XEvaWetBulOut",
+                                          "rhs": {
+                                            "simple_expression": {
+                                              "function_call": {
+                                                "name": "Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi",
+                                                "arguments": [
+                                                  {
+                                                    "name": "pSat=Buildings.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TEvaWetBulOut),p=nomVal.p_nominal,phi=1"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "(TEvaWetBulOut -T_ref)*((1 -XEvaOut)*cpAir_nominal +XiSatRefOut*cpSte_nominal +(XEvaOut -XiSatRefOut)*cpWatLiq_nominal)",
+                                          "rhs": {
+                                            "simple_expression": "(TEvaOut -T_ref)*((1 -XEvaOut)*cpAir_nominal +XEvaOut*cpSte_nominal) +(XEvaOut -XiSatRefOut)*Buildings.Utilities.Psychrometrics.Constants.h_fg"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "dX",
+                                          "rhs": {
+                                            "simple_expression": "smooth(1,noEvent(Buildings.Utilities.Math.Functions.spliceFunction(pos=XEvaOut,neg=XEvaWetBulOut,x=abs(mAir_flow) -nomVal.m_flow_nominal/2,deltax=nomVal.m_flow_nominal/3))) -XEvaWetBulOut"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "mEva_flow",
+                                          "rhs": {
+                                            "simple_expression": "-dX*smooth(1,noEvent(Buildings.Utilities.Math.Functions.spliceFunction(pos=if [object Object] then abs(mAir_flow)*(1 -Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,neg=K2*mAir_flow_small^(-0.2)*m*mAir_flow^2,x=abs(mAir_flow) -2*mAir_flow_small/3,deltax=2*mAir_flow_small/6)))"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "der(m)",
+                                          "rhs": {
+                                            "simple_expression": "-mEva_flow"
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "assignment_equation": {
+                                          "lhs": "mTotWat_flow",
+                                          "rhs": {
+                                            "simple_expression": "mWat_flow +mEva_flow"
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "else_equation": [
+                          {
+                            "assignment_equation": {
+                              "lhs": "dX",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "mEva_flow",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "mTotWat_flow",
+                              "rhs": {
+                                "simple_expression": "mWat_flow"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "m",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "TEvaWetBulOut",
+                              "rhs": {
+                                "simple_expression": "293.15"
+                              }
+                            }
+                          },
+                          {
+                            "assignment_equation": {
+                              "lhs": "XEvaWetBulOut",
+                              "rhs": {
+                                "simple_expression": "0"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"eva\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis model computes the water accumulation on the surface of a cooling coil.\nWhen the cooling coil operates, water is accumulated on the coil surface\nup to a maximum amount of water before water starts to drain away\nfrom the coil.\nWhen the coil is off, the accumulated water evaporates into\nthe air stream.\n</p>\n<h4>Physical description</h4>\n<p>\nThe calculations are based on Shirey et al. (2006).\n</p>\n<h5>Parameters</h5>\n<p>\nThe maximum amount of water that can be accumulated is computed\nbased on the following model, where we used the convention that latent heat\nremoved from the air is negative:\nThe parameter <i>t<sub>wet</sub></i>\ndefines how long it takes for condensate to drip of the coil, assuming the\ncoil starts completely dry and operates at the nominal operating point.\nHenderson et al. (2003) measured values for\n<i>t<sub>wet</sub></i>\nfrom <i>16.5</i> minutes (<i>990</i> seconds) to\n<i>29</i> minutes (<i>1740</i> seconds).\nThus, we use a default value of <i>t<sub>wet</sub>=1400</i> seconds.\nThe maximum amount of water that can accumulate on the coil is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m<sub>max</sub> = -Q&#775;<sub>L,nom</sub> &nbsp; t<sub>wet</sub> &frasl; h<sub>fg</sub>\n</p>\n<p>\nwhere\n<i>Q&#775;<sub>L,nom</sub>&lt;0</i> is the latent capacity at the nominal conditions and\n<i>h<sub>fg</sub></i> is the latent heat of evaporation.\n</p>\n<p>\nWhen the coil is off, the water that has been accumulated on the coil\nevaporates into the air. The rate of water vapor evaporation at nominal operating\nconditions is defined by the parameter <i>&gamma;<sub>nom</sub></i>. The definition of\n<i>&gamma;<sub>nom</sub></i> is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  &gamma;<sub>nom</sub> = Q&#775;<sub>e,nom</sub> &frasl; Q&#775;<sub>L,nom</sub>,\n</p>\n<p>\nwhere\n<i>Q&#775;<sub>e,nom</sub>&lt;0</i> is the rate of evaporation from the coil surface into\nthe air stream right after the coil is switched off.\nThe default value is <i>&gamma;<sub>nom</sub> = 1.5</i>.\n</p>\n<h5>Time dependent calculations</h5>\n<p>\nFirst, we discuss the accumulation of water on the coil.\nThe rate of water accumulation is computed as\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  dm(t)&frasl;dt = -m&#775;<sub>wat</sub>(t)\n</p>\n<p>\nwhere\n<i>m&#775;<sub>wat</sub>(t) &le; 0</i> is the water vapor mass flow rate that is extracted\nfrom the air at the current operating conditions.\nThe actual water vapor mass flow rate that is removed\nfrom the air stream is as computed by the steady-state\ncooling coil performance model\nbecause for the coil outlet conditions, it does not matter whether the water\naccumulates on the coil or drips away from the coil.\nThe initial value for the water accumulation is zero at the start of the simulation, and\nset to whatever water remains after the coil has been switched off and\nthe water partially or completely evaporated into the air stream.\n</p>\n<p>\nNow, we discuss the evaporation of the water on the coil surface into the air\nwhen the coil is off.\nThe model in Shirey et al. (2006) is based on the assumption that the wet coil acts\nas an evaporative cooler.\nThe change of water on the coil is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  dm(t)&frasl;dt = -m&#775;<sub>max</sub>(t) &eta;(t),\n</p>\n<p>\nwhere\n<i>m&#775;<sub>max</sub>(t) &gt; 0</i> is\nthe maximum water mass flow rate from the coil to the air and\n<i>&eta;(t) &isin; [0, 1]</i> is the mass transfer effectiveness.\nFor an evaporative cooler,\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  &eta;(t) = 1-exp(-NTU(t)),\n</p>\n<p>\nwhere\n<i>NTU(t)=(hA)<sub>m</sub>/C&#775;<sub>a</sub></i> are the number of mass transfer units and\n<i>C&#775;<sub>a</sub></i> is the air capacity flow rate.\nThe mass transfer coefficient <i>(hA)<sub>m</sub></i>\nis assumed to be proportional to the wet coil area, which\nis assumed to be equal to the ratio <i>m(t) &frasl; m<sub>max</sub>(t)</i>.\nHence,\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  (hA)<sub>m</sub>(t) &prop; m(t) &frasl; m<sub>max</sub>(t).\n</p>\n<p>\nFurthermore, the mass transfer coefficient depends on the velocity, and\nhence mass flow rate, as\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  (hA)<sub>m</sub>(t) &prop; m&#775;<sub>a</sub>(t)<sup>0.8</sup>,\n</p>\n<p>\nwhere\n<i>m&#775;<sub>a</sub>(t)</i> is the current air mass flow rate,\nfrom which follows that\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  NTU(t) &prop; m&#775;<sub>a</sub>(t)<sup>-0.2</sup>.\n</p>\n<p>\nTherefore, the water mass flow rate from the coil into the\nair stream is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m&#775;<sub>wat</sub>(t) = m&#775;<sub>max</sub>(t)\n  (1-exp(-K\n          (m(t) &frasl; m<sub>tot</sub>)\n          (m&#775;<sub>a</sub>(t) &frasl; m&#775;<sub>a,nom</sub>)<sup>-0.2</sup>\n\n  )),\n</p>\n<p>\nwhere\n<i>K &gt; 0</i> is a constant to be determined below\nand the rate of change of water on the coil surface is as before\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  dm(t)&frasl;dt = -m&#775;<sub>wat</sub>(t).\n</p>\n<p>\nThe maximum mass transfer is\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m&#775;<sub>max</sub> = m&#775;<sub>a</sub> (x<sub>wb</sub>(t) - x(t)),\n</p>\n<p>\nwhere\n<i>x<sub>wb</sub>(t)</i> is the moisture content of air\nat the wet bulb state and\n<i>x(t)</i> is the actual moisture content of the air.\n</p>\n<p>\nThe constant <i>K</i> is determined from the nominal conditions as follows:\nAt the nominal condition, we have\n<i>m(t) &frasl; m<sub>tot</sub>=1</i> and\n<i>m&#775;<sub>a</sub>(t) &frasl; m&#775;<sub>a,nom</sub>=1</i>,\nand, hence,\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m&#775;<sub>nom</sub> = m&#775;<sub>max,nom</sub> (1-e<sup>-K</sup>).\n</p>\n<p>\nBecause\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  m&#775;<sub>nom</sub> = - &gamma; Q&#775;<sub>L,nom</sub> &frasl; h<sub>fg</sub>,\n</p>\n<p>\nit follows that\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  K = -ln(\n  1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;\n  m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;\n  (x<sub>nom</sub>-x<sub>wb,nom</sub>)\n),\n</p>\n<p>\nwhere\n<i>x<sub>nom</sub></i> is the humidity ratio at the coil at nominal condition and\n<i>x<sub>wb,nom</sub></i> is the humidity ratio at the wet bulb condition.\nNote that the <i>ln(&middot;)</i> in the above equation requires that the argument\nis positive. See the implementation section below for how this is implemented.\n</p>\n<h4>Implementation</h4>\n<h5>Potential for moisture transfer</h5>\n<p>\nFor the potential that causes the moisture transfer,\nthe difference in mass fraction between the current\ncoil air and the coil air at the wet bulb conditions is used, provided that\nthe air mass flow rate is within <i>1&frasl;3</i> of the nominal mass flow rate.\nFor smaller air mass flow rates, the outlet conditions are used to ensure that\nthe outlet conditions are not supersaturated air.\nThe transition between these two driving potential is continuously differentiable\nin the mass flow rate.\n</p>\n<h5>Computation of mass transfer effectiveness</h5>\n<p>\nTo evaluate\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  K = -ln(\n  1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;\n  m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;\n  (x<sub>nom</sub>-x<sub>wb,nom</sub>)\n),\n</p>\n<p>\nthe argument of the <i>ln(&middot;)</i> function must be positive.\nHowever, often the parameter <i>&gamma;<sub>nom</sub></i> is not known, and the default\nvalue of\n<i>&gamma;<sub>nom</sub> = 1.5</i> may yield negative arguments for\nthe function <i>ln(&middot;)</i>.\nWe therefore set a lower bound on <i>&gamma;<sub>nom</sub></i> as follows:\nNote that <i>&gamma;<sub>nom</sub></i> must be such that\n<i>0 &lt; m&#775;<sub>wat,nom</sub> &lt; m&#775;<sub>max,nom</sub></i>.\nThis condition is equivalent to\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>nom</sub>-x<sub>wb,nom</sub>)\n  h<sub>fg</sub>\n  &frasl; Q&#775;<sub>L,nom</sub>\n</p>\n<p>\nIf <i>&gamma;<sub>nom</sub></i> were equal to the right hand side, then the\nmass transfer effectiveness would be one. Hence, we set the maximum value of\n&gamma;<sub>nom,max</sub> to\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n&gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>nom</sub>-x<sub>wb,nom</sub>)\n  h<sub>fg</sub>\n  &frasl; Q&#775;<sub>L,nom</sub>,\n</p>\n<p>\nwhich corresponds to a mass transfer effectiveness of <i>0.8</i>. If\n<i>&gamma;<sub>nom</sub> &gt; &gamma;<sub>nom,max</sub></i>, the model sets\n<i>&gamma;<sub>nom</sub>=&gamma;<sub>nom,max</sub></i> and writes a warning message.\n</p>\n<h5>Regularization near zero air mass flow rate</h5>\n<p>\nTo regularize the equations near zero air mass flow rate and zero humidity on the coil, the\nfollowing conditions have been imposed in such a way that the model\nis once continuously differentiable with bounded derivatives on compact sets:\n</p>\n<ul>\n<li>\nWe impose that\n<i>m&#775;<sub>wat</sub>(t) &rarr; 0</i> as <i>m &rarr; 0</i>\nto ensure that there is no evaporation if no water remains on the coil.\n</li>\n<li>\nWe impose that\n<i>m&#775;<sub>wat</sub>(t) &frasl; m&#775;<sub>a</sub>(t) &rarr; 0</i>\nas <i>m&#775;<sub>a</sub>(t) &rarr; 0</i>\nto ensure that the evaporation mass flow rate remains bounded at zero air flow rate\nand that it is symmetric near zero without having to trigger an event.\n</li>\n</ul>\n<p>\nThis is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i>\nthe equation for the evaporation mass flow rate by\n</p>\n<p align=\\\"center\\\" style=\\\"font-style:italic;\\\">\n m&#775;<sub>wat</sub>(t) = -C m m&#775;<sub>a</sub><sup>2</sup>(t)\n (x<sub>nom</sub>-x<sub>wb,nom</sub>),\n</p>\n<p>\nwhere\n<i>C=K &delta;<sup>-0.2</sup></i> which approximates continuity at\n<i>|m&#775;<sub>a</sub>|=&delta;</i>. Note that differentiability is ensured\nbecause the two equations are combined using the function\n<a href=\\\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\\\">\nBuildings.Utilities.Math.Functions.spliceFunction</a>.\nAlso note that based on physics, we would not have to square\n<i>m&#775;<sub>a</sub></i>, but this was done to avoid an event\nthat would be triggered if <i>|m&#775;<sub>a</sub>|</i> would have been used.\nSince the equation is active only at very small air flow rates when the fan is off,\nthe error is negligible for typical applications.\n</p>\n<h4>References</h4>\n<p>\nHugh I. Henderson, Jr., Don B. Shirey III and Richard A. Raustad.\nUnderstanding the Dehumidification Performance of Air-Conditioning Equipment at Part-Load Conditions.\n<i>CIBSE/ASHRAE Conference</i>, Edinburgh, Scotland, September 2003.\n</p>\n<p>\nDon B. Shirey III, Hugh I. Henderson, Jr. and Richard A. Raustad.\n<a href=\\\"http://www.fsec.ucf.edu/en/publications/pdf/FSEC-CR-1537-05.pdf\\\">\nUnderstanding the Dehumidification Performance of Air-Conditioning Equipment at Part-Load Conditions.</a>\nFlorida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 5, 2023, by Jianjun Hu:<br/>\nCorrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/3322\\\">#3322</a>.\n</li>\n<li>\nMay 7, 2020, by Michael Wetter:<br/>\nCorrected limits for <code>dX_nominal</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/lbl-srg/modelica-buildings/issues/1933\\\">#1933</a>.\n</li>\n<li>\nApril 13, 2017, by Michael Wetter:<br/>\nRemoved input <code>TWat</code> that is not used.\n</li>\n<li>\nMarch 7, 2017, by Michael Wetter:<br/>\nSet start value and removed max attribute for <code>mEva_flow</code> as this can take on zero.\n</li>\n<li>\nMay 24, 2016, by Filip Jorissen:<br/>\nCorrected implementation of wet bulb temperature computation.\nSee  <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/474\\\">Annex60, #474</a>\nfor a discussion.\n</li>\n<li>\nJanuary 21, 2015 by Michael Wetter:<br/>\nConverted print statements to assertions with <code>AssertionLevel.warning</code>.\n</li>\n<li>\nJune 18, 2014 by Michael Wetter:<br/>\nAdded <code>fixed=true</code> for start value of <code>m</code>\nto avoid a warning during translation.\n</li>\n<li>\nAugust 21, 2012 by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -96,
+                                        "y": 94
+                                      },
+                                      {
+                                        "x": 96,
+                                        "y": -98
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 255,
+                                      "g": 255,
+                                      "b": 255
+                                    },
+                                    "fillColor": {
+                                      "r": 170,
+                                      "g": 213,
+                                      "b": 255
+                                    },
+                                    "pattern": "LinePattern.None",
+                                    "fillPattern": "FillPattern.Sphere"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/BaseClasses/Evaporation.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/BaseClasses/Evaporation.mo",
+  "checksum": "07a59e7a3c0c8c5b3896e0cddc620766"
+}

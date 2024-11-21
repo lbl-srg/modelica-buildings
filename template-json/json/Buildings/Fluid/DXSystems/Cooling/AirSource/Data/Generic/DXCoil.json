@@ -1,0 +1,759 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic",
+  "class_definition": [
+    {
+      "class_prefixes": "record",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "DXCoil",
+          "description_string": "Performance record for a DX Cooling DXCoil with one or multiple stages",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.Record"
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sinStaOpe",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "logical_expression": {
+                                "logical_or": [
+                                  {
+                                    "logical_and": [
+                                      {
+                                        "arithmetic_expressions": [
+                                          {
+                                            "name": "nSta"
+                                          },
+                                          {
+                                            "name": "1"
+                                          }
+                                        ],
+                                        "relation_operator": "=="
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "The data record is used for single speed operation",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Integer",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "nSta",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Number of stages",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not sinStaOpe"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "minSpeRat",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.2"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum speed ratio",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "enable",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "not sinStaOpe"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "nSta"
+                            }
+                          }
+                        ]
+                      },
+                      "description": {
+                        "description_string": "Data record for coil performance at each stage"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m_flow_small",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001*sta[nSta].nomVal.m_flow_nominal"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization near zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Minimum conditions\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "defOpe",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Defrost operation type",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "defTri",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Type of method used to calculate defrost time fraction",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "tDefRun",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "final": true,
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Time period fraction for which defrost cycle is run",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.ThermodynamicTemperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TDefLim",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "273.65"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum temperature at which defrost operation is activated",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QDefResCap",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Heating capacity of resistive defrost element",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QCraCap",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Crankcase heater capacity",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "defEIRFunT",
+                        "array_subscripts": [
+                          {
+                            "expression": {
+                              "simple_expression": "6"
+                            }
+                          }
+                        ],
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "fill",
+                                "arguments": [
+                                  {
+                                    "name": "0"
+                                  },
+                                  {
+                                    "name": "6"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Biquadratic coefficients for defrost capacity function of temperature",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "final": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "PLFraFunPLR",
+                        "array_subscripts": [
+                          {
+                            "colon_op": true
+                          }
+                        ],
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "{1}"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Quadratic/cubic equation for part load fraction as a function of part-load ratio",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"datCoi\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis record declares the performance data for the air source DX cooling coil model.\nThe performance data are structured as follows:\n</p>\n<pre>\n  nSta      - Number of stages. Set to 1 for single speed coil,\n              2 for dual-speed (or dual stage coils), etc.\n  minSpeRat - Minimum speed ratio, used only for variable speed coils.\n  sta       - Array of records with one performance curve for each stage,\n              as described below.\n</pre>\n<p>\nEach element of the array <code>per</code> has the following data.\n</p>\n<pre>\n  spe       - Rotational speed for the respective stage.\n              (This is only used for variable speed coils to interpolate for\n              intermediate speeds).\n  nomVal    - Nominal performance values for the respective stage. Data of the\n              nomVal record are\n     Q_flow_nominal - Total rate of cooling at nominal conditions.\n     COP_nominal    - Coefficient of performance at nominal conditions.\n     SHR_nominal    - Sensible heat ratio at nominal conditions.\n\n     m_flow_nominal - Evaporator air mass flow rate at nominal conditions.\n     TEvaIn_nominal    - Evaporator air inlet wet-bulb temperature at nominal conditions.\n     TConIn_nominal    - Condenser air inlet temperature at nominal conditions\n                         (for evaporative coils, use wet bulb, otherwise use dry bulb\n                         temperature).\n     phiIn_nominal  - Relative humidity at evaporator inlet at nominal conditions.\n     p_nominal      - Atmospheric pressure at nominal conditions.\n\n     tWet           - Time until moisture drips from coil when coil is switched on\n     gamma          - Ratio of evaporation heat transfer divided by latent\n                      heat transfer at nominal condition.\n\n  per       - Array of records with one performance curve for the respective\n              stage of the coil. That is, the performance curves will be used\n              in conjunction with the nominal values defined in the record spe.\n     capFunT  - Coefficients of biquadratic polynomial for cooling capacity\n                as a function of temperature.\n     capFunFF - Polynomial coefficients for cooling capacity\n                as a function of the mass flow fraction.\n     EIRFunT  - Coefficients of biquadratic polynomial for EIR as a function of temperature.\n     EIRFunFF - Polynomial coefficients for EIR\n                as a function of the mass flow fraction.\n     [TConInMin, TConInMax] - Minimum and maximum condenser air inlet temperatures\n                 for which the performance curves are valid.\n                 Outside this range, they will be linearly extrapolated.\n     [TEvaInMin, TEvaInMax] - Minimum and maximum evaporator air inlet temperatures\n                 for which the performance curves are valid.\n                 Outside this range, they will be linearly extrapolated.\n     [ffMin, ffMax] - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)\n                 for which the performance curves are valid.\n                 Outside this range, they will be linearly extrapolated.\n</pre>\n<p>\nThe data used to develop the performance curves\n<code>capFunT</code> and\n<code>EIRFunT</code> should represent performance when the\ncooling coil is wet, i.e., the coil providing sensible cooling and at least some dehumidification.\nPerformance data when the cooling coil is dry\n(i.e., not providing any dehumidification) should not be included when developing these modifier curves.\nThe DX coil model automatically detects and adjusts for dry coil conditions by evaluating\nthe performance curves for the wet bulb and dry bulb temperatures at the evaporator inlet,\nand then selecting the corresponding performance.\nThe selection of the corresponding performance is described and implemented\nin\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector</a>.\n</p>\n<p>\nThe parameters <code>tWet</code> and <code>gamma</code> characterize the amount of\nmoisture that evaporates from the coil surface into the air stream when the coil is\nwet and switched off. For an examplanation of the parameters, see\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation\\\">\nBuildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation</a>.\n</p>\n<p>\nThere can be an arbitrary number of polynomial coefficients for the record\n<code>capFunFF</code> and <code>EIRFunFF</code>.\nHowever, if a coil has multiple stages, then each stage must declare the\nsame amount of polynomial coefficients. For example, if a\nquadratic function is used for stage one, then stage two must also use\na quadratic function.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 6, 2024, by Karthik Devaprasad:<br/>\nReplaced unused parameter names with correct parameter pairs for curve limit\ndefinitions in the documentation.\n</li>\n<li>\nApril 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>\nUpdated record class name from <code>DXCoil</code> to <code>CoolingCoil</code>.\n</li>\n<li>\nMay 30, 2014, by Michael Wetter:<br/>\nRemoved undesirable annotation <code>Evaluate=true</code>.\n</li>\n<li>\nSeptember 25, 2012 by Michael Wetter:<br/>\nAdded documentation.\n</li>\n<li>\nJuly 23, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/AirSource/Data/Generic/DXCoil.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/AirSource/Data/Generic/DXCoil.mo",
+  "checksum": "7cca6ec416d58d8e9159894d3eaccdfa"
+}

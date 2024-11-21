@@ -1,0 +1,1136 @@
+{
+  "within": "Buildings.Templates.Plants.HeatPumps.Validation.UserProject.Data",
+  "class_definition": [
+    {
+      "class_prefixes": "class",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "AllSystems",
+          "description_string": "Top-level (whole building) system parameters",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Templates.Data.AllSystems",
+                  "class_modification": [
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "sysUni",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Templates.Types.Units.SI"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "stdEne",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "stdVen",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element_modification_or_replaceable": {
+                        "element_modification": {
+                          "name": "ashCliZon",
+                          "modification": {
+                            "equal": true,
+                            "expression": {
+                              "simple_expression": "Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Templates.Plants.HeatPumps.Data.HeatPumpPlant",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "pla",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "hp",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capHeaHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "500000"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capCooHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "500000"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mHeaWatHp_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.capHeaHp_nominal/abs(pla.ctl.THeaWatSup_nominal -Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mChiWatHp_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.capCooHp_nominal/abs(pla.ctl.TChiWatSup_nominal -Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpHeaWatHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.dpHeaWatHp"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TSouHeaHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.TOutHpHeaLow"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TSouCooHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.TOutHpCoo"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "perFitHp",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "hea",
+                                                      "modification": {
+                                                        "class_modification": [
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "P",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.capHeaHp_nominal/Buildings.Templates.Data.Defaults.COPHpAwHea"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "coeQ",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "{-4.2670305442,-0.7381077035,6.0049480456,0,0}"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "coeP",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "{-4.9107455513,5.3665308366,0.5447612754,0,0}"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "TRefLoa",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.THeaWatRetHp_nominal"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "TRefSou",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.TSouHeaHp_nominal"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element_modification_or_replaceable": {
+                                                    "element_modification": {
+                                                      "name": "coo",
+                                                      "modification": {
+                                                        "class_modification": [
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "P",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.capCooHp_nominal/Buildings.Templates.Data.Defaults.COPHpAwCoo"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "coeQ",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "{-2.2545246871,6.9089257665,-3.6548225094,0,0}"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "coeP",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "{-5.8086010402,1.6894933858,5.1167787436,0,0}"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "TRefLoa",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.TChiWatRetHp_nominal"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "element_modification_or_replaceable": {
+                                                              "element_modification": {
+                                                                "name": "TRefSou",
+                                                                "modification": {
+                                                                  "equal": true,
+                                                                  "expression": {
+                                                                    "simple_expression": "pla.hp.TSouCooHp_nominal"
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "pumHeaWatPri",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "fill(1.5*(if [object Object] then [object Object] else pla.hp.dpHeaWatHp_nominal),pla.cfg.nPumHeaWatPri) .+(if [object Object] then Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max else 0)"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "pumHeaWatSec",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "m_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "fill",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "pla.ctl.VHeaWatSec_flow_nominal*Buildings.Media.Water.d_const/max(1,pla.cfg.nPumHeaWatSec)"
+                                                      },
+                                                      {
+                                                        "name": "pla.cfg.nPumHeaWatSec"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "fill",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max"
+                                                      },
+                                                      {
+                                                        "name": "pla.cfg.nPumHeaWatSec"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "pumChiWatPri",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "fill(1.5*pla.hp.dpChiWatHp_nominal,pla.cfg.nPumChiWatPri) .+(if [object Object] then Buildings.Templates.Data.Defaults.dpChiWatLocSet_max else 0)"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "pumChiWatSec",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "m_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "fill",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "pla.ctl.VChiWatSec_flow_nominal*Buildings.Media.Water.d_const/max(1,pla.cfg.nPumChiWatSec)"
+                                                      },
+                                                      {
+                                                        "name": "pla.cfg.nPumChiWatSec"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "function_call": {
+                                                    "name": "fill",
+                                                    "arguments": [
+                                                      {
+                                                        "name": "Buildings.Templates.Data.Defaults.dpChiWatLocSet_max"
+                                                      },
+                                                      {
+                                                        "name": "pla.cfg.nPumChiWatSec"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "hrc",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_redeclaration": {
+                                          "component_clause1": {
+                                            "type_specifier": "Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CGWD_207kW_3_99COP_None",
+                                            "component_declaration1": {
+                                              "declaration": {
+                                                "identifier": "per"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "cap_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "500000"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpChiWat_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.dpChiWatChi"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpCon_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.dpConWatChi"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mChiWat_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hrc.cap_nominal/abs(pla.ctl.TChiWatSup_nominal -Buildings.Templates.Data.Defaults.TChiWatRet)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "mCon_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hrc.QCon_flow_nominal/abs(pla.ctl.THeaWatSup_nominal -Buildings.Templates.Data.Defaults.THeaWatRetMed)/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "ctl",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "THeaWatSupSet_min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "298.15"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "VHeaWatSec_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.cfg.nHp*pla.ctl.VHeaWatHp_flow_nominal/1.1"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TChiWatSupSet_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "288.15"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "VChiWatSec_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.cfg.nHp*pla.ctl.VChiWatHp_flow_nominal/1.1"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpChiWatRemSet_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "{Buildings.Templates.Data.Defaults.dpChiWatRemSet_max}"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpHeaWatRemSet_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "{Buildings.Templates.Data.Defaults.dpHeaWatRemSet_max}"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpChiWatLocSet_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.dpChiWatLocSet_max"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "dpHeaWatLocSet_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "THeaWatSup_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.THeaWatSupMed"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TOutChiWatLck",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "273.15"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TOutHeaWatLck",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.TOutHeaWatLck"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "VHeaWatHp_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.mHeaWatHp_flow_nominal/Buildings.Media.Water.d_const"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "VChiWatHp_flow_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.mChiWatHp_flow_nominal/Buildings.Media.Water.d_const"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capHeaHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.capHeaHp_nominal"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capCooHp_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.hp.capCooHp_nominal"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TChiWatSup_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.TChiWatSup"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "yPumChiWatPriSet",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": {
+                                                          "logical_expression": {
+                                                            "logical_or": [
+                                                              {
+                                                                "logical_and": [
+                                                                  {
+                                                                    "arithmetic_expressions": [
+                                                                      {
+                                                                        "name": "pla.cfg.typPumChiWatPri"
+                                                                      },
+                                                                      {
+                                                                        "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                                      }
+                                                                    ],
+                                                                    "relation_operator": "=="
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": "pla.hp.mChiWatHp_flow_nominal/max(pla.hp.mHeaWatHp_flow_nominal,pla.hp.mChiWatHp_flow_nominal)"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "1"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "yPumHeaWatPriSet",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "if_expression": {
+                                                  "if_elseif": [
+                                                    {
+                                                      "condition": {
+                                                        "simple_expression": {
+                                                          "logical_expression": {
+                                                            "logical_or": [
+                                                              {
+                                                                "logical_and": [
+                                                                  {
+                                                                    "arithmetic_expressions": [
+                                                                      {
+                                                                        "name": "pla.cfg.typPumChiWatPri"
+                                                                      },
+                                                                      {
+                                                                        "name": "Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None"
+                                                                      }
+                                                                    ],
+                                                                    "relation_operator": "=="
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        }
+                                                      },
+                                                      "then": {
+                                                        "simple_expression": "pla.hp.mHeaWatHp_flow_nominal/max(pla.hp.mHeaWatHp_flow_nominal,pla.hp.mChiWatHp_flow_nominal)"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "else_expression": {
+                                                    "simple_expression": "1"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "staEqu",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": {
+                                                  "for_loop": {
+                                                    "expression": {
+                                                      "simple_expression": {
+                                                        "function_call": {
+                                                          "name": "fill",
+                                                          "arguments": [
+                                                            {
+                                                              "name": "i/pla.cfg.nHp"
+                                                            },
+                                                            {
+                                                              "name": "pla.cfg.nHp"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    },
+                                                    "for_loop": [
+                                                      {
+                                                        "name": "i",
+                                                        "range": "1:pla.cfg.nHp"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "TChiWatSupHrc_min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "Buildings.Templates.Data.Defaults.TChiWatSup_min"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "THeaWatSupHrc_max",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "pla.ctl.THeaWatSup_nominal +5"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "COPHeaHrc_nominal",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "4.8"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capCooHrc_min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0.3*pla.hrc.cap_nominal"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "capHeaHrc_min",
+                                            "modification": {
+                                              "equal": true,
+                                              "expression": {
+                                                "simple_expression": "0.3*pla.hrc.QCon_flow_nominal"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Parameters for heat pump plant",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Plants\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -10,
+                                        "y": 0
+                                      },
+                                      {
+                                        "x": 10,
+                                        "y": 20
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentPrefixes",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"inner parameter\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "defaultComponentName",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"datAll\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis class provides the set of sizing and operating parameters for\nthe whole HVAC system.\nIt is aimed for validation purposes only.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/HeatPumps/Validation/UserProject/Data/AllSystems.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/HeatPumps/Validation/UserProject/Data/AllSystems.mo",
+  "checksum": "453e55ee4affb4d3f7d5c562d82aa99e"
+}

@@ -1,0 +1,186 @@
+{
+  "within": "Buildings.Templates.Plants.HeatPumps",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Controller",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the plant controller"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "AirToWater",
+                            "description": {
+                              "description_string": "Controller for AWHP plant"
+                            }
+                          },
+                          {
+                            "identifier": "OpenLoop",
+                            "description": {
+                              "description_string": "Open loop controller"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Distribution",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of CHW/HW distribution system"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Constant1Only",
+                            "description": {
+                              "description_string": "Constant primary-only"
+                            }
+                          },
+                          {
+                            "identifier": "Variable1Only",
+                            "description": {
+                              "description_string": "Variable primary-only"
+                            }
+                          },
+                          {
+                            "identifier": "Constant1Variable2",
+                            "description": {
+                              "description_string": "Constant primary - Variable secondary centralized"
+                            }
+                          },
+                          {
+                            "identifier": "Variable1And2",
+                            "description": {
+                              "description_string": "Variable primary - Variable secondary centralized"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "PumpsPrimary",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of primary pumps"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "Constant",
+                            "description": {
+                              "description_string": "Constant speed pump specified separately"
+                            }
+                          },
+                          {
+                            "identifier": "Variable",
+                            "description": {
+                              "description_string": "Variable speed pump specified separately"
+                            }
+                          },
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No pump"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "PumpsSecondary",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to specify the type of secondary HW pumps"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "None",
+                            "description": {
+                              "description_string": "No secondary pumps (primary-only)"
+                            }
+                          },
+                          {
+                            "identifier": "Centralized",
+                            "description": {
+                              "description_string": "Variable secondary centralized"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/HeatPumps/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/HeatPumps/Types.mo",
+  "checksum": "a7d5720424e2e2d3526f884fae0904dd"
+}

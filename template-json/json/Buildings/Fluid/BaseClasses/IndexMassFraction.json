@@ -1,0 +1,268 @@
+{
+  "within": "Buildings.Fluid.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "IndexMassFraction",
+          "description_string": "Computes the index of a substance in the mass fraction vector Xi",
+          "composition": {
+            "element_list": [
+              {
+                "replaceable": true,
+                "class_definition": {
+                  "class_prefixes": "package",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Medium",
+                      "value": {
+                        "name": "Modelica.Media.Interfaces.PartialCondensingGases",
+                        "description": {
+                          "description_string": "Medium model",
+                          "annotation": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "choices",
+                                  "modification": {
+                                    "class_modification": [
+                                      {
+                                        "element_modification_or_replaceable": {
+                                          "element_modification": {
+                                            "name": "choice",
+                                            "modification": {
+                                              "class_modification": [
+                                                {
+                                                  "element_redeclaration": {
+                                                    "short_class_definition": {
+                                                      "class_prefixes": "package",
+                                                      "short_class_specifier": {
+                                                        "identifier": "Medium",
+                                                        "value": {
+                                                          "name": "Buildings.Media.Air",
+                                                          "description": {
+                                                            "description_string": "Moist air"
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "String",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "substanceName",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "\"\""
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Name of species substance"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "i_x",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "sum",
+                                    "arguments": [
+                                      {
+                                        "expression": {
+                                          "if_expression": {
+                                            "if_elseif": [
+                                              {
+                                                "condition": {
+                                                  "simple_expression": {
+                                                    "function_call": {
+                                                      "name": "Modelica.Utilities.Strings.isEqual",
+                                                      "arguments": [
+                                                        {
+                                                          "name": "string1=Medium.substanceNames[i],string2=substanceName,caseSensitive=false"
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                },
+                                                "then": {
+                                                  "simple_expression": "i"
+                                                }
+                                              }
+                                            ],
+                                            "else_expression": {
+                                              "simple_expression": "0"
+                                            }
+                                          }
+                                        },
+                                        "for_loop": [
+                                          {
+                                            "name": "i",
+                                            "range": "1:Medium.nXi"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Index of substance",
+                            "annotation": [
+                              {
+                                "element_modification_or_replaceable": {
+                                  "element_modification": {
+                                    "name": "Evaluate",
+                                    "modification": {
+                                      "equal": true,
+                                      "expression": {
+                                        "simple_expression": "true"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "equation_section": {
+                  "initial": true,
+                  "equation": [
+                    {
+                      "function_call_equation": {
+                        "function_name": "assert",
+                        "function_call_args": {
+                          "function_argument": {
+                            "expression": {
+                              "simple_expression": {
+                                "logical_expression": {
+                                  "logical_or": [
+                                    {
+                                      "logical_and": [
+                                        {
+                                          "arithmetic_expressions": [
+                                            {
+                                              "name": "i_x"
+                                            },
+                                            {
+                                              "name": "0"
+                                            }
+                                          ],
+                                          "relation_operator": ">"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "function_arguments": {
+                            "function_argument": {
+                              "expression": {
+                                "simple_expression": "\"Substance '\" +substanceName +\"' is not present in medium '\" +Medium.mediumName +\"'.\\n\" +\"Change medium model to one that has '\" +substanceName +\"' as a substance.\""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis block computes the index that the subtance with name\n<code>substanceName</code> has in the mass fraction vector <code>X</code>.\nIf the medium model has no component called <code>substanceName</code>,\nthen the block writes an error message and terminates the simulation.\n</p>\n<p>\nThis block is used for example to obtain the index of the subtance 'water'\nto obtain the water vapor concentration, or to measure any other mass fraction.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nNovember 14, 2019, by Michael Wetter:<br/>\nRewrote assignment of <code>i_x</code> to avoid a variable array index.<br/>\nThis is for <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1250\\\">#1250</a>.\n</li>\n<li>\nJanuary 18, 2019, by Jianjun Hu:<br/>\nLimited the media choice to moist air only.\nSee <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\\\">#1050</a>.\n</li>\n<li>\nAugust 31, 2013, by Michael Wetter:<br/>\nRevised the model and added the parameter <code>substanceName</code>.\n</li>\n<li>\nDecember 18, 2012, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/BaseClasses/IndexMassFraction.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/BaseClasses/IndexMassFraction.mo",
+  "checksum": "96303b8106b14a946fd6d07f1823f1ec"
+}

@@ -1,0 +1,134 @@
+{
+  "within": "Buildings.Templates.ZoneEquipment",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Types",
+          "description_string": "Package with type definitions",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.TypesPackage"
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Configuration",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the terminal unit"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "DualDuct",
+                            "description": {
+                              "description_string": "Dual duct system"
+                            }
+                          },
+                          {
+                            "identifier": "FanPowered",
+                            "description": {
+                              "description_string": "Fan-powered system"
+                            }
+                          },
+                          {
+                            "identifier": "Induction",
+                            "description": {
+                              "description_string": "Induction system"
+                            }
+                          },
+                          {
+                            "identifier": "VAVBoxCoolingOnly",
+                            "description": {
+                              "description_string": "VAV terminal unit cooling only"
+                            }
+                          },
+                          {
+                            "identifier": "VAVBoxReheat",
+                            "description": {
+                              "description_string": "VAV terminal unit with reheat"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "class_definition": {
+                  "class_prefixes": "type",
+                  "class_specifier": {
+                    "short_class_specifier": {
+                      "identifier": "Controller",
+                      "value": {
+                        "description": {
+                          "description_string": "Enumeration to configure the terminal unit controller"
+                        },
+                        "enum_list": [
+                          {
+                            "identifier": "G36VAVBoxCoolingOnly",
+                            "description": {
+                              "description_string": "Guideline 36 controller for VAV terminal unit cooling only"
+                            }
+                          },
+                          {
+                            "identifier": "G36VAVBoxReheat",
+                            "description": {
+                              "description_string": "Guideline 36 controller for VAV terminal unit with reheat"
+                            }
+                          },
+                          {
+                            "identifier": "OpenLoop",
+                            "description": {
+                              "description_string": "Open loop controller"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains type definitions.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/ZoneEquipment/Types.mo",
+  "fullMoFilePath": "Buildings/Templates/ZoneEquipment/Types.mo",
+  "checksum": "17ebff100bdd6e4d1727f7bb4efbde6a"
+}

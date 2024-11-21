@@ -1,0 +1,904 @@
+{
+  "within": "Buildings.Fluid.Interfaces",
+  "class_definition": [
+    {
+      "class_prefixes": "partial model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "PartialFourPortInterface",
+          "description_string": "Partial model with four ports and declaration of quantities that are used by many models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Buildings.Fluid.Interfaces.PartialFourPort"
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m1_flow_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m2_flow_nominal",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Nominal condition\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium1.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m1_flow_small",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001*abs(m1_flow_nominal)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization of zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Medium2.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m2_flow_small",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.0001*abs(m2_flow_nominal)"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small mass flow rate for regularization of zero flow",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Boolean",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "show_T",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "false"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "= true, if actual temperature at port is computed",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "Dialog",
+                                "modification": {
+                                  "class_modification": [
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "tab",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Advanced\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element_modification_or_replaceable": {
+                                        "element_modification": {
+                                          "name": "group",
+                                          "modification": {
+                                            "equal": true,
+                                            "expression": {
+                                              "simple_expression": "\"Diagnostics\""
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "name": "HideResult",
+                                "modification": {
+                                  "equal": true,
+                                  "expression": {
+                                    "simple_expression": "true"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium1.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m1_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "port_a1.m_flow"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp1",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "port_a1.p -port_b1.p"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure difference between port_a1 and port_b1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium2.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "m2_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "port_a2.m_flow"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.PressureDifference",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "dp2",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "displayUnit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"Pa\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "port_a2.p -port_b2.p"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Pressure difference between port_a2 and port_b2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium1.ThermodynamicState",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta_a1",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal1"
+                                  },
+                                  "then": {
+                                    "simple_expression": {
+                                      "function_call": {
+                                        "name": "Medium1.setState_phX",
+                                        "arguments": [
+                                          {
+                                            "name": "port_a1.p"
+                                          },
+                                          {
+                                            "name": "noEvent(actualStream(port_a1.h_outflow)),noEvent(actualStream(port_a1.Xi_outflow))"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a1.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_a1.h_outflow),inStream(port_a1.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Medium properties in port_a1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium1.ThermodynamicState",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta_b1",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal1"
+                                  },
+                                  "then": {
+                                    "simple_expression": {
+                                      "function_call": {
+                                        "name": "Medium1.setState_phX",
+                                        "arguments": [
+                                          {
+                                            "name": "port_b1.p"
+                                          },
+                                          {
+                                            "name": "noEvent(actualStream(port_b1.h_outflow)),noEvent(actualStream(port_b1.Xi_outflow))"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_b1.p"
+                                      },
+                                      {
+                                        "name": "port_b1.h_outflow,port_b1.Xi_outflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Medium properties in port_b1"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium2.ThermodynamicState",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta_a2",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal2"
+                                  },
+                                  "then": {
+                                    "simple_expression": {
+                                      "function_call": {
+                                        "name": "Medium2.setState_phX",
+                                        "arguments": [
+                                          {
+                                            "name": "port_a2.p"
+                                          },
+                                          {
+                                            "name": "noEvent(actualStream(port_a2.h_outflow)),noEvent(actualStream(port_a2.Xi_outflow))"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a2.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_a2.h_outflow),inStream(port_a2.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Medium properties in port_a2"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Medium2.ThermodynamicState",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "sta_b2",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "if_expression": {
+                              "if_elseif": [
+                                {
+                                  "condition": {
+                                    "simple_expression": "allowFlowReversal2"
+                                  },
+                                  "then": {
+                                    "simple_expression": {
+                                      "function_call": {
+                                        "name": "Medium2.setState_phX",
+                                        "arguments": [
+                                          {
+                                            "name": "port_b2.p"
+                                          },
+                                          {
+                                            "name": "noEvent(actualStream(port_b2.h_outflow)),noEvent(actualStream(port_b2.Xi_outflow))"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              ],
+                              "else_expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_b2.p"
+                                      },
+                                      {
+                                        "name": "port_b2.h_outflow,port_b2.Xi_outflow"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "condition_attribute": {
+                        "expression": {
+                          "simple_expression": "show_T"
+                        }
+                      },
+                      "description": {
+                        "description_string": "Medium properties in port_b2"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium1.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_a1_inflow",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a1.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_a1.h_outflow),inStream(port_a1.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "state for medium inflowing through port_a1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium1.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_b1_inflow",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium1.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_b1.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_b1.h_outflow),inStream(port_b1.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "state for medium inflowing through port_b1"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium2.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_a2_inflow",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_a2.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_a2.h_outflow),inStream(port_a2.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "state for medium inflowing through port_a2"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "component_clause": {
+                      "type_specifier": "Medium2.ThermodynamicState",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "state_b2_inflow",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": {
+                                  "function_call": {
+                                    "name": "Medium2.setState_phX",
+                                    "arguments": [
+                                      {
+                                        "name": "port_b2.p"
+                                      },
+                                      {
+                                        "name": "inStream(port_b2.h_outflow),inStream(port_b2.Xi_outflow)"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "state for medium inflowing through port_b2"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "preferredView",
+                    "modification": {
+                      "equal": true,
+                      "expression": {
+                        "simple_expression": "\"info\""
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis component defines the interface for models with four fluid ports\nand two fluid streams.\nIt is similar to\n<a href=\\\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\\\">\nBuildings.Fluid.Interfaces.PartialTwoPortInterface</a>,\nbut it has four ports instead of two.\n</p>\n<p>\nThe model is used by other models in this package that add heat transfer,\nmass transfer and pressure drop equations.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nSeptember 22, 2023, by Michael Wetter:<br/>\nImproved documentation.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1796\\\">IBPSA, #1796</a>.\n</li>\n<li>\nFebruary 3, 2022, by Michael Wetter:<br/>\nIf <code>allowFlowReversal==false</code>, removed <code>noEvent()</code> declaration\nfor <code>sta_a</code> and for <code>sta_b</code> because the variable is either\nalready used with <code>inStream()</code> in the computation of <code>state_*_inflow</code>,\nor the result of a variable of the model that already may generate an event.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\\\">IBPSA, #1578</a>.\n</li>\n<li>\nFebruary 2, 2022, by Hongxiang Fu:<br/>\nIf <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>\nwith <code>inStream()</code> for <code>sta_a</code> and\nremoved <code>actualStream()</code> for <code>sta_b</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\\\">IBPSA, #1578</a>.\n</li>\n<li>\nMarch 30, 2021, by Michael Wetter:<br/>\nAdded annotation <code>HideResult=true</code>.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\\\">IBPSA, #1459</a>.\n</li>\n<li>\nNovember 3, 2016, by Michael Wetter:<br/>\nMoved computation of pressure drop to variable assignment so that\nthe model won't mix graphical with textual modeling if used as a base\nclass for a graphically implemented model.\n</li>\n<li>\nNovember 3, 2016, by Michael Wetter:<br/>\nRemoved start values for mass flow rate and pressure difference\nto simplify the parameter window.<br/>\nThis is for\n<a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/552\\\">#552</a>.\n</li>\n<li>\nJanuary 22, 2016, by Michael Wetter:<br/>\nCorrected type declaration of pressure difference.\nThis is\nfor <a href=\\\"https://github.com/ibpsa/modelica-ibpsa/issues/404\\\">#404</a>.\n</li>\n<li>\nNovember 13, 2013 by Michael Wetter:<br/>\nRemoved assignment of <code>min</code> and <code>max</code>\nattributes of port mass flow rates, as this is already\ndone in the base class.\n</li>\n<li>\nNovember 12, 2013 by Michael Wetter:<br/>\nRemoved <code>import Modelica.Constants;</code> statement.\n</li>\n<li>\nNovember 11, 2013 by Michael Wetter:<br/>\nRemoved the parameter <code>homotopyInitialization</code>\nas it is no longer used in this model.\n</li>\n<li>\nNovember 10, 2013 by Michael Wetter:<br/>\nIn the computation of <code>sta_a1</code>,\n<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>,\nremoved the branch that uses the homotopy operator.\nThe rational is that these variables are conditionally enables (because\nof <code>... if show_T</code>). Therefore, the Modelica Language Specification\ndoes not allow for these variables to be used in any equation. Hence,\nthe use of the homotopy operator is not needed here.\n</li>\n<li>\nOctober 10, 2013 by Michael Wetter:<br/>\nAdded <code>noEvent</code> to the computation of the states at the port.\nThis is correct, because the states are only used for reporting, but not\nto compute any other variable.\nUse of the states to compute other variables would violate the Modelica\nlanguage, as conditionally removed variables must not be used in any equation.\n</li>\n<li>\nOctober 8, 2013 by Michael Wetter:<br/>\nRemoved the computation of <code>V_flow</code> and removed the parameter\n<code>show_V_flow</code>.\nThe reason is that the computation of <code>V_flow</code> required\nthe use of <code>sta_a</code> (to compute the density),\nbut <code>sta_a</code> is also a variable that is conditionally\nenabled. However, this was not correct Modelica syntax as conditional variables\ncan only be used in a <code>connect</code>\nstatement, not in an assignment. Dymola 2014 FD01 beta3 is checking\nfor this incorrect syntax. Hence, <code>V_flow</code> was removed as its\nconditional implementation would require a rather cumbersome implementation\nthat uses a new connector that carries the state of the medium.\n</li>\n<li>\nApril 26, 2013 by Marco Bonvini:<br/>\nMoved the definitions of <code>dp1</code> and <code>dp2</code> because they cause some problem with PyFMI.\n</li>\n<li>\nMarch 27, 2012 by Michael Wetter:<br/>\nReplaced the erroneous function call <code>Medium.density</code> with\n<code>Medium1.density</code> and <code>Medium2.density</code>.\nChanged condition to remove <code>sta_a1</code> and <code>sta_a2</code> to also\ncompute the states at the inlet port if <code>show_V_flow=true</code>.\nThe previous implementation resulted in a translation error\nif <code>show_V_flow=true</code>, but worked correctly otherwise\nbecause the erroneous function call is removed if  <code>show_V_flow=false</code>.\n</li>\n<li>\nMarch 27, 2011 by Michael Wetter:<br/>\nAdded <code>homotopy</code> operator.\n</li>\n<li>\nMarch 21, 2010 by Michael Wetter:<br/>\nChanged pressure start value from <code>system.p_start</code>\nto <code>Medium.p_default</code> since HVAC models may have water and\nair, which are typically at different pressures.\n</li>\n<li>\nSeptember 19, 2008 by Michael Wetter:<br/>\nAdded equations for the mass balance of extra species flow,\ni.e., <code>C</code> and <code>mC_flow</code>.\n</li>\n<li>\nApril 28, 2008, by Michael Wetter:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/Interfaces/PartialFourPortInterface.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/Interfaces/PartialFourPortInterface.mo",
+  "checksum": "70da18a8fb6f2eb9100308895df80b63"
+}

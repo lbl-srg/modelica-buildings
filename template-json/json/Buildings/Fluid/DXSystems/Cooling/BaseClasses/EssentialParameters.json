@@ -1,0 +1,127 @@
+{
+  "within": "Buildings.Fluid.DXSystems.Cooling.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "partial block",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "EssentialParameters",
+          "description_string": "A partial block for essential parameters for cooling DX coils",
+          "composition": {
+            "element_list": [
+              {
+                "replaceable": true,
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "datCoi"
+                      },
+                      "description": {
+                        "description_string": "Performance data",
+                        "annotation": [
+                          {
+                            "element_modification_or_replaceable": {
+                              "element_modification": {
+                                "Placement": {
+                                  "transformation": {
+                                    "extent": [
+                                      {
+                                        "x": -80,
+                                        "y": 82
+                                      },
+                                      {
+                                        "x": -68,
+                                        "y": 94
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "protected_element_list": [
+                  {
+                    "component_clause": {
+                      "type_prefix": "parameter",
+                      "type_specifier": "Integer",
+                      "component_list": [
+                        {
+                          "declaration": {
+                            "identifier": "nSta",
+                            "modification": {
+                              "equal": true,
+                              "expression": {
+                                "simple_expression": "datCoi.nSta"
+                              }
+                            }
+                          },
+                          "description": {
+                            "description_string": "Number of stages"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis partial block declares parameters that are required by most classes for cooling DX coils\nin the package\n<a href=\\\"modelica://Buildings.Fluid.DXSystems\\\">\nBuildings.Fluid.DXSystems</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nApril 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>\nUpdated class of data record <code>datCoi</code> from <code>DXCoil</code> to\n<a href=\\\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\\\">\nBuildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer</a>.\n</li>\n<li>\nFebruary 17, 2017 by Yangyang Fu:<br/>\nAdded prefix <code>replaceable</code> for the parameter <code>datCoi</code>.\n</li>\n<li>\nJanuary 7, 2013 by Michael Wetter:<br/>\nRemoved medium declaration to avoid multiple definitions of the medium.\n</li>\n<li>\nAugust 1, 2012 by Kaustubh Phalak:<br/>\nFirst implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/DXSystems/Cooling/BaseClasses/EssentialParameters.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/DXSystems/Cooling/BaseClasses/EssentialParameters.mo",
+  "checksum": "d004d092e4ba3c2de0f943079970d576"
+}

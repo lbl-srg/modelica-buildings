@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants;
 package Controls "Control blocks"
   annotation (
+    __ctrlFlow_template,
     Documentation(
       info="<html>
 <p>

@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.AirHandlersFans.Components",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "OutdoorReliefReturnSection",
+          "description_string": "Models for outdoor/relief/return air section",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.VariantsPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nComponents inside that package represent the outdoor/relief/return air section of an\nair handler.\nThey are composed of\n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans.Components.OutdoorSection\\\">\nBuildings.Templates.AirHandlersFans.Components.OutdoorSection</a>\nand\n<a href=\\\"modelica://Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection\\\">\nBuildings.Templates.AirHandlersFans.Components.ReliefReturnSection</a>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/AirHandlersFans/Components/OutdoorReliefReturnSection/package.mo",
+  "fullMoFilePath": "Buildings/Templates/AirHandlersFans/Components/OutdoorReliefReturnSection/package.mo",
+  "checksum": "4cbaca326c5392c1acd125331d745104"
+}

@@ -1,0 +1,52 @@
+{
+  "within": "Buildings.Templates.Plants.HeatPumps",
+  "class_definition": [
+    {
+      "class_prefixes": "package",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "Validation",
+          "description_string": "Package with validation models",
+          "composition": {
+            "element_list": [
+              {
+                "extends_clause": {
+                  "name": "Modelica.Icons.ExamplesPackage"
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>\nThis package contains models validating the templates within\n<a href=\\\"modelica://Buildings.Templates.Plants.HeatPumps\\\">\nBuildings.Templates.Plants.HeatPumps</a>\nfor various system configurations.\n</p>\n<p>\nThe models also illustrate parameter propagation from the top-level\nHVAC system record <code>datAll</code>.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Templates/Plants/HeatPumps/Validation/package.mo",
+  "fullMoFilePath": "Buildings/Templates/Plants/HeatPumps/Validation/package.mo",
+  "checksum": "4bf9ef7981362dbc4c4e0888299ba2b7"
+}

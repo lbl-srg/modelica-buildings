@@ -1,0 +1,756 @@
+{
+  "within": "Buildings.Fluid.HeatExchangers.BaseClasses",
+  "class_definition": [
+    {
+      "class_prefixes": "model",
+      "class_specifier": {
+        "long_class_specifier": {
+          "identifier": "WetCoilDryRegime",
+          "description_string": "Fully dry coil model",
+          "composition": {
+            "element_list": [
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UAWat"
+                      },
+                      "description": {
+                        "description_string": "UA for water side"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow"
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate for water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWatNonZer_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Modelica.Constants.eps"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate for water, bounded away from zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpWat"
+                      },
+                      "description": {
+                        "description_string": "Specific heat capacity of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWatIn"
+                      },
+                      "description": {
+                        "description_string": "Water temperature at inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UAAir"
+                      },
+                      "description": {
+                        "description_string": "UA for air side"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Modelica.Constants.eps"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate of air"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAirNonZer_flow",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "Modelica.Constants.eps"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Mass flow rate for air, bounded away from zero"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.SpecificHeatCapacity",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cpAir"
+                      },
+                      "description": {
+                        "description_string": "Specific heat capacity of moist air at constant pressure"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAirIn"
+                      },
+                      "description": {
+                        "description_string": "Temperature of air at inlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Buildings.Fluid.Types.HeatExchangerFlowRegime",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "cfg"
+                      },
+                      "description": {
+                        "description_string": "Flow regime of the heat exchanger"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mAir_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate for air"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "input",
+                  "type_specifier": "Modelica.Units.SI.MassFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "mWat_flow_nominal"
+                      },
+                      "description": {
+                        "description_string": "Nominal mass flow rate for water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "parameter",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "delta",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "0.001"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Small value used for smoothing"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.HeatFlowRate",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "QTot_flow"
+                      },
+                      "description": {
+                        "description_string": "Heat transferred from water to air"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TWatOut"
+                      },
+                      "description": {
+                        "description_string": "Temperature of water at outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TAirOut"
+                      },
+                      "description": {
+                        "description_string": "Temperature of air at the outlet"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Real",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "eps",
+                        "modification": {
+                          "class_modification": [
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "min",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "0"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "max",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "1"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "element_modification_or_replaceable": {
+                                "element_modification": {
+                                  "name": "unit",
+                                  "modification": {
+                                    "equal": true,
+                                    "expression": {
+                                      "simple_expression": "\"1\""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "description": {
+                        "description_string": "Effectiveness for heat exchanger"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CWat_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "mWat_flow*cpWat"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Capacitance rate of water"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CAir_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": "mAir_flow*cpAir"
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Capacitance rate of air"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CMin_flow_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "min",
+                                "arguments": [
+                                  {
+                                    "name": "mAir_flow_nominal*cpAir"
+                                  },
+                                  {
+                                    "name": "mWat_flow_nominal*cpWat"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum capacity rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CMax_flow_nominal",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "max",
+                                "arguments": [
+                                  {
+                                    "name": "mAir_flow_nominal*cpAir"
+                                  },
+                                  {
+                                    "name": "mWat_flow_nominal*cpWat"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Maximum capacity rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "CMin_flow",
+                        "modification": {
+                          "equal": true,
+                          "expression": {
+                            "simple_expression": {
+                              "function_call": {
+                                "name": "Buildings.Utilities.Math.Functions.smoothMin",
+                                "arguments": [
+                                  {
+                                    "name": "x1=CAir_flow,x2=CWat_flow,deltaX=0.001*(CMax_flow_nominal -CMin_flow_nominal)"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": {
+                        "description_string": "Minimum capacity rate"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_specifier": "Modelica.Units.SI.ThermalConductance",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "UA"
+                      },
+                      "description": {
+                        "description_string": "Overall heat transfer coefficient"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "component_clause": {
+                  "type_prefix": "output",
+                  "type_specifier": "Modelica.Units.SI.Temperature",
+                  "component_list": [
+                    {
+                      "declaration": {
+                        "identifier": "TSurAirOut"
+                      },
+                      "description": {
+                        "description_string": "Surface Temperature at air outlet"
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "element_sections": [
+              {
+                "equation_section": {
+                  "equation": [
+                    {
+                      "assignment_equation": {
+                        "lhs": "UA",
+                        "rhs": {
+                          "simple_expression": "1/(1/UAAir +1/UAWat)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "eps",
+                        "rhs": {
+                          "simple_expression": {
+                            "function_call": {
+                              "name": "epsilon_C",
+                              "arguments": [
+                                {
+                                  "name": "UA=UA,C1_flow=CWat_flow,C2_flow=CAir_flow,flowRegime=Integer(cfg),CMin_flow_nominal=CMin_flow_nominal,CMax_flow_nominal=CMax_flow_nominal,delta=delta"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "QTot_flow",
+                        "rhs": {
+                          "simple_expression": "eps*CMin_flow*(TAirIn -TWatIn)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TAirOut",
+                        "rhs": {
+                          "simple_expression": "TAirIn -QTot_flow/(mAirNonZer_flow*cpAir)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TWatOut",
+                        "rhs": {
+                          "simple_expression": "TWatIn +QTot_flow/(mWatNonZer_flow*cpWat)"
+                        }
+                      }
+                    },
+                    {
+                      "assignment_equation": {
+                        "lhs": "TSurAirOut",
+                        "rhs": {
+                          "simple_expression": "(TAirOut*UAAir +TWatIn*UAWat)/(UAAir +UAWat)"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "annotation": [
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Icon",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "graphics": [
+                                {
+                                  "name": "Rectangle",
+                                  "attribute": {
+                                    "extent": [
+                                      {
+                                        "x": -100,
+                                        "y": 100
+                                      },
+                                      {
+                                        "x": 100,
+                                        "y": -100
+                                      }
+                                    ],
+                                    "lineColor": {
+                                      "r": 28,
+                                      "g": 108,
+                                      "b": 200
+                                    },
+                                    "fillColor": {
+                                      "r": 255,
+                                      "g": 213,
+                                      "b": 170
+                                    },
+                                    "fillPattern": "FillPattern.Solid"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Diagram",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "coordinateSystem": {
+                                "preserveAspectRatio": "false"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "element_modification_or_replaceable": {
+                  "element_modification": {
+                    "name": "Documentation",
+                    "modification": {
+                      "class_modification": [
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "revisions",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<ul>\n<li>\nJan 21, 2021, by Donghun Kim:<br/>First implementation.\n</li>\n</ul>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element_modification_or_replaceable": {
+                            "element_modification": {
+                              "name": "info",
+                              "modification": {
+                                "equal": true,
+                                "expression": {
+                                  "simple_expression": "\"<html>\n<p>This model implements the calculation for a 100% dry coil.</p>\n<p>\nSee\n<a href=\\\"modelica://Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU\\\">\nBuildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU</a>\nfor documentation.\n</p>\n</html>\""
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "modelicaFile": "Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilDryRegime.mo",
+  "fullMoFilePath": "/home/reituag/gitrepo/modelica-buildings/Buildings/Fluid/HeatExchangers/BaseClasses/WetCoilDryRegime.mo",
+  "checksum": "c373a72f73fff9b99c0c1dd7f45192a5"
+}
