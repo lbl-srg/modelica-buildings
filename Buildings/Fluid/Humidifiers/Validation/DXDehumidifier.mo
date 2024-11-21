@@ -16,7 +16,7 @@ model DXDehumidifier "Validation model for DX dehumidifier"
 
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
-    final VWat_flow_nominal=5.805556e-7,
+    mWat_flow_nominal=5.805556e-5,
     final addPowerToMedium=true,
     final mAir_flow_nominal=m_flow_nominal,
     final dp_nominal=100,
