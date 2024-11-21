@@ -61,7 +61,8 @@ model WetCoilCounterFlowPControlAutoTuning
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
-    dpValve_nominal=6000)
+    dpValve_nominal=6000,
+    strokeTime=240)
     "Valve model"
     annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Modelica.Blocks.Sources.TimeTable TSet(
@@ -96,9 +97,9 @@ model WetCoilCounterFlowPControlAutoTuning
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
     u_s_start=288.15,
-    r=10,
+    r=5,
     yLow=0.2,
-    deaBan=0.2,
+    deaBan=0.1,
     yRef=0.5,
     reverseActing=false)
     "Controller"
