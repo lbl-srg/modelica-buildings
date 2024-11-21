@@ -110,9 +110,6 @@ protected
     final k=-1)
     "Product of the normalized time delay and -1"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.Abs abs1
-    "Absolute gain value"
-    annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if an error occurs during the autotuning process"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -173,10 +170,6 @@ equation
           18,-26}}, color={0,0,127}));
   connect(div.y, timConDel.rat) annotation (Line(points={{42,-20},{50,-20},{50,14},
           {58,14}}, color={0,0,127}));
-  connect(gain.k, abs1.u)
-    annotation (Line(points={{-98,20},{-92,20}}, color={0,0,127}));
-  connect(abs1.y, samk.u)
-    annotation (Line(points={{-68,20},{-62,20}}, color={0,0,127}));
   connect(and2.u1, not1.y) annotation (Line(points={{78,-70},{68,-70},{68,-50},{
           62,-50}}, color={255,0,255}));
   connect(and2.y, tunSta) annotation (Line(points={{102,-70},{106,-70},{106,-80},
@@ -189,6 +182,8 @@ equation
     annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
   connect(not2.u, timConDel.triFai) annotation (Line(points={{98,60},{96,60},{96,
           12},{82,12}}, color={255,0,255}));
+  connect(gain.k, samk.u)
+    annotation (Line(points={{-98,20},{-62,20}}, color={0,0,127}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
