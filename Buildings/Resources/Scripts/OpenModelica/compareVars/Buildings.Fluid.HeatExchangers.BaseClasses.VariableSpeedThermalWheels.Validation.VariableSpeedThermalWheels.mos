@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "senWhe.uSpe",
+    "senWhe.P",
+    "latWheDefMotCur.P",
+    "latWheDefMotCur.epsSenCor",
+    "latWheDefMotCur.epsLatCor"
+  };

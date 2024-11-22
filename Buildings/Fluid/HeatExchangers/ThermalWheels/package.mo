@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers;
-package ThermalWheels "Package with thermal wheels (both enthalpy and sensible heat recovery) models"
+package ThermalWheels "Package with thermal wheel (both enthalpy and sensible heat recovery) models"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains component models for thermal recovery wheels. 
+This package contains component models for thermal wheels.
 </p>
 </html>"),
     Icon(graphics={
