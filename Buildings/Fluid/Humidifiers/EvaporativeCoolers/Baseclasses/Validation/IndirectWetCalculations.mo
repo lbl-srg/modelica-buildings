@@ -4,11 +4,11 @@ model IndirectWetCalculations
   extends Modelica.Icons.Example;
 
   parameter Real maxEff(
-    displayUnit="1") = 0.8
+    unit="1") = 0.8
     "Maximum efficiency of heat exchanger coil";
 
   parameter Real floRat(
-    displayUnit="1") = 0.16
+    unit="1") = 0.16
     "Coil flow ratio";
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDryBulSup_nominal = 296.15
