@@ -1050,7 +1050,6 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   annotation (
-    __ctrlFlow_template,
     defaultComponentName="pla",
     Documentation(
       info="<html>
