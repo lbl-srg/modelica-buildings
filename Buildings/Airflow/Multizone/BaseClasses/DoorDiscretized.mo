@@ -118,6 +118,11 @@ using the model for a door that can be open or closed.
 revisions="<html>
 <ul>
 <li>
+October 29, 2024, by Klaas De Jonge:<br/>
+Unprotected <code>dh</code> and changed prefixes of <code>dh</code>,<code>hAg</code> and <code>hBg</code> to <code>input</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1935\">#1935</a>.
+</li>
+<li>
 January 8, 2019, by Michael Wetter:<br/>
 Moved parameter <code>CD</code> from
 <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized\">
