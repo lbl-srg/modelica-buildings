@@ -123,14 +123,18 @@ model SideCold
     iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+    annotation (Placement(transformation(origin = {40, 0}, extent = {{80, -110}, {100, -90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.01)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     trueHoldDuration=60) "Hold logical signal to avoid short cycling"
-    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
+    annotation (Placement(transformation(origin = {40, 0}, extent = {{40, -110}, {60, -90}})));
+protected
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Block to avoid an algebraic loop during initialization" annotation(
+    Placement(transformation(origin = {50, -100}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(x1.y,mapFun.x1)
     annotation (Line(points={{62,20},{80,20},{80,8},{98,8}},color={0,0,127}));
@@ -182,12 +186,14 @@ equation
     annotation (Line(points={{-128,-20},{-122,-20}}, color={0,0,127}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
-  connect(greThr.y, truFalHol.u)
-    annotation (Line(points={{22,-100},{38,-100}}, color={255,0,255}));
   connect(truFalHol.y, booToRea.u)
-    annotation (Line(points={{62,-100},{78,-100}}, color={255,0,255}));
-  connect(booToRea.y, yValIso) annotation (Line(points={{102,-100},{160,-100},{
+    annotation (Line(points={{102,-100},{118,-100}}, color={255,0,255}));
+  connect(booToRea.y, yValIso) annotation (Line(points={{142,-100},{160,-100},{
           160,0},{200,0}}, color={0,0,127}));
+  connect(greThr.y, pre.u) annotation(
+    Line(points = {{22, -100}, {38, -100}}, color = {255, 0, 255}));
+  connect(pre.y, truFalHol.u) annotation(
+    Line(points = {{62, -100}, {78, -100}}, color = {255, 0, 255}));
   annotation (
     defaultComponentName="conCol",
     Documentation(

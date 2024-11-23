@@ -37,7 +37,7 @@ block SideHot
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.01)
     "Control signal is non zero (with 1% tolerance)"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(origin = {-40, 0}, extent = {{40, -10}, {60, 10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -134,9 +134,13 @@ block SideHot
     h=0.1)
     "Check if temperature is below cold rejection lockout"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
-        60) "Hold logical signal to avoid short cycling"
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    trueHoldDuration=60) "Hold logical signal to avoid short cycling"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+protected
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Block to avoid algebraic loop during initialization" annotation(
+    Placement(transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}})));
 equation
   connect(mapFun.y,yAmb)
     annotation (Line(points={{122,60},{200,60}},color={0,0,127}));
@@ -145,7 +149,7 @@ equation
   connect(TTop,conColRej.u_m)
     annotation (Line(points={{-200,-40},{-160,-40},{-160,-58},{0,-58},{0,-52}},color={0,0,127}));
   connect(conHeaRej.y,greThr.u)
-    annotation (Line(points={{-68,0},{38,0}},color={0,0,127}));
+    annotation (Line(points={{-68,0},{-2,0}},color={0,0,127}));
   connect(x1.y,mapFun.x1)
     annotation (Line(points={{82,80},{90,80},{90,68},{98,68}},color={0,0,127}));
   connect(conHeaRej.y,rep.u)
@@ -186,12 +190,14 @@ equation
     annotation (Line(points={{-138,-80},{-42,-80}},color={255,0,255}));
   connect(isBelLoc.y,mulAnd.u[3])
     annotation (Line(points={{-68,60},{-60,60},{-60,-77.6667},{-42,-77.6667}},color={255,0,255}));
-  connect(greThr.y, truFalHol.u)
-    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
   connect(truFalHol.y, booToRea.u)
     annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
   connect(booToRea.y, yValIso)
     annotation (Line(points={{142,0},{200,0}}, color={0,0,127}));
+  connect(greThr.y, pre.u) annotation(
+    Line(points = {{22, 0}, {38, 0}}, color = {255, 0, 255}));
+  connect(pre.y, truFalHol.u) annotation(
+    Line(points = {{62, 0}, {78, 0}}, color = {255, 0, 255}));
   annotation (
     defaultComponentName="conHot",
     Documentation(
