@@ -123,14 +123,14 @@ model SideCold
     iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
+    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.01)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(
-    samplePeriod=60)
-    annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    trueHoldDuration=60) "Hold logical signal to avoid short cycling"
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
 equation
   connect(x1.y,mapFun.x1)
     annotation (Line(points={{62,20},{80,20},{80,8},{98,8}},color={0,0,127}));
@@ -172,12 +172,6 @@ equation
     annotation (Line(points={{-58,60},{0,60},{0,88},{98,88}},color={0,0,127}));
   connect(uCol,greThr.u)
     annotation (Line(points={{-200,0},{-160,0},{-160,-100},{-2,-100}},color={0,0,127}));
-  connect(greThr.y,booToRea.u)
-    annotation (Line(points={{22,-100},{38,-100}},color={255,0,255}));
-  connect(booToRea.y,zeroOrderHold.u)
-    annotation (Line(points={{62,-100},{78,-100}},color={0,0,127}));
-  connect(zeroOrderHold.y,yValIso)
-    annotation (Line(points={{101,-100},{160,-100},{160,0},{200,0}},color={0,0,127}));
   connect(mapFunTChiSupSet.y,ramLimHea.u)
     annotation (Line(points={{122,80},{138,80}},color={0,0,127}));
   connect(zer.y,max1.u2)
@@ -188,11 +182,23 @@ equation
     annotation (Line(points={{-128,-20},{-122,-20}}, color={0,0,127}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
+  connect(greThr.y, truFalHol.u)
+    annotation (Line(points={{22,-100},{38,-100}}, color={255,0,255}));
+  connect(truFalHol.y, booToRea.u)
+    annotation (Line(points={{62,-100},{78,-100}}, color={255,0,255}));
+  connect(booToRea.y, yValIso) annotation (Line(points={{102,-100},{160,-100},{
+          160,0},{200,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="conCol",
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 22, 2024, by Michael Wetter:<br/>
+Reduced number of time events through replacement of zero order hold with true and false hold.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

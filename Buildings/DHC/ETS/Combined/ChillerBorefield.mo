@@ -317,6 +317,12 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 22, 2024, by Michael Wetter:<br/>
+Reduced number of time events through replacement of zero order hold with true and false hold in controllers.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
+</li>
+<li>
 March 27, 2024, by David Blum:<br/>
 Update icon.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3606\">issue #3606</a>.

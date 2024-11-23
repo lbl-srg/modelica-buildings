@@ -256,6 +256,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot
+    </td>
+    <td valign=\"top\">Reduced number of time events through replacement of zero order hold
+                       with true and false hold in controllers.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4058</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>

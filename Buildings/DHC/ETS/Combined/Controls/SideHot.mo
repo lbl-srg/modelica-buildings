@@ -40,7 +40,7 @@ block SideHot
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert DO to AO signal"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   PIDWithEnable conHeaRej(
     final k=k,
     final Ti=Ti,
@@ -126,9 +126,6 @@ block SideHot
     p=dTDea)
     "Add dead band"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
-  Modelica.Blocks.Discrete.ZeroOrderHold zeroOrderHold(
-    samplePeriod=60)
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addLoc(
     p=dTLoc)
     "Add temperature difference for lockout"
@@ -137,6 +134,9 @@ block SideHot
     h=0.1)
     "Check if temperature is below cold rejection lockout"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
+        60) "Hold logical signal to avoid short cycling"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
   connect(mapFun.y,yAmb)
     annotation (Line(points={{122,60},{200,60}},color={0,0,127}));
@@ -174,12 +174,6 @@ equation
     annotation (Line(points={{-200,0},{-132,0}},color={0,0,127}));
   connect(addDea.y,conHeaRej.u_s)
     annotation (Line(points={{-108,0},{-92,0}},color={0,0,127}));
-  connect(greThr.y,booToRea.u)
-    annotation (Line(points={{62,0},{78,0}},color={255,0,255}));
-  connect(booToRea.y,zeroOrderHold.u)
-    annotation (Line(points={{102,0},{118,0}},color={0,0,127}));
-  connect(zeroOrderHold.y,yValIso)
-    annotation (Line(points={{141,0},{200,0}},color={0,0,127}));
   connect(TSet,addLoc.u)
     annotation (Line(points={{-200,0},{-140,0},{-140,40},{-132,40}},color={0,0,127}));
   connect(TTop,isBelLoc.u1)
@@ -187,16 +181,28 @@ equation
   connect(addLoc.y,isBelLoc.u2)
     annotation (Line(points={{-108,40},{-100,40},{-100,52},{-92,52}},color={0,0,127}));
   connect(uHeaCoo,mulAnd.u[1])
-    annotation (Line(points={{-200,100},{-56,100},{-56,-75.3333},{-42,-75.3333}},color={255,0,255}));
+    annotation (Line(points={{-200,100},{-56,100},{-56,-82.3333},{-42,-82.3333}},color={255,0,255}));
   connect(isValIsoConClo.y,mulAnd.u[2])
     annotation (Line(points={{-138,-80},{-42,-80}},color={255,0,255}));
   connect(isBelLoc.y,mulAnd.u[3])
-    annotation (Line(points={{-68,60},{-60,60},{-60,-84.6667},{-42,-84.6667}},color={255,0,255}));
+    annotation (Line(points={{-68,60},{-60,60},{-60,-77.6667},{-42,-77.6667}},color={255,0,255}));
+  connect(greThr.y, truFalHol.u)
+    annotation (Line(points={{62,0},{78,0}}, color={255,0,255}));
+  connect(truFalHol.y, booToRea.u)
+    annotation (Line(points={{102,0},{118,0}}, color={255,0,255}));
+  connect(booToRea.y, yValIso)
+    annotation (Line(points={{142,0},{200,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="conHot",
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 22, 2024, by Michael Wetter:<br/>
+Reduced number of time events through replacement of zero order hold with true and false hold.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.
