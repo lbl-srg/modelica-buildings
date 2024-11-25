@@ -117,7 +117,7 @@ equation
 
 annotation (
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
-  experiment(StartTime=350000, StopTime=1200000, Interval=60, Tolerance=1e-6),
+  experiment(StartTime=350000, StopTime=604800, Interval=60, Tolerance=1e-6),
   Documentation(info="<html>
 <p>
 This model validates the direct evaporative cooler model
