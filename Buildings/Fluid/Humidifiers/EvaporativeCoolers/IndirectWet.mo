@@ -72,6 +72,7 @@ model IndirectWet "Indirect wet evaporative cooler"
 
   Buildings.Fluid.MixingVolumes.MixingVolume volPri(
     redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final m_flow_nominal=m1_flow_nominal,
     final V=m1_flow_nominal*tau/rhoPri_default,
     nPorts=2)
