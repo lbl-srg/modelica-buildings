@@ -135,7 +135,7 @@ block SideHot
     "Check if temperature is below cold rejection lockout"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    trueHoldDuration=60) "Hold logical signal to avoid short cycling"
+    trueHoldDuration=300) "Hold logical signal to avoid short cycling"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre
@@ -205,7 +205,8 @@ equation
 <ul>
 <li>
 November 22, 2024, by Michael Wetter:<br/>
-Reduced number of time events through replacement of zero order hold with true and false hold.<br/>
+Reduced number of time events by replacing zero order hold with true and false hold,
+and increasing the minimum cycle time.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
 </li>
@@ -272,7 +273,7 @@ Control signal for the condenser loop isolation valve <code>yIsoAmb</code><br/>
 
 The valve is commanded to be fully open whenever the controller
 for heat rejection yields an output signal greater than zero.
-The command signal is held for 60s to avoid short cycling.
+The command signal is held for 5&nbsp;min to avoid short cycling.
 </li>
 </ul>
 </html>"),

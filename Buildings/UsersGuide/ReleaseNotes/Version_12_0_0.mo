@@ -263,8 +263,8 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
                        Buildings.DHC.ETS.Combined.Controls.SideHot
     </td>
-    <td valign=\"top\">Reduced number of time events through replacement of zero order hold
-                       with true and false hold in controllers.<br/>
+    <td valign=\"top\">Reduced number of time events by replacing zero order hold with true and false hold,
+                       and increasing the minimum cycle time.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4058</a>.
     </td>
 </tr>

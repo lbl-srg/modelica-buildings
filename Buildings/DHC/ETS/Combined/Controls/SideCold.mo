@@ -129,7 +129,7 @@ model SideCold
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
-    trueHoldDuration=60) "Hold logical signal to avoid short cycling"
+    trueHoldDuration=300) "Hold logical signal to avoid short cycling"
     annotation (Placement(transformation(origin = {40, 0}, extent = {{40, -110}, {60, -90}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre
@@ -201,7 +201,8 @@ equation
 <ul>
 <li>
 November 22, 2024, by Michael Wetter:<br/>
-Reduced number of time events through replacement of zero order hold with true and false hold.<br/>
+Reduced number of time events by replacing zero order hold with true and false hold,
+and increasing the minimum cycle time.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">#4058</a>.
 </li>
@@ -255,7 +256,7 @@ Control signal for the evaporator loop isolation valve <code>yIsoAmb</code><br/>
 
 The valve is commanded to be fully open whenever the cold rejection control signal
 is greater than zero.
-The command signal is held for 60s to avoid short cycling.
+The command signal is held for 5&nbsp;min to avoid short cycling.
 </li>
 </ul>
 </html>"),
