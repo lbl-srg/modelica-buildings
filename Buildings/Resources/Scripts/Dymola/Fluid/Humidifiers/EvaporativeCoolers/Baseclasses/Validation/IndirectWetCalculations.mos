@@ -1,0 +1,25 @@
+simulateModel("Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Validation.IndirectWetCalculations", method="CVode", tolerance=1e-06, stopTime=60, resultFile="IndirectWetCalculations");
+
+createPlot(id=1, position={0, 0, 1577, 950}, y={"indWetCal.TDryBulPriIn", "indWetCal.TWetBulPriIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1577, 186}, y={"indWetCal.TDryBulSecIn", "indWetCal.TWetBulSecIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 1577, 186}, y={"indWetCal.VPri_flow", "indWetCal.VSec_flow"}, range={0.0, 60.0, 0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1577, 186}, y={"indWetCal.eff"}, range={0.0, 60.0, 0.55, 0.65}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1577, 186}, y={"indWetCal.TDryBulPriOut"}, range={0.0, 60.0, 18.6, 19.2}, grid=true, subPlot=5, colors={{28,108,200}}, displayUnits={"degC"});
+
+createPlot(id=2, position={0, 0, 1577, 950}, y={"indWetCal1.TDryBulPriIn", "indWetCal1.TWetBulPriIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={0, 0, 1577, 186}, y={"indWetCal1.TDryBulSecIn", "indWetCal1.TWetBulSecIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={0, 0, 1577, 186}, y={"indWetCal1.VPri_flow", "indWetCal1.VSec_flow"}, range={0.0, 60.0, 0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 1577, 186}, y={"indWetCal1.eff"}, range={0.0, 60.0, 0.55, 0.65}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 1577, 186}, y={"indWetCal1.TDryBulPriOut"}, range={0.0, 60.0, 18.6, 19.2}, grid=true, subPlot=5, colors={{28,108,200}}, displayUnits={"degC"});
+
+createPlot(id=3, position={0, 0, 1577, 950}, y={"indWetCal2.TDryBulPriIn", "indWetCal2.TWetBulPriIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=3, position={0, 0, 1577, 186}, y={"indWetCal2.TDryBulSecIn", "indWetCal2.TWetBulSecIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=3, position={0, 0, 1577, 186}, y={"indWetCal2.VPri_flow", "indWetCal2.VSec_flow"}, range={0.0, 60.0, 0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={0, 0, 1577, 186}, y={"indWetCal2.eff"}, range={0.0, 60.0, 0.55, 0.65}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=3, position={0, 0, 1577, 186}, y={"indWetCal2.TDryBulPriOut"}, range={0.0, 60.0, 18.6, 19.2}, grid=true, subPlot=5, colors={{28,108,200}}, displayUnits={"degC"});
+
+createPlot(id=4, position={0, 0, 1577, 950}, y={"indWetCal3.TDryBulPriIn", "indWetCal3.TWetBulPriIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=4, position={0, 0, 1577, 186}, y={"indWetCal3.TDryBulSecIn", "indWetCal3.TWetBulSecIn"}, range={0.0, 60.0, 15.0, 25.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=4, position={0, 0, 1577, 186}, y={"indWetCal3.VPri_flow", "indWetCal3.VSec_flow"}, range={0.0, 60.0, 0.5, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={0, 0, 1577, 186}, y={"indWetCal3.eff"}, range={0.0, 60.0, 0.55, 0.65}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=4, position={0, 0, 1577, 186}, y={"indWetCal3.TDryBulPriOut"}, range={0.0, 60.0, 18.6, 19.2}, grid=true, subPlot=5, colors={{28,108,200}}, displayUnits={"degC"});
