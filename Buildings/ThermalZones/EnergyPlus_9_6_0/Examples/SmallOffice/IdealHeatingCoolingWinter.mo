@@ -73,14 +73,14 @@ equation
   connect(QCoo_flow.y,ECoo.u)
     annotation (Line(points={{-8,160},{-2,160}},color={0,0,127}));
   connect(QCoo_flow.u[1:5],coo.Q_flow)
-    annotation (Line(points={{-32,158.4},{-46,158.4},{-46,146},{-58,146}},color={0,0,127}));
+    annotation (Line(points={{-32,160.8},{-46,160.8},{-46,146},{-58,146}},color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SmallOffice/IdealHeatingCoolingWinter.mos" "Simulate and plot"),
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     Documentation(
       info="<html>
 <p>
@@ -90,6 +90,12 @@ but an ideal heating/cooling device that exactly meets the load.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 25, 2024, by Jianjun Hu:<br/>
+Changed tolerance to 1e-07.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
+</li>
 <li>
 March 4, 2021, by Michael Wetter:<br/>
 First implementation.<br/>
