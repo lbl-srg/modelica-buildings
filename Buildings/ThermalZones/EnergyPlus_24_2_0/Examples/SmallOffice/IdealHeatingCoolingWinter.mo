@@ -92,7 +92,7 @@ but an ideal heating/cooling device that exactly meets the load.
 <ul>
 <li>
 November 25, 2024, by Jianjun Hu:<br/>
-Changed tolerance to 1e-07.
+Changed tolerance to 1e-07.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
 </li>
