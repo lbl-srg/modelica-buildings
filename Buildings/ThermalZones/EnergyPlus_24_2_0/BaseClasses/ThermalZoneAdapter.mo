@@ -21,6 +21,12 @@ model ThermalZoneAdapter
     "Name of the IDF file that contains this zone";
   parameter String epwName
     "Name of the Energyplus weather file including the epw extension";
+  parameter String zoneName
+    "Name of the thermal zone as specified in the EnergyPlus input";
+  parameter String hvacZone
+    "Name of the HVAC system that this zone belongs to for auto-sizing"
+    annotation(Dialog(group="Auto-sizing"));
+
   parameter Boolean autosizeHVAC
     "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model"
     annotation(Dialog(group="Auto-sizing"));
@@ -29,15 +35,10 @@ model ThermalZoneAdapter
     annotation(Dialog(group="Auto-sizing"));
   parameter Real relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
+
   parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Data.RunPeriod runPeriod
       "EnergyPlus RunPeriod configuration"
     annotation (Dialog(tab="Run period"));
-
-  parameter String zoneName
-    "Name of the thermal zone as specified in the EnergyPlus input";
-  parameter String hvacZone
-    "Name of the HVAC system that this zone belongs to for auto-sizing"
-    annotation(Dialog(group="Auto-sizing"));
   parameter Boolean usePrecompiledFMU=false
     "Set to true to use pre-compiled FMU with name specified by fmuName"
     annotation (Dialog(tab="Debug"));
@@ -124,12 +125,12 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    epName=zoneName,
+    hvacZone=hvacZone,
     autosizeHVAC=autosizeHVAC,
     use_sizingPeriods=use_sizingPeriods,
     runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
-    epName=zoneName,
-    hvacZone=hvacZone,
     usePrecompiledFMU=usePrecompiledFMU,
     fmuName=fmuName,
     buildingsRootFileLocation=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.buildingsRootFileLocation,
@@ -202,14 +203,10 @@ protected
     output Real y;
 
   algorithm
-    y :=
-      if
-        (u > 0) then
-        floor(
-          u/accuracy+0.5)*accuracy
-      else
-        ceil(
-          u/accuracy-0.5)*accuracy;
+    y := if (u > 0) then
+           floor(u/accuracy+0.5)*accuracy
+         else
+           ceil(u/accuracy-0.5)*accuracy;
   end round;
 
 initial equation
@@ -247,7 +244,7 @@ initial equation
   yEP=Buildings.ThermalZones.EnergyPlus_24_2_0.BaseClasses.exchange(
     adapter=adapter,
     nY=nY,
-    u={ T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
+    u={T, X_w/(1.-X_w), mInlet_flow, TAveInlet, QGaiRadAve_flow, round(time,1E-3)},
     dummy=AFlo);
 
   TRad=yEP[1];

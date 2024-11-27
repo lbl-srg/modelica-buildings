@@ -4,16 +4,16 @@ block Change
   parameter Integer pre_u_start=0
     "Start value of pre(u) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+    "Integer to be monitored for a change in value"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output that is true when the input changes its value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput up
-    "Connector of Boolean output signal indicating input increase"
+    "Output that is true when the input increased its value"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput down
-    "Connector of Boolean output signal indicating input decrease"
+    "Output that is true when the input decreased its value"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 
 initial equation

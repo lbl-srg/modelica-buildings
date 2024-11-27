@@ -50,14 +50,10 @@ protected
     output Real y;
 
   algorithm
-    y :=
-      if
-        (u > 0) then
-        floor(
-          u/accuracy+0.5)*accuracy
-      else
-        ceil(
-          u/accuracy-0.5)*accuracy;
+    y := if (u > 0) then
+           floor(u/accuracy+0.5)*accuracy
+         else
+           ceil(u/accuracy-0.5)*accuracy;
   end round;
 
 initial equation

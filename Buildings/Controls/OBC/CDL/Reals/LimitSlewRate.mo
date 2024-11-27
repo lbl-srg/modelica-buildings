@@ -27,11 +27,9 @@ protected
     "Approximation to derivative between input and output";
 
 initial equation
-  assert(
-    raisingSlewRate > 0,
+  assert(raisingSlewRate > 0,
     "raisingSlewRate must be larger than zero.");
-  assert(
-    fallingSlewRate < 0,
+  assert(fallingSlewRate < 0,
     "fallingSlewRate must be less than zero.");
 
   y=u;

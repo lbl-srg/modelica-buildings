@@ -17,7 +17,7 @@ block TimerAccumulating
     "Elapsed time"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput passed
-    "True if the elapsed time is greater than threshold"
+    "Output with true if the elapsed time is greater than threshold"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected

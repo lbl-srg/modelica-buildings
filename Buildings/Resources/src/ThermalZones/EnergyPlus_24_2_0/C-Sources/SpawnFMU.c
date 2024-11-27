@@ -142,9 +142,18 @@ size_t AllocateBuildingDataStructure(
     SpawnFormatError);
   strcpy(Buildings_FMUS[nFMU]->weather, epwName);
 
+<<<<<<< HEAD
   /* Set flag for autosizing HVAC */
   Buildings_FMUS[nFMU]->autosizeHVAC = autosizeHVAC;
   Buildings_FMUS[nFMU]->use_sizingPeriods = use_sizingPeriods;
+=======
+  /* Assign the RunPeriod object */
+  Buildings_FMUS[nFMU]->runPer = malloc(sizeof(runPeriod));
+  if ( Buildings_FMUS[nFMU]->runPer == NULL )
+    SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU[nFMU]->runPer.");
+  memcpy(Buildings_FMUS[nFMU]->runPer, runPer, sizeof(runPeriod));
+
+>>>>>>> master
   /* Set relative surface tolerance */
   Buildings_FMUS[nFMU]->relativeSurfaceTolerance = relativeSurfaceTolerance;
   /* Set the model hash to null */
@@ -327,6 +336,11 @@ void FMUBuildingFree(FMUBuilding* bui){
       free(bui->idfName);
     if (bui->weather != NULL)
       free(bui->weather);
+<<<<<<< HEAD
+=======
+    if (bui->runPer != NULL)
+      free(bui->runPer);
+>>>>>>> master
     if (bui->exchange != NULL)
       free(bui->exchange);
     if (bui->tmpDir != NULL)

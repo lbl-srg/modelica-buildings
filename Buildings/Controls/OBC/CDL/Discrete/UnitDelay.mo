@@ -9,10 +9,10 @@ block UnitDelay
   parameter Real y_start=0
     "Initial value of output signal";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Continuous input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Continuous output signal"
+    "Input signal at the previous sample instant"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

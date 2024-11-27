@@ -105,13 +105,13 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final zoneName=zoneName,
+    final hvacZone=hvacZone,
     final autosizeHVAC=autosizeHVAC,
     final use_sizingPeriods=use_sizingPeriods,
     final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
-    final zoneName=zoneName,
-    final hvacZone=hvacZone,
     final nFluPor=nPorts,
     final usePrecompiledFMU=usePrecompiledFMU,
     final fmuName=fmuName,
@@ -180,8 +180,7 @@ protected
         3.82E-8*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
       else
         0 for i in 1:Medium.nC},
-    u1(
-      each final unit="W")) if use_C_flow
+    u1(each final unit="W")) if use_C_flow
     "Total trace substance flow rate"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo[nPorts](

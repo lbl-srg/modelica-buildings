@@ -20,6 +20,10 @@ class SpawnExternalObject
       "Name of the IDF";
     input String epwName
       "Name of the weather file";
+    input String epName
+      "Name of the object in EnergyPlus";
+    input String hvacZone
+      "Name of the HVAC zone to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
     input Boolean autosizeHVAC
       "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
     input Boolean use_sizingPeriods
@@ -28,10 +32,6 @@ class SpawnExternalObject
       "EnergyPlus RunPeriod configuration";
     input Real relativeSurfaceTolerance
       "Relative tolerance of surface temperature calculations";
-    input String epName
-      "Name of the object in EnergyPlus";
-    input String hvacZone
-      "Name of the HVAC zone to which the thermal zone belongs to, or n/a for other objects. Used for autosizing";
     input Boolean usePrecompiledFMU
       "Set to true to use precompiled FMU with name specified by input fmuName";
     input String fmuName
@@ -80,6 +80,8 @@ class SpawnExternalObject
     idfVersion,
     idfName,
     epwName,
+    epName,
+    hvacZone,
     autosizeHVAC,
     use_sizingPeriods,
     runPeriod.startDayOfYear,
@@ -89,8 +91,6 @@ class SpawnExternalObject
     runPeriod.use_weatherFileRainIndicators,
     runPeriod.use_weatherFileSnowIndicators,
     relativeSurfaceTolerance,
-    epName,
-    hvacZone,
     usePrecompiledFMU,
     fmuName,
     buildingsRootFileLocation,
@@ -131,11 +131,11 @@ will be used to store the data structure needed to communicate with EnergyPlus.
 </html>",
         revisions="<html>
 <ul>
-  <li>
-  April 21, 2022, by Michael Wetter:<br/>
-  Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
-  This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
-  </li>
+<li>
+April 21, 2022, by Michael Wetter:<br/>
+Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
+</li>
 <li>
 December 11, 2021, by Michael Wetter:<br/>
 Declared function as <code>impure</code> for MSL 4.0.0.

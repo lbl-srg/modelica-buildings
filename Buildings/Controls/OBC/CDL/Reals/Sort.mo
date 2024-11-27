@@ -3,24 +3,22 @@ block Sort
   "Sort elements of input vector in ascending or descending order"
   parameter Integer nin(
     final min=0)=0
-    "Number of input connections"
+    "Number of input signals"
     annotation (Dialog(connectorSizing=true),HideResult=true);
   parameter Boolean ascending=true
     "Set to true if ascending order, otherwise order is descending";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+    "Input to be sorted"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nin]
-    "Connector of Real output signals"
+    "Output with sorted input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIdx[nin]
     "Indices of the sorted vector with respect to the original vector"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 equation
-  (y, yIdx)=Modelica.Math.Vectors.sort(
-    u,
-    ascending=ascending);
+  (y, yIdx)=Modelica.Math.Vectors.sort(u, ascending=ascending);
 
   annotation (
     defaultComponentName="sort",

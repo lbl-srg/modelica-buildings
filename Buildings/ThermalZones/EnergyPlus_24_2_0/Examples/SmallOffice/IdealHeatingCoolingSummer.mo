@@ -8,7 +8,7 @@ model IdealHeatingCoolingSummer
     experiment(
       StartTime=16848000,
       StopTime=17280000,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},
@@ -24,6 +24,12 @@ but configured for simulation of a few days in summer.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 25, 2024, by Jianjun Hu:<br/>
+Changed tolerance to 1e-07.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4063\">issue #4063</a>.
+</li>
 <li>
 March 5, 2021, by Michael Wetter:<br/>
 First implementation.

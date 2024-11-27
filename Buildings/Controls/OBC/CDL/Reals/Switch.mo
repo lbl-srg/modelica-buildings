@@ -2,16 +2,16 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Switch
   "Switch between two Real signals"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Real input signal"
+    "Input u1"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u3
-    "Real input signal"
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Real output signal"
+    "Output with u1 if u2 is true, else u3"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

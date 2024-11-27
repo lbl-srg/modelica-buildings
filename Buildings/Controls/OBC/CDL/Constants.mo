@@ -6,8 +6,7 @@ package Constants
     "Biggest number such that 1.0 + eps = 1.0";
   final constant Real small=1E-37
     "Smallest number such that small and -small are representable on the machine";
-  final constant Real pi=2*Modelica.Math.asin(
-    1.0)
+  final constant Real pi=2*Modelica.Math.asin(1.0)
     "Constant number pi, 3.14159265358979";
   annotation (
     Documentation(

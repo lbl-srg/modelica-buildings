@@ -256,6 +256,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot
+    </td>
+    <td valign=\"top\">Reduced number of time events by replacing zero order hold with true and false hold,
+                       and increasing the minimum cycle time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4058</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -427,6 +440,16 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Added load limit depending on operating mode.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Templates</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.TimerWithReset
+    </td>
+    <td valign=\"top\">Refactored to ensure <code>passed=u</code> if <code>t=0</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
