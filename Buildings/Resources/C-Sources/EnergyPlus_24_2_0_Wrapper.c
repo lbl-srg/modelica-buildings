@@ -97,7 +97,6 @@ void* allocate_Modelica_EnergyPlus_24_2_0(
       use_sizingPeriods,
       &runPer,
       relativeSurfaceTolerance,
-      epName,
       usePrecompiledFMU,
       fmuName,
       buildingsRootFileLocation,
