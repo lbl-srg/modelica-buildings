@@ -2,7 +2,10 @@ within Buildings.Occupants.BaseClasses.Validation;
 model Linear1D "Test model for 1D binary variable generation function"
   extends Modelica.Icons.Example;
 
-  parameter Integer seed = 5 "Seed for the random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Real A = 0.9 "Parameter A";
   parameter Real B = 0 "Parameter B";
   Real x "Time-varying real number as input";
@@ -10,12 +13,16 @@ model Linear1D "Test model for 1D binary variable generation function"
 protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
 
 initial equation
   y = 0;
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+
 
 equation
   x = time;

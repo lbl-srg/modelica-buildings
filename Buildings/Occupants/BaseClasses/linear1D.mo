@@ -5,11 +5,14 @@ function linear1D "Mapping a continuous input to a binary output through a linea
   input Real x "Continuous variable";
   input Real A=1 "Slope of the linear function";
   input Real B=0 "Intercept of the linear function";
-  input Integer globalSeed "Seed for the random number generator";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
   output Boolean y "Binary variable";
-
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 algorithm
-  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(max(0, min(1, A*x+B)), globalSeed);
+  (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+    max(0, min(1, A*x+B)), stateIn);
 annotation (
 Documentation(info="<html>
 <p>

@@ -2,15 +2,15 @@ within Buildings.Occupants.BaseClasses;
 function binaryVariableGeneration "Binary variables random generator"
   extends Modelica.Icons.Function;
   input Real p(min=0, max=1) "Probaility of 1";
-  input Integer globalSeed "Seed for the random number generator";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
   output Boolean y "Random number";
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 protected
-  Integer localSeed = 0 "Local seed";
-  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
   Real r(min=0, max=1) "Generated random number";
 algorithm
-  state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
-  (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
+  (r, stateOut) := Modelica.Math.Random.Generators.Xorshift1024star.random(stateIn);
   y := r < p;
 
   annotation (

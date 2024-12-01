@@ -4,7 +4,10 @@ model Rijal2007WindowsTInTOutTComf "A model to predict occupants' window behavio
   parameter Real AIn = 0.171 "Slope of the indoor temperature in the logistic relation";
   parameter Real AOut = 0.166 "Slope of the outdoor temperature in the logistic relation";
   parameter Real B = -6.4 "Intercept of the logistic relation";
-  parameter Integer seed = 3 "Seed for the random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
@@ -37,23 +40,29 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
   on = false;
+  ran = 0.5;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if occ then
       if TIn > TComf+2 then
         if not pre(on) then
           p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+          on = ran < p;
         else
           p = -0.3;
           on = true;
@@ -61,7 +70,7 @@ equation
       elseif TIn < TComf-2 then
         if pre(on) then
           p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+          on = ran < p;
         else
           p = -0.5;
           on = false;

@@ -4,7 +4,10 @@ model Haldi2008BlindsTIn
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A(final unit="1/K") = 0.425 "Slope of indoor temperature";
   parameter Real B(final unit="1") = -11.37 "Intercept";
-  parameter Integer seed = 20 "Seed for the random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
@@ -30,21 +33,27 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  Boolean ran "Random number";
 
 initial equation
   t0 = time;
   blindState = 0;
   pDown = 0;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+  ran = false;
+
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pre(pDown), stateIn=pre(state));
     if occ then
       pDown = 1-Modelica.Math.exp(A*(TIn-273.15)+B)/(Modelica.Math.exp(A*(TIn-273.15)+B)+1);
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown, globalSeed=integer(curSeed)) then
+      if ran then
         blindState = 0;
       else
         blindState = 1;

@@ -7,13 +7,16 @@ function logit2D "Mapping two continuous inputs to a binary output through a 2-d
   input Real A=1.0 "Parameter defining the 2D logistic relation: mutiplier for the first input";
   input Real B=1.0 "Parameter defining the 2D logistic relation: mutiplier for the second input";
   input Real C=1.0 "Parameter defining the 2D logistic relation: intercept";
-  input Integer globalSeed "Seed for the random number generator";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
   output Boolean y "Binary variable";
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 
 algorithm
-  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+  (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
     Modelica.Math.exp(A*x1+B*x2+C)/(Modelica.Math.exp(A*x1+B*x2+C)+1),
-    globalSeed);
+    stateIn);
 annotation (
 Documentation(info="<html>
 <p>

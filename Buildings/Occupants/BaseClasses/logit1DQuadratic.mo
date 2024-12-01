@@ -7,13 +7,16 @@ function logit1DQuadratic "Mapping a continuous input to a binary output through
   input Real B=1.0 "Parameter defining the quadratic logistic relation";
   input Real C=1.0 "Parameter defining the quadratic logistic relation";
   input Real D=1.0 "Parameter defining the quadratic logistic relation";
-  input Integer globalSeed "Seed for the random number generator";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
   output Boolean y "Binary variable";
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 
 algorithm
-  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+  (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
    A + C/(1+ Modelica.Math.exp(-B*(Modelica.Math.log10(x)-D))),
-   globalSeed);
+   stateIn);
 annotation (
 Documentation(info="<html>
 <p>

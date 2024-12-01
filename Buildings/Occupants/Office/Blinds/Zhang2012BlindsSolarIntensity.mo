@@ -6,7 +6,10 @@ model Zhang2012BlindsSolarIntensity
     parameter Real ADown = 0.002 "Slope of solar intensity for blinds down";
     parameter Real BUp = -3.33 "Intercept for blinds up";
     parameter Real BDown = -3.17 "Intercept for blinds down";
-    parameter Integer seed = 10 "Seed for the random number generator";
+    parameter Integer localSeed = 14
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
     Modelica.Blocks.Interfaces.RealInput H(
@@ -36,30 +39,38 @@ protected
     "First sample time instant";
     output Boolean sampleTrigger "True, if sample time instant";
     Boolean isOpen "Blind state as a boolean";
-    Real curSeed "Current value for seed as a real-valued variable";
+    Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
+
 initial equation
     t0 = time;
-    curSeed = t0*seed;
+    state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+
 
     isOpen = false "Initial state of blinds is deployed";
     blindState = if isOpen then 0.0 else 1.0;
 
     pUp = 0;
     pDown = 0;
+    
+    ran = 0.5;
 
 equation
     sampleTrigger = sample(t0,samplePeriod);
     when sampleTrigger then
-      curSeed = seed*time;
+      (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
       if occ then
         if pre(isOpen) == false then
           pUp = 0;
           pDown = Modelica.Math.exp(ADown*H+BDown)/(Modelica.Math.exp(ADown*H+BDown)+1);
-          isOpen = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown,globalSeed=integer(curSeed));
+          isOpen = ran < pDown;
         else
           pUp = Modelica.Math.exp(AUp*H+BUp)/(Modelica.Math.exp(AUp*H+BUp)+1);
           pDown = 0;
-          isOpen = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pUp,globalSeed=integer(curSeed));
+          isOpen = ran >= pUp;
         end if;
       else
         pUp = 0;
@@ -91,9 +102,9 @@ the chance that the blind is up.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012.
+The model is documented in hang, Y. and Barrett, P., 2012.
 Factors influencing occupants’ blind-control behaviour in a naturally
-ventilated office building. Building and Environment, 54, pp.137-147.&quot;
+ventilated office building. Building and Environment, 54, pp.137-147.
 </p>
 <p>
 The model parameters are regressed from the field study in an office building

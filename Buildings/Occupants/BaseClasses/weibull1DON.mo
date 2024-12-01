@@ -7,13 +7,16 @@ function weibull1DON "Mapping a continuous input to a binary output through a We
     input Real L=1.0 "Parameter defining the Weibull distribution normalization factor";
     input Real k=1.0 "Parameter defining the Weibull distribution shape factor";
     input Real dt=60 "Time step length";
-    input Integer globalSeed "Seed for the random number generator";
+    input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+      "State of the random number generator";
     output Boolean y "Binary variable 0/1";
+    output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+      "New state of the random number generator";
 
 algorithm
-    y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+    (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
       p = if x >= u then 1- Modelica.Math.exp(-((x-u)/L)^k*dt) else 0,
-      globalSeed = globalSeed);
+      stateIn = stateIn);
 annotation (
 Documentation(info="<html>
 <p>

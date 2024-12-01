@@ -9,7 +9,10 @@ model Ren2014ACBedroom
   parameter Real k1 = 1.73 "Shape factor for turning off the AC of the Weibull Distribution";
   parameter Real k2 = 1.80 "Shape factor for turning on the AC of the Weibull Distribution";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
-  parameter Integer seed = 10 "Seed for random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",
@@ -36,41 +39,50 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  Boolean off
+    "State of the heater (used as random number has two return arguments, and hence negation in the call is not possible";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+
   on = false "The initial state of AC is off";
+  off = true;
   pOn = 0;
   pOff = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
     pOff = if TIn <= u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pOn = if TIn >= u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
     if occ then
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(
+        (off, state) = Buildings.Occupants.BaseClasses.weibull1DOFF(
           x=TIn,
           u=u1,
           L=L1,
           k=k1,
           dt=samplePeriod,
-          globalSeed=integer(curSeed));
+          stateIn=pre(state));
+        on = not off;
       else
-        on = Buildings.Occupants.BaseClasses.weibull1DON(
+        (on, state) = Buildings.Occupants.BaseClasses.weibull1DON(
           x=TIn,
           u=u2,
           L=L2,
           k=k2,
           dt=samplePeriod,
-          globalSeed=integer(curSeed));
+          stateIn=pre(state));
+        off = not on;
       end if;
     else
-      on = false;
+      (on, state) = (false, pre(state));
+      off = true;
     end if;
   end when;
 

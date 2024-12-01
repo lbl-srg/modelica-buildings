@@ -5,7 +5,10 @@ model Yun2008WindowsTOut "A model to predict occupants' window behavior with out
   parameter Real BOpen = -0.115 "Intercept of the logistic relation for opening the window";
   parameter Real AClose = 0 "Slope of the logistic relation for closing the window";
   parameter Real BClose = -0.040 "Intercept of the logistic relation for closing the window";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -31,25 +34,32 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
+
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed, 
+    globalSeed = globalSeed);
+
   on = false;
   pOpen = Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen) + 1);
   pClose = Modelica.Math.exp(AClose*(TOut - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TOut - 273.15)+BClose) + 1);
+  ran = 0.5;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if occ then
       pOpen = Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TOut - 273.15)+BOpen) + 1);
       pClose = Modelica.Math.exp(AClose*(TOut - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TOut - 273.15)+BClose) + 1);
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(curSeed));
+        on = not ran < pClose;
       elseif pre(on) == false and TOut > 288.15 then
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(curSeed));
+        on = ran < pOpen;
       else
         on = pre(on);
       end if;

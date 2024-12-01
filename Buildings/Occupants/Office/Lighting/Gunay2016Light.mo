@@ -5,7 +5,10 @@ model Gunay2016Light "A model to predict occupants' lighting behavior with illum
   parameter Real BArriv = 1.6 "Intercept of logistic regression arrival";
   parameter Real AInter = -0.002 "Slope of logistic regression intermediate";
   parameter Real BInter = -3.9 "Intercept of logistic regression intermediate";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer localSeed = 10
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput ill
@@ -31,23 +34,29 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed,
+    globalSeed = globalSeed);
+
   on = false;
+  ran = 0.5;
 
 equation
   pArriv = Modelica.Math.exp(AArriv*ill + BArriv)/(1+Modelica.Math.exp(AArriv*ill + BArriv));
   pInter = Modelica.Math.exp(AInter*ill + BInter)/(1+Modelica.Math.exp(AInter*ill + BInter));
   sampleTrigger = sample(t0,samplePeriod);
   when {occ, sampleTrigger} then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if sampleTrigger then
       if occ then
         if not pre(on) then
-          on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pInter, globalSeed=integer(curSeed));
+          on = ran < pInter;
         else
           on = true;
         end if;
@@ -55,7 +64,7 @@ equation
         on = false;
       end if;
     else
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pArriv, globalSeed=integer(curSeed));
+      on = ran < pArriv;
     end if;
   end when;
 
