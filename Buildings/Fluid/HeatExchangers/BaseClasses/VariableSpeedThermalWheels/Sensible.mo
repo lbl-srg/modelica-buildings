@@ -28,16 +28,21 @@ model Sensible "Sensible heat wheels"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
     iconTransformation(extent={{100,-20},{140,20}})));
 
+protected
+  parameter Integer nSpe = size(yeta,1)
+    "Number of the points in the power efficiency curve";
+  parameter Real s = max(xSpe[i]/yeta[i] for i in 1:size(yeta,1)-1)
+    "Maximum ratio of x-axis to y-axis in the power efficiency curve";
+
+
 initial equation
-  for i in 1:size(yeta,1)-1 loop
-         assert(xSpe[i]/yeta[i] < 1 + 1E-4,
-                  "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
-                  The ratio of the speed ratio to the motor percent 
-                  full-load efficiency should be less than 1",
-                  level=AssertionLevel.error)
-                  "Check if the motor efficiency curve is correct";
-  end for;
-  assert(abs(yeta[size(yeta,1)]-1) < 1E-4,
+  assert(s < 1 + 1E-4,
+         "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
+         The ratio of the speed ratio to the motor percent 
+         full-load efficiency should be less than 1",
+         level=AssertionLevel.error)
+         "Check if the motor efficiency curve is correct";
+  assert(abs(yeta[nSpe]-1) < 1E-4,
           "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
           The motor percent full-load efficiency at the full seepd should be 1",
           level=AssertionLevel.error)
