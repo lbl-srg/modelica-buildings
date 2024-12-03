@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
 model Latent "Enthalpy wheels"
-  extends Sensible;
+  extends Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
     final unit="1")
     "Latent heat exchanger effectiveness correction" annotation (Placement(
@@ -28,8 +28,8 @@ heat exchange effectiveness correction is elaborated in
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 <p>
-The latent heat exchange effectiveness correction is calculated based 
-on the cubic hermite spline interpolation of the latent heat exchange 
+The latent heat exchange effectiveness correction is calculated with 
+the cubic hermite spline interpolation of the latent heat exchange 
 effectiveness dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.heatExchangerEffectivenessParameters\">
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.heatExchangerEffectivenessParameters</a>).

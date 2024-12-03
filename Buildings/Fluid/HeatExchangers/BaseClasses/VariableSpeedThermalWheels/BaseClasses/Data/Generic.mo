@@ -6,17 +6,17 @@ record Generic "Generic data record for variable-speed wheels"
     "Power consumption at the design condition";
   parameter cha.heatExchangerEffectivenessParameters
     senHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
-    "Sensible heat exchange effectiveness vs. wheel speed ratio"
+    "Sensible heat exchange effectiveness versus wheel speed ratio"
     annotation (Dialog(group="Heat exchange effectiveness computation"));
   parameter cha.heatExchangerEffectivenessParameters
     latHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
-    "Latent heat exchange effectiveness vs. wheel speed ratio" annotation (
+    "Latent heat exchange effectiveness versus wheel speed ratio" annotation (
       Dialog(group="Heat exchange effectiveness computation", enable=
           haveLatentHeatExchange));
   parameter
     cha.motorEfficiencyParameters
     motorEfficiency(uSpe={0}, eta={0.7})
-    "Motor efficiency vs. wheel speed ratio"
+    "Motor efficiency versus wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       false));
   final parameter
@@ -25,7 +25,7 @@ record Generic "Generic data record for variable-speed wheels"
     Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
          P_nominal=P_nominal,
          eta_max=1)
-    "Motor efficiency vs. default wheel speed ratio"
+    "Motor efficiency versus default wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       true));
   parameter Boolean haveLatentHeatExchange = true
@@ -70,7 +70,7 @@ corrections versus wheel speed ratio,
 </li>
 <li>
 the latent heat exchange effectiveness
-corrections versus wheel speed ratio .
+corrections versus wheel speed ratio.
 </li>
 </ul>
 <p>
@@ -78,9 +78,9 @@ Note that
 </p>
 <ul>
 <li>
-When <code>haveLatentHeatExchange</code> is false,
+When <code>haveLatentHeatExchange</code> is true,
 the dataset of the latent heat exchange effectiveness
-corrections versus wheel speed ratio is disabled,
+corrections versus wheel speed ratio is enabled,
 </li>
 <li>
 When <code>useDefaultMotorEfficiencyCurve</code> is true,
