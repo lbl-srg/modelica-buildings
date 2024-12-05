@@ -2,7 +2,7 @@ within Buildings.Templates.Components.Interfaces;
 partial model PartialValve "Interface class for valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal)
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
 
   parameter Buildings.Templates.Components.Types.Valve typ
     "Equipment type"
@@ -11,7 +11,7 @@ partial model PartialValve "Interface class for valve"
   parameter Buildings.Templates.Components.Data.Valve dat(final typ=typ)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})),
-    __ctrl_flow(enable=false));
+    __ctrlFlow(enable=false));
 
   final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.dpValve_nominal
@@ -47,14 +47,14 @@ partial model PartialValve "Interface class for valve"
       enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and (
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating or
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition)),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations",
       enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating or
       typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
