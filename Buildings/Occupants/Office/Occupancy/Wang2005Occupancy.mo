@@ -18,28 +18,26 @@ model Wang2005Occupancy
 
 protected
   discrete Real mu;
-  discrete Real tNext(start=0, fixed=true);
-  discrete Real hold_time;
-  Real r(min=0, max=1) "Generated random number";
+  discrete Modelica.Units.SI.Time tNext;
+  discrete Modelica.Units.SI.Time hold_time;
+  discrete Real r(min=0, max=1) "Generated random number";
   Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
     "State of the random number generator";
 
 initial equation
-  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
-
-algorithm
-  when initial() then
-    (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
-    occ := false;
-    mu := if occ then one_mu else zero_mu;
-    hold_time := -mu*Modelica.Math.log(1 - r);
-    tNext := time + hold_time;
-   elsewhen time >= pre(tNext) then
-    (r, state) :=Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
-    occ := not pre(occ);
-    mu := if occ then one_mu else zero_mu;
-    hold_time := -mu*Modelica.Math.log(1 - r);
-    tNext := time + hold_time;
+  (r, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
+    Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed));
+  mu = zero_mu;
+  hold_time = -mu*Modelica.Math.log(1 - r);
+  // Use max of 1 second to avoid cornercase of very tiny sampling
+  tNext = time + max(1, hold_time);
+equation
+  when time >= pre(tNext) then
+    (r, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
+    occ = not pre(occ);
+    mu = if occ then one_mu else zero_mu;
+    hold_time = -mu*Modelica.Math.log(1 - r);
+    tNext = pre(tNext) + max(1, hold_time);
   end when;
 
   annotation (Icon(graphics={
