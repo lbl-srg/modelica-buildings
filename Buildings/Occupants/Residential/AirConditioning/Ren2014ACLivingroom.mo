@@ -50,7 +50,7 @@ protected
 initial equation
   t0 = time;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
 
   on = false "The initial state of AC is off";
@@ -63,7 +63,7 @@ equation
   when sampleTrigger then
     pOff = if TIn <= u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pOn = if TIn >= u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
-    
+
     // Call only weibull1DOff, but swap arguments if pre(on) == false, which effectively
     // renders a call to weibull1DON.
     // This is done to have only one state for the random number generator.
@@ -74,7 +74,7 @@ equation
       k=if pre(on) then k1 else k2,
       dt=samplePeriod,
       stateIn=pre(state));
-    
+
     if occ then
       if pre(on) then
         on = not dummy;

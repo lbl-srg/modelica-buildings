@@ -47,7 +47,7 @@ protected
 initial equation
   t0 = time;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
 
   p = Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B)/(Modelica.Math.exp(AIn*(TIn - 273.15)+AOut*(TOut - 273.15)+B) + 1);
@@ -96,12 +96,12 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the indoor, outdoor and comfort temperature 
+Model predicting the state of the window with the indoor, outdoor and comfort temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
+When the space is unoccupied, the window is always closed. When the
 space is occupied, the window state is determined by the indoor, outdoor
 and comfort temperature.
 </p>
@@ -110,30 +110,30 @@ When the indoor temperature is within the comfort temperature plus and minus
 2 degC, the window state will not be changed.
 </p>
 <p>
-When the indoor temperature is above the comfort temperature plus 2 degC, 
+When the indoor temperature is above the comfort temperature plus 2 degC,
 if the window is open, it would be kept open; if the window is closed, it might
-be opened, the probability to open the window is determined by the indoor and 
+be opened, the probability to open the window is determined by the indoor and
 outdoor temperature.
 </p>
 <p>
-When the indoor temperature is below the comfort temperature minus 2 degC, 
+When the indoor temperature is below the comfort temperature minus 2 degC,
 if the window is closed, it would be kept closed; if the window is open, it might
-be closed, the probability to close the window is determined by the indoor and 
+be closed, the probability to close the window is determined by the indoor and
 outdoor temperature.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Rijal, H.B., Tuohy, P., Humphreys, 
-M.A., Nicol, J.F., Samuel, A. and Clarke, J., 2007. Using results from field 
-surveys to predict the effect of open windows on thermal comfort and energy 
+The model is documented in the paper &quot;Rijal, H.B., Tuohy, P., Humphreys,
+M.A., Nicol, J.F., Samuel, A. and Clarke, J., 2007. Using results from field
+surveys to predict the effect of open windows on thermal comfort and energy
 use in buildings. Energy and buildings, 39(7), pp.823-836.&quot;
 </p>
 <p>
-The model parameters are regressed from the field study conducted in 15 office 
-buildings in UK between March 1996 and September 1997. Nine of the buildings 
-were in the Oxford area in the central south of England (seven naturally 
-ventilated (NV) and two air conditioned (AC)). Six of the buildings were in 
-Aberdeen on the north-east coast of Scotland (three NV and three AC). 
+The model parameters are regressed from the field study conducted in 15 office
+buildings in UK between March 1996 and September 1997. Nine of the buildings
+were in the Oxford area in the central south of England (seven naturally
+ventilated (NV) and two air conditioned (AC)). Six of the buildings were in
+Aberdeen on the north-east coast of Scotland (three NV and three AC).
 </p>
 </html>",
 revisions="<html>

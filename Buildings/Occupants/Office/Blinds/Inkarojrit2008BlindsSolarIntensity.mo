@@ -43,7 +43,7 @@ protected
 initial equation
     t0 = time;
     state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
 
     blindState = 0;

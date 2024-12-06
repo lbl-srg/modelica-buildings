@@ -42,7 +42,7 @@ initial equation
   blindState = 0;
   pDown = 0;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
   ran = false;
 

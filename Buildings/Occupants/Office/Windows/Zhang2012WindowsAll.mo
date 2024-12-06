@@ -38,7 +38,7 @@ initial equation
 
   (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
     stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-      localSeed = localSeed, 
+      localSeed = localSeed,
       globalSeed = globalSeed));
   on = ran < p;
 
@@ -66,23 +66,23 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the outdoor air temperature 
+Model predicting the state of the window with the outdoor air temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the lower the outdoor temperature is, the lower 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the lower the outdoor temperature is, the lower
 the chance to open the window.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012. 
-Factors influencing the occupants’ window opening behaviour in a naturally 
+The model is documented in the paper &quot;Zhang, Y. and Barrett, P., 2012.
+Factors influencing the occupants’ window opening behaviour in a naturally
 ventilated office building. Building and Environment, 50, pp.125-134.&quot;
 </p>
 <p>
-The model parameters are regressed from the field study in a naturally 
+The model parameters are regressed from the field study in a naturally
 ventilated office building in Sheffield, UK in 2005/2006. The outdoor air
 temperature range during the study is 0 ~ 30 degC.
 </p>

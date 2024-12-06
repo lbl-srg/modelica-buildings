@@ -39,7 +39,7 @@ initial equation
 
   (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
     stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-      localSeed = localSeed, 
+      localSeed = localSeed,
       globalSeed = globalSeed));
   on = ran < p;
 

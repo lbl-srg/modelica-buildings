@@ -37,7 +37,7 @@ initial equation
   p = Modelica.Math.exp(A*(TIn - 273.15)+B)/(Modelica.Math.exp(A*(TIn - 273.15)+B) + 1);
   (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
     stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-      localSeed = localSeed, 
+      localSeed = localSeed,
       globalSeed = globalSeed));
   on = ran < p;
 
@@ -65,23 +65,23 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the indoor air temperature 
+Model predicting the state of the window with the indoor air temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the lower the indoor temperature is, the lower 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the lower the indoor temperature is, the lower
 the chance to open the window.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008. 
-On the behaviour and adaptation of office occupants. Building and environment, 
+The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008.
+On the behaviour and adaptation of office occupants. Building and environment,
 43(12), pp.2163-2177.&quot;
 </p>
 <p>
-The model parameters are regressed from the field study in eight Swiss office 
+The model parameters are regressed from the field study in eight Swiss office
 buildings in 2006. The indoor air temperature range during the study is 5 ~ 35 degC.
 </p>
 </html>",

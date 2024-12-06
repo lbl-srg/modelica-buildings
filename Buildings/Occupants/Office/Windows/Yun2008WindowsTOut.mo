@@ -41,7 +41,7 @@ protected
 initial equation
   t0 = time;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
 
   on = false;
@@ -81,24 +81,24 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the outdoor air temperature 
+Model predicting the state of the window with the outdoor air temperature
 and occupancy through Markov approach.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the Probability of closing or opening the window 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the Probability of closing or opening the window
 depends on the outdoor air temperature.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Yun, G.Y. and Steemers, K., 
-2008. Time-dependent occupant behaviour models of window control in 
+The model is documented in the paper &quot;Yun, G.Y. and Steemers, K.,
+2008. Time-dependent occupant behaviour models of window control in
 summer. Building and Environment, 43(9), pp.1471-1482.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in offices without
-night ventilation, located in Cambridge, UK in summer time (13 Jun. to 15 
+night ventilation, located in Cambridge, UK in summer time (13 Jun. to 15
 Sep., 2006).
 </p>
 </html>",

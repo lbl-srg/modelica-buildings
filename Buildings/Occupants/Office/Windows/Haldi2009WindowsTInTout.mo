@@ -48,7 +48,7 @@ protected
 initial equation
   t0 = time;
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed, 
+    localSeed = localSeed,
     globalSeed = globalSeed);
 
   on = false;
@@ -87,26 +87,26 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the indoor, outdoor air temperature 
+Model predicting the state of the window with the indoor, outdoor air temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, Markov method was utilized to determine the state 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, Markov method was utilized to determine the state
 of the window. The probability of opening and closing the window
 depends on both the indoor and outdoor temperature.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Haldi, F. and Robinson, D., 
-2009. Interactions with window openings by office occupants. Building 
+The model is documented in the paper &quot;Haldi, F. and Robinson, D.,
+2009. Interactions with window openings by office occupants. Building
 and Environment, 44(12), pp.2378-2395.&quot;
 </p>
 <p>
-The model parameters are regressed from the field study in the Solar 
-Energy and Building Physics Laboratory (LESO-PB) experimental building, 
-located in the suburb of Lausanne, Switzerland for a period covering 
+The model parameters are regressed from the field study in the Solar
+Energy and Building Physics Laboratory (LESO-PB) experimental building,
+located in the suburb of Lausanne, Switzerland for a period covering
 19 December 2001–15 November 2008.
 </p>
 </html>",

@@ -1,5 +1,5 @@
 within Buildings.Occupants.Office.Windows;
-model Herkel2008WindowsCompletelyOpen "A model to predict occupants' window behavior with outdoor temperature for completely-open 
+model Herkel2008WindowsCompletelyOpen "A model to predict occupants' window behavior with outdoor temperature for completely-open
 large windows"
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.08 "Slope of the logistic relation";
@@ -39,7 +39,7 @@ initial equation
 
   (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
     stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-      localSeed = localSeed, 
+      localSeed = localSeed,
       globalSeed = globalSeed));
   on = ran < p;
 
@@ -67,25 +67,25 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the small window with the outdoor air temperature 
-and occupancy. The definition of large windows was not clearly presented in the 
+Model predicting the state of the small window with the outdoor air temperature
+and occupancy. The definition of large windows was not clearly presented in the
 original paper.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the lower the outdoor temperature is, the lower 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the lower the outdoor temperature is, the lower
 the chance to open the window.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Herkel, S., Knapp, U. and Pfafferott, J., 
-2008. Towards a model of user behaviour regarding the manual control of windows in 
+The model is documented in the paper &quot;Herkel, S., Knapp, U. and Pfafferott, J.,
+2008. Towards a model of user behaviour regarding the manual control of windows in
 office buildings. Building and environment, 43(4), pp.588-600.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in 21 individual offices within
-the Fraunhofer Institute’s building in Freiburg, Germany, from July 2002 to July 2003. 
+the Fraunhofer Institute’s building in Freiburg, Germany, from July 2002 to July 2003.
 The outdoor air temperature during the study is majorly in the range of -5 ~ 30 degC.
 </p>
 </html>",
