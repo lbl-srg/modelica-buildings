@@ -2,10 +2,14 @@ within Buildings.Occupants.Residential.AirConditioning;
 model Ren2014ACLivingroom
   "A model to predict occupants' AC behavior in Livingroom with indoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real u1 = 303.40 "Threshold for turning off the AC of the Weibull Distribution";
-  parameter Real u2 = 300.90 "Threshold for turning on the AC of the Weibull Distribution";
-  parameter Real L1 = 152.88 "Normalization factor for turning off the AC of the Weibull Distribution";
-  parameter Real L2 = 15.87 "Normalization factor for turning on the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.Temperature u1 = 303.40
+    "Threshold for turning off the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.Temperature u2 = 300.90
+    "Threshold for turning on the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.TemperatureDifference L1 = 152.88
+    "Normalization factor for turning off the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.TemperatureDifference L2 = 15.87
+    "Normalization factor for turning on the AC of the Weibull Distribution";
   parameter Real k1 = 1.30 "Shape factor for turning off the AC of the Weibull Distribution";
   parameter Real k2 = 2.22 "Shape factor for turning on the AC of the Weibull Distribution";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
@@ -40,8 +44,8 @@ protected
   output Boolean sampleTrigger "True, if sample time instant";
   Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
     "State of the random number generator";
-  Boolean off
-    "State of the heater (used as random number has two return arguments, and hence negation in the call is not possible";
+  Boolean dummy
+    "Dummy variable for the state of the heater (used as random number has two return arguments, and hence negation in the call is not possible)";
 
 initial equation
   t0 = time;
@@ -50,7 +54,7 @@ initial equation
     globalSeed = globalSeed);
 
   on = false "The initial state of AC is off";
-  off = true;
+  dummy = true;
   pOn = 0;
   pOff = 0;
 
@@ -59,30 +63,26 @@ equation
   when sampleTrigger then
     pOff = if TIn <= u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pOn = if TIn >= u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
+    
+    // Call only weibull1DOff, but swap arguments if pre(on) == false, which effectively
+    // renders a call to weibull1DON.
+    // This is done to have only one state for the random number generator.
+    (dummy, state) = Buildings.Occupants.BaseClasses.weibull1DOFF(
+      x=if pre(on) then TIn else u2,
+      u=if pre(on) then u1 else TIn,
+      L=if pre(on) then L1 else L2,
+      k=if pre(on) then k1 else k2,
+      dt=samplePeriod,
+      stateIn=pre(state));
+    
     if occ then
       if pre(on) then
-        (off, state) = Buildings.Occupants.BaseClasses.weibull1DOFF(
-          x=TIn,
-          u=u1,
-          L=L1,
-          k=k1,
-          dt=samplePeriod,
-          stateIn=pre(state));
-        on = not off;
+        on = not dummy;
       else
-        (on, state) = Buildings.Occupants.BaseClasses.weibull1DON(
-          x=TIn,
-          u=u2,
-          L=L2,
-          k=k2,
-          dt=samplePeriod,
-          stateIn=pre(state));
-        off = not on;
+        on = dummy;
       end if;
     else
       on = false;
-      off = true;
-      state = pre(state);
     end if;
   end when;
 
