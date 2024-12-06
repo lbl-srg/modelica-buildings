@@ -105,6 +105,12 @@ Sep., 2006).
 revisions="<html>
 <ul>
 <li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
+<li>
 July 26, 2018, by Zhe Wang:<br/>
 First implementation.
 </li>

@@ -70,6 +70,12 @@ single person offices at a large office building from 12/29/1998 to 12/20/1999.
 revisions="<html>
 <ul>
 <li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
+<li>
 August 16, 2021, by Michael Wetter:<br/>
 Reformulated model so it works also if the simulation does not start at <i>0</i>.<br/>
 To improve efficiency, this reformulation also changes the event triggering function so that

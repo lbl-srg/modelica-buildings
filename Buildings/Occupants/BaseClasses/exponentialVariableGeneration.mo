@@ -25,6 +25,12 @@ chance to generate a larger output <code>y</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
+<li>
 October 3, 2023, by Michael Wetter:<br/>
 Initialized <code>localSeed</code>.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3549\">#3549</a>.
