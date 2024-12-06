@@ -3,7 +3,7 @@ model Zhang2012WindowsWest "A model to predict occupants' window behavior with o
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.12 "Slope of the logistic relation";
   parameter Real B = -4.77 "Intercept of the logistic relation";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 3014
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

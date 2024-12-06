@@ -3,7 +3,7 @@ model Nicol2001HeatingPakistan "A model to predict occupants' heating behavior w
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A(final unit="1/K") = -0.345 "Slope of the logistic relation";
   parameter Real B(final unit="1") = 2.73 "Intercept of the logistic relation";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 5001
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

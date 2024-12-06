@@ -4,7 +4,7 @@ model Haldi2008BlindsTIn
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A(final unit="1/K") = 0.425 "Slope of indoor temperature";
   parameter Real B(final unit="1") = -11.37 "Intercept";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 1000
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

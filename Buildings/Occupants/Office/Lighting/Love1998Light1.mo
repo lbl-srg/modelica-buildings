@@ -3,7 +3,7 @@ model Love1998Light1 "A model to predict occupants' lighting behavior with illum
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real B = 5.85 "Intercept for logistic regression";
   parameter Real M = -11.9 "Slope for logistic regression";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 2002
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

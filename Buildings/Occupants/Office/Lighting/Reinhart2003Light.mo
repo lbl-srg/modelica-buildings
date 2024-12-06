@@ -9,7 +9,7 @@ model Reinhart2003Light "A model to predict occupants' lighting behavior with il
   parameter Real BInter = -64.19 "intermediate";
   parameter Real CInter = 0.017 "intermediate";
   parameter Real MInter = 2.41 "intermediate";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 2004
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

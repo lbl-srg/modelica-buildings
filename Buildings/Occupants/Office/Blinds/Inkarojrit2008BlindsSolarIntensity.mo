@@ -8,7 +8,7 @@ model Inkarojrit2008BlindsSolarIntensity
     parameter Real LSen =  4 "Self-reported sensitivity to brightness,
   seven-point scale, 1 for least sensitive, 7 for most sensitive"
   annotation(Dialog(tab = "Advanced"));
-    parameter Integer localSeed = 12
+    parameter Integer localSeed = 1002
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

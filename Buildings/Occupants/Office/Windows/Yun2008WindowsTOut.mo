@@ -5,7 +5,7 @@ model Yun2008WindowsTOut "A model to predict occupants' window behavior with out
   parameter Real BOpen = -0.115 "Intercept of the logistic relation for opening the window";
   parameter Real AClose = 0 "Slope of the logistic relation for closing the window";
   parameter Real BClose = -0.040 "Intercept of the logistic relation for closing the window";
-  parameter Integer localSeed = 10
+  parameter Integer localSeed = 3009
     "Local seed to be used to generate the initial state of the random number generator";
   parameter Integer globalSeed = 30129
     "Global seed to be combined with the local seed";

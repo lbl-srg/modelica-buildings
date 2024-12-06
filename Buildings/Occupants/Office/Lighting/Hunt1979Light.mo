@@ -5,7 +5,7 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
  parameter Real BArriv = -4.0835 "Upon arrival";
  parameter Real CArriv = 1.0361 "Upon arrival";
  parameter Real MArriv = 1.8223 "Upon arrival";
- parameter Integer localSeed = 10 "Local seed for the random number generator";
+ parameter Integer localSeed = 2001 "Local seed for the random number generator";
   parameter Integer globalSeed = 30129 "Global seed for the random number generator";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
