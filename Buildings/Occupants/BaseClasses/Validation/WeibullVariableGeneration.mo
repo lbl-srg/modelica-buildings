@@ -28,8 +28,7 @@ initial equation
 equation
   k = (time+1);
   when sample(0, 0.1) then
-    curSeed = seed*1E6*time;
-    y = Buildings.Occupants.BaseClasses.weibullVariableGeneration(lambda,k,globalSeed=integer(curSeed));
+    (y, state) = Buildings.Occupants.BaseClasses.weibullVariableGeneration(lambda, k, pre(state));
   end when;
 
   annotation ( experiment(Tolerance=1e-6, StopTime=1.0),

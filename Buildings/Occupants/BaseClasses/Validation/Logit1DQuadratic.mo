@@ -17,6 +17,7 @@ protected
     "First sample time instant";
   Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
     "State of the random number generator";
+  Boolean r "Return value of random number generator";
 
 initial equation
   y = 0;
@@ -24,13 +25,13 @@ initial equation
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
     localSeed = localSeed,
     globalSeed = globalSeed);
-
+  r = false;
 
 equation
   x = time+1;
   when sample(0, 0.1) then
-    curSeed = seed*1E6*time;
-    if Buildings.Occupants.BaseClasses.logit1DQuadratic(x,A,B,C,D,globalSeed=integer(curSeed)) then
+    (r, state) = Buildings.Occupants.BaseClasses.logit1DQuadratic(x, A, B, C, D, pre(state));
+    if r then
       y = 1;
     else
       y = 0;

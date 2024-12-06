@@ -17,21 +17,23 @@ protected
     "First sample time instant";
     Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
     "State of the random number generator";
+  Boolean r "Return value of random number generator";
 
 initial equation
     y = 0;
     t0 = time;
     state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
-    localSeed = localSeed,
-    globalSeed = globalSeed);
+      localSeed = localSeed,
+      globalSeed = globalSeed);
+    r = false;
 
 
 equation
     x1 = time;
     x2 = 0.7*time;
     when sample(0, 0.1) then
-      curSeed = seed*1E6*time;
-      if Buildings.Occupants.BaseClasses.logit2D(x1,x2,A,B,C,globalSeed=integer(curSeed)) then
+      (r, state) = Buildings.Occupants.BaseClasses.logit2D(x1, x2, A, B, C, pre(state));
+      if r then
         y = 1;
       else
        y = 0;

@@ -25,8 +25,7 @@ initial equation
 equation
   mu = 10*time;
   when sample(0, 0.1) then
-    curSeed = seed*1E6*time;
-    y = Buildings.Occupants.BaseClasses.exponentialVariableGeneration(mu, globalSeed=integer(curSeed));
+    (y, state) = Buildings.Occupants.BaseClasses.exponentialVariableGeneration(mu, pre(state));
   end when;
 
   annotation ( experiment(Tolerance=1e-6, StopTime=1.0),
