@@ -21,9 +21,8 @@ protected
   discrete Real tNext(start=0, fixed=true);
   discrete Real hold_time;
   Real r(min=0, max=1) "Generated random number";
-  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState](
-    each start=0,
-    each fixed=true);
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
 
 initial equation
   state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
@@ -31,16 +30,16 @@ initial equation
 algorithm
   when initial() then
     (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
-    occ :=false;
-    mu :=if occ then one_mu else zero_mu;
-    hold_time :=-mu*Modelica.Math.log(1 - r);
-    tNext :=time + hold_time;
+    occ := false;
+    mu := if occ then one_mu else zero_mu;
+    hold_time := -mu*Modelica.Math.log(1 - r);
+    tNext := time + hold_time;
    elsewhen time >= pre(tNext) then
     (r, state) :=Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
-    occ :=not pre(occ);
-    mu :=if occ then one_mu else zero_mu;
-    hold_time :=-mu*Modelica.Math.log(1 - r);
-    tNext :=time + hold_time;
+    occ := not pre(occ);
+    mu := if occ then one_mu else zero_mu;
+    hold_time := -mu*Modelica.Math.log(1 - r);
+    tNext := time + hold_time;
   end when;
 
   annotation (Icon(graphics={
