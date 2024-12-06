@@ -2,21 +2,25 @@ within Buildings.Occupants.BaseClasses;
 function weibull1DON "Mapping a continuous input to a binary output through a Weibull distribution relation"
   extends Modelica.Icons.Function;
 
-    input Real x "Continous variable";
-    input Real u=1.0 "Parameter defining the Weibull distribution threshold";
-    input Real L=1.0 "Parameter defining the Weibull distribution normalization factor";
-    input Real k=1.0 "Parameter defining the Weibull distribution shape factor";
-    input Real dt=60 "Time step length";
-    input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
-      "State of the random number generator";
-    output Boolean y "Binary variable 0/1";
-    output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
-      "New state of the random number generator";
+  input Real x "Continous variable";
+  input Real u=1.0 "Parameter defining the Weibull distribution threshold";
+  input Real L=1.0 "Parameter defining the Weibull distribution normalization factor";
+  input Real k=1.0 "Parameter defining the Weibull distribution shape factor";
+  input Real dt=60 "Time step length";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  output Boolean y "Binary variable 0/1";
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 
 algorithm
-    (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
-      p = if x >= u then 1 - Modelica.Math.exp(-((x-u)/L)^k*dt) else 0,
-      stateIn = stateIn);
+  (y, stateOut) := Buildings.Occupants.BaseClasses.weibull1DOFF(
+    x = u,
+    u = x,
+    L = L,
+    k = k,
+    dt = dt,
+    stateIn = stateIn);
 annotation (
 Documentation(info="<html>
 <p>
