@@ -416,6 +416,32 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses
+    </td>
+    <td valign=\"top\">Refactored the implementation of all functions. The functions now take
+                       as an argument the internal state of the random number generator rather than a seed.
+                       Moreover, the functions return the new internal state of the random number generator.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.Office<br/>
+                       Buildings.Occupants.Residential<br/>
+                       Buildings.Occupants.Residential
+    </td>
+    <td valign=\"top\">Refactored the implmenentation of the random number calculation in all blocks
+                       and functions as the old implementation was not producing high quality random numbers,
+                       and as it had rounding errors that caused cross-tool comparison to fail.<br/>
+                       The conversion script will automatically update the old parameter <code>seed</code>
+                       to the new parameter <code>localSeed</code> in the blocks.
+                       The blocks should be compatible with older versions after this update, but the results
+                       will differ.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
