@@ -15,8 +15,8 @@ function weibull1DOFF "Mapping a continuous input to a binary output through a W
 
 algorithm
     (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
-     p = if x <= u then 1 - Modelica.Math.exp(-((u-x)/L)^k*dt) else 0,
-     stateIn = stateIn);
+      p = if x <= u then 1 - Modelica.Math.exp(-((u-x)/L)^k*dt) else 0,
+      stateIn = stateIn);
 annotation (
 Documentation(info="<html>
 <p>
