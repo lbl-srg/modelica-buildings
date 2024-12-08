@@ -2,15 +2,15 @@ within Buildings.Occupants.BaseClasses;
 function exponentialVariableGeneration "Random variable generator from the exponential distribution"
   extends Modelica.Icons.Function;
     input Real mu  "Mean exponential distribution";
-    input Integer globalSeed "Seed for the random number generator";
-    output Real y "duration of event";
+    input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+      "State of the random number generator";
+    output Real y "Random number";
+    output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+      "New state of the random number generator";
 protected
-    Integer localSeed = 0 "Local seed";
-    Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState];
     Real r "Generated random numberin the range 0 < random ≤ 1";
 algorithm
-    state := Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
-    (r, state) := Modelica.Math.Random.Generators.Xorshift1024star.random(state);
+    (r, stateOut) := Modelica.Math.Random.Generators.Xorshift1024star.random(stateIn);
     y := -mu * Modelica.Math.log(1 - r);
   annotation (Documentation(info="<html>
 <p>
@@ -24,6 +24,12 @@ chance to generate a larger output <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 October 3, 2023, by Michael Wetter:<br/>
 Initialized <code>localSeed</code>.<br/>

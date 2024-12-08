@@ -3,7 +3,10 @@ model Nicol2001HeatingUK "A model to predict occupants' heating behavior with ou
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A(final unit="1/K") = -0.514 "Slope of the logistic relation";
   parameter Real B(final unit="1") = 5.28 "Intercept of the logistic relation";
-  parameter Integer seed = 10 "Seed for the random number generator";
+  parameter Integer localSeed = 5002
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -26,21 +29,27 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+
+  (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
+    stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+      localSeed = localSeed,
+      globalSeed = globalSeed));
+  on = ran < p;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if occ then
       p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*( TOut - 273.15)+B) + 1);
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+      on = ran < p;
     else
       p = 0;
       on = false;
@@ -81,6 +90,12 @@ The model parameters are regressed from the field study in the UK in
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 20, 2018, by Zhe Wang:<br/>
 First implementation.

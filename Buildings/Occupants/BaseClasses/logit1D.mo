@@ -5,13 +5,16 @@ function logit1D "Mapping a continuous input to a binary output through a logist
   input Real x "Continuous variable";
   input Real A=1.0 "Logistic relation: Slope";
   input Real B=1.0 "Logistic relation: Intercept";
-  input Integer globalSeed "Seed for the random number generator";
+  input Integer stateIn[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
   output Boolean y "Binary variable";
+  output Integer stateOut[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "New state of the random number generator";
 
 algorithm
-  y := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
+  (y, stateOut) := Buildings.Occupants.BaseClasses.binaryVariableGeneration(
     Modelica.Math.exp(A*x+B)/(Modelica.Math.exp(A*x+B)+1),
-    globalSeed);
+    stateIn);
 annotation (
 Documentation(info="<html>
 <p>
@@ -25,6 +28,12 @@ generates the output, which should be a binary variable.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 20, 2018, by Zhe Wang:<br/>
 First implementation.

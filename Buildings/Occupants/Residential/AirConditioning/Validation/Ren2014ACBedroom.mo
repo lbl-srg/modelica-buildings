@@ -7,7 +7,7 @@ model Ren2014ACBedroom "Validating the model for AC behaviors"
     annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
   Modelica.Blocks.Sources.Sine Tin(
     amplitude=10,
-    offset=303,
+    offset= 303,
     f=0.001,
     y(unit="K", displayUnit="degC")) "Indoor air temperature"
     annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));

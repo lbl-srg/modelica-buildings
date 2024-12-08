@@ -4,7 +4,10 @@ model Haldi2008BlindsTOut
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A(final unit="1/K") = 0.139 "Slope of outdoor temperature";
   parameter Real B(final unit="1") = -3.54 "Intercept";
-  parameter Integer seed = 20 "Seed for the random number generator";
+  parameter Integer localSeed = 1001
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -30,21 +33,27 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  Boolean ran "Random number";
 
 initial equation
   t0 = time;
   blindState = 0;
   pDown = 0;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed,
+    globalSeed = globalSeed);
+  ran = false;
+
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = time*seed;
+    (ran, state) = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pre(pDown), stateIn=pre(state));
     if occ then
       pDown = 1-Modelica.Math.exp(A*(TOut-273.15)+B)/(Modelica.Math.exp(A*(TOut-273.15)+B)+1);
-      if Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pDown, globalSeed=integer(curSeed)) then
+      if ran then
         blindState = 0;
       else
         blindState = 1;
@@ -87,6 +96,12 @@ buildings in 2006.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 24, 2018, by Zhe Wang:<br/>
 First implementation.
