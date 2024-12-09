@@ -5,7 +5,8 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
  parameter Real BArriv = -4.0835 "Upon arrival";
  parameter Real CArriv = 1.0361 "Upon arrival";
  parameter Real MArriv = 1.8223 "Upon arrival";
- parameter Integer seed = 30 "Seed for the random number generator";
+ parameter Integer localSeed = 2001 "Local seed for the random number generator";
+  parameter Integer globalSeed = 30129 "Global seed for the random number generator";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
  Modelica.Blocks.Interfaces.RealInput ill "Illuminance on the working planein units of lux" annotation (
@@ -25,13 +26,19 @@ model Hunt1979Light "A model to predict occupants' lighting behavior with illumi
 protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
- output Boolean sampleTrigger "True, if sample time instant";
- Real curSeed "Current value for seed as a real-valued variable";
+  output Boolean sampleTrigger "True, if sample time instant";
+
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
 
 initial equation
  t0 = time;
- curSeed = t0*seed;
+ state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(localSeed, globalSeed);
+
  on = false;
+ ran = 0.5;
+
 equation
  if ill > 657.7 then
    pArriv =0;
@@ -43,7 +50,7 @@ equation
  end if;
  sampleTrigger = sample(t0, samplePeriod);
  when {occ, sampleTrigger} then
-   curSeed = seed*time;
+   (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
    if sampleTrigger then
      if occ then
        on = pre(on);
@@ -51,7 +58,7 @@ equation
        on = false;
      end if;
    else
-     on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(pArriv, globalSeed=integer(curSeed));
+     on = ran < pArriv;
    end if;
  end when;
  annotation (Icon(graphics={
