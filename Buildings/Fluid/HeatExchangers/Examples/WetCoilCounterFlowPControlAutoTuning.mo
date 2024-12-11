@@ -201,7 +201,7 @@ with the tuned PI parameters taking effect at <i>215</i> seconds.
 <li>
 The second one occurs at <i>2100</i> seconds and it fails because the setpoint
 changes at <i>2400</i> seconds.
-As a result, the PI parameters remain unchanged.
+Thus, the PI input gains remain the same as the one from previous tuning.
 </li>
 </ul>
 </html>",
