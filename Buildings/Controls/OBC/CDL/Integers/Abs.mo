@@ -2,17 +2,14 @@ within Buildings.Controls.OBC.CDL.Integers;
 block Abs
   "Output the absolute value of the input"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
-    "Connector of Integer input signals"
+    "Input for absolute function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signals"
+    "Absolute value of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=if u >= 0 then
-      u
-    else
-      -u;
+  y=if u >= 0 then u else -u;
   annotation (
     defaultComponentName="absInt",
     Icon(

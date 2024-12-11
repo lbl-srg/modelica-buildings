@@ -1,0 +1,78 @@
+simulateModel("Buildings.Templates.Plants.Controls.MinimumFlow.Validation.ControllerDualMode",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1000.0,
+    resultFile="MinimumFlowControllerDualMode");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 500},
+    y={"u1EquValPum.y[1]", "u1EquValPum.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctlFloMinValCoo.VChiWatPriSet_flow", "VPriCoo_flow.y", "ctlFloMinPumCoo.VChiWatPriSet_flow", "VPriCoo_flow1.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"ctlFloMinValCoo.yValChiWatMinByp", "ctlFloMinPumCoo.yValChiWatMinByp"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={415, 5, 400, 400},
+    y={"ctlFloMinValHea.VHeaWatPriSet_flow", "VPriHea_flow.y", "ctlFloMinPumHea.VHeaWatPriSet_flow", "VPriHea_flow1.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"ctlFloMinValHea.yValHeaWatMinByp", "ctlFloMinPumHea.yValHeaWatMinByp"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={820, 5, 400, 600},
+    y={"u1EquValPum.y[1]", "u1EquValPum.y[2]", "u1HeaEqu.y[1]", "u1HeaEqu.y[2]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"u1ValHeaWat[1].y", "u1ValHeaWat[2].y", "u1ValChiWat[1].y", "u1ValChiWat[2].y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"ctlFloMinValHeaCoo.VHeaWatPriSet_flow", "VPriHeaCoo_flow.y", "ctlFloMinPumHeaCoo.VHeaWatPriSet_flow", "VPriHeaCoo_flow1.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=4,
+    y={"ctlFloMinValHeaCoo.yValHeaWatMinByp", "ctlFloMinPumHeaCoo.yValHeaWatMinByp"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=5,
+    y={"ctlFloMinValHeaCoo.yValChiWatMinByp", "ctlFloMinPumHeaCoo.yValChiWatMinByp"},
+    autoscale=true,
+    grid=true
+);

@@ -1,4 +1,3 @@
-ControlledFlowMachine
-ControlledFlowMachineDynamic
-SpeedControlled_Nrpm
-BaseClasses
+PowerEuler
+PowerExact
+PowerSimplified

@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "loaHea.TSupSet",
+    "loaHea.TRet",
+    "loaHea.V_flow",
+    "loaHea.QReq_flow",
+    "loaCoo.TSupSet",
+    "loaCoo.TRet",
+    "loaCoo.V_flow",
+    "loaCoo.QReq_flow"
+  };

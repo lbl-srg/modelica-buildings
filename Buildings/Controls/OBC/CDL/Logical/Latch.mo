@@ -8,7 +8,7 @@ block Latch
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output signal"
+    "Output with latched signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
   when initial() then

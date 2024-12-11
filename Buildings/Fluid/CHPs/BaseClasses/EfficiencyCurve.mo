@@ -86,13 +86,12 @@ where
 </html>",
 revisions="<html>
 <ul>
-<li>June 1, 2019, by Tea Zakula:<br/>First implementation. </li>
+<li>June 1, 2019, by Tea Zakula:<br/>First implementation.</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
-        Line(points={{-90,-76},{68,-76}},
-                                      color={192,192,192}),
+        Line(points={{-90,-76},{68,-76}}, color={192,192,192}),
         Line(points={{-80,-80},{-79.2,-50.6},{-78.4,-37},{-77.6,-28},{-76.8,-21.3},
               {-75.2,-11.4},{-72.8,-1.31},{-69.5,8.08},{-64.7,17.9},{-57.5,28},
               {-47,38.1},{-31.8,48.1},{-10.1,58},{22.1,68},{68.7,78.1},{80,80}}),
@@ -101,9 +100,5 @@ revisions="<html>
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
-          fillPattern=FillPattern.Solid)}),
-    Icon(graphics={Text(
-          extent={{-90,38},{90,-34}},
-          textColor={160,160,164},
-          textString="polynomial()")}));
+          fillPattern=FillPattern.Solid)}));
 end EfficiencyCurve;

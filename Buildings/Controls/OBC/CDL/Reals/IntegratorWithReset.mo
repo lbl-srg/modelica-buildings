@@ -7,16 +7,16 @@ block IntegratorWithReset
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to be integrated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in
     "Input signal for state to which integrator is reset"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the integrator output when trigger becomes true"
+    "Input that resets the integrator output when it becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Value of the integrator"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -25,9 +25,7 @@ initial equation
 equation
   der(y)=k*u;
   when trigger then
-    reinit(
-      y,
-      y_reset_in);
+    reinit(y, y_reset_in);
   end when;
   annotation (
     defaultComponentName="intWitRes",

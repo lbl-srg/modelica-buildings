@@ -29,12 +29,14 @@ record Generic "Generic data record for movers"
 
   // Efficiency computation choices
   parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
-    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    if havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    else Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
     "Efficiency computation method for the hydraulic efficiency etaHyd"
     annotation (Dialog(group="Power computation"));
   parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
-    if powerOrEfficiencyIsHydraulic
-      then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    if powerOrEfficiencyIsHydraulic and havePressureCurve
+    then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
     else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
     "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
@@ -89,7 +91,11 @@ record Generic "Generic data record for movers"
                        enable =  etaHydMet==
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
   final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
-    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    if etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    then Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    else Buildings.Fluid.Movers.BaseClasses.Euler.peak(V_flow=V_flow_max/2,
+                                                   dp=dpMax/2,
+                                                   eta=max(efficiency.eta))
     "Internal peak variable";
   // The getPeak() function automatically handles the estimation of peak point
   //   when insufficient information is provided from the pressure curve.
@@ -103,11 +109,13 @@ record Generic "Generic data record for movers"
     then
       if powerOrEfficiencyIsHydraulic
         then max(power.P)*1.2
-      else max(power.P)
+        else max(power.P)
     else
       if havePressureCurve
-        then V_flow_max/2 * dpMax/2 /0.7*1.2
-      else 0
+        then if powerOrEfficiencyIsHydraulic
+          then V_flow_max/2 * dpMax/2 /peak.eta*1.2
+          else V_flow_max/2 * dpMax/2 /0.7*1.2
+        else 0
     "Rated motor power"
       annotation(Dialog(group="Power computation",
                         enable= etaMotMet==
@@ -158,6 +166,21 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+August 20, 2024, by Hongxiang Fu:<br/>
+Now the function
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
+is not called unless the Euler number method is selected.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA, #1912</a>.
+</li>
+<li>
+April 8, 2024, by Hongxiang Fu:<br/>
+Default efficiency methods now depend on whether a pressure curve is available.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 29, 2023, by Hongxiang Fu:<br/>
 Deleted angular speed parameters with the unit rpm.

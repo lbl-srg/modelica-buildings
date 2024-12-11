@@ -13,8 +13,8 @@ Instructions for developers are available on the [wiki](https://github.com/lbl-s
 
 The Modelica Buildings library is a free open-source library with dynamic simulation models for building energy and control systems. The library contains models for
 
-- HVAC systems,
-- energy storage,
+- HVAC systems for buildings, district energy systems, and data centers,
+- components and systems with energy storage,
 - controls, including a reference implementation of ASHRAE Standard 231P,
 - heat transfer among rooms and the outside, either
   - natively in Modelica with a detailed or a reduced order model, or
@@ -47,26 +47,34 @@ Prior to issuing a pull request, make sure your code follows the [style guide an
 ## Building binaries
 
 The distribution at https://simulationresearch.lbl.gov/modelica/download.html
-contains all binaries.
+contains all binaries, and users need not do any other step.
 
-Developers may build the binaries as follows.
+Developers may install or build these binaries individually.
 
-### Spawn of EnergyPlus
+There are three different binaries:
+ 1. The *Spawn of EnergyPlus library* that contains a special version of EnergyPlus.
+ 2. The *Modelica to EnergyPlus library* that provides a layer to link
+    Modelica with EnergyPlus.
+ 3. The *fmi-library* that provides the API functions that communicate
+    with EnergyPlus.
 
-The Buildings library already contains the compiled binaries that are needed to link to EnergyPlus.
+To install or build these libraries, proceed as described below.
 
-To rebuild the Spawn of EnergyPlus binaries, CMake is required. The binaries
-consist of the fmi-library, and a library that connects Modelica to EnergyPlus.
+### Spawn of EnergyPlus library
 
-To build the fmi-library, which is only needed if https://github.com/modelon-community/fmi-library is updated, run
+If the Buildings library is cloned from github, then the EnergyPlus
+libraries need to be installed by running
+
 ```
-cd Buildings/Resources/src/fmi-library
-rm -rf build && mkdir build && \
-  cd build && cmake .. && cmake --build . && \
-  cd .. && rm -rf build
+Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only
 ```
+To install the binaries for all operating systems, omit the flag `--binaries-for-os-only`
 
-To build the Modelica to EnergyPlus library, run
+### Modelica to EnergyPlus
+
+Rebuilding this library requires CMake to be installed.
+
+To rebuild the library, run
 ```
 cd modelica-buildings
 rm -rf build && mkdir build && cd build && \
@@ -74,11 +82,17 @@ rm -rf build && mkdir build && cd build && \
   cd .. && rm -rf build
 ```
 
-To install the EnergyPlus binaries for the Spawn interface for the current operating system, run
+### fmi-library
+
+Rebuilding this library requires CMake to be installed.
+
+To rebuild the library, run
 ```
-Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only
+cd Buildings/Resources/src/fmi-library
+rm -rf build && mkdir build && \
+  cd build && cmake .. && cmake --build . && \
+  cd .. && rm -rf build
 ```
-To install the binaries for all operating systems, omit the flag `--binaries-for-os-only`
 
 ## Citation
 

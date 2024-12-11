@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Greater
-  "Output y is true, if input u1 is greater than input u2"
+  "Output y is true, if input u1 is greater than input u2 with hysteresis"
   parameter Real h(
     final min=0)=0
     "Hysteresis"
@@ -9,13 +9,13 @@ block Greater
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Input u1"
+    "First input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Input u2"
+    "Second input u2"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output y"
+    "Output true if u1 is greater than u2 with hysteresis"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

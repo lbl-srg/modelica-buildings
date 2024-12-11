@@ -176,18 +176,18 @@ block PartialController "Interface class for plant controller"
     "Design heat exchanger approach"
     annotation (Dialog(group="Cooling tower loop"));
 
-  parameter Modelica.Units.SI.Time riseTimePum=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)"
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Time needed to change motor speed between zero and full speed"
     annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered speed"));
-  parameter Modelica.Units.SI.Time riseTimeVal=120
-    "Pump rise time of the filter (time to reach 99.6 % of the opening)"
+      group="Motor speed"));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Valve stroke time"
     annotation (
       Dialog(
       tab="Dynamics",
-      group="Filtered opening"));
+      group="Time needed to open or close valve"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"

@@ -9,14 +9,14 @@ model CoolingTowersWithBypass
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation (Dialog(tab="Dynamics",group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation (Dialog(tab="Dynamics",group="Time needed to open or close valve"));
+  parameter Modelica.Units.SI.Time strokeTime=30
+    "Time needed to change valve position from 0 to 1" annotation (
       Dialog(
       tab="Dynamics",
-      enable=use_inputFilter));
+      enable=use_strokeTime));
   parameter Modelica.Units.SI.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -76,7 +76,7 @@ model CoolingTowersWithBypass
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel cooTowSys(
     redeclare final package Medium=Medium,
-    final use_inputFilter=false,
+    final use_strokeTime=false,
     final num=num,
     final show_T=show_T,
     final m_flow_small=m_flow_nominal,
@@ -98,8 +98,8 @@ model CoolingTowersWithBypass
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final dpValve_nominal=dpValve_nominal,
-    final riseTime=riseTime,
-    final use_inputFilter=use_inputFilter)
+    final strokeTime=strokeTime,
+    final use_strokeTime=use_strokeTime)
     "Condenser water bypass valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={0,-40})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCWSup(
@@ -210,7 +210,7 @@ equation
     annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},
       color={255,0,255}));
   connect(on[1],bypValCon.trigger)
-    annotation (Line(points={{-120,30},{-80,30},{-80,-28},{-94,-28},{-94,-80},{-56,
+    annotation (Line(points={{-120,35},{-80,35},{-80,-28},{-94,-28},{-94,-80},{-56,
           -80},{-56,-62}},
       color={255,0,255}));
   connect(port_a, jun.port_1)
