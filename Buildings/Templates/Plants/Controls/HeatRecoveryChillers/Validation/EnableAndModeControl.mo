@@ -99,10 +99,10 @@ model EnableAndModeControl
       displayUnit="degC"))
     "CHWST"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold u1Hea
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold u1Hea(t=1E-4)
     "Compute heating plant enable signal"
     annotation (Placement(transformation(extent={{-30,-70},{-10,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold u1Coo
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold u1Coo(t=1E-4)
     "Compute cooling plant enable signal"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   StagingRotation.LoadAverage loaChiWat(
@@ -193,10 +193,6 @@ equation
   connect(ratV_flow.y[2], VChiWat_flow.u)
     annotation (Line(points={{-128,-70},{-120,-70},{-120,-100},{-112,-100}},
       color={0,0,127}));
-  connect(VHeaWat_flow.y, u1Hea.u)
-    annotation (Line(points={{-88,-40},{-80,-40},{-80,-60},{-32,-60}},color={0,0,127}));
-  connect(VChiWat_flow.y, u1Coo.u)
-    annotation (Line(points={{-88,-100},{-32,-100}},color={0,0,127}));
   connect(TChiWatSup.y, loaChiWat.TSupSet)
     annotation (Line(points={{-128,20},{-50,20},{-50,6},{-32,6}},color={0,0,127}));
   connect(TChiWatRet.y, loaChiWat.TRet)
@@ -287,6 +283,10 @@ equation
       color={255,0,255}));
   connect(mulAnd.y, staToReal.u)
     annotation (Line(points={{132,40},{140,40},{140,140},{-58,140}},color={255,0,255}));
+  connect(u1Coo.u, ratV_flow.y[2]) annotation (Line(points={{-32,-100},{-60,-100},
+          {-60,-80},{-120,-80},{-120,-70},{-128,-70}}, color={0,0,127}));
+  connect(u1Hea.u, ratV_flow.y[1]) annotation (Line(points={{-32,-60},{-120,-60},
+          {-120,-70},{-128,-70}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file=
@@ -317,7 +317,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable\">
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Enable</a>
-and 
+and
 <a href=\"modelica://Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl\">
 Buildings.Templates.Plants.Controls.HeatRecoveryChillers.ModeControl</a>.
 Consequently, it also validates
@@ -326,23 +326,29 @@ Buildings.Templates.Plants.Controls.HeatRecoveryChillers.Controller</a>,
 which is composed of the two former blocks.
 </p>
 <p>
-The validation uses varying ∆T for HW across the HRC condenser 
+The validation uses varying ∆T for HW across the HRC condenser
 and CHW across the HRC evaporator.
 The model verifies that:
 </p>
 <ul>
 <li>
-The HRC is effectively disabled when it is controlled in cooling mode 
+The HRC is effectively disabled when it is controlled in cooling mode
 and the leaving HW temperature is high.
 </li>
 <li>
-The HRC control mode switches from cooling to heating when the 
+The HRC control mode switches from cooling to heating when the
 cooling load exceeds the calculated evaporator heat flow rate in heating mode.
 </li>
 </ul>
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 10, 2024, by Michael Wetter:<br/>
+Updated input of hysteresis block and changed threshold to guard against numerical noise.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4074\">issue 4074</a>.
+</li>
 <li>
 May 31, 2024, by Antoine Gautier:<br/>
 First implementation.
