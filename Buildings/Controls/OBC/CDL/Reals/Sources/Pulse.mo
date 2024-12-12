@@ -20,7 +20,7 @@ block Pulse
   parameter Real offset=0.0
     "Offset of output signals";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Pulse output signal"
+    "Pulse output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected

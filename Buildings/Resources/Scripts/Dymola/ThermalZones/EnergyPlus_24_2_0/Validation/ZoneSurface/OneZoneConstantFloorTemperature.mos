@@ -1,0 +1,4 @@
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ZoneSurface.OneZoneConstantFloorTemperature", stopTime=432000, method="Cvode", tolerance=1e-06, resultFile="OneZoneConstantFloorTemperature");
+createPlot(id=1, position={15, 15, 1138, 688}, y={"zon.TAir", "zon.TRad", "flo.T"}, range={0.0, 440000.0, 15.0, 30.0}, grid=true, colors={{28,108,200}, {0,140,72}, {238,46,47}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 1138, 688}, y={"flo.q_flow"}, range={0.0, 440000.0, -20.0, 40.0}, grid=true, subPlot=102, colors={{28,108,200}}, displayUnits={"W/m2"});
+createPlot(id=1, position={15, 15, 1138, 688}, y={"building.weaBus.HDirNor", "building.weaBus.HDifHor"}, range={0.0, 440000.0, -500.0, 1000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, displayUnits={"W/m2", "W/m2"});

@@ -5,6 +5,76 @@ clear
 
 convertClear();
 
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/4069
+
+convertModifiers("Buildings.Occupants.Office.Blinds.Haldi2008BlindsTIn",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Blinds.Haldi2008BlindsTOut",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Blinds.Inkarojrit2008BlindsSolarIntensity",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarAltitude",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Blinds.Zhang2012BlindsSolarIntensity",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Lighting.Gunay2016Light",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Lighting.Hunt1979Light",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Lighting.Love1998Light1",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Lighting.Love1998Light2",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Lighting.Reinhart2003Light",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Occupancy.Wang2005Occupancy",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Haldi2008WindowsTIn",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Haldi2008WindowsTOut",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Haldi2009WindowsTInTout",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Herkel2008WindowsCompletelyOpen",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Herkel2008WindowsSmall",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Herkel2008WindowsTiltedOpen",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Rijal2007WindowsTInTOutTComf",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Yun2008WindowsTIn",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Yun2008WindowsTOut",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Zhang2012WindowsAll",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Zhang2012WindowsEast",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Zhang2012WindowsNorth",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Zhang2012WindowsSouth",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Office.Windows.Zhang2012WindowsWest",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.AirConditioning.Ren2014ACBedroom",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.AirConditioning.Ren2014ACLivingroom",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Heating.Nicol2001HeatingEU",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Heating.Nicol2001HeatingPakistan",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Heating.Nicol2001HeatingUK",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Windows.Nicol2001WindowsEU",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Windows.Nicol2001WindowsPakistan",
+                 {"seed"}, {"localSeed"}, true);
+convertModifiers("Buildings.Occupants.Residential.Windows.Nicol2001WindowsUK",
+                 {"seed"}, {"localSeed"}, true);
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3965
 
 convertModifiers("Buildings.Fluid.Movers.FlowControlled_dp",

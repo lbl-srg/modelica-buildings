@@ -2,14 +2,21 @@ within Buildings.Occupants.Residential.AirConditioning;
 model Ren2014ACLivingroom
   "A model to predict occupants' AC behavior in Livingroom with indoor temperature"
   extends Modelica.Blocks.Icons.DiscreteBlock;
-  parameter Real u1 = 303.40 "Threshold for turning off the AC of the Weibull Distribution";
-  parameter Real u2 = 300.90 "Threshold for turning on the AC of the Weibull Distribution";
-  parameter Real L1 = 152.88 "Normalization factor for turning off the AC of the Weibull Distribution";
-  parameter Real L2 = 15.87 "Normalization factor for turning on the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.Temperature u1 = 303.40
+    "Threshold for turning off the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.Temperature u2 = 300.90
+    "Threshold for turning on the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.TemperatureDifference L1 = 152.88
+    "Normalization factor for turning off the AC of the Weibull Distribution";
+  parameter Modelica.Units.SI.TemperatureDifference L2 = 15.87
+    "Normalization factor for turning on the AC of the Weibull Distribution";
   parameter Real k1 = 1.30 "Shape factor for turning off the AC of the Weibull Distribution";
   parameter Real k2 = 2.22 "Shape factor for turning on the AC of the Weibull Distribution";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
-  parameter Integer seed = 10 "Seed for random number generator";
+  parameter Integer localSeed = 4001
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
     final unit="K",
@@ -35,38 +42,44 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  Boolean dummy
+    "Dummy variable for the state of the heater (used as random number has two return arguments, and hence negation in the call is not possible)";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed,
+    globalSeed = globalSeed);
+
   on = false "The initial state of AC is off";
+  dummy = true;
   pOn = 0;
   pOff = 0;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
     pOff = if TIn <= u1 then 1 - Modelica.Math.exp(-((u1-TIn)/L1)^k1*samplePeriod) else 0;
     pOn = if TIn >= u2 then 1 - Modelica.Math.exp(-((TIn-u2)/L2)^k2*samplePeriod) else 0;
+
+    // Call only weibull1DOff, but swap arguments if pre(on) == false, which effectively
+    // renders a call to weibull1DON.
+    // This is done to have only one state for the random number generator.
+    (dummy, state) = Buildings.Occupants.BaseClasses.weibull1DOFF(
+      x=if pre(on) then TIn else u2,
+      u=if pre(on) then u1 else TIn,
+      L=if pre(on) then L1 else L2,
+      k=if pre(on) then k1 else k2,
+      dt=samplePeriod,
+      stateIn=pre(state));
+
     if occ then
       if pre(on) then
-        on = not Buildings.Occupants.BaseClasses.weibull1DOFF(
-          x=TIn,
-          u=u1,
-          L=L1,
-          k=k1,
-          dt=samplePeriod,
-          globalSeed=integer(curSeed));
+        on = not dummy;
       else
-        on = Buildings.Occupants.BaseClasses.weibull1DON(
-          x=TIn,
-          u=u2,
-          L=L2,
-          k=k2,
-          dt=samplePeriod,
-          globalSeed=integer(curSeed));
+        on = dummy;
       end if;
     else
       on = false;
@@ -105,6 +118,12 @@ The model parameters are regressed from the field study in China in 2014.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 23, 2018, by Zhe Wang:<br/>
 First implementation.

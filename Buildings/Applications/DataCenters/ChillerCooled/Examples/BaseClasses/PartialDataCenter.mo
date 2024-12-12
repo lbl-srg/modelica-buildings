@@ -480,7 +480,7 @@ equation
       thickness=0.5));
   connect(chiNumOn.y, CWPumCon.numOnChi)
     annotation (Line(
-      points={{-236.9,65},{-174,65}},
+      points={{-236.9,65},{-206,65},{-206,64},{-174,64}},
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
@@ -551,6 +551,8 @@ equation
           {-126,226},{-126,248},{-122,248}},color={0,0,127}));
   connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
           {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
+  connect(plaOn.y, CWPumCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,70},{-174,70}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,260}})),
     Documentation(info="<html>
@@ -566,6 +568,12 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to control the pump speed.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
 <li>
 January 2, 2022, by Kathryn Hinkelman:<br/>
 Passed the <code>plaOn</code> signal to the chilled water pump control

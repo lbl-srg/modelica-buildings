@@ -139,11 +139,11 @@ equation
       color={0,0,127}));
   connect(PriPumCon.numOnChi, chiNumOn.y)
     annotation (Line(
-      points={{-174,27},{-182,27},{-182,65},{-236.9,65}},
+      points={{-174,26},{-182,26},{-182,65},{-236.9,65}},
       color={255,127,0}));
   connect(PriPumCon.cooMod, cooModCon.y)
     annotation (Line(
-      points={{-174,37},{-174,36},{-182,36},{-182,110},{-187,110}},
+      points={{-174,38},{-182,38},{-182,110},{-187,110}},
       color={255,127,0}));
   connect(cooTowSpeCon.cooMod, cooModCon.y)
     annotation (Line(
@@ -155,7 +155,7 @@ equation
       color={255,127,0}));
   connect(CWPumCon.cooMod, cooModCon.y)
     annotation (Line(
-      points={{-174,75},{-174,74},{-182,74},{-182,110},{-187,110}},
+      points={{-174,76},{-182,76},{-182,110},{-187,110}},
       color={255,127,0}));
   connect(cooModCon.y, sigCha.u)
     annotation (Line(
@@ -172,10 +172,13 @@ equation
   connect(priPumSpe.y, chiWSE.yPum) annotation (Line(points={{-83,32},{-20,32},
           {-20,26.5},{-1.5,26.5}}, color={0,0,127}));
   connect(weaBus.TWetBul, cooModCon.TWetBul) annotation (Line(
-      points={{-328,-20},{-340,-20},{-340,200},{-218,200},{-218,114},{-210,114}},
+      points={{-327.95,-19.95},{-340,-19.95},{-340,200},{-218,200},{-218,114},{
+          -210,114}},
       color={255,204,51},
       thickness=0.5));
 
+  connect(plaOn.y, PriPumCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,32},{-174,32}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{320,260}})),
   __Dymola_Commands(file=
@@ -269,6 +272,12 @@ differential pressure reset control are not implemented in this example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 3, 2024, by Jianjun Hu:<br/>
+Added plant on signal to pumps control.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3989\">issue 3989</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Corrected control to avoid cooling tower pumps to operate when plant is off, because

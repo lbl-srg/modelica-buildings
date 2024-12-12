@@ -2,12 +2,12 @@ within Buildings.Controls.OBC.CDL.Reals;
 block MultiplyByParameter
   "Output the product of a gain value with the input signal"
   parameter Real k
-    "Gain value multiplied with input signal";
+    "Factor to be multiplied with input signal";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Input signal connector"
+    "Input to be multiplied with gain"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Output signal connector"
+    "Product of the parameter times the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

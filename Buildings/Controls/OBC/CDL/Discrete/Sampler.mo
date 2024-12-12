@@ -7,10 +7,10 @@ block Sampler
     min=1E-3)
     "Sample period of component";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Continuous input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Continuous output signal"
+    "Sampled input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
