@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Multiply "Output product of the two inputs"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
-    "Connector of Integer input signal 1"
+    "Input for multiplication"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u2
-    "Connector of Integer input signal 2"
+    "Input for multiplication"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signal"
+    "Product of the inputs"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

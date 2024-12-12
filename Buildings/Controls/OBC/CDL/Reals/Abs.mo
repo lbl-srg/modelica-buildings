@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Abs
   "Output the absolute value of the input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input for absolute function"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Absolute value of the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

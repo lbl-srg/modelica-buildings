@@ -6,6 +6,14 @@ class Version_12_0_0 "Version 12.0.0"
 <p>
 Version 12.0.0 is ... xxx
 </p>
+<p>
+The following major changes have been done compared to release 11:
+</p>
+<ul>
+<li>
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -44,12 +52,15 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3808\">#3808</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_24_2_0
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Updated the EnergyPlus coupling to use
+                       EnergyPlus version 24.2.0.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
     </td>
     </tr>
 </table>
@@ -245,6 +256,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot
+    </td>
+    <td valign=\"top\">Reduced number of time events by replacing zero order hold with true and false hold,
+                       and increasing the minimum cycle time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4058</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -390,6 +414,32 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Moved to the <code>Obsolete</code> package.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses
+    </td>
+    <td valign=\"top\">Refactored the implementation of all functions. The functions now take
+                       as an argument the internal state of the random number generator rather than a seed.
+                       Moreover, the functions return the new internal state of the random number generator.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.Office<br/>
+                       Buildings.Occupants.Residential<br/>
+                       Buildings.Occupants.Residential
+    </td>
+    <td valign=\"top\">Refactored the implmenentation of the random number calculation in all blocks
+                       and functions as the old implementation was not producing high quality random numbers,
+                       and as it had rounding errors that caused cross-tool comparison to fail.<br/>
+                       The conversion script will automatically update the old parameter <code>seed</code>
+                       to the new parameter <code>localSeed</code> in the blocks.
+                       The blocks should be compatible with older versions after this update, but the results
+                       will differ.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
