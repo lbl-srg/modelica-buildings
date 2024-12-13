@@ -42,8 +42,8 @@ aggregation cell.
 </p>
 <p>
 This is a vectorized implementation of
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.shiftAggregationCells\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.shiftAggregationCells</a>,
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.shiftAggregationCells\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.shiftAggregationCells</a>,
 which applies load aggregation on a vector of aggregated load histories.
 </p>
 </html>", revisions="<html>

@@ -11,23 +11,23 @@ model ComparePowerInput
       per=per,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_inputFilter=false),
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.FlowControlled_dp mov2(
       redeclare final package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       per=per,
       addPowerToMedium=false,
-      use_inputFilter=false,
       m_flow_nominal=m_flow_nominal,
-      dp_nominal=dp_nominal),
+      dp_nominal=dp_nominal,
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.FlowControlled_m_flow mov3(
       redeclare final package Medium = Medium,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       per=per,
       addPowerToMedium=false,
-      use_inputFilter=false,
       m_flow_nominal=m_flow_nominal,
-      dp_nominal=dp_nominal),
+      dp_nominal=dp_nominal,
+      use_riseTime=false),
     ramDam(height=-0.5));
   Modelica.Blocks.Sources.RealExpression exp_dp(y=mov1.dpMachine)
     "Expression to impose the same pressure rise"

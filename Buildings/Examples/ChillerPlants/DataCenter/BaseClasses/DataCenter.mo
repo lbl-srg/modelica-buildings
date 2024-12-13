@@ -26,7 +26,7 @@ partial model DataCenter
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15,
     dp_nominal=750) "Fan for air flow through the data center"
@@ -63,10 +63,10 @@ partial model DataCenter
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Chilled water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Chilled water pump" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,-120})));
@@ -90,10 +90,10 @@ partial model DataCenter
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Condenser water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={358,200})));
@@ -112,7 +112,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
     y_start=1,
-    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    use_strokeTime=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -121,7 +121,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -153,7 +153,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
     y_start=1,
-    use_inputFilter=false,
+    use_strokeTime=false,
     from_dp=true)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
@@ -186,7 +186,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
     y_start=0,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -221,7 +221,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
     y_start=0,
-    use_inputFilter=false,
+    use_strokeTime=false,
     from_dp=true)          "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={288,20})));
   Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.Controls.KMinusU KMinusU(k=1)
@@ -231,7 +231,7 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={
             118,-60})));

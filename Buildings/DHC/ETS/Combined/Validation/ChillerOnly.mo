@@ -17,8 +17,6 @@ model ChillerOnly
     "District water supply temperature"
     annotation (Placement(transformation(extent={{-330,-150},{-310,-130}})));
 equation
-  connect(TDisWatSup.y[1],disWat.T_in)
-    annotation (Line(points={{-309,-140},{-140,-140},{-140,-136},{-122,-136}},color={0,0,127}));
   connect(loa.y[2],heaLoaNor.u)
     annotation (Line(points={{-309,160},{-300,160},{-300,60},{-252,60}},color={0,0,127}));
   connect(loa.y[1],loaCooNor.u)
@@ -32,6 +30,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 22, 2024, by Michael Wetter:<br/>
+Removed duplicate connection.
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

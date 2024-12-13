@@ -693,6 +693,12 @@ equation
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>
+    <i>August 19, 2024</i> by Michael Wetter:<br/>
+    Changed markup commands for code merge.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1919\">IBPSA #1919</a>.
+  </li>
+  <li>
     <i>July 15, 2024</i> by Fabian Wuellhorst:<br/>
     Adjust hysteresis bandwidth (see issue
     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1908\">IBPSA #1908</a>)

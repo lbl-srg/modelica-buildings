@@ -4,19 +4,19 @@ block TrueFalseHold
   parameter Real trueHoldDuration(
     final quantity="Time",
     final unit="s")
-    "true hold duration"
+    "Duration of true hold"
     annotation (Evaluate=true);
   parameter Real falseHoldDuration(
     final quantity="Time",
     final unit="s")=trueHoldDuration
-    "false hold duration"
+    "Duration of false hold"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Boolean input signal"
+    "Input signal that is to be delayed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Boolean output signal"
+    "Output with delayed input signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 protected
@@ -25,6 +25,10 @@ protected
   parameter Boolean pre_u_start=false
     "Value of pre(u) at initial time"
     annotation (Evaluate=true);
+  Boolean not_u = not u
+    "Opposite of u";
+  Boolean not_y = not y
+    "Opposite of y";
   discrete Real entryTimeTrue(
     final quantity="Time",
     final unit="s")
@@ -37,22 +41,29 @@ initial equation
   pre(entryTimeTrue) = -Modelica.Constants.inf;
   pre(entryTimeFalse) = -Modelica.Constants.inf;
   pre(u) = pre_u_start;
+  pre(not_u) = not pre_u_start;
   pre(y) = u;
+  pre(not_y) = not u;
 equation
   when initial() then
     y = u;
     entryTimeTrue = if y then time else pre(entryTimeTrue);
     entryTimeFalse = if not y then time else pre(entryTimeFalse);
-  elsewhen {change(u),
-            time >= pre(entryTimeFalse) + falseHoldDuration and
-            time >= pre(entryTimeTrue) + trueHoldDuration} then
-    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
-         time >= pre(entryTimeTrue) + trueHoldDuration then u
+  /*
+  The two elsewhen clauses below are kept separate to address an issue
+  with event handling in the CVODE solver.
+  */
+  elsewhen {edge(u), edge(not_u)} then
+    y = if time >= pre(entryTimeFalse) + falseHoldDuration and
+      time >= pre(entryTimeTrue) + trueHoldDuration then u
       else pre(y);
-    entryTimeTrue = if change(y) and y then time else pre(entryTimeTrue);
-    entryTimeFalse = if change(y) and not y then time else pre(entryTimeFalse);
-//     Modelica.Utilities.Streams.print(getInstanceName()+ " when change()u, or hold end, u is: "+String(u) + " at " + String(time) + " seconds.");
-//     Modelica.Utilities.Streams.print(getInstanceName()+ " when change()u, or hold end, y is: "+String(y) + " at " + String(time) + " seconds.");
+    entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
+    entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
+  elsewhen time >= pre(entryTimeFalse) + falseHoldDuration and
+    time >= pre(entryTimeTrue) + trueHoldDuration then
+    y = u;
+    entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
+    entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
   end when;
   annotation (
     defaultComponentName="truFalHol",
@@ -133,6 +144,12 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Antoine Gautier:<br/>
+Resolved an issue with unit impulse signals.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
+</li>
 <li>
 June 13, 2024, by Antoine Gautier:<br/>
 Refactored with synchronous language elements.<br/>

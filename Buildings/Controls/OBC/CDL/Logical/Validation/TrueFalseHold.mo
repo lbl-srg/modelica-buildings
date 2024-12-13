@@ -83,8 +83,7 @@ model TrueFalseHold
     trueHoldDuration=1000)
     "The block introduces a minimal offset between the input signal rising and falling edge"
     annotation (Placement(transformation(extent={{120,-60},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Negation of input signal"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Negation of input signal"
     annotation (Placement(transformation(extent={{70,-20},{90,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4
     "Negation of input signal"
@@ -92,14 +91,10 @@ model TrueFalseHold
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol8(trueHoldDuration=
         0, falseHoldDuration=1000)
-    "The block introduces a minimal offset between the input signal rising and falling edge"
-    annotation (Placement(transformation(extent={{120,90},{140,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    annotation (Placement(transformation(extent={{70,130},{90,150}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol9(trueHoldDuration=
-        0, falseHoldDuration=1000)
-    "The block introduces a minimal offset between the input signal rising and falling edge"
-    annotation (Placement(transformation(extent={{120,130},{140,150}})));
+    "Hold only false value of unit impulse signal"
+    annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg "Generate unit impulse signal"
+    annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
 equation
   connect(booPul.y,truFalHol.u)
     annotation (Line(points={{-118,70},{-118,70},{-42,70}},color={255,0,255}));
@@ -125,12 +120,10 @@ equation
     annotation (Line(points={{42,-50},{68,-50}},color={255,0,255}));
   connect(not4.y,truFalHol7.u)
     annotation (Line(points={{92,-50},{118,-50}},color={255,0,255}));
-  connect(booPul4.y, truFalHol8.u) annotation (Line(points={{42,70},{80,70},{80,
-          100},{118,100}}, color={255,0,255}));
-  connect(booPul4.y, edg.u) annotation (Line(points={{42,70},{60,70},{60,140},{
-          68,140},{68,140}}, color={255,0,255}));
-  connect(edg.y, truFalHol9.u)
-    annotation (Line(points={{92,140},{118,140}}, color={255,0,255}));
+  connect(edg.y, truFalHol8.u)
+    annotation (Line(points={{92,-80},{118,-80}}, color={255,0,255}));
+  connect(booPul6.y, edg.u) annotation (Line(points={{42,-10},{60,-10},{60,-80},
+          {68,-80}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=7200.0,
@@ -151,6 +144,12 @@ of the input pulse, and different initial values for the input signal.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Antoine Gautier:<br/>
+Added a case with a unit impulse signal.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
+</li>
 <li>
 June 14, 2017, by Michael Wetter:<br/>
 Added more tests for different initial signals and different hold values.

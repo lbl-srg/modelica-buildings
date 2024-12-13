@@ -5,7 +5,10 @@ model Yun2008WindowsTIn "A model to predict occupants' window behavior with indo
   parameter Real BOpen = -0.629 "Intercept of the logistic relation for opening the window";
   parameter Real AClose = -0.007 "Slope of the logistic relation for closing the window";
   parameter Real BClose = -0.209 "Intercept of the logistic relation for closing the window";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer localSeed = 3008
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TIn(
@@ -31,26 +34,32 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
 
 initial equation
   t0 = time;
-  curSeed = t0*seed;
+  state = Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+    localSeed = localSeed,
+    globalSeed = globalSeed);
+
   on = false;
   pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
   pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
+  ran = 0.5;
 
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if occ then
       pOpen = Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen)/(Modelica.Math.exp(AOpen*(TIn - 273.15)+BOpen) + 1);
       pClose = Modelica.Math.exp(AClose*(TIn - 273.15)+BClose)/(Modelica.Math.exp(AClose*(TIn - 273.15)+BClose) + 1);
       if pre(on) == true and TIn < 303.15 then
-        on = not Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pClose, globalSeed=integer(curSeed));
+        on = not ran < pClose;
       elseif pre(on) == false and TIn > 293.15 then
-        on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=pOpen, globalSeed=integer(curSeed));
+        on = ran < pOpen;
       else
         on = pre(on);
       end if;
@@ -72,29 +81,35 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the indoor air temperature 
+Model predicting the state of the window with the indoor air temperature
 and occupancy through Markov approach.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the Probability of closing or opening the window 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the Probability of closing or opening the window
 depends on the indoor air temperature.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Yun, G.Y. and Steemers, K., 
-2008. Time-dependent occupant behaviour models of window control in 
+The model is documented in the paper &quot;Yun, G.Y. and Steemers, K.,
+2008. Time-dependent occupant behaviour models of window control in
 summer. Building and Environment, 43(9), pp.1471-1482.&quot;
 </p>
 <p>
 The model parameters are regressed from the field study in offices without
-night ventilation, located in Cambridge, UK in summer time (13 Jun. to 15 
+night ventilation, located in Cambridge, UK in summer time (13 Jun. to 15
 Sep., 2006).
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 26, 2018, by Zhe Wang:<br/>
 First implementation.

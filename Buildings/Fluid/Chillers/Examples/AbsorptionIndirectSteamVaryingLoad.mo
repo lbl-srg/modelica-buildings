@@ -62,7 +62,7 @@ model AbsorptionIndirectSteamVaryingLoad
     m_flow_nominal=per.mEva_flow_nominal,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false)                      "Chilled water pump"
+    use_riseTime=false) "Chilled water pump"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Sources.PropertySource_T proSou(
     redeclare package Medium = Medium,

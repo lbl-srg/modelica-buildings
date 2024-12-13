@@ -15,7 +15,7 @@ model PowerSimplified
   Buildings.Fluid.Movers.SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
     per=per,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with normalised speed y as control signal"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -27,7 +27,7 @@ model PowerSimplified
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
       efficiency(V_flow={0}, eta={0.3577}),
       motorEfficiency(V_flow={0}, eta={1})),
-    use_inputFilter=false,
+    use_riseTime=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with pressure rise as control signal"
@@ -42,7 +42,7 @@ model PowerSimplified
       etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
       efficiency(V_flow={0}, eta={0.3577}),
       motorEfficiency(V_flow={0}, eta={1})),
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
