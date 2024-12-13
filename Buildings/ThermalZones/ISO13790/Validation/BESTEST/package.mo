@@ -5,7 +5,7 @@ extends Modelica.Icons.ExamplesPackage;
   annotation (
   Documentation(info="<html>
 <p>
-This package contains the models that were used for the BESTEST validation (ANSI/ASHRAE 2007).
+This package contains the models that were used for the BESTEST validation (ANSI/ASHRAE Standard 140-2020).
 </p>
 <h4>References</h4>
 <p>
