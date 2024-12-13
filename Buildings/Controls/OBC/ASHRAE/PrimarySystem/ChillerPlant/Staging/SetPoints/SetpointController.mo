@@ -175,12 +175,12 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
-    annotation (Placement(transformation(extent={{-442,-280},{-402,-240}}),
+    annotation (Placement(transformation(extent={{-440,-280},{-400,-240}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status vector"
-    annotation (Placement(transformation(extent={{-442,-220},{-402,-180}}),
+    annotation (Placement(transformation(extent={{-440,-220},{-400,-180}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
@@ -430,7 +430,7 @@ protected
 
 equation
   connect(uChiAva, conf.uChiAva)
-    annotation (Line(points={{-422,-200},{-382,-200},{-382,-170},{-362,-170}},
+    annotation (Line(points={{-420,-200},{-380,-200},{-380,-170},{-362,-170}},
           color={255,0,255}));
   connect(conf.yAva, sta.uAva) annotation (Line(points={{-338,-178},{-332,-178},
           {-332,-216},{-322,-216}},color={255,0,255}));
@@ -521,8 +521,9 @@ equation
   connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-420,60},
           {-158,60},{-158,-237.2},{-102,-237.2}},
                                       color={0,0,127}));
-  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{-102,-241},{-340,-241},
-          {-340,-260},{-422,-260}}, color={255,0,255}));
+  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{-102,-241},{-340,
+          -241},{-340,-260},{-420,-260}},
+                                    color={255,0,255}));
   connect(uSta, sta.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-204},
           {-322,-204}}, color={255,127,0}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Validation;
 model Controller
-  "Validates the waterside economizer enable/disable controller"
+  "Validates the waterside economizer enable-disable controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta(TOutWetDes(displayUnit="degC"))

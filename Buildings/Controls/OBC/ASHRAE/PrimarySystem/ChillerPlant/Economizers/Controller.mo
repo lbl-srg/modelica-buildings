@@ -355,11 +355,15 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And enaWSE
     "Enable economizer if the plant is enabled"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Break algebric loop"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,20},
-          {-150,20},{-150,35},{-142,35}},     color={0,0,127}));
+          {-150,20},{-150,35},{-142,35}}, color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
     annotation (Line(points={{-200,210},{-120,210},{-120,168},{-102,168}},
     color={0,0,127}));
@@ -386,23 +390,23 @@ equation
   connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-118,40},{-110,40},
           {-110,152},{-102,152}}, color={0,0,127}));
   connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,160},{-22,160}},
-                     color={0,0,127}));
+          color={0,0,127}));
   connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,170},{-170,170},{-170,
           180},{-60,180},{-60,172},{-22,172}}, color={0,0,127}));
   connect(sub2.y, enaTWet.u)
     annotation (Line(points={{2,166},{18,166}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
-    annotation (Line(points={{-118,40},{200,40}},   color={0,0,127}));
+    annotation (Line(points={{-118,40},{200,40}}, color={0,0,127}));
   connect(nor.y, timer.u)
     annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
   connect(hys.y, nor.u1)
     annotation (Line(points={{-38,100},{-22,100}}, color={255,0,255}));
   connect(truHol.y, nor.u2) annotation (Line(points={{-38,60},{-30,60},{-30,92},
-          {-22,92}},       color={255,0,255}));
+          {-22,92}}, color={255,0,255}));
   connect(falEdg.y, truHol.u)
-    annotation (Line(points={{-78,60},{-62,60}},   color={255,0,255}));
+    annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
   connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,160},{-60,160},{-60,
-          130},{200,130}},           color={0,0,127}));
+          130},{200,130}}, color={0,0,127}));
   connect(uIni, intEqu.u1)
     annotation (Line(points={{-200,-50},{-102,-50}}, color={255,127,0}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-118,-80},{-110,-80},{-110,
@@ -420,7 +424,7 @@ equation
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-140},{-60,-140},
           {-60,-146},{118,-146}}, color={0,0,127}));
   connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-180},{118,-180}},
-                             color={255,0,255}));
+          color={255,0,255}));
   connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-210},{100,
           -210},{100,-188},{118,-188}},  color={0,0,127}));
   connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-134},
@@ -458,11 +462,13 @@ equation
   connect(and1.y, lat.u)
     annotation (Line(points={{-38,-20},{18,-20}}, color={255,0,255}));
   connect(uPla, enaWSE.u2) annotation (Line(points={{-200,-20},{-154,-20},{-154,
-          12},{58,12}}, color={255,0,255}));
-  connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,166},{170,166},{
-          170,60},{40,60},{40,20},{58,20}}, color={255,0,255}));
-  connect(enaWSE.y, enaEco.u1) annotation (Line(points={{82,20},{110,20},{110,-20},
+          12},{18,12}}, color={255,0,255}));
+  connect(enaWSE.y, pre1.u)
+    annotation (Line(points={{42,20},{58,20}}, color={255,0,255}));
+  connect(pre1.y, enaEco.u1) annotation (Line(points={{82,20},{110,20},{110,-20},
           {118,-20}}, color={255,0,255}));
+  connect(truFalHol.y, enaWSE.u1) annotation (Line(points={{162,166},{168,166},{
+          168,60},{0,60},{0,20},{18,20}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={
