@@ -197,6 +197,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ISO13790</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.ThermalZones.ISO13790
+    </td>
+    <td valign=\"top\">Added BESTEST validation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1707\">IBPSA #1707</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
