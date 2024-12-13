@@ -48,7 +48,6 @@ model ClosedLoop
     final m_flow_nominal=mWater_flow_nominal,
     final show_T=true,
     final dpValve_nominal=20000,
-    use_inputFilter=false,
     final dpFixed_nominal=60000) "Cooling coil valve"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},rotation=90,origin={80,20})));

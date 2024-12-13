@@ -31,8 +31,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(pressure(V_flow={0,mCon_flow_nominal,2*mCon_flow_nominal}/1.2,
-                     dp={2*dpCon_nominal,dpCon_nominal,0})),
-    final use_inputFilter=false)
+                     dp={2*dpCon_nominal,dpCon_nominal,0})))
     "Condenser water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,origin={200,210})));
@@ -40,8 +39,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(pressure(V_flow={0,mCon_flow_nominal,2*mCon_flow_nominal}/1.2,
-                     dp={2*dpCon_nominal,dpCon_nominal,0})),
-    final use_inputFilter=false)
+                     dp={2*dpCon_nominal,dpCon_nominal,0})))
     "Condenser water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,origin={260,210})));
@@ -50,7 +48,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
     annotation (Placement(transformation(extent={{370,90},{390,110}})));
@@ -59,7 +56,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=0)
     "Condenser water isolation valve"
     annotation (Placement(transformation(extent={{370,0},{390,20}})));
@@ -68,7 +64,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=80000)
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{250,60},{230,80}})));
@@ -77,7 +72,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=80000)
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{250,-30},{230,-10}})));
@@ -121,7 +115,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=50000)
     "Cooling tower isolation valve"
     annotation (Placement(transformation(extent={{390,300},{370,320}})));
@@ -130,7 +123,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mCon_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=50000)
     "Cooling tower isolation valve"
     annotation (Placement(transformation(extent={{390,370},{370,390}})));
@@ -159,8 +151,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(pressure(V_flow={0,mChi_flow_nominal,2*mChi_flow_nominal}/1.2,
-                     dp={2*dpChi_nominal,dpChi_nominal,0})),
-    use_inputFilter=false)
+                     dp={2*dpChi_nominal,dpChi_nominal,0})))
     "Chilled water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,origin={200,-96})));
@@ -168,8 +159,7 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     per(pressure(V_flow={0,mChi_flow_nominal,2*mChi_flow_nominal}/1.2,
-                     dp={2*dpChi_nominal,dpChi_nominal,0})),
-    final use_inputFilter=false)
+                     dp={2*dpChi_nominal,dpChi_nominal,0})))
     "Chilled water pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,origin={260,-96})));
@@ -199,7 +189,6 @@ partial model PartialChillerPlant "Partial model of the chiller plant for the cl
     final m_flow_nominal=mChi_flow_nominal,
     final show_T=true,
     final dpValve_nominal=15000,
-    final use_inputFilter=false,
     final dpFixed_nominal=8000)
     "Bypass valve for chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={330,-220})));
