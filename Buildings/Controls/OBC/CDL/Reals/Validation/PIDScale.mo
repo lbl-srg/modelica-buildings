@@ -100,8 +100,7 @@ the scaling is implemented correctly.
 October 15, 2020, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">
-Buildings, issue 2182</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">Buildings, issue 2182</a>.
 </li>
 </ul>
 </html>"),

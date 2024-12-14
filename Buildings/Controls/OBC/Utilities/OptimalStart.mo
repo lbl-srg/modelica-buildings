@@ -302,7 +302,7 @@ January 30, 2021, by Michael Wetter:<br/>
 Refactored sampling of history of temperature slope to only sample when control error requires optimal start up.
 Refactored guarding against division by zero.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">#2345</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2345\">Buildings, issue 2345</a>.
 </li>
 <li>
 August 6, 2020, by Michael Wetter:<br/>
@@ -311,7 +311,7 @@ Replaced hysteresis with new inequality block.
 <li>
 December 15, 2019, by Kun Zhang:<br/>
 First implementation.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\">issue #1589</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1589\">Buildings, issue #1589</a>.
 </li>
 </ul>
 </html>"),

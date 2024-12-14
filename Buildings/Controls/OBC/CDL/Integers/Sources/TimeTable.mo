@@ -162,12 +162,12 @@ Removed writing output value in icon (as it is an array of values).
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Revised to call <code>round()</code> as a function.<br/>
-For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, issue 2170</a>.
 </li>
 <li>
 October 7, 2020, by Michael Wetter:<br/>

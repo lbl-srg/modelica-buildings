@@ -53,7 +53,7 @@ The instances <code>samTri</code> and <code>samTri1</code> use a different value
 December 03, 2020, by Milica Grahovac:<br/>
 Added a test case with a <code>shift</code> parameter set to a value larger than zero.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">#2282</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">Buildings, issue 2282</a>.
 </li>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>

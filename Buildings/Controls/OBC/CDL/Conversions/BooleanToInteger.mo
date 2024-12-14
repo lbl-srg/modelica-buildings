@@ -40,7 +40,7 @@ and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 May 17, 2022, by Hongxiang Fu:<br/>
 Corrected documentation texts where the variables were described with wrong types.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">Buildings, issue 3016</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

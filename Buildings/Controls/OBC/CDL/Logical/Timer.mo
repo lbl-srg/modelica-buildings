@@ -144,41 +144,41 @@ the output <code>passed</code> remains <code>false</code>.
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 August 28, 2020, by Michael Wetter:<br/>
 Revised implementation to correctly deal with non-zero simulation start time,
 and to avoid state events.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">Buildings, issue 2101</a>.
 </li>
 <li>
 August 26, 2020, by Jianjun Hu:<br/>
 Removed <code>reset</code> boolean input and added output <code>passed</code>
 to show if the time becomes greater than threshold time.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">issue 2101</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2101\">Buildings, issue 2101</a>.
 </li>
 <li>
 July 31, 2020, by Jianjun Hu:<br/>
 Fixed the reset input. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">Buildings, issue 2056</a>.
 </li>
 <li>
 November 8, 2019, by Michael Wetter:<br/>
 Revised implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">Buildings, issue 1221</a>.
 </li>
 <li>
 July 23, 2018, by Jianjun Hu:<br/>
 Added conditional boolean input for cumulative time measuring. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">issue 1221</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1221\">Buildings, issue 1221</a>.
 </li>
 <li>
 July 18, 2018, by Jianjun Hu:<br/>
 Updated implementation to output accumulated true input time.  This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">issue 1212</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1212\">Buildings, issue 1212</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

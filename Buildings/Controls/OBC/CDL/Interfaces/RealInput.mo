@@ -29,7 +29,7 @@ Connector with one input signal of type Real.
 March 1, 2019, by Michael Wetter:<br/>
 On the icon layer, changed connector size and added the connector name.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1375\">issue 1375</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1375\">Buildings, issue 1375</a>.
 </li>
 <li>
 January 6, 2017, by Michael Wetter:<br/>
