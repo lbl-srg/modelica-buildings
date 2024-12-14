@@ -63,7 +63,7 @@ block Enable "Sequence for enabling and disabling tower fan"
       iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTow
     "Tower fan status: true=enable any number of fans; false=disable all fans"
-    annotation (Placement(transformation(extent={{280,-180},{320,-140}}),
+    annotation (Placement(transformation(extent={{280,-230},{320,-190}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -190,6 +190,9 @@ protected
     final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{80,200},{100,220}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Break algebraic loop"
+    annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
 
 equation
   connect(sub0.y, hys.u)
@@ -261,8 +264,6 @@ equation
   connect(intEqu.y, logSwi2.u2)
     annotation (Line(points={{-78,-160},{238,-160}},
       color={255,0,255}));
-  connect(logSwi2.y, yTow)
-    annotation (Line(points={{262,-160},{300,-160}}, color={255,0,255}));
   connect(mulOr1.y, logSwi1.u3)
     annotation (Line(points={{-218,-120},{-200,-120},{-200,-98},{198,-98}},
       color={255,0,255}));
@@ -304,6 +305,10 @@ equation
     annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
   connect(truDel2.y, disTow.u1)
     annotation (Line(points={{42,160},{58,160}}, color={255,0,255}));
+  connect(logSwi2.y, pre2.u) annotation (Line(points={{262,-160},{270,-160},{270,
+          -180},{230,-180},{230,-210},{238,-210}}, color={255,0,255}));
+  connect(pre2.y, yTow)
+    annotation (Line(points={{262,-210},{300,-210}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaTow",
   Diagram(coordinateSystem(preserveAspectRatio=false,

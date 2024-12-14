@@ -427,8 +427,8 @@ equation
           {-72,-20},{-72,-53},{-22,-53}}, color={0,0,127}));
   connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-46},{40,-46},{40,
           -30},{120,-30}}, color={255,0,255}));
-  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-34,-70},
-          {-34,-49},{-22,-49}}, color={255,0,255}));
+  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-48,-70},
+          {-48,-49},{-22,-49}}, color={255,0,255}));
   connect(swi.y, ySpeSet)
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
