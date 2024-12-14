@@ -649,7 +649,7 @@ This model instantiates the chiller plant sequence
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>
 and connects it with the chiller plant system model 
 <a href=\"modelica://Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.PartialChillerPlant\">
-Buildings.Examples.ChillerPlants.RP1711.BaseClasses.PartialChillerPlant</a>.
+Buildings.Examples.ChillerPlants.Guideline36.BaseClasses.PartialChillerPlant</a>.
 </p>
 </html>", revisions="<html>
 <ul>

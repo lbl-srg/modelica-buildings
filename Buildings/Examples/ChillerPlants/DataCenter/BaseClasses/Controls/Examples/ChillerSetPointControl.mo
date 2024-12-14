@@ -177,7 +177,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(linPieTwo.y[2], firstOrder1.u) annotation (Line(
-      points={{-39,30.3},{-20,30},{-2,30}},
+      points={{-39,30.05},{-20,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder1.y, chi.TSet) annotation (Line(
@@ -201,7 +201,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, linPieTwo.y[1]) annotation (Line(
-      points={{84,-8},{-20,-8},{-20,29.3},{-39,29.3}},
+      points={{84,-8},{-20,-8},{-20,29.55},{-39,29.55}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

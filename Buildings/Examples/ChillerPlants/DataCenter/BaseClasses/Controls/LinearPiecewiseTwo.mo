@@ -29,11 +29,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(y1Tab.y, y[1]) annotation (Line(
-      points={{-19,30},{26,30},{26,-7},{110,-7}},
+      points={{-19,30},{26,30},{26,-4.5},{110,-4.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y2Tab.y, y[2]) annotation (Line(
-      points={{-19,-30},{42,-30},{42,3},{110,3}},
+      points={{-19,-30},{42,-30},{42,0.5},{110,0.5}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

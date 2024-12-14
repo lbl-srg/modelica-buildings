@@ -33,13 +33,13 @@ which is a discrete time control logic.
 <p>
 The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
-<a href=\"modelica://Buildings.Examples.ChillerPlant\">
-Buildings.Examples.ChillerPlant</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter</a>.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl\">
-Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl</a>
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl\">
+Buildings.Examples.ChillerPlants.DataCenter.ContinuousTimeControl</a>
 for an implementation that approximates the trim and respond
 logic by a continuous time controller.
 </p>

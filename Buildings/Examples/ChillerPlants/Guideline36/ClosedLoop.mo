@@ -261,7 +261,7 @@ and two headed constant speed condenser water pumps.
 The system schematics is as shown below.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/Guideline36/chillerSchematics.png\" border=\"1\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlants/Guideline36/chillerSchematics.png\" border=\"1\"/>
 </p>
 <p>
 The model makes following assumptions:
