@@ -6,7 +6,8 @@ extends Modelica.Icons.BasesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
-<a href=\"modelica://Buildings.Examples.ChillerPlant\">Buildings.Examples.ChillerPlant</a>.
+<a href=\"modelica://Buildings.Examples.ChillerPlants.DataCenter\">
+Buildings.Examples.ChillerPlants.DataCenter</a>.
 </p>
 </html>"));
 end BaseClasses;
