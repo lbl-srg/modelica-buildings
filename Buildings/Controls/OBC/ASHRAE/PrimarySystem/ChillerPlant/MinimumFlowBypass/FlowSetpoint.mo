@@ -327,7 +327,7 @@ protected
     "End staging change"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
 
-  CDL.Logical.Edge                        staChaSet1
+  Buildings.Controls.OBC.CDL.Logical.Edge staChaSet1
     "Start changing the setpoint"
     annotation (Placement(transformation(extent={{180,-450},{200,-430}})));
 equation

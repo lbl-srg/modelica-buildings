@@ -180,8 +180,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if there is stage change"
     annotation (Placement(transformation(extent={{300,90},{320,110}})));
-
-protected
   Buildings.Controls.OBC.CDL.Logical.And and4
     "Consider staging up only if stage down signal is not on"
     annotation (Placement(transformation(extent={{-320,60},{-300,80}})));
@@ -240,7 +238,7 @@ equation
   connect(triSam.y,switch2. u3) annotation (Line(points={{132,70},{140,70},{140,
           192},{158,192}},     color={0,0,127}));
   connect(uIni,intToRea2. u) annotation (Line(points={{-460,240},{-42,240}},
-                         color={255,127,0}));
+          color={255,127,0}));
   connect(intToRea2.y,switch2. u1) annotation (Line(points={{-18,240},{140,240},
           {140,208},{158,208}}, color={0,0,127}));
   connect(tim.y,lesEquThr. u) annotation (Line(points={{-58,-230},{-42,-230}},
@@ -270,9 +268,9 @@ equation
   connect(and6.y, edg1.u)
     annotation (Line(points={{-158,-80},{-82,-80}},color={255,0,255}));
   connect(uPla, booToRea.u) annotation (Line(points={{-460,170},{-420,170},{
-          -420,10},{58,10}},                    color={255,0,255}));
+          -420,10},{58,10}}, color={255,0,255}));
   connect(uPla, falEdg.u) annotation (Line(points={{-460,170},{-420,170},{-420,
-          -20},{-82,-20}},                color={255,0,255}));
+          -20},{-82,-20}}, color={255,0,255}));
   connect(falEdg.y, or3.u1) annotation (Line(points={{-58,-20},{140,-20},{140,-50},
           {158,-50}}, color={255,0,255}));
   connect(uPla, edg.u)
@@ -295,9 +293,9 @@ equation
           {-322,62}}, color={255,0,255}));
   connect(and4.y, switch1.u2) annotation (Line(points={{-298,70},{-242,70}},
           color={255,0,255}));
-  connect(conInt.y,intEqu. u1) annotation (Line(points={{202,-160},{238,-160}},
+  connect(conInt.y, intEqu.u1) annotation (Line(points={{202,-160},{238,-160}},
           color={255,127,0}));
-  connect(intEqu.y,and5. u2) annotation (Line(points={{262,-160},{270,-160},{
+  connect(intEqu.y, and5.u2) annotation (Line(points={{262,-160},{270,-160},{
           270,-138},{278,-138}}, color={255,0,255}));
   connect(and5.y,logSwi1. u3) annotation (Line(points={{302,-130},{378,-130}},
           color={255,0,255}));

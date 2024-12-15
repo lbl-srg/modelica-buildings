@@ -160,8 +160,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant dowSta3(
     final k=1) "Stage one"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  CDL.Integers.Switch                     intSwi2
-                                               "Logical switch"
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
+    "Logical switch"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant staTwoChi3[2](
     final k={true,true})
@@ -177,14 +177,13 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant endPro3(final k=true)
     "Not in the process"
     annotation (Placement(transformation(extent={{80,-310},{100,-290}})));
-
-  CDL.Logical.Not not3 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
-  CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  CDL.Logical.Not not2 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-270},{-200,-250}})));
-  CDL.Logical.Not not4 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not4 "Logical not"
     annotation (Placement(transformation(extent={{80,-270},{100,-250}})));
 equation
   connect(booPul.y, staUp.u)
