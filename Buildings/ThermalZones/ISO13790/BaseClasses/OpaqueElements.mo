@@ -1,15 +1,15 @@
 within Buildings.ThermalZones.ISO13790.BaseClasses;
-model OpaqueElements
+model OpaqueElements "Solar gains through opaque elements"
   parameter Integer n;
-  parameter Real AWal[:] "Area of external walls";
-  parameter Real ARoo "Area of roof";
-  parameter Real UWal "U-value of external walls";
-  parameter Real URoo "U-value of roof";
-  parameter Real surTil[:] "Tilt angle of surfaces";
-  parameter Real surAzi[:] "Azimuth angle of surfaces";
+  parameter Modelica.Units.SI.Area AWal[:] "Area of external walls";
+  parameter Modelica.Units.SI.Area ARoo "Area of roof";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer UWal "U-value of external walls";
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer URoo "U-value of roof";
+  parameter Modelica.Units.SI.Angle surTil[:] "Tilt angle of surfaces";
+  parameter Modelica.Units.SI.Angle surAzi[:] "Azimuth angle of surfaces";
   parameter Real eps=0.9 "Emissivity of external surface";
   parameter Real alp=0.6 "Absorption coefficient";
-  parameter Real surRes=0.04 "External surface heat resistance";
+  parameter Modelica.Units.SI.ThermalInsulance surRes=0.04 "External surface heat resistance";
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
@@ -31,7 +31,7 @@ model OpaqueElements
     "Total of direct and diffuse radiation on surface"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Math.Add addOpa[n](each k2=-1)
-    "Total of direct and diffuse radiation on vertical surfaces"
+    "Total solar gains through vertical walls"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Math.Gain theRadOpa[n](each k=5*eps*11*0.5)
     "Extra thermal radiation through walls"
@@ -45,8 +45,7 @@ model OpaqueElements
   Modelica.Blocks.Math.Gain theRadRoo(final k=5*eps*11*1)
     "Extra thermal radiation through roof"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-  Modelica.Blocks.Math.Add addRoo(k2=-1)
-    "Total of direct and diffuse radiation on the roof"
+  Modelica.Blocks.Math.Add addRoo(k2=-1) "Total solar gains through roof"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=n)
     annotation (Placement(transformation(extent={{48,44},{60,56}})));
@@ -173,7 +172,7 @@ per square meter of surface area, <i>&alpha;<sub>k</sub></i> is the dimensionles
 <i>R<sub>se</sub></i> is the external surface heat resistance of the opaque element in (m K/W), and <i>A<sub>k</sub></i> is the area of the opaque element.
 </p>
 <p>
-The form factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to
+The view factor between the building element and the sky <i>F<sub>f</sub></i> is set to 1 for roofs and 0.5 for external walls. The extra heat flow due to
 thermal radiation to the sky is given by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -187,6 +186,10 @@ the average temperature difference between the external air temperature and the
 apparent sky temperature.
 </p>
 </html>", revisions="<html><ul>
+<li>
+Aug 2, 2024, by Alessandro Maccarini:<br/>
+Added units.
+</li>
 <li>
 Mar 16, 2022, by Alessandro Maccarini:<br/>
 First implementation.
