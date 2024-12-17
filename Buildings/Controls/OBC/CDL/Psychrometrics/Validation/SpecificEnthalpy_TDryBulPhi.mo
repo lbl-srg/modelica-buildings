@@ -39,7 +39,7 @@ Buildings.Controls.OBC.CDL.Psychrometrics.SpecificEnthalpy_TDryBulPhi</a>.
 September 29, 2020, by Michael Wetter:<br/>
 Renamed model and updated for new input of the psychrometric blocks.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">Buildings, issue 2139</a>
 </li>
 <li>
 April 7, 2017 by Jianjun Hu:<br/>

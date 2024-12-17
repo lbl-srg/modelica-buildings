@@ -48,9 +48,7 @@ equation
         if thr < fallingSlewRate then
           fallingSlewRate
         else
-          if thr > raisingSlewRate then raisingSlewRate else thr
-        )
-     );
+          if thr > raisingSlewRate then raisingSlewRate else thr));
   y = if active then y_internal else u;
 
 annotation (defaultComponentName="ram",

@@ -77,7 +77,7 @@ for an example.
 September 14, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the Modelica Standard
 Library. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/933\">issue 933</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/933\">Buildings, issue 933</a>.
 </li>
 </ul>
 </html>"));

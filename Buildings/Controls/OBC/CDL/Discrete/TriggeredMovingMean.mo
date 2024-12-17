@@ -177,7 +177,7 @@ and produces this value at its output <code>y</code>.
 March 30, 2022, by Michael Wetter:<br/>
 Added <code>discrete</code> keyword to sampled variable.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">Buildings, issue 2942</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
@@ -193,7 +193,7 @@ Reformulated model to use an <code>equation</code> rather than an <code>algorith
 </li>
 <li>
 October 16, 2019, by Kun Zhang:<br/>
-First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue 1588</a>.
+First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">Buildings, issue 1588</a>.
 </li>
 </ul>
 </html>"));
