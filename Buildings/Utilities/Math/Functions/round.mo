@@ -50,13 +50,13 @@ August 30, 2024, by Michael Wetter:<br/>
 Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in
 Dymola 2025x beta1.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">Buildings, #3978</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, #2170</a>.
 </li>
 </ul>
 </html>"));

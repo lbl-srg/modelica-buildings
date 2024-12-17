@@ -40,7 +40,7 @@ smooth, and simulations can then fail if it differentiated this output.
 July 17, 2020, by Jianjun Hu:<br/>
 Changed icon to display dynamically which input signal is being outputted.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\">Buildings, issue  2033</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

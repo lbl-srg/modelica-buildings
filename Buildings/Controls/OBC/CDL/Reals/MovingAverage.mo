@@ -136,13 +136,13 @@ revisions="<html>
 <li>
 January 27, 2022, by Jianjun Hu:<br/>
 Renamed the block name from MovingMean to MovingAverage.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">Buildings, issue 2865</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
@@ -165,7 +165,7 @@ implementation caused division by zero in the VAV reheat model with the Radau so
 September 27, 2017, by Thierry S. Nouidui:<br/>
 Reformulated implementation to handle division by zero.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/978\">issue 978</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/978\">Buildings, issue 978</a>.
 </li>
 <li>
 September 15, 2017, by Thierry S. Nouidui:<br/>
@@ -178,7 +178,7 @@ Revised implementation to allow non-zero start time.
 <li>
 June 29, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">Buildings, issue 825</a>.
 </li>
 </ul>
 </html>"));

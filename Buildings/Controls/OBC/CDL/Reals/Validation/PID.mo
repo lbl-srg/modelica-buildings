@@ -98,8 +98,7 @@ Relaxed tolerance of assertions from <i>1E-10</i>
 to <i>1E-3</i> as the default relative tolerance in JModelica
 is <i>1E-4</i>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">
-Buildings, issue 510</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/510\">Buildings, issue 510</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

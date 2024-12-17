@@ -148,19 +148,19 @@ alt=\"Input and output of the block\"/>
 August 26, 2024, by Antoine Gautier:<br/>
 Resolved an issue with unit impulse signals.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">issue 3966</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3966\">Buildings, issue 3966</a>.
 </li>
 <li>
 June 13, 2024, by Antoine Gautier:<br/>
 Refactored with synchronous language elements.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">issue 3787</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">Buildings, issue 3787</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 September 18, 2017, by Michael Wetter:<br/>
@@ -176,7 +176,7 @@ Reimplemented model using a state graph to avoid having to test for equality wit
 and to correct a bug.
 This implementation is also easier to understand.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/789\">issue 789</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/789\">Buildings, issue 789</a>.
 </li>
 <li>
 May 24, 2017, by Milica Grahovac:<br/>
