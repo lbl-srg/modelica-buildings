@@ -25,8 +25,7 @@ model Pump
     redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=addPowerToMedium,
-    final per=per,
-    final use_inputFilter=false) "Pump"
+    final per=per) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Mechanics.Rotational.Components.Inertia ine(
     final J=loaIne,
