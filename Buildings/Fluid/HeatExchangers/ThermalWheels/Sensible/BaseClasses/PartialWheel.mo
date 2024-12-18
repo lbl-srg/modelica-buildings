@@ -12,10 +12,10 @@ partial model PartialWheel
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
-    "Nominal supply air pressure drop"
+    "Nominal supply air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
-    "Nominal exhaust air pressure drop"
+    "Nominal exhaust air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsCoo_nominal(
     final max=1) = 0.8
@@ -118,16 +118,20 @@ equation
     annotation (Line(points={{-139,-60},{-120,-60},{-120,-8},{-102,-8}},
     color={0,0,127}));
   connect(senExhMasFlo.port_b, port_b2)
-    annotation (Line(points={{-90,-40},{-108,-40},{-108,-80},{-180,-80}},
-    color={0,127,255}));
-  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-40},{
-          -16,-40},{-16,-6},{-10,-6}},
-    color={0,127,255}));
+    annotation (Line(points={{-90,-40},{-100,-40},{-100,-80},{-180,-80}},
+    color={0,127,255},
+      thickness=0.5));
+  connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-70,-40},
+          {-30,-40},{-30,-6},{-10,-6}},
+    color={0,127,255},
+      thickness=0.5));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{10,6},{20,6},{20,20},{30,20}},
-    color={0,127,255}));
+    color={0,127,255},
+      thickness=0.5));
   connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{50,20},{60,20},
-    {60,80},{100,80}}, color={0,127,255}));
+    {60,80},{100,80}}, color={0,127,255},
+      thickness=0.5));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-29},
     {-80,-20},{-130,-20},{-130,4},{-102,4}}, color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{40,31},

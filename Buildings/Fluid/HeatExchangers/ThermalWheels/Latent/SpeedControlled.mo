@@ -1,13 +1,15 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
-  extends
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter
     Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
     per
     "Record with performance data"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
+  parameter Boolean show_T=false
+    "= true, if actual temperature at port is computed"
+    annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
@@ -28,9 +30,11 @@ model SpeedControlled
 equation
   connect(hex.port_a2, port_a2)
     annotation (Line(points={{30,-6},{40,-6},{40,-80},{100,-80}},
-    color={0,127,255}));
+    color={0,127,255},
+      thickness=0.5));
   connect(hex.port_a1, port_a1)
-    annotation (Line(points={{10,6},{-32,6},{-32,80},{-180,80}},  color={0,127,255}));
+    annotation (Line(points={{10,6},{-32,6},{-32,80},{-180,80}},  color={0,127,255},
+      thickness=0.5));
   connect(latWhe.epsSenCor, mul.u1) annotation (Line(points={{-98,120},{-80,120},
           {-80,146},{-62,146}}, color={0,0,127}));
   connect(latWhe.epsLatCor, mul1.u1) annotation (Line(points={{-98,112},{-80,112},

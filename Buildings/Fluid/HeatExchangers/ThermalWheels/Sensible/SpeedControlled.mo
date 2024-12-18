@@ -1,12 +1,15 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
-  extends
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
+    hex(final show_T=show_T));
   parameter
     Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
     per "Record with performance data"
     annotation (Placement(transformation(extent={{28,78},{48,98}})));
+  parameter Boolean show_T=false
+    "= true, if actual temperature at port is computed"
+    annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
@@ -19,25 +22,27 @@ model SpeedControlled
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Calculate the heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-52,-20},{-32,0}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
 equation
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
-    {-10,6}}, color={0,127,255}));
+    {-10,6}}, color={0,127,255},
+      thickness=0.5));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
-          -80},{100,-80}}, color={0,127,255}));
-  connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-138,0},{-114,0},
-          {-114,-16},{-54,-16}},color={0,0,127}));
-  connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-62,0},{-62,-4},
-          {-54,-4}}, color={0,0,127}));
-  connect(mul.y, hex.eps) annotation (Line(points={{-30,-10},{-26,-10},{-26,0},
-          {-12,0}},color={0,0,127}));
+          -80},{100,-80}}, color={0,127,255},
+      thickness=0.5));
+  connect(senWhe.epsSenCor, mul.u2) annotation (Line(points={{-138,0},{-114,0},{
+          -114,-16},{-62,-16}}, color={0,0,127}));
+  connect(effCal.eps, mul.u1) annotation (Line(points={{-78,0},{-70,0},{-70,-4},
+          {-62,-4}}, color={0,0,127}));
+  connect(mul.y, hex.eps) annotation (Line(points={{-38,-10},{-20,-10},{-20,0},{
+          -12,0}}, color={0,0,127}));
   connect(uSpe, senWhe.uSpe) annotation (Line(points={{-200,0},{-162,0}},
           color={0,0,127}));
   connect(senWhe.P, P) annotation (Line(points={{-138,8},{-134,8},{-134,68},{88,
           68},{88,-40},{120,-40}}, color={0,0,127}));
-  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-20},{-26,
-          -20},{-26,-10},{-30,-10}}, color={0,0,127}));
+  connect(eps, mul.y) annotation (Line(points={{120,40},{80,40},{80,-20},{-20,-20},
+          {-20,-10},{-38,-10}},      color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

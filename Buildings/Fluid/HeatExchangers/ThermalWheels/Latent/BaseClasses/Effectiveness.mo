@@ -116,12 +116,12 @@ It calculates the ratio of the average operating flow rate to the nominal
 supply flow rate as
 </p>
 <pre>
-  rat = max(0.5, min(1.3, (VSup_flow + VExh_flow)/(2*VSup_flow_nominal))),
+  rat = max(0.5, min(1.3, (mSup_flow + mExh_flow)/(2*mSup_flow_nominal))),
 </pre>
 <p>
-where <code>VSup_flow</code> is the flow rate of the supply air,
-<code>VExh_flow</code> is the flow rate of the exhaust air,
-<code>VSup_flow_nominal</code> is the nominal flow rate of the supply air, and
+where <code>mSup_flow</code> is the mass flow rate of the supply air,
+<code>mExh_flow</code> is the mass flow rate of the exhaust air,
+<code>mSup_flow_nominal</code> is the nominal mass flow rate of the supply air, and
 <code>rat</code> is the flow ratio.
 </p>
 <p>

@@ -12,10 +12,10 @@ partial model PartialWheel
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
-    "Nominal supply air pressure drop"
+    "Nominal supply air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
-    "Nominal exhaust air pressure drop"
+    "Nominal exhaust air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
     final max=1) = 0.8
@@ -59,10 +59,12 @@ partial model PartialWheel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLat(final unit="1")
     "Latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senSupMasFlo(
+    redeclare package Medium = Medium)
     "Supply air mass flow rate"
     annotation (Placement(transformation(extent={{50,-4},{70,16}})));
-  Buildings.Fluid.Sensors.MassFlowRate senExhMasFlo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFlowRate senExhMasFlo(
+    redeclare package Medium = Medium)
     "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-100,-54},{-120,-34}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
@@ -135,13 +137,18 @@ equation
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-110,
           -33},{-110,4},{-102,4}}, color={0,0,127}));
   connect(hex.port_b1, senSupMasFlo.port_a)
-    annotation (Line(points={{30,6},{50,6}}, color={0,127,255}));
+    annotation (Line(points={{30,6},{50,6}}, color={0,127,255},
+      thickness=0.5));
   connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{70,6},{80,6},
-          {80,80},{100,80}}, color={0,127,255}));
+          {80,80},{100,80}}, color={0,127,255},
+      thickness=0.5));
   connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-44},
-          {-30,-44},{-30,-6},{10,-6}},  color={0,127,255}));
-  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{-166,
-          -44},{-166,-80},{-180,-80}},color={0,127,255}));
+          {-30,-44},{-30,-6},{10,-6}},  color={0,127,255},
+      thickness=0.5));
+  connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{
+          -160,-44},{-160,-80},{-180,-80}},
+                                      color={0,127,255},
+      thickness=0.5));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

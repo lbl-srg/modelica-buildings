@@ -141,7 +141,8 @@ revisions="<html>
 <ul>
 <li>
 September 29, 2023, by Sen Huang:<br/>
-First implementation based on <a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+First implementation based on
+<a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </li>
 </ul>
