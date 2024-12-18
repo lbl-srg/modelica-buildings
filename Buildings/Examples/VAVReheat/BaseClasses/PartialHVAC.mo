@@ -255,7 +255,7 @@ partial model PartialHVAC
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     from_dp=false,
-    riseTime=15,
+    strokeTime=15,
     dpDamper_nominal=5,
     dpFixed_nominal=5) "Return air damper" annotation (Placement(transformation(
         origin={0,-10},
@@ -265,7 +265,7 @@ partial model PartialHVAC
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
     from_dp=false,
-    riseTime=15,
+    strokeTime=15,
     dpDamper_nominal=5,
     dpFixed_nominal=5) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
@@ -532,7 +532,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
-      points={{-320,180},{-302,180}},
+      points={{-319.95,180.05},{-310,180.05},{-310,180},{-302,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

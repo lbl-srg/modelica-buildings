@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Multiply "Output product of the two inputs"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Input to be multiplied"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Input to be multiplied"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Product of the inputs"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -27,7 +27,7 @@ revisions="<html>
 <li>
 January 27, 2022, by Jianjun Hu:<br/>
 Renamed the block name from Product to Multiply.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">Buildings, issue 2865</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

@@ -124,14 +124,12 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mAir_flow_nominal,
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
-    final per(
-      final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
-      final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
+    final per(final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+        final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
-    final use_inputFilter=false,
-    redeclare package Medium = MediumA)
-    "Supply fan"
+    final use_riseTime=false,
+    redeclare package Medium = MediumA) "Supply fan"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
@@ -182,7 +180,7 @@ model ChillerDXHeatingEconomizer
         extent={{10,-10},{-10,10}},
         origin={138,-174})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChiWat(
-    final use_inputFilter=false,
+    final use_riseTime=false,
     final allowFlowReversal=false,
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -195,9 +193,7 @@ model ChillerDXHeatingEconomizer
     final dp_nominal=12000,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final nominalValuesDefineDefaultPressureCurve=true)
-    "Pump for chilled water loop"
-    annotation (
-      Placement(transformation(
+    "Pump for chilled water loop" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,-90})));

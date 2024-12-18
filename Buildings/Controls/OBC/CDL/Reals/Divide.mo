@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Divide "Output first input divided by second input"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector for dividend"
+    "Input for dividend"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector for divisor"
+    "Input for divisor"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector for quotient"
+    "Output with the quotient"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -27,13 +27,13 @@ revisions="<html>
 <li>
 January 27, 2022, by Jianjun Hu:<br/>
 Renamed the block name from Division to Divide.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">Buildings, issue 2865</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
 Reformulated model to avoid stack overflow in OpenModelica.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1819\">issue 1819</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1819\">Buildings, issue 1819</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

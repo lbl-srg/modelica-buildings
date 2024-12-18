@@ -12,29 +12,35 @@ model ComparePowerHydraulic
       per=per,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_inputFilter=false),
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y mov2(
       redeclare final package Medium = Medium,
       per(
         powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
         pressure=per.pressure,
         etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
-        peak=per.peak,
+        peak=peak,
         etaMotMet=per.etaMotMet),
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_inputFilter=false),
+      use_riseTime=false),
     redeclare Buildings.Fluid.Movers.SpeedControlled_y mov3(
       redeclare final package Medium = Medium,
       per(
         powerOrEfficiencyIsHydraulic=per.powerOrEfficiencyIsHydraulic,
         pressure=per.pressure,
         etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
-        efficiency(V_flow={per.peak.V_flow}, eta={per.peak.eta}),
+        efficiency(V_flow={peak.V_flow}, eta={peak.eta}),
         etaMotMet=per.etaMotMet),
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       addPowerToMedium=false,
-      use_inputFilter=false));
+      use_riseTime=false));
+
+  final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak =
+    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(
+      pressure=per.pressure,
+      power=per.power)
+    "Peak operating point";
 
 equation
   connect(ramSpe.y, mov2.y) annotation (Line(points={{-59,80},{-52,80},{-52,0},
@@ -85,6 +91,13 @@ to capture this characteristic.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 20, 2024, by Hongxiang Fu:<br/>
+Added standalone declaration for the peak operating condition to ensure that
+the same values are used for each mover.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1912\">IBPSA, #1912</a>.
+</li>
 <li>
 May 15, 2024, by Hongxiang Fu:<br/>
 First implementation. This is for

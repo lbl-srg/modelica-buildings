@@ -20,7 +20,7 @@ block Sin
     final unit="s")=0
     "Output = offset for time < startTime";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Sine output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -88,19 +88,24 @@ Block that outputs a <code>sine</code>.
       revisions="<html>
 <ul>
 <li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
+<li>
 April 13, 2023, by Michael Wetter:<br/>
 Renamed block from <code>Sine</code> to <code>Sin</code>
 to use consistent naming with
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sin\">
 Buildings.Controls.OBC.CDL.Reals.Sin</a>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">Buildings, issue 3339</a>
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

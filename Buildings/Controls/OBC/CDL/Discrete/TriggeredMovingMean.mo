@@ -5,13 +5,13 @@ block TriggeredMovingMean
     min=1)
     "Number of samples over which the input is averaged";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Continuous input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Boolean signal that triggers the block"
+    "Input for trigger that causes u to be sampled"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Discrete averaged signal"
+    "Moving mean of input signal over all trigger instants"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -177,7 +177,7 @@ and produces this value at its output <code>y</code>.
 March 30, 2022, by Michael Wetter:<br/>
 Added <code>discrete</code> keyword to sampled variable.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">issue 2942</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2942\">Buildings, issue 2942</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
@@ -193,7 +193,7 @@ Reformulated model to use an <code>equation</code> rather than an <code>algorith
 </li>
 <li>
 October 16, 2019, by Kun Zhang:<br/>
-First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">issue 1588</a>.
+First implementation. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1588\">Buildings, issue 1588</a>.
 </li>
 </ul>
 </html>"));

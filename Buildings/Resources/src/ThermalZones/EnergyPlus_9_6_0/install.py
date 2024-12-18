@@ -23,7 +23,7 @@ import shutil
 # build_type is either custom or builds
 spawn_dists = [
     {"version": "0.5.0",
-     "commit": "c10e8c6d7e",
+     "commit": "ab07bde9bb",
      "build_type": "custom"}
 ]
 ###########################################################################

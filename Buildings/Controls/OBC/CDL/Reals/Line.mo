@@ -8,59 +8,51 @@ block Line
     "If true, limit input u to be no larger than x2"
     annotation (Evaluate=true);
   Buildings.Controls.OBC.CDL.Interfaces.RealInput x1
-    "Support point x1, with x1 < x2"
+    "Input for support point x1, with x1 < x2"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput f1
-    "Support point f(x1)"
+    "Input for support point f(x1)"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput x2
-    "Support point x2, with x2 > x1"
+    "Input for support point x2, with x2 > x1"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput f2
-    "Support point f(x2)"
+    "Input for support point f(x2)"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Independent variable"
+    "Input for independent variable"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "f(x) along the line specified by (x1, f1) and (x2, f2)"
+    "Output with f(x) along the line specified by (x1, f1) and (x2, f2)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Real a
-    "Intercept";
-  Real b
-    "Slope";
-  Real xLim
-    "Input value after applying the limits";
+  Real a "Intercept";
+  Real b "Slope";
+  Real xLim "Input value after applying the limits";
 
 equation
   if limitBelow or limitAbove then
-    assert(
-      x2 > x1,
-      "x2 must be bigger than x1 in "+getInstanceName(),
+    assert(x2 > x1,
+      "x2 must be bigger than x1 in " + getInstanceName(),
       AssertionLevel.warning);
   end if;
+
   b=(f2-f1)/(x2-x1);
   a=f2-b*x2;
+
   if limitBelow and limitAbove then
-    xLim=min(
-      x2,
-      max(
-        x1,
-        u));
+    xLim=min(x2, max(x1, u));
   elseif limitBelow then
-    xLim=max(
-      x1,
-      u);
+    xLim=max(x1, u);
   elseif limitAbove then
-    xLim=min(
-      x2,
-      u);
+    xLim=min(x2, u);
   else
     xLim=u;
   end if;
-  y=a+b*xLim;
+
+  y = a + b * xLim;
+
   annotation (
     defaultComponentName="lin",
     Icon(
@@ -231,7 +223,7 @@ Changed icon to display dynamically the output value.
 March 25, 2018, by Michael Wetter:<br/>
 Improved documentation, icon and added warning if the limits are used and
 <code>x1 &gt; x2</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1155\">issue 1155</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1155\">Buildings, issue 1155</a>.
 </li>
 <li>
 January 11, 2017, by Michael Wetter:<br/>

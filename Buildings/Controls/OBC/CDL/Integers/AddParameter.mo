@@ -1,10 +1,12 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block AddParameter "Output the sum of an input plus a parameter"
   parameter Integer p
-    "Value to be added";
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u "Connector of Integer input signal"
+    "Parameter to be added to the input";
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
+    "Input to be added to the parameter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y "Connector of Integer output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
+    "Sum of the parameter and the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -23,7 +25,7 @@ revisions="<html>
 <li>
 February 3 2022, by Jianjun Hu:<br/>
 First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">issue 2876</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">Buildings, issue 2876</a>.
 </li>
 </ul>
 </html>"),

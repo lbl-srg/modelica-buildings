@@ -7,16 +7,16 @@ block IntegratorWithReset
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector of Real input signal"
+    "Input to be integrated"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in
     "Input signal for state to which integrator is reset"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the integrator output when trigger becomes true"
+    "Input that resets the integrator output when it becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Value of the integrator"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -25,9 +25,7 @@ initial equation
 equation
   der(y)=k*u;
   when trigger then
-    reinit(
-      y,
-      y_reset_in);
+    reinit(y, y_reset_in);
   end when;
   annotation (
     defaultComponentName="intWitRes",
@@ -99,7 +97,7 @@ Updated documentation.
 February 2, 2022, by Michael Wetter:<br/>
 Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
 This is to avoid the warning observed in
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">#2872</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">Buildings, issue 2872</a>.
 </li>
 <li>
 October 21, 2021, by Michael Wetter:<br/>
@@ -110,14 +108,14 @@ August 3, 2020, by Jianjun:<br/>
 Fixed the input <code>y_reset_in</code>.
 <br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">Buildings, issue 2056</a>.
 </li>
 <li>
 April 21, 2020, by Michael Wetter:<br/>
 Removed parameter <code>initType</code>.
 <br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">issue 1887</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1887\">Buildings, issue 1887</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

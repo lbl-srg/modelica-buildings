@@ -2,19 +2,19 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Atan2
   "Output atan(u1/u2) of the inputs u1 and u2"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Input u1 for the atan2(u1/u2) function"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Input u2 for the atan2(u1/u2) function"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(unit="rad")
-    "Connector of Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
+    final unit="rad",
+    displayUnit="deg")
+    "Output with atan2(u1/u2)"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=Modelica.Math.atan2(
-    u1,
-    u2);
+  y=Modelica.Math.atan2(u1, u2);
   annotation (
     defaultComponentName="atan2",
     Documentation(
@@ -43,10 +43,15 @@ gives a solution in the range
       revisions="<html>
 <ul>
 <li>
+November 8, 2024, by Michael Wetter:<br/>
+Added <code>final</code> keyword to unit declaration as block is only valid for this unit.<br/>
+Also added <code>displayUnit</code> keyword.
+</li>
+<li>
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the output.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">issue 3277</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">Buildings, issue 3277</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

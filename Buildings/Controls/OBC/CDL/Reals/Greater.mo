@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Greater
-  "Output y is true, if input u1 is greater than input u2"
+  "Output y is true, if input u1 is greater than input u2 with hysteresis"
   parameter Real h(
     final min=0)=0
     "Hysteresis"
@@ -9,13 +9,13 @@ block Greater
     "Value of pre(y) at initial time"
     annotation (Dialog(tab="Advanced"));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Input u1"
+    "First input u1"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Input u2"
+    "Second input u2"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output y"
+    "Output true if u1 is greater than u2 with hysteresis"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -239,17 +239,17 @@ revisions="<html>
 <li>
 April 29, 2022, by Jianjun Hu:<br/>
 Corrected the condition of swiching true back to false.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">Buildings, issue 2981</a>.
 </li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">Buildings, issue 2246</a>.
 </li>
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">Buildings, issue 2076</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

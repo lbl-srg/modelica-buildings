@@ -20,7 +20,7 @@ block Stage "Output total stages that should be enabled"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final min=0,
     final max=1)
-    "Real input for specifying stages"
+    "Input between 0 and 1 for specifying stages"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y(
@@ -136,7 +136,7 @@ Revised implementation.
 <li>
 September 8, 2022, by Jianjun Hu:<br/>
 First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">Buildings, issue 3103</a>.
 </li>
 </ul>
 </html>"));

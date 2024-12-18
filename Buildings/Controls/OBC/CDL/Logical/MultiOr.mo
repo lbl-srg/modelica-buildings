@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block MultiOr
   "Logical MultiOr, y = u[1] or u[2] or u[3] or ..."
-  parameter Integer nin(
-    min=0)=0
+  parameter Integer nin(min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
-    "Connector of Boolean input signals"
+    "Input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with true if at least one input is true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -17,20 +16,13 @@ protected
     "Temporary variable";
 
 equation
-  if size(
-    u,
-    1) > 1 then
+  if size(u, 1) > 1 then
     uTemp[1]=u[1];
-    for i in 2:size(
-      u,
-      1) loop
+    for i in 2:size(u, 1) loop
       uTemp[i]=u[i] or uTemp[i-1];
     end for;
     y=uTemp[nin];
-  elseif
-        (size(
-    u,
-    1) == 1) then
+  elseif (size(u, 1) == 1) then
     uTemp[1]=u[1];
     y=uTemp[1];
   else
@@ -88,7 +80,7 @@ revisions="<html>
 <li>
 July 26, 2021, by Jianjun Hu:<br/>
 Renamed parameter <code>nu</code> to <code>nin</code>. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">Buildings, issue 2580</a>.
 </li>
 <li>
 June 6, 2019, by Milica Grahovac:<br/>

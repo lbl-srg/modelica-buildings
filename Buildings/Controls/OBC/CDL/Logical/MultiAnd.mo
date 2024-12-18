@@ -1,15 +1,14 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block MultiAnd
   "Logical MultiAnd, y = u[1] and u[2] and u[3] and ..."
-  parameter Integer nin(
-    min=0)=0
+  parameter Integer nin(min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
-    "Connector of Boolean input signals"
+    "Input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with true if all input signals are true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -17,20 +16,13 @@ protected
     "Temporary variable";
 
 equation
-  if size(
-    u,
-    1) > 1 then
+  if size(u, 1) > 1 then
     uTemp[1]=u[1];
-    for i in 2:size(
-      u,
-      1) loop
+    for i in 2:size(u, 1) loop
       uTemp[i]=u[i] and uTemp[i-1];
     end for;
     y=uTemp[nin];
-  elseif
-        (size(
-    u,
-    1) == 1) then
+  elseif (size(u, 1) == 1) then
     uTemp[1]=u[1];
     y=uTemp[1];
   else
@@ -88,12 +80,12 @@ revisions="<html>
 <li>
 July 26, 2021, by Jianjun Hu:<br/>
 Renamed parameter <code>nu</code> to <code>nin</code>. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">Buildings, issue 2580</a>.
 </li>
 <li>
 June 28, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">Buildings, issue 825</a>.
 </li>
 </ul>
 </html>"));
