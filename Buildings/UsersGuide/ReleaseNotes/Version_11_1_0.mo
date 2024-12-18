@@ -45,16 +45,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">xxx.
     </td>
     </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.FanCoilUnit
-    </td>
-    <td valign=\"top\">Control sequences for fan coil units.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2885\">issue 2885</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
