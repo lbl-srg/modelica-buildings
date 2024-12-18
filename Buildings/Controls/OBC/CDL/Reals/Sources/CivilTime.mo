@@ -107,7 +107,7 @@ However, in the future versions of the ASHRAE 231 Standard, the block should be 
 December 12, 2023, by Jianjun Hu:<br/>
 Renamed the block from <code>ModelTime</code> to <code>CivilTime</code>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">issue 3596</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3596\">Buildings, issue 3596</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

@@ -60,7 +60,7 @@ Buildings.Controls.OBC.CDL.Integers.GreaterEqual</a>.
 September 26, 2017, by Thierry S. Nouidui:<br/>
 Revised implementation for JModelica verification.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/939\">issue 939</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/939\">Buildings, issue 939</a>.
 </li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>

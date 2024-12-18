@@ -109,7 +109,7 @@ Hence, there is a fast transient at the beginning, and afterwards the output mat
 May 20, 2022, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">Buildings, issue 3022</a>.
 </li>
 </ul>
 </html>"),

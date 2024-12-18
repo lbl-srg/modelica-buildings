@@ -81,7 +81,7 @@ Also added <code>displayUnit</code> keyword.
 March 7, 2023, by Jianjun Hu:<br/>
 Added unit <code>rad</code> to the input.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">issue 3277</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">Buildings, issue 3277</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
