@@ -40,7 +40,7 @@ model Combined "Combined-cycle CHP model"
     redeclare final package Medium =MediumSte)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}),
-        iconTransformation(extent={{10,-10},{-10,10}})));
+        iconTransformation(extent={{110,-10},{90,10}})));
   BottomingCycle botCycExp
     annotation (Placement(transformation(extent={{14,-10},{34,8}})));
 
