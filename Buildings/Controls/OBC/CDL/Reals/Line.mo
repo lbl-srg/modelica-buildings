@@ -223,7 +223,7 @@ Changed icon to display dynamically the output value.
 March 25, 2018, by Michael Wetter:<br/>
 Improved documentation, icon and added warning if the limits are used and
 <code>x1 &gt; x2</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1155\">issue 1155</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1155\">Buildings, issue 1155</a>.
 </li>
 <li>
 January 11, 2017, by Michael Wetter:<br/>

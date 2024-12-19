@@ -27,13 +27,13 @@ revisions="<html>
 <li>
 January 27, 2022, by Jianjun Hu:<br/>
 Renamed the block name from Division to Divide.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">issue 2865</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">Buildings, issue 2865</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
 Reformulated model to avoid stack overflow in OpenModelica.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1819\">issue 1819</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1819\">Buildings, issue 1819</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

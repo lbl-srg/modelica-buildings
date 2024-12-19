@@ -111,7 +111,7 @@ should rise from <code>false</code> to <code>true</code>.
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Added test to validate initial output. 
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>
