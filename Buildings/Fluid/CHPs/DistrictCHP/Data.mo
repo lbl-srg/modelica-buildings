@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 package Data "Performance data for gas turbines in the topping cycle models"
 
   record Generic "Generic data record for gas turibne performance"
@@ -67,7 +67,7 @@ First implementation.
 
     package NaturalGas "The fuel used is natural gas"
       record Centaur40_4700S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 18.804,
         final TExh_nominal = 446,
@@ -128,7 +128,7 @@ First implementation.
       end Centaur40_4700S_NG;
 
       record Centaur50_T6200S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 18.891,
         final TExh_nominal = 513,
@@ -189,7 +189,7 @@ First implementation.
       end Centaur50_T6200S_NG;
 
       record Mercury50_6400R_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 17.646,
         final TExh_nominal = 367,
@@ -250,7 +250,7 @@ First implementation.
       end Mercury50_6400R_NG;
 
       record Taurus60_7901S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 21.555,
         final TExh_nominal = 514,
@@ -311,7 +311,7 @@ First implementation.
       end Taurus60_7901S_NG;
 
       record Taurus65_8701S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 21.133,
         final TExh_nominal = 543,
@@ -374,7 +374,7 @@ First implementation.
 
       record Taurus70_11101S_NG
        //"The performance data for Taurus70 with the fuel of natural gas"
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal= 26.580,
         final TExh_nominal = 523,
@@ -435,7 +435,7 @@ First implementation.
       end Taurus70_11101S_NG;
 
       record Mars100_16000S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 42.726,
         final TExh_nominal = 483,
@@ -496,7 +496,7 @@ First implementation.
       end Mars100_16000S_NG;
 
       record Titan130_20501S_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 49.299,
         final TExh_nominal = 506,
@@ -557,7 +557,7 @@ First implementation.
       end Titan130_20501S_NG;
 
       record Titan350_47000_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 106.191,
         final TExh_nominal = 451,
@@ -618,7 +618,7 @@ First implementation.
       end Titan350_47000_NG;
 
       record Titan350_53000_NG
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal= 106.361,
         final TExh_nominal = 491,
@@ -689,7 +689,7 @@ First implementation.
 
     package Diesel "The fuel used is 2-D Diesel"
       record Centaur40_4700S_Diesel
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 18.835,
         final TExh_nominal = 446,
@@ -750,7 +750,7 @@ First implementation.
       end Centaur40_4700S_Diesel;
 
       record Centaur50_T6200S_Diesel
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 18.930,
         final TExh_nominal = 514,
@@ -811,7 +811,7 @@ First implementation.
       end Centaur50_T6200S_Diesel;
 
       record Taurus60_7901S_Diesel
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 21.562,
         final TExh_nominal = 514,
@@ -873,7 +873,7 @@ First implementation.
 
       record Taurus70_11101S_Diesel
        //"The performance data for Taurus70 with the fuel of Diesel"
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 26.662,
         final TExh_nominal = 498,
@@ -934,7 +934,7 @@ First implementation.
       end Taurus70_11101S_Diesel;
 
       record Mars100_16000S_Diesel
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 42.293,
         final TExh_nominal = 477,
@@ -995,7 +995,7 @@ First implementation.
       end Mars100_16000S_Diesel;
 
       record Titan130_20501S_Diesel
-        extends GED.DistrictElectrical.CHP.Data.Generic(
+        extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 49.358,
         final TExh_nominal = 493,

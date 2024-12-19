@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block HeatInput "This is a calculator for the required heat input"
   extends Modelica.Blocks.Icons.Block;
 

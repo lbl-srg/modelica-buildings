@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 package BaseClasses "Package with base classes"
   extends Modelica.Icons.BasesPackage;
 

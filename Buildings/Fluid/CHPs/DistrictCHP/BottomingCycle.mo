@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 model BottomingCycle "Bottoming cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
@@ -109,21 +109,18 @@ model BottomingCycle "Bottoming cycle subsystem model"
     annotation (Dialog(tab="Initialization", group="Feedwater pump"));
 
   // Inputs
-  Modelica.Blocks.Interfaces.RealInput TExh
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh
     "Exhaust temperature"
-    annotation (Placement(
-        transformation(extent={{-126,70},{-100,96}}),  iconTransformation(
-          extent={{-126,70},{-100,96}})));
-  Modelica.Blocks.Interfaces.RealInput mExh
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+        iconTransformation(extent={{-140,70},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh
     "Exhaust mass flow rate"
-    annotation (Placement(
-        transformation(extent={{-126,8},{-100,34}}), iconTransformation(
-          extent={{-126,8},{-100,34}})));
-  Modelica.Blocks.Interfaces.RealInput TAmb
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb
    "Ambient temperature"
-    annotation (
-      Placement(transformation(extent={{-126,40},{-100,66}}),
-        iconTransformation(extent={{-126,40},{-100,66}})));
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumWat)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
@@ -131,10 +128,10 @@ model BottomingCycle "Bottoming cycle subsystem model"
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput PEle_ST
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle_ST
     "Steam turbine electricity generation"
-    annotation (Placement(transformation(extent={{100,68},{124,92}}), iconTransformation(extent={{100,68},
-            {124,92}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{100,60},{140,100}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium =MediumSte)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
@@ -165,7 +162,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     final Nd=Nd,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseActing=true)
-    annotation (Placement(transformation(extent={{-30,-72},{-10,-52}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   // Feedwater pump
   Modelica.Fluid.Machines.ControlledPump pump(
@@ -185,7 +182,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
   // Evaporator
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{20,4},{40,24}})));
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation steBoi(
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -204,27 +201,25 @@ model BottomingCycle "Bottoming cycle subsystem model"
   // A group of RealExpression
   Modelica.Blocks.Sources.RealExpression fixSteEnt(
     final y=steBoi.port_b.h_outflow)
-    annotation (Placement(transformation(extent={{-82,-44},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.RealExpression fixWatEnt(
     final y=pump.port_b.h_outflow)
-    annotation (Placement(transformation(extent={{-82,-66},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Blocks.Sources.RealExpression pumNomFlo(
     final y=pump.m_flow_nominal)
     "Nominal mass flow rate for feedwater pump"
-    annotation (Placement(transformation(extent={{-30,-44},{-10,-24}})));
+    annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
   Modelica.Blocks.Sources.RealExpression TSteam(
     final y=TSte)
     "Superheated steam temperature in Celsius"
-    annotation (Placement(transformation(extent={{-82,-24},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.RealExpression watLevel(
     final y=watLev)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
  // Others
   Modelica.Blocks.Math.Product product1
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,-40})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Buildings.Controls.OBC.CDL.Reals.Greater gre
@@ -239,62 +234,58 @@ model BottomingCycle "Bottoming cycle subsystem model"
 
 equation
   connect(preHeaFlo.port, steBoi.heatPort)
-    annotation (Line(points={{40,14},{50,14},{50,-70}},   color={191,0,0}));
+    annotation (Line(points={{40,10},{50,10},{50,-70}},   color={191,0,0}));
   connect(gre.y, AssertHeatingDemand.u)
     annotation (Line(points={{62,60},{68,60}},   color={255,0,255}));
   connect(gre.u2, heaInp.QFlo) annotation (Line(points={{38,52},{36,52},{36,38},
-          {0,38},{0,0},{-18.2,0}},
-                color={0,0,127}));
+          {0,38},{0,0},{-18.2,0}}, color={0,0,127}));
   connect(steHeaFlo.mExh, mExh) annotation (Line(points={{-42,66},{-60,66},{-60,
-          21},{-113,21}}, color={0,0,127}));
-  connect(heaInp.mExh, mExh) annotation (Line(points={{-42,0},{-60,0},{-60,21},{
-          -113,21}},  color={0,0,127}));
-  connect(fixSteEnt.y, heaInp.steEnt) annotation (Line(points={{-58.9,-32},{-48,
-          -32},{-48,-8},{-42,-8}},
-                                color={0,0,127}));
-  connect(fixWatEnt.y, heaInp.watEnt) annotation (Line(points={{-58.9,-53},{-46,
-          -53},{-46,-12},{-42,-12}},
-                                   color={0,0,127}));
-  connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,70},{-70,70},{-70,
-          53},{-113,53}}, color={0,0,127}));
-  connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,74},{-80,74},{-80,
-          83},{-113,83}}, color={0,0,127}));
-  connect(TSteam.y, heaInp.TSte) annotation (Line(points={{-58.9,-12},{-50,-12},{-50,
-          -4},{-42,-4}},
-                     color={0,0,127}));
-  connect(conPID.y, product1.u2) annotation (Line(points={{-9,-62},{-6,-62},{-6,
-          -46},{-2,-46}}, color={0,0,127}));
+          20},{-120,20}}, color={0,0,127}));
+  connect(heaInp.mExh, mExh) annotation (Line(points={{-42,0},{-60,0},{-60,20},{
+          -120,20}},  color={0,0,127}));
+  connect(fixSteEnt.y, heaInp.steEnt) annotation (Line(points={{-59,-30},{-50,-30},
+          {-50,-8},{-42,-8}},   color={0,0,127}));
+  connect(fixWatEnt.y, heaInp.watEnt) annotation (Line(points={{-59,-50},{-46,-50},
+          {-46,-12},{-42,-12}},    color={0,0,127}));
+  connect(steHeaFlo.TAmb, TAmb) annotation (Line(points={{-42,70},{-80,70},{-80,
+          50},{-120,50}}, color={0,0,127}));
+  connect(steHeaFlo.TExh, TExh) annotation (Line(points={{-42,74},{-70,74},{-70,
+          80},{-120,80}}, color={0,0,127}));
+  connect(TSteam.y, heaInp.TSte) annotation (Line(points={{-59,-10},{-54,-10},{-54,
+          -4},{-42,-4}}, color={0,0,127}));
   connect(pumNomFlo.y, product1.u1)
-    annotation (Line(points={{-9,-34},{-2,-34}}, color={0,0,127}));
-  connect(product1.y, pump.m_flow_set) annotation (Line(points={{21,-40},{26,
-          -40},{26,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
+    annotation (Line(points={{-19,-34},{-2,-34}},color={0,0,127}));
+  connect(product1.y, pump.m_flow_set) annotation (Line(points={{21,-40},{30,-40},
+          {30,-60},{5,-60},{5,-71.8}}, color={0,0,127}));
   connect(pump.port_b, steBoi.port_a)
     annotation (Line(points={{20,-80},{40,-80}}, color={0,127,255}));
   connect(pump.port_a, port_a)
     annotation (Line(points={{0,-80},{-100,-80},{-100,0}}, color={0,127,255}));
   connect(port_b, steBoi.port_b)
     annotation (Line(points={{100,0},{100,-80},{60,-80}}, color={0,127,255}));
-  connect(preHeaFlo.Q_flow, heaInp.QFlo) annotation (Line(points={{20,14},{0,14},
+  connect(preHeaFlo.Q_flow, heaInp.QFlo) annotation (Line(points={{20,10},{0,10},
           {0,0},{-18.2,0}},   color={0,0,127}));
   connect(watLevel.y, conPID.u_s)
-    annotation (Line(points={{-59,-70},{-42,-70},{-42,-62},{-32,-62}},
-                                                   color={0,0,127}));
-  connect(powGen.TExh, TExh) annotation (Line(points={{-42,34},{-80,34},{-80,83},
-          {-113,83}}, color={0,0,127}));
-  connect(powGen.mExh, mExh) annotation (Line(points={{-42,26},{-60,26},{-60,21},
-          {-113,21}}, color={0,0,127}));
-  connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,30},{-8,30},{-8,
-          80},{112,80}}, color={0,0,127}));
+    annotation (Line(points={{-59,-70},{-50,-70},{-50,-60},{-42,-60}}, color={0,0,127}));
+  connect(powGen.TExh, TExh) annotation (Line(points={{-42,34},{-70,34},{-70,80},
+          {-120,80}}, color={0,0,127}));
+  connect(powGen.mExh, mExh) annotation (Line(points={{-42,26},{-60,26},{-60,20},
+          {-120,20}}, color={0,0,127}));
+  connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,30},{-10,30},{
+          -10,80},{120,80}},
+                         color={0,0,127}));
   connect(steHeaFlo.supSte, sub.u1) annotation (Line(points={{-18.2,70},{0,70},{
           0,66},{8,66}}, color={0,0,127}));
-  connect(sub.u2, powGen.PEle_ST) annotation (Line(points={{8,54},{-8,54},{-8,
+  connect(sub.u2, powGen.PEle_ST) annotation (Line(points={{8,54},{-10,54},{-10,
           30},{-18,30}}, color={0,0,127}));
   connect(sub.y, gre.u1)
     annotation (Line(points={{32,60},{38,60}}, color={0,0,127}));
-  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,4},{-80,4},{-80,83},{
-          -113,83}},  color={0,0,127}));
+  connect(heaInp.TExh, TExh) annotation (Line(points={{-42,4},{-70,4},{-70,80},{
+          -120,80}},  color={0,0,127}));
   connect(steBoi.VLiq, conPID.u_m) annotation (Line(points={{61,-87},{64,-87},{64,
-          -98},{-20,-98},{-20,-74}},color={0,0,127}));
+          -98},{-30,-98},{-30,-72}},color={0,0,127}));
+  connect(conPID.y, product1.u2) annotation (Line(points={{-19,-60},{-10,-60},{-10,
+          -46},{-2,-46}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,80}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -308,37 +299,46 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-In the bottoming cycle, waste heat from the exhaust gas is utilized to produce electricity through a steam turbine, and saturated steam is used for heating purposes. 
-The energy inputs to the bottoming-cycle system consist of the exhaust gas and the feedwater, and the energy outputs include the electricity generated by the steam turbine and the heating energy provided by the saturated steam. 
-Throughout the process, there are heat losses when the exhaust gas is released into the atmosphere and when steam is lost during desuperheating. The energy balance equation for the bottoming cycle is:
+In the bottoming cycle, waste heat from the exhaust gas is utilized to produce
+electricity through a steam turbine, and saturated steam is used for heating purposes. 
+The energy inputs to the bottoming-cycle system consist of the exhaust gas and the
+feedwater, and the energy outputs include the electricity generated by the steam
+turbine and the heating energy provided by the saturated steam. 
+Throughout the process, there are heat losses when the exhaust gas is released into
+the atmosphere and when steam is lost during desuperheating. The energy balance
+equation for the bottoming cycle is:
 </p>
-      
 <p align=\"center\">
 <i>
-Q&#775;<sub>exhaust</sub> + Q&#775;<sub>water</sub> = Q&#775;<sub>exhaust,loss</sub> + Q&#775;<sub>steam,loss</sub> + Q&#775;<sub>steam,sat</sub> + P<sub>STG</sub>
+Q&#775;<sub>exhaust</sub> + Q&#775;<sub>water</sub> = Q&#775;<sub>exhaust,loss</sub>
++ Q&#775;<sub>steam,loss</sub> + Q&#775;<sub>steam,sat</sub> + P<sub>STG</sub>
 </i>
 </p>
-      
 <p>
-where <i>Q&#775;<sub>water</sub></i> is the energy flow of the feedwater, <i>Q&#775;<sub>exhaust,loss</sub></i> denotes the heat losses in the exhaust gas stack, <i>Q&#775;<sub>steam,loss</sub></i> represents the losses in steam energy during the conversion from superheated steam to saturated steam, and <i>P<sub>STG</sub></i> means the electric power production of the steam turbine generator.
+where <i>Q&#775;<sub>water</sub></i> is the energy flow of the feedwater,
+<i>Q&#775;<sub>exhaust,loss</sub></i> denotes the heat losses in the exhaust gas
+stack, <i>Q&#775;<sub>steam,loss</sub></i> represents the losses in steam energy
+during the conversion from superheated steam to saturated steam,
+and <i>P<sub>STG</sub></i> means the electric power production of the steam turbine generator.
 </p>
-
 <p>
 In the model, there are base-class models used to handle this energy balance equation.
 </p>
 <p>
-- <code>BaseClasses.HeatInput</code> determines the value of <i>Q&#775;<sub>steam,sat</sub> - Q&#775;<sub>water</sub></i>.
+- <code>BaseClasses.HeatInput</code> determines the value of
+<i>Q&#775;<sub>steam,sat</sub> - Q&#775;<sub>water</sub></i>.
 </p>
 <p>
-- <code>BaseClasses.HRSGSteam</code> calculates the value of <i>Q&#775;<sub>exhaust</sub> - Q&#775;<sub>exhaust,loss</sub></i>.
+- <code>BaseClasses.HRSGSteam</code> calculates the value of
+<i>Q&#775;<sub>exhaust</sub> - Q&#775;<sub>exhaust,loss</sub></i>.
 </p>
 <p>
-- <code>BaseClasses.SteamTurbineGeneration</code> calculates the value of <i>P<sub>STG</sub></i>. 
+- <code>BaseClasses.SteamTurbineGeneration</code> calculates the value of
+<i>P<sub>STG</sub></i>. 
 </p>
 <p>
 - There is no need to calculate the value of <i>Q&#775;<sub>steam,loss</sub></i>; 
 instead, a constraint is applied to ensure that this value is not negative.
 </p>      
-      
 </html>"));
 end BottomingCycle;

@@ -1,5 +1,5 @@
-within GED.DistrictElectrical;
-package CHP
+within Buildings.Fluid.CHPs;
+package DistrictCHP
 
 
 
@@ -17,4 +17,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CHP;
+end DistrictCHP;

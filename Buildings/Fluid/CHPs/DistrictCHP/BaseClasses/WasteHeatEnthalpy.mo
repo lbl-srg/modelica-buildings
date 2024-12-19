@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block WasteHeatEnthalpy
   "Waste heat specific enthalpy calculation"
   extends Modelica.Blocks.Icons.Block;

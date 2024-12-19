@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.Examples;
+within Buildings.Fluid.CHPs.DistrictCHP.Examples;
 model CombinedCycleCHP
   extends Modelica.Icons.Example;
   package MediumSte = Buildings.Media.Steam

@@ -1,4 +1,4 @@
-﻿within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 package Obsolete
   "Here are the obsolate packages or models in the developement process"
   model ToppingCyclePolynomial
@@ -32,7 +32,7 @@ package Obsolete
      annotation (Dialog(tab="Advanced", group="Off-design condition"));
 
     // Data input
-    parameter GED.DistrictElectrical.CHP.Obsolete.Taurus70_11100 per
+    parameter Buildings.Fluid.CHPs.DistrictCHP.Obsolete.Taurus70_11100 per
       "Records of gas turbine performance data" annotation (choicesAllMatching=
           true, Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
@@ -660,7 +660,7 @@ package Obsolete
       T=523.15,
       nPorts=1) "Boundary condition"
       annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
-    GED.DistrictElectrical.CHP.Obsolete.BottomingCycleExperimentV2 botCyc(pumFW(
+    Buildings.Fluid.CHPs.DistrictCHP.Obsolete.BottomingCycleExperimentV2 botCyc(pumFW(
           T_start=504.475, inputType=Buildings.Fluid.Types.InputType.Continuous))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   equation
@@ -709,7 +709,7 @@ package Obsolete
       annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
     Modelica.Blocks.Sources.Constant ambTemp(k=15) "Ambient temperature (deg_C)"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-    GED.DistrictElectrical.CHP.Obsolete.BottomingCycleVolume botCycleVol(volume(
+    Buildings.Fluid.CHPs.DistrictCHP.Obsolete.BottomingCycleVolume botCycleVol(volume(
           massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState, V=1000))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   equation
@@ -727,8 +727,8 @@ package Obsolete
 
   model ToppingCyclePolynomial_Validation
     extends Modelica.Icons.Example;
-    GED.DistrictElectrical.CHP.Obsolete.ToppingCyclePolynomial topCyc(per=
-          GED.DistrictElectrical.CHP.Obsolete.Taurus70_11100())
+    Buildings.Fluid.CHPs.DistrictCHP.Obsolete.ToppingCyclePolynomial topCyc(per=
+          Buildings.Fluid.CHPs.DistrictCHP.Obsolete.Taurus70_11100())
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Sources.Constant parLoa(k=1)
       "Gas turbine generator part load ratio in a range of 0 to 1"
@@ -762,7 +762,7 @@ package Obsolete
      parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=28.63
       "Nominal mass flow rate";
 
-    GED.DistrictElectrical.CHP.Obsolete.BottomingCycle bottomingCycle(
+    Buildings.Fluid.CHPs.DistrictCHP.Obsolete.BottomingCycle bottomingCycle(
       a_ST={0,0,0},
       TSta=138,
       final m_flow_nominal=m_flow_nominal,
@@ -871,7 +871,7 @@ This is for
   end Generic;
 
   record Taurus70_11100
-    extends GED.DistrictElectrical.CHP.Obsolete.Generic(
+    extends Buildings.Fluid.CHPs.DistrictCHP.Obsolete.Generic(
     final a_gas=
     {0.00000000e+00,-6.45953810e-04,1.45444871e-02,-7.20100000e-06,6.59257576e-06,-7.20181061e-05},
     final a_exhT=
@@ -928,7 +928,7 @@ This is for
   end Taurus70_11100;
 
   record Taurus70
-    extends GED.DistrictElectrical.CHP.Data.Generic(
+    extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
     final LHVFue = 47.614E6,
     final mExh_nominal= 26.58013489,
     final TExh_nominal = 522.78,
@@ -1007,7 +1007,7 @@ This is for
    //  annotation (Dialog(tab="Advanced", group="Off-design condition"));
 
     // Data input
-    parameter GED.DistrictElectrical.CHP.Obsolete.Taurus70_11100 per
+    parameter Buildings.Fluid.CHPs.DistrictCHP.Obsolete.Taurus70_11100 per
       "Records of gas turbine performance data" annotation (choicesAllMatching=
           true, Placement(transformation(extent={{-80,-78},{-60,-58}})));
 
@@ -1233,7 +1233,7 @@ This is for
         final offset=510,
         final startTime=600) "Exhaust gas temperature"
         annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-      .GED.DistrictElectrical.CHP.Obsolete.degC_to_degF1 Temp_toF
+      .Buildings.Fluid.CHPs.DistrictCHP.Obsolete.degC_to_degF1 Temp_toF
         "Convert the temperature unit"
         annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
     equation
@@ -1560,7 +1560,7 @@ This is for
       final offset=1899,
       final startTime=600) "Exhaust gas temperature"
       annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-    .GED.DistrictElectrical.CHP.Obsolete.degC_to_degF1 Temp_toF
+    .Buildings.Fluid.CHPs.DistrictCHP.Obsolete.degC_to_degF1 Temp_toF
       "Convert the temperature unit"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   equation
@@ -1752,7 +1752,7 @@ First implementation.
     parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=56.9972
       "Nominal mass flow rate";
 
-    GED.DistrictElectrical.CHP.BottomingCycle botCyc(
+    Buildings.Fluid.CHPs.DistrictCHP.BottomingCycle botCyc(
       final a=a,
       TSta=182.486,
       final m_flow_nominal=m_flow_nominal,

@@ -1,4 +1,4 @@
-﻿within GED.DistrictElectrical.CHP.Validation;
+within Buildings.Fluid.CHPs.DistrictCHP.Validation;
 model BottomingCycle_AnnualSim
   extends Modelica.Icons.Example;
 
@@ -82,7 +82,7 @@ model BottomingCycle_AnnualSim
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
     "Start value of specific enthalpy for pump";
 
-  GED.DistrictElectrical.CHP.BottomingCycle botCyc(
+  Buildings.Fluid.CHPs.DistrictCHP.BottomingCycle botCyc(
     final a=a,
     final a_SteMas=a_SteMas,
     final TSta=TSta,
@@ -111,11 +111,11 @@ model BottomingCycle_AnnualSim
     final use_T_start=use_T_start,
     final T_start=T_start,
     final h_start=h_start)
-    annotation (Placement(transformation(extent={{-10,0},{10,18}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
 
   Modelica.Blocks.Sources.Constant ambTemp(k=15)
     "Ambient temperature in Celsius"
-    annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumWat,
@@ -132,7 +132,7 @@ model BottomingCycle_AnnualSim
     annotation (Placement(transformation(extent={{50,-50},{30,-30}})));
   Modelica.Blocks.Sources.Constant exhTem(k=750 - 273.15)
     "Exhaust gas temperature in Celsius"
-    annotation (Placement(transformation(extent={{-80,36},{-60,56}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=-178,
     rising=450,
@@ -141,20 +141,18 @@ model BottomingCycle_AnnualSim
     period=1900,
     offset=500,
     startTime=500) "Exhaust mass flow rate changes (kg/s)"
-    annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
-  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-11.3,15.3},{-11.3,
-          16},{-59,16}},              color={0,0,127}));
-  connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,10},{-20,
-          10},{-20,-40},{-30,-40}},
-                                color={0,127,255}));
-  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,10},{20,10},
+  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-14},{-30,-14},{
+          -30,30},{-59,30}},          color={0,0,127}));
+  connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,-20},{-20,-20},
+          {-20,-40},{-30,-40}}, color={0,127,255}));
+  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,-20},
           {20,-40},{30,-40}},color={0,127,255}));
-  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-11.3,18.3},{-40,
-          18.3},{-40,46},{-59,46}},             color={0,0,127}));
-  connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-14},{-40,-14},
-          {-40,12},{-12,12},{-12,12.1},{-11.3,12.1}},
-                                  color={0,0,127}));
+  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-12,-11},{-20,-11},{-20,
+          70},{-59,70}},                        color={0,0,127}));
+  connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-10},{-40,-10},
+          {-40,-17},{-12,-17}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
@@ -166,16 +164,22 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This validation model compares the proposed CHP bottoming-cycle model with the high-fidelity model from the ThermoPower Library (TPL), focusing on the regulation of steam drum levels and evaporator void fraction.
+This validation model compares the proposed CHP bottoming-cycle model with the
+high-fidelity model from the ThermoPower Library (TPL), focusing on the regulation
+of steam drum levels and evaporator void fraction.
 </p>
 <p>
-The ThermoPower Library (TPL) provides an example model for maintaining steam drum level, found in 
+The ThermoPower Library (TPL) provides an example model for maintaining steam drum
+level, found in 
 <a href=\"modelica://ThermoPower.Examples.RankineCycle.Simulators.ClosedLoop\">
 ThermoPower.Examples.RankineCycle.Simulators.ClosedLoop</a>. 
-This model simulates a closed-loop control system designed to regulate the evaporator’s void fraction, which represents the proportion of the gas phase within the total drum volume.
+This model simulates a closed-loop control system designed to regulate the
+evaporator’s void fraction, which represents the proportion of the gas phase within
+the total drum volume.
 </p>
 <p>
-In this study, the simulation time has been extended from the default 3000 seconds to 31,536,000 seconds (one year) to evaluate the performance for annual simulations. 
+In this study, the simulation time has been extended from the default 3000 seconds
+to 31,536,000 seconds (one year) to evaluate the performance for annual simulations. 
 </p>
 </html>
 "));

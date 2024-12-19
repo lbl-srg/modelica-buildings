@@ -1,9 +1,9 @@
-﻿within GED.DistrictElectrical.CHP.Validation;
+within Buildings.Fluid.CHPs.DistrictCHP.Validation;
 model ToppingCycle
   extends Modelica.Icons.Example;
 
   // Choose differernt gas turbine
-  replaceable parameter GED.DistrictElectrical.CHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
+  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Taurus70_11101S_NG per
      "Performance curve for the selected gas turbine";
 
   // Part load parameters for different load levels
@@ -11,7 +11,7 @@ model ToppingCycle
     k=0.6)
     "Gas turbine generator part load ratio is 0.6"
     annotation (Placement(transformation(extent={{-12,70},{8,90}})));
-  GED.DistrictElectrical.CHP.ToppingCycle topCycTab60(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab60(
     final per=per)
     annotation (Placement(transformation(extent={{68,66},{88,86}})));
 
@@ -19,7 +19,7 @@ model ToppingCycle
     k=0.7)
     "Gas turbine generator part load ratio is 0.7"
     annotation (Placement(transformation(extent={{-12,30},{8,50}})));
-  GED.DistrictElectrical.CHP.ToppingCycle topCycTab70(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab70(
     final per=per)
     annotation (Placement(transformation(extent={{68,26},{88,46}})));
 
@@ -27,7 +27,7 @@ model ToppingCycle
     k=0.8)
     "Gas turbine generator part load ratio is 0.8"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-  GED.DistrictElectrical.CHP.ToppingCycle topCycTab80(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab80(
     final per=per)
     annotation (Placement(transformation(extent={{68,-14},{88,6}})));
 
@@ -35,7 +35,7 @@ model ToppingCycle
     k=0.9)
     "Gas turbine generator part load ratio is 0.9"
     annotation (Placement(transformation(extent={{-12,-50},{8,-30}})));
-  GED.DistrictElectrical.CHP.ToppingCycle topCycTab90(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab90(
     final per=per)
     annotation (Placement(transformation(extent={{68,-54},{88,-34}})));
 
@@ -43,7 +43,7 @@ model ToppingCycle
     k=1.0)
     "Gas turbine generator part load ratio is 1.0"
     annotation (Placement(transformation(extent={{-12,-90},{8,-70}})));
-  GED.DistrictElectrical.CHP.ToppingCycle topCycTab100(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab100(
     final per=per)
     annotation (Placement(transformation(extent={{68,-94},{88,-74}})));
   Modelica.Blocks.Sources.Ramp TAmb(
@@ -82,14 +82,12 @@ equation
     annotation (Line(points={{66,-8},{60,-8},{60,-20},{-40,-20},{-40,0},{-59,0}},
               color={0,0,127}));
 
-  connect(topCycTab90.TSet, topCycTab60.TSet)
-    annotation (Line(points={{66,-48},{60,-48},{60,-60},{-40,-60},{-40,60},{60,60},{60,72},{66,72}},
-              color={0,0,127}));
-
   connect(topCycTab100.TSet, TAmb.y)
     annotation (Line(points={{66,-88},{60,-88},{60,-100},{-40,-100},{-40,0},{-59,0}},
               color={0,0,127}));
 
+  connect(TAmb.y, topCycTab90.TSet) annotation (Line(points={{-59,0},{-40,0},{
+          -40,-60},{60,-60},{60,-48},{66,-48}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

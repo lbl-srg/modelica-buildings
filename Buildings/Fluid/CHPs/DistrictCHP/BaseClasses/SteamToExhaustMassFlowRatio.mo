@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block SteamToExhaustMassFlowRatio
   "A block to calculate the ratio of the steam to the exhaust mass flow rate"
   extends Modelica.Blocks.Icons.Block;

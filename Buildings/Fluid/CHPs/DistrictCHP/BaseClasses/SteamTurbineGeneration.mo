@@ -1,4 +1,4 @@
-﻿within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block SteamTurbineGeneration
   "Steam turbine electrical generation"
   extends Modelica.Blocks.Icons.Block;

@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block HRSGEfficiency
   "A block calculates the efficiency of HRSG"
   extends Modelica.Blocks.Icons.Block;

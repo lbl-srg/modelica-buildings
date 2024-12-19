@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 block HRSGSteam "Superheated steam heat flow from HRSG"
   extends Modelica.Blocks.Icons.Block;
 

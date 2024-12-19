@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 package Validation "Validation of the main models"
 
 

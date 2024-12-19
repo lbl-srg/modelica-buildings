@@ -1,4 +1,4 @@
-within GED.DistrictElectrical.CHP;
+within Buildings.Fluid.CHPs.DistrictCHP;
 model ToppingCycle "Topping cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
@@ -20,55 +20,40 @@ model ToppingCycle "Topping cycle subsystem model"
     "Lower heating value";
 
   // Inputs
-  Modelica.Blocks.Interfaces.RealInput y "Part load ratio"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y "Part load ratio"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput TSet "Ambient temperature"
-    annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet "Ambient temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs
-  Modelica.Blocks.Interfaces.RealOutput PEle(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
     final quantity= "Power",
     final unit = "W")
     "Gas turbine electricity generation"
-    annotation (Placement(
-        transformation(extent={{100,64},{132,96}}), iconTransformation(extent={{100,64},
-            {132,96}})));
-  Modelica.Blocks.Interfaces.RealOutput mFue(
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue(
     final unit= "kg/s")
     "Fuel mass flow rate"
-    annotation (Placement(
-        transformation(extent={{100,4},{134,38}}),  iconTransformation(extent={{100,4},
-            {134,38}})));
-  Modelica.Blocks.Interfaces.RealOutput TExh(
+    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+        iconTransformation(extent={{100,0},{140,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TExh(
     final quantity="ThermodynamicTemperature",
     final unit = "degC")
     "Exhaust temperature"
-    annotation (Placement(
-        transformation(
-        extent={{-17,-17},{17,17}},
-        rotation=-90,
-        origin={81,-117}), iconTransformation(
-        extent={{-19,-19},{19,19}},
-        rotation=-90,
-        origin={81,-119})));
-  Modelica.Blocks.Interfaces.RealOutput mExh(
+    annotation (Placement(transformation(extent={{100,-30},{140,10}}),
+        iconTransformation(extent={{100,-40},{140,0}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mExh(
     final unit= "kg/s")
     "Exhaust mass flow rate"
-    annotation (Placement(
-        transformation(
-        extent={{-19,-19},{19,19}},
-        rotation=-90,
-        origin={41,-119}),iconTransformation(
-        extent={{-19,-19},{19,19}},
-        rotation=-90,
-        origin={19,-119})));
+    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 
   // Look-up tables
-  replaceable parameter GED.DistrictElectrical.CHP.Data.Generic per
+  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.Generic per
     "Records of gas turbine performance data"
      annotation (choicesAllMatching= true, Placement(transformation(extent={{-80,-78},{-60,-58}})));
   Modelica.Blocks.Tables.CombiTable2Ds eleCap_CorFac(
@@ -107,7 +92,7 @@ protected
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomHea(
     final k=1/LHVFue)    "Low heating value"
-    annotation (Placement(transformation(extent={{72,10},{92,30}})));
+    annotation (Placement(transformation(extent={{72,20},{92,40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gasTurEff(
     final k=eta_nominal) "Gas turbine efficiency computation"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -140,19 +125,17 @@ equation
   connect(eleCap_CorFac.y, eleCap.u)
     annotation (Line(points={{-19,70},{-2,70}}, color={0,0,127}));
   connect(gasTurEff.y, groHea.u2) annotation (Line(points={{22,30},{30,30},{30,
-          24},{38,24}},
-                    color={0,0,127}));
+          24},{38,24}}, color={0,0,127}));
   connect(exhTemp.y, TExh)
-    annotation (Line(points={{22,-10},{81,-10},{81,-117}}, color={0,0,127}));
+    annotation (Line(points={{22,-10},{120,-10}}, color={0,0,127}));
   connect(exhMas.y, mExh)
-    annotation (Line(points={{22,-50},{41,-50},{41,-119}}, color={0,0,127}));
+    annotation (Line(points={{22,-50},{120,-50}}, color={0,0,127}));
   connect(nomHea.y, mFue)
-    annotation (Line(points={{94,20},{106,20},{106,21},{117,21}},
-                                                color={0,0,127}));
-  connect(nomHea.u, groHea.y) annotation (Line(points={{70,20},{66,20},{66,30},
-          {62,30}},color={0,0,127}));
+    annotation (Line(points={{94,30},{120,30}}, color={0,0,127}));
+  connect(nomHea.u, groHea.y) annotation (Line(points={{70,30},{62,30}},
+                   color={0,0,127}));
   connect(pow.y, PEle)
-    annotation (Line(points={{62,80},{116,80}}, color={0,0,127}));
+    annotation (Line(points={{62,80},{120,80}}, color={0,0,127}));
   connect(loaFac.y, pow.u1) annotation (Line(points={{21,90},{32,90},{32,86},{
           38,86}}, color={0,0,127}));
   connect(eleCap.y, pow.u2) annotation (Line(points={{22,70},{30,70},{30,74},{
@@ -173,49 +156,60 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-In the topping cycle, a gas turbine is commonly used as the prime mover. The energy balance equation of the topping cycle process can be expressed as follows
+In the topping cycle, a gas turbine is commonly used as the prime mover.
+The energy balance equation of the topping cycle process can be expressed as follows
 </p>
-
 <p>
-The fuel combustion energy flow is considered equal to the generated electricity and the heat flow of the exhaust gas.
+The fuel combustion energy flow is considered equal to the generated electricity
+and the heat flow of the exhaust gas.
 </p>
-
 <p align=\"center\">
 <i>
 Q<sub>fuel</sub> = P<sub>GTG</sub> + Q<sub>exhaust</sub>,
 </i>
 </p>
-
-<p>where <i>Q<sub>fuel</sub></i> is the fuel combustion energy in the gas turbine, <i>P<sub>GTG</sub></i> denotes the electricity production from the gas turbine generator, and <i>Q<sub>exhaust</sub></i> represents the heat flow of the exhaust gas. Note that the fuel combustion energy is calculated as the product of the mass flow rate of the fuel, <i>m&#775;<sub>fuel</sub></i>, and its lower heating value (LHV):</p>
-
+<p>
+where <i>Q<sub>fuel</sub></i> is the fuel combustion energy in the gas turbine,
+<i>P<sub>GTG</sub></i> denotes the electricity production from the gas turbine
+generator, and <i>Q<sub>exhaust</sub></i> represents the heat flow of the exhaust
+gas. Note that the fuel combustion energy is calculated as the product of the
+mass flow rate of the fuel, <i>m&#775;<sub>fuel</sub></i>, and its lower heating
+value (LHV):
+</p>
 <p align=\"center\">
 <i>
 Q<sub>fuel</sub> = m&#775;<sub>fuel</sub> LHV<sub>fuel</sub>.
 </i>
 </p>
-
-<p>A fraction of the fuel combustion energy of the gas turbine fuel, <i>&eta;<sub>GTG</sub></i>, is transformed into electricity, denoted as <i>P<sub>GTG</sub></i>, through the gas turbine generator. The remaining portion of energy, <i>1 - &eta;<sub>GTG</sub></i>, is supplied to the HRSG as exhaust gas. The equations are:</p>
-
+<p>
+A fraction of the fuel combustion energy of the gas turbine fuel,
+<i>&eta;<sub>GTG</sub></i>, is transformed into electricity, denoted as
+<i>P<sub>GTG</sub></i>, through the gas turbine generator. The remaining portion
+of energy, <i>1 - &eta;<sub>GTG</sub></i>, is supplied to the HRSG as exhaust gas.
+The equations are:
+</p>
 <p align=\"center\">
 <i>
 P<sub>GTG</sub> = Q<sub>fuel</sub> &eta;<sub>GTG</sub>,
 </i>
 </p>
-
 <p align=\"center\">
 <i>
 Q<sub>exhaust</sub> = Q<sub>fuel</sub> (1 - &eta;<sub>GTG</sub>).
 </i>
 </p>
-
 <p>
-In theory, the waste heat <i>Q<sub>exhaust</sub></i> can be expressed by the equation above. In the model, the corresponding values of exhaust gas mass flow rate and exhaust temperature are given to provide the waste heat. 
+In theory, the waste heat <i>Q<sub>exhaust</sub></i> can be expressed by the
+equation above. In the model, the corresponding values of exhaust gas mass flow
+rate and exhaust temperature are given to provide the waste heat. 
 </p>
-
 <p>
-This model uses look-up tables to capture the gas turbine's performance. The Solar Turbine manufacturer datasheet, available in <code>Data.SolarTurbines</code>, provides details on gas turbine performance in terms of electricity generation efficiency, exhaust gas mass flow rate, and exhaust gas temperature. These parameters are determined based on the ambient temperature <code>TSet</code> and the load factor <code>y</code>.
+This model uses look-up tables to capture the gas turbine's performance. The Solar
+Turbine manufacturer datasheet, available in <code>Data.SolarTurbines</code>, provides
+details on gas turbine performance in terms of electricity generation efficiency,
+exhaust gas mass flow rate, and exhaust gas temperature. These parameters are
+determined based on the ambient temperature <code>TSet</code> and the load factor <code>y</code>.
 </p>
-
 </html>", revisions="<html>
 <ul>
 <li>

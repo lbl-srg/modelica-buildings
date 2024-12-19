@@ -1,4 +1,4 @@
-﻿within GED.DistrictElectrical.CHP.BaseClasses;
+within Buildings.Fluid.CHPs.DistrictCHP.BaseClasses;
 package Functions "This package contains functions for used in the blocks."
     extends Modelica.Icons.VariantsPackage;
 
