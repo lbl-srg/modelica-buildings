@@ -1,0 +1,107 @@
+within GED.DistrictElectrical.CHP.Validation;
+model BottomingCycle
+  extends Modelica.Icons.Example;
+    package MediumSte = Buildings.Media.Steam
+    "Steam medium - Medium model for port_b (outlet)";
+  package MediumWat =
+      Buildings.Media.Specialized.Water.TemperatureDependentDensity
+    "Water medium - Medium model for port_a (inlet)";
+
+  // Parameters
+  parameter Real a[:]={-0.23380344533,0.220477944738,-0.01476897980}
+  "Polynominal coefficients for exhaust exergy efficiency";
+  parameter Modelica.Units.NonSI.Temperature_degC TSta = 87.778
+    "Exhaust stack temperature in Celsius";
+ //parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=28.63 "Nominal mass flow rate";
+   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=56.9972
+    "Nominal mass flow rate";
+
+
+  GED.DistrictElectrical.CHP.BottomingCycle botCyc(
+    final a=a,
+    TSta=182.486,
+    final m_flow_nominal=m_flow_nominal,
+    a_SteMas={0.1140,0,0},
+    steBoi(
+      allowFlowReversal=false,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+      p_start=3000000,
+      V=12.4,
+      VWat_start=0.8*botCyc.steBoi.V,
+      VWat_flow(start=0.05),
+      fixed_p_start=true),
+    TSte(y=235),
+    conPID(
+      controllerType=Modelica.Blocks.Types.SimpleController.PI,
+      k=2,
+      Ti=300,
+      Td=0,
+      yMax=1,
+      yMin=0,
+      Ni=1,
+      Nd=1,
+      initType=Modelica.Blocks.Types.Init.NoInit,
+      reverseActing=true,
+      y(start=1, fixed=true)),
+    pump(
+      p_a_start=30000,
+      p_b_start=3000000,
+      m_flow_start=55,
+      use_T_start=false,
+      T_start=504.475,
+      h_start=1e5),
+    watLevel(y=0.8*botCyc.steBoi.V))
+    annotation (Placement(transformation(extent={{-20,-22},{20,14}})));
+    //---Steam Boiler---
+    //---Superheated Steam Temp.---
+    //pump model
+  Modelica.Blocks.Sources.Constant ambTemp(k=15) "Ambient temperature (deg_C)"
+    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
+  Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = MediumWat,
+    use_p_in=false,
+    p=30000,
+    nPorts=1,
+    T=504.475)
+    annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
+  Modelica.Fluid.Sources.FixedBoundary bou(
+    redeclare package Medium = MediumSte,
+    p=1000000,
+    T=523.15,
+    nPorts=1) "Boundary condition"
+    annotation (Placement(transformation(extent={{62,-50},{42,-30}})));
+  Modelica.Blocks.Sources.Constant exhTem(k=450) "Exhaust gas temperature "
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Modelica.Blocks.Sources.Ramp exMas1(
+    height=-178,
+    duration=450,
+    offset=500,
+    startTime=500)
+    annotation (Placement(transformation(extent={{20,-88},{40,-68}})));
+  Modelica.Blocks.Sources.Constant exhMass(k=500)
+    "Exhaust gas mass flow rate (kg/s)"
+    annotation (Placement(transformation(extent={{58,-88},{78,-68}})));
+  Modelica.Blocks.Sources.Trapezoid trapezoid(
+    amplitude=-178,
+    rising=450,
+    width=500,
+    falling=450,
+    period=1900,
+    offset=500,
+    startTime=500)
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+equation
+  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-22.6,8.6},{-54,8.6},
+          {-54,18},{-59,18}},         color={0,0,127}));
+  connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-20,-2},{-26,-2},
+          {-26,-40},{-30,-40}}, color={0,127,255}));
+  connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{20,-2},{30,-2},
+          {30,-40},{42,-40}},color={0,127,255}));
+  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-22.6,14.6},{-50,14.6},
+          {-50,60},{-59,60}},                   color={0,0,127}));
+  connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-30},{-54,-30},
+          {-54,2.2},{-22.6,2.2}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end BottomingCycle;

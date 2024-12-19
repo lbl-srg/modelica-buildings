@@ -1,0 +1,49 @@
+within GED.DistrictElectrical.CHP.BaseClasses;
+block ExhaustTemperature
+  "This is a correlation function for exhaust temperature"
+  extends Modelica.Blocks.Icons.Block;
+  parameter Real a[6] "Polynominal coefficient";
+  parameter Modelica.Units.NonSI.Temperature_degC TExh_nominal
+   "Nominal exhaust gas temperature";
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput loaFac(
+    final unit="1") "Load factor"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+      iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
+    final unit="degC",
+    final quantity = "ThermodynamicTemperature")
+    "Ambient temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+      iconTransformation(extent={{-140,-70},{-100,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TExh(
+    final unit="degC",
+    final quantity = "ThermodynamicTemperature")
+     "Exhaust gas temperature"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-30},{140,10}})));
+
+protected
+   Modelica.Units.NonSI.Temperature_degF TAmb_degF
+   "Ambient temperature in degree Fahrenheit";
+   Real loaPer
+   "Load percentage";
+    Modelica.Units.NonSI.Temperature_degF TExh_nominal_degF
+   "Nominal exhaust tempearture in degree Fahrenheit";
+    Modelica.Units.NonSI.Temperature_degF TExh_degF
+   "Exhaust tempearture in degree Fahrenheit";
+
+algorithm
+  TAmb_degF := TAmb*(9/5) + 32;
+  loaPer:= loaFac*100;
+  TExh_nominal_degF:=TExh_nominal*(9/5) + 32;
+  TExh:= (TExh_degF-32)*(5/9);
+
+equation
+// Calculate exhaust gas temperature for off-design conditions
+// using the product of the nominal value and the correction factor.
+  TExh_degF =TExh_nominal_degF*Functions.MultivariatePolynomialCurve(
+    a=a,
+    x1=loaPer,
+    x2=TAmb_degF);
+
+end ExhaustTemperature;
