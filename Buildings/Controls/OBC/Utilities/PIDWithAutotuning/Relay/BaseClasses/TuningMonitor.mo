@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
 block TuningMonitor "Monitor the tuning process"
-  constant Modelica.Units.SI.Time minHorLen = 1E-5
+  constant Modelica.Units.SI.Time minHorLen = Buildings.Controls.OBC.CDL.Constants.eps
     "Minimum value for horizon length, used to guard against rounding errors";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
@@ -153,10 +153,10 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 This block detects when a PID tuning period should start and end.
-Specifically, the tuning period is triggered to begin when either <code>t<sub>on</sub></code>
-or <code>t<sub>off</sub></code> becomes positive.
-The tuning period is triggered to end when either <code>t<sub>on</sub></code>
-or <code>t<sub>off</sub></code> changes after the tuning period starts, as illustrated below:
+Specifically, the tuning period is triggered to begin when either <code>tOn</code>
+or <code>tOff</code> becomes greater than 0.
+The tuning period is triggered to end when either <code>tOn</code>
+or <code>tOff</code> changes after the tuning period starts, as illustrated below:
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/algorithm.png\"/>

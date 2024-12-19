@@ -144,12 +144,6 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Latch inTunPro
     "Outputs true if the controller is conducting the autotuning process"
     annotation (Placement(transformation(extent={{60,-150},{80,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    "Check if the setpoint changes during an autotuning process"
-    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Check if the autotuning is completed or aborted"
-    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 
 protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID
@@ -161,7 +155,7 @@ protected
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: the relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
+    final message="The relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
     annotation (Placement(transformation(extent={{160,210},{180,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=yHig)
@@ -169,7 +163,7 @@ protected
     annotation (Placement(transformation(extent={{-160,250},{-140,270}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(final k=yRef)
     "Reference value for the relay output"
-    annotation (Placement(transformation(extent={{-160,200},{-140,220}})));
+    annotation (Placement(transformation(extent={{-160,210},{-140,230}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(final k=yLow)
     "Lower value for the relay output"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
@@ -199,9 +193,9 @@ protected
     "Check if an autotuning is ongoing while a new autotuning request is received"
     annotation (Placement(transformation(extent={{200,-150},{220,-130}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: a new tuning request is ignored as the autotuning is ongoing.")
+    final message="A new tuning request is ignored as the autotuning is ongoing.")
     "Warning message when an autotuning tuning is ongoing while a new autotuning request is received"
-    annotation (Placement(transformation(extent={{242,-150},{262,-130}})));
+    annotation (Placement(transformation(extent={{240,-150},{260,-130}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edgReq
     "True only when a new request is received"
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
@@ -232,17 +226,22 @@ protected
     "Check if the setpoint changes"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
-    final message="Warning: the setpoint must not change when an autotuning tuning is ongoing. 
-    This ongoing autotuning will be aborted and the control gains will not
-    be changed.")
+    final message="The setpoint must not change when an autotuning tuning is ongoing. 
+    This ongoing autotuning will be aborted and the control gains will not be changed.")
     "Warning message when the setpoint changes during tuning process"
     annotation (Placement(transformation(extent={{160,100},{180,120}})));
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
+    "Check if the setpoint changes during an autotuning process"
+    annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if the autotuning is completed or aborted"
+    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-220},{-80,-220},{-80,-160},
           {-300,-160}}, color={0,0,127}));
-  connect(con.trigger, triRes) annotation (Line(points={{-46,-232},{-46,-266},{-60,
-          -266},{-60,-300}}, color={255,0,255}));
+  connect(con.trigger, triRes) annotation (Line(points={{-46,-232},{-46,-260},{-60,
+          -260},{-60,-300}}, color={255,0,255}));
   connect(samk.y,con. k) annotation (Line(points={{-118,-200},{-100,-200},{-100,
           -212},{-52,-212}}, color={0,0,127}));
   connect(con.Ti, samTi.y) annotation (Line(points={{-52,-216},{-100,-216},{-100,
@@ -295,7 +294,7 @@ equation
   connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
           -40,-140},{40,-140},{40,-300}}, color={255,0,255}));
   connect(nand.y, assMes1.u)
-    annotation (Line(points={{222,-140},{240,-140}}, color={255,0,255}));
+    annotation (Line(points={{222,-140},{238,-140}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
     annotation (Line(points={{198,-148},{180,-148},{180,-240},{142,-240}},
           color={255,0,255}));
@@ -307,10 +306,10 @@ equation
           color={255,0,255}));
   connect(con1.y, sub.u1) annotation (Line(points={{-138,260},{-120,260},{-120,246},
           {-82,246}}, color={0,0,127}));
-  connect(con2.y, sub.u2) annotation (Line(points={{-138,210},{-100,210},{-100,234},
+  connect(con2.y, sub.u2) annotation (Line(points={{-138,220},{-100,220},{-100,234},
           {-82,234}}, color={0,0,127}));
-  connect(sub1.u1, con2.y) annotation (Line(points={{-82,206},{-100,206},{-100,210},
-          {-138,210}}, color={0,0,127}));
+  connect(sub1.u1, con2.y) annotation (Line(points={{-82,206},{-100,206},{-100,220},
+          {-138,220}}, color={0,0,127}));
   connect(sub1.u2, con3.y) annotation (Line(points={{-82,194},{-120,194},{-120,180},
           {-138,180}}, color={0,0,127}));
   connect(sub.y, sub2.u1) annotation (Line(points={{-58,240},{-40,240},{-40,226},
@@ -378,9 +377,8 @@ annotation (defaultComponentName = "PIDWitTun",
 Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
-This method approximates the control process with a
-first-order plus time-delay (FOPTD) model.
-It then determines the parameters of this FOPTD model based on the control process's responses 
+This method approximates the control process with a first-order plus time-delay (FOPTD) model.
+It then determines the parameters of this FOPTD model based on the control process responses 
 to asymmetric relay feedback.
 After that, taking the parameters of this FOPTD mode as inputs, this method 
 calculates the PID gains with the Approximate M-constrained Integral Gain
@@ -395,21 +393,21 @@ PID controller.
 
 <h4>Autotuning process</h4>
 <p>
-To use this block, insert it into a feedback control loop.
-Before the PID tuning process starts, this block is equivalent to
+Before the tuning process starts, this block has output from
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
-This block starts the PID tuning process when a request for performing autotuning occurs, i.e.,
-when the value of the boolean input signal <code>triTun</code> changes from
+The PID tuning process starts when a request for performing autotuning occurs,
+i.e., when the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
-During the autotuning process, the output of the block changes into that of a relay controller
+During the tuning process, the block has the output from a relay controller
 (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 The PID tuning process ends automatically
 (see details in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.TunMonitor</a>),
-at which point this block reverts to a PID controller, but with tuned PID parameters.
+at which point this block reverts the output from the PID controller that uses the
+tuned PID parameters.
 </p>
 <p>Note:</p>
 <ul>
@@ -419,24 +417,25 @@ a new request for performing autotuning will be ignored and a warning
 will be generated.
 </li>
 <li>
-If the set point is changed during an autotuning process, a warning
-will be generated. This tuning process will be halted, and no adjustments will be made 
+If the set point is changed during an autotuning process, a warning will be
+generated. This tuning process will be halted, and no adjustments will be made 
 to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
 <p>
-The performance of the autotuning is affected by the parameters, including the
-typical range of control error, <code>r</code>, 
-the reference output for the tuning process, <code>yRef</code>, the higher and the
-lower values for the relay output, <code>yHig</code> and <code>yLow</code>, and the
-deadband, <code>deaBan</code>.
+The performance of the autotuning is affected by the parameters including the
+typical range of control error <code>r</code>, 
+the reference output for the tuning process <code>yRef</code>, the higher and the
+lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
+deadband <code>deaBan</code>.
 Below are some recommendations for selecting appropriate values for those parameters.
 </p>
 <ol>
 <li>
 Perform a &quot;test run&quot; to determine the maximum and the minimum values of
-measurement. In this test run, the autotuning is disabled and the set point is constant.
+measurement. In the test run, the autotuning should be disabled and the set point
+should be constant.
 This test run should stop after the system is stable.
 Record the maximum and the minimum values of measurement after the system is stable.
 </li>
