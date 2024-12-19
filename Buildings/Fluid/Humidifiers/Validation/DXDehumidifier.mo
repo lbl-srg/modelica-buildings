@@ -25,12 +25,6 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "DX dehumidifier"
     annotation (Placement(transformation(extent={{-50,-28},{-30,-8}})));
 
-  Buildings.Fluid.Humidifiers.BaseClasses.PLRToPulse plrToPul(
-    final tPer=3600,
-    final tDel=0.1)
-    "Convert PLR signal to on-off signal"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     final use_Xi_in=true,
@@ -137,6 +131,14 @@ model DXDehumidifier "Validation model for DX dehumidifier"
     "Reader for energy plus reference results"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
+protected
+  Controls.OBC.CDL.Discrete.Sampler           sam(final samplePeriod=3600)
+    "Sampling the part load ratio"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+protected
+  Controls.OBC.CDL.Logical.VariablePulse plrToPul(final period=3600)
+    "Convert part load ratio signal to on-off signal"
+    annotation (Placement(transformation(extent={{-88,60},{-68,80}})));
 equation
   connect(watRemRatMod.y, mWatMod.u)
     annotation (Line(points={{41,40},{58,40}}, color={0,0,127}));
@@ -150,18 +152,12 @@ equation
     annotation (Line(points={{41,-40},{58,-40}}, color={0,0,127}));
   connect(dehHeaRat_engPlu.y, QHea_engPlu.u)
     annotation (Line(points={{121,-40},{138,-40}}, color={0,0,127}));
-  connect(plrToPul.yEna, dxDeh.uEna) annotation (Line(points={{-98,70},{-54,70},
-          {-54,-14},{-51,-14}}, color={255,0,255}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-99,-50},
           {-90,-50},{-90,-22},{-84,-22}},      color={0,0,127}));
   connect(TIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-99,19.8},{-90,
           19.8},{-90,-14},{-84,-14}}, color={0,0,127}));
   connect(booToReaFanEna.y, gai.u)
     annotation (Line(points={{-138,-10},{-122,-10}}, color={0,0,127}));
-  connect(plrToPul.yEna, booToReaFanEna.u) annotation (Line(points={{-98,70},{-80,
-          70},{-80,40},{-170,40},{-170,-10},{-162,-10}}, color={255,0,255}));
-  connect(datRea.y[8], plrToPul.uPLR)
-    annotation (Line(points={{-139,70},{-122,70}}, color={0,0,127}));
   connect(datRea.y[11], TIn_K.Celsius) annotation (Line(points={{-139,70},{-130,
           70},{-130,19.6},{-122,19.6}}, color={0,0,127}));
   connect(datRea.y[10], toTotAirIn.XiDry) annotation (Line(points={{-139,70},{
@@ -173,6 +169,14 @@ equation
   connect(sin.ports[1], dxDeh.port_b)
     annotation (Line(points={{-20,-18},{-30,-18}}, color={0,127,255}));
 
+  connect(datRea.y[8], sam.u)
+    annotation (Line(points={{-139,70},{-122,70}}, color={0,0,127}));
+  connect(sam.y, plrToPul.u)
+    annotation (Line(points={{-98,70},{-90,70}}, color={0,0,127}));
+  connect(plrToPul.y, booToReaFanEna.u) annotation (Line(points={{-66,70},{-56,
+          70},{-56,40},{-170,40},{-170,-10},{-162,-10}}, color={255,0,255}));
+  connect(plrToPul.y, dxDeh.uEna) annotation (Line(points={{-66,70},{-56,70},{
+          -56,-14},{-51,-14}}, color={255,0,255}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-180,-100},{180,100}})),
