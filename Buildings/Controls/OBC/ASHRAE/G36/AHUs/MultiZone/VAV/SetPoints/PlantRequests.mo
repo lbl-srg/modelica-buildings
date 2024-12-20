@@ -35,7 +35,7 @@ block PlantRequests "Output plant requests for multizone air handling unit"
     final min=0,
     final max=1)
     if cooCoi == Buildings.Controls.OBC.ASHRAE.G36.Types.CoolingCoil.WaterBased
-    "Commanded cooling coil valve position"
+    "Commanded ooling coil valve position"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHeaCoiSet(
