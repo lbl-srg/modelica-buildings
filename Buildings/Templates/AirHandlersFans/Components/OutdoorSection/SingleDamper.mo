@@ -7,13 +7,20 @@ model SingleDamper
     final typDamOut=damOut.typ,
     final typDamOutMin=Buildings.Templates.Components.Types.Damper.None);
 
-  Buildings.Templates.Components.Dampers.Modulating damOut(
+  parameter Boolean test_display = true
+    "Test parameter";
+
+  replaceable Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
     use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Outdoor air damper"
     annotation (
+      choices(choice(redeclare replaceable Buildings.Templates.Components.Dampers.Modulating damOut
+      "Modulating damper"),
+      choice(redeclare replaceable Buildings.Templates.Components.Dampers.None damOut
+      "No damper")),
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
