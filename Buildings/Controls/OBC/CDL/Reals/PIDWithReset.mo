@@ -490,13 +490,13 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 May 20, 2022, by Michael Wetter:<br/>
 Refactored implementation to use new derivative block from CDL package.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">Buildings, issue 3022</a>.
 </li>
 <li>
 May 6, 2022, by Michael Wetter:<br/>
 Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">issue 2994</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">Buildings, issue 2994</a>.
 </li>
 <li>
 April 30, 2021, by Michael Wetter:<br/>
@@ -505,37 +505,37 @@ when reset trigger is <code>true</code>.<br/>
 Refactored implementation to have separate blocks that show the P, I and D contribution,
 each with the control gain applied.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">issue 2475</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2475\">Buildings, issue 2475</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 15, 2020, by Michael Wetter:<br/>
 Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
 Revised documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">Buildings, issue 2182</a>.
 </li>
 <li>
 August 4, 2020, by Jianjun Hu:<br/>
 Removed the input <code>y_reset_in</code>.
 Refactored to internally implement the derivative block.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">Buildings, issue 2056</a>.
 </li>
 <li>
 June 1, 2020, by Michael Wetter:<br/>
 Corrected wrong convention of reverse and direct action.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">Buildings, issue 1365</a>.
 </li>
 <li>
 April 23, 2020, by Michael Wetter:<br/>
 Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>
 and <code>yMin</code> from <code>-yMax</code> to <code>0</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">issue 1888</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">Buildings, issue 1888</a>.
 </li>
 <li>
 April 7, 2020, by Michael Wetter:<br/>
@@ -552,12 +552,12 @@ the removal of options that can be realized differently and are hardly ever used
 This refactoring also removes the parameter <code>strict</code> that
 was used in the output limiter. The new implementation enforces a strict check by default.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">issue 1878</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">Buildings, issue 1878</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
 Corrected unit declaration for gain <code>k</code>.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">issue 1821</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">Buildings, issue 1821</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
@@ -572,7 +572,7 @@ October 19, 2019, by Michael Wetter:<br/>
 Disabled homotopy to ensure bounded outputs
 by copying the implementation from MSL 3.2.3 and by
 hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">Buildings, issue 1221</a>.
 </li>
 <li>
 November 13, 2017, by Michael Wetter:<br/>
@@ -599,13 +599,13 @@ Revised implemenentation, added comments, made some parameter in the instances f
 </li>
 <li>July 18, 2016, by Philipp Mehrfeld:<br/>
 Added integrator reset.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">Buildings, issue 494</a>.
 </li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Changed the default value to <code>strict=true</code> in order to avoid events
 when the controller saturates.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">Buildings, issue 433</a>.
 </li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>

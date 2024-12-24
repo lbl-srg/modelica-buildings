@@ -1,7 +1,7 @@
 within Buildings.ThermalZones.ISO13790.Validation.BESTEST.Data;
-record Case600Mass = Buildings.ThermalZones.ISO13790.Data.Generic(
-    heaC=51289.8,
-    facMas=4.522) "BESTEST600"
+record Case600Mass = Buildings.ThermalZones.ISO13790.Data.Generic (
+    heaC=42167,
+    facMas=2.95) "BESTEST600"
      annotation (
   Documentation(revisions="<html>
 <ul>

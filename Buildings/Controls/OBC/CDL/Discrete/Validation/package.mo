@@ -15,7 +15,7 @@ revisions="<html>
 <li>
 September 13, 2023, by Jianjun Hu:<br/>
 Changed the package name from <code>Examples</code> to <code>Validation</code>.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">issue 3517</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3517\">Buildings, issue 3517</a>.
 </li>
 </ul>
 </html>"),
