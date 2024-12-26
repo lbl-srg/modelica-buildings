@@ -91,12 +91,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Validation/SurfaceComparison/ZoneSurfaces.mos"
-        "Simulate and Plot", file="../test.mos" "test"),
-    experiment(
-      StopTime=2592000,
-      Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ZoneSurfaces;

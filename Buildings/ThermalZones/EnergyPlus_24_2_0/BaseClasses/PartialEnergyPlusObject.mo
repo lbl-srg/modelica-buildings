@@ -22,6 +22,10 @@ protected
     "Name of the IDF file that contains this zone";
   final parameter String epwName=building.epwName
     "Name of the EnergyPlus weather file (but with mos extension)";
+  final parameter Boolean autosizeHVAC=building.autosizeHVAC
+    "If true, EnergyPlus will run the HVAC autosizing calculations and report results to Modelica thermal zone model";
+  final parameter Boolean use_sizingPeriods=building.use_sizingPeriods
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file";
   final parameter Real relativeSurfaceTolerance=building.relativeSurfaceTolerance
     "Relative tolerance of surface temperature calculations";
 
@@ -46,14 +50,10 @@ protected
     output Real y;
 
   algorithm
-    y :=
-      if
-        (u > 0) then
-        floor(
-          u/accuracy+0.5)*accuracy
-      else
-        ceil(
-          u/accuracy-0.5)*accuracy;
+    y := if (u > 0) then
+           floor(u/accuracy+0.5)*accuracy
+         else
+           ceil(u/accuracy-0.5)*accuracy;
   end round;
 
 initial equation
