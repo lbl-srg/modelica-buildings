@@ -37,14 +37,14 @@ protected
 
 initial equation
   assert(s < 1 + 1E-4,
-         "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
+         "In " + getInstanceName() + ": The motor efficiency curve is wrong.
          The ratio of the speed ratio to the motor percent 
-         full-load efficiency should be less than 1",
+         full-load efficiency must be less than 1.",
          level=AssertionLevel.error)
          "Check if the motor efficiency curve is correct";
   assert(abs(yeta[nSpe]-1) < 1E-4,
-          "In " + getInstanceName() + ": the motor efficiency curve is wrong. 
-          The motor percent full-load efficiency at the full seepd should be 1",
+          "In " + getInstanceName() + ": The motor efficiency curve is wrong.
+          The motor percent full-load efficiency at the full seepd must be 1.",
           level=AssertionLevel.error)
           "Check if the motor efficiency curve is consistent with the nominal condition";
 equation
@@ -60,17 +60,14 @@ equation
                 "Calculate the sensible heat exchanger effectiveness correction";
    annotation (
    defaultComponentName="senWhe",
-   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
+   Documentation(info="<html>
 <p>
 This model calculates the power consumption and the sensible heat exchanger 
 effectiveness correction of a sensible heat wheel.
-Specifically, this calculation is configured as follows.
 </p>
 <ul>
 <li>
-The power consumption of this wheel is calculated by
+The power consumption of this wheel is calculated as
 <p align=\"center\" style=\"font-style:italic;\">
 P = P_nominal * uSpe / eta,
 </p>
@@ -78,13 +75,13 @@ P = P_nominal * uSpe / eta,
 where <code>P_nominal</code> is the nominal wheel power consumption,
 <code>uSpe</code> is the wheel speed ratio, 
 and <code>eta</code> is the motor percent full-load efficiency, 
-which is calculated by
+which is calculated as
 <p align=\"center\" style=\"font-style:italic;\">
 eta = eff(uSpe=x) / eff(uSpe=1),
 </p>
 <p>
 where <code>eff(uSpe=x)</code> is the motor efficiency when the speed ratio is <code>x</code>.
-The <code>eta</code> is obtained based on the cubic hermite spline interpolation of
+The efficiency <code>eta</code> is obtained based on the cubic hermite spline interpolation of
 the motor percent full-load efficiency dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.motorEfficiencyParameters\">
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.motorEfficiencyParameters</a>).

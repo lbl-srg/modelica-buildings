@@ -23,12 +23,12 @@ heat exchange effectiveness correction of an enthalpy wheel.
 </p>
 <p>
 The calculation of the power consumption and the sensible 
-heat exchange effectiveness correction is elaborated in
+heat exchange effectiveness correction is described in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\"> 
 Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
 </p>
 <p>
-The latent heat exchange effectiveness correction is calculated with 
+The latent heat exchange effectiveness correction is calculated using
 the cubic hermite spline interpolation of the latent heat exchange 
 effectiveness dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics.heatExchangerEffectivenessParameters\">
