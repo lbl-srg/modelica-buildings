@@ -19,9 +19,9 @@ model Empirical "Empirical air filter model"
     each final unit="1",
     each final min=0,
     each final max=1)
-    "Filtration efficiency" annotation (Placement(transformation(
-          extent={{100,20},{140,60}}), iconTransformation(extent={{100,-80},{140,
-            -40}})));
+    "Filtration efficiency"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
      h_outflow(start = Medium.h_default, nominal = Medium.h_default))
@@ -260,16 +260,14 @@ Documentation(info="<html>
 <p>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
-The dynamic characteristics of the filters are defined by the following parameters.
+The characteristics of the filters are defined in the performance dataset
+<code>per</code> that determines:
 </p>
 <ul>
 <li>
-The <code>mCon_nominal</code> determines the maximum amount of contaminants the filter can accumulate 
-before reaching its nominal capacity.
+the maximum amount of contaminants <code>mCon_nominal</code> that
+the filter can capture before reaching its nominal capacity;
 </li>
-<li>
-A performance dataset <code>per</code> that determines 
-<ul>
 <li>
 the types of contaminants can be captured by the filter;
 </li>
@@ -277,10 +275,8 @@ the types of contaminants can be captured by the filter;
 how the flow coefficient changes as contaminants build up;
 </li>
 <li>
-how the filtration efficiency changes 
-with the contaminant accumulation, specific to each type.
-</li>
-</ul>
+how the filtration efficiency changes along with the contaminant accumulation,
+specific to each type.
 </li>
 </ul>
 <p>
@@ -296,14 +292,13 @@ when <code>uRep</code> changes from <code>false</code> to <code>true</code>, the
 mass of the captured contaminants is reset to <i>0</i>.
 </p>
 <b>Note:</b>
-Warnings will be triggered 
+Warnings will be triggered when,
 <ul>
 <li>
-when the captured contaminant mass exceeds the
-<code>mCon_nominal</code>.
+the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
 </li>
 <li>
-when the <code>extraPropertiesNames</code> in the medium model don't contain all the contaminants
+the <code>extraPropertiesNames</code> in the medium model does not contain all the contaminants
 specified in the <code>per</code>.
 </li>
 </ul>

@@ -18,12 +18,13 @@ model FiltrationEfficiency
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nConSub](
     each final unit="1",
     each final min=0,
-    each final max=1) "Filtration efficiency"
+    each final max=1)
+    "Filtration efficiency of each contaminant"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rat(
-    each final unit="1",
-    each final min=0,
-    each final max=1)
+    final unit="1",
+    final min=0,
+    final max=1)
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 protected

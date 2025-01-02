@@ -10,7 +10,8 @@ record FiltrationEfficiencyParameters
 
   annotation (Documentation(info="<html>
 <p>
-Data record that describes the relative mass of the contaminant <code>rat</code> that is captured by the filter when it has the filtration efficiency 
+Data record that describes the relative mass of the contaminant <code>rat</code>
+that is captured by the filter when it has the filtration efficiency 
 specified as <code>eps</code>.
 The elements of the vector <code>rat</code> should be in ascending order, 
 i.e.,<code>rat[i] &lt; rat[i+1]</code>.

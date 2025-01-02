@@ -4,14 +4,14 @@ model FlowCoefficientCorrection
   parameter Real b = 1.1
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
-    each final unit="1",
-    each final min=0,
-    each final max=1)
+    final unit="1",
+    final min=0,
+    final max=1)
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
-    each final unit="1",
-    each final min=1)
+    final unit="1",
+    final min=1)
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 initial equation

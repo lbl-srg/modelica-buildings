@@ -7,17 +7,17 @@ model PressureDropWithVaryingFlowCoefficient
   parameter Real deltaM(min=1E-6) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Evaluate=true, Dialog(group = "Transition to laminar", enable = not linearized));
-  Real k "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+  Real k "Flow coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kCor(
     final unit = "1",
     final min = 1)
-    "Flow coefficient"
+    "Flow coefficient correction factor"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
       rotation=-90, origin={0,120})));
 
 protected
   final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "Flag to enable/disable computation of flow resistance"
+    "True: enable computation of flow resistance"
     annotation(Evaluate=true);
 
 initial equation

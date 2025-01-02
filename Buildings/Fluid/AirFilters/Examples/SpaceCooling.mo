@@ -88,9 +88,9 @@ model SpaceCooling
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
-      Medium1 =
-        MediumA, redeclare package Medium2 = MediumA,
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = MediumA,
+    redeclare package Medium2 = MediumA,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
     dp1_nominal=200,
@@ -127,8 +127,9 @@ model SpaceCooling
     use_m_flow_in=true,
     T=TWSup_nominal) "Source for water flow rate"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Fluid.Sources.Boundary_pT sinWat(nPorts=1, redeclare package Medium =
-        MediumW) "Sink for water circuit"
+  Buildings.Fluid.Sources.Boundary_pT sinWat(
+    nPorts=1,
+    redeclare package Medium = MediumW) "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -142,14 +143,14 @@ model SpaceCooling
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package
-      Medium =
-        MediumA, m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-38,-26},{-26,-14}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
-      Medium =
-        MediumA, m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
@@ -178,8 +179,8 @@ model SpaceCooling
     startTime=15552000 + 87600/2)
     "Contaminant mass flow rate fraction"
     annotation (Placement(transformation(extent={{-170,-70},{-150,-50}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort C_out(redeclare package
-    Medium =MediumA,
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort C_out(
+    redeclare package Medium =MediumA,
     m_flow_nominal=mA_flow_nominal,
     substanceName="PM10")
     "Trace substance sensor of outlet air"

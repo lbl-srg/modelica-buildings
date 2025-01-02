@@ -21,12 +21,14 @@ model MassTransfer
     each startTime=5)
     "Mass transfer efficiency"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2Out(redeclare
-      package Medium = Medium, m_flow_nominal=1)
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2Out(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1)
     "Trace substance sensor of CO2 in outlet air"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(redeclare
-      package Medium = Medium, m_flow_nominal=1)
+  Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1)
     "Trace substance sensor of CO2 in inlet air"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -111,6 +113,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-220,-100},{160,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(extent={{-220,-100},{160,100}})));
 end MassTransfer;
