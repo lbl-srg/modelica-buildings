@@ -39,7 +39,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -50,7 +49,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -62,7 +60,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -74,7 +71,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,

@@ -9,9 +9,7 @@ model BypassDampers
   parameter Real P_nominal(final unit="W")
     "Power consumption at the design condition"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean show_T=false
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced"));
+
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close damper using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));
@@ -41,7 +39,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -52,7 +49,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
     redeclare package Medium = Medium,
     final m_flow_nominal=mSup_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -64,7 +60,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -76,7 +71,6 @@ model BypassDampers
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium,
     final m_flow_nominal=mExh_flow_nominal,
-    final show_T=show_T,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
