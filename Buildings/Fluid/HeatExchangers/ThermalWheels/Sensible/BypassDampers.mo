@@ -13,7 +13,7 @@ model BypassDampers
     "= true, if actual temperature at port is computed"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean use_strokeTime=true
-    "Set to true to continuously open and close valve using strokeTime"
+    "Set to true to continuously open and close damper using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));
   parameter Modelica.Units.SI.Time strokeTime=120
     "Time needed to fully open or close actuator"

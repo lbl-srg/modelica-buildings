@@ -269,7 +269,7 @@ equation
           {-10,-54},{-110,-54},{-110,-24},{-102,-24}},color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This block is identical to
+This example is identical to
 <a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System3\">
 Buildings.Examples.Tutorial.SpaceCooling.System3</a>,
 except that the heat recovery device is modeled with <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers\">
