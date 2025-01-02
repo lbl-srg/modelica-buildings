@@ -78,7 +78,7 @@ model BypassDampers
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiepsSen
+  Buildings.Controls.OBC.CDL.Reals.Switch swiEpsSen
     "Switch the heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-60,180},{-40,200}})));
 
@@ -142,15 +142,15 @@ equation
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-80},{-180,-80}}, color={0,127,255},
       thickness=0.5));
-  connect(zero.y, swiepsSen.u3) annotation (Line(points={{-139,-30},{-116,-30},{
+  connect(zero.y,swiEpsSen. u3) annotation (Line(points={{-139,-30},{-116,-30},{
           -116,82},{-68,82},{-68,182},{-62,182}}, color={0,0,127}));
-  connect(effCal.eps, swiepsSen.u1) annotation (Line(points={{-78,0},{-74,0},{-74,
+  connect(effCal.eps,swiEpsSen. u1) annotation (Line(points={{-78,0},{-74,0},{-74,
           198},{-62,198}}, color={0,0,127}));
-  connect(swiepsSen.y, hex.eps) annotation (Line(points={{-38,190},{-32,190},{-32,
+  connect(swiEpsSen.y, hex.eps) annotation (Line(points={{-38,190},{-32,190},{-32,
           0},{-12,0}}, color={0,0,127}));
-  connect(swiepsSen.y, eps) annotation (Line(points={{-38,190},{80,190},{80,40},
+  connect(swiEpsSen.y, eps) annotation (Line(points={{-38,190},{80,190},{80,40},
           {120,40}}, color={0,0,127}));
-  connect(uRot, swiepsSen.u2) annotation (Line(points={{-200,0},{-170,0},{-170,190},
+  connect(uRot,swiEpsSen. u2) annotation (Line(points={{-200,0},{-170,0},{-170,190},
           {-62,190}}, color={255,0,255}));
   connect(PEle.u, uRot) annotation (Line(points={{-62,160},{-120,160},{-120,190},
           {-170,190},{-170,0},{-200,0}}, color={255,0,255}));
