@@ -26,8 +26,8 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=0,
-    duration=60,
-    offset=273.15 + 20,
+    duration=0,
+    offset=273.15 + 10,
     startTime=0)  "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,24},{-70,44}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
@@ -37,17 +37,19 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     T=298.15,
     nPorts=1) "Water source 2"
     annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=50, V=220)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
         Buildings.Media.Water,
-      m_flow_nominal=m2_flow_nominal) "Temperature sensor"
+      m_flow_nominal=m2_flow_nominal,
+    T_start(displayUnit="K") = 280.15)
+                                      "Temperature sensor"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Step TSet(
     height=-2,
     offset=273.15 + 7,
-    startTime=500) "Evaporator side leaving water temperature set point"
+    startTime=300) "Evaporator side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin2(redeclare package Medium =
         Buildings.Media.Water, nPorts=1)
@@ -63,19 +65,21 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     redeclare package Medium1 = Buildings.Media.Water,
     redeclare package Medium2 = Buildings.Media.Water,
     P_nominal=P_nominal,
-    Nrpm_nominal=1800,
+    Nrpm_nominal=1500,
     dp1_nominal=1000,
     dp2_nominal=1000,
     etaCarnot_nominal=0.5,
     redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.IM_5HP_400V_50Hz
-      per)
+      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+      per,
+    k=0.001,
+    Ti=0.65)
     annotation (Placement(transformation(extent={{-10,-14},{10,6}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
-    duration=600,
+    duration=0,
     offset=273.15 + 15,
-    startTime=0)  "Condenser inlet temperature"
+    startTime=600) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{94,-26},{74,-6}})));
 equation
   connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-69,34},{-62,34}},
@@ -105,7 +109,7 @@ equation
   connect(senTem.port_b, sin2.ports[1])
     annotation (Line(points={{-40,-30},{-60,-30}}, color={0,127,255}));
   annotation (experiment(
-      StopTime=600,
+      StopTime=900,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Chiller.mos"

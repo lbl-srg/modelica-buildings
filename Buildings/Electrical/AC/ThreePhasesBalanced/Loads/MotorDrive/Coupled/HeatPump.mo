@@ -67,15 +67,8 @@ model HeatPump "Motor coupled heat pump"
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     per constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record with performance data" annotation (choicesAllMatching=true,
+    "Record of Induction Machine with performance data" annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
-  parameter Integer P=per.P "Number of poles";
-  parameter Real J=per.J "Moment of inertia";
-  parameter Real Lr=per.Lr "Rotor inductance [H]";
-  parameter Real Ls=per.Ls "Stator inductance [H]";
-  parameter Real Lm=per.Lm "Mutual inductance [H]";
-  parameter Real Rr=per.Rr "Rotor resistance [ohm]";
-  parameter Real Rs=per.Rs "Stator resistance [ohm]";
 
   //Controller parameters
   parameter Boolean have_controller = true
@@ -116,7 +109,7 @@ model HeatPump "Motor coupled heat pump"
                        group="Controller",
                        enable=have_controller));
 
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau)
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=1.5*mecHea.shaft.tau)
     "Heat pump torque block"
     annotation (Placement(transformation(extent={{-20,12},{-40,32}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.HeatPump mecHea(
@@ -152,13 +145,9 @@ model HeatPump "Motor coupled heat pump"
         iconTransformation(extent={{-120,20},{-100,40}})));
 
   InductionMotors.SquirrelCageDrive simMot(
-    P=P,
-    J=J,
-    Lr=Lr,
-    Ls=Ls,
-    Rr=Rr,
-    Lm=Lm,
-    Rs=Rs) annotation (Placement(transformation(extent={{-44,40},{-20,60}})));
+    per=per,
+    k=k,
+    Ti=Ti) annotation (Placement(transformation(extent={{-44,40},{-20,60}})));
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";

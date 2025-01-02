@@ -10,11 +10,17 @@ model Pump "This example shows how to use the motor coupled pump model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=0,
       origin={-90,20})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Pump pum(
+    addPowerToMedium=true,
+    redeclare
+      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+      per1,
     pum(pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)),
     redeclare package Medium = MediumW,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
-    k=0.1,
-    Ti=60) "Pump"
+    redeclare
+      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
+    k=0.0012,
+    Ti=0.63)
+           "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=50, V=400)
@@ -36,7 +42,7 @@ model Pump "This example shows how to use the motor coupled pump model"
   Modelica.Blocks.Sources.Step step(
     height=10,
     offset=0,
-    startTime=500)  "Flow rate set point"
+    startTime=100)  "Flow rate set point"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
 equation

@@ -13,7 +13,7 @@ model Pump "Motor coupled chiller"
     added to medium";
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data"
+    "Record of pump with performance data"
      annotation (choicesAllMatching=true,Placement(transformation(
      extent={{-80,-68},{-60,-48}})));
 
@@ -22,15 +22,15 @@ model Pump "Motor coupled chiller"
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     per1 constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record with performance data" annotation (choicesAllMatching=true,
+    "Record of Induction Machine with performance data" annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
-  parameter Integer P=per1.P "Number of poles";
-  parameter Real J=per1.J "Moment of inertia";
-  parameter Real Lr=per1.Lr "Rotor inductance [H]";
-  parameter Real Ls=per1.Ls "Stator inductance [H]";
-  parameter Real Lm=per1.Lm "Mutual inductance [H]";
-  parameter Real Rr=per1.Rr "Rotor resistance [ohm]";
-  parameter Real Rs=per1.Rs "Stator resistance [ohm]";
+  //parameter Integer P=per1.P "Number of poles";
+  //parameter Real J=per1.J "Moment of inertia";
+  //parameter Real Lr=per1.Lr "Rotor inductance [H]";
+  //parameter Real Ls=per1.Ls "Stator inductance [H]";
+  //parameter Real Lm=per1.Lm "Mutual inductance [H]";
+  //parameter Real Rr=per1.Rr "Rotor resistance [ohm]";
+  //parameter Real Rs=per1.Rs "Stator resistance [ohm]";
 
   //Controller parameters
   parameter Boolean have_controller = true
@@ -71,16 +71,14 @@ model Pump "Motor coupled chiller"
                        group="Controller",
                        enable=have_controller));
 
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau)
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=1.732*pum.shaft.tau)
     "Pump torque block"
     annotation (Placement(transformation(extent={{-28,0},{-48,20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     redeclare final package Medium = Medium,
     final addPowerToMedium=addPowerToMedium,
     Nrpm_nominal=1500,
-    redeclare final
-      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per)
-                   "Mechanical pump with mechanical interface"
+    per=per)       "Mechanical pump with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
@@ -100,13 +98,9 @@ model Pump "Motor coupled chiller"
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
   InductionMotors.SquirrelCageDrive motDri(
-    P=P,
-    J=J,
-    Lr=Lr,
-    Ls=Ls,
-    Rr=Lr,
-    Lm=Lm,
-    Rs=Rs) annotation (Placement(transformation(extent={{-52,28},{-28,48}})));
+    per=per1,
+    k=k,
+    Ti=Ti) annotation (Placement(transformation(extent={{-52,28},{-28,48}})));
 equation
 
   connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},

@@ -11,13 +11,13 @@ model SquirrelCage
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
-  parameter Integer P=per.P "Number of poles";
-  parameter Real J=per.J "Moment of inertia";
-  parameter Real Lr=per.Lr "Rotor inductance [H]";
-  parameter Real Ls=per.Ls "Stator inductance [H]";
-  parameter Real Lm=per.Lm "Mutual inductance [H]";
-  parameter Real Rr=per.Rr "Rotor resistance [ohm]";
-  parameter Real Rs=per.Rs "Stator resistance [ohm]";
+   Integer P=per.P "Number of poles";
+   Real J=per.J "Moment of inertia";
+   Real Lr=per.Lr "Rotor inductance [H]";
+   Real Ls=per.Ls "Stator inductance [H]";
+   Real Lm=per.Lm "Mutual inductance [H]";
+   Real Rr=per.Rr "Rotor resistance [ohm]";
+   Real Rs=per.Rs "Stator resistance [ohm]";
             Real i_rms "RMS current";
             Real v_rms "RMS voltage";
             Real pow_gap "Power gap";
@@ -74,14 +74,14 @@ model SquirrelCage
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   BaseClasses.MotorMachineInterface torSpe(
-    P=P,
-    J=J,
-    Lr=Lr,
-    Ls=Ls,
-    Rr=Rr,
-    Lm=Lm,
-    Rs=Rs) annotation (Placement(transformation(extent={{2,-6},{16,8}})));
-  BaseClasses.SpeedBlock speBlo(J=J, P=P)
+    P=per.P,
+    J=per.J,
+    Lr=per.Lr,
+    Ls=per.Ls,
+    Rr=per.Rr,
+    Lm=per.Lm,
+    Rs=per.Rs) annotation (Placement(transformation(extent={{2,-6},{16,8}})));
+  BaseClasses.SpeedBlock speBlo(J=per.J, P=per.P)
     annotation (Placement(transformation(extent={{-4,-76},{16,-56}})));
   BaseClasses.CurrentBlock current_Block
     annotation (Placement(transformation(extent={{66,28},{86,48}})));

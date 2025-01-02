@@ -8,16 +8,16 @@ model SquirrelCageDrive
      replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
     constrainedby
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-    "Record with performance data"
+    "Record with Induction Machine performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
-  parameter Integer P=per.P "Number of poles";
-  parameter Real J=per.J "Moment of inertia";
-  parameter Real Lr=per.Lr "Rotor inductance [H]";
-  parameter Real Ls=per.Ls "Stator inductance [H]";
-  parameter Real Lm=per.Lm "Mutual inductance [H]";
-  parameter Real Rr=per.Rr "Rotor resistance [ohm]";
-  parameter Real Rs=per.Rs "Stator resistance [ohm]";
+  Integer P=per.P "Number of poles";
+  Real J=per.J "Moment of inertia";
+ Real Lr=per.Lr "Rotor inductance [H]";
+  Real Ls=per.Ls "Stator inductance [H]";
+  Real Lm=per.Lm "Mutual inductance [H]";
+  Real Rr=per.Rr "Rotor resistance [ohm]";
+  Real Rs=per.Rs "Stator resistance [ohm]";
 
   //-----------------------------------------------
   // parameter Integer P=4      "Number of poles";
@@ -31,8 +31,6 @@ model SquirrelCageDrive
 
   parameter Boolean have_controller = true
     "Set to true for enable PID control, False for simple speed control";
-  parameter Boolean reverseActing=true
-     "Set to true for reverseActing in heating and set to false in cooling mode";
   parameter Modelica.Blocks.Types.SimpleController
   controllerType=Modelica.Blocks.Types.SimpleController.PI
      "Type of controller"
@@ -44,7 +42,7 @@ model SquirrelCageDrive
       annotation (Dialog(tab="Advanced",
                          group="Controller",
                          enable=true));
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=0.5
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=1
      "Time constant of Integrator block"
       annotation (Dialog(tab="Advanced",
                          group="Controller",
@@ -139,15 +137,15 @@ model SquirrelCageDrive
     "Supply voltage angular frequency" annotation (Placement(transformation(
           extent={{-10,-12},{10,12}}, origin={-66,70})));
 
-  Modelica.Blocks.Math.Gain VFD_Equivalent_Freq(k=P/120)
+  Modelica.Blocks.Math.Gain VFD_Equivalent_Freq(k=per.P/120)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Controls.Continuous.LimPID VFD(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final Td=Td*2,
     final yMax=yMax,
     final yMin=yMin,
-    final k=0.05*k,
-    final Ti=15*Ti,
+    final k=k,
+    final Ti=Ti,
     initType=Modelica.Blocks.Types.Init.SteadyState,
     final reverseActing=reverseActing)
     "PI controller as variable frequency drive"
@@ -162,22 +160,26 @@ model SquirrelCageDrive
   BaseClasses.CurrentBlock current_Block
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   BaseClasses.MotorMachineInterface torSpe(
-    P=P,
-    J=J,
-    Lr=Lr,
-    Ls=Ls,
-    Rr=Rr,
-    Lm=Lm,
-    Rs=Rs) annotation (Placement(transformation(extent={{18,-14},{32,0}})));
-  BaseClasses.SpeedBlock speBlo(J=J, P=P)
+    P=per.P,
+    J=per.J,
+    Lr=per.Lr,
+    Ls=per.Ls,
+    Rr=per.Rr,
+    Lm=per.Lm,
+    Rs=per.Rs) annotation (Placement(transformation(extent={{18,-14},{32,0}})));
+  BaseClasses.SpeedBlock speBlo(J=per.J, P=per.P)
     annotation (Placement(transformation(extent={{26,-78},{46,-58}})));
+
+parameter Boolean reverseActing = true
+  "Default: Set to true for reverseActing in heating and set to false in cooling mode"
+  annotation(Dialog(visible=false));
 equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);
   omega = der(theta_s);
   v_rms=sqrt(v[1]^2+v[2]^2); // Equations to calculate current
-  i[1] = 2*(sqrt(2)/sqrt(3))*torSpe.motMod.i_ds;
-  i[2] =(sqrt(3)/sqrt(2))*torSpe.motMod.i_qs;
+  i[1] = 3/2*torSpe.motMod.i_ds*(VFDvol.y/v_rms);
+  i[2] = 3/2*torSpe.motMod.i_qs*(VFDvol.y/v_rms);
   i_rms=sqrt(i[1]^2+i[2]^2);
   pow_gap = speBlo.N/9.55*torSpe.tau_e;
 

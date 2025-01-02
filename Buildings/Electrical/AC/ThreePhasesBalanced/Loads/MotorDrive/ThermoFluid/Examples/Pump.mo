@@ -3,7 +3,7 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
   extends Modelica.Icons.Example;
   package MediumW = Buildings.Media.Water;
 
-  parameter Modelica.Units.SI.Torque tau=0.05
+  parameter Modelica.Units.SI.Torque tau=15
     "Provided torque";
   parameter Modelica.Units.SI.Inertia JLoad=0.01 "Load inertia";
 
@@ -24,7 +24,8 @@ model Pump "This example shows how to use the heat pump with mechanical interfac
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.Pump pum(
     pum(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     redeclare package Medium = MediumW,
-    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 per)
+    redeclare
+      Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per)
     "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

@@ -46,7 +46,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
   Modelica.Blocks.Sources.Step TSet(
     height=5,
     offset=273.15 + 20,
-    startTime=500) "Condenser side leaving water temperature set point"
+    startTime=300) "Condenser side leaving water temperature set point"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.HeatPump hea(
     redeclare package Medium1 = MediumW,
@@ -54,13 +54,15 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     P_nominal=P_nominal,
-    Nrpm_nominal=1800,
+    Nrpm_nominal=1500,
     etaCarnot_nominal=0.5,
     dp1_nominal=1000,
     dp2_nominal=1000,
     redeclare
       Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-      per) "Heat pump"
+      per,
+    k=0.01,
+    Ti=10) "Heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=0,
@@ -104,7 +106,7 @@ equation
                             color={0,127,255}));
   annotation (experiment(
       StartTime=450,
-      StopTime=600,
+      StopTime=900,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
 __Dymola_Commands(file=
