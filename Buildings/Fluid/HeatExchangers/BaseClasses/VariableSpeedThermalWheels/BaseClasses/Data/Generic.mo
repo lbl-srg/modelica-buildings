@@ -13,16 +13,14 @@ record Generic "Generic data record for variable-speed wheels"
     "Latent heat exchange effectiveness versus wheel speed ratio" annotation (
       Dialog(group="Heat exchange effectiveness computation", enable=
           haveLatentHeatExchange));
-  parameter
-    cha.motorEfficiencyParameters
-    motorEfficiency(uSpe={0}, eta={0.7})
+  parameter cha.motorEfficiencyParameters motorEfficiency(
+    uSpe={0},
+    eta={0.7})
     "Motor efficiency versus wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       false));
-  final parameter
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
-    motorEfficiency_default=
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+    motorEfficiency_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
          P_nominal=P_nominal,
          eta_max=1)
     "Motor efficiency versus default wheel speed ratio"
