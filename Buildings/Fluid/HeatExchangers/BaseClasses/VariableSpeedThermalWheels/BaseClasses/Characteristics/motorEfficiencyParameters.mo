@@ -2,9 +2,14 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Bas
 record motorEfficiencyParameters
   "Parameters for defining motor efficiency at different wheel speed ratios"
   extends Modelica.Icons.Record;
-  parameter Real uSpe[:](each final min=0)
+
+  parameter Real uSpe[:](
+    each final min=0,
+    each final unit="1")
     "Wheel speed ratio";
-  parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](each final max=1)
+  parameter Modelica.Units.SI.Efficiency eta[size(uSpe, 1)](
+    each final max=1,
+    each final unit="1")
     "Wheel motor efficiency at a given speed ratio";
   annotation (Documentation(info="<html>
 <p>
