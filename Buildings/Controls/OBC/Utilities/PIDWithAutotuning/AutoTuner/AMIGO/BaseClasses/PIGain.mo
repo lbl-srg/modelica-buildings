@@ -90,7 +90,8 @@ equation
           -38,20}}, color={0,0,127}));
   connect(div3.u1, T) annotation (Line(points={{-22,16},{-34,16},{-34,0},{-120,
           0}}, color={0,0,127}));
-  connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));
+  connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}},
+         color={0,0,127}));
   connect(const2.y, div1.u1) annotation (Line(points={{-58,80},{-50,80},{-50,56},
           {-42,56}}, color={0,0,127}));
   connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
@@ -98,7 +99,7 @@ equation
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
         color={0,0,127}));
   connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{58,-50}},
-                    color={0,0,127}));
+         color={0,0,127}));
   connect(const1.y, sub.u1) annotation (Line(points={{22,-80},{50,-80},{50,-38},
           {58,-38}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{82,-44},{90,-44},{90,-22},{
@@ -123,7 +124,7 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PI model</p>
+<p>This block calculates the control gain of a PI model.</p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),

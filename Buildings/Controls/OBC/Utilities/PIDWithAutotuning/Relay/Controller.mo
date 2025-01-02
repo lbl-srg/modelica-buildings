@@ -21,12 +21,12 @@ block Controller
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Measurement input signal"
-    annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
-    iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},rotation=270,
+        origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Connector for enabling the relay controller"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-80,-120}),
-    iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,
+        origin={-80,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Control output"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
@@ -105,11 +105,9 @@ equation
           34},{50,50},{58,50}}, color={255,0,255}));
   connect(hys.y, yOn) annotation (Line(points={{82,-60},{120,-60}}, color={255,0,255}));
   connect(swi1.y, meaSetDif.u1) annotation (Line(points={{-38,-40},{-30,-40},{
-          -30,6},{-22,6}},
-                         color={0,0,127}));
+          -30,6},{-22,6}}, color={0,0,127}));
   connect(u_s, meaSetDif.u2) annotation (Line(points={{-120,0},{-72,0},{-72,-6},
-          {-22,-6}},
-                color={0,0,127}));
+          {-22,-6}}, color={0,0,127}));
   connect(meaSetDif.y, gaiYDif.u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(gaiYDif.y, yDif)

@@ -28,13 +28,12 @@ equation
         color={0,0,127}));
   connect(kp.y, PI.kp) annotation (Line(points={{-38,32},{-20,32},{-20,6},{-12,6}},
         color={0,0,127}));
-  annotation (
-      experiment(
-      StopTime=1.0,
-      Tolerance=1e-06),
-    __Dymola_Commands(
+
+annotation (
+  experiment(StopTime=1.0, Tolerance=1e-06),
+  __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/AutoTuner/AMIGO/Validation/PI.mos" "Simulate and plot"),
-    Icon(
+  Icon(
       coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}}),

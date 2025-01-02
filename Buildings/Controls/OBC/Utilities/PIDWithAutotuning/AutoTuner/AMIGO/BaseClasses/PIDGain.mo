@@ -47,7 +47,7 @@ protected
 
 equation
   connect(div1.u2, kp) annotation (Line(points={{-42,60},{-120,60}},
-                     color={0,0,127}));
+          color={0,0,127}));
   connect(const.y, div1.u1) annotation (Line(points={{-58,80},{-50,80},{-50,72},
           {-42,72}}, color={0,0,127}));
   connect(div2.u2, L) annotation (Line(points={{-62,-36},{-80,-36},{-80,-60},{

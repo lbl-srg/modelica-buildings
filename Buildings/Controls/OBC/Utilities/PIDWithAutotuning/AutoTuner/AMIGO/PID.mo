@@ -49,12 +49,10 @@ protected
 
 equation
   connect(derTim.Td, Td)
-    annotation (Line(points={{12,-60},{120,-60}},
-        color={0,0,127}));
+    annotation (Line(points={{12,-60},{120,-60}}, color={0,0,127}));
   connect(intTim.Ti, Ti)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(gai.k, k) annotation (Line(points={{12,50},{120,50}},
-        color={0,0,127}));
+  connect(gai.k, k) annotation (Line(points={{12,50},{120,50}}, color={0,0,127}));
   connect(intTim.T, gai.T) annotation (Line(points={{-12,6},{-40,6},{-40,50},{-12,
           50}}, color={0,0,127}));
   connect(derTim.T, gai.T) annotation (Line(points={{-12,-54},{-40,-54},{-40,50},
