@@ -257,7 +257,7 @@ for the calculation.
 <p>
 The algorithm is as follows:
 </p>
-<h5>Step 1: Calculate temeperature slope <code>TSlo</code></h5>
+<h5>Step 1: Calculate temperature slope <code>TSlo</code></h5>
 <p>
 Once the HVAC system is started, a timer records the time duration
 <code>&Delta;t</code> for the zone temperature to reach the
