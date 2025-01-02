@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Characteristics;
 record heatExchangerEffectivenessParameters
   "Parameters for defining heat exchanger effectiveness at different wheel speed ratios"
   extends Modelica.Icons.Record;

@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses;
-package VariableSpeedThermalWheels "Models of variable-speed thermal wheels"
+within Buildings.Fluid.HeatExchangers.ThermalWheels;
+package BaseClasses "Models of variable-speed thermal wheels"
   extends Modelica.Icons.BasesPackage;
 
 annotation (Documentation(info="<html>
@@ -9,4 +9,4 @@ the wheel speed ratio on the power consumption and the heat
 exchange effectiveness of thermal wheels.
 </p>
 </html>"));
-end VariableSpeedThermalWheels;
+end BaseClasses;

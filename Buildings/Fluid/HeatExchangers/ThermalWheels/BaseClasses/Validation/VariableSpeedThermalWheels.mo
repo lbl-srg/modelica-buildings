@@ -1,26 +1,26 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Validation;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
 model VariableSpeedThermalWheels
   "Model that tests the variable-speed thermal wheels"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE
     perSenWhe(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWhe(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE perLatWhe(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));    
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -32,11 +32,11 @@ model VariableSpeedThermalWheels
     height=1)
     "Speed ratio"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWhe(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent latWhe(
     per=perLatWhe)
     "Enthalpy wheel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent latWheDefMotCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent latWheDefMotCur(
     per=perLatWheDefMotCur)
     "Enthalpy wheel with default motor curve"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -52,7 +52,7 @@ equation
           -50},{-28,0},{-39,0}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
-        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/VariableSpeedThermalWheels/Validation/VariableSpeedThermalWheels.mos"
+        "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/VariableSpeedThermalWheels.mos"
         "Simulate and plot"),
     experiment(
       StopTime=1,
@@ -60,10 +60,10 @@ equation
     Documentation(info="<html>
 <p>
 Example for the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
-Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a> and the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent\">
-Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.latent</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible</a> and the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.latent</a>.
 </p>
 <p>
 The input signals are configured as follows:

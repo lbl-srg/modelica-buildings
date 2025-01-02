@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses;
 package Characteristics "Functions for wheel characteristics"
 
 annotation (Documentation(info="<html>

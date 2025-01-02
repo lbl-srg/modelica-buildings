@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data;
 record Generic "Generic data record for variable-speed wheels"
   extends Modelica.Icons.Record;
 
-  import cha = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
   parameter cha.heatExchangerEffectivenessParameters senHeatExchangeEffectiveness(
@@ -51,8 +51,8 @@ Record containing power and heat exchange parameters for variable-speed thermal 
 <p>
 It is used as a template of performance data
 for the variable-speed wheel models in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels\">
-Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses</a>.
 </p>
 <p>
 The record contains four datasets:

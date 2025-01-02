@@ -3,7 +3,7 @@ model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter
-    Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
+    Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.Generic
     per
     "Record with performance data"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
@@ -16,7 +16,7 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent
     latWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
@@ -78,8 +78,8 @@ heat exchanger effectiveness in both heating and cooling conditions.
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent\">
-Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Latent</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent</a>.
 </p>
 </html>", revisions="<html>
 <ul>

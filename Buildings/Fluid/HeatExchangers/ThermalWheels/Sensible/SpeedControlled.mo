@@ -4,7 +4,7 @@ model SpeedControlled
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
     hex(final show_T=show_T));
   parameter
-    Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic
+    Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.Generic
     per "Record with performance data"
     annotation (Placement(transformation(extent={{28,78},{48,98}})));
   parameter Boolean show_T=false
@@ -16,7 +16,7 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible
     senWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
@@ -67,8 +67,8 @@ exchanger effectiveness in both heating and cooling conditions.
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible\">
-Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.Sensible</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -4,13 +4,13 @@ model SpeedControlled
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
-  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE per(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE per(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
-  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.ASHRAE perDefMotCur(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE perDefMotCur(
       haveLatentHeatExchange=true,
       useDefaultMotorEfficiencyCurve=true)
     "Performance record for the sensible heat wheel with default motor curve"

@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses;
 package Data "Performance data for variable-speed wheels"
 extends Modelica.Icons.MaterialPropertiesPackage;
 
