@@ -11,7 +11,10 @@ record heatExchangerEffectivenessParameters
     each final max=1,
     each final unit="1")
     "Correction of the heat exchange effectiveness at a given speed ratio";
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(info="<html>
 <p>
 Data record that describes wheel speed ratio <code>uSpe</code> versus
 heat exchange effectiveness corrections <code>epsCor</code>, i.e., the ratio of the heat exchange effectiveness 

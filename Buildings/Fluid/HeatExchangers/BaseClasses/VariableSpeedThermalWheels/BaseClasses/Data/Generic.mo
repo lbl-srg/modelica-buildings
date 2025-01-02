@@ -1,15 +1,18 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data;
 record Generic "Generic data record for variable-speed wheels"
   extends Modelica.Icons.Record;
+
   import cha = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
-  parameter cha.heatExchangerEffectivenessParameters
-    senHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
+  parameter cha.heatExchangerEffectivenessParameters senHeatExchangeEffectiveness(
+    uSpe={0},
+    epsCor={0.7})
     "Sensible heat exchange effectiveness versus wheel speed ratio"
     annotation (Dialog(group="Heat exchange effectiveness computation"));
-  parameter cha.heatExchangerEffectivenessParameters
-    latHeatExchangeEffectiveness(uSpe={0}, epsCor={0.7})
+  parameter cha.heatExchangerEffectivenessParameters latHeatExchangeEffectiveness(
+    uSpe={0},
+    epsCor={0.7})
     "Latent heat exchange effectiveness versus wheel speed ratio" annotation (
       Dialog(group="Heat exchange effectiveness computation", enable=
           haveLatentHeatExchange));
@@ -21,8 +24,8 @@ record Generic "Generic data record for variable-speed wheels"
       false));
   final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
-         P_nominal=P_nominal,
-         eta_max=1)
+      P_nominal=P_nominal,
+      eta_max=1)
     "Motor efficiency versus default wheel speed ratio"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       true));
@@ -31,7 +34,10 @@ record Generic "Generic data record for variable-speed wheels"
   parameter Boolean useDefaultMotorEfficiencyCurve = true
    "= true, if default motor efficiency curve is adopted";
 
-  annotation (Documentation(revisions="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(revisions="<html>
 <ul>
 <li>
 May 28, 2024, by Sen Huang:<br/>
