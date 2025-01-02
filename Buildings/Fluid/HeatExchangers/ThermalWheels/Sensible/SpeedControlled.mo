@@ -4,7 +4,7 @@ model SpeedControlled
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
     hex(final show_T=show_T));
   parameter
-    Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.Generic
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic
     per "Record with performance data"
     annotation (Placement(transformation(extent={{28,78},{48,98}})));
   parameter Boolean show_T=false

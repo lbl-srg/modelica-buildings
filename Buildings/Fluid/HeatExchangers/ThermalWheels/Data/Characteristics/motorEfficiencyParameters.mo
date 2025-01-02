@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Characteristics;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics;
 record motorEfficiencyParameters
   "Parameters for defining motor efficiency at different wheel speed ratios"
   extends Modelica.Icons.Record;

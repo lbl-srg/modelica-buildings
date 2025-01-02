@@ -2,20 +2,20 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
 model VariableSpeedThermalWheels
   "Model that tests the variable-speed thermal wheels"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
     perSenWhe(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE perLatWhe(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.ASHRAE perLatWheDefMotCur(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"

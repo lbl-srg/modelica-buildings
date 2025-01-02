@@ -1,8 +1,8 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data;
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Data;
 record Generic "Generic data record for variable-speed wheels"
   extends Modelica.Icons.Record;
 
-  import cha = Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Characteristics;
+  import cha = Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
   parameter cha.heatExchangerEffectivenessParameters senHeatExchangeEffectiveness(

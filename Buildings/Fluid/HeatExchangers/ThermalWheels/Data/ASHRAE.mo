@@ -1,5 +1,5 @@
-within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data;
-record ASHRAE = Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.Generic(
+within Buildings.Fluid.HeatExchangers.ThermalWheels.Data;
+record ASHRAE = Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic(
   senHeatExchangeEffectiveness(
     uSpe={0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1},
     epsCor={0,0.40,0.71,0.83,0.90,0.93,0.96,0.97,0.98,0.99,1}),

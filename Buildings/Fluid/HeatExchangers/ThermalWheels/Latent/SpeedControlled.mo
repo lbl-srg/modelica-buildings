@@ -3,7 +3,7 @@ model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
   parameter
-    Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.BaseClasses.Data.Generic
+    Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic
     per
     "Record with performance data"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
