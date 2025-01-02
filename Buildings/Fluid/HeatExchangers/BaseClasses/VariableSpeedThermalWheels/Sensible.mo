@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
 model Sensible "Sensible heat wheels"
   extends Modelica.Blocks.Icons.Block;
-  import whe = Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels;
+
   final parameter Real xSpe[:] = if per.useDefaultMotorEfficiencyCurve
     then per.motorEfficiency_default.y else per.motorEfficiency.uSpe
     "x-axis support points of the power efficiency curve"
@@ -10,7 +10,7 @@ model Sensible "Sensible heat wheels"
     then per.motorEfficiency_default.eta else per.motorEfficiency.eta
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  parameter whe.BaseClasses.Data.Generic per
+  parameter Buildings.Fluid.HeatExchangers.BaseClasses.VariableSpeedThermalWheels.BaseClasses.Data.Generic per
     "Record with performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
