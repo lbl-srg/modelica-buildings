@@ -1,15 +1,11 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
-    hex(final show_T=show_T));
-  parameter
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic
-    per "Record with performance data"
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
+    "Record with performance data"
     annotation (Placement(transformation(extent={{28,78},{48,98}})));
-  parameter Boolean show_T=false
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)

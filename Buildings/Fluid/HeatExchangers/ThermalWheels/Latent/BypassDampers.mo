@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel(
-    hex(final show_T=show_T));
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
+
   parameter Modelica.Units.SI.PressureDifference
     dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers"
@@ -10,9 +10,7 @@ model BypassDampers
   parameter Real P_nominal(final unit="W")
     "Power consumption at the design condition"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean show_T=false
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced"));
+
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));
@@ -84,10 +82,10 @@ model BypassDampers
     final dpDamper_nominal=dpDamper_nominal)
     "Exhaust air bypass damper"
     annotation (Placement(transformation(extent={{0,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiepsSen
+  Buildings.Controls.OBC.CDL.Reals.Switch swiEpsSen
     "Switch the sensible heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swiepsLat
+  Buildings.Controls.OBC.CDL.Reals.Switch swiEpsLat
     "Switch the latent heat exchanger effectiveness based on the wheel operation status"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
@@ -156,25 +154,25 @@ equation
   connect(bypDamSup.port_a, port_a1)
     annotation (Line(points={{-48,80},{-180,80}}, color={0,127,255},
       thickness=0.5));
-  connect(zero.y, swiepsSen.u3) annotation (Line(points={{-119,160},{-60,160},{-60,
+  connect(zero.y,swiEpsSen. u3) annotation (Line(points={{-119,160},{-60,160},{-60,
           152},{-42,152}}, color={0,0,127}));
-  connect(swiepsLat.u3, zero.y) annotation (Line(points={{-42,122},{-60,122},{-60,
+  connect(swiEpsLat.u3, zero.y) annotation (Line(points={{-42,122},{-60,122},{-60,
           160},{-119,160}}, color={0,0,127}));
-  connect(effCal.epsSen, swiepsSen.u1) annotation (Line(points={{-78,5},{-68,5},
+  connect(effCal.epsSen,swiEpsSen. u1) annotation (Line(points={{-78,5},{-68,5},
           {-68,168},{-42,168}}, color={0,0,127}));
-  connect(effCal.epsLat, swiepsLat.u1) annotation (Line(points={{-78,-5},{-64,-5},
+  connect(effCal.epsLat,swiEpsLat. u1) annotation (Line(points={{-78,-5},{-64,-5},
           {-64,138},{-42,138}}, color={0,0,127}));
-  connect(swiepsSen.u2, uRot) annotation (Line(points={{-42,160},{-52,160},{-52,
+  connect(swiEpsSen.u2, uRot) annotation (Line(points={{-42,160},{-52,160},{-52,
           176},{-168,176},{-168,0},{-200,0}}, color={255,0,255}));
-  connect(swiepsLat.u2, uRot) annotation (Line(points={{-42,130},{-52,130},{-52,
+  connect(swiEpsLat.u2, uRot) annotation (Line(points={{-42,130},{-52,130},{-52,
           176},{-168,176},{-168,0},{-200,0}}, color={255,0,255}));
-  connect(swiepsSen.y, hex.epsSen) annotation (Line(points={{-18,160},{-6,160},{
+  connect(swiEpsSen.y, hex.epsSen) annotation (Line(points={{-18,160},{-6,160},{
           -6,3},{8,3}}, color={0,0,127}));
-  connect(swiepsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
+  connect(swiEpsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
           {-10,-3},{8,-3}}, color={0,0,127}));
-  connect(swiepsSen.y, epsSen) annotation (Line(points={{-18,160},{40,160},{40,40},
+  connect(swiEpsSen.y, epsSen) annotation (Line(points={{-18,160},{40,160},{40,40},
           {120,40}},     color={0,0,127}));
-  connect(swiepsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
+  connect(swiEpsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
           {120,0}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-122,-100},{-168,-100},{-168,
           0},{-200,0}},

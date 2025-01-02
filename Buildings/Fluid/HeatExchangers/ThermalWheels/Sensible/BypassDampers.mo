@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model BypassDampers
   "Sensible heat recovery wheel with bypass dampers"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel(
-    hex(final show_T=show_T));
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
+
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers"
     annotation (Dialog(group="Nominal condition"));

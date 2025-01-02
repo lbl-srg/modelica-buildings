@@ -40,15 +40,7 @@ partial model PartialWheel
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eps(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness
-    hex(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    final m1_flow_nominal=mSup_flow_nominal,
-    final m2_flow_nominal=mExh_flow_nominal,
-    final dp1_nominal=dpSup_nominal,
-    final dp2_nominal=dpExh_nominal) "Heat exchanger"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a1(
     redeclare final package Medium = Medium)
     "Fluid connector a1 of the supply air (positive design flow direction is from port_a1 to port_b1)"
@@ -84,8 +76,17 @@ protected
       p=101325,
       X=Medium.X_default)
    "State of the supply air at the default properties";
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
-    effCal(
+
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness hex(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    final m1_flow_nominal=mSup_flow_nominal,
+    final m2_flow_nominal=mExh_flow_nominal,
+    final dp1_nominal=dpSup_nominal,
+    final dp2_nominal=dpExh_nominal) "Heat exchanger"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness effCal(
     final epsCoo_nominal=epsCoo_nominal,
     final epsCooPL=epsCooPL,
     final epsHea_nominal=epsHea_nominal,
@@ -93,6 +94,7 @@ protected
     final mSup_flow_nominal=mSup_flow_nominal)
     "Calculate the effectiveness of heat exchanger"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+
   Modelica.Blocks.Sources.RealExpression TSup(
     final y(final unit="K")=Medium.temperature(
       Medium.setState_phX(
@@ -101,6 +103,7 @@ protected
         X=inStream(port_a1.Xi_outflow))))
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
+
   Modelica.Blocks.Sources.RealExpression TExh(
     final y(final unit="K")=Medium.temperature(
       Medium.setState_phX(

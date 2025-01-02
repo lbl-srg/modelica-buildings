@@ -7,9 +7,7 @@ model SpeedControlled
     per
     "Record with performance data"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  parameter Boolean show_T=false
-    "= true, if actual temperature at port is computed"
-    annotation (Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
     final max=1)
