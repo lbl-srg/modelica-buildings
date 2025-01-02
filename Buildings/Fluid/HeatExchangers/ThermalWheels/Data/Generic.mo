@@ -2,21 +2,20 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Data;
 record Generic "Generic data record for variable-speed wheels"
   extends Modelica.Icons.Record;
 
-  import cha = Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics;
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition";
-  parameter cha.heatExchangerEffectivenessParameters senHeatExchangeEffectiveness(
+  parameter Characteristics.HeatExchangerEffectiveness senHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
     "Sensible heat exchange effectiveness versus wheel speed ratio"
     annotation (Dialog(group="Heat exchange effectiveness computation"));
-  parameter cha.heatExchangerEffectivenessParameters latHeatExchangeEffectiveness(
+  parameter Characteristics.HeatExchangerEffectiveness latHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
     "Latent heat exchange effectiveness versus wheel speed ratio" annotation (
       Dialog(group="Heat exchange effectiveness computation", enable=
           haveLatentHeatExchange));
-  parameter cha.motorEfficiencyParameters motorEfficiency(
+  parameter Characteristics.MotorEfficiency motorEfficiency(
     uSpe={0},
     eta={0.7})
     "Motor efficiency versus wheel speed ratio"

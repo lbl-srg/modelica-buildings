@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics;
-record heatExchangerEffectivenessParameters
+record HeatExchangerEffectiveness
   "Parameters for defining heat exchanger effectiveness at different wheel speed ratios"
   extends Modelica.Icons.Record;
 
@@ -32,4 +32,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end heatExchangerEffectivenessParameters;
+end HeatExchangerEffectiveness;

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics;
-record motorEfficiencyParameters
+record MotorEfficiency
   "Parameters for defining motor efficiency at different wheel speed ratios"
   extends Modelica.Icons.Record;
 
@@ -33,4 +33,4 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot</a>
 </li>
 </ul>
 </html>"));
-end motorEfficiencyParameters;
+end MotorEfficiency;
