@@ -1,6 +1,0 @@
-﻿simulateModel("Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.Coupled.Examples.Chiller", tolerance=1e-6,startTime = 0, stopTime=600, method="dassl", resultFile="Chiller");
-createPlot(id=1, position={0, 0, 510, 481}, y={"Sou.P.real", "Sou.P.apparent"}, range={400, 600, -5.0, 15.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"kW", "kvar"});
-createPlot(id=1, position={0, 0, 510, 481}, y={"TSet.y", "senTem.T"}, range={400, 600, 280.0, 295.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
-createPlot(id=1, position={520, 2, 526, 479}, y={"chi.simMot.speBlo.tau_e"}, range={400, 600, 10.0, 50.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"N.m"});
-createPlot(id=1, position={520, 2, 526, 479}, y={"chi.simMot.speBlo.N"}, range={400, 600, -500.0, 2000.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s", displayUnits={"rpm"});
-
