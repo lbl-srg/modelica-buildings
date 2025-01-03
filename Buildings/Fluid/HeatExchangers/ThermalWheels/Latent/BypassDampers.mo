@@ -3,8 +3,7 @@ model BypassDampers
   "Enthalpy recovery wheel with bypass dampers"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
 
-  parameter Modelica.Units.SI.PressureDifference
-    dpDamper_nominal(displayUnit="Pa") = 20
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
     "Nominal pressure drop of dampers"
     annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")
@@ -20,7 +19,7 @@ model BypassDampers
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
-  parameter Real yMai_start=1 "Initial position of supply and exhaust actuator"
+  parameter Real yMai_start=0 "Initial position of supply and exhaust actuator"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Real yByp_start=1 "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));

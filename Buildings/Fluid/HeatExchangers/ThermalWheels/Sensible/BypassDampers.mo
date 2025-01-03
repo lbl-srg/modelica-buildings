@@ -19,7 +19,7 @@ model BypassDampers
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
-  parameter Real yByp_start=1
+  parameter Real yByp_start=0
     "Initial position of bypass actuators"
     annotation (Dialog(tab="Dynamics", group="Actuator position", enable=use_strokeTime));
   parameter Real yMai_start=1

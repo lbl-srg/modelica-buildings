@@ -46,8 +46,6 @@ model BypassDampers
     redeclare package Medium = Medium,
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    dpSup_nominal(displayUnit="Pa"),
-    dpExh_nominal(displayUnit="Pa"),
     P_nominal=100) "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
