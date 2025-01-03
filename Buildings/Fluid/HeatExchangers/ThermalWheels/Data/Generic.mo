@@ -7,12 +7,12 @@ record Generic "Generic data record for variable-speed wheels"
   parameter Characteristics.HeatExchangerEffectiveness senHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
-    "Sensible heat exchange effectiveness versus wheel speed ratio"
+    "Multiplication factor for sensible heat exchange effectiveness due to wheel speed ratio between 0 and 1"
     annotation (Dialog(group="Heat exchange effectiveness computation"));
   parameter Characteristics.HeatExchangerEffectiveness latHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
-    "Latent heat exchange effectiveness versus wheel speed ratio" annotation (
+    "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1" annotation (
       Dialog(group="Heat exchange effectiveness computation", enable=
           haveLatentHeatExchange));
   parameter Characteristics.MotorEfficiency motorEfficiency(
@@ -77,9 +77,14 @@ corrections versus wheel speed ratio.
 </li>
 </ul>
 <p>
-Note that 
+Note the following:
 </p>
 <ul>
+<li>
+The heat exchange effectiveness
+corrections versus wheel speed ratio are correction factors that are multiplied
+with the heat exchange effectiveness that the wheel has a full rotational speed.
+</li>
 <li>
 When <code>haveLatentHeatExchange = true</code>,
 the dataset of the latent heat exchange effectiveness

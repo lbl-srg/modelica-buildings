@@ -10,7 +10,7 @@ record HeatExchangerEffectiveness
   parameter Real epsCor[:](
     each final max=1,
     each final unit="1")
-    "Correction of the heat exchange effectiveness at a given speed ratio";
+    "Correction of the heat exchange effectiveness for speed ratios between 0 and 1";
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
