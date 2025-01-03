@@ -209,6 +209,17 @@ which output the optimal start time for an HVAC system.
 The Control Description Language (CDL) can be found in
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
 and its specification is at <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
+Note that the implementation in
+<a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
+replicates some classes from the Modelica Standard Library.
+This was done to have a self-contained implementation of CDL that can be
+standardized through ASHRAE and that has minimum dependencies
+on other software to ease support by building automation systems.
+The replication of the implementation of the blocks also avoids
+that CDL inadvertently changes
+if the Modelica Standard Library is updated,
+which is undesirable as changes to CDL will need to go through the
+ASHRAE standardization process.
 </p>
 <h4>References</h4>
 <ul>
