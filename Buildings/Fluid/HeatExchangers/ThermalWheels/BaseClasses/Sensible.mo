@@ -59,11 +59,11 @@ equation
                 ySup=per.senHeatExchangeEffectiveness.epsCor)
                 "Calculate the sensible heat exchanger effectiveness correction";
    annotation (
-   defaultComponentName="senWhe",
+   defaultComponentName="speCor",
    Documentation(info="<html>
 <p>
 This model calculates the power consumption and the sensible heat exchanger 
-effectiveness correction of a sensible heat wheel.
+effectiveness correction due to different rotational speed of a sensible heat wheel.
 </p>
 <ul>
 <li>
@@ -81,7 +81,7 @@ eta = eff(uSpe=x) / eff(uSpe=1),
 </p>
 <p>
 where <code>eff(uSpe=x)</code> is the motor efficiency when the speed ratio is <code>x</code>.
-The efficiency <code>eta</code> is obtained based on the cubic hermite spline interpolation of
+The efficiency <code>eta</code> is obtained based on a cubic hermite spline interpolation of
 the motor percent full-load efficiency dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency</a>).
@@ -90,7 +90,7 @@ Please note that <code>uSpe/eta</code> must be less or equal to 1.
 </li>
 <li>
 The sensible heat exchanger effectiveness correction is calculated based 
-on the cubic hermite spline interpolation of the sensible heat exchanger effectiveness 
+on a cubic hermite spline interpolation of the sensible heat exchanger effectiveness 
 dataset (see <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness</a>).
 </li>

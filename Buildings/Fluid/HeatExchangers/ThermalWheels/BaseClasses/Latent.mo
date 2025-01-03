@@ -14,12 +14,13 @@ equation
                 "Calculate the latent heat exchanger effectiveness correction";
 
   annotation (
-  defaultComponentName="latWhe",
+  defaultComponentName="speCor",
   Documentation(info="<html>
 <p>
-This model calculates the power consumption, the sensible 
-heat exchange effectiveness correction, and the latent 
-heat exchange effectiveness correction of an enthalpy wheel. 
+This model calculates the power consumption, and the corrections
+due to different rotational speeds for the sensible 
+heat exchange effectiveness and the latent 
+heat exchange effectiveness of an enthalpy wheel. 
 </p>
 <p>
 The calculation of the power consumption and the sensible 
@@ -29,7 +30,7 @@ Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible</a>.
 </p>
 <p>
 The latent heat exchange effectiveness correction is calculated using
-the cubic hermite spline interpolation of the latent heat exchange 
+a cubic hermite spline interpolation of the latent heat exchange 
 effectiveness dataset (see 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness</a>).
