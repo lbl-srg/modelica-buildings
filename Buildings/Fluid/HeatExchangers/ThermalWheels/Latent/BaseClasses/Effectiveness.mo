@@ -78,7 +78,7 @@ equation
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2] when flow rates are non-zero.",
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (mSup_flow +mExh_flow)/2/mSup_flow_nominal;
+  rat = (mSup_flow+mExh_flow)/2/mSup_flow_nominal;
   // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
   fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
 
