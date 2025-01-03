@@ -94,7 +94,7 @@ corrections versus wheel speed ratio is enabled,
 When <code>useDefaultMotorEfficiencyCurve = true</code>,
 the motor efficiency versus wheel speed ratio is disabled,
 and the default motor percent full-load
-efficiency versus wheel speed ratio is enabled. 
+efficiency versus wheel speed ratio is enabled.
 </li>
 </ul>
 </html>"));

@@ -16,7 +16,7 @@ record MotorEfficiency
   Documentation(info="<html>
 <p>
 This model describes wheel speed ratio <code>uSpe</code> versus
-the motor percent full-load efficiency (see 
+the motor percent full-load efficiency (see
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>).
 It is based on

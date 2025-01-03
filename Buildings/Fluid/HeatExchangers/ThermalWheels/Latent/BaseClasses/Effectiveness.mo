@@ -97,7 +97,7 @@ equation
     Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   assert(epsLat >= 0 and epsLat < 1,
-    "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1], 
+    "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1],
     Check if the part load (75% of the nominal supply flow rate) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
@@ -135,22 +135,22 @@ It then calculates the sensible and latent heat exchanger effectiveness by:
 <p>
 where <code>epsSen</code> and <code>epsLat</code> are the effectiveness
 for the sensible and latent heat transfer, respectively,
-<code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness 
+<code>epsSen_nominal</code> and <code>epsSenPL</code> are the effectiveness
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively,
-<code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness 
+<code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness
 for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively.
 </p>
 <p>
 The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and
 <code>epsLatPL</code> have different values depending on if the wheel is in
 the cooling or heating mode.
-If the supply air temperature is greater than the exhaust air 
+If the supply air temperature is greater than the exhaust air
 temperature, the exchanger is considered to operate under
 the cooling mode;
 Otherwise, it operates under the heating mode.
 </p>
 <P>
-<b>Note:</b> 
+<b>Note:</b>
 The value of the <code>rat</code> is suggested to be between <i>0.5</i> and <i>1.3</i> during normal operation
 to ensure reasonable extrapolation.
 Likewise, an unbalanced air flow ratio less than 2, i.e., <code>VSup_flow/VExh_flow</code> &#62; <i>0.5</i>

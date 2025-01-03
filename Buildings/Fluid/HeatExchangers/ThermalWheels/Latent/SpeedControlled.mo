@@ -64,7 +64,7 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,160}})),
 Documentation(info="<html>
 <p>
-Model of an enthalpy recovery wheel, which has the 
+Model of an enthalpy recovery wheel, which has the
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
@@ -74,7 +74,7 @@ heat exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
-See details about the impacts of the wheel speed in 
+See details about the impacts of the wheel speed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent</a>.
 </p>

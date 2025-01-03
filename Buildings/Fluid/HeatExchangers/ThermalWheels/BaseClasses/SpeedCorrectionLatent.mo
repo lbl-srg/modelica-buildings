@@ -18,20 +18,20 @@ equation
   Documentation(info="<html>
 <p>
 This model calculates the power consumption, and the corrections
-due to different rotational speeds for the sensible 
-heat exchange effectiveness and the latent 
-heat exchange effectiveness of an enthalpy wheel. 
+due to different rotational speeds for the sensible
+heat exchange effectiveness and the latent
+heat exchange effectiveness of an enthalpy wheel.
 </p>
 <p>
-The calculation of the power consumption and the sensible 
+The calculation of the power consumption and the sensible
 heat exchange effectiveness correction is described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\"> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>.
 </p>
 <p>
 The latent heat exchange effectiveness correction is calculated using
-a cubic hermite spline interpolation of the latent heat exchange 
-effectiveness dataset (see 
+a cubic hermite spline interpolation of the latent heat exchange
+effectiveness dataset (see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness</a>).
 </p>

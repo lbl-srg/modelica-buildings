@@ -17,9 +17,9 @@ record HeatExchangerEffectiveness
   Documentation(info="<html>
 <p>
 Data record that describes wheel speed ratio <code>uSpe</code> versus
-heat exchange effectiveness corrections <code>epsCor</code>, i.e., the ratio of the heat exchange effectiveness 
+heat exchange effectiveness corrections <code>epsCor</code>, i.e., the ratio of the heat exchange effectiveness
 to that when the <code>uSpe</code> is <i>1</i>.
-The elements of the vector <code>uSpe</code> should be in ascending order, 
+The elements of the vector <code>uSpe</code> should be in ascending order,
 i.e.,<code>uSpe[i] &lt; uSpe[i+1]</code>.
 Both vectors, <code>uSpe</code> and <code>epsCor</code>
 must have the same size.

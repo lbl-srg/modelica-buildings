@@ -289,7 +289,7 @@ The supply air flow rate <i>mAir_flow</i> changes from <i>0</i> to <i>0.646</i> 
 and from <i>0.646</i> to <i>0</i> at around 17:00.
 </li>
 <li>
-The bypass damper positions are controlled to maintain the temperature of the air leaving the thermal wheel, 
+The bypass damper positions are controlled to maintain the temperature of the air leaving the thermal wheel,
 <code>senTemHXOut.T</code>, at 298.15 K.
 </li>
 </ul>

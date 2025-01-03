@@ -19,7 +19,7 @@ model VariableSpeedThermalWheels
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
-    annotation (Placement(transformation(extent={{0,74},{20,94}})));    
+    annotation (Placement(transformation(extent={{0,74},{20,94}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
@@ -70,7 +70,7 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-The wheel speed <code>uSpe</code> changes from <i>0</i> to <i>1</i> 
+The wheel speed <code>uSpe</code> changes from <i>0</i> to <i>1</i>
 during the period from 0 to 1 second.
 </li>
 </ul>

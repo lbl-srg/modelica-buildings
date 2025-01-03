@@ -112,7 +112,7 @@ The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 The exhaust air temperature remains constant.
 </li>
 <li>
-The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.2</i> 
+The bypass damper position <i>uBypDamPos</i> changes from <i>0</i> to <i>0.2</i>
 during the period from 200 seconds to 360 seconds.
 </li>
 <li>
@@ -132,7 +132,7 @@ After the 200 seconds, it decreases.
 Before 72 seconds, the temperature of the leaving supply air is equal to <i>TSup</i>.
 Likewise, the temperature of the leaving exhaust air is equal to that of the entering exhaust
 air temperature.
-The temperatures of the leaving supply air and the leaving exhaust air 
+The temperatures of the leaving supply air and the leaving exhaust air
 follow the change of <i>TSup</i> during the period from 72 seconds to 200 seconds.
 After 200 seconds, the leaving supply air temperature increases and the
 leaving exhaust air temperature decreases.

@@ -145,7 +145,7 @@ The supply air temperature <i>TSup</i> changes from <i>273.15 + 30 K</i> to
 The exhaust air temperature remains constant.
 </li>
 <li>
-The wheel speed <i>uSpe</i> changes from <i>0.7</i> to <i>1</i> 
+The wheel speed <i>uSpe</i> changes from <i>0.7</i> to <i>1</i>
 during the period from 200 seconds to 360 seconds.
 </li>
 <li>
@@ -157,11 +157,11 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible heat exchanger effectiveness <code>eps</code> keeps constant before 
+The sensible heat exchanger effectiveness <code>eps</code> keeps constant before
 the 200 seconds; after 200 seconds, it increases.
 </li>
 <li>
-The leaving supply air temperature and the leaving exhaust air temperature 
+The leaving supply air temperature and the leaving exhaust air temperature
 follow the change of <i>TSup</i> before the 200 seconds.
 After 200 seconds, the leaving supply air temperature decreases
 and the leaving exhaust air temperature increases.

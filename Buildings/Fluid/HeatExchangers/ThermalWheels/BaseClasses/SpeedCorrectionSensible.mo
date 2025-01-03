@@ -38,7 +38,7 @@ protected
 initial equation
   assert(s < 1 + 1E-4,
          "In " + getInstanceName() + ": The motor efficiency curve is wrong.
-         The ratio of the speed ratio to the motor percent 
+         The ratio of the speed ratio to the motor percent
          full-load efficiency must be less than 1.",
          level=AssertionLevel.error)
          "Check if the motor efficiency curve is correct";
@@ -62,7 +62,7 @@ equation
    defaultComponentName="speCor",
    Documentation(info="<html>
 <p>
-This model calculates the power consumption and the sensible heat exchanger 
+This model calculates the power consumption and the sensible heat exchanger
 effectiveness correction due to different rotational speed of a sensible heat wheel.
 </p>
 <ul>
@@ -73,8 +73,8 @@ P = P_nominal * uSpe / eta,
 </p>
 <p>
 where <code>P_nominal</code> is the nominal wheel power consumption,
-<code>uSpe</code> is the wheel speed ratio, 
-and <code>eta</code> is the motor percent full-load efficiency, 
+<code>uSpe</code> is the wheel speed ratio,
+and <code>eta</code> is the motor percent full-load efficiency,
 which is calculated as
 <p align=\"center\" style=\"font-style:italic;\">
 eta = eff(uSpe=x) / eff(uSpe=1),
@@ -82,15 +82,15 @@ eta = eff(uSpe=x) / eff(uSpe=1),
 <p>
 where <code>eff(uSpe=x)</code> is the motor efficiency when the speed ratio is <code>x</code>.
 The efficiency <code>eta</code> is obtained based on a cubic hermite spline interpolation of
-the motor percent full-load efficiency dataset (see 
+the motor percent full-load efficiency dataset (see
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.MotorEfficiency</a>).
 Please note that <code>uSpe/eta</code> must be less or equal to 1.
 </p>
 </li>
 <li>
-The sensible heat exchanger effectiveness correction is calculated based 
-on a cubic hermite spline interpolation of the sensible heat exchanger effectiveness 
+The sensible heat exchanger effectiveness correction is calculated based
+on a cubic hermite spline interpolation of the sensible heat exchanger effectiveness
 dataset (see <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Characteristics.HeatExchangerEffectiveness</a>).
 </li>

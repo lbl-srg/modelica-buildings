@@ -51,7 +51,7 @@ annotation (
         coordinateSystem(preserveAspectRatio=false, extent={{-180,-100},{100,100}})),
 Documentation(info="<html>
 <p>
-Model of a generic, sensible heat recovery wheel, which has the 
+Model of a generic, sensible heat recovery wheel, which has the
 wheel speed as the input to control the heat recovery.
 </p>
 <p>
@@ -61,7 +61,7 @@ exchanger effectiveness in both heating and cooling conditions.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
-See details about the impacts of the wheel speed in 
+See details about the impacts of the wheel speed in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>.
 </p>

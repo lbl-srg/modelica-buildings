@@ -71,14 +71,14 @@ the exhaust air temperature <i>TExh</i>. After that,
 </li>
 <li>
 In the first 60 seconds, the supply air flow rate, <i>VSup</i>, and the
-exhaust air flow rate, <i>VExh</i>, change from 
+exhaust air flow rate, <i>VExh</i>, change from
 0.6 to 1 and 0.8 to 1 respectively. The flow rates then stay constant.
 </li>
-<li> 
+<li>
 In the first 60 seconds, the wheel speed <i>uSpe</i> keeps constant.
 It then increases from 0.3 to 1 during the period from 60 seconds to 120
 seconds.
-</li> 
+</li>
 </ul>
 <p>
 The expected outputs are:
@@ -86,7 +86,7 @@ The expected outputs are:
 <ul>
 <li>
 The sensible effectiveness <code>eps</code> increases in the whole
-simulation period. 
+simulation period.
 </li>
 <li>
 At 20 seconds, <code>eps</code> changes significantly as the exchanger

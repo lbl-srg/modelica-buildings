@@ -91,7 +91,7 @@ supply flow rate by:
 <p>
 where <code>mSup_flow</code> is the flow rate of the supply air,
 <code>mExh_flow</code> is the flow rate of the exhaust air,
-<code>mSup_flow_nominal</code> is the nominal flow rate of the supply air and 
+<code>mSup_flow_nominal</code> is the nominal flow rate of the supply air and
 <code>rat</code> is the flow ratio.
 </p>
 <p>
@@ -103,23 +103,23 @@ It then calculates the sensible heat exchanger effectiveness as
 <p>
 where <code>eps</code> is the effectiveness
 for the sensible heat transfer, respectively,
-<code>eps_nominal</code> and <code>epsPL</code> are the effectiveness 
+<code>eps_nominal</code> and <code>epsPL</code> are the effectiveness
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively.
 </p>
 <p>
 The parameters <code>eps_nominal</code> and <code>epsPL</code>
 have different values depending on if the wheel is in
 the cooling or heating mode.
-If the supply air temperature is greater than the exhaust air 
+If the supply air temperature is greater than the exhaust air
 temperature, the exchanger is considered to operate under
 the cooling mode.
 Otherwise, it operates under the heating mode.
 </p>
 <P>
-<b>Note:</b> 
+<b>Note:</b>
 The value of the <code>rat</code> is suggested to be between <i>0.5</i> and <i>1.3</i>
 during normal operation to ensure reasonable extrapolation.
-Likewise, an unbalanced air flow ratio less than 2,  i.e., <code>mSup_flow/mExh_flow</code> &#62; <i>0.5</i> 
+Likewise, an unbalanced air flow ratio less than 2,  i.e., <code>mSup_flow/mExh_flow</code> &#62; <i>0.5</i>
 and <code>mSup_flow/mExh_flow</code> &#60; <i>2</i> is recommended.
 </P>
 <h4>References</h4>
