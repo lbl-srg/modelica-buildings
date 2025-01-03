@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "hex.sta_a1.T",
+    "hex.sta_b2.T",
+    "eps.y"
+  };
