@@ -92,8 +92,8 @@ equation
   v_rms=sqrt(v[1]^2+v[2]^2);
   pow_gap = speBlo.N/9.55*torSpe.tau_e;
   // Equations to calculate current
-  i[1] =(sqrt(3)/sqrt(2))*torSpe.motMod.i_ds;
-  i[2] =(sqrt(3)/sqrt(2))*torSpe.motMod.i_qs;
+  i[1] =3/2*torSpe.motMod.i_ds;
+  i[2] =torSpe.motMod.i_qs;
   i_rms=sqrt(i[1]^2+i[2]^2);
   connect(integrator.u, angFre1.y) annotation (Line(points={{-4,70},{-19,70}},
                          color={0,0,127}));
