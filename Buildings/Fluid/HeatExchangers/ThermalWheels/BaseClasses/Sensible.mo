@@ -102,5 +102,13 @@ May 28, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(extent={{-42,64},{52,-58}}, lineColor={28,108,200}),
+        Line(points={{-32,42},{10,86},{-2,78},{10,86}}, color={28,108,200}),
+        Line(points={{10,86},{4,74}}, color={28,108,200}),
+        Text(
+          extent={{-38,96},{-8,56}},
+          textColor={0,0,88},
+          textString="u")}));
 end Sensible;
