@@ -6,7 +6,7 @@ model Sensible "Sensible heat wheels"
     then per.motorEfficiency_default.y else per.motorEfficiency.uSpe
     "x-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  final parameter Real[size(xSpe,1)] yeta = if per.useDefaultMotorEfficiencyCurve
+  final parameter Real[size(xSpe,1)] yEta = if per.useDefaultMotorEfficiencyCurve
     then per.motorEfficiency_default.eta else per.motorEfficiency.eta
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
@@ -29,9 +29,9 @@ model Sensible "Sensible heat wheels"
     iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Integer nSpe = size(yeta,1)
+  parameter Integer nSpe = size(yEta,1)
     "Number of the points in the power efficiency curve";
-  parameter Real s = max(xSpe[i]/yeta[i] for i in 1:size(yeta,1)-1)
+  parameter Real s = max(xSpe[i]/yEta[i] for i in 1:size(yEta,1)-1)
     "Maximum ratio of x-axis to y-axis in the power efficiency curve";
 
 
@@ -42,7 +42,7 @@ initial equation
          full-load efficiency must be less than 1.",
          level=AssertionLevel.error)
          "Check if the motor efficiency curve is correct";
-  assert(abs(yeta[nSpe]-1) < 1E-4,
+  assert(abs(yEta[nSpe]-1) < 1E-4,
           "In " + getInstanceName() + ": The motor efficiency curve is wrong.
           The motor percent full-load efficiency at the full seepd must be 1.",
           level=AssertionLevel.error)
@@ -51,7 +51,7 @@ equation
   P = per.P_nominal*uSpe/Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=uSpe,
         xSup=xSpe,
-        ySup=yeta)
+        ySup=yEta)
         "Calculate the wheel power consumption";
   epsSenCor = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=uSpe,
