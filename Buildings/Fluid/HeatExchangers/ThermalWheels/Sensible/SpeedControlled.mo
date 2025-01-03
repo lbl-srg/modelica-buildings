@@ -12,8 +12,7 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible
-    senWhe(final per=per)
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible senWhe(final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul
