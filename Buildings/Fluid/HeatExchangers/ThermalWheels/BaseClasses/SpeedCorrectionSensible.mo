@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
-model Sensible "Sensible heat wheels"
+model SpeedCorrectionSensible "Sensible heat wheels"
   extends Modelica.Blocks.Icons.Block;
 
   final parameter Real xSpe[:] = if per.useDefaultMotorEfficiencyCurve
@@ -104,11 +104,14 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
-        Ellipse(extent={{-42,64},{52,-58}}, lineColor={28,108,200}),
-        Line(points={{-32,42},{10,86},{-2,78},{10,86}}, color={28,108,200}),
-        Line(points={{10,86},{4,74}}, color={28,108,200}),
+        Ellipse(extent={{-42,64},{52,-58}}, lineColor={28,108,200},
+          lineThickness=0.5),
+        Line(points={{-26,50},{10,86},{-2,78},{10,86}}, color={28,108,200},
+          thickness=0.5),
+        Line(points={{10,86},{4,74}}, color={28,108,200},
+          thickness=0.5),
         Text(
           extent={{-38,96},{-8,56}},
           textColor={0,0,88},
           textString="u")}));
-end Sensible;
+end SpeedCorrectionSensible;

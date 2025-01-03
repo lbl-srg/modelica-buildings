@@ -20,7 +20,7 @@ model VariableSpeedThermalWheels
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));    
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -32,11 +32,11 @@ model VariableSpeedThermalWheels
     height=1)
     "Speed ratio"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent latWhe(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent latWhe(
     per=perLatWhe)
     "Enthalpy wheel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent latWheDefMotCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent latWheDefMotCur(
     per=perLatWheDefMotCur)
     "Enthalpy wheel with default motor curve"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
@@ -60,9 +60,9 @@ equation
     Documentation(info="<html>
 <p>
 Example for the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible</a> and the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a> and the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.latent</a>.
 </p>
 <p>

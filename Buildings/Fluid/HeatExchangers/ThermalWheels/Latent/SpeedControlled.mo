@@ -14,7 +14,7 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent speCor(final per=per)
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent speCor(final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulSen
@@ -75,8 +75,8 @@ heat exchanger effectiveness in both heating and cooling conditions.
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
 See details about the impacts of the wheel speed in 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent\">
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Latent</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent\">
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent</a>.
 </p>
 </html>", revisions="<html>
 <ul>

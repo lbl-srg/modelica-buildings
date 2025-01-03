@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
-model Latent "Enthalpy wheels"
-  extends Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible;
+model SpeedCorrectionLatent "Enthalpy wheels"
+  extends Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
     final unit="1")
     "Latent heat exchanger effectiveness correction" annotation (Placement(
@@ -25,8 +25,8 @@ heat exchange effectiveness of an enthalpy wheel.
 <p>
 The calculation of the power consumption and the sensible 
 heat exchange effectiveness correction is described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible\"> 
-Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Sensible</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible\"> 
+Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible</a>.
 </p>
 <p>
 The latent heat exchange effectiveness correction is calculated using
@@ -42,5 +42,12 @@ May 28, 2024, by Sen Huang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-end Latent;
+</html>"),
+    Icon(graphics={
+        Line(points={{10,86},{4,74}}, color={0,140,72},
+          thickness=0.5),
+        Line(points={{-26,50},{10,86},{-2,78},{10,86}}, color={0,140,72},
+          thickness=0.5),
+        Ellipse(extent={{-42,64},{52,-58}}, lineColor={0,140,72},
+          lineThickness=0.5)}));
+end SpeedCorrectionLatent;
