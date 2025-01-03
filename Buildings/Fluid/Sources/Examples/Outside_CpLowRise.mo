@@ -69,7 +69,7 @@ whereas it is negative for the south- and east-facing facades.
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>
 to address issue
-<a href=\"https://github.com/lbl-srg/modelica-Buildings/issues/311\">#311</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">Buildings, #311</a>.
 </li>
 <li>
 October 26, 2011 by Michael Wetter:<br/>
