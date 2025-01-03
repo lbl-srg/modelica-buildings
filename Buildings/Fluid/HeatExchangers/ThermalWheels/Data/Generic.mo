@@ -29,9 +29,9 @@ record Generic "Generic data record for variable-speed wheels"
     annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve ==
       true));
   parameter Boolean haveLatentHeatExchange = true
-   "= true, if latent heat exchange occurs";
+   "Set to true to compute latent heat exchange";
   parameter Boolean useDefaultMotorEfficiencyCurve = true
-   "= true, if default motor efficiency curve is adopted";
+   "Set to true to use default motor efficiency curve";
 
   annotation (
   defaultComponentPrefixes = "parameter",
@@ -61,7 +61,7 @@ The record contains four datasets:
 the motor efficiency versus wheel speed ratio,
 </li>
 <li>
-the default motor percent full-load 
+the default motor percent full-load
 efficiency (see <a href=
 \"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve</a>)
@@ -69,7 +69,7 @@ versus wheel speed ratio,
 </li>
 <li>
 the sensible heat exchange effectiveness
-corrections versus wheel speed ratio,
+corrections versus wheel speed ratio, and
 </li>
 <li>
 the latent heat exchange effectiveness
@@ -81,14 +81,14 @@ Note that
 </p>
 <ul>
 <li>
-When <code>haveLatentHeatExchange</code> is true,
+When <code>haveLatentHeatExchange = true</code>,
 the dataset of the latent heat exchange effectiveness
 corrections versus wheel speed ratio is enabled,
 </li>
 <li>
-When <code>useDefaultMotorEfficiencyCurve</code> is true,
-the motor efficiency versus wheel speed ratio is disabled 
-while the default motor percent full-load 
+When <code>useDefaultMotorEfficiencyCurve = true</code>,
+the motor efficiency versus wheel speed ratio is disabled,
+and the default motor percent full-load
 efficiency versus wheel speed ratio is enabled. 
 </li>
 </ul>
