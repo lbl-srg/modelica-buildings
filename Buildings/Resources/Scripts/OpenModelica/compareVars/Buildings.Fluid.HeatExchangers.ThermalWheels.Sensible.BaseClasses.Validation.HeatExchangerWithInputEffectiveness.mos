@@ -1,6 +1,7 @@
 compareVars :=
   {
-    "hex.sta_a1.T",
-    "hex.sta_b2.T",
+    "TSup.y",
+    "senExhTemOut.T",
+    "senExhTemIn.T",
     "eps.y"
   };
