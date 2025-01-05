@@ -5,50 +5,10 @@ partial model PartialWheel
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
-  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
-    "Nominal supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
-    "Nominal exhaust air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
-    "Nominal supply air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
-    "Nominal exhaust air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(
-    final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(
-    final max=1) = 0.8
-    "Nominal latent heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply mass flow rate) sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply mass flow rate) sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Part load effectiveness"));
+
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
+    "Record with performance data"
+    annotation (Placement(transformation(extent={{-150,-40},{-130,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W")
     "Electric power consumption"
@@ -88,54 +48,35 @@ partial model PartialWheel
 
 protected
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.Effectiveness effCal(
-    final epsSenCoo_nominal=epsSenCoo_nominal,
-    final epsLatCoo_nominal=epsLatCoo_nominal,
-    final epsSenCooPL=epsSenCooPL,
-    final epsLatCooPL=epsLatCooPL,
-    final epsSenHea_nominal=epsSenHea_nominal,
-    final epsLatHea_nominal=epsLatHea_nominal,
-    final epsSenHeaPL=epsSenHeaPL,
-    final epsLatHeaPL=epsLatHeaPL,
-    final mSup_flow_nominal=mSup_flow_nominal)
+    final epsSen_nominal=per.epsSen_nominal,
+    final epsLat_nominal=per.epsLat_nominal,
+    final epsSenPL=per.epsSenPL,
+    final epsLatPL=per.epsLatPL,
+    final mSup_flow_nominal=per.mSup_flow_nominal)
     "Calculate the effectiveness of heat exchanger"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    final m1_flow_nominal=mSup_flow_nominal,
-    final m2_flow_nominal=mExh_flow_nominal,
-    final dp1_nominal=dpSup_nominal,
-    final dp2_nominal=dpExh_nominal)
+    final m1_flow_nominal=per.mSup_flow_nominal,
+    final m2_flow_nominal=per.mExh_flow_nominal,
+    final dp1_nominal=per.dpSup_nominal,
+    final dp2_nominal=per.dpExh_nominal)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Modelica.Blocks.Sources.RealExpression TSup(
-    final y(final unit="K")=Medium.temperature(
-      Medium.setState_phX(
-        p=port_a1.p,
-        h=inStream(port_a1.h_outflow),
-        X=inStream(port_a1.Xi_outflow))))
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-160,18},{-140,38}})));
-  Modelica.Blocks.Sources.RealExpression TExh(
-    final y(final unit="K")=Medium.temperature(
-      Medium.setState_phX(
-        p=port_a2.p,
-        h=inStream(port_a2.h_outflow),
-        X=inStream(port_a2.Xi_outflow))))
-    "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+
+initial equation
+  assert(per.haveLatentHeatExchange,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the latent heat exchange flag must be true",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 
 equation
-  connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,28},{-130,28},{-130,-4},{-102,-4}},
-        color={0,0,127}));
-  connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-139,-30},{-130,-30},{-130,-8},{-102,-8}},
-        color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{60,17},
-          {60,60},{-110,60},{-110,8},{-102,8}}, color={0,0,127}));
+          {60,60},{-110,60},{-110,6},{-102,6}}, color={0,0,127}));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-110,
-          -33},{-110,4},{-102,4}}, color={0,0,127}));
+          -33},{-110,-6},{-102,-6}}, color={0,0,127}));
   connect(hex.port_b1, senSupMasFlo.port_a)
     annotation (Line(points={{30,6},{50,6}}, color={0,127,255},
       thickness=0.5));

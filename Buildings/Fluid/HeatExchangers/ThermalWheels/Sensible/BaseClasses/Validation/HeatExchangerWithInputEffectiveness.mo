@@ -13,7 +13,7 @@ model HeatExchangerWithInputEffectiveness
     T=273.15 + 10,
     nPorts=1)
     "Ambient"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-82,-50},{-62,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
     p(displayUnit="Pa") = 101325 + 100,
@@ -60,21 +60,34 @@ model HeatExchangerWithInputEffectiveness
     offset=0.7,
     startTime=120) "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senExhTemOut(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=5)
+    "Temperature sensor for exhuast air outlet"
+    annotation (Placement(transformation(extent={{-26,-46},{-38,-34}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senExhTemIn(
+    redeclare package Medium = Medium2,
+    m_flow_nominal=5)
+    "Temperature sensor for exhuast air inlet"
+    annotation (Placement(transformation(extent={{54,-6},{42,6}})));
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,64},{-42,64}}, color={0,0,127}));
   connect(sou_1.ports[1], hex.port_a1)
     annotation (Line(points={{-20,60},{-10,60},{-10,12},{6,12}}, color={0,127,255}));
-  connect(hex.port_a2, sou_2.ports[1])
-    annotation (Line(points={{26,5.55112e-16},{60,5.55112e-16},{60,-40},{40,-40}},
-    color={0,127,255}));
   connect(hex.port_b1, sin_1.ports[1])
     annotation (Line(points={{26,12},{40,12},{40,40},{60,40}}, color={0,127,255}));
-  connect(hex.port_b2, sin_2.ports[1])
-    annotation (Line(points={{6,0},{-10,0},{-10,-20},{-20,-20}}, color={0,127,255}));
   connect(eps.y, hex.eps)
     annotation (Line(points={{-59,10},{-20,10},{-20,6},{4,6}}, color={0,0,127}));
 
+  connect(senExhTemOut.port_a, hex.port_b2) annotation (Line(points={{-26,-40},{
+          -20,-40},{-20,0},{6,0}}, color={0,127,255}));
+  connect(senExhTemOut.port_b, sin_2.ports[1])
+    annotation (Line(points={{-38,-40},{-62,-40}}, color={0,127,255}));
+  connect(hex.port_a2, senExhTemIn.port_b)
+    annotation (Line(points={{26,0},{42,0}}, color={0,127,255}));
+  connect(senExhTemIn.port_a, sou_2.ports[1]) annotation (Line(points={{54,0},{60,
+          0},{60,-40},{40,-40}}, color={0,127,255}));
 annotation(experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/BaseClasses/Validation/HeatExchangerWithInputEffectiveness.mos"
         "Simulate and plot"),
@@ -99,8 +112,8 @@ to <i>0.8</i> during the period from 120 seconds to 180 seconds.
 </ul>
 <p>
 The expected outputs are:
-during the period from 120 seconds to 180 seconds, the leaving supply air temperature
-increases while the leaving exhaust air temperature decreases.
+during the period from 120 seconds to 180 seconds, the difference between the entering exhaust exhaust 
+air temperature and the leaving exhaust air temperature decreases.
 </p>
 </html>", revisions="<html>
 <ul>

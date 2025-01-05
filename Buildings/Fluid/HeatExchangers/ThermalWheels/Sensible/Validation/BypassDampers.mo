@@ -4,6 +4,13 @@ model BypassDampers
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    haveLatentHeatExchange=false,
+    haveVariableSpeed=false)
+    "Performance record for the sensible heat wheel"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -44,9 +51,8 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-40,26},{-20,46}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
-    P_nominal=100) "Wheel"
+    per=per)
+    "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
@@ -90,7 +96,8 @@ equation
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
   connect(senSupTem.port_b, whe.port_b1) annotation (Line(points={{40,30},{30,
           30},{30,7.8},{20,7.8}},color={0,127,255}));
-annotation(experiment(Tolerance=1e-6, StopTime=360),
+    annotation (Placement(transformation(extent={{20,60},{40,80}})),
+           experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/BypassDampers.mos"
         "Simulate and plot"),
     Documentation(info="<html>

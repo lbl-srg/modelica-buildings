@@ -19,6 +19,14 @@ model SpaceCooling "Space cooling system"
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   // Heat recovery effectiveness
   parameter Real eps = 0.8 "Heat recovery effectiveness";
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
+    mSup_flow_nominal=mA_flow_nominal,
+    mExh_flow_nominal=mA_flow_nominal,
+    dpSup_nominal=200,
+    haveLatentHeatExchange=false,
+    haveVariableSpeed=false)
+    "Performance record for the sensible heat wheel"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   /////////////////////////////////////////////////////////
   // Design air conditions
@@ -79,12 +87,7 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
     redeclare package Medium = MediumA,
-    mSup_flow_nominal=mA_flow_nominal,
-    mExh_flow_nominal=mA_flow_nominal,
-    P_nominal=100,
-    dpSup_nominal=200,
-    epsCoo_nominal=eps,
-    epsHea_nominal=eps) "Heat recovery"
+    per=per) "Heat recovery"
     annotation (Placement(transformation(extent={{-100,-38},{-80,-18}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,

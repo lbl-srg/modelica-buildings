@@ -4,6 +4,12 @@ model BypassDampers
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    haveVariableSpeed=false)
+    "Performance record for the sensible heat wheel"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -44,13 +50,7 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers whe(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
-    P_nominal=100,
-    epsLatCoo_nominal=0.7,
-    epsLatCooPL=0.6,
-    epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6)
+    per=per)
     "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
@@ -75,6 +75,7 @@ model BypassDampers
       m_flow_nominal=5)
       "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
+
 equation
   connect(TSup.y, sou_1.T_in)
     annotation (Line(points={{-59,34},{-42,34}}, color={0,0,127}));
@@ -84,9 +85,11 @@ equation
   connect(whe.port_a2, sou_2.ports[1])
     annotation (Line(points={{20,-8},{30,-8},{30,-40},{70,-40}},
     color={0,127,255}));
-  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-2,0}},
+  connect(bypDamPos.y, whe.uBypDamPos) annotation (Line(points={{-59,0},{-30,0},
+          {-30,4},{-2,4}},
     color={0,0,127}));
-  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,8},{-2,8}},
+  connect(opeSig.y, whe.uRot) annotation (Line(points={{-58,70},{-10,70},{-10,-4},
+          {-2,-4}},
     color={255,0,255}));
   connect(senExhTem.port_b, sin_2.ports[1])
     annotation (Line(points={{-40,-40},{-58,-40}}, color={0,127,255}));

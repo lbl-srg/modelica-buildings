@@ -4,50 +4,31 @@ model Effectiveness
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness
     epsCal(
-    epsCoo_nominal=0.8,
-    epsCooPL=0.75,
-    epsHea_nominal=0.7,
-    epsHeaPL=0.6,
+    eps_nominal=0.8,
+    epsPL=0.75,
     mSup_flow_nominal=1)
     "Effectiveness calculator"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
-  Modelica.Blocks.Sources.Ramp TSup(
-    height=5,
-    duration=60,
-    offset=273.15 + 20,
-    startTime=0)
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.Ramp TExh(
-    height=20,
-    duration=60,
-    offset=273.15 + 15,
-    startTime=0)
-    "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Modelica.Blocks.Sources.Ramp VSup(
     height=0.4,
-    duration=60,
+    duration=120,
     offset=0.6,
     startTime=0)
     "Supply air flow rate"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Ramp VExh(
     height=0.2,
-    duration=60,
+    duration=120,
     offset=0.8,
     startTime=0)
     "Exhaust air flow rate"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 equation
   connect(VSup.y,epsCal.mSup_flow)
     annotation (Line(points={{-59,70},{-28,70},{-28,8},{-14,8}}, color={0,0,127}));
   connect(VExh.y,epsCal.mExh_flow)
-    annotation (Line(points={{-59,30},{-40,30},{-40,4},{-14,4}}, color={0,0,127}));
-  connect(TSup.y, epsCal.TSup)
-    annotation (Line(points={{-59,-40},{-40,-40},{-40,-4},{-14,-4}}, color={0,0,127}));
-  connect(TExh.y, epsCal.TExh)
-    annotation (Line(points={{-59,-80},{-28,-80},{-28,-8},{-14,-8}}, color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-28,-40},{-28,-6},{-14,-6}},
+                                                                 color={0,0,127}));
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
@@ -65,19 +46,9 @@ The input signals are configured as follows:
 </p>
 <ul>
 <li>
-In the first 20 seconds, the supply air temperature <i>TSup</i> is greater than
-the exhaust air temperature <i>TExh</i>. After that,
-<i>TSup</i> is less than <i>TExh</i>, leading to a heating mode.
-</li>
-<li>
-In the first 60 seconds, the supply air flow rate, <i>VSup</i>, and the
+The supply air flow rate, <i>VSup</i>, and the
 exhaust air flow rate, <i>VExh</i>, change from
-0.6 to 1 and 0.8 to 1 respectively. The flow rates then stay constant.
-</li>
-<li>
-In the first 60 seconds, the wheel speed <i>uSpe</i> keeps constant.
-It then increases from 0.3 to 1 during the period from 60 seconds to 120
-seconds.
+0.6 to 1 and 0.8 to 1 respectively.
 </li>
 </ul>
 <p>
@@ -85,12 +56,7 @@ The expected outputs are:
 </p>
 <ul>
 <li>
-The sensible effectiveness <code>eps</code> increases in the whole
-simulation period.
-</li>
-<li>
-At 20 seconds, <code>eps</code> changes significantly as the exchanger
-changes from the cooling mode to the heating mode.
+The sensible effectiveness <code>eps</code> increases from 0.75 to 0.8.
 </li>
 </ul>
 </html>", revisions="<html>

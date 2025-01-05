@@ -2,39 +2,22 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses;
 model Effectiveness
   "Model for calculating the heat exchange effectiveness"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Efficiency epsSenCoo_nominal(final max=1)
-    "Nominal sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCoo_nominal(final max=1)
-    "Nominal latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenCooPL(final max=1)
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsLatCooPL(final max=1)
-    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the cooling mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHea_nominal(final max=1)
-    "Nominal sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHea_nominal(final max=1)
-    "Nominal latent heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsSenHeaPL(final max=1)
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode";
-  parameter Modelica.Units.SI.Efficiency epsLatHeaPL(final max=1)
-    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness at the heating mode";
+  parameter Modelica.Units.SI.Efficiency epsSen_nominal(final max=1)
+    "Nominal sensible heat exchanger effectiveness";
+  parameter Modelica.Units.SI.Efficiency epsLat_nominal(final max=1)
+    "Nominal latent heat exchanger effectiveness";
+  parameter Modelica.Units.SI.Efficiency epsSenPL(final max=1)
+    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness";
+  parameter Modelica.Units.SI.Efficiency epsLatPL(final max=1)
+    "Part load (75% of the nominal supply flow rate) latent heat exchanger effectiveness";
   parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
     "Nominal supply air mass flow rate";
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="K")
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
-    final unit="K")
-    "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mSup_flow(final unit="kg/s")
     "Supply air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mExh_flow(final unit="kg/s")
     "Exhaust air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsSen(final unit="1")
     "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
@@ -45,31 +28,10 @@ model Effectiveness
         iconTransformation(extent={{100,-70},{140,-30}})));
 
 protected
-  parameter Boolean equSen_nominal = abs(epsSenCoo_nominal-epsSenHea_nominal) < Modelica.Constants.eps
-     "true if the sensible cooling and heating efficiencies at nominal conditions are equal";
-  parameter Boolean equSenPL = abs(epsSenCooPL-epsSenHeaPL) < Modelica.Constants.eps
-     "true if the sensible cooling and heating efficiencies at part load conditions are equal";
-  parameter Boolean equLat_nominal = abs(epsLatCoo_nominal-epsLatHea_nominal) < Modelica.Constants.eps
-     "true if the latent cooling and heating efficiencies at nominal conditions are equal";
-  parameter Boolean equLatPL = abs(epsLatCooPL-epsLatHeaPL) < Modelica.Constants.eps
-     "true if the latent cooling and heating efficiencies at part load conditions are equal";
-  Real fraCoo(
-   final min=0,
-   final max=1,
-   final unit="1") "Fraction of efficiency contribution from cooling parameters (used for regularization)";
-
   Real rat
     "Ratio of the average operating air flow rate to the nominal supply air flow rate";
   Real ratRes
     "Ratio of the average operating air flow rate to the nominal supply air flow rate, restricted to valid domain";
-  Modelica.Units.SI.Efficiency epsSenPL
-    "Part load sensible heat exchanger effectiveness used for calculation";
-  Modelica.Units.SI.Efficiency epsSen_nominal
-    "Nominal sensible heat exchanger effectiveness used for calculation";
-  Modelica.Units.SI.Efficiency epsLatPL
-    "Part load latent heat exchanger effectiveness used for calculation";
-  Modelica.Units.SI.Efficiency epsLat_nominal
-    "Nominal latent heat exchanger effectiveness used for calculation";
 
 equation
   // Check if the air flows are too unbalanced, unless rat < 0.05, in which case
@@ -79,15 +41,6 @@ equation
     level=AssertionLevel.warning);
   // Calculate the average volumetric air flow and flow rate ratio.
   rat = (mSup_flow+mExh_flow)/2/mSup_flow_nominal;
-  // Switch between cooling and heating modes based on the difference between the supply air temperature and the exhaust air temperature
-  fraCoo = if (equSen_nominal and equSenPL and equLat_nominal and equLatPL) then 0.5 else Buildings.Utilities.Math.Functions.regStep(TSup-TExh, 1, 0, 1e-5);
-
-  epsSenPL = if equSenPL then epsSenCooPL else fraCoo*epsSenCooPL + (1-fraCoo) * epsSenHeaPL;
-  epsSen_nominal = if equSen_nominal then epsSenCoo_nominal else fraCoo*epsSenCoo_nominal + (1-fraCoo) * epsSenHea_nominal;
-
-  epsLatPL = if equLatPL then epsLatCooPL else fraCoo*epsLatCooPL + (1-fraCoo) * epsLatHeaPL;
-  epsLat_nominal = if equLat_nominal then epsLatCoo_nominal else fraCoo*epsLatCoo_nominal + (1-fraCoo) * epsLatHea_nominal;
-
   // Calculate effectiveness
   ratRes = Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
   epsSen = (epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);
@@ -139,15 +92,6 @@ for the sensible and latent heat transfer, respectively,
 for the sensible heat transfer when <code>rat</code> is 1 and 0.75, respectively,
 <code>epsLat_nominal</code> and <code>epsLatPL</code> are the effectiveness
 for the latent heat transfer when <code>Rat</code> is 1 and 0.75, respectively.
-</p>
-<p>
-The parameters <code>epsSen_nominal</code>, <code>epsSenPL</code>, <code>epsLat_nominal</code>, and
-<code>epsLatPL</code> have different values depending on if the wheel is in
-the cooling or heating mode.
-If the supply air temperature is greater than the exhaust air
-temperature, the exchanger is considered to operate under
-the cooling mode;
-Otherwise, it operates under the heating mode.
 </p>
 <P>
 <b>Note:</b>

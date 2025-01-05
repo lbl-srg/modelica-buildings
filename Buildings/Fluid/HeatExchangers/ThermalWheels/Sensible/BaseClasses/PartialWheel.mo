@@ -5,34 +5,9 @@ partial model PartialWheel
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
-  parameter Modelica.Units.SI.MassFlowRate mSup_flow_nominal
-    "Nominal supply air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
-    "Nominal exhaust air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
-    "Nominal supply air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
-    "Nominal exhaust air pressure drop across the heat exchanger"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsCoo_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsHea_nominal(
-    final max=1) = 0.8
-    "Nominal sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency epsCooPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the cooling mode"
-    annotation (Dialog(group="Part load effectiveness"));
-  parameter Modelica.Units.SI.Efficiency epsHeaPL(
-    final max=1) = 0.75
-    "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness at the heating mode"
-    annotation (Dialog(group="Part load effectiveness"));
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
+    "Record with performance data"
+    annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
     final unit="W") "Electric power consumption"
@@ -80,46 +55,27 @@ protected
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    final m1_flow_nominal=mSup_flow_nominal,
-    final m2_flow_nominal=mExh_flow_nominal,
-    final dp1_nominal=dpSup_nominal,
-    final dp2_nominal=dpExh_nominal) "Heat exchanger"
+    final m1_flow_nominal=per.mSup_flow_nominal,
+    final m2_flow_nominal=per.mExh_flow_nominal,
+    final dp1_nominal=per.dpSup_nominal,
+    final dp2_nominal=per.dpExh_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness effCal(
-    final epsCoo_nominal=epsCoo_nominal,
-    final epsCooPL=epsCooPL,
-    final epsHea_nominal=epsHea_nominal,
-    final epsHeaPL=epsHeaPL,
-    final mSup_flow_nominal=mSup_flow_nominal)
+    final eps_nominal=per.epsSen_nominal,
+    final epsPL=per.epsSenPL,
+    final mSup_flow_nominal=per.mSup_flow_nominal)
     "Calculate the effectiveness of heat exchanger"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  Modelica.Blocks.Sources.RealExpression TSup(
-    final y(final unit="K")=Medium.temperature(
-      Medium.setState_phX(
-        p=port_a1.p,
-        h=inStream(port_a1.h_outflow),
-        X=inStream(port_a1.Xi_outflow))))
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-
-  Modelica.Blocks.Sources.RealExpression TExh(
-    final y(final unit="K")=Medium.temperature(
-      Medium.setState_phX(
-        p=port_a2.p,
-        h=inStream(port_a2.h_outflow),
-        X=inStream(port_a2.Xi_outflow))))
-    "Exhaust air temperature"
-    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
+initial equation
+  assert(not per.haveLatentHeatExchange,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the latent heat exchange flag must be false",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 
 equation
-  connect(TSup.y, effCal.TSup)
-    annotation (Line(points={{-139,60},{-120,60},{-120,-4},{-102,-4}},
-    color={0,0,127}));
-  connect(TExh.y, effCal.TExh)
-    annotation (Line(points={{-139,-60},{-120,-60},{-120,-8},{-102,-8}},
-    color={0,0,127}));
   connect(senExhMasFlo.port_b, port_b2)
     annotation (Line(points={{-90,-40},{-100,-40},{-100,-80},{-180,-80}},
     color={0,127,255},
@@ -136,9 +92,11 @@ equation
     {60,80},{100,80}}, color={0,127,255},
       thickness=0.5));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-29},
-    {-80,-20},{-130,-20},{-130,4},{-102,4}}, color={0,0,127}));
+          {-80,-20},{-130,-20},{-130,-6},{-102,-6}},
+                                             color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{40,31},
-    {40,40},{-130,40},{-130,8},{-102,8}}, color={0,0,127}));
+          {40,40},{-130,40},{-130,6},{-102,6}},
+                                          color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

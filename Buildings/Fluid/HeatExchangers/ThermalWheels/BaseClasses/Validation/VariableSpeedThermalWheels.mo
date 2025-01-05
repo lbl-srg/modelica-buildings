@@ -4,18 +4,24 @@ model VariableSpeedThermalWheels
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
     perSenWhe(
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"

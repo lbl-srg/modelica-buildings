@@ -4,17 +4,21 @@ model SpeedControlled
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE per(
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
     motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
+    annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perDefMotCur(
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor curve"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{6,60},{26,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -56,26 +60,12 @@ model SpeedControlled
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled
     wheUseDefCur(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
-    per=perLatWhe,
-    epsLatCoo_nominal=0.7,
-    epsLatCooPL=0.6,
-    epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6)
+    per=per)
     "Wheel with a user-defined curve"
     annotation (Placement(transformation(extent={{2,14},{22,34}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled
-    wheDefCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.SpeedControlled wheDefCur(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
-    per=perLatWheDefMotCur,
-    epsLatCoo_nominal=0.7,
-    epsLatCooPL=0.6,
-    epsLatHea_nominal=0.7,
-    epsLatHeaPL=0.6)
-    "Wheel with a default curve"
+    per=perDefMotCur) "Wheel with a default curve"
     annotation (Placement(transformation(extent={{2,-18},{22,2}})));
   Modelica.Blocks.Sources.Ramp wheSpe(
     height=0.3,
