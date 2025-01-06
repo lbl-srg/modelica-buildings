@@ -41,19 +41,19 @@ record Generic "Generic data record for thermal wheels"
   parameter Characteristics.HeatExchangerEffectiveness latHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
-    "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1" annotation (
-      Dialog(group="Heat exchange effectiveness computation", enable==haveLatentHeatExchange and haveVariableSpeed));
+    "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1"
+    annotation (Dialog(group="Heat exchange effectiveness computation", enable=haveVariableSpeed));
   parameter Characteristics.MotorEfficiency motorEfficiency(
     uSpe={0},
     eta={0.7})
     "Motor efficiency versus wheel speed ratio"
-    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve and haveVariableSpeed));
+    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve));
   final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
       P_nominal=P_nominal,
       eta_max=1)
     "Motor efficiency versus default wheel speed ratio"
-    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve and haveVariableSpeed));
+    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve));
   parameter Boolean haveLatentHeatExchange = true
    "Set to true to compute latent heat exchange";
   parameter Boolean useDefaultMotorEfficiencyCurve = true
@@ -74,7 +74,7 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-Record containing power and heat exchange parameters for thermal wheels.
+Record containing performance-related parameters for thermal wheels.
 </p>
 <p>
 It is used as a template of performance data
@@ -83,8 +83,7 @@ for the thermal wheel models in
 Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses</a>.
 </p>
 <p>
-The record contains the performance parameters of the thermal wheel, including
-the performance parameters of the thermal wheel, such as the nominal mass flow rates, nominal pressure drops, 
+The record contains the parameters, including the nominal mass flow rates, nominal pressure drops, 
 and the heat exchanger effectiveness at part load (75% of the nominal supply flow rate) and at nominal conditions.
 </p>
 <p>

@@ -34,13 +34,13 @@ protected
     "Ratio of the average operating air flow rate to the nominal supply air flow rate, restricted to valid domain";
 
 equation
+  // Calculate the average volumetric air flow and flow rate ratio.
+  rat = (mSup_flow+mExh_flow)/2/mSup_flow_nominal;
   // Check if the air flows are too unbalanced, unless rat < 0.05, in which case
   // the system is likely off or transitioning to on or off.
   assert(rat < 0.05 or (mSup_flow - 2*mExh_flow <= 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5),
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2] when flow rates are non-zero.",
     level=AssertionLevel.warning);
-  // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (mSup_flow+mExh_flow)/2/mSup_flow_nominal;
   // Calculate effectiveness
   ratRes = Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
   epsSen = (epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);

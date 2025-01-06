@@ -18,7 +18,6 @@ model SpaceCooling "Space cooling system"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   // Heat recovery effectiveness
-  parameter Real eps = 0.8 "Heat recovery effectiveness";
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
     mSup_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
@@ -39,7 +38,7 @@ model SpaceCooling "Space cooling system"
     "Nominal mixed air temperature";
   parameter Modelica.Units.SI.Temperature TOut_nominal=303.15
     "Design outlet air temperature";
-  parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - eps*(
+  parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - per.epsSen_nominal*(
       TOut_nominal - TRooSet) "Air temperature leaving the heat recovery";
   parameter Modelica.Units.SI.DimensionlessRatio wHeaRecLvg=0.0135
     "Air humidity ratio leaving the heat recovery [kg/kg]";
