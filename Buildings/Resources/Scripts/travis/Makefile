@@ -90,8 +90,8 @@ test-openmodelica-spawn-spaces-success:
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
 	@(cd $(TMP) && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
-	@rm -rf $(TMP)
+	@cd $(TMP) && sudo grep -q "The simulation finished successfully." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
 test-openmodelica-spawn-spaces-failure:
@@ -120,8 +120,8 @@ test-openmodelica-spawn-spaces-failure:
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
 	@(cd $(TMP) && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "To run a simulation with EnergyPlus coupling, the working directory must not have spaces." SpawnTest.log
-	@rm -rf $(TMP)
+	@cd $(TMP) && sudo grep -q "To run a simulation with EnergyPlus coupling, the working directory must not have spaces." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
 test-dymola-spawn-spaces:
