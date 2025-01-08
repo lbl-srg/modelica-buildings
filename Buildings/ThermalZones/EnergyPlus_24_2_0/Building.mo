@@ -3,8 +3,8 @@ model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String spawnExe="spawn-0.6.0-9f1b36b00b"
-      "Name of the spawn executable, without extension, such as spawn-0.6.0-9f1b36b00baaa"
+  constant String spawnExe="spawn-0.6.0-5297abe3fb"
+      "Name of the spawn executable, without extension, such as spawn-0.6.0-5297abe3fbaaa"
     annotation (HideResult=true);
 
   constant String idfVersion = "24_2_0"
@@ -30,6 +30,13 @@ model Building
   parameter String weaName
     "Name of the weather file, in .mos format and with .mos extension"
     annotation(Evaluate=false);
+
+  parameter Boolean autosizeHVAC=false
+    "Set to true to enable EnergyPlus HVAC autosizing";
+
+  parameter Boolean use_sizingPeriods=true
+    "Set to true to run the HVAC sizing on all the included SizingPeriod objects in the idf file"
+    annotation(Dialog(enable=autosizeHVAC));
 
   parameter Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Warning
     "Log level of EnergyPlus output"
