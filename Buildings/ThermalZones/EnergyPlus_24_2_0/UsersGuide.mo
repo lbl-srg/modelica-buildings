@@ -93,14 +93,14 @@ the binaries can be downloaded from the following links:
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz\">
-https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-5297abe3fb-Linux.tar.gz\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-5297abe3fb-Linux.tar.gz</a>
 </td>
 </tr>
 <tr>
 <td>Windows</td>
-<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-win64.zip\">
-https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-win64.zip</a>
+<td><a href=\"https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-5297abe3fb-win64.zip\">
+https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-5297abe3fb-win64.zip</a>
 </td>
 </tr>
 </table>
@@ -117,9 +117,9 @@ To install, proceed as follows:
 Run from a terminal
 </p>
 <pre>
-wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz;
-tar xzf Spawn-light-0.6.0-9f1b36b00b-Linux.tar.gz;
-export PATH=${PATH}:`pwd`/Spawn-light-0.6.0-9f1b36b00b-Linux/bin
+wget https://spawn.s3.amazonaws.com/custom/Spawn-light-0.6.0-5297abe3fb-Linux.tar.gz;
+tar xzf Spawn-light-0.6.0-5297abe3fb-Linux.tar.gz;
+export PATH=${PATH}:`pwd`/Spawn-light-0.6.0-5297abe3fb-Linux/bin
 </pre>
 <p>
 and restart your Modelica environment. You may put the last line in your <code>${HOME}/.bashrc</code> file
@@ -135,10 +135,10 @@ to make the setting persistent when you log in the next time.
 Download the binary from the link above.
 </li>
 <li>
-Unzip <code>Spawn-light-0.6.0-9f1b36b00b-win64.zip</code> at your desired location.
+Unzip <code>Spawn-light-0.6.0-5297abe3fb-win64.zip</code> at your desired location.
 </li>
 <li>
-Add the directory <code>xyz/Spawn-light-0.6.0-9f1b36b00b-win64/bin</code>
+Add the directory <code>xyz/Spawn-light-0.6.0-5297abe3fb-win64/bin</code>
 to your <code>PATH</code> environment variable.
 </li>
 <li>
@@ -151,17 +151,17 @@ Restart your Modelica environment.
 
 <h4>How is spawn invoked?</h4>
 <p>
-Modelica tries to invoke <code>spawn-0.6.0-9f1b36b00b[.exe]</code> in this order:
+Modelica tries to invoke <code>spawn-0.6.0-5297abe3fb[.exe]</code> in this order:
 </p>
 <ol>
 <li>
 On Linux, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-9f1b36b00b/linux64/bin/spawn-0.6.0-9f1b36b00b
+Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-5297abe3fb/linux64/bin/spawn-0.6.0-5297abe3fb
 </pre>
 and on Windows, it searches for
 <pre>
-Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-9f1b36b00b/win64/bin/spawn-0.6.0-9f1b36b00b.exe
+Buildings[ x.y.z]/Resources/bin/spawn-0.6.0-5297abe3fb/win64/bin/spawn-0.6.0-5297abe3fb.exe
 </pre>
 where <code>Buildings[ x.y.z]</code> is the installation folder of the Modelica Buildings Library.
 This file is distributed with the Modelica Buildings Library installation,
@@ -169,11 +169,11 @@ together with all files needed to translate and simulate a model in a Modelica e
 </li>
 <li>
 If not found, it searches on the environment variable <code>SPAWNPATH</code> for
-<code>spawn-0.6.0-9f1b36b00b[.exe]</code>.
+<code>spawn-0.6.0-5297abe3fb[.exe]</code>.
 </li>
 <li>
 If not found, it searches on the environment variable <code>PATH</code> for
-<code>spawn-0.6.0-9f1b36b00b[.exe]</code>.
+<code>spawn-0.6.0-5297abe3fb[.exe]</code>.
 </li>
 </ol>
 <p>

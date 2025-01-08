@@ -386,9 +386,7 @@ void writeModelStructureForEnergyPlus(const FMUBuilding* bui, char** modelicaBui
     SpawnFormatError("Failed to open '%s' with write mode.", *modelicaBuildingsJsonFile);
   fprintf(fp, "%s", buffer);
   fclose(fp);
-
-  SpawnFormatError("**** FIXME: Wrote json file '%s'.", *modelicaBuildingsJsonFile);
-}
+  }
 
 void setAttributesReal(
   FMUBuilding* bui,
