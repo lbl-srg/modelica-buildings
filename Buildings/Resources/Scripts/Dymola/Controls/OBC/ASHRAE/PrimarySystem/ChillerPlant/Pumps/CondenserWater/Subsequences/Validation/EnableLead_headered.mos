@@ -1,0 +1,2 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.Validation.EnableLead_headered", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaLeaConPum_headered");
+createPlot(id=1, position={20, 10, 700, 900}, y={"enaLeaConPum.uChiConIsoVal[1]", "enaLeaConPum.uWseConIsoVal","enaLeaConPum.yLea"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
