@@ -3,6 +3,8 @@ model Direct
   "Direct evaporative cooler"
 
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    show_T=true,
     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Modelica.Units.SI.Area padAre
