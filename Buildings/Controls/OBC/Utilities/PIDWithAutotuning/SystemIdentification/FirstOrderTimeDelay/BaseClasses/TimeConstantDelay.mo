@@ -74,7 +74,8 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Divide div3
     "Blocks that calculates the time constant"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Reals.Multiply mul1 "Product of the two inputs"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1
+    "Product of the two inputs"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul2
     "Blocks that calculates time delay"
@@ -94,7 +95,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Max max1
     "Avoid a negative input for the log function"
     annotation (Placement(transformation(extent={{-82,-100},{-62,-80}})));
-
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "True when an negative input is given for the log function"
     annotation (Placement(transformation(extent={{102,-140},{122,-120}})));
@@ -106,13 +106,11 @@ protected
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
 equation
   connect(absk.u, k)
-    annotation (Line(points={{-162,10},{-200,10}},
-                                                color={0,0,127}));
+    annotation (Line(points={{-162,10},{-200,10}}, color={0,0,127}));
   connect(rat, exp.u)
     annotation (Line(points={{-200,-60},{-162,-60}},color={0,0,127}));
   connect(relDeaBan.y, div1.u1) annotation (Line(points={{-78,10},{-40,10},{-40,
-          -4},{-22,-4}},
-                      color={0,0,127}));
+          -4},{-22,-4}}, color={0,0,127}));
   connect(sub2.u1, div1.y) annotation (Line(points={{38,-24},{10,-24},{10,-10},{
           2,-10}},  color={0,0,127}));
   connect(sub2.u2, yLowSig.y) annotation (Line(points={{38,-36},{-70,-36},{-70,70},
@@ -152,19 +150,19 @@ equation
   connect(log.y, div3.u2) annotation (Line(points={{-18,-90},{20,-90},{20,104},{
           38,104}}, color={0,0,127}));
   connect(div2.y, max1.u1) annotation (Line(points={{142,-70},{150,-70},{150,-50},
-          {-90,-50},{-90,-84},{-84,-84}},      color={0,0,127}));
+          {-90,-50},{-90,-84},{-84,-84}}, color={0,0,127}));
   connect(log.u, max1.y)
     annotation (Line(points={{-42,-90},{-60,-90}},   color={0,0,127}));
   connect(gre1.u2, div2.y) annotation (Line(points={{38,-138},{-90,-138},{-90,-50},
-          {150,-50},{150,-70},{142,-70}},      color={0,0,127}));
+          {150,-50},{150,-70},{142,-70}}, color={0,0,127}));
   connect(con.y, max1.u2) annotation (Line(points={{-138,-110},{-120,-110},{-120,
-          -96},{-84,-96}},   color={0,0,127}));
+          -96},{-84,-96}}, color={0,0,127}));
   connect(gre1.y, edg.u)
     annotation (Line(points={{62,-130},{100,-130}}, color={255,0,255}));
   connect(edg.y, triFai)
     annotation (Line(points={{124,-130},{200,-130}}, color={255,0,255}));
   connect(gre1.u1, gai.y) annotation (Line(points={{38,-130},{20,-130},{20,-120},
-          {2,-120}},    color={0,0,127}));
+          {2,-120}}, color={0,0,127}));
   connect(gai.u, con.y) annotation (Line(points={{-22,-120},{-120,-120},{-120,-110},
           {-138,-110}}, color={0,0,127}));
   annotation (
@@ -189,7 +187,7 @@ Changed deadband to be consistent within the package.
 </li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

@@ -5,11 +5,11 @@ model ReverseActingPIDWithFirstOrderAMIGO
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIDWitTun(
-      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
-      u_s_start=0.8,
-      yLow=0,
-      deaBan=0.1,
-      yRef=0.8)
+    controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
+    u_s_start=0.8,
+    yLow=0,
+    deaBan=0.1,
+    yRef=0.8)
     "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Reals.PIDWithReset PID(
@@ -61,8 +61,10 @@ equation
           {-48,60},{-22,60}}, color={0,0,127}));
   connect(SetPoint.y, PID.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIDWitTun.y, uniDel2.u) annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
-  connect(uniDel1.u, PID.y) annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
+  connect(PIDWitTun.y, uniDel2.u)
+    annotation (Line(points={{2,-20},{18,-20}},color={0,0,127}));
+  connect(uniDel1.u, PID.y)
+    annotation (Line(points={{18,60},{2,60}},color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{42,60},{72,60},{72,86},
           {118,86}}, color={0,0,127}));
   connect(k.y, derivative1.k) annotation (Line(points={{32,20},{68,20},{68,28},
@@ -112,8 +114,10 @@ At the beginning (<i>0</i>s-<i>500</i>s), the outputs from those two PID control
 are identical as their prescribed gains are the same.
 </p>
 <p>
-Once the autotuning starts at <i>500</i>s, the outputs of the two PID controllers become different.
-After the tuning completes, under the control of <code>PIDWitTun</code>, the value of the controlled variable
+Once the autotuning starts at <i>500</i>s, the outputs of the two PID controllers
+become different.
+After the tuning completes, under the control of <code>PIDWitTun</code>, the value
+of the controlled variable
 is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
 On the contrary, <code>PID</code> has a poor control performance,
 i.e., the value of the controlled variable oscillates.
@@ -123,11 +127,11 @@ The example also shows that the autotunning process can be re-triggered
 when the input <code>triTun</code> becomes <code>true</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>"),

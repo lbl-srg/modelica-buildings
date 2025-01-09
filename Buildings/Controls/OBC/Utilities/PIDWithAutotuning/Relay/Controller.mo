@@ -54,8 +54,7 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between a higher value and a lower value"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-    origin={-50,-40})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-50,-40})));
   Buildings.Controls.OBC.CDL.Reals.Subtract revActErr if reverseActing
     "Control error when reverse acting, setpoint - measurement"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
@@ -71,13 +70,16 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Subtract meaSetDif
     "Inputs difference, (measurement - setpoint)"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiYDif(final k=1/r)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiYDif(
+    final k=1/r)
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiRevActErr(final k=1/r) if reverseActing
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiRevActErr(
+    final k=1/r) if reverseActing
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiDirActErr(final k=1/r) if not reverseActing
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiDirActErr(
+    final k=1/r) if not reverseActing
     "Gain to normalized control error by r"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 equation
@@ -114,11 +116,11 @@ equation
     annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
   connect(revActErr.y, gaiRevActErr.u)
     annotation (Line(points={{2,-30},{18,-30}}, color={0,0,127}));
-  connect(gaiRevActErr.y, hys.u) annotation (Line(points={{42,-30},{48,-30},{48,
+  connect(gaiRevActErr.y, hys.u) annotation (Line(points={{42,-30},{50,-30},{50,
           -60},{58,-60}}, color={0,0,127}));
   connect(dirActErr.y, gaiDirActErr.u)
     annotation (Line(points={{2,-70},{18,-70}}, color={0,0,127}));
-  connect(gaiDirActErr.y, hys.u) annotation (Line(points={{42,-70},{48,-70},{48,
+  connect(gaiDirActErr.y, hys.u) annotation (Line(points={{42,-70},{50,-70},{50,
           -60},{58,-60}}, color={0,0,127}));
 annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -175,8 +177,7 @@ Step 1: Calculate control error,
 <ul>
 <li>
 If the parameter <code>reverseActing = true</code>, set the control error <code>err</code> to
-<code>(u_s - u_m)/r</code>,
-else set it to <code>(u_m - u_s)/r</code>.
+<code>(u_s - u_m)/r</code>, else set it to <code>(u_m - u_s)/r</code>.
 </li>
 </ul>
 <p>
@@ -189,19 +190,16 @@ then <code>y = yHig</code> and <code>yOn = true</code>,
 </li>
 <li>
 else if <code>err &lt; -deaBan</code> and <code>trigger</code> is <code>true</code>,
-then <code>y = yLow</code> and
-<code>yOn = false</code>,
+then <code>y = yLow</code> and <code>yOn = false</code>,
 </li>
 <li>
 else, <code>y</code> and <code>yOn</code> are kept as the initial values.
 </li>
 </ul>
 <p>
-where <code>deaBan</code> is a dead band, <code>yHig</code>
-and <code>yLow</code>
+where <code>deaBan</code> is a dead band, <code>yHig</code> and <code>yLow</code>
 are the higher value and the lower value of the output <code>y</code>, respectively.
 </p>
-
 <h4>References</h4>
 <p>
 J. Berner (2017).
@@ -225,7 +223,7 @@ Add a parameter <code>reverseActing</code><br/>
 </li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>"));

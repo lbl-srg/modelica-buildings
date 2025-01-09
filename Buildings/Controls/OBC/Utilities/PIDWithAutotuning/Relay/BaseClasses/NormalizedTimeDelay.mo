@@ -89,7 +89,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

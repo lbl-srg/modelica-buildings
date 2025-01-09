@@ -1,5 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
 model TuningMonitor "Test model for the tuning period management"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
+    tunMan "Manage the tuning process"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig1(
     amplitude=-0.1,
     width=0.1,
@@ -7,7 +10,6 @@ model TuningMonitor "Test model for the tuning period management"
     offset=0.1)
     "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig2(
     amplitude=-0.1,
     width=0.9,
@@ -25,12 +27,11 @@ model TuningMonitor "Test model for the tuning period management"
     offset=0.5)
     "The length of the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.TuningMonitor
-    tunMan "Manage the tuning process"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch tunSta "Display when tuning process starts"
+  Buildings.Controls.OBC.CDL.Logical.Latch tunSta
+    "Display when tuning process starts"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch tunEnd "Display when tuning process ends"
+  Buildings.Controls.OBC.CDL.Logical.Latch tunEnd
+    "Display when tuning process ends"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false) "False signal"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
@@ -78,7 +79,7 @@ equation
 <ul>
 <li>
 September 20, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

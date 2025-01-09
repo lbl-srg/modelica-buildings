@@ -66,7 +66,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
@@ -76,7 +76,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.BaseClasses.Gain</a>.
 </p>
 <p>
-This testing scenario in this example is the same to that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.Validation.ControlProcessModel\">
+This testing scenario in this example is the same to that in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.Validation.ControlProcessModel\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.Validation.ControlProcessModel</a>.
 </p>
 </html>"));

@@ -29,7 +29,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Add add2
     "Calculate the sum of the two inputs"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant const1(final k=0.35)
     "Constant value"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
@@ -53,7 +53,7 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul3
     "Block that calculates the product of the two inputs"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{20,-6},{40,14}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mul4
     "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
@@ -64,7 +64,7 @@ protected
 equation
   connect(div1.u2, kp) annotation (Line(points={{-42,44},{-80,44},{-80,60},{
           -120,60}}, color={0,0,127}));
-  connect(add2.u1, div1.y) annotation (Line(points={{18,36},{0,36},{0,50},{-18,
+  connect(add2.u1, div1.y) annotation (Line(points={{58,36},{0,36},{0,50},{-18,
           50}}, color={0,0,127}));
   connect(add1.u1, T) annotation (Line(points={{-62,-24},{-90,-24},{-90,0},{
           -120,0}}, color={0,0,127}));
@@ -90,20 +90,20 @@ equation
           -38,20}}, color={0,0,127}));
   connect(div3.u1, T) annotation (Line(points={{-22,16},{-34,16},{-34,0},{-120,
           0}}, color={0,0,127}));
-  connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}},
+  connect(mul3.u1, div3.y) annotation (Line(points={{18,10},{2,10}},
          color={0,0,127}));
   connect(const2.y, div1.u1) annotation (Line(points={{-58,80},{-50,80},{-50,56},
           {-42,56}}, color={0,0,127}));
-  connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
-          16},{48,0},{42,0}}, color={0,0,127}));
-  connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
+  connect(add2.u2, mul3.y) annotation (Line(points={{58,24},{48,24},{48,4},{42,
+          4}},                color={0,0,127}));
+  connect(add2.y, k) annotation (Line(points={{82,30},{90,30},{90,0},{120,0}},
         color={0,0,127}));
   connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{58,-50}},
          color={0,0,127}));
   connect(const1.y, sub.u1) annotation (Line(points={{22,-80},{50,-80},{50,-38},
           {58,-38}}, color={0,0,127}));
-  connect(sub.y, mul3.u2) annotation (Line(points={{82,-44},{90,-44},{90,-22},{
-          10,-22},{10,-6},{18,-6}}, color={0,0,127}));
+  connect(sub.y, mul3.u2) annotation (Line(points={{82,-44},{90,-44},{90,-20},{
+          10,-20},{10,-2},{18,-2}}, color={0,0,127}));
 
 annotation (defaultComponentName = "PIGai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -120,7 +120,7 @@ annotation (defaultComponentName = "PIGai",
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

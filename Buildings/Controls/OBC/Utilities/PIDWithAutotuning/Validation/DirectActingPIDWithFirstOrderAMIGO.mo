@@ -129,11 +129,11 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWi
 However, direct-acting PID controllers are considered.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 December 1, 2023, by Sen Huang:<br/>
-<br>First implementation<br/>
+<br>First implementation.<br/>
 </li>
 </ul>
 </html>"),

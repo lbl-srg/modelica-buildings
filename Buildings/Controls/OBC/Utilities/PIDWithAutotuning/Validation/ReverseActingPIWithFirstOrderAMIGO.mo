@@ -62,7 +62,8 @@ equation
           60},{-22,60}}, color={0,0,127}));
   connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIWitTun.y, uniDel2.u) annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
+  connect(PIWitTun.y, uniDel2.u)
+    annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
   connect(uniDel1.u, PI.y) annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{32,60},{40,60},{40,86},{
           58,86}}, color={0,0,127}));
@@ -104,16 +105,17 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is similar as <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWithFirstOrderAMIGO\">
+This example is similar as
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWithFirstOrderAMIGO\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIDWithFirstOrderAMIGO</a>.
 However, an autotuning PI controller rather than an autotuning PID controller is considered in this example.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>"),

@@ -13,7 +13,7 @@ block Gain "Identify the gain of a first-order plus time-delay model"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the on period"
-    annotation (Placement(transformation(extent={{-140,-30},{-100,10}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
@@ -48,7 +48,7 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOnyHig(
     final k=yHig)
     "Product of tOn and yHig"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiOffyLow(
     final k=-yLow)
     "Product of tOff and yLow"
@@ -63,10 +63,10 @@ equation
   connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{18,-40}},color={0,0,127}));
   connect(addPar.y, divIyIu.u2) annotation (Line(points={{42,-40},{50,-40},{50,
           -6},{58,-6}}, color={0,0,127}));
-  connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-10},{-120,-10}},
+  connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,0},{-120,0}},
           color={0,0,127}));
-  connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-10},{-50,-10},{-50,
-          -34},{-42,-34}}, color={0,0,127}));
+  connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,0},{-50,0},{-50,-34},
+          {-42,-34}},      color={0,0,127}));
   connect(gaiOffyLow.u, tOff)
     annotation (Line(points={{-82,-80},{-120,-80}}, color={0,0,127}));
   connect(gaiOffyLow.y, Iu.u2) annotation (Line(points={{-58,-80},{-50,-80},{-50,
@@ -91,7 +91,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

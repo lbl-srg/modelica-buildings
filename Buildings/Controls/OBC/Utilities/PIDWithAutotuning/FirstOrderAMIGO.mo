@@ -84,9 +84,7 @@ block FirstOrderAMIGO
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
-    "Simulation time"
-    annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
+
   Buildings.Controls.OBC.Utilities.PIDWithInputGains con(
     final controllerType=conTyp,
     final r=r,
@@ -120,20 +118,6 @@ block FirstOrderAMIGO
     "Identify the on and off period length, the half period ratio, 
     and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
-    "Switch between a PID controller and a relay controller"
-    annotation (Placement(transformation(extent={{240,-210},{260,-190}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
-    final y_start=k_start) "Recording the proportional control gain"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-210}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(
-    final y_start=Ti_start)
-    "Recording the integral time"
-    annotation (Placement(transformation(extent={{-190,-220},{-170,-240}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(
-    final y_start=Td_start) if with_D
-    "Recording the derivative time"
-    annotation (Placement(transformation(extent={{-240,-250},{-220,-270}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimeDelay.ControlProcessModel
     conProMod(
     final yHig=yHig - yRef,
@@ -154,6 +138,23 @@ protected
       then Buildings.Controls.OBC.CDL.Types.SimpleController.PI
       else Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of controller";
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Simulation time"
+    annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Switch between a PID controller and a relay controller"
+    annotation (Placement(transformation(extent={{240,-210},{260,-190}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
+    final y_start=k_start) "Recording the proportional control gain"
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-210}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(
+    final y_start=Ti_start)
+    "Recording the integral time"
+    annotation (Placement(transformation(extent={{-190,-220},{-170,-240}})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(
+    final y_start=Td_start) if with_D
+    "Recording the derivative time"
+    annotation (Placement(transformation(extent={{-240,-250},{-220,-270}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
     final message="The relay output needs to be asymmetric. Check the value of yHig, yLow and yRef.")
     "Warning message when the relay output is symmetric"
@@ -289,7 +290,7 @@ equation
           -200},{238,-200}}, color={255,0,255}));
   connect(inTunPro.u, triTun) annotation (Line(points={{58,-140},{40,-140},{40,-300}},
           color={255,0,255}));
-  connect(rel.trigger, triTun) annotation (Line(points={{-76,-42},{-76,-140},{40,
+  connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-140},{40,
           -140},{40,-300}}, color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
           -40,-140},{40,-140},{40,-300}}, color={255,0,255}));
@@ -377,10 +378,10 @@ annotation (defaultComponentName = "PIDWitTun",
 Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
-This method approximates the control process with a first-order plus time-delay (FOPTD) model.
-It then determines the parameters of this FOPTD model based on the control process responses 
-to asymmetric relay feedback.
-After that, taking the parameters of this FOPTD mode as inputs, this method 
+This method approximates the control process with a first-order plus time-delay
+(FOPTD) model. It then determines the parameters of this FOPTD model based on the
+control process responses to asymmetric relay feedback.
+After that, taking the parameters of this FOPTD mode as inputs, this method
 calculates the PID gains with the Approximate M-constrained Integral Gain
 Optimization (AMIGO) method.
 This block is implemented using
@@ -390,7 +391,6 @@ and inherits most of its configuration. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
 </p>
-
 <h4>Autotuning process</h4>
 <p>
 Before the tuning process starts, this block has output from
@@ -418,18 +418,18 @@ will be generated.
 </li>
 <li>
 If the set point is changed during an autotuning process, a warning will be
-generated. This tuning process will be halted, and no adjustments will be made 
+generated. This tuning process will be halted, and no adjustments will be made
 to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
 <p>
 The performance of the autotuning is affected by the parameters including the
-typical range of control error <code>r</code>, 
+typical range of control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and the
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-Below are some recommendations for selecting appropriate values for those parameters.
+These parameters can be specified as below.
 </p>
 <ol>
 <li>
@@ -448,13 +448,13 @@ The <code>yRef</code> can be determined by dividing the set point by the sum of 
 minimum and the maximum values of the measurement.
 </li>
 <li>
-The <code>yHig</code> and <code>yLow</code> should be adjusted to realize an
-asymmetric relay output, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
+The <code>yHig</code> and <code>yLow</code> should be adjusted so that the relay
+output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-When determining the <code>deaBan</code>, we first divide the maximum and the 
-minimum deviations of measurement from the setpoint by <code>r</code>. 
-The <code>deaBan</code> can then be set as half of the smaller absolute value 
+To specify <code>deaBan</code>, we firstly divide the maximum and the
+minimum control errors by <code>r</code>.
+The <code>deaBan</code> can then be set as half of the smaller absolute value
 of those two deviations.
 </li>
 </ol>
@@ -478,7 +478,7 @@ operation can be made prior to the first tuning.
 </li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>"),

@@ -22,13 +22,12 @@ model PIDGain "Test model for calculating the control gain for a PID controller"
     "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(kp.y, PIDGai.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-12,
-          6}}, color={0,0,127}));
-  connect(T.y, PIDGai.T) annotation (Line(points={{-38,0},{-12,0}},
-               color={0,0,127}));
-  connect(PIDGai.L, L.y) annotation (Line(points={{-12,-6},{-18,-6},{-18,-30},{
-          -38,-30}},
-                 color={0,0,127}));
+  connect(kp.y, PIDGai.kp)
+    annotation (Line(points={{-38,30},{-20,30},{-20,6},{-12,6}}, color={0,0,127}));
+  connect(T.y, PIDGai.T)
+    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
+  connect(PIDGai.L, L.y)
+    annotation (Line(points={{-12,-6},{-18,-6},{-18,-30},{-38,-30}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
@@ -56,7 +55,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
@@ -66,7 +65,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain</a>.
 </p>
 <p>
-The input <code>kp</code> varies from <i>1</i> to <i>2</i>, input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
+The input <code>kp</code> varies from <i>1</i> to <i>2</i>, input <code>T</code>
+varies from <i>0.5</i> to <i>1</i>,
 and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));

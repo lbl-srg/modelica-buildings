@@ -34,7 +34,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-60},{12,-60},{
-          12,-6},{18,-6}},    color={0,0,127}));
+          12,-6},{18,-6}}, color={0,0,127}));
   connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,70},{-40,70},{-40,56},
           {-36,56}}, color={0,0,127}));
   connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,30},{-40,30},{-40,44},
@@ -70,7 +70,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
@@ -80,9 +80,11 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio</a>.
 </p>
 <p>
-This testing scenario in this example is the same as that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TuningMonitor\">
+This testing scenario in this example is the same as that in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TuningMonitor\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.TunMonitor</a>.
-The lengths of the on period and the off period are sampled at <i>0.9</i>s to calculate the half period ratio.
+The lengths of the on period and the off period are sampled at <i>0.9</i>s to
+calculate the half period ratio.
 </p>
 </html>"));
 end HalfPeriodRatio;

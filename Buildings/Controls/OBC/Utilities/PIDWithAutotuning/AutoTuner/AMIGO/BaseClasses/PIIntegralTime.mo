@@ -66,28 +66,27 @@ protected
 equation
   connect(add2.y, Ti)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-  connect(gai4.u, L) annotation (Line(points={{-82,-20},{-92,-20},{-92,-60},{-120,
+  connect(gai4.u, L) annotation (Line(points={{-82,-20},{-90,-20},{-90,-60},{-120,
           -60}}, color={0,0,127}));
-  connect(mul3.u1, T) annotation (Line(points={{-62,66},{-90,66},{-90,60},{-120,
+  connect(mul3.u1, T) annotation (Line(points={{-62,66},{-80,66},{-80,60},{-120,
           60}}, color={0,0,127}));
-  connect(mul3.u2, T) annotation (Line(points={{-62,54},{-90,54},{-90,60},{-120,
+  connect(mul3.u2, T) annotation (Line(points={{-62,54},{-80,54},{-80,60},{-120,
           60}}, color={0,0,127}));
   connect(gai1.u, L)
     annotation (Line(points={{-42,-60},{-120,-60}}, color={0,0,127}));
   connect(gai1.y, mul1.u2) annotation (Line(points={{-18,-60},{-12,-60},{-12,14},
           {-48,14},{-48,24},{-42,24}}, color={0,0,127}));
-  connect(mul1.u1, T) annotation (Line(points={{-42,36},{-90,36},{-90,60},{-120,
+  connect(mul1.u1, T) annotation (Line(points={{-42,36},{-80,36},{-80,60},{-120,
           60}}, color={0,0,127}));
-  connect(gai2.u, L) annotation (Line(points={{-82,-80},{-92,-80},{-92,-60},{
-          -120,-60}}, color={0,0,127}));
+  connect(gai2.u, L) annotation (Line(points={{-82,-80},{-90,-80},{-90,-60},{-120,
+          -60}}, color={0,0,127}));
   connect(gai2.y, mul2.u2) annotation (Line(points={{-58,-80},{-6,-80},{-6,-56},
           {-2,-56}}, color={0,0,127}));
-  connect(mul2.u1, L) annotation (Line(points={{-2,-44},{-92,-44},{-92,-60},{-120,
+  connect(mul2.u1, L) annotation (Line(points={{-2,-44},{-90,-44},{-90,-60},{-120,
           -60}}, color={0,0,127}));
-  connect(gai3.u, mul3.y) annotation (Line(points={{-18,80},{-12,80},{-12,60},{
-          -38,60}}, color={0,0,127}));
-  connect(add1.u1, mul3.y) annotation (Line(points={{-2,60},{-38,60}},
-          color={0,0,127}));
+  connect(gai3.u, mul3.y) annotation (Line(points={{-18,80},{-10,80},{-10,60},{-38,
+          60}}, color={0,0,127}));
+  connect(add1.u1, mul3.y) annotation (Line(points={{-2,60},{-38,60}}, color={0,0,127}));
   connect(mul1.y, add1.u2) annotation (Line(points={{-18,30},{-10,30},{-10,48},
           {-2,48}}, color={0,0,127}));
   connect(mul2.y, add3.u2) annotation (Line(points={{22,-50},{58,-50}},
@@ -100,10 +99,10 @@ equation
     annotation (Line(points={{22,6},{58,6}}, color={0,0,127}));
   connect(add2.u2, gai4.y) annotation (Line(points={{58,-6},{48,-6},{48,-20},{
           -58,-20}}, color={0,0,127}));
-  connect(mul4.u2, L) annotation (Line(points={{-82,6},{-92,6},{-92,-60},{-120,
-          -60}}, color={0,0,127}));
-  connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-94,80},{-94,18},
-          {-82,18}}, color={0,0,127}));
+  connect(mul4.u2, L) annotation (Line(points={{-82,6},{-90,6},{-90,-60},{-120,-60}},
+                 color={0,0,127}));
+  connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-90,80},{-90,18},{
+          -82,18}},  color={0,0,127}));
   connect(mul4.y, div.u1) annotation (Line(points={{-58,12},{-2,12}},
                 color={0,0,127}));
   annotation (defaultComponentName = "PIIntTim",
@@ -121,7 +120,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
@@ -138,7 +137,7 @@ and <code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>
-Garpinger, Olof, Tore Hägglund, and Karl Johan Åström (2014) 
+Garpinger, Olof, Tore Hägglund, and Karl Johan Åström (2014)
 \"Performance and robustness trade-offs in PID control.\"
 Journal of Process Control 24.5 (2014): 568-577.
 </p>

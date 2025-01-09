@@ -17,10 +17,10 @@ model PIDIntegralTime "Test model for calculating the integral time for a PID co
     "Time delay of the FOPTD model"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
-  connect(T.y, PIDIntTim.T) annotation (Line(points={{-38,20},{-20,20},{-20,6},{
-          -12,6}}, color={0,0,127}));
-  connect(L.y, PIDIntTim.L) annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},
-          {-12,-6}}, color={0,0,127}));
+  connect(T.y, PIDIntTim.T)
+    annotation (Line(points={{-38,20},{-20,20},{-20,6},{-12,6}}, color={0,0,127}));
+  connect(L.y, PIDIntTim.L)
+    annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},{-12,-6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
@@ -48,7 +48,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

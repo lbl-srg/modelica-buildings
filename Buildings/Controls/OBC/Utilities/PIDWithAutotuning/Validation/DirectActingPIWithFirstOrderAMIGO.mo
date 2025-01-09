@@ -91,12 +91,14 @@ equation
           110,86},{158,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{118,-60},{110,-60},
           {110,-20},{82,-20}}, color={0,0,127}));
-  connect(autTunSig.y, PIWitTun.triTun) annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
+  connect(autTunSig.y, PIWitTun.triTun)
+    annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   connect(k.y, derivative2.k) annotation (Line(points={{82,20},{90,20},{90,-52},
           {118,-52}},color={0,0,127}));
   connect(const.y, sub3.u1) annotation (Line(points={{-18,120},{10,120},{10,72},
           {18,72}},color={0,0,127}));
-  connect(PI.y, sub3.u2) annotation (Line(points={{2,60},{18,60}},               color={0,0,127}));
+  connect(PI.y, sub3.u2)
+    annotation (Line(points={{2,60},{18,60}}, color={0,0,127}));
   connect(sub3.y, uniDel1.u)
     annotation (Line(points={{42,66},{50,66},{50,60},{58,60}},
          color={0,0,127}));
@@ -129,11 +131,11 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.ReverseActingPIWit
 However, direct-acting PI controllers are considered.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 December 1, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>"),

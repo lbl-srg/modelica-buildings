@@ -112,15 +112,16 @@ protected
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if an error occurs during the autotuning process"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Check if the autotuning completes successfully"
-    annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes4(
-    final message="Warning: an autotuning fails, the controller gains are unchanged.")
+    final message="Autotuning failed. The controller gains are unchanged.")
     "Warning message when an autotuning fails"
     annotation (Placement(transformation(extent={{134,50},{154,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Check if an error occurs"
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Check if an error occurs"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
@@ -170,14 +171,14 @@ equation
           18,-26}}, color={0,0,127}));
   connect(div.y, timConDel.rat) annotation (Line(points={{42,-20},{50,-20},{50,14},
           {58,14}}, color={0,0,127}));
-  connect(and2.u1, not1.y) annotation (Line(points={{78,-70},{68,-70},{68,-50},{
-          62,-50}}, color={255,0,255}));
-  connect(and2.y, tunSta) annotation (Line(points={{102,-70},{106,-70},{106,-80},
+  connect(and2.u1, not1.y) annotation (Line(points={{58,-70},{50,-70},{50,-50},{
+          42,-50}}, color={255,0,255}));
+  connect(and2.y, tunSta) annotation (Line(points={{82,-70},{100,-70},{100,-80},
           {180,-80}}, color={255,0,255}));
-  connect(and2.u2, triEnd) annotation (Line(points={{78,-78},{0,-78},{0,-90},{
-          130,-90},{130,-120}}, color={255,0,255}));
+  connect(and2.u2, triEnd) annotation (Line(points={{58,-78},{0,-78},{0,-90},{130,
+          -90},{130,-120}}, color={255,0,255}));
   connect(timConDel.triFai, not1.u) annotation (Line(points={{82,12},{86,12},{86,
-          0},{8,0},{8,-50},{38,-50}},    color={255,0,255}));
+          0},{8,0},{8,-50},{18,-50}}, color={255,0,255}));
   connect(not2.y, assMes4.u)
     annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
   connect(not2.u, timConDel.triFai) annotation (Line(points={{98,60},{96,60},{96,
@@ -222,7 +223,7 @@ Changed deadband to be consistent within the package.
 </li>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>

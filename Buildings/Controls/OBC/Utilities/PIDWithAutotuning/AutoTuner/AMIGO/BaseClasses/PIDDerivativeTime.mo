@@ -72,7 +72,7 @@ equation
 <ul>
 <li>
 June 1, 2022, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
@@ -87,7 +87,7 @@ and <code>L</code> is the time delay of the FOPTD model.
 </p>
 <h4>References</h4>
 <p>
-Åström, Karl Johan and Tore Hägglund  (2004) 
+Åström, Karl Johan and Tore Hägglund  (2004)
 \"Revisiting the Ziegler–Nichols step response method for PID control.\"
 Journal of Process Control 14.6 (2004): 635-650.
 </p>

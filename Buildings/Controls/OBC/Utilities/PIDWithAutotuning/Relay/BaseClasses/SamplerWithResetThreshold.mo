@@ -55,7 +55,8 @@ equation
           10}}, color={0,0,127}));
   connect(yRec.u, swi.y)
     annotation (Line(points={{58,50},{22,50}}, color={0,0,127}));
-  connect(edgRes.u, trigger) annotation (Line(points={{-82,-80},{-120,-80}},  color={255,0,255}));
+  connect(edgRes.u, trigger)
+    annotation (Line(points={{-82,-80},{-120,-80}}, color={255,0,255}));
   connect(edgRes.y, swi.u2) annotation (Line(points={{-58,-80},{-10,-80},{-10,50},
           {-2,50}}, color={255,0,255}));
   connect(swi.u3, u)
@@ -86,13 +87,15 @@ equation
 <ul>
 <li>
 September 20, 2023, by Sen Huang:<br/>
-First implementation<br/>
+First implementation.<br/>
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This block samples the input real signal <code>u</code> when <code>u</code> is larger than a threshold.
-On the other hand, when the input boolean signal <code>trigger</code> becomes true, the output <code>y</code> is reset to a default value.
+This block samples the input real signal <code>u</code> when <code>u</code> is
+larger than a threshold.
+On the other hand, when the input boolean signal <code>trigger</code> becomes true,
+the output <code>y</code> is reset to a default value.
 </p>
 </html>"));
 end SamplerWithResetThreshold;
