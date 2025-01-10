@@ -8,58 +8,63 @@ record Generic "Generic data record for thermal wheels"
   parameter Modelica.Units.SI.MassFlowRate mExh_flow_nominal
     "Nominal exhaust air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa") = 500
+  parameter Modelica.Units.SI.PressureDifference dpSup_nominal(displayUnit="Pa")=500
     "Nominal supply air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa") = dpSup_nominal
+  parameter Modelica.Units.SI.PressureDifference dpExh_nominal(displayUnit="Pa")=dpSup_nominal
     "Nominal exhaust air pressure drop across the heat exchanger"
     annotation (Dialog(group="Nominal condition"));
   parameter Real P_nominal(final unit="W")=100
     "Power consumption at the design condition"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSen_nominal(
-    final max=1) = 0.8
+    final max=1)=0.8
     "Nominal sensible heat exchanger effectiveness"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Efficiency epsSenPL(
-    final max=1) = 0.75
+    final max=1)=0.75
     "Part load (75% of the nominal supply flow rate) sensible heat exchanger effectiveness"
     annotation (Dialog(group="Part load effectiveness"));
   parameter Modelica.Units.SI.Efficiency epsLat_nominal(
-    final max=1) = 0.8
+    final max=1)=0.8
     "Nominal latent heat exchanger effectiveness"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"),
+    enable=haveLatentHeatExchange);
   parameter Modelica.Units.SI.Efficiency epsLatPL(
-    final max=1) = 0.75
+    final max=1)=0.75
     "Part load (75% of the nominal supply mass flow rate) latent heat exchanger effectiveness"
-    annotation (Dialog(group="Part load effectiveness"));
+    annotation (Dialog(group="Part load effectiveness"),
+    enable=haveLatentHeatExchange);
   parameter Characteristics.HeatExchangerEffectiveness senHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
     "Multiplication factor for sensible heat exchange effectiveness due to wheel speed ratio between 0 and 1"
-    annotation (Dialog(group="Heat exchange effectiveness computation", enable=haveVariableSpeed));
+    annotation (Dialog(group="Heat exchange effectiveness computation",
+    enable=haveVariableSpeed));
   parameter Characteristics.HeatExchangerEffectiveness latHeatExchangeEffectiveness(
     uSpe={0},
     epsCor={0.7})
     "Multiplication factor for latent heat exchange effectiveness due to wheel speed ratio between 0 and 1"
-    annotation (Dialog(group="Heat exchange effectiveness computation", enable=haveVariableSpeed));
+    annotation (Dialog(group="Heat exchange effectiveness computation",
+    enable=haveLatentHeatExchange and haveVariableSpeed));
   parameter Characteristics.MotorEfficiency motorEfficiency(
     uSpe={0},
     eta={0.7})
     "Motor efficiency versus wheel speed ratio"
-    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve));
+    annotation (Dialog(group="Power computation",
+    enable=haveVariableSpeed));
   final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_default=Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
       P_nominal=P_nominal,
       eta_max=1)
     "Motor efficiency versus default wheel speed ratio"
-    annotation (Dialog(group="Power computation", enable=useDefaultMotorEfficiencyCurve));
-  parameter Boolean haveLatentHeatExchange = true
+    annotation (Dialog(group="Power computation"));
+  parameter Boolean haveLatentHeatExchange=true
    "Set to true to compute latent heat exchange";
-  parameter Boolean useDefaultMotorEfficiencyCurve = true
+  parameter Boolean useDefaultMotorEfficiencyCurve=true
    "Set to true to use default motor efficiency curve"
     annotation (Dialog(enable=haveVariableSpeed));
-  parameter Boolean haveVariableSpeed = true
+  parameter Boolean haveVariableSpeed=true
    "Set to true for the heat recovery wheel with a variable speed drive";
 
   annotation (
