@@ -2,9 +2,6 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible;
 model SpeedControlled
   "Sensible heat recovery wheel with a variable speed drive"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
-    "Record with performance data"
-    annotation (Placement(transformation(extent={{28,78},{48,98}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
@@ -18,6 +15,13 @@ model SpeedControlled
   Buildings.Controls.OBC.CDL.Reals.Multiply mulEps
     "Calculate the heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+
+initial equation
+  assert(per.haveVariableSpeed,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the variable speed flag must be true",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 
 equation
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
@@ -57,7 +61,7 @@ wheel speed as the input to control the heat recovery.
 <p>
 This model does not require geometric data. The performance is defined by specifying
 the part load (75% of the nominal supply flow rate) and nominal sensible heat
-exchanger effectiveness in both heating and cooling conditions.
+exchanger effectiveness.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.

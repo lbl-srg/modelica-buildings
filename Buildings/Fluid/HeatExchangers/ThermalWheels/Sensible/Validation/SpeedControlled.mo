@@ -5,42 +5,47 @@ model SpeedControlled
   package Medium = Buildings.Media.Air
     "Air";
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE per(
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    motorEfficiency(uSpe={0.1,0.6,0.8,1},
+	eta={0.3,0.8,0.9,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perDefMotCur(
-      haveLatentHeatExchange=true,
-      useDefaultMotorEfficiencyCurve=true)
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    haveLatentHeatExchange=false,
+    useDefaultMotorEfficiencyCurve=true)
     "Performance record for the sensible heat wheel with default motor curve"
     annotation (Placement(transformation(extent={{6,60},{26,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
-    T(displayUnit="degC") = 273.15 + 10,
+    p(displayUnit="Pa")=101325,
+    T(displayUnit="degC")=273.15+10,
     nPorts=2)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 + 500,
-    T(displayUnit="degC") = 293.15,
+    p(displayUnit="Pa")=101325+500,
+    T(displayUnit="degC")=293.15,
     nPorts=2)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
-    offset=273.15 + 30,
+    offset=273.15+30,
     startTime=60)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
-    T=273.15 + 30,
+    T=273.15+30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 101325 - 500,
+    p(displayUnit="Pa")=101325-500,
     nPorts=2)
     "Supply air sink"
     annotation (Placement(transformation(extent={{92,20},{72,40}})));
@@ -49,15 +54,13 @@ model SpeedControlled
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
-    p(displayUnit="Pa") = 101325,
+    p(displayUnit="Pa")=101325,
     nPorts=2)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled
     wheUseDefCur(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
     per=per)
     "Wheel with a user-defined curve"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -81,8 +84,6 @@ model SpeedControlled
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.SpeedControlled
     wheDefCur(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
     per=perDefMotCur)
     "Wheel with a default curve"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
