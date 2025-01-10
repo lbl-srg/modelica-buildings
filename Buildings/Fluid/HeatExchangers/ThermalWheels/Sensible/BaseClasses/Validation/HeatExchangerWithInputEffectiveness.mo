@@ -51,14 +51,15 @@ model HeatExchangerWithInputEffectiveness
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=100,
-    dp2_nominal=100,
-    show_T=true) "Heat exchanger"
+    dp2_nominal=100)
+    "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   Modelica.Blocks.Sources.Ramp eps(
     height=0.1,
     duration=60,
     offset=0.7,
-    startTime=120) "Sensible heat exchanger effectiveness"
+    startTime=120)
+    "Sensible heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTemOut(
     redeclare package Medium = Medium2,

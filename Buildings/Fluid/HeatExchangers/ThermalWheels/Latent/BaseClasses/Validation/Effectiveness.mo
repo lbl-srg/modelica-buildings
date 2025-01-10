@@ -29,8 +29,7 @@ equation
   connect(VSup.y, epsCal.mSup_flow)
     annotation (Line(points={{-59,40},{-28,40},{-28,6},{-14,6}}, color={0,0,127}));
   connect(VExh.y, epsCal.mExh_flow)
-    annotation (Line(points={{-59,-30},{-28,-30},{-28,-6},{-14,-6}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-59,-30},{-28,-30},{-28,-6},{-14,-6}}, color={0,0,127}));
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

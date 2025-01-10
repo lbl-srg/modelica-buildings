@@ -4,9 +4,7 @@ model BypassDampers
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
 
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
-    "Nominal pressure drop of dampers"
-    annotation (Dialog(group="Nominal condition"));
-
+    "Nominal pressure drop of dampers";
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));
@@ -171,12 +169,11 @@ equation
   connect(swiEpsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
           {-10,-3},{8,-3}}, color={0,0,127}));
   connect(swiEpsSen.y, epsSen) annotation (Line(points={{-18,160},{40,160},{40,40},
-          {120,40}},     color={0,0,127}));
+          {120,40}}, color={0,0,127}));
   connect(swiEpsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
           {120,0}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-122,-100},{-168,-100},{-168,
-          0},{-200,0}},
-                     color={255,0,255}));
+          0},{-200,0}}, color={255,0,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

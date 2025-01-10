@@ -92,11 +92,9 @@ equation
     {60,80},{100,80}}, color={0,127,255},
       thickness=0.5));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-29},
-          {-80,-20},{-130,-20},{-130,-6},{-102,-6}},
-                                             color={0,0,127}));
+          {-80,-20},{-130,-20},{-130,-6},{-102,-6}}, color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{40,31},
-          {40,40},{-130,40},{-130,6},{-102,6}},
-                                          color={0,0,127}));
+          {40,40},{-130,40},{-130,6},{-102,6}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

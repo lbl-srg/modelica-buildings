@@ -9,29 +9,29 @@ model HeatExchangerWithInputEffectiveness
 
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
-    p(displayUnit="Pa") = 101325,
-    T=273.15 + 10,
+    p(displayUnit="Pa")=101325,
+    T=273.15+10,
     nPorts=1)
     "Ambient"
     annotation (Placement(transformation(extent={{-82,-90},{-62,-70}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2,
-    p(displayUnit="Pa") = 101325 + 100,
+    p(displayUnit="Pa")=101325+100,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{98,-50},{78,-30}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
-    offset=273.15 + 30,
+    offset=273.15+30,
     startTime=120)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
-    T(displayUnit="K") = 273.15 + 30,
+    T(displayUnit="K")=273.15+30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 1E5 - 110,
+    p(displayUnit="Pa")=1E5-110,
     nPorts=1)
     "Supply air sink"
     annotation (Placement(transformation(extent={{80,50},{60,70}})));
@@ -40,7 +40,7 @@ model HeatExchangerWithInputEffectiveness
     T=273.15 + 50,
     X={0.012,1 - 0.012},
     use_T_in=true,
-    p(displayUnit="Pa") = 100000,
+    p(displayUnit="Pa")=100000,
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -50,8 +50,7 @@ model HeatExchangerWithInputEffectiveness
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=100,
-    dp2_nominal=100,
-    show_T=true)
+    dp2_nominal=100)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{6,-4},{26,16}})));
   Modelica.Blocks.Sources.Ramp epsSen(
@@ -99,7 +98,6 @@ equation
     annotation (Line(points={{-59,20},{-20,20},{-20,9},{4,9}},   color={0,0,127}));
   connect(hex.epsLat, epsLat.y)
     annotation (Line(points={{4,3},{-50,3},{-50,-40},{-59,-40}}, color={0,0,127}));
-
   connect(senExhTemOut.port_b, sin_2.ports[1])
     annotation (Line(points={{-54,-80},{-62,-80}}, color={0,127,255}));
   connect(hex.port_a2, senExhTemIn.port_b)

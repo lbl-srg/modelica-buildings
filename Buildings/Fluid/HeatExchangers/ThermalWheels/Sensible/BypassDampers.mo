@@ -4,8 +4,7 @@ model BypassDampers
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
 
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
-    "Nominal pressure drop of dampers"
-    annotation (Dialog(group="Nominal condition"));
+    "Nominal pressure drop of dampers";
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close damper using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));

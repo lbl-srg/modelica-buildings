@@ -35,21 +35,21 @@ protected
 
 equation
   // Calculate the average volumetric air flow and flow rate ratio.
-  rat = (mSup_flow+mExh_flow)/2/mSup_flow_nominal;
+  rat=(mSup_flow+mExh_flow)/2/mSup_flow_nominal;
   // Check if the air flows are too unbalanced, unless rat < 0.05, in which case
   // the system is likely off or transitioning to on or off.
-  assert(rat < 0.05 or (mSup_flow - 2*mExh_flow <= 1e-5 and mExh_flow - 2*mSup_flow <= 1e-5),
+  assert(rat<0.05 or (mSup_flow-2*mExh_flow<1e-5 and mExh_flow-2*mSup_flow<1e-5),
     "In " + getInstanceName() + ": The ratio of the supply flow rate to the exhaust flow rate should be in the range of [0.5, 2] when flow rates are non-zero.",
     level=AssertionLevel.warning);
   // Calculate effectiveness
-  ratRes = Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
-  epsSen = (epsSenPL + (epsSen_nominal - epsSenPL)*(ratRes - 0.75)/0.25);
-  epsLat = (epsLatPL + (epsLat_nominal - epsLatPL)*(ratRes - 0.75)/0.25);
-  assert(epsSen >= 0 and epsSen < 1,
+  ratRes=Buildings.Utilities.Math.Functions.smoothLimit(x=rat, l=0.5, u=1.3, deltaX=0.01);
+  epsSen=(epsSenPL+(epsSen_nominal-epsSenPL)*(ratRes-0.75)/0.25);
+  epsLat=(epsLatPL+(epsLat_nominal-epsLatPL)*(ratRes-0.75)/0.25);
+  assert(epsSen>=0 and epsSen<1,
     "In " + getInstanceName() + ": The sensible heat exchange effectiveness epsSen = " + String(epsSen) + ". It should be in the range of [0, 1].
     Check if the part load (75% of the nominal supply flow rate) or nominal sensible heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);
-  assert(epsLat >= 0 and epsLat < 1,
+  assert(epsLat>=0 and epsLat<1,
     "In " + getInstanceName() + ": The latent heat exchange effectiveness epsLat = " + String(epsLat) + ". It should be in the range of [0, 1],
     Check if the part load (75% of the nominal supply flow rate) or nominal latent heat exchanger effectiveness is too high or too low.",
     level=AssertionLevel.error);

@@ -81,15 +81,11 @@ equation
     annotation (Line(points={{30,6},{50,6}}, color={0,127,255},
       thickness=0.5));
   connect(senSupMasFlo.port_b, port_b1) annotation (Line(points={{70,6},{80,6},
-          {80,80},{100,80}}, color={0,127,255},
-      thickness=0.5));
+          {80,80},{100,80}}, color={0,127,255}, thickness=0.5));
   connect(senExhMasFlo.port_a, hex.port_b2) annotation (Line(points={{-100,-44},
-          {-30,-44},{-30,-6},{10,-6}},  color={0,127,255},
-      thickness=0.5));
+          {-30,-44},{-30,-6},{10,-6}},  color={0,127,255}, thickness=0.5));
   connect(senExhMasFlo.port_b, port_b2) annotation (Line(points={{-120,-44},{
-          -160,-44},{-160,-80},{-180,-80}},
-                                      color={0,127,255},
-      thickness=0.5));
+          -160,-44},{-160,-80},{-180,-80}}, color={0,127,255}, thickness=0.5));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

@@ -23,7 +23,7 @@ model SpaceCooling "Space cooling system"
     mExh_flow_nominal=mA_flow_nominal,
     dpSup_nominal=200,
     haveVariableSpeed=false)
-    "Performance record for the sensible heat wheel"
+    "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   /////////////////////////////////////////////////////////

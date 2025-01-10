@@ -8,43 +8,43 @@ model BypassDampers
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
     haveVariableSpeed=false)
-    "Performance record for the sensible heat wheel"
+    "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
-    T=273.15 + 10,
+    p(displayUnit="Pa")=101325,
+    T=273.15+10,
     nPorts=1)
     "Exhaust air sink"
     annotation (Placement(transformation(extent={{-78,-50},{-58,-30}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 + 500,
-    T(displayUnit="K") = 293.15,
+    p(displayUnit="Pa")=101325+500,
+    T(displayUnit="K")=293.15,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{90,-50},{70,-30}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
-    offset=273.15 + 30,
+    offset=273.15+30,
     startTime=60)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,24},{-60,44}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
-    T=273.15 + 30,
+    T=273.15+30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 101325 - 500,
+    p(displayUnit="Pa")=101325-500,
     nPorts=1)
     "Supply air sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
-    T=273.15 + 50,
+    T=273.15+50,
     X={0.012,1 - 0.012},
     use_T_in=true,
-    p(displayUnit="Pa") = 101325,
+    p(displayUnit="Pa")=101325,
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
@@ -66,14 +66,14 @@ model BypassDampers
     shift=72) "Operating signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
-      redeclare package Medium =Medium,
-      m_flow_nominal=5)
-      "Temperature of the exhaust air"
+    redeclare package Medium =Medium,
+    m_flow_nominal=5)
+    "Temperature of the exhaust air"
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senSupTem(
-      redeclare package Medium = Medium,
-      m_flow_nominal=5)
-      "Temperature of the supply air"
+    redeclare package Medium = Medium,
+    m_flow_nominal=5)
+    "Temperature of the supply air"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
 equation
