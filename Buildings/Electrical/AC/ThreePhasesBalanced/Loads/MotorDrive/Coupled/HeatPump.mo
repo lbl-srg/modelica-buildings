@@ -109,7 +109,7 @@ model HeatPump "Motor coupled heat pump"
                        group="Controller",
                        enable=have_controller));
 
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=1.5*mecHea.shaft.tau)
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau)
     "Heat pump torque block"
     annotation (Placement(transformation(extent={{-20,12},{-40,32}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.HeatPump mecHea(

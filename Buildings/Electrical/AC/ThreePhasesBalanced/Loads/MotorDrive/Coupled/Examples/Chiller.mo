@@ -3,7 +3,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
   extends Modelica.Icons.Example;
   package MediumW = Buildings.Media.Water "Medium model";
 
-  parameter Modelica.Units.SI.Power P_nominal=10E3
+  parameter Modelica.Units.SI.Power P_nominal=2.5E3
     "Nominal compressor power (at y=1)";
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
@@ -24,19 +24,13 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     T=298.15,
     nPorts=1) "Water source 1"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Ramp TCon_in(
-    height=0,
-    duration=0,
-    offset=273.15 + 10,
-    startTime=0)  "Condenser inlet temperature"
-    annotation (Placement(transformation(extent={{-90,24},{-70,44}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Buildings.Media.Water,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=298.15,
     nPorts=1) "Water source 2"
-    annotation (Placement(transformation(extent={{54,-30},{34,-10}})));
+    annotation (Placement(transformation(extent={{52,-40},{32,-20}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
@@ -75,15 +69,19 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     k=0.001,
     Ti=0.65)
     annotation (Placement(transformation(extent={{-10,-14},{10,6}})));
+  Modelica.Blocks.Sources.Ramp TCon_in(
+    height=10,
+    duration=60,
+    offset=273.15 + 20,
+    startTime=60) "Condenser inlet temperature"
+    annotation (Placement(transformation(extent={{-94,24},{-74,44}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
-    height=0,
-    duration=0,
-    offset=273.15 + 15,
-    startTime=600) "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{94,-26},{74,-6}})));
+    height=10,
+    duration=60,
+    startTime=900,
+    offset=273.15 + 15) "Evaporator inlet temperature"
+    annotation (Placement(transformation(extent={{90,-36},{70,-16}})));
 equation
-  connect(TCon_in.y,sou1. T_in) annotation (Line(points={{-69,34},{-62,34}},
-                              color={0,0,127}, smooth=Smooth.None));
   connect(senTem.T, chi.meaPoi)
     annotation (Line(points={{-30,-19},{-30,-1.77778},{-11,-1.77778}},
                                                         color={0,0,127}));
@@ -94,20 +92,21 @@ equation
           0},{34,0},{34,10},{40,10}},
                            color={0,127,255}));
   connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{10,-11.7778},{
-          10,-12},{20,-12},{20,-20},{34,-20}},
+          10,-10},{26,-10},{26,-30},{32,-30}},
                             color={0,127,255}));
   connect(TSet.y, chi.setPoi)
     annotation (Line(points={{-69,70},{-18,70},{-18,6},{-11,6},{-11,4.88889}},
                                                        color={0,0,127}));
   connect(Sou.terminal, chi.terminal)
     annotation (Line(points={{0,22},{0,6}},               color={0,120,120}));
-  connect(sou2.T_in, TEva_in.y)
-    annotation (Line(points={{56,-16},{73,-16}},
-                                               color={0,0,127}));
   connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-30},{-10,
           -30},{-10,-11.7778}},               color={0,127,255}));
   connect(senTem.port_b, sin2.ports[1])
     annotation (Line(points={{-40,-30},{-60,-30}}, color={0,127,255}));
+  connect(TCon_in.y, sou1.T_in)
+    annotation (Line(points={{-73,34},{-62,34}}, color={0,0,127}));
+  connect(TEva_in.y, sou2.T_in)
+    annotation (Line(points={{69,-26},{54,-26}}, color={0,0,127}));
   annotation (experiment(
       StopTime=900,
       Tolerance=1e-06,

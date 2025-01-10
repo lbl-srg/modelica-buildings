@@ -131,7 +131,7 @@ model Chiller "Motor coupled chiller"
     final Nrpm_nominal=Nrpm_nominal)
     "Chiller model with mechanical interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  final Modelica.Blocks.Sources.RealExpression loaTor(y=1.5*mecChi.shaft.tau)
+  final Modelica.Blocks.Sources.RealExpression loaTor(y=mecChi.shaft.tau)
     "Chiller torque block"
     annotation (Placement(transformation(extent={{-16,10},{-36,30}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
