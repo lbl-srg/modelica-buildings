@@ -171,7 +171,8 @@ model SquirrelCageDrive
     annotation (Placement(transformation(extent={{26,-78},{46,-58}})));
 
 parameter Boolean reverseActing = true
-  "Default: Set to true for reverseActing in heating and set to false in cooling mode";
+  "Default: Set to true for reverseActing in heating and set to false in cooling mode"
+  annotation(Dialog(visible=false));
 equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);

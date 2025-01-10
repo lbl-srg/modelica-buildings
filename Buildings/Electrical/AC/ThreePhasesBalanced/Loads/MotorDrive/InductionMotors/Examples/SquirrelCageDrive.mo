@@ -6,7 +6,7 @@ model SquirrelCageDrive
 
   Sources.Grid                                             sou(f=50, V=400)
     "Voltage source"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{2,40},{22,60}})));
   Modelica.Blocks.Sources.RealExpression mea(y=motDri.speBlo.N)
     "Measured value of control target"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
@@ -41,8 +41,7 @@ else
 end if;
 
   connect(motDri.terminal, sou.terminal)
-    annotation (Line(points={{12,20},{12,30},{10,30},{10,40}},
-                                               color={0,120,120}));
+    annotation (Line(points={{12,20},{12,40}}, color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
     annotation (Line(points={{-39,18},{-3.8,18}}, color={0,0,127}));
   connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-28,-26},{-28,
