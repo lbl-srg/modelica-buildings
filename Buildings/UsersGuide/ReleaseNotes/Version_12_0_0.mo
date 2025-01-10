@@ -60,7 +60,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Updated the EnergyPlus coupling to use
                        EnergyPlus version 24.2.0.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.<br/>
+                       Improved the error reporting if a simulation is run from a working directory that has spaces in its name.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3993\">#3993</a>.
     </td>
     </tr>
 </table>
