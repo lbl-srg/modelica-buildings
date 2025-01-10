@@ -3,12 +3,7 @@ model Empirical "Empirical air filter model"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation (Dialog(group="Nominal"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure drop"
-    annotation (Dialog(group="Nominal"));
+
   parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
@@ -33,24 +28,24 @@ model Empirical "Empirical air filter model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  parameter Integer nConSub = size(per.substanceName,1)
+  parameter Integer nConSub = size(per.namCon,1)
     "Total types of contaminant substances";
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
     res(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal)
+    final m_flow_nominal=per.m_flow_nominal,
+    final dp_nominal=per.dp_nominal)
     "Pressure resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final substanceName=per.substanceName)
+    final m_flow_nominal=per.m_flow_nominal,
+    final namCon=per.namCon)
     "Contaminant removal"
     annotation (Placement(transformation(extent={{36,-10},{56,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
     final mCon_nominal = per.mCon_nominal,
-    final substanceName=per.substanceName,
+    final namCon=per.namCon,
     final filEffPar=per.filEffPar)
     "Filter characterization"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));

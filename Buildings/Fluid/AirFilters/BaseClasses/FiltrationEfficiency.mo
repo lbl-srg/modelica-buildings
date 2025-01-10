@@ -5,7 +5,7 @@ model FiltrationEfficiency
   parameter Real mCon_nominal(
     final unit = "kg")
     "Maximum mass of the contaminant that can be captured by the filter";
-  parameter String substanceName[:] = {"CO2"}
+  parameter String namCon[:] = {"CO2"}
     "Name of trace substance";
   parameter
     Buildings.Fluid.AirFilters.BaseClasses.Characteristics.FiltrationEfficiencyParameters
@@ -28,7 +28,7 @@ model FiltrationEfficiency
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 protected
-  parameter Integer nConSub = size(substanceName,1)
+  parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
 equation
   rat = Buildings.Utilities.Math.Functions.smoothMin(

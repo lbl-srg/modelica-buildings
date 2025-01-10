@@ -2,7 +2,7 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  parameter String substanceName[:] = {"CO2"}
+  parameter String namCon[:] = {"CO2"}
     "Name of trace substance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
     each final unit = "1",
@@ -16,11 +16,11 @@ model MassTransfer
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 
 protected
-  parameter Integer nConSub = size(substanceName,1)
+  parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
   parameter Real s[:,:]= {
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName[j],
+                                            string2=namCon[j],
                                             caseSensitive=false))
     then 1 else 0 for i in 1:nConSub}
     for j in 1:Medium.nC}

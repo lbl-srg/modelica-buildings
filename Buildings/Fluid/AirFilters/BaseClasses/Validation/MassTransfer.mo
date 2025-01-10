@@ -2,6 +2,7 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model MassTransfer
   "Validation model for the MassTransfer model"
   extends Modelica.Icons.Example;
+
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2","VOC"})
     "Air";
   Buildings.Fluid.Sources.Boundary_pT sin(
@@ -11,7 +12,7 @@ model MassTransfer
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    substanceName={"CO2","VOC"})
+    namCon={"CO2","VOC"})
     "Mass transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp eps[2](
