@@ -6,19 +6,21 @@ block ZoneStatus "Block that outputs zone temperature status"
     displayUnit="K",
     final quantity="TemperatureDifference",
     final min=0.5) = 1
-    "Threshold of temperature difference for indicating the end of setback or setup mode";
+    "Threshold of temperature difference for indicating the end of setback or setup mode"
+    annotation (__cdl(ValueInReference=true));
   parameter Boolean have_winSen=false
-    "Check if the zone has window status sensor";
+    "Check if the zone has window status sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Real uLow(
     final unit="K",
     final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real uHigh(
     final unit="K",
     final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -33,7 +35,7 @@ block ZoneStatus "Block that outputs zone temperature status"
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status: true=open, false=close"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -102,42 +104,42 @@ block ZoneStatus "Block that outputs zone temperature status"
         iconTransformation(extent={{100,-150},{140,-110}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Decide if the cool down time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output cool-down time from optimal cool-down block"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     "Decide if the warm-up time of one zone should be ignored: if window is open, 
     then output zero, otherwise, output warm-up time from optimal warm-up block"
     annotation (Placement(transformation(extent={{120,170},{140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Calculate difference between zone temperature and the occupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in warm-up mode"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate difference between zone temperature and the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the system should run in cool-down mode"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub5
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub5
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys5(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the zone temperature is higher than unoccupied cooling setpoint"
@@ -150,18 +152,18 @@ protected
     final k=false) if not have_winSen
     "Constant false"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=0,
     final uHigh=bouLim)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final uLow=0,
     final uHigh=bouLim)
     "Hysteresis that outputs if the zone temperature is lower than its unoccupied cooling setpoint by a given limit"
@@ -184,7 +186,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "When window is open, it should output true"
     annotation (Placement(transformation(extent={{120,-250},{140,-230}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-140,140},{-120,160}})));
 equation
   connect(cooDowTim, pro.u1) annotation (Line(points={{-180,220},{60,220},{60,226},
           {118,226}},     color={0,0,127}));
@@ -198,8 +201,6 @@ equation
     annotation (Line(points={{-18,90},{-2,90}},color={0,0,127}));
   connect(sub1.y, hys1.u)
     annotation (Line(points={{-18,10},{-2,10}}, color={0,0,127}));
-  connect(u1Win, not1.u)
-    annotation (Line(points={{-180,150},{-42,150}}, color={255,0,255}));
   connect(sub2.y, hys2.u)
     annotation (Line(points={{-18,-70},{-2,-70}},  color={0,0,127}));
   connect(sub5.y, hys5.u)
@@ -250,10 +251,6 @@ equation
     annotation (Line(points={{142,-200},{180,-200}}, color={255,0,255}));
   connect(or1.y, yEndSetUp)
     annotation (Line(points={{142,-240},{180,-240}}, color={255,0,255}));
-  connect(u1Win, or2.u2) annotation (Line(points={{-180,150},{-80,150},{-80,-128},
-          {118,-128}}, color={255,0,255}));
-  connect(u1Win, or1.u2) annotation (Line(points={{-180,150},{-80,150},{-80,-248},
-          {118,-248}}, color={255,0,255}));
   connect(con.y, or2.u2) annotation (Line(points={{-118,200},{-80,200},{-80,-128},
           {118,-128}}, color={255,0,255}));
   connect(con.y, or1.u2) annotation (Line(points={{-118,200},{-80,200},{-80,-248},
@@ -280,6 +277,14 @@ equation
           {-120,-196},{-42,-196}}, color={0,0,127}));
   connect(TUnoCooSet, sub4.u1) annotation (Line(points={{-180,-160},{-120,-160},
           {-120,-224},{-42,-224}}, color={0,0,127}));
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-180,150},{-142,150}}, color={255,0,255}));
+  connect(winOpe.y, not1.u)
+    annotation (Line(points={{-118,150},{-42,150}}, color={255,0,255}));
+  connect(winOpe.y, or2.u2) annotation (Line(points={{-118,150},{-80,150},{-80,-128},
+          {118,-128}}, color={255,0,255}));
+  connect(winOpe.y, or1.u2) annotation (Line(points={{-118,150},{-80,150},{-80,-248},
+          {118,-248}}, color={255,0,255}));
 annotation (
   defaultComponentName = "zonSta",
    Icon(coordinateSystem(extent={{-100,-140},{100,140}}),

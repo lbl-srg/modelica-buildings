@@ -1,11 +1,11 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.CHWIsoVal", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="CHWIsoVal");
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaChiIsoVal.uChiWatIsoVal[1]","enaChiIsoVal.uChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaChiIsoVal.chaPro","enaChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaChiIsoVal.uStaPro","enaChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"enaChiIsoVal.nexChaChi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"enaChiIsoVal.yChiWatIsoVal[1]","enaChiIsoVal.yChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"enaChiIsoVal.yEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"disChiIsoVal.uChiWatIsoVal[1]","disChiIsoVal.uChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"disChiIsoVal.chaPro","disChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"disChiIsoVal.uStaPro","disChiIsoVal.uUpsDevSta"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"disChiIsoVal.nexChaChi"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"disChiIsoVal.yChiWatIsoVal[1]","disChiIsoVal.yChiWatIsoVal[2]"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"disChiIsoVal.yEnaChiWatIsoVal"}, range={0.0, 4.0, 0, 0.02}, grid=true, colors={{28,108,200}});

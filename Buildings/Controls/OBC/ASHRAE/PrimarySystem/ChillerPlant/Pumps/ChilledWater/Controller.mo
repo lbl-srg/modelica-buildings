@@ -6,6 +6,8 @@ block Controller
     "Flag of headered chilled water pumps design: true=headered, false=dedicated";
   parameter Boolean have_locSen = false
     "Flag of local DP sensor: true=local DP sensor hardwired to controller";
+  parameter Boolean have_WSE = false
+    "True: the plant has waterside economizer";
   parameter Integer nPum = 2
     "Total number of chilled water pumps";
   parameter Integer nChi = 2
@@ -56,32 +58,36 @@ block Controller
       iconTransformation(extent={{-140,90},{-100,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if not have_heaPum
     "True: plant is enabled"
-    annotation (Placement(transformation(extent={{-320,160},{-280,200}}),
+    annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pumps proven on status"
-    annotation (Placement(transformation(extent={{-320,120},{-280,160}}),
+    annotation (Placement(transformation(extent={{-320,130},{-280,170}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiEna if not have_heaPum
     "Lead chiller enabling status"
-    annotation (Placement(transformation(extent={{-320,90},{-280,130}}),
+    annotation (Placement(transformation(extent={{-320,100},{-280,140}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiSta if not have_heaPum
     "Lead chiller proven on status"
-    annotation (Placement(transformation(extent={{-320,60},{-280,100}}),
+    annotation (Placement(transformation(extent={{-320,70},{-280,110}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq if not have_heaPum
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaChiWatReq
+    if not have_heaPum
     "Status indicating if lead chiller is requesting chilled water"
-    annotation (Placement(transformation(extent={{-320,30},{-280,70}}),
+    annotation (Placement(transformation(extent={{-320,40},{-280,80}}),
       iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaPum
-    "Chilled water isolation valve status"
-    annotation (Placement(transformation(extent={{-320,0},{-280,40}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_heaPum and have_WSE
+    "True: the plant has waterside economizer"
+    annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla if have_heaPum
-    "True: plant is just enabled"
-    annotation(Placement(transformation(extent={{-320,-30},{-280,10}}),
-        iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiWatIsoVal[nChi](
+    final unit=fill("1", nChi),
+    final min=fill(0, nChi),
+    final max=fill(1, nChi)) if have_heaPum
+    "Chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{-320,10},{-280,50}}),
+      iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s") if have_heaPum
     "Chilled water flow"
@@ -103,16 +109,16 @@ block Controller
     final unit=fill("Pa", nSen),
     final quantity=fill("PressureDifference",nSen))
     "Chilled water differential static pressure setpoint"
-    annotation (Placement(transformation(extent={{-320,-260},{-280,-220}}),
+    annotation (Placement(transformation(extent={{-320,-270},{-280,-230}}),
         iconTransformation(extent={{-140,-130},{-100,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLea
     "Lead pump status setpoint"
-    annotation (Placement(transformation(extent={{280,50},{320,90}}),
+    annotation (Placement(transformation(extent={{280,60},{320,100}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nPum]
     if have_heaPum
     "Chilled water pump status setpoint"
-    annotation (Placement(transformation(extent={{280,-20},{320,20}}),
+    annotation (Placement(transformation(extent={{280,20},{320,60}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
     final min=0,
@@ -133,7 +139,8 @@ block Controller
     "Enable lead pump of dedicated pumps"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaHeaLeaPum(final nChi=nChi) if have_heaPum
+    enaHeaLeaPum(final nChi=nChi, final have_WSE=have_WSE)
+                                  if have_heaPum
     "Enable lead pump of headered pumps"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLag_primary_dP
@@ -142,7 +149,7 @@ block Controller
     final nPum_nominal=nPum_nominal,
     final VChiWat_flow_nominal=VChiWat_flow_nominal) if have_heaPum
     "Enable lag pump for primary-only plants using differential pressure pump speed control"
-    annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
+    annotation (Placement(transformation(extent={{-240,-26},{-220,-6}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_localDp
     pumSpeLocDp(
     final nSen=nSen,
@@ -156,7 +163,7 @@ block Controller
     final Ti=Ti,
     final Td=Td) if have_locSen
     "Chilled water pump speed control with local DP sensor"
-    annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
+    annotation (Placement(transformation(extent={{0,-220},{20,-200}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.Speed_primary_remoteDp
     pumSpeRemDp(
     final nSen=nSen,
@@ -190,7 +197,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
@@ -202,7 +209,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep2(
     final nout=nPum) if have_heaPum
     "Replicate integer input"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
     final nout=nPum) if have_heaPum
     "Replicate boolean input"
@@ -238,10 +245,10 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor lasLagPum(
     final nin=nPum) if have_heaPum
     "Last lag pump"
-    annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2 if have_heaPum
     "Convert real input to integer output"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+    annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu3[nPum] if have_heaPum
     "Check next lag pump"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
@@ -252,7 +259,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=nPum) if have_heaPum
     "Sum of integer inputs"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+    annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt if have_heaPum
     "Integer add"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
@@ -262,22 +269,16 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPum] if have_heaPum
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 if have_heaPum
-    "Rising edge"
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[nPum] if have_heaPum
     "Breaks algebraic loops"
     annotation (Placement(transformation(extent={{220,-130},{240,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta[nPum]
- if have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta[nPum] if have_heaPum
     "Lead pump status"
     annotation (Placement(transformation(extent={{120,180},{140,200}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch nexLagPumSta[nPum]
- if have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch nexLagPumSta[nPum] if have_heaPum
     "Next lag pump status"
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch lasLagPumSta[nPum]
- if have_heaPum
+  Buildings.Controls.OBC.CDL.Logical.Switch lasLagPumSta[nPum] if have_heaPum
     "Last lag pump status"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or enaPum[nPum] if have_heaPum
@@ -299,28 +300,49 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch enaNexLag if have_heaPum
     "Hold the enabling signal till the pump is proven on"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_heaPum
-    "Logical not"
-    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch disLasLag if have_heaPum
     "Hold the disabling signal till the pump is proven off"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 if have_heaPum
     "Logical not"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And pumSta1[nPum] if have_heaPum
+    "Chilled water pump status"
+    annotation (Placement(transformation(extent={{240,30},{260,50}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
+    final nin=nPum)
+    "Check if there is any enabled pump"
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if the lead pump is enabled"
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr if have_heaPum
+    "Check if there is any pump running"
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=1)
+    if have_heaPum
+    "Dummy index"
+    annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaPum
+    "Output 1 when there is no pump running, to avoid warning downstream"
+    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt if have_heaPum
+    "Output zero when there is no pump running"
+    annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
+    if have_heaPum
+    "Convert boolean to integer"
+    annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
 
 equation
   connect(enaDedLeaPum.uLeaChiEna, uLeaChiEna)
-    annotation (Line(points={{-202,113},{-240,113},{-240,110},{-300,110}},
+    annotation (Line(points={{-202,113},{-250,113},{-250,120},{-300,120}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiSta, uLeaChiSta)
-    annotation (Line(points={{-202,107},{-240,107},{-240,80},{-300,80}},
+    annotation (Line(points={{-202,107},{-240,107},{-240,90},{-300,90}},
       color={255,0,255}));
   connect(enaDedLeaPum.uLeaChiWatReq, uLeaChiWatReq)
-    annotation (Line(points={{-202,102},{-230,102},{-230,50},{-300,50}},
-      color={255,0,255}));
-  connect(enaHeaLeaPum.uChiIsoVal, uChiIsoVal)
-    annotation (Line(points={{-202,70},{-220,70},{-220,20},{-300,20}},
+    annotation (Line(points={{-202,102},{-230,102},{-230,60},{-300,60}},
       color={255,0,255}));
   connect(uPumLeaLag, intToRea.u)
     annotation (Line(points={{-300,230},{-222,230}}, color={255,127,0}));
@@ -335,15 +357,15 @@ equation
   connect(intRep.y, intEqu1.u1)
     annotation (Line(points={{22,230},{30,230},{30,190},{58,190}}, color={255,127,0}));
   connect(pumIndCon.y, intEqu1.u2)
-    annotation (Line(points={{-198,170},{40,170},{40,182},{58,182}},
+    annotation (Line(points={{-198,170},{50,170},{50,182},{58,182}},
       color={255,127,0}));
   connect(intEqu1.y, leaPumSta.u2)
     annotation (Line(points={{82,190},{118,190}},  color={255,0,255}));
   connect(uChiWatPum, leaPumSta.u3)
-    annotation (Line(points={{-300,140},{100,140},{100,182},{118,182}},
+    annotation (Line(points={{-300,150},{100,150},{100,182},{118,182}},
       color={255,0,255}));
   connect(booRep.y, leaPumSta.u1)
-    annotation (Line(points={{22,110},{90,110},{90,198},{118,198}},
+    annotation (Line(points={{22,100},{90,100},{90,198},{118,198}},
       color={255,0,255}));
   connect(intToRea.y, nexLagPum.u)
     annotation (Line(points={{-198,230},{-160,230},{-160,-50},{-82,-50}},
@@ -353,9 +375,9 @@ equation
   connect(reaToInt1.y, intRep1.u)
     annotation (Line(points={{-18,-50},{-2,-50}}, color={255,127,0}));
   connect(intRep1.y, intEqu2.u2)
-    annotation (Line(points={{22,-50},{30,-50},{30,-38},{58,-38}}, color={255,127,0}));
+    annotation (Line(points={{22,-50},{40,-50},{40,-38},{58,-38}}, color={255,127,0}));
   connect(pumIndCon.y, intEqu2.u1)
-    annotation (Line(points={{-198,170},{40,170},{40,-30},{58,-30}},
+    annotation (Line(points={{-198,170},{50,170},{50,-30},{58,-30}},
       color={255,127,0}));
   connect(intEqu2.y, nexLagPumSta.u2)
     annotation (Line(points={{82,-30},{118,-30}},  color={255,0,255}));
@@ -363,34 +385,32 @@ equation
     annotation (Line(points={{82,30},{110,30},{110,-22},{118,-22}},
       color={255,0,255}));
   connect(uChiWatPum, nexLagPumSta.u3)
-    annotation (Line(points={{-300,140},{100,140},{100,-38},{118,-38}},
+    annotation (Line(points={{-300,150},{100,150},{100,-38},{118,-38}},
       color={255,0,255}));
   connect(lasLagPum.y, reaToInt2.u)
-    annotation (Line(points={{-58,-100},{-42,-100}}, color={0,0,127}));
-  connect(reaToInt2.y, intRep2.u)
-    annotation (Line(points={{-18,-100},{-2,-100}}, color={255,127,0}));
+    annotation (Line(points={{-58,-90},{-52,-90}},   color={0,0,127}));
   connect(intRep2.y, intEqu3.u2)
-    annotation (Line(points={{22,-100},{30,-100},{30,-98},{58,-98}},
+    annotation (Line(points={{42,-90},{46,-90},{46,-98},{58,-98}},
       color={255,127,0}));
   connect(pumIndCon.y, intEqu3.u1)
-    annotation (Line(points={{-198,170},{40,170},{40,-90},{58,-90}},
+    annotation (Line(points={{-198,170},{50,170},{50,-90},{58,-90}},
       color={255,127,0}));
   connect(intEqu3.y, lasLagPumSta.u2)
     annotation (Line(points={{82,-90},{118,-90}},    color={255,0,255}));
   connect(enaLagChiPum.VChiWat_flow, VChiWat_flow)
-    annotation (Line(points={{-242,4},{-250,4},{-250,-50},{-300,-50}},
+    annotation (Line(points={{-242,-12},{-250,-12},{-250,-50},{-300,-50}},
       color={0,0,127}));
   connect(uChiWatPum, enaLagChiPum.uChiWatPum)
-    annotation (Line(points={{-300,140},{-260,140},{-260,-3.8},{-242,-3.8}},
+    annotation (Line(points={{-300,150},{-260,150},{-260,-19.8},{-242,-19.8}},
       color={255,0,255}));
   connect(intToRea.y, lasLagPum.u)
-    annotation (Line(points={{-198,230},{-160,230},{-160,-100},{-82,-100}},
+    annotation (Line(points={{-198,230},{-160,230},{-160,-90},{-82,-90}},
       color={0,0,127}));
   connect(booRep2.y, lasLagPumSta.u1)
     annotation (Line(points={{82,0},{90,0},{90,-82},{118,-82}},
       color={255,0,255}));
   connect(uChiWatPum, lasLagPumSta.u3)
-    annotation (Line(points={{-300,140},{100,140},{100,-98},{118,-98}},
+    annotation (Line(points={{-300,150},{100,150},{100,-98},{118,-98}},
       color={255,0,255}));
   connect(nexLagPumSta.y,enaPum. u2)
     annotation (Line(points={{142,-30},{150,-30},{150,-38},{178,-38}},
@@ -399,26 +419,22 @@ equation
     annotation (Line(points={{142,190},{160,190},{160,-30},{178,-30}},
       color={255,0,255}));
   connect(pumSpeLocDp.dpChiWat_local, dpChiWat_local)
-    annotation (Line(points={{-62,-192},{-240,-192},{-240,-160},{-300,-160}},
+    annotation (Line(points={{-2,-202},{-240,-202},{-240,-160},{-300,-160}},
       color={0,0,127}));
   connect(pumSpeLocDp.dpChiWat_remote, dpChiWat_remote)
-    annotation (Line(points={{-62,-204},{-200,-204},{-200,-200},{-300,-200}},
+    annotation (Line(points={{-2,-214},{-270,-214},{-270,-200},{-300,-200}},
       color={0,0,127}));
   connect(pumSpeLocDp.dpChiWatSet_remote, dpChiWatSet_remote) annotation (Line(
-        points={{-62,-208},{-220,-208},{-220,-240},{-300,-240}}, color={0,0,127}));
-  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat_remote) annotation (Line(points=
-         {{-300,-200},{-200,-200},{-200,-240},{-62,-240}}, color={0,0,127}));
+        points={{-2,-218},{-220,-218},{-220,-250},{-300,-250}},  color={0,0,127}));
+  connect(dpChiWat_remote, pumSpeRemDp.dpChiWat_remote) annotation (Line(points={{-300,
+          -200},{-270,-200},{-270,-240},{-62,-240}},       color={0,0,127}));
   connect(dpChiWatSet_remote, pumSpeRemDp.dpChiWatSet_remote) annotation (Line(
-        points={{-300,-240},{-220,-240},{-220,-248},{-62,-248}}, color={0,0,127}));
+        points={{-300,-250},{-220,-250},{-220,-248},{-62,-248}}, color={0,0,127}));
   connect(enaPum.y, pumSta.u2)
     annotation (Line(points={{202,-30},{210,-30},{210,-50},{150,-50},{150,-98},
       {178,-98}},  color={255,0,255}));
   connect(lasLagPumSta.y, pumSta.u1)
     annotation (Line(points={{142,-90},{178,-90}}, color={255,0,255}));
-  connect(enaDedLeaPum.yLea, booRep.u)
-    annotation (Line(points={{-178,110},{-2,110}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLea, booRep.u)
-    annotation (Line(points={{-178,70},{-90,70},{-90,110},{-2,110}}, color={255,0,255}));
   connect(booRep2.y, remPum.u2)
     annotation (Line(points={{82,0},{90,0},{90,-70},{218,-70}},
       color={255,0,255}));
@@ -431,43 +447,37 @@ equation
     annotation (Line(points={{202,-30},{210,-30},{210,8},{238,8}}, color={255,0,255}));
   connect(booRep1.y, addPum.u2)
     annotation (Line(points={{82,30},{110,30},{110,0},{238,0}},  color={255,0,255}));
-  connect(addPum.y, yChiWatPum)
-    annotation (Line(points={{262,0},{300,0}}, color={255,0,255}));
   connect(remPum.y, addPum.u3)
     annotation (Line(points={{242,-70},{250,-70},{250,-20},{220,-20},{220,-8},
       {238,-8}},  color={255,0,255}));
   connect(uChiWatPum, booToInt.u)
-    annotation (Line(points={{-300,140},{-260,140},{-260,-120},{-242,-120}},
+    annotation (Line(points={{-300,150},{-260,150},{-260,-120},{-242,-120}},
       color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{-218,-120},{-182,-120}}, color={255,127,0}));
+    annotation (Line(points={{-218,-120},{-202,-120}}, color={255,127,0}));
   connect(addInt.y, nexLagPum.index)
     annotation (Line(points={{-118,-70},{-70,-70},{-70,-62}},color={255,127,0}));
   connect(mulSumInt.y, addInt.u2)
-    annotation (Line(points={{-158,-120},{-150,-120},{-150,-76},{-142,-76}},
+    annotation (Line(points={{-178,-120},{-170,-120},{-170,-76},{-142,-76}},
       color={255,127,0}));
   connect(conInt.y, addInt.u1)
     annotation (Line(points={{-198,200},{-150,200},{-150,-64},{-142,-64}},
       color={255,127,0}));
-  connect(mulSumInt.y, lasLagPum.index)
-    annotation (Line(points={{-158,-120},{-70,-120},{-70,-112}}, color={255,127,0}));
   connect(enaDedLeaPum.uPla, uPla)
-    annotation (Line(points={{-202,118},{-240,118},{-240,180},{-300,180}},
+    annotation (Line(points={{-202,118},{-240,118},{-240,190},{-300,190}},
       color={255,0,255}));
-  connect(uChiWatPum, pumSpeLocDp.uChiWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-196},{-62,-196}}, color={255,0,255}));
-  connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,140},
-          {-260,140},{-260,-232},{-62,-232}}, color={255,0,255}));
+  connect(uChiWatPum, pumSpeLocDp.uChiWatPum) annotation (Line(points={{-300,150},
+          {-260,150},{-260,-206},{-2,-206}},  color={255,0,255}));
+  connect(uChiWatPum, pumSpeRemDp.uChiWatPum) annotation (Line(points={{-300,150},
+          {-260,150},{-260,-232},{-62,-232}}, color={255,0,255}));
   connect(pumSpeLocDp.yChiWatPumSpe, yPumSpe)
-    annotation (Line(points={{-38,-200},{300,-200}}, color={0,0,127}));
+    annotation (Line(points={{22,-210},{162,-210},{162,-200},{300,-200}},
+          color={0,0,127}));
   connect(pumSpeRemDp.yChiWatPumSpe, yPumSpe) annotation (Line(points={{-39,-240},
-          {-20,-240},{-20,-200},{300,-200}}, color={0,0,127}));
-  connect(enaDedLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,110},{-90,110},{-90,70},{300,70}}, color={255,0,255}));
-  connect(enaHeaLeaPum.yLea, yLea)
-    annotation (Line(points={{-178,70},{300,70}}, color={255,0,255}));
-  connect(enaLagChiPum.yUp, enaNexLag.u) annotation (Line(points={{-218,4},{-210,
-          4},{-210,30},{-2,30}}, color={255,0,255}));
+          {40,-240},{40,-200},{300,-200}},   color={0,0,127}));
+  connect(enaLagChiPum.yUp, enaNexLag.u) annotation (Line(points={{-218,-12},{-196,
+          -12},{-196,30},{-2,30}},
+                                 color={255,0,255}));
   connect(enaNexLag.y, booRep1.u)
     annotation (Line(points={{22,30},{58,30}}, color={255,0,255}));
   connect(booToInt1.y, intEqu4.u1)
@@ -476,28 +486,62 @@ equation
           {-210,-78},{-202,-78}}, color={255,127,0}));
   connect(intEqu4.y, mulAnd.u) annotation (Line(points={{-178,-70},{-170,-70},{-170,
           -20},{-142,-20}}, color={255,0,255}));
-  connect(enaLagChiPum.yDown, not1.u) annotation (Line(points={{-218,-4},{-210,-4},
-          {-210,0},{-202,0}}, color={255,0,255}));
-  connect(not1.y, disLasLag.u)
-    annotation (Line(points={{-178,0},{-42,0}}, color={255,0,255}));
   connect(disLasLag.y, not2.u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(not2.y, booRep2.u)
     annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
-  connect(mulAnd.y, edg1.u)
-    annotation (Line(points={{-118,-20},{-102,-20}}, color={255,0,255}));
-  connect(edg1.y, enaNexLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
-          24},{-2,24}}, color={255,0,255}));
-  connect(edg1.y, disLasLag.clr) annotation (Line(points={{-78,-20},{-60,-20},{-60,
-          -6},{-42,-6}}, color={255,0,255}));
-  connect(addPum.y, pre1.u) annotation (Line(points={{262,0},{270,0},{270,-100},
-          {210,-100},{210,-120},{218,-120}}, color={255,0,255}));
-  connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{260,
-          -140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
   connect(pumSpeLocDp.dpChiWatPumSet_local, dpChiWatPumSet_local) annotation (
-      Line(points={{-38,-206},{200,-206},{200,-240},{300,-240}}, color={0,0,127}));
-  connect(uEnaPla, enaHeaLeaPum.uEnaPla) annotation (Line(points={{-300,-10},{-270,
-          -10},{-270,64},{-202,64}}, color={255,0,255}));
+      Line(points={{22,-216},{200,-216},{200,-240},{300,-240}},  color={0,0,127}));
+  connect(booRep.y, pumSta1.u1) annotation (Line(points={{22,100},{90,100},{90,40},
+          {238,40}}, color={255,0,255}));
+  connect(addPum.y, pumSta1.u2) annotation (Line(points={{262,0},{268,0},{268,20},
+          {220,20},{220,32},{238,32}}, color={255,0,255}));
+  connect(pumSta1.y, yChiWatPum)
+    annotation (Line(points={{262,40},{300,40}}, color={255,0,255}));
+  connect(pumSta1.y, pre1.u) annotation (Line(points={{262,40},{272,40},{272,-100},
+          {210,-100},{210,-120},{218,-120}}, color={255,0,255}));
+  connect(uChiWatIsoVal, enaHeaLeaPum.uChiWatIsoVal) annotation (Line(points={{-300,30},
+          {-222,30},{-222,70},{-202,70}},     color={0,0,127}));
+  connect(uChiWatPum, mulOr.u) annotation (Line(points={{-300,150},{-140,150},{-140,
+          120},{-102,120}}, color={255,0,255}));
+  connect(mulOr.y, or2.u1) annotation (Line(points={{-78,120},{-70,120},{-70,100},
+          {-62,100}}, color={255,0,255}));
+  connect(enaDedLeaPum.yLea, or2.u2) annotation (Line(points={{-178,110},{-120,110},
+          {-120,92},{-62,92}}, color={255,0,255}));
+  connect(enaHeaLeaPum.yLea, or2.u2) annotation (Line(points={{-178,70},{-120,70},
+          {-120,92},{-62,92}}, color={255,0,255}));
+  connect(or2.y, yLea) annotation (Line(points={{-38,100},{-20,100},{-20,80},{300,
+          80}}, color={255,0,255}));
+  connect(or2.y, booRep.u)
+    annotation (Line(points={{-38,100},{-2,100}}, color={255,0,255}));
+  connect(mulSumInt.y, intGreThr.u) annotation (Line(points={{-178,-120},{-170,-120},
+          {-170,-160},{-162,-160}}, color={255,127,0}));
+  connect(intGreThr.y, intSwi.u2)
+    annotation (Line(points={{-138,-160},{-102,-160}}, color={255,0,255}));
+  connect(intSwi.y, lasLagPum.index) annotation (Line(points={{-78,-160},{-70,-160},
+          {-70,-102}}, color={255,127,0}));
+  connect(mulSumInt.y, intSwi.u1) annotation (Line(points={{-178,-120},{-130,-120},
+          {-130,-152},{-102,-152}}, color={255,127,0}));
+  connect(conInt1.y, intSwi.u3) annotation (Line(points={{-178,-180},{-130,-180},
+          {-130,-168},{-102,-168}}, color={255,127,0}));
+  connect(intGreThr.y, booToInt2.u) annotation (Line(points={{-138,-160},{-120,-160},
+          {-120,-120},{-52,-120}}, color={255,0,255}));
+  connect(booToInt2.y, mulInt.u2) annotation (Line(points={{-28,-120},{-20,-120},
+          {-20,-96},{-12,-96}}, color={255,127,0}));
+  connect(reaToInt2.y, mulInt.u1) annotation (Line(points={{-28,-90},{-20,-90},{
+          -20,-84},{-12,-84}}, color={255,127,0}));
+  connect(mulInt.y, intRep2.u)
+    annotation (Line(points={{12,-90},{18,-90}}, color={255,127,0}));
+  connect(mulAnd.y, disLasLag.clr) annotation (Line(points={{-118,-20},{-100,
+          -20},{-100,-6},{-42,-6}}, color={255,0,255}));
+  connect(mulAnd.y, enaNexLag.clr) annotation (Line(points={{-118,-20},{-100,
+          -20},{-100,24},{-2,24}}, color={255,0,255}));
+  connect(pre1.y, booToInt1.u) annotation (Line(points={{242,-120},{260,-120},{
+          260,-140},{-250,-140},{-250,-70},{-242,-70}}, color={255,0,255}));
+  connect(enaLagChiPum.yDown, disLasLag.u) annotation (Line(points={{-218,-20},{
+          -188,-20},{-188,0},{-42,0}},color={255,0,255}));
+  connect(uWse, enaHeaLeaPum.uWse) annotation (Line(points={{-300,0},{-214,0},{-214,
+          64},{-202,64}}, color={255,0,255}));
 annotation (
   defaultComponentName="chiWatPum",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -537,7 +581,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Disable last lag pump"),
           Rectangle(
-          extent={{-276,-144},{156,-256}},
+          extent={{-276,-146},{156,-258}},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
@@ -573,8 +617,8 @@ annotation (
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Primary chilled water pump control sequence per ASHRAE RP-1711, (Draft on March 23, 2020), 
-section 5.2.6.1 to section 5.2.6.11, except section 3 and 4. It includes:
+Primary chilled water pump control sequence per ASHRAE Guideline36-2021, 
+section 5.20.6.1 to section 5.20.6.11, except section 3 and 4. It includes:
 </p>
 <ul>
 <li>

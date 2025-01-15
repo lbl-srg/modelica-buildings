@@ -1,14 +1,19 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReliefFan "Relief fan with two-position relief damper"
   extends
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefFan,
     final typDamRel=damRel.typ,
     final typFanRel=fanRel.typ,
-    final typFanRet=Buildings.Templates.Components.Types.Fan.None);
+    final typFanRet=Buildings.Templates.Components.Types.Fan.None,
+    final nFanRel=fanRel.nFan,
+    final nFanRet=0);
 
-  Buildings.Templates.Components.Dampers.TwoPosition damRel(
+  Buildings.Templates.Components.Actuators.Damper damRel(
     redeclare final package Medium = MediumAir,
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRel,
     final text_flip=true)
     "Relief damper"
@@ -20,6 +25,8 @@ model ReliefFan "Relief fan with two-position relief damper"
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
     redeclare final package Medium = MediumAir,
     final dat=dat.fanRel,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
     final have_senFlo=false,
     final text_flip=true,
     typSin=Buildings.Templates.Components.Types.FanSingle.Propeller)

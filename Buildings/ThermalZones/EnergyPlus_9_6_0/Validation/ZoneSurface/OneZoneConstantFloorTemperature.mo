@@ -6,7 +6,7 @@ model OneZoneConstantFloorTemperature
     surfaceName="Living:Floor")
     "Floor surface of living room"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TFlo(
+  Controls.OBC.CDL.Reals.Sources.Constant TFlo(
     k(final unit="K",
       displayUnit="degC")=298.15)
     "Floor temperature"

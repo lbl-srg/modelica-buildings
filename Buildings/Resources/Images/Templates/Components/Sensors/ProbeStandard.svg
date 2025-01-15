@@ -23,33 +23,22 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     showgrid="true"
-     inkscape:zoom="0.84700006"
-     inkscape:cx="123.37661"
-     inkscape:cy="409.09088"
+     showgrid="false"
+     inkscape:zoom="0.42350003"
+     inkscape:cx="-381.3459"
+     inkscape:cy="558.44152"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
      inkscape:window-y="-6"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2869">
-    <inkscape:grid
-       type="xygrid"
-       id="grid598" />
-  </sodipodi:namedview>
+     inkscape:current-layer="svg2869" />
   <defs
      id="defs2866" />
-  <rect
-     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
-     id="rect531"
-     width="21.80162"
-     height="120"
-     x="89.640854"
-     y="13.229167" />
   <g
      id="g6338"
      transform="matrix(0.94024487,0,0,0.76155484,-2.2402169,-102.76418)"
-     style="stroke-width:1.18176;stroke-miterlimit:4;stroke-dasharray:none;fill:none">
+     style="stroke-width:1.18176;stroke-miterlimit:4;stroke-dasharray:none">
     <polyline
        points="550.038,319.528 550.038,333.781 "
        id="polyline1024"

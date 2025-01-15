@@ -47,21 +47,23 @@ block HeatExchangerPump
     annotation (Placement(transformation(extent={{160,10},{200,50}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal conWatIso
+    "Condensing water isolation valve position"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub "Temperature difference"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub "Temperature difference"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=1.11,
     final h=0.44)
     "Check if the temperature difference is greater than 2 degF (1.11 degK)"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.56,
     final h=0.45)
     "Check if the temperature difference is greater than 1 degF (0.56 degK)"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch resSpeReq1 "Pump speed reset request"
+  Buildings.Controls.OBC.CDL.Integers.Switch resSpeReq1
+    "Pump speed reset request"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant two(
     final k=2) "Constant two"
@@ -87,13 +89,13 @@ block HeatExchangerPump
     final maxRes=-0.06)
     "Reset pump speed"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Pump Speed"
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul "Pump Speed"
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Waterside economizer commanded on"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 equation
-  connect(booToRea.y, yConWatIsoVal)
+  connect(conWatIso.y, yConWatIsoVal)
     annotation (Line(points={{62,110},{180,110}}, color={0,0,127}));
   connect(TEntWSE, sub.u1) annotation (Line(points={{-180,20},{-150,20},{-150,-4},
           {-142,-4}}, color={0,0,127}));
@@ -121,13 +123,13 @@ equation
           {58,-2}}, color={255,0,255}));
   connect(resSpe.y, mul.u2) annotation (Line(points={{82,-10},{100,-10},{100,24},
           {118,24}},color={0,0,127}));
-  connect(booToRea.y, mul.u1) annotation (Line(points={{62,110},{100,110},{100,36},
-          {118,36}}, color={0,0,127}));
+  connect(conWatIso.y, mul.u1) annotation (Line(points={{62,110},{100,110},{100,
+          36},{118,36}}, color={0,0,127}));
   connect(mul.y, yPumSpe)
     annotation (Line(points={{142,30},{180,30}}, color={0,0,127}));
   connect(uWSE, and1.u1)
     annotation (Line(points={{-180,110},{-102,110}}, color={255,0,255}));
-  connect(and1.y, booToRea.u)
+  connect(and1.y, conWatIso.u)
     annotation (Line(points={{-78,110},{38,110}}, color={255,0,255}));
   connect(and1.y, yPumOn) annotation (Line(points={{-78,110},{20,110},{20,70},{180,
           70}}, color={255,0,255}));
@@ -148,9 +150,9 @@ annotation (defaultComponentName = "wsePum",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
   Documentation(info="<html>
 <p>
-Waterside economizer valves control when the chilled water flow through the economizer
-is controlled by variable speed heat exchanger pump. It is implemented
-according to ASHRAE RP-1711, March 2020, section 5.2.3.7-10. 
+It implements the control of the waterside economizer valves when the chilled water
+flow through the economizer is controlled by variable speed heat exchanger pump.
+It is implemented according to ASHRAE Guideline36-2021, section 5.20.3.7-10. 
 </p>
 <p>
 When economizer is enabled (<code>uWSE=true</code>), start next condenser water
@@ -168,7 +170,7 @@ and economizer heat exchanger entering chilled water temperature.
 <ol>
 <li>
 If the temperature difference exceeeds 2 &deg;F (1.11 &deg;K), send 2 requests
-unit the difference is less than 1.2 &deg;F (0.67 &deg;F).
+until the difference is less than 1.2 &deg;F (0.67 &deg;F).
 </li>
 <li>
 Else if the temperature difference exceeds 1 &deg;F (0.56 &deg;K), send 1 request

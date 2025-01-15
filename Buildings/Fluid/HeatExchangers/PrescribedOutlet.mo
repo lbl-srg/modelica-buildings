@@ -210,7 +210,7 @@ Note that for <code>use_TSet = false</code>, the enthalpy of the leaving fluid
 will not be changed, even if moisture is added. The enthalpy added (or removed)
 by the change in humidity is neglected. To properly account for change in enthalpy
 due to humidification, use instead
-<a href=\"Buildings.Fluid.Humidifiers.SprayAirWasher_X\">
+<a href=\"modelica://Buildings.Fluid.Humidifiers.SprayAirWasher_X\">
 Buildings.Fluid.Humidifiers.SprayAirWasher_X</a>.
 </p>
 <h4>Validation</h4>

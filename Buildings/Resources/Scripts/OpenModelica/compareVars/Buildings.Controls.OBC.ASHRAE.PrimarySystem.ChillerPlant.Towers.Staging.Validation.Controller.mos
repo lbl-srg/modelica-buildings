@@ -4,13 +4,8 @@ compareVars :=
     "towSta.uChiStaSet",
     "towSta.uTowStaCha",
     "towSta.uWse",
-    "towSta.uLeaConWatPum",
     "towSta.uIsoVal[1]",
     "towSta.uIsoVal[2]",
-    "towSta.uIsoVal[3]",
-    "towSta.uIsoVal[4]",
     "towSta.uTowSta[1]",
-    "towSta.uTowSta[2]",
-    "towSta.uTowSta[3]",
-    "towSta.uTowSta[4]"
+    "towSta.uTowSta[2]"
   };

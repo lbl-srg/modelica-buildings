@@ -4,35 +4,49 @@ model FlowControlled_dp
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
-    preSou(dp_start=dp_start, control_dp= not prescribeSystemPressure),
+    preSou(dp_start=dp_start, control_dp=not prescribeSystemPressure),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
-    filter(
+    final _m_flow_nominal=m_flow_nominal,
+    motSpe(
+      Rising=dp_nominal/riseTime,
+      Falling=-dp_nominal/riseTime,
       final y_start=dp_start,
-      u(final unit="Pa"),
-      y(final unit="Pa"),
-      x(each nominal=dp_nominal),
-      u_nominal=dp_nominal),
-    eff(
-      per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
+      u(final unit="Pa", nominal=dp_nominal),
+      y(final unit="Pa", nominal=dp_nominal)),
+    eff(per(
+        final pressure=if per.havePressureCurve then per.pressure else
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
-      r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
+            V_flow={i/(nOri - 1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri - 1)},
+            dp={i/(nOri - 1)*2.0*dp_nominal for i in (nOri - 1):-1:0}),
+        final etaHydMet=if (per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+          or per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+          and not per.havePressureCurve then
+            Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else
+            per.etaHydMet,
+        final etaMotMet=if (per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+          or per.etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+          and (not per.haveWMot_nominal and not per.havePressureCurve) then
+            Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+          else per.etaMotMet), r_N(start=if abs(dp_nominal) > 1E-8 then
+            dp_start/dp_nominal
+          else
+            0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
     min=0,
     displayUnit="Pa") = 0 "Initial value of pressure raise"
-    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Motor speed", enable=use_riseTime));
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=Modelica.Constants.small)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    min=0,
-    displayUnit="Pa") = if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_inputFilter=true,
+    final min=Modelica.Constants.small,
+    displayUnit="Pa") = if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if use_riseTime=true,
         to set default values of constantHead and heads, and
         and for default pressure curve if not specified in record per"
     annotation (Dialog(group="Nominal condition"));
@@ -56,7 +70,7 @@ model FlowControlled_dp
 
   Modelica.Blocks.Interfaces.RealInput dpMea(
     final quantity="PressureDifference",
-    final displayUnit="Pa",
+    displayUnit="Pa",
     final unit="Pa")=gain.u if prescribeSystemPressure
     "Measurement of pressure difference between two points where the set point should be obtained"
     annotation (Placement(transformation(
@@ -65,7 +79,7 @@ model FlowControlled_dp
         origin={-80,120})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa")
- if inputType == Buildings.Fluid.Types.InputType.Continuous
+    if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -89,9 +103,9 @@ equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
-  if use_inputFilter then
-    connect(filter.y, gain.u) annotation (Line(
-      points={{41,70.5},{44,70.5},{44,42}},
+  if use_riseTime then
+    connect(motSpe.y, gain.u) annotation (Line(
+      points={{41,70},{44,70},{44,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -119,17 +133,11 @@ equation
           textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
-  defaultComponentName="fan",
+  defaultComponentName="mov",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
-The input connector provides the difference between
-outlet minus inlet pressure.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+The input connector provides the pressure rise from the inlet to the outlet.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -139,7 +147,7 @@ User's Guide</a>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-If <code>use_inputFilter=true</code>, then the parameter <code>dp_nominal</code> is
+If <code>use_riseTime=true</code>, then the parameter <code>dp_nominal</code> is
 used to normalize the filter. This is used to improve the numerics of the transient response.
 The actual pressure raise of the mover at steady-state is independent
 of the value of <code>dp_nominal</code>. It is recommended to set
@@ -164,6 +172,30 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 26, 2024, by Michael Wetter:<br/>
+Implemented linear dynamics for change in motor speed.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3965\">Buildings, #3965</a> and
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1926\">IBPSA, #1926</a>.
+</li>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Refactored the model with a new declaration for
+<code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
+<li>
+April 27, 2022, by Hongxiang Fu:<br/>
+Replaced <code>not use_powerCharacteristic</code> with the enumerations
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
@@ -238,8 +270,8 @@ The record has been moved to
 <a href=\"modelica://Buildings.Fluid.Movers.Data.SpeedControlled_y\">
 Buildings.Fluid.Movers.Data.SpeedControlled_y</a>
 as it makes sense to use it for the movers
-<a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_Nrpm\">
-Buildings.Fluid.Movers.FlowControlled_Nrpm</a>
+<a href=\"modelica://Buildings.Obsolete.Fluid.Movers.FlowControlled_Nrpm\">
+Buildings.Obsolete.Fluid.Movers.FlowControlled_Nrpm</a>
 and
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_y\">
 Buildings.Fluid.Movers.FlowControlled_y</a>.<br/>

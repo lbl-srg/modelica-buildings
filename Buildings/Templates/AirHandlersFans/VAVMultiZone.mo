@@ -9,23 +9,29 @@ model VAVMultiZone "Multiple-zone VAV"
 */
   extends Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler(
     nZon(final min=2),
-    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat(
-      typCoiHeaPre=coiHeaPre.typ,
-      typCoiCoo=coiCoo.typ,
-      typCoiHeaReh=coiHeaReh.typ,
-      typValCoiHeaPre=coiHeaPre.typVal,
-      typValCoiCoo=coiCoo.typVal,
-      typValCoiHeaReh=coiHeaReh.typVal,
-      typDamOut=secOutRel.typDamOut,
-      typDamOutMin=secOutRel.typDamOutMin,
-      typDamRet=secOutRel.typDamRet,
-      typDamRel=secOutRel.typDamRel,
-      typCtl=ctl.typ,
-      typSecRel=secOutRel.typSecRel,
-      typSecOut=ctl.typSecOut,
-      buiPreCon=ctl.buiPreCon),
+    redeclare final Buildings.Templates.AirHandlersFans.Configuration.VAVMultiZone cfg(
+      final nFanSup=if fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+        fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+        then fanSupBlo.nFan else 0,
+      final nFanRet=secOutRel.nFanRet,
+      final nFanRel=secOutRel.nFanRel,
+      final typCoiHeaPre=coiHeaPre.typ,
+      final typCoiCoo=coiCoo.typ,
+      final typCoiHeaReh=coiHeaReh.typ,
+      final typValCoiHeaPre=coiHeaPre.typVal,
+      final typValCoiCoo=coiCoo.typVal,
+      final typValCoiHeaReh=coiHeaReh.typVal,
+      final typDamOut=secOutRel.typDamOut,
+      final typDamOutMin=secOutRel.typDamOutMin,
+      final typDamRet=secOutRel.typDamRet,
+      final typDamRel=secOutRel.typDamRel,
+      final typSecOut=secOutRel.typSecOut,
+      final typCtl=ctl.typ,
+      final buiPreCon=ctl.buiPreCon,
+      final stdVen=ctl.stdVen),
+    redeclare Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat,
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
-    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
+    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.MixedAirNoRelief,
     final have_souChiWat=coiCoo.have_sou,
     final have_souHeaWat=coiHeaPre.have_sou or coiHeaReh.have_sou,
     final typFanSup=if
@@ -34,6 +40,12 @@ model VAVMultiZone "Multiple-zone VAV"
       then fanSupBlo.typ else Buildings.Templates.Components.Types.Fan.None,
     final typFanRel=secOutRel.typFanRel,
     final typFanRet=secOutRel.typFanRet,
+    final nFanSup=if
+      fanSupDra.typ <> Buildings.Templates.Components.Types.Fan.None then
+      fanSupDra.nFan elseif fanSupBlo.typ <> Buildings.Templates.Components.Types.Fan.None
+      then fanSupBlo.nFan else 0,
+    final nFanRel=secOutRel.nFanRel,
+    final nFanRet=secOutRel.nFanRet,
     final mChiWat_flow_nominal=if coiCoo.have_sou then dat.coiCoo.mWat_flow_nominal else 0,
     final mHeaWat_flow_nominal=(if coiHeaPre.have_sou then dat.coiHeaPre.mWat_flow_nominal else 0) +
       (if coiHeaReh.have_sou then dat.coiHeaReh.mWat_flow_nominal else 0),
@@ -54,30 +66,32 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer secOutRel
-    constrainedby
-    Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-      redeclare final package MediumAir = MediumAir,
-      final typCtlFanRet=ctl.typCtlFanRet,
-      final typCtlEco=ctl.typCtlEco,
-      dat(
-        final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
-        final damOut=dat.damOut,
-        final damOutMin=dat.damOutMin,
-        final damRel=dat.damRel,
-        final damRet=dat.damRet,
-        final fanRel=dat.fanRel,
-        final fanRet=dat.fanRet))
-    "Outdoor/relief/return air section"
-    annotation (
-      Dialog(group="Outdoor/relief/return air section"),
-      Placement(transformation(extent={{-280,-220},{-120,-60}})));
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+    secOutRel(
+    redeclare final package MediumAir = MediumAir,
+    final typCtlFanRet=ctl.typCtlFanRet,
+    final typCtlEco=ctl.typCtlEco,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversalAir,
+    dat(
+      final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
+      final damOut=dat.damOut,
+      final damOutMin=dat.damOutMin,
+      final damRel=dat.damRel,
+      final damRet=dat.damRet,
+      final fanRel=dat.fanRel,
+      final fanRet=dat.fanRet))
+     "Outdoor/relief/return air section"
+     annotation (
+     Dialog(group="Configuration"),
+     Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
     final have_sen=ctl.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Mixed air temperature sensor"
     annotation (Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
@@ -85,6 +99,8 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversalAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
@@ -97,7 +113,7 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
           "Fan array - Variable speed")),
-      Dialog(group="Supply air section",
+      Dialog(group="Configuration",
         enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
@@ -106,7 +122,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final have_sen=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Heating coil leaving air temperature sensor"
     annotation (
       Placement(transformation(extent={{40,-210},{60,-190}})));
@@ -116,7 +133,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final have_sen=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Cooling coil leaving air temperature sensor"
     annotation (
       Placement(transformation(extent={{100,-210},{120,-190}})));
@@ -124,6 +142,8 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversalAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
@@ -136,35 +156,19 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
           "Fan array - Variable speed")),
-    Dialog(group="Supply air section",
+    Dialog(group="Configuration",
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
-
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
-    constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
-      final dat=dat.ctl,
-      final nZon=nZon)
-    "AHU controller"
-    annotation (
-      Dialog(group="Controls"),
-      Placement(transformation(extent={{-220,-10},{-200,10}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirSup(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Supply air temperature sensor"
     annotation (Placement(
         transformation(extent={{210,-210},{230,-190}})));
-
-  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=true)
-    "Duct static pressure sensor"
-    annotation (
-      Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
@@ -194,8 +198,9 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
-      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      secOutRel.have_eco and
       (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
        ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
@@ -206,18 +211,32 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
-      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      secOutRel.have_eco and
       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
     annotation (
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
+  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
+    redeclare final package Medium = MediumAir,
+    final have_sen=true)
+    "Duct static pressure sensor"
+    annotation (
+      Placement(transformation(extent={{250,-230},{270,-210}})));
+
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
+    redeclare final package MediumHeaWat=MediumHeaWat,
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Heating coil in preheat position"
     annotation (
     choices(
@@ -226,35 +245,45 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
-          redeclare final package MediumHeaWat=MediumHeaWat)
-        "Hot water coil"),
+          redeclare final package MediumHeaWat=MediumHeaWat,
+          final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+        "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
+    Dialog(group="Configuration",
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiCoo
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+    redeclare final package MediumChiWat=MediumChiWat,
+    final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Cooling coil"
     annotation (
-    choices(
+      choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
-        redeclare final package MediumChiWat=MediumChiWat)
-        "Chilled water coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
-        "Evaporator coil with variable speed compressor")),
-    Dialog(group="Cooling coil"),
+        redeclare final package MediumChiWat=MediumChiWat,
+        final typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
+        "Chilled water coil with two-way valve")),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaReh,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Heating coil in reheat position"
     annotation (
     choices(
@@ -266,29 +295,64 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
-      enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
+    Dialog(group="Configuration",
+      enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None and
+      ctl.typ<>Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Placement(transformation(extent={{130,-210},{150,-190}})));
   Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3)) if have_souHeaWat
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if have_souHeaWat
     "HHW supply junction"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-260})));
-  Buildings.Fluid.FixedResistances.Junction junHeaWatSup1(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatRet(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3)) if have_souHeaWat
-    "HHW return junction"
-    annotation (Placement(transformation(
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_3=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if have_souHeaWat
+    "HHW return junction" annotation (
+      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-240})));
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
+    constrainedby
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
+      final dat=dat.ctl,
+      final nZon=nZon,
+      final typFanSup=typFanSup,
+      final typFanRel=typFanRel,
+      final typFanRet=typFanRet,
+      final nFanSup=nFanSup,
+      final nFanRel=nFanRel,
+      final nFanRet=nFanRet)
+    "Control selections"
+    annotation (
+      Dialog(group="Controls"),
+      Placement(transformation(extent={{-220,-10},{-200,10}})));
+
 initial equation
   assert(typFanSup<>Buildings.Templates.Components.Types.Fan.None,
     "In "+ getInstanceName() + ": "+
@@ -322,7 +386,7 @@ equation
           75,-268},{60,-268},{60,-280}},
                                       color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
-      points={{0,280},{0,100},{74,100},{74,-190}},
+      points={{0,280},{0,100},{76,100},{76,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TAirMix.port_b, fanSupBlo.port_a)
@@ -383,14 +447,14 @@ equation
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
   connect(port_aHeaWat, junHeaWatSup.port_1)
     annotation (Line(points={{20,-280},{20,-270}}, color={0,127,255}));
-  connect(port_bHeaWat, junHeaWatSup1.port_2)
+  connect(port_bHeaWat, junHeaWatRet.port_2)
     annotation (Line(points={{-20,-280},{-20,-250}}, color={0,127,255}));
   connect(junHeaWatSup.port_3, coiHeaReh.port_aSou) annotation (Line(points={{
           30,-260},{145,-260},{145,-210}}, color={0,127,255}));
-  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{135,
-          -210},{135,-240},{-10,-240}},     color={0,127,255}));
-  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{15,-210},
-          {15,-220},{-20,-220},{-20,-230}},          color={0,127,255}));
+  connect(coiHeaReh.port_bSou, junHeaWatRet.port_3) annotation (Line(points={{135,
+          -210},{135,-240},{-10,-240}}, color={0,127,255}));
+  connect(coiHeaPre.port_bSou, junHeaWatRet.port_1) annotation (Line(points={{15,
+          -210},{15,-220},{-20,-220},{-20,-230}}, color={0,127,255}));
   connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{20,-250},
           {20,-220},{25,-220},{25,-210}},          color={0,127,255}));
   connect(out.ports[3], pAirSup_rel.port_b) annotation (Line(points={{-38.6667,
@@ -401,28 +465,137 @@ equation
   connect(fanSupBlo.port_b, coiHeaPre.port_a)
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
+    __ctrlFlow_template,
     defaultComponentName="VAV",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-200,120},{200,80}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127}),
+        Rectangle(
+          extent={{-200,-80},{200,-120}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127}),
+        Ellipse(
+          extent={{110,-80},{150,-120}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          visible=typFanSup <> Buildings.Templates.Components.Types.Fan.None),
+        Polygon(
+          points={{130,-81},{130,-119},{149,-100},{130,-81}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=typFanSup <> Buildings.Templates.Components.Types.Fan.None),
+        Ellipse(
+          extent={{-20,120},{20,80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
+               or typFanRel <> Buildings.Templates.Components.Types.Fan.None),
+        Polygon(
+          points={{0,119},{0,81},{-19,100},{0,119}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
+               or typFanRel <> Buildings.Templates.Components.Types.Fan.None),
+        Rectangle(
+          extent={{48,-80},{78,-120}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5,
+          visible=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{78,-80},{48,-120}},
+          color={0,0,0},
+          thickness=0.5,
+          visible=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Rectangle(
+          extent={{-78,-80},{-48,-120}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5,
+          visible=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
+               or coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{-48,-80},{-78,-120}},
+          color={0,0,0},
+          thickness=0.5,
+          visible=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
+               or coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{-160,-80},{-180,-120}},
+          color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{-174,-96},{-166,-104}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Line(
+          points={{-160,120},{-180,80}},
+          color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{-174,104},{-166,96}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Rectangle(
+          extent={{-80,20},{80,-20}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127},
+          origin={-130,0},
+          rotation=-90),
+        Line(
+          points={{20,10},{-20,-10}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-130,0},
+          rotation=360),
+        Ellipse(
+          extent={{-134,4},{-126,-4}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Line(
+          points={{50,-200},{50,-120}},
+          color={28,108,200},
+          pattern=LinePattern.Dash,
+          thickness=5,
+          visible=have_souChiWat),
+        Line(
+          points={{-50,-200},{-50,-120}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat),
+        Line(
+          points={{130,-200},{130,-194},{76,-194},{76,-120}},
+          color={28,108,200},
+          thickness=5,
+          visible=have_souChiWat),
+        Line(
+          points={{-130,-200},{-130,-194},{-76,-194},{-76,-120}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat,
+          pattern=LinePattern.Dash)}),
+Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={
-        Line(
-          points={{250,-206},{250,-220},{256,-220}},
-          color={0,0,0},
-          thickness=1),
-        Line(
-          points={{264,-220},{270,-220}},
-          color={0,0,0},
-          thickness=1),
-        Bitmap(extent={{-84,-210},{-76,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
-        Bitmap(extent={{-84,-224},{-76,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
-        Line(
-          points={{-90,-206},{-90,-220},{-84,-220}},
-          color={0,0,0},
-          thickness=1),
-        Line(
-          points={{-70,-206},{-70,-220},{-76,-220}},
-          color={0,0,0},
-          thickness=1),
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
         Line(points={{300,-90},{-120,-90}}, color={0,0,0}),
         Line(points={{300,-210},{-120,-210}}, color={0,0,0}),
@@ -450,7 +623,10 @@ equation
           textColor={0,0,0},
           horizontalAlignment=TextAlignment.Right,
           fontName="sans-serif",
-          textString="REFERENCE OUTSIDE BUILDING")}),
+          textString="REFERENCE OUTSIDE BUILDING"),
+        Polygon(points={{251,-220},{251,-206},{250,-206},{250,-221},{256,-221},{
+              256,-220},{251,-220}}, lineColor={0,0,0}),
+        Rectangle(extent={{264,-220},{270,-221}}, lineColor={0,0,0})}),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>
@@ -458,19 +634,17 @@ This template represents a multiple-zone VAV air handler for
 a single duct system serving <b>at least two</b> terminal units.
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below.
-The user may refer to
-<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
-for further details.
+The possible configuration options are enumerated in the table below.
+The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>Outdoor air section</td>
 <td>
-<b>Single common OA damper with AFMS</b><br/>
-Separate dedicated OA dampers with AFMS<br/>
-Separate dedicated OA dampers with differential pressure sensor
+<b>Single damper for ventilation and economizer, with airflow measurement station</b><br/>
+Separate dampers for ventilation and economizer, with airflow measurement station<br/>
+Separate dampers for ventilation and economizer, with differential pressure sensor
 </td>
 <td></td>
 </tr>
@@ -478,7 +652,6 @@ Separate dedicated OA dampers with differential pressure sensor
 <td>
 <b>Return fan with modulating relief damper</b><br/>
 Modulating relief damper without fan<br/>
-No relief branch<br/>
 Relief fan with two-position relief damper
 </td>
 <td>Nonactuated barometric relief is currently not supported.</td>
@@ -491,37 +664,35 @@ Fan array - Variable speed
 </td>
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
-one another.</td>
+one another.<br/>
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays.
+If a fan array is selected, all of the fans are currently controlled together at
+the same speed, regardless of the number of VFDs.
+</td>
 </tr>
 <tr><td>Heating coil - Preheat position</td>
 <td>
-<b>No coil</b><br/>
+<b>Hot water coil with two-way valve</b><br/>
 Modulating electric heating coil<br/>
-Hot water coil
+No coil
 </td>
-<td>By default a two-way modulating valve is considered for
-a hot water coil.
-Alternative options for the control valve are available.</td>
+<td></td>
 </tr>
 <tr><td>Cooling coil</td>
 <td>
-<b>No coil</b><br/>
-Chilled water coil<br/>
-Evaporator coil with variable speed compressor
+<b>Chilled water coil with two-way valve</b><br/>
+No coil
 </td>
-<td>By default a two-way modulating valve is considered for
-a chilled water coil.
-Alternative options for the control valve are available.</td>
+<td></td>
 </tr>
 <tr><td>Heating coil - Reheat position</td>
 <td>
-<b>No coil</b><br/>
-Modulating electric heating coil<br/>
-Hot water coil
+<b>No coil</b>
 </td>
-<td>By default a two-way modulating valve is considered for
-a hot water coil.
-Alternative options for the control valve are available.</td>
+<td>
+ASHRAE Guideline 36 does not support heating coils in reheat position
+yet.
+</td>
 </tr>
 <tr><td>Supply fan - Draw-through position</td>
 <td>
@@ -531,7 +702,11 @@ No fan
 </td>
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
-one another.</td>
+one another.<br/>
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays.
+If a fan array is selected, all of the fans are currently controlled together at
+the same speed, regardless of the number of VFDs.
+</td>
 </tr>
 <tr><td>Return fan</td>
 <td>
@@ -553,10 +728,11 @@ they are exclusive from one another.</td>
 </tr>
 <tr><td>Controller</td>
 <td>
-<b>Open loop controller</b><br/>
-ASHRAE Guideline 36 controller
+<b>ASHRAE Guideline 36 controller</b>
 </td>
-<td></td>
+<td>
+An open loop controller is also available for validation purposes only.
+</td>
 </tr>
 <tr><td>Exhaust fan</td>
 <td>
@@ -592,12 +768,12 @@ within the current class.
 In this case, an additional variable <code>pBui</code> needs to be
 connected to the control bus to pass in the value of the absolute pressure
 in a representative space of the building.
-This is only for templating purposes, the actual control point remains the
+This is a modeling requirement, the actual control point remains the
 relative building static pressure.
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2021\">
+<li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>
@@ -605,6 +781,11 @@ for HVAC Systems. Atlanta, GA.
 </html>",
         revisions="<html>
 <ul>
+<li>
+September 5, 2023, by Antoine Gautier:<br/>
+Refactored with a record class for configuration parameters.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3500\">#3500</a>.
+</li>
 <li>
 February 11, 2022, by Antoine Gautier:<br/>
 First implementation.

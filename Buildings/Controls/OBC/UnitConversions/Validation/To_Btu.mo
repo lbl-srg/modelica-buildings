@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.UnitConversions.Validation;
 model To_Btu "Validation model for unit conversion from joule to British thermal units"
   extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Difference between the calculated and expected conversion output"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between the calculated and expected conversion output"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -22,19 +22,19 @@ protected
   "Unit converter from joule to British thermal units "
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant value(
     final k=kin)
     "Value to convert"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant value1(
     final k=kin1)
     "Value to convert"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant result(
     final k=kout)
     "Expected converted value"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant result1(
     final k=kout1)
     "Expected converted value"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));

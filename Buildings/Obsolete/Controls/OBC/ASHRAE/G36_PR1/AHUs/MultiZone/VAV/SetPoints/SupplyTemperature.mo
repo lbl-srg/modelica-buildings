@@ -140,17 +140,17 @@ protected
     "Minimum setpoint"
     annotation (Dialog(group="Trim and respond logic"));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin
+  Buildings.Controls.OBC.CDL.Reals.Line lin
     "Supply temperature distributes linearly between minimum and maximum supply 
     air temperature, according to outdoor temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minOutTem(k=TOutMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minOutTem(k=TOutMin)
     "Lower value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxOutTem(k=TOutMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxOutTem(k=TOutMax)
     "Higher value of the outdoor air temperature reset range"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSupTem(k=TSupSetMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSupTem(k=TSupSetMin)
     "Lowest cooling supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -159,17 +159,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it is in Warmup or Setback mode"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemWarUpSetBac(k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supTemWarUpSetBac(k=
         TSupWarUpSetBac)
     "Supply temperature setpoint under warm-up and setback mode"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "If operation mode is setup or cool-down, setpoint shall be 35 degC"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "If operation mode is setup or cool-down, setpoint shall be TSupSetMin"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter TDea(
+  Buildings.Controls.OBC.CDL.Reals.Limiter TDea(
     uMax(
       final unit="K",
       displayUnit="degC") = 297.15,
@@ -178,7 +178,7 @@ protected
       displayUnit="degC") = 294.15)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "Check output regarding supply fan status"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessThreshold intLesThr(t=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.warmUp)

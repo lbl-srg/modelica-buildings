@@ -1,6 +1,6 @@
 within Buildings.ThermalZones.Detailed.Validation.BESTEST.BaseClasses;
 model DaySchedule "Schedule that repeats every day"
-  extends Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable(
+  extends Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable(
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
     final extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
     final offset=fill(0, size(table, 2)-1));

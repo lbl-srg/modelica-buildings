@@ -10,10 +10,10 @@ model ZoneStatus
     final have_winSen=true)
     "Status of zone when there is window operation sensor"
     annotation (Placement(transformation(extent={{80,-20},{100,8}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warUpTim(
     final k=1800) "Warm-up time"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(
     final k=1800) "Cooling down time"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uWinSta(
@@ -22,38 +22,39 @@ model ZoneStatus
     final shift=1800)
     "Window on/off status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={-70,-10})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     final offset=0,
     final height=6.2831852,
     final duration=24*3600) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin2
+  Buildings.Controls.OBC.CDL.Reals.Sin sin2
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter zonTem(
     final p=273.15 + 22.5)
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=12.5) "Gain factor"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetOcc(
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetOcc(
     final k=297.15)
     "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSetUno(
     final k=285.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCooSetUno(
     final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(cooDowTim.y, noWinZonSta.cooDowTim) annotation (Line(points={{-58,100},
           {28,100},{28,85},{78,85}},  color={0,0,127}));
@@ -69,8 +70,6 @@ equation
           32,60},{32,2},{78,2}},        color={0,0,127}));
   connect(zonTem.y, witWinZonSta.TZon) annotation (Line(points={{12,20},{36,20},
           {36,-3.8},{78,-3.8}},  color={0,0,127}));
-  connect(uWinSta.y, witWinZonSta.u1Win) annotation (Line(points={{-58,-10},{40,
-          -10},{40,-1},{78,-1}}, color={255,0,255}));
   connect(sin2.y, gai.u)
     annotation (Line(points={{-48,20},{-42,20}},   color={0,0,127}));
   connect(gai.y, zonTem.u)
@@ -91,6 +90,10 @@ equation
           {52,-80},{52,-14},{78,-14}}, color={0,0,127}));
   connect(TCooSetUno.y,witWinZonSta.TUnoCooSet)  annotation (Line(points={{-38,-100},
           {56,-100},{56,-17},{78,-17}}, color={0,0,127}));
+  connect(uWinSta.y, not2.u)
+    annotation (Line(points={{-58,-10},{-22,-10}}, color={255,0,255}));
+  connect(not2.y, witWinZonSta.u1Win) annotation (Line(points={{2,-10},{40,-10},
+          {40,-1},{78,-1}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ZoneGroups/Validation/ZoneStatus.mos"

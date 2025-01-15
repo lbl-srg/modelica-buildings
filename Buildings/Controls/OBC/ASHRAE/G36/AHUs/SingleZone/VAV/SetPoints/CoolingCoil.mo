@@ -4,18 +4,22 @@ block CoolingCoil "Controller for cooling coil valve"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Cooling coil loop signal"));
   parameter Real kCooCoi(final unit="1/K")=0.1
     "Gain for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Cooling coil loop signal"));
   parameter Real TiCooCoi(final unit="s")=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation(Dialog(group="Cooling coil loop signal",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoi(final unit="s")=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(group="Cooling coil loop signal",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Cooling coil loop signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -42,6 +46,15 @@ block CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conCoi(
+    final controllerType=controllerTypeCooCoi,
+    final k=kCooCoi,
+    final Ti=TiCooCoi,
+    final Td=TdCooCoi,
+    final reverseActing=false)
+    "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
@@ -50,17 +63,9 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
-    final controllerType=controllerTypeCooCoi,
-    final k=kCooCoi,
-    final Ti=TiCooCoi,
-    final Td=TdCooCoi,
-    final reverseActing=false)
-                       "Cooling coil control signal"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Reals.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Conditions for cooling state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -68,25 +73,23 @@ protected
 equation
   connect(const.y, switch.u3) annotation (Line(points={{42,-40},{60,-40},{60,-8},
           {70,-8}}, color={0,0,127}));
-  connect(cooCoiPI.trigger, u1SupFan)
+  connect(conCoi.trigger, u1SupFan)
     annotation (Line(points={{-6,68},{-6,-80},{-120,-80}}, color={255,0,255}));
-  connect(cooCoiPI.u_s, TSupCooSet)
+  connect(conCoi.u_s, TSupCooSet)
     annotation (Line(points={{-12,80},{-120,80}}, color={0,0,127}));
-  connect(cooCoiPI.u_m, TAirSup)
+  connect(conCoi.u_m, TAirSup)
     annotation (Line(points={{0,68},{0,40},{-120,40}}, color={0,0,127}));
   connect(switch.y, yCooCoi)
     annotation (Line(points={{94,0},{120,0}}, color={0,0,127}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}},
-                    color={255,0,255}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(and2.u2, u1SupFan) annotation (Line(points={{-2,-8},{-6,-8},{-6,-80},
           {-120,-80}}, color={255,0,255}));
-  connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}},
-                  color={255,0,255}));
+  connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}}, color={255,0,255}));
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-58,0},{-42,0}},     color={255,127,0}));
   connect(uZonSta, intEqu.u2) annotation (Line(points={{-120,-20},{-50,-20},{
           -50,-8},{-42,-8}},   color={255,127,0}));
-  connect(cooCoiPI.y, switch.u1)
+  connect(conCoi.y, switch.u1)
     annotation (Line(points={{12,80},{60,80},{60,8},{70,8}}, color={0,0,127}));
 annotation (defaultComponentName="cooCoi",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

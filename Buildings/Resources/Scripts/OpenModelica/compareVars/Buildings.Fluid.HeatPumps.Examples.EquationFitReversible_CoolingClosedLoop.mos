@@ -5,6 +5,7 @@ compareVars :=
     "uMod.y",
     "heaPum.sta_a1.T",
     "heaPum.sta_b1.T",
+    "heaPum.TSet",
     "heaPum.COP",
     "heaPum.PLR"
   };

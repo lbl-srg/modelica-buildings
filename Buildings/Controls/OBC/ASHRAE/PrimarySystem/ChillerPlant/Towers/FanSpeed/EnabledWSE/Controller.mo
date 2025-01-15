@@ -42,9 +42,10 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
                        enable=chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               chiWatCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
-                                              "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
+    final unit=fill("W", nChi),
+    final quantity=fill("HeatFlowRate", nChi))
+    "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -109,11 +110,11 @@ protected
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero constant"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0) "Zero constant"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
 equation
@@ -220,10 +221,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> when waterside 
-economizer is enabled. This is implemented 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.2, 
-item 4. It includes two subsequences:
+economizer is enabled. This is implemented according to ASHRAE Guideline36-2021,
+section 5.20.12.2, item c. It includes two subsequences:
 </p>
 <ul>
 <li>

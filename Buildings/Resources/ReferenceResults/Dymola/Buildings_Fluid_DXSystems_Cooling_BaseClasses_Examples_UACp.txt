@@ -1,0 +1,15 @@
+last-generated=2023-05-02
+statistics-initialization=
+{
+  "nonlinear": "1",
+  "numerical Jacobians": "0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 6e+01]
+uacp.UAcp=[2.395015239715576e+00, 2.395015239715576e+00]
+uacp.bypass_nominal=[2.025685757398605e-01, 2.025685757398605e-01]

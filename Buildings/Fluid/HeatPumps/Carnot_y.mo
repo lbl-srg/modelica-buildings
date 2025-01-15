@@ -15,37 +15,46 @@ with temperatures in the same way as the Carnot efficiency changes.
 The input signal <i>y</i> is the control signal for the compressor.
 </p>
 <p>
-The model allows to either specify the Carnot effectivness
-<i>&eta;<sub>Carnot,0</sub></i>, or
-a <i>COP<sub>0</sub></i>
-at the nominal conditions, together with
-the evaporator temperature <i>T<sub>eva,0</sub></i> and
-the condenser temperature <i>T<sub>con,0</sub></i>, in which
-case the model computes the Carnot effectivness as
+Set <code>use_eta_Carnot_nominal=true</code> to specify directly
+the Carnot effectiveness <i>&eta;<sub>Carnot,0</sub></i>,
+in which case the value of the parameter <code>COP_nominal</code>
+will not affect the simulation.
+If <code>use_eta_Carnot_nominal=false</code>, the model will use
+the value of the parameter <code>COP_nominal</code>
+together with the specified nominal temperatures
+to compute the Carnot effectiveness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
-&frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
+&frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub> + T<sub>app,con,0</sub> - (T<sub>eva,0</sub>-T<sub>app,eva,0</sub>))),
 </p>
 <p>
-The heat pump COP is computed as the product
+where
+<i>T<sub>eva,0</sub></i> is the evaporator temperature,
+<i>T<sub>con,0</sub></i> is the condenser temperature,
+<i>T<sub>app,eva,0</sub></i> is the evaporator approach temperature and
+<i>T<sub>app,con,0</sub></i> is the condenser approach temperature.
+</p>
+<p>
+The COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
 where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the heating part load ratio <i>y<sub>PL</sub></i>
-that can be used to take into account a change in <i>COP</i> at part load
-conditions.
+<i>&eta;<sub>PL</sub></i> is the part load efficiency, expressed using
+a polynomial.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...,
 </p>
 <p>
-where the coefficients <i>a<sub>i</sub></i> are declared by the parameter <code>a</code>.
+where <i>y &isin; [0, 1]</i> is
+the part load for heating and the coefficients <i>a<sub>i</sub></i>
+are declared by the parameter <code>a</code>.
 </p>
 <p>
 On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
@@ -85,6 +94,16 @@ For a similar model that can be used as a chiller, see
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Michael Wetter:<br/>
+Changed in base class the parameter binding
+<code>etaCarnot_nominal(unit=\"1\") = COP_nominal/(TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))</code>
+to
+<code>etaCarnot_nominal(unit=\"1\") = 0.3</code> to avoid a circular assignment.<br/>
+Improved documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3226\">Buildings, #3226</a>.
+</li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>
 Removed parameters

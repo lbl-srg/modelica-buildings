@@ -2,15 +2,15 @@ within Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economi
 model Limits_LoopDisable
   "Validation model for the multi zone VAV AHU minimum outdoor air control - damper position limits"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-200,20},{-180,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet1_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet1_flow(
     final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet2_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet2_flow(
     final k=VOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
@@ -31,19 +31,19 @@ model Limits_LoopDisable
     "Freeze protection stage is 2"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut1_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut1_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut2_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut2_flow(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)

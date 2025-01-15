@@ -5,17 +5,20 @@ block OperationMode "Block that outputs the operation mode"
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time") = 10800
-    "Maximum cool-down or warm-up time";
+    "Maximum cool-down or warm-up time"
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
-    "Threshold temperature to activate the freeze protection mode";
+    "Threshold temperature to activate the freeze protection mode"
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOff(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.15
-    "Threshold temperature to end the freeze protection mode";
+    "Threshold temperature to end the freeze protection mode"
+    annotation (__cdl(ValueInReference=true));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "True: zone scheduled to be occupied"
@@ -86,17 +89,16 @@ block OperationMode "Block that outputs the operation mode"
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant occModInd(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant occModInd(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant unoPerInd(final k=0.0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
+  Buildings.Controls.OBC.CDL.Reals.Switch corCooDowTim "Corrected cool down period"
     annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch corWarUpTim "Corrected warm-up period"
+  Buildings.Controls.OBC.CDL.Reals.Switch corWarUpTim "Corrected warm-up period"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final t=4) "Check if the number of cold zones is not less than than 5"
@@ -110,49 +112,49 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "If all zone temperature are lower than unoccupied cooling setpoint by a given limit, then the setup mode should be off"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum cool-down time is more than the allowed cool-down time"
     annotation (Placement(transformation(extent={{-260,240},{-240,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final pre_y_start=true,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis that outputs if the maximum warm-up time is more than allowed warm-up time"
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub5
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub5
     "Calculate differential between time-to-next-occupancy and the cool-down time"
     annotation (Placement(transformation(extent={{-160,240},{-140,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to check if the cooldown mode could be activated"
     annotation (Placement(transformation(extent={{-120,240},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys5(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys5(
     final pre_y_start=false,
     final uHigh=0,
     final uLow=-60)
     "Hysteresis to activate the warm-up model"
     annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub6
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub6
     "Calculate differential between time-to-next-occupancy and the warm-up time"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys9(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if any zone temperature is lower than freeze protection threshold temperature"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys10(
     final pre_y_start=false,
     final uLow=-0.1,
     final uHigh=0.1)
     "Hysteresis that outputs if all zone temperature are higher than threshold temperature of ending freeze protection"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWarCooTime(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxWarCooTime(
     final k=preWarCooTim)
     "Allowed maximum warm-up or cool-down time"
     annotation (Placement(transformation(extent={{-340,190},{-320,210}})));
@@ -208,7 +210,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
     final integerTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
     "Convert Boolean to Integer "
-    annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
+    annotation (Placement(transformation(extent={{160,-370},{180,-350}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea6(
     final realTrue=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
     "Convert Boolean to Real "
@@ -226,7 +228,7 @@ protected
     "Generate alarm message"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-   annotation (Placement(transformation(extent={{80,-370},{100,-350}})));
+   annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Warm-up period"
     annotation (Placement(transformation(extent={{20,170},{40,190}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -235,28 +237,28 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the number of cold zone is more than 5 or all zones are cold"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or9
     "Check if it is in occupied, cooldown, or warm-up mode"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Check if the number of hot zone is more than 5 or all zones are hot"
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or5
+  Buildings.Controls.OBC.CDL.Logical.Or or5
     "Check if it is in Setback, Setback_freezeProtection, or Setup mode"
-    annotation (Placement(transformation(extent={{-20,-350},{0,-330}})));
+    annotation (Placement(transformation(extent={{-20,-330},{0,-310}})));
   Buildings.Controls.OBC.CDL.Logical.Or or6
     "Check if it is in any of the 6 modes except unoccupied mode"
-    annotation (Placement(transformation(extent={{40,-370},{60,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+    annotation (Placement(transformation(extent={{80,-370},{100,-350}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between occupied mode index and unoccupied period index"
     annotation (Placement(transformation(extent={{160,310},{180,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "If the Cool-down, warm-up, or Occupied mode is on, then setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi4
+  Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "If the Cool-down, warm-up, or Occupied mode is on, then freeze protection setback mode should not be activated."
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi5
+  Buildings.Controls.OBC.CDL.Reals.Switch swi5
     "If the Cool-down, warm-up, or Occupied mode is on, then setup mode should not be activated."
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "Logical not"
@@ -274,13 +276,13 @@ protected
     final message="Level 4 alarm: window open during modes other than occupied mode")
     "Generate alarm message when window open during modes other than occupied mode"
     annotation (Placement(transformation(extent={{240,80},{260,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "If occupied mode is on, then cool down mode should not be activated"
     annotation (Placement(transformation(extent={{140,270},{160,290}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod1
     "Convert Real number to Integer number"
     annotation (Placement(transformation(extent={{180,270},{200,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "If occupied mode is on, then warm-up mode should not be activated."
     annotation (Placement(transformation(extent={{140,180},{160,200}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger setBacMod2
@@ -300,18 +302,18 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal allHot
     "Check if all zones are hot zone"
     annotation (Placement(transformation(extent={{-280,-230},{-260,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant actFreProTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant actFreProTem(
     final k=TZonFreProOn)
     "Threshold temperature to activate the freeze protection mode"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant endFreProTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant endFreProTem(
     final k=TZonFreProOff)
     "Threshold temperature to end the freeze protection mode"
     annotation (Placement(transformation(extent={{-280,-150},{-260,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Calculate differential between minimum zone temperature and freeze protection threshold temperature"
     annotation (Placement(transformation(extent={{-220,-100},{-200,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Calculate differential between maximum zone temperature and threshold temperature of ending freeze protection"
     annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
@@ -320,10 +322,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or7
     "Enough hot zone or the high average zone temperature"
     annotation (Placement(transformation(extent={{-160,-200},{-140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
     "Calculate the difference between maximum cool down time and the allowed maximum cool down time"
     annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub4
     "Calculate the differential between maximum warm-up time and the allowed maximum warm-up time"
     annotation (Placement(transformation(extent={{-300,140},{-280,160}})));
   Buildings.Controls.OBC.CDL.Logical.Edge endSetBac
@@ -341,6 +343,12 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Add addInt7
     "Total hot zone and zones with opening window"
     annotation (Placement(transformation(extent={{-330,-230},{-310,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or8
+    "Check if it is in occupied, cooldown, or warm-up mode"
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or10
+    "Check if it is in Setback, Setback_freezeProtection, or Setup mode"
+    annotation (Placement(transformation(extent={{40,-350},{60,-330}})));
 
 equation
   connect(swi.y, occMod.u)
@@ -361,22 +369,13 @@ equation
   connect(unoPerInd.y, swi3.u1)
     annotation (Line(points={{22,350},{50,350},{50,38},{58,38}},
       color={0,0,127}, pattern=LinePattern.Dash));
-  connect(or3.y, swi3.u2)
-    annotation (Line(points={{-118,70},{40,70},{40,30},{58,30}},
-      color={255,0,255}));
   connect(lat1.y, booToRea4.u)
     annotation (Line(points={{-78,-90},{-22,-90}},   color={255,0,255}));
-  connect(or3.y, swi4.u2)
-    annotation (Line(points={{-118,70},{40,70},{40,-90},{58,-90}},
-      color={255,0,255}));
   connect(unoPerInd.y, swi4.u1)
     annotation (Line(points={{22,350},{50,350},{50,-82},{58,-82}},
       color={0,0,127}, pattern=LinePattern.Dash));
   connect(lat2.y, booToRea6.u)
     annotation (Line(points={{-78,-190},{-22,-190}},
-      color={255,0,255}));
-  connect(or3.y, swi5.u2)
-    annotation (Line(points={{-118,70},{40,70},{40,-190},{58,-190}},
       color={255,0,255}));
   connect(unoPerInd.y, swi5.u1)
     annotation (Line(points={{22,350},{50,350},{50,-182},{58,-182}},
@@ -389,24 +388,19 @@ equation
   connect(swi5.y, setUpMod.u)
     annotation (Line(points={{82,-190},{98,-190}},
       color={0,0,127}));
-  connect(or5.y, or6.u1)
-    annotation (Line(points={{2,-340},{20,-340},{20,-360},{38,-360}},
-      color={255,0,255}));
   connect(or6.y, not2.u)
-    annotation (Line(points={{62,-360},{78,-360}},
+    annotation (Line(points={{102,-360},{118,-360}},
       color={255,0,255}));
   connect(not2.y,booToInt3. u)
-    annotation (Line(points={{102,-360},{118,-360}},
+    annotation (Line(points={{142,-360},{158,-360}},
       color={255,0,255}));
   connect(and1.y,booToRea1. u)
     annotation (Line(points={{42,180},{78,180}}, color={255,0,255}));
-  connect(and1.y, or3.u1)
-    annotation (Line(points={{42,180},{68,180},{68,112},{-190,112},{-190,78},
-      {-142,78}}, color={255,0,255}));
+  connect(and1.y,or9. u1)
+    annotation (Line(points={{42,180},{68,180},{68,112},{-190,112},{-190,70},{-142,
+          70}},   color={255,0,255}));
   connect(u1Occ, swi.u2) annotation (Line(points={{-380,370},{-350,370},{-350,320},
           {158,320}}, color={255,0,255}));
-  connect(u1Occ, or3.u3) annotation (Line(points={{-380,370},{-350,370},{-350,62},
-          {-142,62}}, color={255,0,255}));
   connect(hys2.y, corCooDowTim.u2)
     annotation (Line(points={{-238,250},{-222,250}}, color={255,0,255}));
   connect(hys3.y, corWarUpTim.u2)
@@ -460,8 +454,8 @@ equation
           180,-164},{198,-164}}, color={255,127,0}));
   connect(addInt3.y, addInt4.u1) annotation (Line(points={{222,-170},{240,-170},
           {240,-304},{258,-304}}, color={255,127,0}));
-  connect(booToInt3.y, addInt4.u2) annotation (Line(points={{142,-360},{200,
-          -360},{200,-316},{258,-316}}, color={255,127,0}));
+  connect(booToInt3.y, addInt4.u2) annotation (Line(points={{182,-360},{200,-360},
+          {200,-316},{258,-316}},       color={255,127,0}));
   connect(addInt5.y, yOpeMod)
     annotation (Line(points={{342,2},{380,2}}, color={255,127,0}));
   connect(notOcc.y, and3.u2) annotation (Line(points={{122,70},{140,70},{140,82},
@@ -502,8 +496,8 @@ equation
           {230,284},{238,284}}, color={255,127,0}));
   connect(and4.y, booToRea.u)
     annotation (Line(points={{42,270},{78,270}},   color={255,0,255}));
-  connect(and4.y, or3.u2) annotation (Line(points={{42,270},{60,270},{60,120},{
-          -200,120},{-200,70},{-142,70}},color={255,0,255}));
+  connect(and4.y,or9. u2) annotation (Line(points={{42,270},{60,270},{60,120},{-200,
+          120},{-200,62},{-142,62}},     color={255,0,255}));
   connect(hys4.y, and2.u1)
     annotation (Line(points={{-98,250},{-82,250}}, color={255,0,255}));
   connect(u1OccHeaHig, and5.u2) annotation (Line(points={{-380,130},{-90,130},{-90,
@@ -518,14 +512,10 @@ equation
     annotation (Line(points={{-58,250},{-50,250}}, color={255,0,255}));
   connect(edg1.y, truFalHol.u)
     annotation (Line(points={{-26,250},{-22,250}},color={255,0,255}));
-  connect(lat2.y, or5.u1) annotation (Line(points={{-78,-190},{-40,-190},{-40,
-          -332},{-22,-332}}, color={255,0,255}));
-  connect(lat1.y, or5.u2) annotation (Line(points={{-78,-90},{-50,-90},{-50,
-          -340},{-22,-340}}, color={255,0,255}));
-  connect(lat.y, or5.u3) annotation (Line(points={{-78,30},{-60,30},{-60,-348},
-          {-22,-348}}, color={255,0,255}));
-  connect(or3.y, or6.u2) annotation (Line(points={{-118,70},{-70,70},{-70,-368},
-          {38,-368}}, color={255,0,255}));
+  connect(lat2.y, or5.u1) annotation (Line(points={{-78,-190},{-40,-190},{-40,-320},
+          {-22,-320}},       color={255,0,255}));
+  connect(lat1.y, or5.u2) annotation (Line(points={{-78,-90},{-50,-90},{-50,-328},
+          {-22,-328}},       color={255,0,255}));
   connect(allCol.y, or1.u2) annotation (Line(points={{-258,0},{-240,0},{-240,22},
           {-222,22}}, color={255,0,255}));
   connect(allHot.y, or4.u2) annotation (Line(points={{-258,-220},{-240,-220},{
@@ -620,6 +610,24 @@ equation
           {-250,-84},{-222,-84}}, color={0,0,127}));
   connect(TZonMin, sub2.u2) annotation (Line(points={{-380,-120},{-240,-120},{-240,
           -96},{-222,-96}}, color={0,0,127}));
+  connect(u1Occ, or8.u2) annotation (Line(points={{-380,370},{-350,370},{-350,52},
+          {-102,52}}, color={255,0,255}));
+  connect(or8.y, or6.u2) annotation (Line(points={{-78,60},{-70,60},{-70,-368},{
+          78,-368}}, color={255,0,255}));
+  connect(or8.y, swi5.u2) annotation (Line(points={{-78,60},{40,60},{40,-190},{58,
+          -190}}, color={255,0,255}));
+  connect(or8.y, swi4.u2) annotation (Line(points={{-78,60},{40,60},{40,-90},{58,
+          -90}}, color={255,0,255}));
+  connect(or8.y, swi3.u2) annotation (Line(points={{-78,60},{40,60},{40,30},{58,
+          30}}, color={255,0,255}));
+  connect(or9.y, or8.u1) annotation (Line(points={{-118,70},{-110,70},{-110,60},
+          {-102,60}}, color={255,0,255}));
+  connect(or10.y, or6.u1) annotation (Line(points={{62,-340},{70,-340},{70,-360},
+          {78,-360}}, color={255,0,255}));
+  connect(or5.y, or10.u1) annotation (Line(points={{2,-320},{20,-320},{20,-340},
+          {38,-340}}, color={255,0,255}));
+  connect(lat.y, or10.u2) annotation (Line(points={{-78,30},{-60,30},{-60,-348},
+          {38,-348}}, color={255,0,255}));
 annotation (
   defaultComponentName = "opeModSel",
   Diagram(
@@ -899,6 +907,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/S
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constant from <code>0</code> to <code>0.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 June 15, 2020, by Jianjun Hu:<br/>
 Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.

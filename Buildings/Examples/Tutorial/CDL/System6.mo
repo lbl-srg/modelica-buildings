@@ -82,11 +82,11 @@ Buildings.Examples.Tutorial.CDL.Controls.RadiatorSupply</a>.
 <li>
 <p>
 In this new block, we used
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Line\">
-Buildings.Controls.OBC.CDL.Continuous.Line</a> to compute the set point for the supply water temperature
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Line\">
+Buildings.Controls.OBC.CDL.Reals.Line</a> to compute the set point for the supply water temperature
 based on the room air temperature. This set point is then used in a PI controller
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PID\">
-Buildings.Controls.OBC.CDL.Continuous.PID</a> to modulate the mixing valve position
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.PID\">
+Buildings.Controls.OBC.CDL.Reals.PID</a> to modulate the mixing valve position
 in order to track the supply water temperature set point.
 </p>
 </li>

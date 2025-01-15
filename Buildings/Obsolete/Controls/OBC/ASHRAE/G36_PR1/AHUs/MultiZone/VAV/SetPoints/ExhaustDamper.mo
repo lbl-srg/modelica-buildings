@@ -28,34 +28,34 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(delta=300)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(delta=300)
     "Average building static pressure measurement"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conErr(
+  Buildings.Controls.OBC.CDL.Reals.Subtract conErr(
     u1(final unit="Pa", displayUnit="Pa"),
     u2(final unit="Pa", displayUnit="Pa"),
     y(final unit="Pa", displayUnit="Pa")) "Control error"
     annotation (Placement(transformation(extent={{-24,50},{-4,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+  Buildings.Controls.OBC.CDL.Reals.PID conP(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final k=k,
     final r=dpBuiSet)
     "Building static pressure controller"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Check if exhaust damper should be activated"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerDam(
     final k=0)
     "Close damper when disabled"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpBuiSetPoi1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpBuiSetPoi1(
     final k=dpBuiSet)
     "Building pressure setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));

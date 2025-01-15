@@ -8,6 +8,10 @@ model EpsilonNTUZ "Test model for the functions epsilon_ntuZ and ntu_epsilonZ"
   Real ntu[6] "Number of transfer units";
   Real diff[6] "Difference in results";
 
+protected
+  constant Real uniCon(final unit="1/s") = 1
+    "Unit conversion to satisfy unit check";
+
 equation
   for conf in {Integer(f.ParallelFlow),
                Integer(f.CounterFlow),
@@ -15,8 +19,8 @@ equation
                Integer(f.CrossFlowCMinMixedCMaxUnmixed),
                Integer(f.CrossFlowCMinUnmixedCMaxMixed),
                Integer(f.ConstantTemperaturePhaseChange)} loop
-    Z[conf]       = abs(cos(time));
-    epsilon[conf] = 0.01 + 0.98*abs(sin(time)) * 1/(1+Z[conf]);
+    Z[conf]       = abs(cos(uniCon*time));
+    epsilon[conf] = 0.01 + 0.98*abs(sin(uniCon*time)) * 1/(1+Z[conf]);
     ntu[conf]     = ntu_epsilonZ(epsilon[conf], Z[conf], conf);
     eps[conf]     = epsilon_ntuZ(ntu[conf],     Z[conf], conf);
     diff[conf]    = epsilon[conf] - eps[conf];
@@ -32,6 +36,12 @@ Model to test the implementation of the epsilon-NTU functions and their inverse 
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 September 28, 2016, by Massimo Cimmino:<br/>
 Modified the test model for the addition of <code>ConstantTemperaturePhaseChange</code> flow regime.

@@ -16,7 +16,7 @@ equation
 
   annotation (
         defaultComponentName="lesEquThr",
-        obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.LessThreshold instead",
+        obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.LessThreshold instead",
         Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

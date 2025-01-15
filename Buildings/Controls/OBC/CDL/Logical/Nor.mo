@@ -1,19 +1,18 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block Nor
   "Logical 'nor': y = not (u1 or u2)"
-  Interfaces.BooleanInput u1
-    "Connector of first Boolean input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
+    "Input signal for 'nor'"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput u2
-    "Connector of second Boolean input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
+    "Input signal for 'nor'"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Output with false if at least one of the inputs is true"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=not
-       (u1 or u2);
+  y=not (u1 or u2);
   annotation (
     defaultComponentName="nor",
     Icon(

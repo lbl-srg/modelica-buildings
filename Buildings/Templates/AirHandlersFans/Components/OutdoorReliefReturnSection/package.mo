@@ -7,9 +7,9 @@ package OutdoorReliefReturnSection "Models for outdoor/relief/return air section
 
 annotation (Documentation(info="<html>
 <p>
-Components inside that package represent the outdoor/relief/return air section of an 
+Components inside that package represent the outdoor/relief/return air section of an
 air handler.
-They are composed of 
+They are composed of
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.OutdoorSection\">
 Buildings.Templates.AirHandlersFans.Components.OutdoorSection</a>
 and

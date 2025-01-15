@@ -11,5 +11,7 @@ compareVars :=
     "staStaDow1.yChiWatIsoVal[2]",
     "staStaDow1.yChi[1]",
     "staStaDow1.yChi[2]",
-    "demLimRel.y"
+    "demLimRel.y",
+    "staStaDow1.yChiWatMinFloSet",
+    "staStaDow1.VChiWat_flow"
   };

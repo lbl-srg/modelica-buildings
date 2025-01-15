@@ -76,20 +76,20 @@ that can be used as input for evaluating a cubic hermite spline.
 </p>
 <p>
 If <code>ensureMonotonicity=true</code>, then the support points <i>y<sub>i</sub></i>
-need to be monotonically increasing (or increasing), and the computed derivatives
-<i>d<sub>i</sub></i> are such that the cubic hermite is monotonically increasing (or decreasing).
+need to be monotone increasing (or decreasing), and the computed derivatives
+<i>d<sub>i</sub></i> are such that the cubic hermite is monotone increasing (or decreasing).
 The algorithm to ensure monotonicity is based on the method described in Fritsch and Carlson (1980) for
 <i>&rho; = &rho;<sub>2</sub></i>.
 </p>
 <p>
 This function is typically used with
-<a href=\"modelica://Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
-Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
+<a href=\"modelica://Buildings.Utilities.Math.Functions.interpolate\">
+Buildings.Utilities.Math.Functions.interpolate</a>
 which is used to evaluate the cubic spline.
-Because in many applications, the shape of the spline depends on parameters,
-this function has been implemented in such a way that all derivatives can be
-computed at once and then stored for use during the time stepping,
-in which the above function may be called.
+Because in many applications, the shape of the spline depends on parameters
+which will no longer change once the initialisation is complete,
+this function computes and returns the derivatives so that they can be stored by the calling
+model to avoid repetitive computations.
 </p>
 <h4>References</h4>
 <p>

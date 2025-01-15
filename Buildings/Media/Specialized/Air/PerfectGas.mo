@@ -638,7 +638,7 @@ space dimension</i>. CRC Press. 1998.
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1634</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">#1634</a>.
 </li>
 <li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>

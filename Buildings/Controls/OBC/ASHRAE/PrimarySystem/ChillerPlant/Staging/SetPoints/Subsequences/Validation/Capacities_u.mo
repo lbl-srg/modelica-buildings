@@ -23,11 +23,11 @@ model Capacities_u
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desStaCap[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desStaCap[3](
     final k={2e5,1e6,1.5e6}) "Design stage capacities"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minStaCap[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minStaCap[3](
     final k={4e4,2e5,3e5}) "Minimum stage capacities"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
@@ -137,8 +137,8 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.Capacities</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Capacities\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Capacities</a>.
 </p>
 </html>", revisions="<html>
 <ul>

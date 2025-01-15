@@ -2,7 +2,7 @@ compareVars :=
   {
     "enaChiIsoVal.uChiWatIsoVal[1]",
     "enaChiIsoVal.uChiWatIsoVal[2]",
-    "enaChiIsoVal.chaPro",
+    "enaChiIsoVal.uStaPro",
     "enaChiIsoVal.uUpsDevSta",
     "enaChiIsoVal.nexChaChi",
     "enaChiIsoVal.yChiWatIsoVal[1]",
@@ -10,7 +10,7 @@ compareVars :=
     "enaChiIsoVal.yEnaChiWatIsoVal",
     "disChiIsoVal.uChiWatIsoVal[1]",
     "disChiIsoVal.uChiWatIsoVal[2]",
-    "disChiIsoVal.chaPro",
+    "disChiIsoVal.uStaPro",
     "disChiIsoVal.uUpsDevSta",
     "disChiIsoVal.nexChaChi",
     "disChiIsoVal.yChiWatIsoVal[1]",

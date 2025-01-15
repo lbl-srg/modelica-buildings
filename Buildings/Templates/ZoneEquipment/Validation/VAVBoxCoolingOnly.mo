@@ -5,28 +5,19 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium";
-
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  parameter UserProject.Data.AllSystems dat(VAVBox_1(
-    final typ=VAVBox_1.typ,
-    final have_souChiWat=VAVBox_1.have_souChiWat,
-    final have_souHeaWat=VAVBox_1.have_souHeaWat,
-    final typCtl=VAVBox_1.ctl.typ,
-    final typDamVAV=VAVBox_1.damVAV.typ,
-    final typCoiHea=VAVBox_1.coiHea.typ,
-    final typValCoiHea=VAVBox_1.coiHea.typVal,
-    final have_CO2Sen=VAVBox_1.ctl.have_CO2Sen,
-    ctl(
-      final stdVen=VAVBox_1.ctl.stdVen)))
+  inner parameter UserProject.Data.AllSystems datAll(
+    final VAVBox_1(cfg=VAVBox_1.cfg))
     "System parameters"
-    annotation (Placement(transformation(extent={{0,52},{20,72}})));
+    annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
-  Fluid.Sources.Boundary_pT bouPri(redeclare final package Medium = MediumAir,
+  Fluid.Sources.Boundary_pT bouPri(
+    redeclare final package Medium = MediumAir,
     p=MediumAir.p_default + 200,
-      nPorts=1) "Boundary conditions for primary air distribution system"
+    nPorts=1) "Boundary conditions for primary air distribution system"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
@@ -38,11 +29,13 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     m_flow_nominal=1,
     dp_nominal=100)
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Fluid.Sources.Boundary_pT bouBui(redeclare final package Medium = MediumAir,
-      nPorts=1) "Boundary conditions for indoor environment"
+  Fluid.Sources.Boundary_pT bouBui(
+    redeclare final package Medium = MediumAir,
+    nPorts=1) "Boundary conditions for indoor environment"
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
-  replaceable UserProject.ZoneEquipment.VAVBoxCoolingOnly VAVBox_1(
-    final dat=dat.VAVBox_1,
+
+  replaceable Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly VAVBox_1(
+    final dat=datAll.VAVBox_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumHeaWat = MediumHeaWat)
     "Terminal unit"
@@ -53,14 +46,13 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     nPorts=2) if VAVBox_1.have_souHeaWat
     "Boundary conditions for HHW distribution system"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  UserProject.AirHandlersFans.VAVMZControlPoints sigAirHan if VAVBox_1.ctl.typ ==
-    Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
-    VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+  UserProject.VAVMZControlPoints sigAirHan if VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+     or VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   UserProject.ZoneControlPoints sigZon
- if VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
-     or VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
+    if VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly
+    or VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from zone-level equipment"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   UserProject.PlantControlPoints sigPla if VAVBox_1.ctl.typ ==
@@ -68,8 +60,8 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     VAVBox_1.ctl.typ == Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat
     "Control signals from AHU"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-
   UserProject.BASControlPoints sigBAS
+    "BAS control points"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
   connect(bouPri.ports[1], res.port_a)
@@ -103,13 +95,19 @@ equation
       color={255,204,51},
       thickness=0.5));
     annotation (
-  experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
+  __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxCoolingOnly.mos"
+  "Simulate and plot"),
+  experiment(Tolerance=1e-6, StopTime=3600), Documentation(info="<html>
 <p>
-This is a validation model for the configuration represented by
-<a href=\"modelica://Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly\">
-Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>
+This is a validation model for the template
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
+Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>.
+</p>
+<p>
+All supported system configurations can be generated by the Python script
+<code>Buildings/Resources/Scripts/travis/templates/VAVBox.py</code>.
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end VAVBoxCoolingOnly;

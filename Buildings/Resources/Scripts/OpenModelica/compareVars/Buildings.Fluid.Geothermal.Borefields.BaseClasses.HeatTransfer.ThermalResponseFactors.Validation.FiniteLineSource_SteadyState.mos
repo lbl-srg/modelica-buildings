@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "hRea",
+    "hMir",
+    "h"
+  };

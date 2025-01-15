@@ -32,7 +32,7 @@ Simple test case for one building in which only an EnergyPlus output variable is
 In this model, the site drybulb temperature is obtained from EnergyPlus.
 Note that this variable could be read directly from the Modelica weather data bus,
 which can be accessed from
-<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Building\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Building\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Building</a>.
 </p>
 </html>", revisions="<html>

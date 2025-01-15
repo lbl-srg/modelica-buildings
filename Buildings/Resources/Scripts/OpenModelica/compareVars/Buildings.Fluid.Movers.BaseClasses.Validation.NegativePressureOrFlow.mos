@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "eff.PEle",
+    "eff.dp_in",
+    "eff.V_flow"
+  };

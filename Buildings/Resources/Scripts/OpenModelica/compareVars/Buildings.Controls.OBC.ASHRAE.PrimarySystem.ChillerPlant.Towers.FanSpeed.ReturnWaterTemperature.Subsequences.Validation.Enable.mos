@@ -2,6 +2,7 @@ compareVars :=
   {
     "enaTow.uMaxTowSpeSet[1]",
     "enaTow.uMaxTowSpeSet[2]",
+    "enaTow.fanSpeMin",
     "enaTow.TTowSet",
     "enaTow.TTow",
     "enaTow.uTow[1]",
@@ -9,6 +10,8 @@ compareVars :=
     "disTow.uMaxTowSpeSet[1]",
     "disTow.uMaxTowSpeSet[2]",
     "disTow.fanSpeMin",
+    "disTow.uTow[1]",
+    "disTow.uTow[4]",
     "disTow.yTow",
     "disTow1.uFanSpe",
     "disTow1.fanSpeMin",

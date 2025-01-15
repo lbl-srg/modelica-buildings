@@ -23,7 +23,9 @@ partial model PartialSource
     each m_flow(max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
                     then 0 else +Modelica.Constants.inf,
                 min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
-                    then 0 else -Modelica.Constants.inf))
+                    then 0 else -Modelica.Constants.inf),
+    each h_outflow(nominal=Medium.h_default),
+    each Xi_outflow(each nominal=0.01))
     "Fluid ports"
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
 
@@ -77,8 +79,21 @@ medium temperature is within the bounds <code>T_min</code> and <code>T_max</code
 where <code>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
 If the temperature is outside these bounds, the simulation will stop with an error.
 </p>
+<h4>Usage</h4>
+<p>
+This partial model provides medium selection for water, moist air and glycol.
+For a model that only provides moist air as a selection, use
+<a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialAirSource\">
+Buildings.Fluid.Sources.BaseClasses.PartialAirSource</a>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
 <li>
 April 1, 2021, by Michael Wetter:<br/>
 Corrected misplaced <code>each</code> and added missing instance comment.<br/>

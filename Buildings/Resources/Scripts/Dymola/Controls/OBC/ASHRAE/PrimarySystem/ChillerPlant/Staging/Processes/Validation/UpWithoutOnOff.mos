@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Validation.UpWithoutOnOff", method="Cvode", stopTime=1500, tolerance=1e-06, resultFile="upProWoOnOff");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Validation.UpWithoutOnOff", method="Cvode", stopTime=2000, tolerance=1e-06, resultFile="upProWoOnOff");
 
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"upProCon.uStaSet","upProCon.uChi[1]","upProCon.uChi[2]","upProCon.yStaPro"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200},{28,108,200}});
 createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"upProCon.uChiLoa[1]","upProCon.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});

@@ -20,9 +20,11 @@ import shutil
 ###########################################################################
 # List of all spawn versions and commits that are supported
 # by the Buildings library
+# build_type is either custom or builds
 spawn_dists = [
-    {"version": "0.3.0",
-     "commit": "0fa49be49715a5acc87f078ba583e369d435cdf9"}
+    {"version": "0.5.0",
+     "commit": "ab07bde9bb",
+     "build_type": "custom"}
 ]
 ###########################################################################
 
@@ -95,7 +97,7 @@ def delete_installers(dis):
     tar_fil = os.path.basename(dis["src"])
     os.remove(tar_fil)
 
-def get_vars_as_json(spawnFlag, spawn_dir, spawn_exe):
+def get_vars_as_json(spawnFlags, spawn_dir, spawn_exe):
     """Return a json structure that contains the output variables supported by spawn"""
     import os
     import subprocess
@@ -104,9 +106,9 @@ def get_vars_as_json(spawnFlag, spawn_dir, spawn_exe):
     bin_dir = get_bin_directory()
     spawn = os.path.join(bin_dir, spawn_dir, "linux64", "bin", spawn_exe)
 
-    ret = subprocess.run([spawn, spawnFlag], stdout=subprocess.PIPE, check=True)
+    ret = subprocess.run([spawn] + spawnFlags.split(' '), stdout=subprocess.PIPE, check=True)
     vars = json.loads(ret.stdout)
-    if spawnFlag == "--output-vars":
+    if spawnFlags == "energyplus list-output-variables":
         vars = sorted(vars, key = lambda i: i['name'])
     else:
         vars = sorted(vars, key = lambda i: (i['componentType'], i['controlType']))
@@ -187,7 +189,7 @@ def _getEnergyPlusVersion(spawn_dir):
 
     raise ValueError("Failed to find EnergyPlus version.")
 
-def update_version_in_modelica_files(spawn_dir, spawn_exe):
+def update_version_in_modelica_files(spawn_dir, spawn_exe, build_type):
     import os
     import re
 
@@ -206,12 +208,15 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe):
                 os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, os.pardir, \
                 rel_file))
 
-        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
         with open (abs_file, 'r' ) as f:
             content = f.read()
-        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", "{}".format(spawn_exe), content)
-        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", "{}".format(spawn_dir), content)
-        content = re.sub(r"EnergyPlus \d+.\d+.\d+", "EnergyPlus {}".format(energyPlus_version), content)
+
+        # Replace spawn.s3.amazonaws.com/builds/ or spawn.s3.amazonaws.com/custom/
+        content = re.sub(r"spawn\.s3\.amazonaws\.com/[a-zA-Z]+/", f"spawn.s3.amazonaws.com/{build_type}/", content)
+        # Replace the string "spawn-0.2.0-d7f1e095f3" with the current version
+        content = re.sub(r"spawn-\d+.\d+.\d+-.{10}", spawn_exe, content)
+        content = re.sub(r"Spawn-light-\d+.\d+.\d+-.{10}", spawn_dir, content)
+        content = re.sub(r"EnergyPlus \d+.\d+.\d+", f"EnergyPlus {energyPlus_version}", content)
 
         with open(abs_file, 'w' ) as f:
             f.write(content)
@@ -220,20 +225,20 @@ def update_version_in_modelica_files(spawn_dir, spawn_exe):
 def update_actuator_output_tables(spawn_dir, spawn_exe):
     vars = [
         {
-            "spawnFlag": "--output-vars",
+            "spawnFlags": "energyplus list-output-variables",
             "htmlTemplate": "output_vars_template.html",
             "varType": "output variables",
             "moFile": "OutputVariable.mo"
         },
         {
-            "spawnFlag": "--actuators",
+            "spawnFlags": "energyplus list-actuators",
             "htmlTemplate": "actuators_template.html",
             "varType": "actuators",
             "moFile": "Actuator.mo"
         },
     ]
     for v in vars:
-        js = get_vars_as_json(v["spawnFlag"], spawn_dir, spawn_exe)
+        js = get_vars_as_json(v["spawnFlags"], spawn_dir, spawn_exe)
         html = get_html_table(js, v["htmlTemplate"])
         replace_table_in_mo(html, v["varType"], v["moFile"], spawn_dir)
 
@@ -288,17 +293,18 @@ if __name__ == "__main__":
     on_windows = "Windows" in platform.system()
     install_linux = on_linux     or not args.binaries_for_os_only
     install_windows = on_windows or not args.binaries_for_os_only
-    update_mo_files = on_linux and not args.binaries_for_os_only
+    update_mo_files = on_linux
 
     # Build list of distributions
     dists = list()
     for spawn_dist in spawn_dists:
         version = spawn_dist['version']
         commit = spawn_dist['commit']
+        build_type = spawn_dist['build_type']
         if install_linux:
             dists.append(
                {
-                    "src": "https://spawn.s3.amazonaws.com/builds/Spawn-light-{}-{}-Linux.tar.gz".format(version, commit[0:10]),
+                    "src": "https://spawn.s3.amazonaws.com/{}/Spawn-light-{}-{}-Linux.tar.gz".format(build_type, version, commit[0:10]),
                     "des": "Spawn-light-{}-{}/linux64".format(version, commit[0:10]),
                     "spawn_dir": "Spawn-light-{}-{}".format(version, commit[0:10]),
                     "spawn_exe": "spawn-{}-{}".format(version, commit[0:10]),
@@ -307,13 +313,13 @@ if __name__ == "__main__":
         if install_windows:
             dists.append(
                 {
-                    "src": "https://spawn.s3.amazonaws.com/builds/Spawn-light-{}-{}-win64.zip".format(version, commit[0:10]),
+                    "src": "https://spawn.s3.amazonaws.com/{}/Spawn-light-{}-{}-win64.zip".format(build_type, version, commit[0:10]),
                     "des": "Spawn-light-{}-{}/win64".format(version, commit[0:10]),
                     "spawn_exe": "spawn-{}-{}".format(version, commit[0:10])
                 }
             )
 
-    p = Pool(2)
+    p = Pool(len(dists))
     p.map(download_distribution, dists)
     for dist in dists:
         install_distribution_inside_buildings_library(dist)
@@ -326,7 +332,8 @@ if __name__ == "__main__":
             print("Updating Spawn version in Modelica files.")
             update_version_in_modelica_files(
                 spawn_dir = dist["spawn_dir"],
-                spawn_exe = dist["spawn_exe"])
+                spawn_exe = dist["spawn_exe"],
+                build_type = build_type)
         # Update the table with supported output variables and actuator names
         if update_mo_files and 'linux' in dist['des']:
             print("Updating actuator and output tables.")

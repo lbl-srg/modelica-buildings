@@ -6,7 +6,10 @@ block LessCoupled
   parameter Integer nConWatPum = 2 "Total number of condenser water pumps";
   parameter Real pumSpeChe = 0.01
     "Lower threshold value to check if condenser water pump is proven on";
-  parameter Real fanSpeMin = 0.1
+  parameter Real fanSpeMin(
+     final unit="1",
+     final min=0,
+     final max=1)= 0.1
     "Minimum cooling tower fan speed";
 
   parameter Real samplePeriod(
@@ -15,7 +18,9 @@ block LessCoupled
     final max=30) = 30
     "Period of sampling condenser water supply and return temperature difference"
     annotation (Dialog(group="Return water temperature controller"));
-  parameter Real iniPlaTim(final quantity="Time", final unit="s") = 300
+  parameter Real iniPlaTim(
+    final quantity="Time",
+    final unit="s") = 300
     "Threshold time to hold the initial temperature difference at the plant initial stage"
     annotation (Dialog(group="Return water temperature controller"));
   parameter Real TConWatSup_nominal[nChi](
@@ -37,9 +42,13 @@ block LessCoupled
     annotation (Dialog(group="Supply water temperature controller"));
   parameter Real kSupCon=1 "Gain of controller"
     annotation (Dialog(group="Supply water temperature controller"));
-  parameter Real TiSupCon(final quantity="Time", final unit="s")=0.5 "Time constant of integrator block"
+  parameter Real TiSupCon(
+    final quantity="Time",
+    final unit="s")=0.5 "Time constant of integrator block"
     annotation (Dialog(group="Supply water temperature controller"));
-  parameter Real TdSupCon(final quantity="Time", final unit="s")=0.1 "Time constant of derivative block"
+  parameter Real TdSupCon(
+    final quantity="Time",
+    final unit="s")=0.1 "Time constant of derivative block"
     annotation (Dialog(group="Supply water temperature controller", enable=
           supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
           supWatCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -111,7 +120,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{160,-160},{200,-120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset supCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset supCon(
     final controllerType=supWatCon,
     final k=kSupCon,
     final Ti=TiSupCon,
@@ -123,7 +132,7 @@ block LessCoupled
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis proOn[nConWatPum](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis proOn[nConWatPum](
     final uLow=fill(pumSpeChe, nConWatPum),
     final uHigh=fill(2*pumSpeChe, nConWatPum))
     "Check if the condenser water pump is proven on"
@@ -132,61 +141,63 @@ protected
     final nin=nConWatPum)
     "Check if any condenser water pump is proven on"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant  minTowSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant  minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=ySupConMin)
     "Zero constant"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one1(
     final k=ySupConMax) "Maximum speed"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line CWSTSpd
+  Buildings.Controls.OBC.CDL.Reals.Line CWSTSpd
     "Fan speed calculated based on supply water temperature control"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin fanSpe(final nin=3)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin fanSpe(final nin=3)
     "Cooling tower fan speed"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer2(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2[nChi](
     final k=fill(1,nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert chiller status to real number, true becomes 1 and false becomes 0"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatRet[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter enaDesConWatRet[nChi](
     final k=TConWatRet_nominal)
     "Design condenser water return temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter enaDesConWatSup[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter enaDesConWatSup[nChi](
     final k=TConWatSup_nominal)
     "Design condenser water supply temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nChi]
     "Difference of the design supply and return condenser water temperature"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax(nin=nChi)
+  Buildings.Controls.OBC.CDL.Reals.MultiMax multiMax(nin=nChi)
     "Difference of the design supply and return condenser water temperature of the enabled chiller"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=iniPlaTim)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=iniPlaTim,
+    final delayOnInit=true)
     "Count the time after plant being enabled"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch delTem "Temperature difference value"
+  Buildings.Controls.OBC.CDL.Reals.Switch delTem "Temperature difference value"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract meaTemDif
+  Buildings.Controls.OBC.CDL.Reals.Subtract meaTemDif
     "Difference of the condenser return and supply water temperature"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=300)
     "Moving average of the sampled temperature difference"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
@@ -194,10 +205,10 @@ protected
     final samplePeriod=samplePeriod)
     "Sample the temperature difference"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract conWatSupSet
+  Buildings.Controls.OBC.CDL.Reals.Subtract conWatSupSet
     "Condenser water supply temperature setpoint"
     annotation (Placement(transformation(extent={{100,140},{120,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai[nChi](
     final k=fill(0.5, nChi))
     "Gain factor"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -264,7 +275,7 @@ equation
           {-50,56},{-42,56}}, color={0,0,127}));
   connect(enaDesConWatSup.y, sub2.u2) annotation (Line(points={{-58,30},{-50,30},
           {-50,44},{-42,44}}, color={0,0,127}));
-  connect(uPla, tim.u)
+  connect(uPla, truDel.u)
     annotation (Line(points={{-200,100},{-142,100}}, color={255,0,255}));
   connect(multiMax.y, delTem.u3) annotation (Line(points={{42,50},{50,50},{50,92},
           {58,92}}, color={0,0,127}));
@@ -286,13 +297,13 @@ equation
           {90,144},{98,144}}, color={0,0,127}));
   connect(conWatSupSet.y, supCon.u_s) annotation (Line(points={{122,150},{140,150},
           {140,20},{-40,20},{-40,-30},{-22,-30}}, color={0,0,127}));
-  connect(tim.passed, delTem.u2) annotation (Line(points={{-118,92},{-40,92},{-40,
-          100},{58,100}}, color={255,0,255}));
   connect(sub2.y, gai.u)
     annotation (Line(points={{-18,50},{-12,50}}, color={0,0,127}));
   connect(gai.y, multiMax.u)
     annotation (Line(points={{12,50},{18,50}}, color={0,0,127}));
 
+  connect(truDel.y, delTem.u2)
+    annotation (Line(points={{-118,100},{58,100}}, color={255,0,255}));
 annotation (
   defaultComponentName="lesCouTowSpe",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-200},{160,200}})),
@@ -326,9 +337,8 @@ Documentation(info="<html>
 <p>
 Block that outputs cooling tower fan speed <code>ySpeSet</code> based on the control
 of condenser water return temperature for the plant that is not closed coupled.
-This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23,
-2020), section 5.2.12.2, item 2.g-i.
+This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.2,
+item a.8-10.
 </p>
 <ul>
 <li>

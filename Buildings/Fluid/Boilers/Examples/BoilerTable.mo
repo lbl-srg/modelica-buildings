@@ -70,7 +70,7 @@ equation
     Documentation(info="<html>
 <p>
 Similar to
-<a href=\"Buildings.Fluid.Boilers.Examples.BoilerPolynomial\">
+<a href=\"modelica://Buildings.Fluid.Boilers.Examples.BoilerPolynomial\">
 Buildings.Fluid.Boilers.Examples.BoilerPolynomial</a>,
 this example demonstrates the open loop response of the boiler model
 with <code>boi1</code> a dynamic model and

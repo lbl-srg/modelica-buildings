@@ -171,8 +171,13 @@ protected
     "Efficiency condition of the current stage"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or3 orStaUp "Or for staging up"
-    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or orStaUp
+    "Or for staging up"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Or for staging up"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
@@ -181,27 +186,27 @@ protected
     "Switches staging up rules"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
     final uLow=smallTDif - TDifHys,
     final uHigh=smallTDif,
     final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup1(
     final uLow=largeTDif - TDifHys,
     final uHigh=largeTDif,
     final pre_y_start=false) if have_WSE
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orStaUp1 if have_WSE
     "Or for staging up"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Temperature difference"
-    annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=longTDelay,
@@ -215,7 +220,7 @@ protected
     final delayOnInit=true)
     if have_WSE
     "Delays a true signal"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=true) if not have_WSE
@@ -234,9 +239,6 @@ protected
     "No stage up signal when it is in initial stage"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
-    annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
-
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "If it is in initial stage, there will be stage up signal when enabling plant"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
@@ -254,23 +256,19 @@ equation
       Line(points={{-180,140},{-120,140},{-120,101},{-102,101}}, color={0,0,127}));
   connect(dpChiWatPum_local, faiSafCon.dpChiWatPum_local) annotation (Line(
         points={{-180,110},{-150,110},{-150,98},{-102,98}},   color={0,0,127}));
-  connect(effCon.y, orStaUp.u1) annotation (Line(points={{-78,180},{-40,180},{-40,
-          128},{-22,128}}, color={255,0,255}));
-  connect(faiSafCon.y, orStaUp.u2) annotation (Line(points={{-78,100},{-50,100},
-          {-50,120},{-22,120}}, color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-100},{20,-100},
           {20,80},{78,80}}, color={255,0,255}));
-  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{2,120},{10,120},{10,88},
+  connect(orStaUp.y, logSwi.u1) annotation (Line(points={{42,120},{60,120},{60,88},
           {78,88}},  color={255,0,255}));
   connect(sub1.y, hysTSup1.u)
-    annotation (Line(points={{-88,-30},{-80,-30},{-80,-40},{-62,-40}}, color={0,0,127}));
+    annotation (Line(points={{-98,-30},{-80,-30},{-80,-60},{-62,-60}}, color={0,0,127}));
   connect(hysTSup.y, truDel.u)
     annotation (Line(points={{-38,0},{-22,0}},    color={255,0,255}));
   connect(hysTSup1.y, truDel1.u)
-    annotation (Line(points={{-38,-40},{-22,-40}}, color={255,0,255}));
+    annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
   connect(truDel.y, orStaUp1.u1) annotation (Line(points={{2,0},{38,0}},
           color={255,0,255}));
-  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{2,-40},{10,-40},{10,
+  connect(truDel1.y, orStaUp1.u2) annotation (Line(points={{2,-60},{10,-60},{10,
           -8},{38,-8}}, color={255,0,255}));
   connect(orStaUp1.y, logSwi.u3) annotation (Line(points={{62,0},{70,0},{70,72},
           {78,72}}, color={255,0,255}));
@@ -280,22 +278,20 @@ equation
           72}},    color={255,0,255}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-180,-100},{-122,-100}}, color={255,127,0}));
-  connect(sub1.y, hysTSup.u) annotation (Line(points={{-88,-30},{-80,-30},{-80,0},
-          {-62,0}},  color={0,0,127}));
-  connect(TChiWatSup, sub1.u1) annotation (Line(points={{-180,-70},{-130,-70},{-130,
-          -24},{-112,-24}}, color={0,0,127}));
+  connect(sub1.y, hysTSup.u) annotation (Line(points={{-98,-30},{-80,-30},{-80,
+          0},{-62,0}},
+                     color={0,0,127}));
+  connect(TChiWatSup, sub1.u1) annotation (Line(points={{-180,-70},{-130,-70},{
+          -130,-24},{-122,-24}},
+                            color={0,0,127}));
   connect(TChiWatSupSet, sub1.u2) annotation (Line(points={{-180,-30},{-140,-30},
-          {-140,-36},{-112,-36}}, color={0,0,127}));
+          {-140,-36},{-122,-36}}, color={0,0,127}));
   connect(uAvaCur, not1.u)
     annotation (Line(points={{-180,20},{-122,20}},   color={255,0,255}));
-  connect(not1.y, orStaUp.u3) annotation (Line(points={{-98,20},{-40,20},{-40,112},
-          {-22,112}},    color={255,0,255}));
   connect(dpChiWatPumSet_remote, faiSafCon.dpChiWatPumSet_remote) annotation (
       Line(points={{-180,80},{-150,80},{-150,94},{-102,94}},     color={0,0,127}));
   connect(dpChiWatPum_remote, faiSafCon.dpChiWatPum_remote) annotation (Line(
         points={{-180,50},{-120,50},{-120,91},{-102,91}},   color={0,0,127}));
-  connect(edg.y, lat.u)
-    annotation (Line(points={{2,-180},{38,-180}}, color={255,0,255}));
   connect(lat.y, logSwi1.u2)
     annotation (Line(points={{62,-180},{118,-180}}, color={255,0,255}));
   connect(logSwi.y, logSwi1.u3) annotation (Line(points={{102,80},{110,80},{110,
@@ -306,8 +302,16 @@ equation
           -172},{118,-172}}, color={255,0,255}));
   connect(logSwi.y, lat.clr) annotation (Line(points={{102,80},{110,80},{110,-110},
           {20,-110},{20,-186},{38,-186}}, color={255,0,255}));
-  connect(uPla, edg.u)
-    annotation (Line(points={{-180,-180},{-22,-180}}, color={255,0,255}));
+  connect(not1.y, orStaUp.u2) annotation (Line(points={{-98,20},{10,20},{10,112},
+          {18,112}}, color={255,0,255}));
+  connect(faiSafCon.y, or2.u2) annotation (Line(points={{-78,100},{-60,100},{-60,
+          112},{-42,112}}, color={255,0,255}));
+  connect(effCon.y, or2.u1) annotation (Line(points={{-78,180},{-60,180},{-60,120},
+          {-42,120}}, color={255,0,255}));
+  connect(or2.y, orStaUp.u1)
+    annotation (Line(points={{-18,120},{18,120}}, color={255,0,255}));
+  connect(uPla, lat.u)
+    annotation (Line(points={{-180,-180},{38,-180}}, color={255,0,255}));
   annotation (defaultComponentName = "staUp",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={
@@ -336,10 +340,11 @@ equation
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-220},{160,220}})),
 Documentation(info="<html>
-<p>Outputs a boolean stage up signal <code>y</code> based on the
-various plant operation conditions that get provided as input signals.
-Implemented according to 1711 March 2020 Draft, section 5.2.4.15.
- and applies to primary-only plant with and without a WSE.
+<p>
+Outputs a boolean stage up signal <code>y</code> based on the various plant
+operation conditions that get provided as input signals.
+It is implemented according to Guideline36-2021, section 5.20.4.15 and applies to
+primary-only plant with and without a WSE.
 </p>
 <p>
 The stage up signal becomes <code>true</code> when:
@@ -356,15 +361,15 @@ Failsafe condition is true.
 </li>
 </ul>
 <p>
-If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first available
-stage occurs when the chilled water supply temperature is sufficienctly above its setpoint
-for either a shorter or a longer time period
+If <code>have_WSE</code> boolean flag is true, staging up from WSE only to the first
+available stage occurs when the chilled water supply temperature is sufficienctly
+above its setpoint for either a shorter or a longer time period
 </p>
 <p>
 Note that when the plant is enabled in chiller mode, the stage up signal will keep
 false. The plant will control by the
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableWithChiller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableWithChiller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable</a>.
 </p>
 </html>",
 revisions="<html>

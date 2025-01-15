@@ -11,14 +11,12 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Dialog(group="Demand limit", enable=need_reduceChillerDemand));
   parameter Real holChiDemTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
+    final quantity="Time")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
     annotation (Dialog(group="Demand limit", enable=need_reduceChillerDemand));
   parameter Real byPasSetTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")
+    final quantity="Time")
     "Time constant for resetting minimum bypass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real minFloSet[nChi](
@@ -35,26 +33,22 @@ block DownStart "Sequence for starting stage-down process"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=60
+    final quantity="Time")=60
     "Time after setpoint achieved"
     annotation (Dialog(group="Reset bypass"));
   parameter Real waiTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=30
+    final quantity="Time")=30
     "Waiting time after enabling next head pressure control"
     annotation (Dialog(group="Head pressure control"));
   parameter Real chaChiWatIsoTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")
+    final quantity="Time")
     "Time to slowly change isolation valve, should be determined in the field"
     annotation (Dialog(group="Chilled water isolation valve"));
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h")=300
+    final quantity="Time")=300
     "Enabled chiller operation time to indicate if it is proven on"
     annotation (Dialog(group="Disable last chiller"));
   parameter Real relFloDif=0.05
@@ -194,13 +188,13 @@ protected
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Logical.Switch heaPreCon[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiDem[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch chiDem[nChi]
     if need_reduceChillerDemand                             "Chiller demand"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatIsoVal[nChi]
+  Buildings.Controls.OBC.CDL.Reals.Switch chiWatIsoVal[nChi]
     "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -238,15 +232,13 @@ equation
   connect(minChiWatSet.uOnOff, uOnOff)
     annotation (Line(points={{-2,63},{-110,63},{-110,20},{-180,20}},
       color={255,0,255}));
-  connect(uStaDow, minBypRes.chaPro)
-    annotation (Line(points={{-180,210},{-140,210},{-140,114},{58,114}},
-      color={255,0,255}));
+  connect(uStaDow, minBypRes.uStaPro) annotation (Line(points={{-180,210},{-140,
+          210},{-140,114},{58,114}}, color={255,0,255}));
   connect(VChiWat_flow, minBypRes.VChiWat_flow)
-    annotation (Line(points={{-180,90},{-150,90},{-150,106},{58,106}},
+    annotation (Line(points={{-180,90},{-150,90},{-150,110},{58,110}},
       color={0,0,127}));
-  connect(uStaDow, enaHeaCon.chaPro)
-    annotation (Line(points={{-180,210},{-140,210},{-140,0},{-2,0}},
-      color={255,0,255}));
+  connect(uStaDow, enaHeaCon.uStaPro) annotation (Line(points={{-180,210},{-140,
+          210},{-140,0},{-2,0}}, color={255,0,255}));
   connect(enaHeaCon.nexChaChi, nexEnaChi)
     annotation (Line(points={{-2,-4},{-60,-4},{-60,-30},{-180,-30}},
       color={255,127,0}));
@@ -259,9 +251,8 @@ equation
   connect(enaChiIsoVal.uChiWatIsoVal, uChiWatIsoVal)
     annotation (Line(points={{-2,-95},{-100,-95},{-100,-100},{-180,-100}},
       color={0,0,127}));
-  connect(uStaDow, enaChiIsoVal.chaPro)
-    annotation (Line(points={{-180,210},{-140,210},{-140,-108},{-2,-108}},
-      color={255,0,255}));
+  connect(uStaDow, enaChiIsoVal.uStaPro) annotation (Line(points={{-180,210},{-140,
+          210},{-140,-108},{-2,-108}}, color={255,0,255}));
   connect(nexEnaChi, disChi.nexEnaChi)
     annotation (Line(points={{-180,-30},{-60,-30},{-60,-141},{-2,-141}},
       color={255,127,0}));
@@ -321,7 +312,7 @@ equation
   connect(disChi.yChi, yChi)
     annotation (Line(points={{22,-150},{140,-150},{140,-100},{200,-100}},
       color={255,0,255}));
-  connect(disChi.yReaDemLim, yReaDemLim)
+  connect(disChi.yRelDemLim, yReaDemLim)
     annotation (Line(points={{22,-158},{60,-158},{60,-140},{200,-140}},
       color={255,0,255}));
   connect(yOpeParLoaRatMin, chiDemRed.yOpeParLoaRatMin)
@@ -343,7 +334,7 @@ equation
     annotation (Line(points={{-180,-170},{-80,-170},{-80,69},{-2,69}},
       color={255,127,0}));
   connect(minChiWatSet.yChiWatMinFloSet, minBypRes.VMinChiWat_setpoint)
-    annotation (Line(points={{22,70},{40,70},{40,102},{58,102}},
+    annotation (Line(points={{22,70},{40,70},{40,106},{58,106}},
       color={0,0,127}));
   connect(con3.y, minChiWatSet.uUpsDevSta)
     annotation (Line(points={{-78,90},{-60,90},{-60,77},{-2,77}},
@@ -361,9 +352,10 @@ equation
     annotation (Line(points={{42,150},{50,150},{50,118},{58,118}},
       color={255,0,255}));
   connect(lat2.y, minChiWatSet.uSubCha)
-    annotation (Line(points={{42,150},{50,150},{50,108},{-20,108},{-20,66},{-2,66}},
+    annotation (Line(points={{42,150},{50,150},{50,120},{-20,120},{-20,66},{-2,
+          66}},
       color={255,0,255}));
-  connect(disChi.yReaDemLim, pre.u)
+  connect(disChi.yRelDemLim, pre.u)
     annotation (Line(points={{22,-158},{60,-158},{60,-170},{78,-170}},
       color={255,0,255}));
   connect(pre.y, not1.u)
@@ -382,8 +374,9 @@ equation
   connect(enaHeaCon.yEnaHeaCon, lat3.u)
     annotation (Line(points={{22,6},{30,6},{30,-40},{58,-40}}, color={255,0,255}));
   connect(lat3.y, enaChiIsoVal.uUpsDevSta)
-    annotation (Line(points={{82,-40},{100,-40},{100,-60},{-20,-60},{-20,-105},
-      {-2,-105}}, color={255,0,255}));
+    annotation (Line(points={{82,-40},{100,-40},{100,-56},{-20,-56},{-20,-105},
+          {-2,-105}},
+                  color={255,0,255}));
   connect(clr, lat3.clr)
     annotation (Line(points={{-180,50},{-130,50},{-130,-46},{58,-46}},
       color={255,0,255}));
@@ -400,13 +393,16 @@ equation
     annotation (Line(points={{-78,200},{18,200}}, color={255,0,255}));
   connect(con3.y, or2.u2) annotation (Line(points={{-78,90},{-60,90},{-60,192},{
           18,192}}, color={255,0,255}));
-  connect(or2.y, minBypRes.uUpsDevSta) annotation (Line(points={{42,200},{50,200},
-          {50,118},{58,118}}, color={255,0,255}));
-  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{42,200},{50,200},
-          {50,108},{-20,108},{-20,66},{-2,66}}, color={255,0,255}));
-
+  connect(or2.y, minBypRes.uUpsDevSta) annotation (Line(points={{42,200},{50,
+          200},{50,118},{58,118}},
+                              color={255,0,255}));
+  connect(or2.y, minChiWatSet.uSubCha) annotation (Line(points={{42,200},{50,
+          200},{50,120},{-20,120},{-20,66},{-2,66}},
+                                                color={255,0,255}));
   connect(con3.y, enaHeaCon.uEnaPla) annotation (Line(points={{-78,90},{-70,90},
           {-70,8},{-2,8}}, color={255,0,255}));
+  connect(minChiWatSet.yChaSet, minBypRes.uSetChaPro) annotation (Line(points={
+          {22,62},{30,62},{30,102},{58,102}}, color={255,0,255}));
 annotation (
   defaultComponentName="staStaDow",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-200},{180,220}})),
@@ -527,9 +523,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controls devices at the first step of chiller staging down process.
-This development is based on ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II – Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.4.17, item 1 and 2. The sections specifies the first step of
+This development is based on ASHRAE Guideline 36-2021,
+section 5.20.4.17, item a and b. The sections specifies the first step of
 staging down process.
 </p>
 <p>
@@ -552,8 +547,8 @@ Slowly change the minimum chilled water flow setpoint to that approriate for the
 stage transition (<code>minChiWatSet</code>). After new setpoint is achieved, wait
 1 minutes (<code>aftByPasSetTim</code>) to allow loop to stabilize (<code>minBypRes</code>).
 See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint</a>
 and
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.ResetMinBypass</a>

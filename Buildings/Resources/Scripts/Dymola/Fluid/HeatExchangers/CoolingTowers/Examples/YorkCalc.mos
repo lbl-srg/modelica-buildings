@@ -1,6 +1,6 @@
 simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.YorkCalc", startTime=15552000, stopTime=15724800, tolerance=1e-06, method="CVode", resultFile="YorkCalc");
 createPlot(id=9, position={100, 121, 907, 799}, y={"TEnt.T", "tow.TLvg", "tow.TAir"}, range={15550000.0, 15730000.0, 0.0, 30.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
-createPlot(id=9, position={100, 121, 907, 197}, y={"tow.TApp_nominal", "tow.TAppAct", "tow.TRan"}, range={15550000.0, 15730000.0, -10.0, 20.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=9, position={100, 121, 907, 197}, y={"tow.TApp_nominal", "tow.TAppAct"}, range={15550000.0, 15730000.0, -10.0, 20.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=9, position={100, 121, 907, 196}, y={"tow.FRAir", "tow.FRWat"}, range={15550000.0, 15730000.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=9, position={100, 121, 907, 197}, y={"tow.PFan"}, range={15550000.0, 15730000.0, -1000.0, 1000.0}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=7, position={607, 406, 1151, 607}, y={"conFan.u_s", "conFan.u_m"}, range={15550000.0, 15730000.0, 291.0, 296.0}, grid=true, colors={{28,108,200}, {238,46,47}});

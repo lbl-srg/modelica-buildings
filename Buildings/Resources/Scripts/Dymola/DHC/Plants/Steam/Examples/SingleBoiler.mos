@@ -1,0 +1,24 @@
+// Simulate
+simulateModel("Buildings.DHC.Plants.Steam.Examples.SingleBoiler", stopTime=86400, tolerance=1e-6, method="cvode", resultFile="SingleBoiler");
+// Plot commands
+createPlot(id=1, position={55, 34, 558, 505},
+  y={"vol.m_flow"},
+  range={0.0, 90000.0, -0.5, 1.5},
+  grid=true,
+  filename="SingleBoiler.mat",
+  colors={{28,108,200}},
+  displayUnits={"kg/s"});
+createPlot(id=1, position={55, 34, 558, 505},
+  y={"pla.QFue_flow", "pla.PPum", "pumCNR.P"},
+  range={0.0, 90000.0, -1000000.0, 3000000.0},
+  grid=true,
+  subPlot=102,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}},
+  displayUnits={"W", "W", "W"});
+createPlot(id=1, position={55, 34, 558, 505},
+  y={"pla.boi.port_b.p", "steTra.port_b.p"},
+  range={0.0, 90000.0, 0.0, 4.0},
+  grid=true,
+  subPlot=103,
+  colors={{28,108,200}, {238,46,47}},
+  displayUnits={"bar", "bar"});

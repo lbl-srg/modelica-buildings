@@ -18,7 +18,7 @@ This validation case tests whether Spawn works for an idf file that has no outpu
 </p>
 <p>
 The model is identical to
-<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned</a>
 except that it uses an idf file that has no output variables.
 </p>

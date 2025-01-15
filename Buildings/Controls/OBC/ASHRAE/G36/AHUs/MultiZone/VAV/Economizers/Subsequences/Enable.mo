@@ -3,29 +3,34 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
-    annotation(Dialog(group="Conditional"));
+    annotation(__cdl(ValueInReference=false),
+                Dialog(group="Conditional"));
   parameter Real delTOutHis(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+    annotation(__cdl(ValueInReference=false),
+                Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHis(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(__cdl(ValueInReference=false),
+                Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real retDamFulOpeTim(
     final unit="s",
     final quantity="Time")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real disDel(
     final unit="s",
     final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(__cdl(ValueInReference=true),
+               Dialog(tab="Advanced", group="Delays at disable"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -142,31 +147,31 @@ protected
   final parameter Real hOutHigLimCutLow = hOutHigLimCutHig - delEntHis
     "Hysteresis block low limit cutoff";
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     if use_enthalpy "Add block determines difference between hOut and hOutCut"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Add block determines difference between TOut and TOutCut"
     annotation (Placement(transformation(extent={{-200,220},{-180,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutTem(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutTem(
     final uLow=TOutHigLimCutLow,
     final uHigh=TOutHigLimCutHig)
     "Outdoor air temperature hysteresis for both fixed and differential dry bulb temperature cutoff conditions"
     annotation (Placement(transformation(extent={{-160,220},{-140,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOutEnt(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOutEnt(
     final uLow=hOutHigLimCutLow,
     final uHigh=hOutHigLimCutHig) if use_enthalpy
     "Outdoor air enthalpy hysteresis for both fixed and differential enthalpy cutoff conditions"
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDamSwitch
+  Buildings.Controls.OBC.CDL.Reals.Switch outDamSwitch
     "Set maximum OA damper position to minimum at disable (after a given time delay)"
     annotation (Placement(transformation(extent={{82,-78},{102,-58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
+  Buildings.Controls.OBC.CDL.Reals.Switch retDamSwitch "Set minimum RA damper position to maximum at disable"
     annotation (Placement(transformation(extent={{-20,-176},{0,-156}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch maxRetDamSwitch
+  Buildings.Controls.OBC.CDL.Reals.Switch maxRetDamSwitch
     "Keep maximum RA damper position at physical maximum for a short time period after disable signal"
     annotation (Placement(transformation(extent={{60,-136},{80,-116}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minRetDamSwitch
+  Buildings.Controls.OBC.CDL.Reals.Switch minRetDamSwitch
     "Keep minimum RA damper position at physical maximum for a short time period after disable"
     annotation (Placement(transformation(extent={{60,-178},{80,-158}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not that starts the timer at disable signal "

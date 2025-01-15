@@ -86,7 +86,7 @@ block Initial "Outputs the initial stage"
     final TOutWetDes=TOutWetDes,
     final VHeaExcDes_flow=VHeaExcDes_flow) if have_WSE
     "Waterside economizer outlet temperature predictor"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -94,29 +94,29 @@ block Initial "Outputs the initial stage"
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Type converter"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staZer(
     final k=0)
     "Zero stage"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=0,
     final uHigh=wseDt) if have_WSE
     "Check if the initial predicted heat exchange leaving water temperature is greater than chilled water supply temperature setpoint less offset"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noWSE(
     final k=false) if not have_WSE "Replacement signal for no WSE case"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con3(
     final k=VHeaExcDes_flow) if have_WSE
     "Design heat exchanger chiller water flow rate"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
@@ -125,25 +125,23 @@ equation
   connect(reaToInt.y, yIni)
     annotation (Line(points={{182,40},{200,40},{200,0},{250,0}}, color={255,127,0}));
   connect(sub1.y,hys1. u)
-    annotation (Line(points={{-88,90},{-62,90}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
   connect(noWSE.y,swi. u2)
     annotation (Line(points={{-38,50},{-20,50},{-20,90},{58,90}},
       color={255,0,255}));
   connect(hys1.y,swi. u2)
     annotation (Line(points={{-38,90},{58,90}}, color={255,0,255}));
   connect(wseTOut.TOutWet,TOutWet)
-    annotation (Line(points={{-142,38},{-180,38},{-180,70},{-260,70}},
+    annotation (Line(points={{-162,38},{-180,38},{-180,70},{-260,70}},
       color={0,0,127}));
   connect(con3.y,wseTOut. VChiWat_flow)
-    annotation (Line(points={{-198,30},{-142,30}},
+    annotation (Line(points={{-198,30},{-162,30}},
       color={0,0,127}));
   connect(wseTOut.uTunPar,uTunPar)
-    annotation (Line(points={{-142,22},{-180,22},{-180,0},{-260,0}},
+    annotation (Line(points={{-162,22},{-180,22},{-180,0},{-260,0}},
       color={0,0,127}));
-  connect(wseTOut.y,sub1. u2)
-    annotation (Line(points={{-118,30},{-112,30},{-112,84}},   color={0,0,127}));
   connect(TChiWatSupSet,sub1. u1)
-    annotation (Line(points={{-260,110},{-170,110},{-170,96},{-112,96}},
+    annotation (Line(points={{-260,110},{-170,110},{-170,96},{-102,96}},
       color={0,0,127}));
   connect(staZer.y,swi. u1)
     annotation (Line(points={{22,110},{40,110},{40,98},{58,98}}, color={0,0,127}));
@@ -159,6 +157,8 @@ equation
     annotation (Line(points={{-260,-90},{-62,-90}}, color={255,0,255}));
   connect(edg.y, triSam.trigger)
     annotation (Line(points={{-38,-90},{0,-90},{0,-12}},   color={255,0,255}));
+  connect(wseTOut.y, sub1.u2) annotation (Line(points={{-138,30},{-120,30},{
+          -120,84},{-102,84}}, color={0,0,127}));
 annotation (defaultComponentName = "iniSta",
         Icon(graphics={
         Rectangle(
@@ -181,15 +181,41 @@ annotation (defaultComponentName = "iniSta",
           textString="At Enable")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-240,-140},{240,140}})),
-          Documentation(info="<html>
-<p>This subsequence is not directly specified in 1711 as it provides a side calculation pertaining to generalization of the staging sequences for any number of chillers and stages provided by the user. </p>
-<p>Determines the initial stage upon plant startup for both plants with and without a WSE. Implemented according to section 5.2.4.15. 1711 March 2020 Draft, under 8. (primary-only) and 15. (primary-secondary) plants. </p>
-<p>The initial stage <span style=\"font-family: monospace;\">yIni</span> is defined as: </p>
-<p>When the plant is enabled and the plant has no waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=false), the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>.</p>
-<p>When the plant is enabled and the plant has waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=true), the initial stage will be: </p>
+Documentation(info="<html>
+<p>
+This subsequence is not directly specified in Guideline36-2021 as it provides a side
+calculation pertaining to generalization of the staging sequences for any
+number of chillers and stages provided by the user.
+</p>
+<p>
+Determines the initial stage upon plant startup for both plants with and
+without a WSE. It is implemented according to section 5.20.4.15 of Guideline36-2021,
+under part g. (primary-only) and part p. (primary-secondary) plants.
+</p>
+<p>
+The initial stage <code>yIni</code> is defined as:
+</p>
+<p>
+When the plant is enabled and the plant has no waterside economizer
+(<code>have_WSE</code>=false), the initial stage will be the lowest available
+stage <code>uUp</code>.
+</p>
+<p>
+When the plant is enabled and the plant has waterside economizer
+(<code>have_WSE</code>=true), the initial stage will be:
+</p>
 <ul>
-<li>If predicted waterside economizer outlet temperature calculated using <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature</a> with predicted heat exchanger part load ratio <span style=\"font-family: monospace;\">PLRHeaExc</span> set to 1 is at least <span style=\"font-family: monospace;\">wseDt</span> below the chilled water supply temperature setpoint <span style=\"font-family: monospace;\">TChiWatSupSet</span>, then the initial stage will be 0, meaning that the plant initiates in a waterside economizer only mode. </li>
-<li>Otherwise, the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>. </li>
+<li>If predicted waterside economizer outlet temperature calculated using
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature</a>
+with predicted heat exchanger part load ratio <code>PLRHeaExc</code> set to 1
+is at least <code>wseDt</code> below the chilled water supply temperature
+setpoint <code>TChiWatSupSet</code>, then the initial stage will be 0, meaning
+that the plant initiates in a waterside economizer only mode.
+</li>
+<li>
+Otherwise, the initial stage will be the lowest available stage <code>uUp</code>.
+</li>
 </ul>
 <p>
 The following state machine chart illustrates the initial stage selection for plants with a waterside economizer:

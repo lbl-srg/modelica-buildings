@@ -2,9 +2,8 @@ within Buildings.Templates.Components.Coils;
 model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
-    final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumHeaWat),
-    port_bSou(redeclare final package Medium = MediumHeaWat));
+    typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    redeclare final package MediumSou = MediumHeaWat);
 
   replaceable package MediumHeaWat=Buildings.Media.Water
     "Source side medium";
@@ -19,24 +18,18 @@ model WaterBasedHeating "Hot water coil"
     dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
-  replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Interfaces.PartialValve(
-      redeclare final package Medium = MediumHeaWat,
-      final dat=datVal)
+  Buildings.Templates.Components.Actuators.Valve val(
+    final typ=typVal,
+    redeclare final package Medium = MediumHeaWat,
+    final energyDynamics=energyDynamics,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversalLiq,
+    final show_T=show_T,
+    final dat=datVal)
     "Valve"
-    annotation (
-      choices(
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.None val
-          "No valve"),
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
-          "Three-way modulating valve"),
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
-          "Two-way modulating valve")),
-      Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={-40,-60})));
+    annotation (Placement(
+    transformation(extent={{-10,10},{10,-10}},rotation=-90,origin={-40,-60})));
 
-  // We allow for redeclaration but not through the parameter dialog box.
   replaceable Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
@@ -50,12 +43,17 @@ model WaterBasedHeating "Hot water coil"
     redeclare final package Medium1 = MediumHeaWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal)
+    final m2_flow_nominal=mAir_flow_nominal,
+    final allowFlowReversal1=allowFlowReversalLiq,
+    final allowFlowReversal2=allowFlowReversalAir,
+    final show_T=show_T)
     "Heat exchanger"
-    annotation (Placement(transformation(extent={{10,4},{-10,-16}})));
+    annotation (__ctrlFlow(enable=false),
+      Placement(transformation(extent={{10,4},{-10,-16}})));
 
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
-      package Medium = MediumHeaWat)
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(
+    redeclare final package Medium = MediumHeaWat,
+    final allowFlowReversal=allowFlowReversalLiq)
     if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -66,7 +64,16 @@ model WaterBasedHeating "Hot water coil"
     redeclare final package Medium=MediumHeaWat,
     final m_flow_nominal=mWat_flow_nominal * {1, -1, -1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3))
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     if typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Junction"
     annotation (

@@ -1,7 +1,7 @@
 compareVars :=
   {
-    "conPumSpe.uChiSta",
     "conPumSpe.uWSE",
+    "conPumSpe.uChiSta",
     "conPumSpe.yConWatPumNum",
     "conPumSpe.yDesConWatPumSpe"
   };

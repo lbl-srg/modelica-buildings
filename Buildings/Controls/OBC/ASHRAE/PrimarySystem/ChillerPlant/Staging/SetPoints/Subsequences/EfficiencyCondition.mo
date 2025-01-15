@@ -35,13 +35,13 @@ protected
     "Delays a true signal"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysOpe(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysOpe(
     final uLow=0,
     final uHigh=sigDif)
     "Checks if the current stage operating part load ratio exceeds the stage up part load ratio"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -71,7 +71,12 @@ annotation (defaultComponentName = "effCon",
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-60},{80,60}})),
 Documentation(info="<html>
-<p>Efficiency condition used in staging up and down for plants primary-only and primary-secondary plants, both with and without a water side economizer. implemented according to the specification provided in 5.2.4.15., 1711 March 2020 Draft. </p>
+<p>
+Efficiency condition used in staging up and down for plants primary-only and
+primary-secondary plants, both with and without a water side economizer.
+It is implemented according to the specification provided in section 5.20.4.15 of
+Guideline36-2021.
+</p>
 </html>",
 revisions="<html>
 <ul>

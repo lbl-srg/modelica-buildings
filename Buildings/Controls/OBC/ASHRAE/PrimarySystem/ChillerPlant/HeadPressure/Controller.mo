@@ -9,24 +9,39 @@ block Controller "Head pressure controller for plants with headered condenser wa
   parameter Boolean have_fixSpeConWatPum=false
     "Flag indicating if the plant has fixed speed condenser water pumps"
     annotation (Dialog(group="Plant", enable=not have_WSE));
-  parameter Real minTowSpe=0.1 "Minimum cooling tower fan speed"
+  parameter Real minTowSpe=0.1
+    "Minimum cooling tower fan speed"
     annotation (Dialog(group="Setpoints"));
-  parameter Real minConWatPumSpe=0.1 "Minimum condenser water pump speed"
+  parameter Real minConWatPumSpe=0.1
+    "Minimum condenser water pump speed"
     annotation (Dialog(group="Setpoints", enable= not ((not have_WSE) and have_fixSpeConWatPum)));
-  parameter Real minHeaPreValPos=0.1 "Minimum head pressure control valve position"
+  parameter Real minHeaPreValPos=0.1
+    "Minimum head pressure control valve position"
     annotation (Dialog(group="Setpoints", enable= (not ((not have_WSE) and (not have_fixSpeConWatPum)))));
   parameter Real minChiLif=10
-      "Minimum allowable lift at minimum load for chiller"
+    "Minimum allowable lift at minimum load for chiller"
     annotation (Dialog(tab="Loop signal", enable=not have_heaPreConSig));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
   parameter Real k=1 "Gain of controller"
     annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5 "Time constant of integrator block"
-    annotation (Dialog(tab="Loop signal", group="PID controller", enable=not have_heaPreConSig));
+    annotation (Dialog(tab="Loop signal", group="PID controller",
+                       enable= not have_heaPreConSig
+                               and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                                 or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+  parameter Real Td(
+    final unit="s",
+    final quantity="Time")=0.5
+    "Time constant of derivative block"
+    annotation (Dialog(tab="Loop signal", group="PID controller",
+                       enable= not have_heaPreConSig
+                               and (controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                                 or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon
     "Chillers head pressure control status: true = ON, false = OFF"
@@ -74,7 +89,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal(
     final min=0,
     final max=1,
-    final unit="1") if have_WSE or (not have_WSE and have_fixSpeConWatPum)
+    final unit="1") if have_WSE or ((not have_WSE) and have_fixSpeConWatPum)
     "Head pressure control valve position"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -91,7 +106,8 @@ block Controller "Head pressure controller for plants with headered condenser wa
     final minChiLif=minChiLif,
     final controllerType=controllerType,
     final k=k,
-    final Ti=Ti) if not have_heaPreConSig
+    final Ti=Ti,
+    final Td=Td) if not have_heaPreConSig
     "Generate chiller head pressure control loop signal"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.MappingWithoutWSE
@@ -111,14 +127,15 @@ block Controller "Head pressure controller for plants with headered condenser wa
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi if have_heaPreConSig
+  Buildings.Controls.OBC.CDL.Reals.Switch swi if have_heaPreConSig
+    "Head pressure control from chiller controller"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0) if have_heaPreConSig "Constant"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
     final message="If the plant has waterside economizer, the condenser water pump cannot be fix speed.")
-    "Asserts if the plant has waterside economizer and the condenser water pump has fix speed"
+    "Generate alert if the plant has waterside economizer and the condenser water pump has fix speed"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant havWSE(
     final k=have_WSE)
@@ -128,35 +145,28 @@ protected
     final k=have_fixSpeConWatPum)
     "Fix speed condenser water pump"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
+  Buildings.Controls.OBC.CDL.Logical.And fixSpeWSE
     "The plant has waterside economizer and the condenser water pump is fix speed"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
 equation
   connect(chiHeaPreLoo.TConWatRet, TConWatRet)
     annotation (Line(points={{-22,90},{-120,90}}, color={0,0,127}));
   connect(chiHeaPreLoo.TChiWatSup, TChiWatSup)
-    annotation (Line(points={{-22,82},{-40,82},{-40,60},{-120,60}}, color={0,0,127}));
+    annotation (Line(points={{-22,82},{-60,82},{-60,60},{-120,60}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, noWSE.uHeaPreCon)
     annotation (Line(points={{2,90},{20,90},{20,58},{38,58}}, color={0,0,127}));
   connect(chiHeaPreLoo.yHeaPreCon, withWSE.uHeaPreCon)
     annotation (Line(points={{2,90},{20,90},{20,-2},{38,-2}},   color={0,0,127}));
-  connect(uChiHeaCon, noWSE.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,42},{38,42}},
-      color={255,0,255}));
   connect(withWSE.uWSE, uWSE)
     annotation (Line(points={{38,-14},{-20,-14},{-20,0},{-120,0}},
       color={255,0,255}));
-  connect(uChiHeaCon, withWSE.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,-18},{38,-18}},
-      color={255,0,255}));
-  connect(uChiHeaCon, swi.u2)
-    annotation (Line(points={{-120,120},{-80,120},{-80,-40},{-22,-40}},
-      color={255,0,255}));
   connect(uHeaPreCon, swi.u1)
-    annotation (Line(points={{-120,-30},{-40,-30},{-40,-32},{-22,-32}},
+    annotation (Line(points={{-120,-30},{-60,-30},{-60,-32},{-22,-32}},
       color={0,0,127}));
   connect(con.y, swi.u3)
     annotation (Line(points={{-58,-60},{-40,-60},{-40,-48},{-22,-48}},
@@ -179,20 +189,26 @@ equation
     annotation (Line(points={{62,42},{70,42},{70,-10},{120,-10}}, color={0,0,127}));
   connect(noWSE.yHeaPreConVal, yHeaPreConVal)
     annotation (Line(points={{62,46},{90,46},{90,30},{120,30}}, color={0,0,127}));
-  connect(uChiHeaCon, chiHeaPreLoo.uHeaPreEna)
-    annotation (Line(points={{-120,120},{-80,120},{-80,98},{-22,98}},
-      color={255,0,255}));
   connect(desConWatPumSpe, noWSE.desConWatPumSpe)
     annotation (Line(points={{-120,30},{0,30},{0,50},{38,50}}, color={0,0,127}));
-  connect(havWSE.y, and2.u1) annotation (Line(points={{-38,-90},{-30,-90},{-30,-100},
-          {-22,-100}}, color={255,0,255}));
-  connect(fixSpe.y, and2.u2) annotation (Line(points={{-38,-120},{-30,-120},{-30,
-          -108},{-22,-108}}, color={255,0,255}));
-  connect(and2.y, not1.u)
+  connect(havWSE.y, fixSpeWSE.u1) annotation (Line(points={{-38,-90},{-30,-90},{
+          -30,-100},{-22,-100}}, color={255,0,255}));
+  connect(fixSpe.y, fixSpeWSE.u2) annotation (Line(points={{-38,-120},{-30,-120},
+          {-30,-108},{-22,-108}}, color={255,0,255}));
+  connect(fixSpeWSE.y, not1.u)
     annotation (Line(points={{2,-100},{18,-100}}, color={255,0,255}));
   connect(not1.y, assMes1.u)
     annotation (Line(points={{42,-100},{58,-100}}, color={255,0,255}));
-
+  connect(uChiHeaCon, pre.u)
+    annotation (Line(points={{-120,120},{-82,120}}, color={255,0,255}));
+  connect(pre.y, swi.u2) annotation (Line(points={{-58,120},{-40,120},{-40,-40},
+          {-22,-40}}, color={255,0,255}));
+  connect(pre.y, chiHeaPreLoo.uHeaPreEna) annotation (Line(points={{-58,120},{-40,
+          120},{-40,98},{-22,98}}, color={255,0,255}));
+  connect(pre.y, noWSE.uHeaPreEna) annotation (Line(points={{-58,120},{-40,120},
+          {-40,42},{38,42}}, color={255,0,255}));
+  connect(pre.y, withWSE.uHeaPreEna) annotation (Line(points={{-58,120},{-40,120},
+          {-40,-18},{38,-18}}, color={255,0,255}));
 annotation (
   defaultComponentName="heaPreCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -222,9 +238,7 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that generates control signals for chiller head pressure control,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020),
-section 5.2.10 Head pressure control.
+according to ASHRAE Guideline36-2021, section 5.20.10 Head pressure control.
 </p>
 <p>
 Note that if a plant has waterside economizer, the condenser water pump must be

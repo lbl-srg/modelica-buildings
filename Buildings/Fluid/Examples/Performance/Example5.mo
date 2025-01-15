@@ -9,11 +9,14 @@ model Example5
   parameter Real b=sum(a);
 
   Real c;
+protected
+  constant Real k(final unit="1/s") = 1
+    "Unit conversion to satisfy unit check";
 initial equation
   c=0;
 
 equation
-  der(c) = sin(time)*(if efficient then b else sum(a));
+  der(c) = sin(k*time)*(if efficient then b else sum(a));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics={Text(
@@ -23,6 +26,12 @@ equation
     experiment(Tolerance=1e-6, StopTime=20),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 July 14, 2015, by Michael Wetter:<br/>
 Revised documentation.

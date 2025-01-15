@@ -12,24 +12,24 @@ model Modulation_TSup
     mod "Economizer modulation sequence"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupSetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupSetSig(
     final k=TSupSet) "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TSup(
     final duration=900,
     final height=4,
     final offset=TSupSet - 2) "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(final k=0.1)
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(final k=0.9)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(final k=0.9)
     "Maximum outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMin(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant RetDamPosMin(final k=0.1)
     "Minimum return air damper position"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RetDamPosMax(final k=0.9)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant RetDamPosMax(final k=0.9)
     "Maximum return air damper position"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 

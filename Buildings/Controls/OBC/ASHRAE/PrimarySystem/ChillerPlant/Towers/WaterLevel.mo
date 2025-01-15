@@ -19,24 +19,25 @@ block WaterLevel
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=watLevMin,
     final uHigh=watLevMax)
     "Check if water level is lower than minimum level"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if it should add water"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minWatLev(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minWatLev(
     final k=watLevMin) "Minimum water level"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxWatLev(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxWatLev(
     final k=watLevMax) "Maximum water level"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="The maximum level has to be greater than the minimum level.")
     "Print warning when the maximum level is not set to be greater than the minimum level"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu
+  Buildings.Controls.OBC.CDL.Reals.Greater greEqu
     "Check if maximum level is set to be greater than minimum level"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
@@ -80,10 +81,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that outputs <code>yMakUp</code> to control cooling tower make-up water
-valve. It is implemented according to 
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.13, tower make-up water.
+valve. It is implemented according to ASHRAE Guideline36-2021, 
+section 5.20.13, tower make-up water.
 </p>
 <p>
 Make-up water valve shall cycle based on tower water fill level sensor. The

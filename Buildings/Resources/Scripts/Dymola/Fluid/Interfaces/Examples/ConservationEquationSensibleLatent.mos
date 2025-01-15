@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.Interfaces.Examples.ConservationEquationSensibleLatent",
+  stopTime=2700,
+  method="Cvode",
+  tolerance=1e-06,
+  resultFile="ConservationEquationSensibleLatent");
+createPlot(id=1, position={15, 15, 1060, 819}, y={"dynBal.Q_flow"}, range={0.0, 2700.0, -500.0, 2500.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
+createPlot(id=1, position={15, 15, 1060, 819}, y={"dynBal.mWat_flow"}, range={0.0, 2700.0, -0.0001, 0.0004}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"kg/s"});
+createPlot(id=1, position={15, 15, 1060, 819}, y={"dynBal.medium.T"}, range={0.0, 2700.0, 18.0, 32.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});

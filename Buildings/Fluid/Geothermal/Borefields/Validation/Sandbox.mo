@@ -29,11 +29,12 @@ model Sandbox "Validation of BorefieldOneUTube based on the experiment of Beier 
     redeclare package Medium = Medium,
     T_start=T_start,
     addPowerToMedium=false,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=borFieDat.conDat.mBorFie_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    inputType=Buildings.Fluid.Types.InputType.Constant)
+    inputType=Buildings.Fluid.Types.InputType.Constant,
+    dp_nominal=60E3) "Circulation pump"
     annotation (Placement(transformation(extent={{-20,-10},{0,-30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TBorFieIn(
     redeclare package Medium = Medium,
@@ -127,6 +128,12 @@ spectral method to simulate borehole heat exchanger</i>. Geothermics 51:
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Set proper head for pump.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, issue 1659</a>.
+</li>
 <li>
 April 8, 2021, by Michael Wetter:<br/>
 Added missing <code>parameter</code> keyword.<br/>

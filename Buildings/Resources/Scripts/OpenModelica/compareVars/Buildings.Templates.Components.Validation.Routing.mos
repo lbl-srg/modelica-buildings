@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "mulMul.ports_a[1].m_flow",
+    "mulMul.ports_b[1].m_flow",
+    "mulMul.m_flow_nominal",
+    "mulMulCom.ports_a[1].m_flow",
+    "mulMulCom.ports_b[1].m_flow",
+    "mulMulCom.m_flow_nominal",
+    "mulSin.ports_a[1].m_flow",
+    "mulSin.port_b.m_flow",
+    "mulSin.m_flow_nominal",
+    "sinMul.port_a.m_flow",
+    "sinMul.ports_b[1].m_flow",
+    "sinMul.m_flow_nominal",
+    "pas.port_a.m_flow"
+  };

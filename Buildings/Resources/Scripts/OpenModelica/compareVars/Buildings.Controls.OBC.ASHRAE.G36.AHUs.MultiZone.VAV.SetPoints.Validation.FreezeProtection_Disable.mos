@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "frePro.uOutDam",
+    "frePro.yOutDam",
+    "frePro.uHeaCoi",
+    "frePro.yHeaCoi",
+    "frePro.uCooCoi",
+    "frePro.yCooCoi",
+    "frePro.uRetDam",
+    "frePro.yRetDam",
+    "frePro.uSupFan",
+    "frePro.ySupFan",
+    "frePro.yHotWatPlaReq",
+    "frePro.yMinOutDam",
+    "frePro.y1SupFan",
+    "frePro.yFreProSta"
+  };

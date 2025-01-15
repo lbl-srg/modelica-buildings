@@ -26,19 +26,19 @@ model EquationFitReversible
   Modelica.Blocks.Sources.Sine Q_flow_set(amplitude=5000, f=1/2600)
     "Set point for heat flow rate"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant mLoa_flow(k=1.89)
+  Controls.OBC.CDL.Reals.Sources.Constant mLoa_flow(k=1.89)
     "Mass flow rate entering load heat exchanger side"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Controls.OBC.CDL.Continuous.Sources.Sine TLoaEnt(
+  Controls.OBC.CDL.Reals.Sources.Sin TLoaEnt(
     amplitude=10,
     freqHz=1/2600,
     offset=25 + 273.15,
     startTime=0) "Load side entering water temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant mSou_flow(k=1.89)
+  Controls.OBC.CDL.Reals.Sources.Constant mSou_flow(k=1.89)
     "Mass flow rate entering source heat exchanger side"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Controls.OBC.CDL.Continuous.Sources.Sine TSouEnt(
+  Controls.OBC.CDL.Reals.Sources.Sin TSouEnt(
     amplitude=5,
     freqHz=1/2600,
     offset=15 + 273.15,
@@ -88,9 +88,9 @@ equation
 Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible</a>
-that applies the equation fit method used for <a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+that applies the equation fit method used for <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>", revisions="<html>

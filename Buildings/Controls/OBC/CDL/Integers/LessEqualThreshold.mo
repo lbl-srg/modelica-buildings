@@ -3,11 +3,11 @@ block LessEqualThreshold
   "Output y is true, if input u is less or equal than a threshold"
   parameter Integer t=0
     "Threshold for comparison";
-  Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
+    "Input to be compared"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "Outputs true if u is less or equal than the threshold"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -68,7 +68,7 @@ Otherwise the output is <code>false</code>.
 <li>
 August 6, 2020, by Michael Wetter:<br/>
 Renamed <code>threshold</code> to <code>t</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">Buildings, issue 2076</a>.
 </li>
 <li>
 August 30, 2017, by Jianjun Hu:<br/>

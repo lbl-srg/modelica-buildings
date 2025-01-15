@@ -16,7 +16,7 @@ equation
 
 annotation (
   defaultComponentName="greEquThr",
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.GreaterThreshold instead",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Text(

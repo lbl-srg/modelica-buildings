@@ -27,7 +27,7 @@ Model included in the Buildings library.
 </html>", info="<html>
 <p>
 This model extends the base class
-<a href=\"Buildings.Electrical.Interfaces.PartialTwoPort\">
+<a href=\"modelica://Buildings.Electrical.Interfaces.PartialTwoPort\">
 Buildings.Electrical.Interfaces.PartialTwoPort</a>
 model and declares the variables
 <code>v_p</code> and <code>i_p</code> that represents the voltage and the

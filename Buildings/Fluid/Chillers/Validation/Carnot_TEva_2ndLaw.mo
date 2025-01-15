@@ -18,7 +18,7 @@ model Carnot_TEva_2ndLaw
 
   final parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal=-
       m2_flow_nominal/dTCon_nominal*dTEva_nominal
-    "Nominal mass flow rate at condeser water side";
+    "Nominal mass flow rate at condenser water side";
 
   Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 20)
     "Evaporator inlet temperature"
@@ -63,7 +63,7 @@ protected
     parameter Modelica.Units.SI.HeatFlowRate QEva_flow_nominal
       "Evaporator heat flow rate";
     parameter Modelica.Units.SI.MassFlowRate m1_flow_nominal
-      "Nominal mass flow rate at condeser water side";
+      "Nominal mass flow rate at condenser water side";
     parameter Modelica.Units.SI.MassFlowRate m2_flow_nominal
       "Nominal mass flow rate at chilled water side";
 
@@ -88,7 +88,6 @@ protected
       QEva_flow_nominal=QEva_flow_nominal,
       allowFlowReversal1=false,
       allowFlowReversal2=false,
-      etaCarnot_nominal=0.3,
       dp1_nominal=0,
       dp2_nominal=0,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -226,8 +225,14 @@ despite of a very small temperature lift.
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

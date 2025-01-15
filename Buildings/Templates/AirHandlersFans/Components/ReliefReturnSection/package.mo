@@ -8,7 +8,7 @@ package ReliefReturnSection "Models for relief/return air section"
 
 annotation (Documentation(info="<html>
 <p>
-Components inside that package represent the relief/return air section of an 
+Components inside that package represent the relief/return air section of an
 air handler.
 </p>
 </html>"));

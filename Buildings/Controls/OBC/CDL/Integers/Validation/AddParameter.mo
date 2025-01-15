@@ -4,13 +4,13 @@ model AddParameter "Validation model for the AddParameter block"
     "Block that outputs the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-3.5,
     height=7.0)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(n=0)
+  Buildings.Controls.OBC.CDL.Reals.Round round1(n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger  reaToInt

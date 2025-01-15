@@ -37,8 +37,8 @@ block Controller "Sequence of staging cooling tower cells"
     "True: plant is just enabled"
     annotation(Placement(transformation(extent={{-140,-10},{-100,30}}),
         iconTransformation(extent={{-140,-10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
-    "Enabling status of lead condenser water pump"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enabling status"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
       iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -104,8 +104,6 @@ equation
           92},{-80,70},{-120,70}}, color={255,0,255}));
   connect(uWse, enaCel.uWse) annotation (Line(points={{-120,40},{-74,40},{-74,89},
           {-42,89}}, color={255,0,255}));
-  connect(enaCel.uLeaConWatPum, uLeaConWatPum) annotation (Line(points={{-42,84},
-          {-62,84},{-62,-20},{-120,-20}}, color={255,0,255}));
   connect(enaCel.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{-42,81},
           {-56,81},{-56,-50},{-120,-50}}, color={0,0,127}));
   connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{120,84}},
@@ -128,6 +126,8 @@ equation
           -130},{-50,56},{18,56}}, color={255,0,255}));
   connect(ideChaCel.yChaCel, staPro.uChaCel) annotation (Line(points={{42,56},{
           60,56},{60,20},{-20,20},{-20,8},{-2,8}}, color={255,0,255}));
+  connect(uPla, enaCel.uPla) annotation (Line(points={{-120,-20},{-62,-20},{-62,
+          83},{-42,83}}, color={255,0,255}));
 annotation (
   defaultComponentName="towSta",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -147,7 +147,7 @@ annotation (
           textColor={0,0,127},
           textString="uIsoVal"),
         Text(
-          extent={{-98,76},{-44,64}},
+          extent={{-100,76},{-46,64}},
           textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
@@ -155,7 +155,7 @@ annotation (
           textColor={255,127,0},
           textString="uChiSta"),
         Text(
-          extent={{-98,56},{-38,44}},
+          extent={{-100,56},{-40,44}},
           textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
@@ -164,11 +164,7 @@ annotation (
           textString="uWse",
           visible=have_WSE),
         Text(
-          extent={{-98,-4},{-20,-16}},
-          textColor={255,0,255},
-          textString="uLeaConWatPum"),
-        Text(
-          extent={{-98,-24},{-20,-36}},
+          extent={{-100,-24},{-22,-36}},
           textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
@@ -194,12 +190,16 @@ annotation (
         Text(
           extent={{-96,16},{-58,2}},
           textColor={255,0,255},
-          textString="uEnaPla")}),
+          textString="uEnaPla"),
+        Text(
+          extent={{-100,-4},{-70,-16}},
+          textColor={255,0,255},
+          visible=have_WSE,
+          textString="uPla")}),
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.1, 
+ASHRAE Guideline36-2021, section 5.20.12.1, 
 which specifies tower fan staging process. It includes two subsequences:
 </p>
 <ul>

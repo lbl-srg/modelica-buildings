@@ -2,24 +2,28 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequ
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
   parameter Boolean have_heaCoi = true
-    "True if the air handling unit has heating coil";
+    "True if the air handling unit has heating coil"
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation (__cdl(ValueInReference=false));
   parameter Real k(
     final unit="1/K") = 1 "Gain of controller";
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=300
     "Time constant of modulation controller integrator block"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=false),
+                Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=false),
+                Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -27,12 +31,14 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final min=0.1,
     final max=0.9,
     final unit="1") = 0.1
-    "Lower limit of controller output uTSup at which the dampers are at their limits";
+    "Lower limit of controller output uTSup at which the dampers are at their limits"
+    annotation (__cdl(ValueInReference=false));
   parameter Real uMax(
     final min=0.1,
     final max=1,
     final unit="1") = 0.9
-    "Upper limit of controller output uTSup at which the dampers are at their limits";
+    "Upper limit of controller output uTSup at which the dampers are at their limits"
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -98,7 +104,7 @@ block Modulation "Outdoor and return air damper position modulation sequence for
       Placement(transformation(extent={{120,-10},{140,10}}), iconTransformation(
           extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset uTSup(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset uTSup(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -109,44 +115,44 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamMinLimSig(
     final k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamMaxLimSig(
     final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-60,-34},{-40,-14}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{24,-50},{44,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line retDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line HeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Line HeaCoi(
     final limitBelow=true,
     final limitAbove=true) if have_heaCoi
     "Heating coil signal is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{22,30},{42,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoiMaxLimSig(
     final k=1) if have_heaCoi
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaCoiMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoiMinLimSig(
     final k=0) if have_heaCoi
     "Minimum control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uMaxHeaCoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uMaxHeaCoi(
     final k=1)
     "Maximal control loop signal for the heating coil"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch enaDis if have_heaCoi
+  Buildings.Controls.OBC.CDL.Reals.Switch enaDis if have_heaCoi
     "Enable or disable the heating coil"
     annotation (Placement(transformation(extent={{76,30},{96,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant Off(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Off(
     final k=0) if have_heaCoi
     "Off signal for heating coil"
     annotation (Placement(transformation(extent={{6,-90},{26,-70}})));

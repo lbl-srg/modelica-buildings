@@ -24,57 +24,60 @@ protected
     final k=fill(true,2))
     "Operating chiller one"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLoa[2](
     final k=fill(1000,2)) "Chiller load"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant nexEnaChi(
     final k=0) "Next enabling chiller"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yOpeParLoaRatMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yOpeParLoaRatMin(
     final k=0.7)
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant onOff(
     final k=false) "Chiller on-off command"
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiFlo(
     final k=2) "Chilled water flow"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiHea[2](
     final k=fill(true,2))
     "Chiller head pressure control"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiIsoVal[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiIsoVal[2](
     final k=fill(1,2)) "Chilled water isolation valve"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant nexDisChi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nexDisChi(
     final k=2) "Next disable chiller"
     annotation (Placement(transformation(extent={{-120,-230},{-100,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1[2](
     final k=fill(0,2)) "Constant zero"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal[2](
     final k=fill(false,2)) "Constant false"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt "Convert real input to integer output"
+  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real input to integer output"
     annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start=fill(
-        true, 2)) "Chiller status return value"
+  Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](
+    final pre_u_start=fill(true, 2))
+    "Chiller status return value"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.95,
     final period=1200) "Boolean pulse"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not staDow2 "Stage down command"
+  Buildings.Controls.OBC.CDL.Logical.Not staDow2
+    "Stage down command"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
 equation
@@ -109,18 +112,20 @@ equation
   connect(reaToInt.y, staStaDow.nexDisChi)
     annotation (Line(points={{22,-240},{48,-240},{48,190},{58,190}},
       color={255,127,0}));
-  connect(staStaDow.yChi, chiStaRet.u) annotation (Line(points={{82,194},{90,
-          194},{90,180},{98,180}}, color={255,0,255}));
-  connect(chiStaRet.y, swi1.u2) annotation (Line(points={{122,180},{130,180},{
-          130,160},{-60,160},{-60,140},{-42,140}}, color={255,0,255}));
+  connect(staStaDow.yChi, chiStaRet.u)
+    annotation (Line(points={{82,194},{90,194},{90,180},{98,180}}, color={255,0,255}));
+  connect(chiStaRet.y, swi1.u2)
+    annotation (Line(points={{122,180},{130,180},{130,160},{-60,160},{-60,140},
+      {-42,140}}, color={255,0,255}));
   connect(chiLoa.y, swi1.u1)
     annotation (Line(points={{-98,140},{-90,140},{-90,148},{-42,148}},
       color={0,0,127}));
   connect(zer1.y, swi1.u3)
     annotation (Line(points={{-98,100},{-80,100},{-80,132},{-42,132}},
       color={0,0,127}));
-  connect(chiStaRet.y, logSwi.u2) annotation (Line(points={{122,180},{130,180},
-          {130,160},{-60,160},{-60,60},{-42,60}}, color={255,0,255}));
+  connect(chiStaRet.y, logSwi.u2)
+    annotation (Line(points={{122,180},{130,180},{130,160},{-60,160},{-60,60},
+      {-42,60}}, color={255,0,255}));
   connect(chiOn.y, logSwi.u1)
     annotation (Line(points={{-98,60},{-90,60},{-90,68},{-42,68}},
       color={255,0,255}));
@@ -154,11 +159,33 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart</a>.
+It shows the begining steps when the plant starts staging down. In this example,
+the staging down process does not require enabling one chiller and disabling
+another chiller.
+</p>
+<p>
+It stages from stage 2, which has both chiller 1 and chiller 2 enabled, down to
+stage 1 which only has chiller 1 enabled.
+</p>
+<ul>
+<li>
+The staging process begins at 180 seconds. Before the moment, the chiller 1 and 2
+are enabled.
+</li>
+<li>
+Since 180 seconds, the staging down process starts. The chiller 2 becomes disabled
+and its demand becomes 0.
+</li>
+</ul>
+<p>
+The chiller head pressure control, the chilled water isolation valve and the
+chilled water minimum flow setpoint will be controlled in the down process after
+this down begining process.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 26, by Jianjun Hu:<br/>
+September 26, 2019, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

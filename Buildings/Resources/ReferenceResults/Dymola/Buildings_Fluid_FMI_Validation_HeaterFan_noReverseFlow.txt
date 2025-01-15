@@ -1,5 +1,10 @@
-last-generated=2015-05-29
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-sou.T_in=[293.149993896484375, 293.149993896484375]
-hea.com.vol.T=[295.121337890625, 295.121337890625]
-time=[0., 1.]
+last-generated=2022-06-09
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+hea.com.vol.T=[2.95121337890625e+02, 2.95121337890625e+02]
+sou.T_in=[2.931499938964844e+02, 2.931499938964844e+02]

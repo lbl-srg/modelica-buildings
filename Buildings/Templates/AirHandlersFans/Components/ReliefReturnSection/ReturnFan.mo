@@ -1,15 +1,20 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReturnFan "Return fan with modulating relief damper"
   extends
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReturnFan,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
-    final typFanRet=fanRet.typ);
+    final typFanRet=fanRet.typ,
+    final nFanRel=0,
+    final nFanRet=fanRet.nFan);
 
-  Buildings.Templates.Components.Dampers.Modulating damRel(
+  Buildings.Templates.Components.Actuators.Damper damRel(
     redeclare final package Medium = MediumAir,
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     final dat=dat.damRel,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal,
     final text_flip=true)
     "Relief damper"
     annotation (Placement(transformation(
@@ -20,6 +25,8 @@ model ReturnFan "Return fan with modulating relief damper"
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversal,
       final have_senFlo=
         typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)
@@ -29,8 +36,7 @@ model ReturnFan "Return fan with modulating relief damper"
       "Single fan - Variable speed"), choice(redeclare replaceable
       Buildings.Templates.Components.Fans.ArrayVariable fanRet
       "Fan array - Variable speed")),
-      Placement(
-    transformation(extent={{70,-10},{50,10}})));
+      Placement(transformation(extent={{70,-10},{50,10}})));
 
 equation
   /* Control point connection - start */

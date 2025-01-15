@@ -7,7 +7,7 @@ model DelayFirstOrder
     final mSenFac=1);
 
   parameter Modelica.Units.SI.Time tau=60 "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+    annotation (Dialog(group="Delay time"));
 
 protected
   parameter Modelica.Units.SI.Volume V_nominal=m_flow_nominal*tau/rho_default
@@ -20,7 +20,7 @@ protected
 defaultComponentName="del",
     Documentation(info="<html>
 <p>
-This model approximates a transport delay using a first order differential equations.
+This model approximates a transport delay using first order differential equations.
 </p>
 <p>
 The model consists of a mixing volume with two ports. The size of the
@@ -29,11 +29,17 @@ mixing volume is such that at the nominal mass flow rate
 the time constant of the volume is equal to the parameter <code>tau</code>.
 </p>
 <p>
-The heat flux connector is optional, it need not be connnected.
+The heat flux connector is optional and need not be connnected.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 12, 2024, by Michael Wetter:<br/>
+Moved parameter <code>tau</code> to the main parameter tab.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1906\">#1906</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

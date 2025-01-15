@@ -26,11 +26,15 @@ block SetpointController
     "Number of chillers"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Real chiDesCap[nChi](unit="W", displayUnit="W")
+  parameter Real chiDesCap[nChi](
+    final unit=fill("W",nChi),
+    displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Real chiMinCap[nChi](unit="W", displayUnit="W")
+  parameter Real chiMinCap[nChi](
+    final unit=fill("W",nChi),
+    displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
@@ -171,12 +175,12 @@ block SetpointController
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWseSta if have_WSE
     "WSE status"
-    annotation (Placement(transformation(extent={{-442,-280},{-402,-240}}),
+    annotation (Placement(transformation(extent={{-440,-280},{-400,-240}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiAva[nChi]
     "Chiller availability status vector"
-    annotation (Placement(transformation(extent={{-442,-220},{-402,-180}}),
+    annotation (Placement(transformation(extent={{-440,-220},{-400,-180}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta(
@@ -415,18 +419,18 @@ protected
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.ChillerIndices chiInd(
-    nSta=nSta,
-    nChi=nChi,
-    staMat=staMat) "Calculates chiller status setpoint vector"
+    final nSta=nSta,
+    final nChi=nChi,
+    final staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract lift if anyVsdCen
+  Buildings.Controls.OBC.CDL.Reals.Subtract lift if anyVsdCen
     "Calculates chiller lift for variable speed centrifugal chiller containing configurations"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
 
 equation
   connect(uChiAva, conf.uChiAva)
-    annotation (Line(points={{-422,-200},{-382,-200},{-382,-170},{-362,-170}},
+    annotation (Line(points={{-420,-200},{-380,-200},{-380,-170},{-362,-170}},
           color={255,0,255}));
   connect(conf.yAva, sta.uAva) annotation (Line(points={{-338,-178},{-332,-178},
           {-332,-216},{-322,-216}},color={255,0,255}));
@@ -517,8 +521,9 @@ equation
   connect(uTowFanSpeMax, staDow.uTowFanSpeMax) annotation (Line(points={{-420,60},
           {-158,60},{-158,-237.2},{-102,-237.2}},
                                       color={0,0,127}));
-  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{-102,-241},{-340,-241},
-          {-340,-260},{-422,-260}}, color={255,0,255}));
+  connect(staDow.uWseSta, uWseSta) annotation (Line(points={{-102,-241},{-340,
+          -241},{-340,-260},{-420,-260}},
+                                    color={255,0,255}));
   connect(uSta, sta.u) annotation (Line(points={{-420,-60},{-328,-60},{-328,-204},
           {-322,-204}}, color={255,127,0}));
   connect(sta.yAvaCur, staUp.uAvaCur) annotation (Line(points={{-298,-217},{
@@ -774,7 +779,7 @@ chiller stage integer index <code>ySta</code>, chiller stage change trigger sign
 <code>y</code> and a chiller status vector for the current stage <code>yChi</code>.
 </p>
 <p>
-Implemented according to ASHRAE RP-1711 March 2020 Draft, section 5.2.4.1 - 17.
+It is implemented according to ASHRAE Guideline36-2021, section 5.20.4.1 - 15.
 </p>
 <p>
 The controller contains the following subsequences:

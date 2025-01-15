@@ -8,7 +8,7 @@ model BypassValve "Validate the control of inline valve"
     final width=0.8,
     final period=3600) "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse dpWSE(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse dpWSE(
     final amplitude=3000,
     final period=3600,
     final offset=4500)
@@ -39,6 +39,30 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.BypassValve\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.BypassValve</a>.
+</p>
+<p>
+The validation shows that when the plant is enabled in waterside mode
+(<code>uPla=true</code> and <code>uWSE=true</code>):
+</p>
+<ul>
+<li>
+The condenser water isolation valve to the heat exchanger will be fully
+open (<code>yConIsoVal=1</code>).
+</li>
+<li>
+The economizer in-line chilled water return line valve will be enabled,
+with the initial position as fully open (<code>yRetVal=1</code>).
+</li>
+<li>
+The return line valve will be modulated to maintain the static pressure
+difference (<code>dpChiWat</code>) across the chilled water side of the heat
+exchanger at the design value (<code>dpDes</code>).
+</li>
+</ul>
+<p>
+If the econimizer is disabled (<code>uWSE=false</code>), the condenser water
+isolation valve to the heat exchanger should be fully closed and the return
+line valve should be disabled in fully open position.
 </p>
 </html>", revisions="<html>
 <ul>

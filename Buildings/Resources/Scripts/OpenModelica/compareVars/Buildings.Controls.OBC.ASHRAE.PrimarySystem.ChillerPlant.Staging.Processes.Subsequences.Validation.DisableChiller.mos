@@ -10,7 +10,7 @@ compareVars :=
     "chiOnOff.yChi[1]",
     "chiOnOff.yChi[2]",
     "chiOnOff.yChi[3]",
-    "chiOnOff.yReaDemLim",
+    "chiOnOff.yRelDemLim",
     "chiOff.nexEnaChi",
     "chiOff.nexDisChi",
     "chiOff.uStaDow",
@@ -21,5 +21,5 @@ compareVars :=
     "chiOff.yChi[1]",
     "chiOff.yChi[2]",
     "chiOff.yChi[3]",
-    "chiOff.yReaDemLim"
+    "chiOff.yRelDemLim"
   };

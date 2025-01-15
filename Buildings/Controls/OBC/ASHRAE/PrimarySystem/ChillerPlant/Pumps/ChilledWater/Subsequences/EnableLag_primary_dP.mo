@@ -26,191 +26,157 @@ block EnableLag_primary_dP
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Chilled water flow"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+    annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
-    annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
+    annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),
       iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
     "Next lag pump status, a rising edge indicates that next lag pump should be enabled"
-    annotation (Placement(transformation(extent={{140,20},{180,60}}),
+    annotation (Placement(transformation(extent={{220,80},{260,120}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
     "Last lag pump status, a falling edge indicates that last lag pump should be disabled"
-    annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
+    annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=timPer)
+    "Check if the condition for enabling the pump has been constantly satisfied for enough time"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    final delayTime=timPer)
+    "Check if the condition for disabling the pump has been constantly satisfied for enough time"
+    annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis enaPum(
     final uLow=(-1)*relFloHys,
     final uHigh=relFloHys)
-    "Check if condition for enabling next lag pump is satisfied"
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    "Check if the condition for enabling next lag pump is satisfied"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis disPum(
     final uLow=(-1)*relFloHys,
     final uHigh=relFloHys)
-    "Check if condition for disabling last lag pump is satisfied"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter chiWatFloRat(
+    "Check if the condition for disabling last lag pump is satisfied"
+    annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter chiWatFloRat(
     final k=1/VChiWat_flow_nominal) "Chiller water flow ratio"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=staCon) "Add parameter"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=staCon) "Add parameter"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=timPer)
-    "Check if the time is greater than delay time period"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    final t=timPer)
-    "Check if the time is greater than delay time period"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
     "Convert boolean input to integer number"
-    annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum numOpePum(final nin=nPum)
     "Total number of operating pumps"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Convert integer to real"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1) "Add real inputs"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Find inputs difference"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Find inputs difference"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-120,-170},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Switch enaNexLag
     "Enabling next lag pump"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+    annotation (Placement(transformation(extent={{180,90},{200,110}})));
   Buildings.Controls.OBC.CDL.Logical.Switch shuLasLag
     "Shut off last lag pump"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true)
     "Logical true"
-    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+    annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=false)
     "Logical false"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
-    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Breaks algebraic loops"
-    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1 "Rising edge"
-    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Breaks algebraic loops"
-    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
-    annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nomPum(
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomPum(
     final k=1/nPum_nominal)
     "Pump number ratio"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nomPum1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomPum1(
     final k=1/nPum_nominal)
     "Pump number ratio"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con2(
+    final k=0.03)
+    "Constant"
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Input difference"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
+    "Input difference"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
-    annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
+    annotation (Line(points={{-240,80},{-202,80}}, color={0,0,127}));
   connect(uChiWatPum,booToInt. u)
-    annotation (Line(points={{-160,0},{-132,0}}, color={255,0,255}));
+    annotation (Line(points={{-240,0},{-202,0}}, color={255,0,255}));
   connect(booToInt.y,numOpePum. u)
-    annotation (Line(points={{-108,0},{-92,0}},
+    annotation (Line(points={{-178,0},{-142,0}},
       color={255,127,0}));
   connect(numOpePum.y,intToRea. u)
-    annotation (Line(points={{-68,0},{-52,0}},color={255,127,0}));
-  connect(sub2.y,hys. u)
-    annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
-  connect(sub1.y,hys1. u)
-    annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-  connect(addPar.y, sub2.u2)
-    annotation (Line(points={{62,0},{70,0},{70,20},{-90,20},{-90,34},{-82,34}},
-      color={0,0,127}));
+    annotation (Line(points={{-118,0},{-102,0}}, color={255,127,0}));
+  connect(sub2.y, enaPum.u)
+    annotation (Line(points={{-98,100},{-82,100}}, color={0,0,127}));
+  connect(sub1.y, disPum.u)
+    annotation (Line(points={{-98,-160},{-82,-160}}, color={0,0,127}));
   connect(intToRea.y, addPar1.u)
-    annotation (Line(points={{-28,0},{-10,0},{-10,-20},{-90,-20},{-90,-40},{-82,
-          -40}},
+    annotation (Line(points={{-78,0},{-60,0},{-60,-40},{-42,-40}},
       color={0,0,127}));
-  connect(addPar2.y, sub1.u1)
-    annotation (Line(points={{22,-40},{30,-40},{30,-60},{-90,-60},{-90,-74},{-82,
-          -74}},  color={0,0,127}));
   connect(chiWatFloRat.y, sub2.u1)
-    annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
+    annotation (Line(points={{-178,80},{-160,80},{-160,106},{-122,106}},
+      color={0,0,127}));
   connect(chiWatFloRat.y, sub1.u2)
-    annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
-      {-82,-86}}, color={0,0,127}));
+    annotation (Line(points={{-178,80},{-160,80},{-160,-166},{-122,-166}},
+      color={0,0,127}));
   connect(con.y, enaNexLag.u1)
-    annotation (Line(points={{62,120},{90,120},{90,48},{98,48}}, color={255,0,255}));
-  connect(con.y, shuLasLag.u3)
-    annotation (Line(points={{62,120},{90,120},{90,-88},{98,-88}}, color={255,0,255}));
+    annotation (Line(points={{142,160},{160,160},{160,108},{178,108}},
+      color={255,0,255}));
   connect(shuLasLag.y, yDown)
-    annotation (Line(points={{122,-80},{160,-80}}, color={255,0,255}));
+    annotation (Line(points={{202,-160},{240,-160}}, color={255,0,255}));
   connect(enaNexLag.y, yUp)
-    annotation (Line(points={{122,40},{160,40}}, color={255,0,255}));
+    annotation (Line(points={{202,100},{240,100}}, color={255,0,255}));
   connect(con1.y, enaNexLag.u3)
-    annotation (Line(points={{62,-40},{80,-40},{80,32},{98,32}},
+    annotation (Line(points={{122,0},{140,0},{140,92},{178,92}},
       color={255,0,255}));
-  connect(con1.y, shuLasLag.u1)
-    annotation (Line(points={{62,-40},{80,-40},{80,-72},{98,-72}},
-      color={255,0,255}));
-  connect(edg.y, not1.u)
-    annotation (Line(points={{-18,-140},{-2,-140}}, color={255,0,255}));
-  connect(edg.u, pre.y)
-    annotation (Line(points={{-42,-140},{-58,-140}}, color={255,0,255}));
-  connect(hys1.y, and2.u1)
-    annotation (Line(points={{-18,-80},{-14,-80},{-14,-120},{38,-120}},
-      color={255,0,255}));
-  connect(not1.y, and2.u2)
-    annotation (Line(points={{22,-140},{30,-140},{30,-128},{38,-128}},
-      color={255,0,255}));
-  connect(and2.y, tim1.u)
-    annotation (Line(points={{62,-120},{80,-120},{80,-104},{-6,-104},{-6,-80},
-      {-2,-80}}, color={255,0,255}));
-  connect(edg1.y, not2.u)
-    annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
-  connect(edg1.u, pre1.y)
-    annotation (Line(points={{-42,100},{-58,100}}, color={255,0,255}));
-  connect(not2.y, and1.u1)
-    annotation (Line(points={{22,100},{30,100},{30,80},{38,80}}, color={255,0,255}));
-  connect(hys.y, and1.u2)
-    annotation (Line(points={{-18,40},{-12,40},{-12,72},{38,72}}, color={255,0,255}));
-  connect(and1.y, tim.u)
-    annotation (Line(points={{62,80},{70,80},{70,66},{-6,66},{-6,40},{-2,40}},
-      color={255,0,255}));
-  connect(tim.passed, enaNexLag.u2) annotation (Line(points={{22,32},{60,32},{60,
-          40},{98,40}}, color={255,0,255}));
-  connect(tim.passed, pre1.u) annotation (Line(points={{22,32},{60,32},{60,60},{
-          -86,60},{-86,100},{-82,100}}, color={255,0,255}));
-  connect(tim1.passed, shuLasLag.u2) annotation (Line(points={{22,-88},{60,-88},
-          {60,-80},{98,-80}}, color={255,0,255}));
-  connect(tim1.passed, pre.u) annotation (Line(points={{22,-88},{60,-88},{60,-100},
-          {-100,-100},{-100,-140},{-82,-140}}, color={255,0,255}));
   connect(intToRea.y, nomPum.u)
-    annotation (Line(points={{-28,0},{-2,0}}, color={0,0,127}));
-  connect(nomPum.y, addPar.u)
-    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
+    annotation (Line(points={{-78,0},{-2,0}}, color={0,0,127}));
   connect(addPar1.y, nomPum1.u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
-  connect(nomPum1.y, addPar2.u)
-    annotation (Line(points={{-18,-40},{-2,-40}}, color={0,0,127}));
-
+    annotation (Line(points={{-18,-40},{-2,-40}},  color={0,0,127}));
+  connect(enaPum.y, truDel.u)
+    annotation (Line(points={{-58,100},{38,100}}, color={255,0,255}));
+  connect(truDel.y, enaNexLag.u2)
+    annotation (Line(points={{62,100},{178,100}}, color={255,0,255}));
+  connect(disPum.y, truDel1.u)
+    annotation (Line(points={{-58,-160},{38,-160}}, color={255,0,255}));
+  connect(truDel1.y, shuLasLag.u2)
+    annotation (Line(points={{62,-160},{178,-160}}, color={255,0,255}));
+  connect(nomPum.y, sub3.u1)
+    annotation (Line(points={{22,0},{30,0},{30,46},{58,46}}, color={0,0,127}));
+  connect(nomPum1.y, sub.u1) annotation (Line(points={{22,-40},{30,-40},{30,-34},
+          {58,-34}}, color={0,0,127}));
+  connect(con2.y, sub3.u2) annotation (Line(points={{22,-80},{40,-80},{40,34},{58,
+          34}}, color={0,0,127}));
+  connect(con2.y, sub.u2) annotation (Line(points={{22,-80},{40,-80},{40,-46},{58,
+          -46}}, color={0,0,127}));
+  connect(sub3.y, sub2.u2) annotation (Line(points={{82,40},{100,40},{100,70},{-140,
+          70},{-140,94},{-122,94}}, color={0,0,127}));
+  connect(sub.y, sub1.u1) annotation (Line(points={{82,-40},{100,-40},{100,-120},
+          {-140,-120},{-140,-154},{-122,-154}}, color={0,0,127}));
+  connect(con.y, shuLasLag.u1) annotation (Line(points={{142,160},{160,160},{160,
+          -152},{178,-152}}, color={255,0,255}));
+  connect(con1.y, shuLasLag.u3) annotation (Line(points={{122,0},{140,0},{140,-168},
+          {178,-168}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaLagChiPum",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -244,14 +210,13 @@ annotation (
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yDown")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-200},{220,200}})),
   Documentation(info="<html>
 <p>
 Block that enable and disable lag primary chilled water pump, for plants
 with headered primary chilled water pumps,
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020),
-section 5.2.6 Primary chilled water pumps, part 5.2.6.6.
+according to ASHRAE Guideline36-2021,
+section 5.20.6 Primary chilled water pumps, part 5.20.6.6.
 </p>
 <p>
 Chilled water pump shall be staged as a function of chilled water flow ratio (CHWFR),

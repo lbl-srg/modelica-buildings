@@ -32,15 +32,15 @@ model StageProcesses
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre[4] "Tower cell actual status"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[4](
-    final samplePeriod=fill(10, 4)) "Isolation valve actual position"
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[4](final
+      samplePeriod=fill(10, 4))     "Isolation valve actual position"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4](
     pre_u_start={false,true,true,false}) "Tower cell actual status"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[4] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[4] "Logical switch"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[4](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[4](
     final k={0,1,1,0})
     "Initial isolation valve positions"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
@@ -91,7 +91,29 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses</a>.
+It demonstrates the process of enabling (<code>enaPro</code>) and
+disabling (<code>disPro</code>) tower cells.
 </p>
+<ul>
+<li>
+For enabling process in instance <code>enaPro</code>, at 380 seconds,
+the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> are
+true, indicating that the status of cell 2 and 3 should be changed.
+As the cell 2 and 3 are initially disabled, thus the cell 2 and 3
+are being enabled. After the isolation valve of cell 2 and 3 being
+slowly open from 380 seconds to fully open at 470 seconds, the two
+cells are enabled.
+</li>
+<li>
+For disabling process in instance <code>disPro</code>, at 380 seconds,
+the input <code>uChaCel[2]</code> and <code>uChaCel[3]</code> are
+true, indicating that the status of cell 2 and 3 should be changed.
+As the cell 2 and 3 are initially enabled, thus the cell 2 and 3
+are being disabled. Different from the enabling process, in the
+disabling process, it shuts the isolation valve with no delay.
+At the meantime, the two cells are disabled.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

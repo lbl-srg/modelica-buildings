@@ -18,10 +18,10 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
 
   Modelica.Blocks.Interfaces.RealInput masFloPum
     "Total mass flowrate in the variable speed pumps"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput speSig
     "Speed signal"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[2]
     "On/off signal - 0: off; 1: on"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -30,7 +30,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con1(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig > minSpe)
+    condition=speSig > minSpe and on == true)
     "Fire condition 1: free cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -67,8 +67,8 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con3(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig < criPoiSpe - deaBanSpe
-      or masFloPum < criPoiFlo - deaBanFlo)
+    condition=speSig < criPoiSpe - deaBanSpe or masFloPum < criPoiFlo -
+        deaBanFlo or on == false)
     "Fire condition 3: fully mechanical cooling to partially mechanical cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -77,7 +77,7 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
   Modelica.StateGraph.Transition con4(
     enableTimer=true,
     waitTime=tWai,
-    condition=speSig <= minSpe)
+    condition=speSig <= minSpe or on == false)
     "Fire condition 4: partially mechanical cooling to free cooling"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -99,10 +99,16 @@ model VariableSpeedPumpStage "Staging control for variable speed pumps"
     final integerFalse=0, final integerTrue=2)
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Integers.Add addInt
+    "Outputs how many pumps are to be commanded on"
     annotation (Placement(transformation(extent={{60,-56},{80,-36}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
+    "Comparison from integer to real signal for number of pumps"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "On signal of the plant"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+   iconTransformation(extent={{-140,60},{-100,100}})));
 equation
   connect(off.outPort[1], con1.inPort)
     annotation (Line(
@@ -111,12 +117,12 @@ equation
       pattern=LinePattern.Dash));
   connect(con1.outPort, oneOn.inPort[1])
     annotation (Line(
-      points={{-50,38.5},{-50,26},{-50.5,26},{-50.5,21}},
+      points={{-50,38.5},{-50,26},{-49.75,26},{-49.75,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.inPort, oneOn.outPort[1])
     annotation (Line(
-      points={{-50,-26},{-50,-10},{-50.25,-10},{-50.25,-0.5}},
+      points={{-50,-26},{-50,-10},{-49.875,-10},{-49.875,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con2.outPort, twoOn.inPort[1])
@@ -136,12 +142,12 @@ equation
       pattern=LinePattern.Dash));
   connect(con3.outPort, oneOn.inPort[2])
     annotation (Line(
-      points={{-10,-38.5},{-10,26},{-49.5,26},{-49.5,21}},
+      points={{-10,-38.5},{-10,26},{-50.25,26},{-50.25,21}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(con4.inPort, oneOn.outPort[2])
     annotation (Line(
-      points={{-22,48},{-22,-10},{-49.75,-10},{-49.75,-0.5}},
+      points={{-22,48},{-22,-10},{-50.125,-10},{-50.125,-0.5}},
       color={0,0,0},
       pattern=LinePattern.Dash));
   connect(combiTable1Ds.y, y)
@@ -150,14 +156,14 @@ equation
           {10,10},{-39,10}}, color={255,0,255}));
   connect(twoOn.active, booToInt1.u)
     annotation (Line(points={{-39,-70},{18,-70}},          color={255,0,255}));
-  connect(booToInt.y, addInt.u1) annotation (Line(points={{41,-40},{58,-40}},
+  connect(booToInt.y, addInt.u1) annotation (Line(points={{42,-40},{58,-40}},
                           color={255,127,0}));
-  connect(booToInt1.y, addInt.u2) annotation (Line(points={{41,-70},{48,-70},{
+  connect(booToInt1.y, addInt.u2) annotation (Line(points={{42,-70},{48,-70},{
           48,-52},{58,-52}}, color={255,127,0}));
-  connect(addInt.y, intToRea.u) annotation (Line(points={{81,-46},{90,-46},{90,
+  connect(addInt.y, intToRea.u) annotation (Line(points={{82,-46},{90,-46},{90,
           -20},{30,-20},{30,0},{38,0}}, color={255,127,0}));
   connect(intToRea.y, combiTable1Ds.u)
-    annotation (Line(points={{61,0},{68,0},{68,0}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{68,0},{68,0}}, color={0,0,127}));
   annotation (                   Documentation(info="<html>
 <p>This model implements a simple staging control logic for variable speed pumps.
 </p>
@@ -175,6 +181,10 @@ then deactivate one more pump.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 30, 2022, by Kathryn Hinkelman:<br/>
+Added an <code>on</code> input for a plant-level override to turn pumps off.
+</li>
 <li>
 September 11, 2017, by Michael Wetter:<br/>
 Revised switch that selects the operation mode for

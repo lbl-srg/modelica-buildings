@@ -31,9 +31,9 @@ equation
             false, extent={{-200,-180},{200,180}})),
     Documentation(info="<html>
 <p>
-This class generates signals typically provided by the HHW and CHW plant 
+This class generates signals typically provided by the HHW and CHW plant
 controller.
-It is aimed for validation purposes only. 
+It is aimed for validation purposes only.
 </p>
 </html>"));
 end PlantControlPoints;

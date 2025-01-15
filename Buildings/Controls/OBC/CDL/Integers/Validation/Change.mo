@@ -4,7 +4,7 @@ model Change
   Buildings.Controls.OBC.CDL.Integers.Change cha
     "Check if the integer input changes value"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     offset=0,
     height=20,
     duration=1)
@@ -16,7 +16,7 @@ model Change
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTabLin(
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,-1;

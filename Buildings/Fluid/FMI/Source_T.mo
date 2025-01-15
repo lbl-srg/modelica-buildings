@@ -47,7 +47,7 @@ model Source_T
 protected
   Buildings.Fluid.FMI.Interfaces.PressureOutput p_in_internal
     "Internal connector for pressure";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
+  input Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_in_internal
     "Internal connector for mass fraction of forward flow properties";
 initial equation
    assert(Medium.nXi < 2,
@@ -101,6 +101,11 @@ and the mass flow rate of the system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air only.

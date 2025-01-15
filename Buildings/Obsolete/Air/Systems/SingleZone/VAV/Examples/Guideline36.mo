@@ -32,7 +32,7 @@ model Guideline36
     yDam_VOutDes_maxSpe=0.04)
     "VAV controller"
     annotation (Placement(transformation(extent={{-120,-28},{-80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysChiPla(
     uLow=-1,
     uHigh=0)
     "Hysteresis with delay to switch on cooling"
@@ -48,7 +48,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(final k=0)
     "Cooling and heating demand imit level"
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooWarTim(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooWarTim(final k=0)
     "Cooldown and warm-up time"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 

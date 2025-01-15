@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "sta.u",
+    "sta.y",
+    "zerHolTim.y",
+    "sta1.u",
+    "sta1.y",
+    "lesHolTim.y"
+  };

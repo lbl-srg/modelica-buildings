@@ -164,7 +164,7 @@ model WetCoilEffectivenessNTUHeating
     nPorts=1)
     "Source for water"
     annotation (Placement(transformation(extent={{-180,-30},{-160,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp T_a2(
+  Controls.OBC.CDL.Reals.Sources.Ramp T_a2(
     height=15,
     duration=1000,
     offset=273.15) "Air inlet temperature"

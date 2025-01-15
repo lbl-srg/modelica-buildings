@@ -1,7 +1,6 @@
 compareVars :=
   {
-    "enaLeaChiPum.uChiIsoVal[1]",
-    "enaLeaChiPum.uChiIsoVal[2]",
-    "enaLeaChiPum.uChiIsoVal[3]",
+    "enaLeaChiPum.uChiWatIsoVal[1]",
+    "enaLeaChiPum.uChiWatIsoVal[2]",
     "enaLeaChiPum.yLea"
   };

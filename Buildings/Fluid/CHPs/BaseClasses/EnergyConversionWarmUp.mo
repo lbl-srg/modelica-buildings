@@ -55,7 +55,7 @@ protected
     final deltaX=0.5)
     "Prevent zero in denominator"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis temChe(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis temChe(
     final uLow=4.8,
     final uHigh=5.2)
     "Check if room temperature is not close to the nominal engine temperature by less than 5 Kelvin"
@@ -63,70 +63,70 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaE(
     final a=per.coeEtaE) "Part load electrical efficiency"
     annotation (Placement(transformation(extent={{-20,230},{0,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide QGroMax
+  Buildings.Controls.OBC.CDL.Reals.Divide QGroMax
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{40,250},{60,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PEleMax(
     final k=per.PEleMax) "Maximum power"
     annotation (Placement(transformation(extent={{-80,290},{-60,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter maxFueFlo(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter maxFueFlo(
     final k=per.rFue) "Maximum fuel mass flow rate"
     annotation (Placement(transformation(extent={{320,250},{340,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min fueFlo "Fuel flow"
+  Buildings.Controls.OBC.CDL.Reals.Min fueFlo "Fuel flow"
     annotation (Placement(transformation(extent={{380,130},{400,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide division
+  Buildings.Controls.OBC.CDL.Reals.Divide division
     "First input divided by second input"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TEngNom(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TEngNom(
     y(final unit="K", displayUnit="degC"),
     final k=per.TEngNom) "Nominal engine temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Difference between nominal engine temperature and room temperature"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min1(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant min1(final k=1)
     "Prevent negative value if room temperature exceeds engine nominal temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain(final k=per.kF)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gain(final k=per.kF)
     "Gain by factor of warm-up fuel coefficient"
     annotation (Placement(transformation(extent={{200,30},{220,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add up two inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add up two inputs"
     annotation (Placement(transformation(extent={{260,-10},{280,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply unlFueFloWarUp
+  Buildings.Controls.OBC.CDL.Reals.Multiply unlFueFloWarUp
     "Unlimited fuel mass flow rate during warm-up"
     annotation (Placement(transformation(extent={{320,30},{340,50}})));
   Buildings.Fluid.CHPs.BaseClasses.EfficiencyCurve etaQ(
     final a=per.coeEtaQ) "Part load thermal efficiency"
     annotation (Placement(transformation(extent={{-20,180},{0,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply heaGen
+  Buildings.Controls.OBC.CDL.Reals.Multiply heaGen
     "Heat generation within the engine"
     annotation (Placement(transformation(extent={{500,150},{520,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide division1
+  Buildings.Controls.OBC.CDL.Reals.Divide division1
     "First input divided by second input"
     annotation (Placement(transformation(extent={{200,80},{220,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant powCoe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant powCoe(
     final k=per.kP) "Warm-up power coefficient"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply PEleNet1
+  Buildings.Controls.OBC.CDL.Reals.Multiply PEleNet1
     "Generated electrical power"
     annotation (Placement(transformation(extent={{260,330},{280,350}})));
   Buildings.Utilities.Math.Polynomial masFloAir(final a=per.coeMasAir)
     "Air mass flow rate"
     annotation (Placement(transformation(extent={{500,230},{520,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant min2(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant min2(final k=1)
     "Prevent zero  in denominator"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
     final message="Room temperature is too close to the nominal engine temperature, simulation should be aborted")
     "Assert function for checking room temperature"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFloFue(final k=1
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter masFloFue(final k=1
         /per.LHVFue) "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{80,250},{100,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter heaGro(final k=per.LHVFue)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter heaGro(final k=per.LHVFue)
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{440,130},{460,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Difference between room temperature and engine temperature"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

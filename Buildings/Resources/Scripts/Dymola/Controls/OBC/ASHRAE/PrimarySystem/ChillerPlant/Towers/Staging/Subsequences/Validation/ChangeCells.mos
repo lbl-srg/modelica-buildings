@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.Validation.ChangeCells", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="ChangeCells");
-createPlot(id=1, position={15, 6, 1488, 1268}, y={"enaTowCel.uCelNum"}, range={0.0, 3600.0, 0.5, 3.5}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 6, 1488, 1268}, y={"enaTowCel.uTowSta[1]", "enaTowCel.uTowSta[2]", "enaTowCel.uTowSta[3]", "enaTowCel.uTowSta[4]"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 6, 1488, 1268}, y={"enaTowCel.yChaCel[1]", "enaTowCel.yChaCel[2]", "enaTowCel.yChaCel[3]", "enaTowCel.yChaCel[4]"}, range={0.0, 3600.0, -0.2, 1.2}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
-
+createPlot(id=1, position={1, 9, 1488, 1200}, y={"enaTowCel.uCelNum"}, range={0.0, 3600.0, 0.0, 4.0}, grid=true, subPlot=101, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={1, 9, 1488, 1200}, y={"enaTowCel.uTowSta[1]", "enaTowCel.uTowSta[2]", "enaTowCel.uTowSta[3]", "enaTowCel.uTowSta[4]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={1, 9, 1488, 1200}, y={"enaTowCel.yChaCel[1]", "enaTowCel.yChaCel[2]", "enaTowCel.yChaCel[3]", "enaTowCel.yChaCel[4]"}, range={0.0, 3600.0, -2.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={1, 9, 1488, 1200}, y={"enaTowCel.yTowSta[1]", "enaTowCel.yTowSta[2]", "enaTowCel.yTowSta[3]", "enaTowCel.yTowSta[4]"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=104, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");

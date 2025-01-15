@@ -17,11 +17,11 @@ model SeparateWithAFMS
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
     annotation (Placement(transformation(extent={{200,10},{220,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow(
     final k=minVOutSet_flow)
     "Outdoor volumetric airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=incVOutSet_flow)
@@ -57,7 +57,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.warmUp)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow1(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
@@ -65,21 +65,21 @@ protected
     final k=false)
     "Fan is off"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow1(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow)
     "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamPos(
     final duration=1800,
     final offset=0.1,
     final height=0.5) "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-220,-70},{-200,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supFanSpe(
     final k=0) "Supply fan speed"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSet_flow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSet_flow2(
     final k=minVOutSet_flow)
     "Outdoor airflow rate setpoint, 15cfm/occupant and 100 occupants"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
@@ -87,25 +87,25 @@ protected
     final k=true)
     "Fan is on"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOut_flow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOut_flow2(
     final duration=1800,
     final offset=minVOutSet_flow,
     final height=incVOutSet_flow) "Measured outdoor airflow rate"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamPos1(
     final duration=1800,
     final offset=0.1,
     final height=0.5) "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supFanSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supFanSpe1(
     final k=0.2) "Supply fan speed"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamPos2(
     final duration=1800,
     final offset=0.1,
     final height=0.5) "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supFanSpe2(
     final height=0.5,
     final duration=1800,
     final offset=0.1)
@@ -131,8 +131,8 @@ equation
           -20},{-180,17},{-142,17}}, color={255,127,0}));
   connect(outDamPos.y, disMinCon.uOutDam) annotation (Line(points={{-198,-60},{
           -170,-60},{-170,14},{-142,14}}, color={0,0,127}));
-  connect(supFanSpe.y, disMinCon.uSupFan_actual) annotation (Line(points={{-198,
-          -100},{-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
+  connect(supFanSpe.y, disMinCon.uSupFan) annotation (Line(points={{-198,-100},
+          {-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
   connect(VOutMinSet_flow2.y, disMinCon1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-38,60},{-20,60},{-20,29},{18,29}}, color={0,0,127}));
   connect(VOut_flow2.y, disMinCon1.VOut_flow_normalized) annotation (Line(
@@ -143,12 +143,12 @@ equation
           -20},{-20,17},{18,17}}, color={255,127,0}));
   connect(outDamPos1.y, disMinCon1.uOutDam) annotation (Line(points={{-38,-60},
           {-10,-60},{-10,14},{18,14}}, color={0,0,127}));
-  connect(supFanSpe1.y, disMinCon1.uSupFan_actual) annotation (Line(points={{-38,
-          -100},{0,-100},{0,11},{18,11}}, color={0,0,127}));
+  connect(supFanSpe1.y, disMinCon1.uSupFan) annotation (Line(points={{-38,-100},
+          {0,-100},{0,11},{18,11}}, color={0,0,127}));
   connect(outDamPos2.y, minCon.uOutDam) annotation (Line(points={{142,-60},{170,
           -60},{170,14},{198,14}}, color={0,0,127}));
-  connect(supFanSpe2.y, minCon.uSupFan_actual) annotation (Line(points={{142,-100},
-          {180,-100},{180,11},{198,11}}, color={0,0,127}));
+  connect(supFanSpe2.y, minCon.uSupFan) annotation (Line(points={{142,-100},{
+          180,-100},{180,11},{198,11}}, color={0,0,127}));
 
 annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/Validation/SeparateWithAFMS.mos"

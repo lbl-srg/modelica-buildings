@@ -4,8 +4,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h") = 300
+    final quantity="Time") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
@@ -36,7 +35,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
     "Chiller enabling status"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yRelDemLim
     "Release demand limit"
     annotation (Placement(transformation(extent={{200,-70},{240,-30}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
@@ -47,6 +46,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "In staging down process and the chilled water isolation valve has open"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=nChi)
@@ -60,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -125,7 +125,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep5(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr1[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
@@ -162,74 +162,74 @@ protected
 equation
   connect(nexEnaChi, intRep.u)
     annotation (Line(points={{-220,200},{-162,200}}, color={255,127,0}));
-  connect(intRep.y,intEqu. u1)
+  connect(intRep.y, intEqu.u1)
     annotation (Line(points={{-138,200},{-102,200}}, color={255,127,0}));
-  connect(uEnaChiWatIsoVal,and2. u2)
+  connect(uEnaChiWatIsoVal, and2.u2)
     annotation (Line(points={{-220,110},{-170,110},{-170,132},{-162,132}},
       color={255,0,255}));
   connect(uStaDow, and2.u1)
     annotation (Line(points={{-220,140},{-162,140}}, color={255,0,255}));
-  connect(and2.y,booRep. u)
+  connect(and2.y, booRep.u)
     annotation (Line(points={{-138,140},{-102,140}}, color={255,0,255}));
-  connect(intEqu.y,and1. u1)
+  connect(intEqu.y, and1.u1)
     annotation (Line(points={{-78,200},{-42,200}},  color={255,0,255}));
-  connect(booRep.y,and1. u2)
+  connect(booRep.y, and1.u2)
     annotation (Line(points={{-78,140},{-70,140},{-70,192},{-42,192}},
       color={255,0,255}));
-  connect(and1.y,logSwi. u2)
+  connect(and1.y, logSwi.u2)
     annotation (Line(points={{-18,200},{98,200}}, color={255,0,255}));
-  connect(con.y,logSwi. u1)
+  connect(con.y, logSwi.u1)
     annotation (Line(points={{-18,230},{0,230},{0,208},{98,208}}, color={255,0,255}));
-  connect(uChi,booToRea. u)
+  connect(uChi, booToRea.u)
     annotation (Line(points={{-220,80},{-170,80},{-170,100},{-102,100}},
       color={255,0,255}));
-  connect(and2.y,edg. u)
+  connect(and2.y, edg.u)
     annotation (Line(points={{-138,140},{-120,140},{-120,70},{-102,70}},
       color={255,0,255}));
-  connect(booToRea.y,triSam. u)
+  connect(booToRea.y, triSam.u)
     annotation (Line(points={{-78,100},{-22,100}}, color={0,0,127}));
-  connect(edg.y,booRep1. u)
+  connect(edg.y, booRep1.u)
     annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
-  connect(booRep1.y,triSam. trigger)
+  connect(booRep1.y, triSam.trigger)
     annotation (Line(points={{-38,70},{-10,70},{-10,88}},   color={255,0,255}));
-  connect(triSam.y,greEquThr. u)
+  connect(triSam.y, greEquThr.u)
     annotation (Line(points={{2,100},{18,100}}, color={0,0,127}));
-  connect(greEquThr.y,logSwi. u3)
+  connect(greEquThr.y, logSwi.u3)
     annotation (Line(points={{42,100},{60,100},{60,192},{98,192}},
       color={255,0,255}));
-  connect(and2.y,tim. u)
+  connect(and2.y, tim.u)
     annotation (Line(points={{-138,140},{-120,140},{-120,0},{-102,0}},
       color={255,0,255}));
-  connect(booRep2.y,and3. u1)
+  connect(booRep2.y, and3.u1)
     annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
-  connect(and3.y,logSwi1. u2)
+  connect(and3.y, logSwi1.u2)
     annotation (Line(points={{62,0},{80,0},{80,10},{98,10}},
       color={255,0,255}));
-  connect(con1.y,logSwi1. u1)
+  connect(con1.y, logSwi1.u1)
     annotation (Line(points={{62,30},{80,30},{80,18},{98,18}},
       color={255,0,255}));
-  connect(uChi,logSwi1. u3)
+  connect(uChi, logSwi1.u3)
     annotation (Line(points={{-220,80},{-170,80},{-170,-20},{90,-20},{90,2},
       {98,2}}, color={255,0,255}));
-  connect(booRep3.y,logSwi2. u2)
+  connect(booRep3.y, logSwi2.u2)
     annotation (Line(points={{102,50},{158,50}}, color={255,0,255}));
-  connect(logSwi1.y,logSwi2. u3)
+  connect(logSwi1.y, logSwi2.u3)
     annotation (Line(points={{122,10},{140,10},{140,42},{158,42}},
       color={255,0,255}));
-  connect(logSwi.y,logSwi2. u1)
+  connect(logSwi.y, logSwi2.u1)
     annotation (Line(points={{122,200},{140,200},{140,58},{158,58}},
       color={255,0,255}));
-  connect(conInt.y,intEqu. u2)
+  connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-138,170},{-110,170},{-110,192},{-102,192}},
       color={255,127,0}));
   connect(nexDisChi, intRep1.u)
     annotation (Line(points={{-220,-80},{-162,-80}}, color={255,127,0}));
-  connect(intRep1.y,intEqu1. u1)
+  connect(intRep1.y, intEqu1.u1)
     annotation (Line(points={{-138,-80},{-102,-80}}, color={255,127,0}));
-  connect(conInt.y,intEqu1. u2)
+  connect(conInt.y, intEqu1.u2)
     annotation (Line(points={{-138,170},{-110,170},{-110,-88},{-102,-88}},
       color={255,127,0}));
-  connect(intEqu1.y,and3. u2)
+  connect(intEqu1.y, and3.u2)
     annotation (Line(points={{-78,-80},{10,-80},{10,-8},{38,-8}},
       color={255,0,255}));
   connect(not1.y, booRep3.u)
@@ -282,7 +282,7 @@ equation
     annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
       color={255,0,255}));
   connect(booRep5.y, triSam1.trigger)
-    annotation (Line(points={{-98,-240},{-70,-240},{-70,-222}},   color={255,0,255}));
+    annotation (Line(points={{-98,-240},{-70,-240},{-70,-222}}, color={255,0,255}));
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{-138,-160},{0,-160},{0,-240},{98,-240}}, color={255,0,255}));
   connect(logSwi3.y, logSwi6.u1)
@@ -297,7 +297,7 @@ equation
   connect(uOnOff, logSwi7.u2)
     annotation (Line(points={{-220,-120},{80,-120},{80,-52},{158,-52}},
       color={255,0,255}));
-  connect(logSwi7.y, yReaDemLim)
+  connect(logSwi7.y,yRelDemLim)
     annotation (Line(points={{182,-52},{202,-52},{202,-50},{220,-50}},
       color={255,0,255}));
   connect(tim.passed, not1.u)
@@ -309,7 +309,6 @@ equation
   connect(tim.passed, logSwi7.u1)
     annotation (Line(points={{-78,-8},{-40,-8},{-40,-44},{158,-44}},
       color={255,0,255}));
-
   connect(con3.y, logSwi7.u3) annotation (Line(points={{42,-70},{90,-70},{90,-60},
           {158,-60}}, color={255,0,255}));
 annotation (
@@ -374,7 +373,7 @@ annotation (
         Text(
           extent={{44,-72},{96,-84}},
           textColor={255,0,255},
-          textString="yReaDemLim")}),
+          textString="yRelDemLim")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
           Rectangle(
@@ -422,12 +421,11 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging down command <code>uStaDow=true</code>.
-This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.17,
-item 1.e and f. These two sections specify how to start the smaller chiller and shut
+This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.17,
+item a.5 and a.6. These two sections specify how to start the smaller chiller and shut
 off larger chiller when the stage change requires large chiller off and small chill on.
 In other stage change, when it does not require chiller on/off, the chiller will then
-be shut off as specified in section 5.2.4.17, item 2.
+be shut off as specified in section 5.20.4.17, item b.
 </p>
 <p>
 When the stage-down process requires a smaller chiller being staged on and a larger

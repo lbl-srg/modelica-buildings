@@ -1,0 +1,36 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop", method="CVode", stopTime=300, tolerance=1e-06, resultFile="ThrottleOpenLoop");
+
+createPlot(id=1, position={15, 15, 1184, 744},y={"ope.y[1]", "ope.y[2]"}, autoscale=true, grid=true, autoerase=true, color=true);
+
+createPlot(id=2, position={616, 16, 1184, 744}, y={"pum.m_flow", "con.val.m_flow", "con1.val.m_flow", "mPum_flow_nominal", "con.m2_flow_nominal", "con1.m2_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true);
+
+createPlot(id=3, position={1214, 15, 1213, 973}, y={"pum.dpMachine", "dp.p_rel", "con.res1.dp", "con.val.dp", "loa.coi.dp1"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true, subPlot=1);
+createPlot(id=3, y={"pum.dpMachine", "dp1.p_rel", "con1.res1.dp", "con1.val.dp", "loa1.coi.dp1"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true, subPlot=2);
+
+createPlot(id=4, position={169, 245, 1184, 744}, y={"ope.y[1]", "ope.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true);
+
+createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
+
+// Plot pump characteristic and design operating point
+nPoints = readTrajectorySize("ThrottleOpenLoop.mat");
+dp_nom = readTrajectory("ThrottleOpenLoop.mat", {"dpPum_nominal"}, 1);
+m_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"mPum_flow_nominal"}, 1);
+
+mValues = {0.1 * i for i in 1:40};
+coefValues = {-460.21953782,  -1386.8697479 ,   -945.37815126, 114000.} * dp_nom[1,1] * 1e-5 ;
+dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
+plotArray(mValues, dpValues, id=5, erase=false, legend="Characteristic");
+plotArray({m_flow_nom[1, 1]}, {dp_nom[1, 1]}, id=5, erase=false, legend="Design operating point");
+
+// Delta-T function of the load
+q_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("ThrottleOpenLoop.mat", {"loa1.Q_flow_nominal"}, 1);
+q_flow = readTrajectory("ThrottleOpenLoop.mat", {"loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("ThrottleOpenLoop.mat", {"loa1.Q_flow"}, nPoints);
+dT = readTrajectory("ThrottleOpenLoop.mat", {"dT1.y"}, nPoints);
+ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
+
+createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray({1}, {dT[1, 1]}, id=6, erase=false, legend="Design operating point", color={238,46,47});
+plotArray({0,1}, {0,dT[1, 1]}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);

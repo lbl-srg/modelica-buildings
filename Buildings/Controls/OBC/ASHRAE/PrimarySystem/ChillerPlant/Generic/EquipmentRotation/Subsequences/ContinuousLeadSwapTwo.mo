@@ -44,18 +44,18 @@ equation
     lineColor={0,0,127}, fillColor={255,255,255},
     fillPattern=FillPattern.Solid),
     Ellipse( extent={{71,7},{85,-7}},
-    lineColor=DynamicSelect({235,235,235}, if y then {0,255,0} else {235,235,235}),
-    fillColor=DynamicSelect({235,235,235}, if y then {0,255,0} else {235,235,235}),
+    lineColor={235,235,235},
+    fillColor={235,235,235},
     fillPattern=FillPattern.Solid), Ellipse( extent={{-75,-6},{-89,8}},
-    lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,235,235}),
-    fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0} else {235,235,235}),
+    lineColor={235,235,235},
+    fillColor={235,235,235},
     fillPattern=FillPattern.Solid), Text( extent={{-120,146},{100,108}},
     textColor={0,0,255}, textString="%name")}),
   Documentation(info="<html>
 <p>
 This block ensures that the new lead device is started and proven on before the old 
 lead device is switched to standby and shut off. The implementation is 
-according to March 2020 Draft RP-1711, section 5.1.2.4.2.
+according to ASHRAE Guideline36-2021, section 5.1.15.4.b.
 </p>
 </html>", revisions="<html>
 <ul>

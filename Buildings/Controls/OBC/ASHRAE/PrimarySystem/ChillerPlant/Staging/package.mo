@@ -2,8 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package Staging "Chiller staging sequences"
 annotation (preferredView="info", Documentation(info="<html>
 <p>This package contains chiller staging control sequences based on
-ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020).</p>
+ASHRAE Guideline36-2021.</p>
 </html>"),
   Icon(graphics={
         Rectangle(

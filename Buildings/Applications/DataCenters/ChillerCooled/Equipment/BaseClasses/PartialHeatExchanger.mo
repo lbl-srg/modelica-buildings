@@ -21,23 +21,25 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     start=0.8) "constant effectiveness";
 
    // Filter opening
-  parameter Boolean use_inputFilter=true
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
-  parameter Modelica.Units.SI.Time riseTime=120
-    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+  parameter Boolean use_strokeTime=true
+    "Set to true to continuously open and close valve"
+    annotation(Dialog(tab="Dynamics", group=
+          "Time needed to open or close valve",
+          enable=activate_ThrWayVal));
+  parameter Modelica.Units.SI.Time strokeTime=30
+    "Time needed to open or close valve"
     annotation (Dialog(
       tab="Dynamics",
-      group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+      group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Real yThrWayVal_start=1
     "Initial value of output from the filter in the bypass valve"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",
-      enable=(activate_ThrWayVal and use_inputFilter)));
+    annotation(Dialog(tab="Dynamics", group="Time needed to open or close valve",
+      enable=(activate_ThrWayVal and use_strokeTime)));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0,
@@ -67,8 +69,8 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
     final linearized={linearizeFlowResistance2,linearizeFlowResistance2},
     final rhoStd=rhoStd,
     final homotopyInitialization=homotopyInitialization,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
+    final use_strokeTime=use_strokeTime,
+    final strokeTime=strokeTime,
     final init=init,
     final R=R,
     final delta0=delta0,
@@ -233,6 +235,10 @@ This module simulates a heat exchanger with a three-way bypass used to modulate 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed <code>riseTime</code> of valve to be <i>30</i> seconds to make it the same as the rise time of pumps.
+</li>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
 Added <code>dpValve_nominal</code> to avoid redundant declaration of <code>dp2_nominal</code>.

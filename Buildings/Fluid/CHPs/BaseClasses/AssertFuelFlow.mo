@@ -18,7 +18,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if fuel flow rate is changing slowly"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=0.99*dmFueMax_flow,
     final uHigh=1.01*dmFueMax_flow + 1e-6)
     "Check if fuel mass flow rate is changing too much"
@@ -27,7 +27,7 @@ protected
     final initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Rate at which fuel mass flow rate changes"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1 "Absolute value"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation

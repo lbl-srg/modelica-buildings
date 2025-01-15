@@ -6,5 +6,7 @@ compareVars :=
     "conWatRetSet.uOpeParLoaRat",
     "conWatRetSet.TChiWatSupSet",
     "conWatRetSet.TConWatRetSet",
-    "conWatRetSet.conWatRet.y"
+    "conWatRetSet.conWatRet.y",
+    "conWatRetSet.TConWatRet_nominal[1]",
+    "conWatRetSet.TConWatRet_nominal[2]"
   };

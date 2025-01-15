@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation;
 model ZoneStates "Validation models of determining zone state"
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta "Zone state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uCoo(
     final period=2,
     final shift=1,
     final offset=0,
     final amplitude=1) "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse uHea(
     final period=2,
     final shift=2,
     final offset=0,

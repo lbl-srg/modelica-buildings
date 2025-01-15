@@ -1,6 +1,7 @@
 within Buildings.Templates.Components.Fans;
 model None "No fan"
   extends Buildings.Templates.Components.Interfaces.PartialFan(
+    final nFan=0,
     final typ=Buildings.Templates.Components.Types.Fan.None);
 
 equation
@@ -18,5 +19,12 @@ equation
 This is a direct fluid pass-through model to represent
 a configuration with no fan.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end None;

@@ -8,7 +8,7 @@ model CarnotVerifyCOP
   parameter Real COP_nominal = 3 "Coefficient of performance";
 
   parameter Modelica.Units.SI.Temperature TCon_nominal=273.15 + 30
-    "Nominal condensor temperature";
+    "Nominal condenser temperature";
   parameter Modelica.Units.SI.Temperature TEva_nominal=273.15 + 5
     "Nominal evaporator temperature";
 
@@ -62,7 +62,7 @@ model CarnotVerifyCOP
     redeclare package Medium = Medium,
     m_flow=mCon_flow_nominal,
     T=TCon_nominal - QCon_flow_nominal/cp_default/mCon_flow_nominal)
-    "Boundary condition for condener"
+    "Boundary condition for condenser"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Sources.MassFlowSource_T bouEva(
     redeclare package Medium = Medium,

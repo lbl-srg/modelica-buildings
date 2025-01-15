@@ -21,9 +21,9 @@ package Types "Package with type definitions"
     "Enumeration to specify the building type";
   type Units = enumeration(
       SI
-      "International system of units",
+      "SI - International units",
       IP
-      "Imperial system of units")
+      "IP - Imperial units")
     "Enumeration to specify the system of units";
   annotation (Documentation(info="<html>
 <p>

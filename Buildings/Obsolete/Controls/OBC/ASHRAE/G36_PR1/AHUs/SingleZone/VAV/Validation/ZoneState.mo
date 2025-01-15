@@ -3,7 +3,7 @@ model ZoneState "Validation models of determining zone state"
   Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.ZoneState zonSta
     "Zone state"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable uHeaCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable uHeaCoo(
     table=[0,0,0; 1,0,1; 2,1,0],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)

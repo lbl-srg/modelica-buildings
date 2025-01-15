@@ -12,7 +12,7 @@ block ZoneGroupSystem
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nGro]
     "Convert integer to real"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(nin=nGro)
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nGro)
     "Find the highest priotity operating mode"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger ahuMod

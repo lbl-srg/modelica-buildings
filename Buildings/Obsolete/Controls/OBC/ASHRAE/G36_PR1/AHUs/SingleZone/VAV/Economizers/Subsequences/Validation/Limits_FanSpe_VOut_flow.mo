@@ -47,21 +47,21 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Operation mode - occupied"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VOutMinSetSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant VOutMinSetSig(
     final k=VOutSet_flow)
     "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp SupFanSpeSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp SupFanSpeSig(
     final duration=1800,
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp VOutMinSetSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp VOutMinSetSig1(
     final duration=1800,
     final offset=VOutMin_flow,
     final height=VOutDes_flow - VOutMin_flow) "Constant minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SupFanSpeSig1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant SupFanSpeSig1(
     final k=fanSpe) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 

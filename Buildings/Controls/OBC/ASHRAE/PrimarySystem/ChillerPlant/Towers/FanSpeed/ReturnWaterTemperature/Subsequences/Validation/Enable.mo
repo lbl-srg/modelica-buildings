@@ -13,26 +13,26 @@ model Enable
     annotation (Placement(transformation(extent={{220,40},{240,60}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet(
     final k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-220,-10},{-200,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant offTowSta[4](
     final k=fill(false,4)) "Tower is OFF"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet1(
     final height=2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(
     final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(
     final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe(
     final k=0)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
@@ -40,23 +40,23 @@ protected
     final k=1)
     "Operating condenser water pumps"
     annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe3(
     final k=0.1)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe4(
     final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe1(
     final k=0.2)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet1(
     final k=273.15 + 32)
     "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet2(
     final height=2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"
@@ -67,19 +67,19 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant opeConPum1(
     final k=2) "Operating condenser water pumps"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe5(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe5(final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe6(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe6(final k=0.2)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe2(final k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe2(final k=0.1)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conRetSet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conRetSet2(
     final k=273.15 + 32) "Condenser water return temperature setpoint"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conRet3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conRet3(
     final height=-2,
     final duration=3600,
     final offset=273.15 + 32.5) "Condenser return water temperature"
@@ -94,10 +94,10 @@ protected
 
 equation
   connect(hpTowSpe1.y, enaTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-198,90},{-180,90},{-180,60},{-142,60}},
+    annotation (Line(points={{-198,90},{-180,90},{-180,59},{-142,59}},
       color={0,0,127}));
   connect(hpTowSpe2.y, enaTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-238,70},{-180,70},{-180,60},{-142,60}},
+    annotation (Line(points={{-238,70},{-180,70},{-180,59},{-142,59}},
       color={0,0,127}));
   connect(towFanSpe.y,enaTow.uFanSpe)
     annotation (Line(points={{-198,40},{-180,40},{-180,56},{-142,56}},
@@ -109,12 +109,12 @@ equation
   connect(offTowSta.y, enaTow.uTow) annotation (Line(points={{-198,-50},{-162,-50},
           {-162,44},{-142,44}}, color={255,0,255}));
   connect(opeConPum.y, enaTow.uConWatPumNum)
-    annotation (Line(points={{-238,-80},{-156,-80},{-156,40},{-142,40}},
+    annotation (Line(points={{-238,-80},{-156,-80},{-156,41},{-142,41}},
       color={255,127,0}));
   connect(hpTowSpe3.y, disTow.uMaxTowSpeSet[1])
-    annotation (Line(points={{-18,90},{0,90},{0,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{-18,90},{0,90},{0,59},{38,59}}, color={0,0,127}));
   connect(hpTowSpe4.y, disTow.uMaxTowSpeSet[2])
-    annotation (Line(points={{-58,70},{0,70},{0,60},{38,60}}, color={0,0,127}));
+    annotation (Line(points={{-58,70},{0,70},{0,59},{38,59}}, color={0,0,127}));
   connect(towFanSpe1.y,disTow.uFanSpe)
     annotation (Line(points={{-18,40},{0,40},{0,56},{38,56}}, color={0,0,127}));
   connect(conRetSet1.y, disTow.TTowSet)
@@ -124,13 +124,13 @@ equation
   connect(onTowSta1.y, disTow.uTow) annotation (Line(points={{-18,-60},{18,-60},
           {18,44},{38,44}}, color={255,0,255}));
   connect(opeConPum1.y, disTow.uConWatPumNum)
-    annotation (Line(points={{-58,-80},{24,-80},{24,40},{38,40}},
+    annotation (Line(points={{-58,-80},{24,-80},{24,41},{38,41}},
       color={255,127,0}));
   connect(hpTowSpe5.y, disTow1.uMaxTowSpeSet[1])
-    annotation (Line(points={{162,90},{180,90},{180,60},{218,60}},
+    annotation (Line(points={{162,90},{180,90},{180,59},{218,59}},
       color={0,0,127}));
   connect(hpTowSpe6.y, disTow1.uMaxTowSpeSet[2])
-    annotation (Line(points={{122,70},{180,70},{180,60},{218,60}},
+    annotation (Line(points={{122,70},{180,70},{180,59},{218,59}},
       color={0,0,127}));
   connect(towFanSpe2.y,disTow1.uFanSpe)
     annotation (Line(points={{162,40},{180,40},{180,56},{218,56}},
@@ -142,7 +142,7 @@ equation
   connect(onTowSta2.y, disTow1.uTow) annotation (Line(points={{162,-60},{198,-60},
           {198,44},{218,44}}, color={255,0,255}));
   connect(opeConPum2.y, disTow1.uConWatPumNum)
-    annotation (Line(points={{122,-80},{204,-80},{204,40},{218,40}},
+    annotation (Line(points={{122,-80},{204,-80},{204,41},{218,41}},
       color={255,127,0}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -153,7 +153,39 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Subsequences.Enable</a>.
+It shows the sequences for enabling and disabling the tower fans under
+different conditions.
 </p>
+<ol>
+<li>
+The instance <code>enaTow</code> shows that the tower fans will be enabled when:
+<ul>
+<li>
+The enabled chiller's head pressure control maximum tower fan speed is greater
+than the tower minium speed <code>fanSpeMin</code>, and
+</li>
+<li>
+The tower temperature <code>TTow</code> rises above setpoint <code>TTowSet</code>
+by 1 &deg;F, and
+</li>
+<li>
+The tower fan has been OFF for at least 1 minute.
+</li>
+</ul>
+</li>
+<li>
+The instance <code>disTow</code> shows that all the tower fans should be disabled
+when the enabled chiller's head pressure control maximum tower fan speed
+<code>uMaxTowSpeSet</code> has equaled tower minimum speed <code>fanSpeMin</code>
+for 5 minutes.
+</li>
+<li>
+The instance <code>disTow1</code> shows that all the tower fans should be disabled
+when the tower fans speed <code>uFanSpe</code> have been at minimum speed for
+5 minutes and the tower temperature <code>TTow</code> drops below the setpoint
+minus 1 &deg;F.
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
 <li>

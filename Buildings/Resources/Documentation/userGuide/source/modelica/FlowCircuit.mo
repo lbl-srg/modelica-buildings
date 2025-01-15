@@ -7,7 +7,7 @@ model FlowCircuit
   Buildings.Fluid.Movers.SpeedControlled_y pump(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_strokeTime=false,
     m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
@@ -20,7 +20,7 @@ model FlowCircuit
     m_flow_nominal=0.1,
     V=1)
     annotation (Placement(transformation(extent={{0,62},{20,82}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1)
     annotation (Placement(transformation(extent={{80,48},{60,68}})));

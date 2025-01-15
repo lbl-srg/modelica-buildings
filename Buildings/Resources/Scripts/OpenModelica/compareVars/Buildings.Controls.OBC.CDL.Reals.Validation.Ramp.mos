@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "ramUp.u",
+    "ramUp.y",
+    "ramUp1.y",
+    "ramUp.active",
+    "ramUpDow.u",
+    "ramUpDow.y",
+    "ramUpDow.active",
+    "ramUpDow1.u",
+    "ramUpDow1.y",
+    "ramUpDow1.active"
+  };

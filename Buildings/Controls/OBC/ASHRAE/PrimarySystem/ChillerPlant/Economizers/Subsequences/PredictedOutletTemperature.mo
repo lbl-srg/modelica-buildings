@@ -52,79 +52,85 @@ block PredictedOutletTemperature
     iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Divide heaExcPlr
+  Buildings.Controls.OBC.CDL.Reals.Divide heaExcPlr
     "Heat exchanger flow part load ratio"
-    annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaExcDes_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaExcDes_flow(
     final k= VHeaExcDes_flow) "Heat exchanger design flow"
-    annotation (Placement(transformation(extent={{-130,40},{-110,60}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaAppDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaAppDes(
     final k=heaExcAppDes)
     "Heat exchanger design approach"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product"
-    annotation (Placement(transformation(extent={{-20,44},{0,64}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product"
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtraction"
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1 "Subtraction"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWetDes(
     final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Product"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towAppDes(
     final k=cooTowAppDes)
     "Cooling tower design approach"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
+    annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=4)
     "Sum of multiple inputs"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
-    final uMax=1,
-    final uMin=0) "Limiter"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Buildings.Controls.OBC.CDL.Reals.Min min1
+    "Lesser of the input"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
+    final k=1) "Constant one"
+    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
 equation
-  connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-92,64},{
-          -100,64},{-100,50},{-108,50}}, color={0,0,127}));
+  connect(heaExcPlr.u2, heaExcDes_flow.y) annotation (Line(points={{-62,44},{
+          -80,44},{-80,20},{-98,20}},    color={0,0,127}));
   connect(VChiWat_flow, heaExcPlr.u1) annotation (Line(points={{-180,0},{-140,0},
-          {-140,76},{-92,76}}, color={0,0,127}));
-  connect(heaAppDes.y, pro.u2) annotation (Line(points={{-38,30},{-30,30},{-30,
-          48},{-22,48}}, color={0,0,127}));
-  connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{-30,-50},{-30,
-          -44},{-22,-44}}, color={0,0,127}));
-  connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{-30,-140},{-30,
-          -56},{-22,-56}}, color={0,0,127}));
-  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{60,140},{60,
-          -0.75},{78,-0.75}},
+          {-140,56},{-62,56}}, color={0,0,127}));
+  connect(heaAppDes.y, pro.u2) annotation (Line(points={{22,30},{40,30},{40,44},
+          {58,44}},      color={0,0,127}));
+  connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{0,-50},{0,-64},{
+          58,-64}},        color={0,0,127}));
+  connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{20,-140},{20,
+          -76},{58,-76}},  color={0,0,127}));
+  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{100,140},{
+          100,-0.75},{118,-0.75}},
                             color={0,0,127}));
-  connect(pro.y, mulSum.u[2]) annotation (Line(points={{2,54},{20,54},{20,-0.25},
-          {78,-0.25}},color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{2,-50},{20,-50},{20,0.25},
-          {78,0.25}},       color={0,0,127}));
-  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{42,-90},{60,-90},{
-          60,-2},{78,-2},{78,0.75}},  color={0,0,127}));
+  connect(pro.y, mulSum.u[2]) annotation (Line(points={{82,50},{90,50},{90,
+          -0.25},{118,-0.25}},
+                      color={0,0,127}));
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{82,-70},{90,-70},{90,
+          0.25},{118,0.25}},color={0,0,127}));
+  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{62,-110},{100,
+          -110},{100,-2},{118,-2},{118,0.75}},
+                                      color={0,0,127}));
   connect(mulSum.y, y)
-    annotation (Line(points={{102,0},{180,0}}, color={0,0,127}));
-  connect(heaExcPlr.y, lim.u)
-    annotation (Line(points={{-68,70},{-62,70}}, color={0,0,127}));
-  connect(pro.u1, lim.y)
-    annotation (Line(points={{-22,60},{-30,60},{-30,70},{-38,70}},
-      color={0,0,127}));
+    annotation (Line(points={{142,0},{180,0}}, color={0,0,127}));
   connect(TOutWet, sub1.u2) annotation (Line(points={{-180,140},{-150,140},{-150,
           -56},{-62,-56}}, color={0,0,127}));
   connect(TWetDes.y, sub1.u1) annotation (Line(points={{-98,-30},{-80,-30},{-80,
           -44},{-62,-44}}, color={0,0,127}));
+  connect(heaExcPlr.y, min1.u2) annotation (Line(points={{-38,50},{-20,50},{-20,
+          64},{-2,64}},  color={0,0,127}));
+  connect(con.y, min1.u1) annotation (Line(points={{-38,110},{-20,110},{-20,76},
+          {-2,76}},  color={0,0,127}));
+  connect(min1.y, pro.u1) annotation (Line(points={{22,70},{40,70},{40,56},{58,
+          56}}, color={0,0,127}));
     annotation (defaultComponentName = "wseTOut",
         Icon(graphics={
         Rectangle(
@@ -144,7 +150,7 @@ The waterside economizer (WSE) is enabled or disabled based on the predicted WSE
 heat exchanger (HX) leaving water temperature, <code>y</code>.
 This block predicts <code>y</code> based on current plant load
 and ambient wet bulb temperature with resepect to the design conditions, as described in
-ASHRAE RP-1711, March 2020, section 5.2.3.1.
+ASHRAE Guideline36-2021, section 5.20.3.1.
 </p>
 <p>
 The block calculates the predicted WSE output temperature <code>y</code> as a sum of these
@@ -174,7 +180,7 @@ The tuning parameter <code>uTunPar</code> is an output from the
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning</a> sequence.
 </li>
 <li>
-Design heat exchanger approach <code>heaExcAppDes</code>.
+Design cooling tower approach <code>cooTowAppDes</code>.
 </li>
 </ul>
 </li>

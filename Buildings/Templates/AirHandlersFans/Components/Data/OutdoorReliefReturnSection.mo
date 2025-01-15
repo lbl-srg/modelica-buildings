@@ -2,9 +2,6 @@ within Buildings.Templates.AirHandlersFans.Components.Data;
 record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
-    "Relief/return air section type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -23,13 +20,23 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Type of return fan"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nFanRet(
+    start=if typFanRet==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of return fans"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
+  parameter Integer nFanRel(
+    start=if typFanRel==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
+    "Number of relief fans"
+    annotation (Evaluate=true,
+    Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate mOutMin_flow_nominal(
     final min=0,
     start=0.2 * damOut.m_flow_nominal)
     "Minimum outdoor air mass flow rate at design conditions"
     annotation (Dialog(group="Dampers and economizers",
-      enable=typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer));
+      enable=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Buildings.Templates.Components.Data.Damper damOut(
     final typ=typDamOut)
@@ -52,19 +59,21 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     annotation (Dialog(group="Dampers and economizers",
     enable=typDamRet <> Buildings.Templates.Components.Types.Damper.None));
   parameter Buildings.Templates.Components.Data.Fan fanRel(
-    final typ=typFanRel)
+    final typ=typFanRel,
+    final nFan=nFanRel)
     "Relief fan"
     annotation (Dialog(group="Fans",
     enable=typFanRel <>Buildings.Templates.Components.Types.Fan.None));
   parameter Buildings.Templates.Components.Data.Fan fanRet(
-    final typ=typFanRet)
+    final typ=typFanRet,
+    final nFan=nFanRet)
     "Return fan"
     annotation (Dialog(group="Fans",
     enable=typFanRet <>Buildings.Templates.Components.Types.Fan.None));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-the classes within 
+This record provides the set of sizing and operating parameters for
+the classes within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection\">
 Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection</a>.
 </p>

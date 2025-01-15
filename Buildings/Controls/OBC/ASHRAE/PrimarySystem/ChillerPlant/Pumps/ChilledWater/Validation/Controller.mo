@@ -24,45 +24,43 @@ model Controller "Validate chiller water pump control sequence"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal[2](
+    duration=fill(1200, 2),
+    startTime={0,300})
+    "Chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
     final k={2,1,3})
     "Chilled water pump operating priority"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
-    "Constant true"
-    annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlo(
     final amplitude=0.25,
     final freqHz=1/3600,
     final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen1(
     final offset=8.4*6894.75,
     final freqHz=1/3600,
     final amplitude=0.2*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin remPreSen2(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,
     final amplitude=0.05*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant difPreSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant difPreSet(
     final k=8.5*6894.75)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine locPreSen(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin locPreSen(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,
     final amplitude=0.2*6894.75) "Local pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre enaStaRet[3](
-    final pre_u_start={true,true,false})
-    "Pump enabled status return"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset leaChiProOn(
-    final duration=2000)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold leaChiProOn(
+    final trueHoldDuration=2000, falseHoldDuration=0)
     "Lead chiller proven on status"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
@@ -81,10 +79,11 @@ protected
     final nout=2)
     "Replicate real input"
     annotation (Placement(transformation(extent={{-20,-140},{0,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false)
-    "Constant false"
-    annotation (Placement(transformation(extent={{-108,110},{-88,130}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[3](
+    trueHoldDuration=fill(5, 3)) "Chilled water pump status"
+    annotation (Placement(transformation(extent={{0,110},{20,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre[3] "Break loop"
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
 equation
   connect(conInt.y, heaNoLoc.uPumLeaLag)
@@ -112,28 +111,20 @@ equation
   connect(remPreSen2.y, dedLoc.dpChiWat_remote[2])
     annotation (Line(points={{-38,-90},{52,-90},{52,-89},{78,-89}},
       color={0,0,127}));
-  connect(enaStaRet.y, heaNoLoc.uChiWatPum) annotation (Line(points={{-38,90},{44,
-          90},{44,167},{78,167}},     color={255,0,255}));
-  connect(con.y, heaNoLoc.uChiIsoVal[1])
-    annotation (Line(points={{2,140},{36,140},{36,159},{78,159}},   color={255,0,255}));
-  connect(con.y, heaNoLoc.uChiIsoVal[2])
-    annotation (Line(points={{2,140},{36,140},{36,159},{78,159}},   color={255,0,255}));
-  connect(heaNoLoc.yChiWatPum, enaStaRet.u) annotation (Line(points={{102,160},{
-          120,160},{120,110},{-80,110},{-80,90},{-62,90}},   color={255,0,255}));
-  connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
-          79},{78,79}}, color={255,0,255}));
-  connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,-71},
-          {78,-71}}, color={255,0,255}));
-  connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
-          10},{24,75},{78,75}}, color={255,0,255}));
+  connect(enaPla.y, dedNoLoc.uPla) annotation (Line(points={{-38,60},{20,60},{
+          20,79},{78,79}}, color={255,0,255}));
+  connect(enaPla.y, dedLoc.uPla) annotation (Line(points={{-38,60},{20,60},{20,
+          -71},{78,-71}}, color={255,0,255}));
+  connect(leaChiEna.y, dedNoLoc.uLeaChiEna) annotation (Line(points={{-38,10},{
+          24,10},{24,75},{78,75}}, color={255,0,255}));
   connect(leaChiEna.y, dedLoc.uLeaChiEna) annotation (Line(points={{-38,10},{24,
           10},{24,-75},{78,-75}}, color={255,0,255}));
   connect(leaChiEna.y, leaChiProOn.u) annotation (Line(points={{-38,10},{-30,10},
           {-30,-20},{-22,-20}}, color={255,0,255}));
-  connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
-          28,-20},{28,73},{78,73}}, color={255,0,255}));
-  connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{28,
-          -20},{28,-77},{78,-77}}, color={255,0,255}));
+  connect(leaChiProOn.y, dedNoLoc.uLeaChiSta) annotation (Line(points={{2,-20},
+          {28,-20},{28,73},{78,73}},color={255,0,255}));
+  connect(leaChiProOn.y, dedLoc.uLeaChiSta) annotation (Line(points={{2,-20},{
+          28,-20},{28,-77},{78,-77}}, color={255,0,255}));
   connect(leaChiProOn.y, dedNoLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
           {28,-20},{28,71},{78,71}}, color={255,0,255}));
   connect(leaChiProOn.y, dedLoc.uLeaChiWatReq) annotation (Line(points={{2,-20},
@@ -142,8 +133,8 @@ equation
           {-22,40}}, color={255,0,255}));
   connect(booRep.y, dedNoLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},
           {32,77},{78,77}}, color={255,0,255}));
-  connect(booRep.y, dedLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},{
-          32,-73},{78,-73}}, color={255,0,255}));
+  connect(booRep.y, dedLoc.uChiWatPum) annotation (Line(points={{2,40},{32,40},
+          {32,-73},{78,-73}},color={255,0,255}));
   connect(difPreSet.y, reaRep.u)
     annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
   connect(reaRep.y, heaNoLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
@@ -152,8 +143,14 @@ equation
           {56,-130},{56,59},{78,59}}, color={0,0,127}));
   connect(reaRep.y, dedLoc.dpChiWatSet_remote) annotation (Line(points={{2,-130},
           {56,-130},{56,-91},{78,-91}}, color={0,0,127}));
-  connect(con1.y, heaNoLoc.uEnaPla) annotation (Line(points={{-86,120},{40,120},
-          {40,157},{78,157}}, color={255,0,255}));
+  connect(isoVal.y, heaNoLoc.uChiWatIsoVal) annotation (Line(points={{-78,140},
+          {40,140},{40,157},{78,157}},color={0,0,127}));
+  connect(truFalHol.y, heaNoLoc.uChiWatPum) annotation (Line(points={{22,120},{
+          44,120},{44,167},{78,167}}, color={255,0,255}));
+  connect(heaNoLoc.yChiWatPum, pre.u) annotation (Line(points={{102,160},{120,160},
+          {120,140},{70,140},{70,120},{78,120}}, color={255,0,255}));
+  connect(pre.y, truFalHol.u) annotation (Line(points={{102,120},{110,120},{110,
+          100},{-10,100},{-10,120},{-2,120}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Validation/Controller.mos"

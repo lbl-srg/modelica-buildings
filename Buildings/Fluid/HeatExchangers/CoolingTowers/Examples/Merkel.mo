@@ -18,7 +18,7 @@ model Merkel "Test model for cooling tower using the Merkel theory"
     "Setpoint for leaving temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conFan(
+  Buildings.Controls.OBC.CDL.Reals.PID conFan(
     k=1,
     Ti=60,
     Td=10,

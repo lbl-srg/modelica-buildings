@@ -7,7 +7,7 @@ block Controller "Cooling tower controller"
   parameter Integer nTowCel=2 "Total number of cooling tower cells";
   parameter Integer nConWatPum=2 "Total number of condenser water pumps";
   parameter Boolean closeCoupledPlant=false
-    "Flag to indicate if the plant is close coupled";
+    "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet";
   parameter Boolean have_WSE=true
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(unit="W")=1e6  "Plant design capacity"
@@ -18,7 +18,8 @@ block Controller "Cooling tower controller"
     annotation (Dialog(group="Nominal"));
 
   // Fan speed control: when WSE is enabled
-  parameter Real chiMinCap[nChi](unit="W")={1e4,1e4}
+  parameter Real chiMinCap[nChi](
+    final unit=fill("W",nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Fan speed", group="WSE enabled",
                        enable=have_WSE));
@@ -61,22 +62,22 @@ block Controller "Cooling tower controller"
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   parameter Real LIFT_min[nChi](
-    unit="K",
-    displayUnit="degC")={12,12}            "Minimum LIFT of each chiller"
-      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    final unit=fill("K",nChi))={12,12}
+    "Minimum LIFT of each chiller"
+     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
-    unit="K",
-    displayUnit="degC")={293.15,293.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatRet_nominal[nChi](
-    unit="K",
-    displayUnit="degC")={303.15,303.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TChiWatSupMin[nChi](
-    unit="K",
-    displayUnit="degC")={278.15,278.15}
+    final unit=fill("K",nChi),
+    displayUnit=fill("degC",nChi))={278.15,278.15}
     "Lowest chilled water supply temperature oc each chiller"
     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController couPlaCon=
@@ -153,7 +154,7 @@ block Controller "Cooling tower controller"
 
   // Tower staging
   parameter Real staVec[totSta]={0,0.5,1,1.5,2}
-    "Chiller stage vector, element value like x.5 means chiller stage x plus WSE"
+    "Plant stage vector, element value like x.5 means chiller stage x plus WSE"
     annotation (Dialog(tab="Tower staging", group="Nominal"));
   parameter Real towCelOnSet[totSta]={0,1,1,2,2}
     "Design number of tower fan cells that should be ON, according to current chiller stage and WSE status"
@@ -261,10 +262,6 @@ block Controller "Cooling tower controller"
     "Cooling tower stage change command from plant staging process"
     annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
-    "Enabling status of lead condenser water pump"
-    annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
-      iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
@@ -355,15 +352,15 @@ protected
     final towCelOnSet=towCelOnSet,
     final chaTowCelIsoTim=chaTowCelIsoTim,
     final speChe=speChe) "Cooling tower staging"
-    annotation (Placement(transformation(extent={{-20,-52},{0,-32}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.WaterLevel makUpWat(
     final watLevMin=watLevMin,
     final watLevMax=watLevMax)
     "Make up water control"
     annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel] "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nTowCel] "Logical switch"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nTowCel](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[nTowCel](
     final k=fill(0, nTowCel)) "Zero constant"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
@@ -372,11 +369,11 @@ protected
 
 equation
   connect(towSta.yTowSta, yTowSta)
-    annotation (Line(points={{2,-46},{20,-46},{20,-110},{120,-110}}, color={255,0,255}));
+    annotation (Line(points={{2,-54},{20,-54},{20,-110},{120,-110}}, color={255,0,255}));
   connect(towSta.yIsoVal, yIsoVal)
-    annotation (Line(points={{2,-42},{40,-42},{40,-70},{120,-70}}, color={0,0,127}));
+    annotation (Line(points={{2,-50},{40,-50},{40,-70},{120,-70}}, color={0,0,127}));
   connect(towSta.yTowSta, swi.u2)
-    annotation (Line(points={{2,-46},{20,-46},{20,-150},{58,-150}}, color={255,0,255}));
+    annotation (Line(points={{2,-54},{20,-54},{20,-150},{58,-150}}, color={255,0,255}));
   connect(towFanSpe.ySpeSet, reaRep.u)
     annotation (Line(points={{2,40},{18,40}}, color={0,0,127}));
   connect(reaRep.y, swi.u1)
@@ -384,8 +381,6 @@ equation
   connect(zer.y, swi.u3)
     annotation (Line(points={{22,-180},{40,-180},{40,-158},{58,-158}},
       color={0,0,127}));
-  connect(swi.y,ySpeSet)
-    annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(towFanSpe.chiLoa, chiLoa)
     annotation (Line(points={{-22,59},{-40,59},{-40,240},{-120,240}}, color={0,0,127}));
   connect(towFanSpe.uChi, uChi)
@@ -413,29 +408,31 @@ equation
   connect(towFanSpe.TConWatSup, TConWatSup)
     annotation (Line(points={{-22,21},{-68,21},{-68,-40},{-120,-40}}, color={0,0,127}));
   connect(towSta.uChiSta, uChiSta)
-    annotation (Line(points={{-22,-33},{-64,-33},{-64,-100},{-120,-100}}, color={255,127,0}));
+    annotation (Line(points={{-22,-41},{-64,-41},{-64,-100},{-120,-100}}, color={255,127,0}));
   connect(towSta.uIsoVal, uIsoVal)
-    annotation (Line(points={{-22,-49},{-40,-49},{-40,-220},{-120,-220}}, color={0,0,127}));
+    annotation (Line(points={{-22,-57},{-40,-57},{-40,-220},{-120,-220}}, color={0,0,127}));
   connect(makUpWat.watLev, watLev)
     annotation (Line(points={{-22,-240},{-120,-240}}, color={0,0,127}));
   connect(makUpWat.yMakUp, yMakUp)
     annotation (Line(points={{2,-240},{120,-240}}, color={255,0,255}));
   connect(uTowSta, towSta.uTowSta)
-    annotation (Line(points={{-120,40},{-76,40},{-76,-51},{-22,-51}}, color={255,0,255}));
-  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-22,-35},{-60,
-          -35},{-60,-120},{-120,-120}}, color={255,127,0}));
-  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-22,-37},{-56,
-          -37},{-56,-150},{-120,-150}}, color={255,0,255}));
+    annotation (Line(points={{-120,40},{-76,40},{-76,-59},{-22,-59}}, color={255,0,255}));
+  connect(towSta.uChiStaSet, uChiStaSet) annotation (Line(points={{-22,-43},{-60,
+          -43},{-60,-120},{-120,-120}}, color={255,127,0}));
+  connect(towSta.uTowStaCha, uTowStaCha) annotation (Line(points={{-22,-45},{-56,
+          -45},{-56,-150},{-120,-150}}, color={255,0,255}));
   connect(uWse, towSta.uWse) annotation (Line(points={{-120,180},{-48,180},{-48,
-          -39},{-22,-39}}, color={255,0,255}));
-  connect(towSta.uLeaConWatPum, uLeaConWatPum) annotation (Line(points={{-22,-43},
-          {-52,-43},{-52,-170},{-120,-170}}, color={255,0,255}));
+          -47},{-22,-47}}, color={255,0,255}));
   connect(uConWatPumSpe, towSta.uConWatPumSpe) annotation (Line(points={{-120,-20},
-          {-72,-20},{-72,-45},{-22,-45}}, color={0,0,127}));
-  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-38},{40,-38},{40,
+          {-72,-20},{-72,-53},{-22,-53}}, color={0,0,127}));
+  connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-46},{40,-46},{40,
           -30},{120,-30}}, color={255,0,255}));
-  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-34,-70},
-          {-34,-41},{-22,-41}}, color={255,0,255}));
+  connect(uEnaPla, towSta.uEnaPla) annotation (Line(points={{-120,-70},{-48,-70},
+          {-48,-49},{-22,-49}}, color={255,0,255}));
+  connect(swi.y, ySpeSet)
+    annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
+  connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
+          {-22,-51}}, color={255,0,255}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -465,10 +462,6 @@ annotation (
           extent={{-98,-100},{-32,-118}},
           textColor={255,127,0},
           textString="uChiStaSet"),
-        Text(
-          extent={{-96,-140},{-8,-156}},
-          textColor={255,0,255},
-          textString="uLeaConWatPum"),
         Text(
           extent={{48,-160},{100,-176}},
           textColor={255,0,255},
@@ -558,9 +551,7 @@ Documentation(info="<html>
 Block that controls cooling tower cells enabling status <code>yTowSta</code>,
 the supply isolation valve positions <code>yIsoVal</code> of each cell and the
 cell fan operating speed <code>ySpeSet</code>.
-This is implemented according to ASHRAE RP-1711 Advanced Sequences of Operation for
-HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.12.
+This is implemented according to ASHRAE Guideline36-2021, section 5.20.12.
 The section specifies sequences to control cooling tower.
 It includes three subsequences:
 </p>

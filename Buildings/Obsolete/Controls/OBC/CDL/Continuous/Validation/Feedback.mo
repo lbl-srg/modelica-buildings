@@ -3,13 +3,13 @@ model Feedback "Validation model for the Feedback block"
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.Feedback feedback1
     "Block that outputs difference between commanded and feedback input"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-1,
     height=4)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     height=2,
     duration=1,
     offset=-1)

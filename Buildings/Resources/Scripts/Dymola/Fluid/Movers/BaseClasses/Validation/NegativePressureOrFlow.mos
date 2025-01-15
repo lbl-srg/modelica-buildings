@@ -1,0 +1,37 @@
+simulateModel("Buildings.Fluid.Movers.BaseClasses.Validation.NegativePressureOrFlow",
+ tolerance=1e-6,
+ stopTime=3600,
+ method="CVode",
+ resultFile="NegativePressureOrFlow");
+// Plot commands
+createPlot(id=1,
+ position={93, 33, 666, 645},
+ y={"eff.PEle"},
+ range={0.0, 4000.0, -500.0, 1000.0},
+ autoscale=false,
+ grid=true,
+ subPlot=101,
+ colors={{28,108,200}},
+ timeUnit="s",
+ displayUnits={"W"});
+createPlot(id=1,
+ position={93, 33, 666, 645},
+ y={"eff.dp_in"},
+ range={0.0, 4000.0, -10000.0, 20000.0},
+ autoscale=false,
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}},
+ timeUnit="s",
+ displayUnits={"Pa"});
+createPlot(id=1,
+ position={93, 33, 666, 645},
+ y={"eff.V_flow"},
+ range={0.0, 4000.0, -0.1, 0.2},
+ autoscale=false,
+ grid=true,
+ subPlot=103,
+ colors={{28,108,200}},
+ timeUnit="s",
+ displayUnits={"m3/s"});
+

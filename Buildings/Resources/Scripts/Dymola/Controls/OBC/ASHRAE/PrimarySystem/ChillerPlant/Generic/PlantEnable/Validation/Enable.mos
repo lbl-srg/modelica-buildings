@@ -1,5 +1,8 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Validation.Enable", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="PlantEnable");
 
-createPlot(id=1, position={10, 10, 700, 700}, subPlot=1, y={"disPlaReq.ignReq", "disPlaReq.chiPlaReq", "disPlaReq.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
-createPlot(id=1, position={10, 10, 700, 700}, subPlot=2, y={"disPlaOutTem.TOut", "disPlaOutTem.TChiLocOut", "disPlaOutTem.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47},{28,108,200}});
-createPlot(id=1, position={10, 10, 700, 700}, subPlot=3, y={"disPlaSch.enaSch.y[1]", "disPlaSch.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=1, y={"disPlaReq.ignReq", "disPlaReq.chiPlaReq"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=2, y={"disPlaReq.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=3, y={"disPlaOutTem.TOut", "disPlaOutTem.TChiLocOut"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=4, y={"disPlaOutTem.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=5, y={"disPlaSch.enaSch.y[1]"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={10, 10, 1200, 1350}, subPlot=6, y={"disPlaSch.yPla"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{28,108,200}});

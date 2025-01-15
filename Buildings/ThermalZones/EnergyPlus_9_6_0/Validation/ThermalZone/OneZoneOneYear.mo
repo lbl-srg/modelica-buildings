@@ -2,7 +2,7 @@ within Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.ThermalZone;
 model OneZoneOneYear
   "Validation model for one zone"
   extends Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned;
-  Controls.OBC.CDL.Continuous.MovingAverage TAirMea(
+  Controls.OBC.CDL.Reals.MovingAverage TAirMea(
     delta(displayUnit="d")= 86400,
     y(final unit="K",
       displayUnit="degC"))

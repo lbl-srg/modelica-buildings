@@ -5,8 +5,7 @@ annotation (
 preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences for enabling plant and the associate devices.
-The sequences are implemented based on ASHRAE RP1711.
-March 2020 draft, section 5.2.2.
+The sequences are implemented based on ASHRAE Gudeline36-2021, section 5.20.2.
 </html>"),
 Icon(graphics={
         Rectangle(

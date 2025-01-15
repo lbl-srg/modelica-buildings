@@ -7,7 +7,7 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final width=0.8,
     final period=3600) "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp entWSETem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entWSETem(
     final height=6,
     final duration=3600,
     final offset=285.15)
@@ -18,7 +18,7 @@ model HeatExchangerPump "Validate the control of heat exchanger pump"
     final period=3600)
     "Pump proven on"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp entHexTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp entHexTem(
     final height=8,
     final duration=3600,
     final offset=283.15)
@@ -53,7 +53,25 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump</a>.
+It demonstrates the process of controlling the heat exhcnager pump in following scenarios:
 </p>
+<ul>
+<li>
+At 720 seconds, the plant is enabled in waterside economizer mode. The heat exchange pump becomes enabled
+(<code>yPumOn=true</code>) and the condenser water isolation valve becomes fully open
+(<code>yConWatIsoVal=1</code>).
+</li>
+<li>
+From 720 seconds to 2880 seconds, the pump speed is adjusted by the Trim and Respond sequence
+based on the speed reset requests that are generated based on the temperature difference between
+chilled water return temperature upstream of the economizer and chilled water temperature
+entering heat exchanger.
+</li>
+<li>
+At 2880 seconds, the economizer becomes disabled. Thus, the pump is disabled and the pump
+speed setpoint becomes 0.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

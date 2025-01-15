@@ -3,15 +3,15 @@ model Controller "Validation sequence of controlling tower fan speed"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     cloCouWitWse
-    "Tower fan speed controller of plant that is close coupled plant and has waterside economizer"
+    "Tower fan speed controller of plant that is close coupled and has waterside economizer"
     annotation (Placement(transformation(extent={{-80,280},{-60,320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     lesCouWitWse(final closeCoupledPlant=false)
-    "Tower fan speed controller of plant that is less coupled plant and has waterside economizer"
+    "Tower fan speed controller of plant that is less coupled and has waterside economizer"
     annotation (Placement(transformation(extent={{100,280},{120,320}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller
     cloCouNoWse(final have_WSE=false)
-    "Tower fan speed controller of plant that is close coupled plant and has no waterside economizer"
+    "Tower fan speed controller of plant that is close coupled and has no waterside economizer"
     annotation (Placement(transformation(extent={{280,280},{300,320}})));
 
 protected
@@ -20,50 +20,50 @@ protected
     shift=-3000)
     "Waterside economizer enabling status"
     annotation (Placement(transformation(extent={{-360,140},{-340,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp plaCap(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plaCap(
     final height=8e5,
     final duration=3600,
     final offset=1e5) "Real operating chiller plant capacity"
     annotation (Placement(transformation(extent={{-360,10},{-340,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin conSup(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 29) "Condenser water supply temperature"
     annotation (Placement(transformation(extent={{-360,-250},{-340,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram2(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-290},{-340,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add1 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-270},{-280,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram3(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-200},{-340,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin conRet2(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 28) "Condenser water return temperature"
     annotation (Placement(transformation(extent={{-360,-170},{-340,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add3 "Add real inputs"
     annotation (Placement(transformation(extent={{-300,-190},{-280,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp conWatPumSpe1[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp conWatPumSpe1[2](
     final height=fill(0.5, 2),
     final duration=fill(3600, 2),
     final startTime=fill(300, 2)) "Measured condenser water pump speed"
     annotation (Placement(transformation(extent={{-300,-230},{-280,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe1(final k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe1(final k=0.5)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-320,-10},{-300,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hpTowSpe2(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hpTowSpe2(final k=0)
     "Head pressure control maximum tower speed"
     annotation (Placement(transformation(extent={{-360,-70},{-340,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towFanSpe3(final k=0.2)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant towFanSpe3(final k=0.2)
     "Measured tower fan speed"
     annotation (Placement(transformation(extent={{-320,110},{-300,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiWatSupSet(
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{-360,-120},{-340,-100}})));
@@ -73,40 +73,42 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant chiSta2(final k=false)
     "Chiller two enabling status"
     annotation (Placement(transformation(extent={{-360,170},{-340,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Logical or"
+  Buildings.Controls.OBC.CDL.Logical.Or or3 "Logical or"
     annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4 "Logical or"
+    annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,-50},{-300,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-260,260},{-240,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.2*1e4,
     final freqHz=1/1200,
     final offset=1.1*1e4,
     final startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-360,280},{-340,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiSup(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=273.15 + 7.1) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-360,80},{-340,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=3,
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
 
 equation
@@ -122,20 +124,11 @@ equation
   connect(ram3.y, add3.u2)
     annotation (Line(points={{-338,-190},{-320,-190},{-320,-186},{-302,-186}},
       color={0,0,127}));
-  connect(chiSta2.y, or3.u2)
-    annotation (Line(points={{-338,180},{-286,180},{-286,-140},{-262,-140}},
-      color={255,0,255}));
-  connect(wseSta.y, or3.u3)
-    annotation (Line(points={{-338,150},{-292,150},{-292,-148},{-262,-148}},
-      color={255,0,255}));
   connect(or3.y, booRep.u)
     annotation (Line(points={{-238,-140},{-220,-140},{-220,-80},{-202,-80}},
       color={255,0,255}));
   connect(chiSta1.y, not1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
-  connect(not1.y, or3.u1)
-    annotation (Line(points={{-298,210},{-280,210},{-280,-132},{-262,-132}},
-      color={255,0,255}));
   connect(not1.y, swi1.u2)
     annotation (Line(points={{-298,210},{-280,210},{-280,-20},{-242,-20}},
       color={255,0,255}));
@@ -286,7 +279,14 @@ equation
   connect(conWatPumSpe1.y, cloCouNoWse.uConWatPumSpe)
     annotation (Line(points={{-278,-220},{220,-220},{220,283},{278,283}},
       color={0,0,127}));
-
+  connect(not1.y, or4.u1) annotation (Line(points={{-298,210},{-280,210},{-280,-80},
+          {-262,-80}}, color={255,0,255}));
+  connect(chiSta2.y, or4.u2) annotation (Line(points={{-338,180},{-286,180},{-286,
+          -88},{-262,-88}}, color={255,0,255}));
+  connect(wseSta.y, or3.u2) annotation (Line(points={{-338,150},{-292,150},{-292,
+          -148},{-262,-148}}, color={255,0,255}));
+  connect(or4.y, or3.u1) annotation (Line(points={{-238,-80},{-230,-80},{-230,-100},
+          {-270,-100},{-270,-140},{-262,-140}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/FanSpeed/Validation/Controller.mos"
     "Simulate and plot"),
@@ -296,6 +296,40 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.Controller</a>.
 </p>
+<p>
+It shows the calculations of the fan speed setpoint for the three different plants,
+including the close coupled plants that have waterside economizer (<code>cloCouWitWse</code>),
+the less coupled plants that have waterside economizer (<code>lesCouWitWse</code>),
+and the close coupled plants that have no waterside economizer (<code>cloCouNoWse</code>).
+</p>
+<ul>
+<li>
+For the close and less coupled plants with waterside economizer,
+<ul>
+<li>
+if the plant is not enabled (before 600 seconds), the tower fan
+speed setpoint is 0.
+</li>
+<li>
+if the economizer is enabled (600 seconds to 1320 seconds), the
+fan speed setpoint equals to the <code>uTowSpeWSE</code>.
+</li>
+<li>
+in the period when the chiller runs only (after 1320 seconds), the
+speed setpoint is minium of the <code>plrTowMaxSpeSet</code>,
+<code>uMaxTowSpeSet</code> and the mapped setpoint.
+</li>
+</ul>
+</li>
+<li>
+For the close coupled plants without waterside economizer,
+the setpoint calculation is same as the one with economizer
+except there is no economizer enabled period. So when the chiller
+is enabled, the setpoint equals to the
+<code>plrTowMaxSpeSet</code>, <code>uMaxTowSpeSet</code>
+and the mapped setpoint.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -13,9 +13,9 @@ model TimeSeries "Simple time series plots"
     legend={"sin","cos","sin*cos"})
      "Plotter"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.RealExpression sine(y=sin(time)) "Sine output signal"
+  Modelica.Blocks.Sources.RealExpression sine(y=sin(uniCon*time)) "Sine output signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Sources.RealExpression cosine(y=cos(time))
+  Modelica.Blocks.Sources.RealExpression cosine(y=cos(uniCon*time))
     "Cosine output signal"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Utilities.Plotters.TimeSeries timSer1(
@@ -27,21 +27,25 @@ model TimeSeries "Simple time series plots"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Modelica.Blocks.Math.Product pro "Product of sine times cosine"
     annotation (Placement(transformation(extent={{-40,-12},{-20,8}})));
+protected
+  constant Real uniCon(final unit="1/s") = 1
+    "Unit conversion to satisfy unit check";
 equation
-  connect(sine.y, timSer.y[1]) annotation (Line(points={{-59,20},{2,20},{2,
-          1.33333},{18,1.33333}}, color={0,0,127}));
+  connect(sine.y, timSer.y[1]) annotation (Line(points={{-59,20},{2,20},{2,-0.666667},
+          {18,-0.666667}},        color={0,0,127}));
   connect(cosine.y, timSer.y[2]) annotation (Line(points={{-59,-20},{-8,-20},{-8,
           -1.11022e-16},{18,-1.11022e-16}}, color={0,0,127}));
-  connect(sine.y, timSer1.y[1]) annotation (Line(points={{-59,20},{2,20},{2,-49},
-          {18,-49}}, color={0,0,127}));
-  connect(cosine.y, timSer1.y[2]) annotation (Line(points={{-59,-20},{-8,-20},{
-          -8,-51},{18,-51}}, color={0,0,127}));
+  connect(sine.y, timSer1.y[1]) annotation (Line(points={{-59,20},{2,20},{2,-50.5},
+          {18,-50.5}},
+                     color={0,0,127}));
+  connect(cosine.y, timSer1.y[2]) annotation (Line(points={{-59,-20},{-8,-20},{-8,
+          -49.5},{18,-49.5}},color={0,0,127}));
   connect(sine.y, pro.u1) annotation (Line(points={{-59,20},{-52,20},{-52,4},{-42,
           4}}, color={0,0,127}));
   connect(cosine.y, pro.u2) annotation (Line(points={{-59,-20},{-52,-20},{-52,-8},
           {-42,-8}}, color={0,0,127}));
-  connect(pro.y, timSer.y[3]) annotation (Line(points={{-19,-2},{0,-2},{0,-1.33333},
-          {18,-1.33333}}, color={0,0,127}));
+  connect(pro.y, timSer.y[3]) annotation (Line(points={{-19,-2},{0,-2},{0,0.666667},
+          {18,0.666667}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/TimeSeries.mos"
         "Simulate and plot"),
@@ -57,6 +61,12 @@ in the plot configuration <code>plotConfiguration</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 March 23, 2018, by Michael Wetter:<br/>
 First implementation.

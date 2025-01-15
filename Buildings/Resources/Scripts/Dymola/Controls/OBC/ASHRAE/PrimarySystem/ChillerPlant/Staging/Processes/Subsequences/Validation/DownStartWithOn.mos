@@ -1,10 +1,10 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.DownStartWithOn", method="Cvode", stopTime=1200, tolerance=1e-06, resultFile="staDowStaWtOn");
-
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=1, y={"staStaDow1.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=2, y={"staStaDow1.uChiLoa[1]","staStaDow1.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=3, y={"staStaDow1.yChiDem[1]","staStaDow1.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=4, y={"staStaDow1.yChiHeaCon[1]","staStaDow1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=5, y={"staStaDow1.yChiWatIsoVal[1]","staStaDow1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=6, y={"staStaDow1.yChi[1]","staStaDow1.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
-createPlot(id=1, position={20, 10, 1200, 1400}, subPlot=7, y={"demLimRel.y"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=1, y={"staStaDow1.uStaDow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=2, y={"staStaDow1.uChiLoa[1]","staStaDow1.uChiLoa[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=3, y={"staStaDow1.yChiDem[1]","staStaDow1.yChiDem[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=4, y={"staStaDow1.yChiHeaCon[1]","staStaDow1.yChiHeaCon[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=5, y={"staStaDow1.yChiWatIsoVal[1]","staStaDow1.yChiWatIsoVal[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=6, y={"staStaDow1.yChi[1]","staStaDow1.yChi[2]"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=7, y={"demLimRel.y"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 1500}, subPlot=8, y={"staStaDow1.yChiWatMinFloSet","staStaDow1.VChiWat_flow"}, range={0.0, 120, 0, 0.02}, grid=true, colors={{28,108,200},{238,46,47}});
 

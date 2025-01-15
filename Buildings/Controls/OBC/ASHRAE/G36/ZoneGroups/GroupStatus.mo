@@ -3,18 +3,25 @@ block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer nBuiZon(
     final min=1)=5
-    "Total number of zones in building";
+    "Total number of zones in building"
+    annotation (__cdl(ValueInReference=false));
   parameter Integer nGroZon(
     final min=1)=nBuiZon
-    "Total number of zones in the group";
+    "Total number of zones in the group"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean zonGroMsk[nBuiZon]=fill(true, nBuiZon)
-    "Boolean array mask of zones included in group";
-  parameter Real uLow(unit="K")=-0.1
+    "Boolean array mask of zones included in group"
+    annotation (__cdl(ValueInReference=false));
+  parameter Real uLow(
+    final unit="K",
+    final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real uHigh(unit="K")=0.1
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real uHigh(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nBuiZon]
     "True when the zone is set to be occupied due to the override"
@@ -84,7 +91,7 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{-160,-240},{-120,-200}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win[nBuiZon]
-    "True when the window is open, false when the window is close or the zone does not have window status sensor"
+    "Window status, normally closed (true), when windows open, it becomes false. For zone without sensor, it is true"
     annotation (Placement(transformation(extent={{-160,-320},{-120,-280}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput uGroOcc
@@ -156,13 +163,14 @@ block GroupStatus "Block that outputs the zone group status"
     "Total number of open windows"
     annotation (Placement(transformation(extent={{120,-320},{160,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nGroZon] "Logical not"
+    annotation (Placement(transformation(extent={{-60,-310},{-40,-290}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax cooDowTim(
     final nin=nGroZon)
     "Longest cooldown time"
     annotation (Placement(transformation(extent={{60,170},{80,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax warUpTim(
     final nin=nGroZon)
     "Longest warm up time"
     annotation (Placement(transformation(extent={{60,130},{80,150}})));
@@ -174,11 +182,11 @@ protected
     final nin=nGroZon)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxTem(
     final nin=nGroZon)
     "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin minTem(
     final nin=nGroZon)
     "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{20,-270},{40,-250}})));
@@ -202,44 +210,44 @@ protected
     final nin=nGroZon)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{18,-190},{38,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumUnoHea(
     final nin=nGroZon)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoHea
+  Buildings.Controls.OBC.CDL.Reals.Subtract difUnoHea
     "Difference between unoccupied heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Average difference"
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 "Average difference"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
     final k=nBuiZon) "Total number of zones"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumUnoCoo(
     final nin=nGroZon)
     "Sum of all zones unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumTem(
     final nin=nGroZon)
     "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-60,-210},{-40,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoCoo
+  Buildings.Controls.OBC.CDL.Reals.Subtract difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-10,-130},{10,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Average difference"
+  Buildings.Controls.OBC.CDL.Reals.Divide div2 "Average difference"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setback mode"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=uLow,
     final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin minToNexOcc(
     final nin=nGroZon)
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
@@ -256,7 +264,7 @@ protected
     annotation (Placement(transformation(extent={{60,270},{80,290}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nGroZon]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
+    annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum totOpeWin(
     final nin=nGroZon)
     "Total number of opening windows"
@@ -266,7 +274,7 @@ protected
     final realFalse=1)
     "When any zone becomes occpuied, output zero"
     annotation (Placement(transformation(extent={{20,230},{40,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "When it is occupied, output zero"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorFilter zonOccFil(
@@ -406,7 +414,7 @@ equation
   connect(totOpeWin.y, yOpeWin)
     annotation (Line(points={{82,-300},{140,-300}}, color={255,127,0}));
   connect(booToInt2.y, totOpeWin.u)
-    annotation (Line(points={{-18,-300},{58,-300}}, color={255,127,0}));
+    annotation (Line(points={{42,-300},{58,-300}},  color={255,127,0}));
   connect(schOcc.y, booToRea.u)
     annotation (Line(points={{-18,260},{0,260},{0,240},{18,240}},
       color={255,0,255}));
@@ -482,12 +490,14 @@ equation
     annotation (Line(points={{-140,-220},{-102,-220}}, color={0,0,127}));
   connect(TZonFil.y, maxTem.u)
     annotation (Line(points={{-78,-220},{18,-220}}, color={0,0,127}));
-  connect(uWinFil.y, booToInt2.u)
-    annotation (Line(points={{-78,-300},{-42,-300}}, color={255,0,255}));
   connect(TZonFil.y, sumTem.u) annotation (Line(points={{-78,-220},{-70,-220},{-70,
           -200},{-62,-200}}, color={0,0,127}));
   connect(TZonFil.y, minTem.u) annotation (Line(points={{-78,-220},{-70,-220},{-70,
           -260},{18,-260}}, color={0,0,127}));
+  connect(uWinFil.y, not1.u)
+    annotation (Line(points={{-78,-300},{-62,-300}}, color={255,0,255}));
+  connect(not1.y, booToInt2.u)
+    annotation (Line(points={{-38,-300},{18,-300}}, color={255,0,255}));
 annotation (
   defaultComponentName = "groSta",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -694,7 +704,7 @@ heating setpoint,
 <code>u1EndSetBac</code>: if the zone could end the setback mode,
 </li>
 <li>
-<code>u1HigUnoCoo</code>: if the zone temperature is higher than its unoccupied 
+<code>u1HigUnoCoo</code>: if the zone temperature is higher than its unoccupied
 cooling setpoint,
 </li>
 <li>

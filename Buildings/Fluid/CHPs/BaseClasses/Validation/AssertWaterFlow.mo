@@ -8,7 +8,7 @@ model AssertWaterFlow "Validate model AssertWaterFlow"
   Buildings.Fluid.CHPs.BaseClasses.AssertWaterFlow assWatMas(mWatMin_flow=per.mWatMin_flow)
     "Assert if water mass flow is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mWat_flow(
     table=[0,0; 300,0.05; 360,0.5;
            600,0.05; 900,0.05],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)

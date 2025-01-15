@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "req.y",
+    "sch.y",
+    "TOut.y",
+    "enaHea.TOutLck",
+    "enaCoo.TOutLck",
+    "enaHea.y1",
+    "enaCoo.y1",
+    "enaCooSch.y1"
+  };

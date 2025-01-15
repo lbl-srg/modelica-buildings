@@ -93,19 +93,19 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup(
     final uLow=dpDif - dpDifHys,
     final uHigh=dpDif) if (not have_serChi) and have_locSen
     "Checks how closely the chilled water pump differential pressure aproaches its setpoint from below"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTSup(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTSup(
     final uLow=TDif - TDifHys,
     final uHigh=TDif)
     "Checks if the chilled water supply temperature is higher than its setpoint plus an offset"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysdpSup1[nRemSen](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysdpSup1[nRemSen](
     final uLow=fill(dpDif - dpDifHys, nRemSen),
     final uHigh=fill(dpDif, nRemSen))
     if (not have_serChi) and (not have_locSen)
@@ -127,11 +127,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub0
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub0
     "Adder for temperatures"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     if (not have_serChi) and have_locSen
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -139,9 +139,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nRemSen)
     if (not have_serChi) and (not have_locSen)
+    "Check if there is any true input"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nRemSen]
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2[nRemSen]
     if (not have_serChi) and (not have_locSen)
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
@@ -211,7 +212,12 @@ annotation (defaultComponentName = "faiSafCon",
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-120},{140,120}})),
 Documentation(info="<html>
-<p>Failsafe condition used in staging up and down, implemented according to the specification provided in section 5.2.4.15. 1711 March 2020 Draft. The subsequence applies to primary-only plants with and without a WSE. The sequence contains a boolean flag to differentiate between parallel and series chiller plants. </p>
+<p>
+Failsafe condition used in staging up and down, implemented according to the
+specification provided in section 5.20.4.15 of Guideline36-2021. The subsequence
+applies to primary-only plants with and without a WSE. The sequence contains a
+boolean flag to differentiate between parallel and series chiller plants.
+</p>
 </html>",
 revisions="<html>
 <ul>

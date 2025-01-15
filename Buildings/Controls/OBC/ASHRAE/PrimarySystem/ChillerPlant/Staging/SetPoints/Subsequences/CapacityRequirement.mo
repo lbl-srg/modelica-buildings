@@ -60,7 +60,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Edge"
@@ -71,40 +71,40 @@ protected
     final falseHoldDuration=0) "True hold"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant density(
     final k = rhoWat)
     "Water density"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speHeaCap(
     final k = cpWat)
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minLim(
     final k=0)
     "Minimum capacity requirement limit"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Find input difference"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro "Product"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Product"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 "Product"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2 "Product"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum of two inputs"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Maximum of two inputs"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
 equation
@@ -170,13 +170,13 @@ Documentation(info="<html>
 Calculates cooling capacity requirement based on the measured chilled water return temperature <code>TChiWatRet</code>,
 calculated chilled water supply temperature setpoint
 <code>TChiWatSupSet</code> and the measured chilled water flow <code>VChiWat_flow</code>.<br/>
-The calculation is according to 1711 March 2020 Draft, section 5.2.4.8.
+The calculation is according to Guideline36-2021, section 5.20.4.8.
 </p>
 <p>
 When a stage change process is in progress, as indicated by a boolean input
 <code>chaPro</code>, the capacity requirement is kept constant for the longer of
 <code>holPer</code> and the duration of the change process.<br/>
-The calculation is according to 1711 March 2020 Draft, section 5.2.4.9.
+The calculation is according to Guideline36-2021, section 5.20.4.9.
 </p>
 </html>",
 revisions="<html>

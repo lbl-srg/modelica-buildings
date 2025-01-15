@@ -1,0 +1,57 @@
+//  Conversion script for Buildings library
+//  from: Version 9
+//  to:   Version 10.0.0
+clear
+
+convertClear();
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/2465
+convertClass("Buildings.Controls.OBC.CDL.Logical.And3",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.And3");
+convertClass("Buildings.Controls.OBC.CDL.Logical.Validation.And3",
+             "Buildings.Obsolete.Controls.OBC.CDL.Logical.Validation.And3");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3483
+convertClass("Buildings.Controls.OBC.CDL.Continuous",
+             "Buildings.Controls.OBC.CDL.Reals")
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3339
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Sine",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.Sin");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sine",
+             "Buildings.Controls.OBC.CDL.Reals.Sources.Validation.Sin");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3288
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage",
+               "TConIn", "TOut");
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed",
+               "TConIn", "TOut");
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed",
+               "TConIn", "TOut");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled",
+             "Buildings.Fluid.DXSystems.Cooling.AirSource");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled",
+             "Buildings.Fluid.DXSystems.Cooling.WaterSource");
+
+
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
+             "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3074
+convertClass("Buildings.Fluid.SolarCollectors.Controls.SolarPumpController",
+             "Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController");
+
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3125
+// remove parameter allowOutOfRange, outOfRangeValue
+convertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
+                {"allowOutOfRange", "outOfRangeValue"}, fill("",0), true);
+
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
+             "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/pull/3321
+convertClass("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm");
+convertClass("Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm");

@@ -7,11 +7,11 @@ model GroupStatus
     final nGroZon=2,
     final zonGroMsk={true,false,true}) "Calculate zone group status"
     annotation (Placement(transformation(extent={{120,-60},{140,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warUpTim[3](
     final k={1800,1700,1900})
     "Warm-up time"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowTim[3](
     final k={1600,1700,1800})
     "Cooling down time"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
@@ -21,19 +21,19 @@ model GroupStatus
     final shift={150,130,120})
     "Window status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-50,-300})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     final offset=0,
     final height=6.2831852,
     final duration=24*3600) "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin2
+  Buildings.Controls.OBC.CDL.Reals.Sin sin2
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=6)
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter zonTem(
     final p=273.15 + 22.5)
     "Current zone temperature"
     annotation (Placement(transformation(extent={{-20,-220},{0,-200}})));
@@ -60,10 +60,10 @@ model GroupStatus
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3 "Time after input becomes true"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract addPar1
+  Buildings.Controls.OBC.CDL.Reals.Subtract addPar1
     "Time to occupied period"
     annotation (Placement(transformation(extent={{20,130},{40,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract addPar3
+  Buildings.Controls.OBC.CDL.Reals.Subtract addPar3
     "Time to occupied period"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse lowOccHea[3](
@@ -84,7 +84,7 @@ model GroupStatus
     final period=fill(3600, 3))
     "Lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-130,-80})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetOff[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSetOff[3](
     final k={285.15,282.15,283.15})
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
@@ -97,7 +97,7 @@ model GroupStatus
     final k=fill(false, 3))
     "HIgher than unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-90,-140})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetOff[3](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSetOff[3](
     final k={303.15,304.15,305.15})
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
@@ -105,12 +105,12 @@ model GroupStatus
     final k=fill(false,3))
     "End setup mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-90,-180})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse zonTem3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse zonTem3(
     final amplitude=7,
     final period=600,
     final offset=273.15 + 19) "Zone 3 temperature"
     annotation (Placement(transformation(extent={{-80,-280},{-60,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonTem2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonTem2(
     final k=273.15 + 20)
     "Zone 2 temperature"
     annotation (Placement(transformation(extent={{-120,-260},{-100,-240}})));
@@ -121,14 +121,14 @@ model GroupStatus
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Logical not"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant tNexOcc2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant tNexOcc2(
     final k=0) "Zone 2 next occupancy time"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=1800)
     "Constant"
     annotation (Placement(transformation(extent={{-20,170},{0,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1(
     final k=2100)
     "Constant"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));

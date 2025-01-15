@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Discrete.Examples;
 model MovingMean "Validation model for the MovingMean block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     freqHz=1/8,
     phase=0.5235987755983,
     startTime=-0.5) "Example input signal"

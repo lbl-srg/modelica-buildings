@@ -3,7 +3,7 @@ model EquipmentOnOff
   "Validation model for the equipment on/off controller"
     extends Modelica.Icons.Example;
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TBoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TBoi(
     height=40,
     duration=3600,
     offset=333.15) "Boiler temperature"

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "AgentPump.TSouIn",
+    "AgentPump.TSouOut",
+    "AgentPump.TSou",
+    "AgentPump.TSupDis",
+    "AgentPump.TRetDis",
+    "AgentPump.y"
+  };

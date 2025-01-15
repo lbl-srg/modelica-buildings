@@ -1,5 +1,7 @@
 simulateModel("Buildings.Controls.OBC.CDL.Psychrometrics.Validation.WetBulb_TDryBulPhi", stopTime=1.0, method="Cvode", tolerance=1e-06, resultFile="WetBulb_TDryBulPhi1");
-createPlot(id=1, position={15, 10, 650, 600}, subPlot=1, y={"wetBulPhi.TWetBul","wetBulPhi_BuiLib.TWetBul"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{217,67,180}});
-createPlot(id=1, position={15, 10, 650, 600}, subPlot=2, y={"sub.y","phi.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{217,67,180}});
-createPlot(id=2, position={680, 10, 650, 600}, subPlot=1, y={"wetBulPhi.TWetBul","wetBulXi.TWetBul"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{217,67,180}});
-createPlot(id=2, position={680, 10, 650, 600}, subPlot=2, y={"sub1.y","phi.y"}, range={0.0, 5.0, -3.5, 3.5}, grid=true, colors={{0,140,72},{217,67,180}});
+createPlot(id=1, position={9, 15, 820, 1106}, y={"wetBulPhi.TDryBul"}, range={0.0, 1.0, 260.0, 340.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=1, position={9, 15, 820, 1106}, y={"wetBulPhi.phi"}, range={0.0, 1.0, 0.0, 1.2}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 15, 820, 1106}, y={"wetBulPhi.TWetBul"}, range={0.0, 1.0, 280.0, 305.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=2, position={839, 15, 758, 1104}, y={"wetBulPhi1.TDryBul"}, range={0.0, 1.0, 270.0, 320.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});
+createPlot(id=2, position={839, 15, 758, 1104}, y={"wetBulPhi1.phi"}, range={0.0, 1.0, 0.5, 0.7}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={839, 15, 758, 1104}, y={"wetBulPhi1.TWetBul"}, range={0.0, 1.0, 260.0, 310.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"K"});

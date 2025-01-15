@@ -50,7 +50,7 @@ model System6
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -78,6 +78,7 @@ model System6
   Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -135,9 +136,10 @@ model System6
 //----------------------------------------------------------------------------//
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pumBoi(
-      redeclare package Medium = MediumW,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-      m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
+    m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -196,7 +198,7 @@ model System6
         origin={-50,-230})));
 
 //--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2
@@ -206,7 +208,7 @@ model System6
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
 //--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTBoi(uHigh=273.15 + 90,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysTBoi(uHigh=273.15 + 90,
                                              uLow=273.15 + 70)
     "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-260,-348},{-240,-328}})));
@@ -229,7 +231,7 @@ model System6
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
 
 //--------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -239,11 +241,11 @@ model System6
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-160},{-200,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDBoi(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
@@ -252,23 +254,23 @@ model System6
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
 //--------------------------------------------------------------------------------//
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDRad(
     Td=1,
     Ti=120,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
+  Buildings.Controls.OBC.CDL.Reals.Line TSetSup
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(k=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMin(k=273.15 + 21)
     "Minimum heating supply temperature"
     annotation (Placement(transformation(extent={{-260,-120},{-240,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(k=273.15 + 50)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMax(k=273.15 + 50)
     "Maximum heating supply temperature"
     annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooMin(k=273.15 + 19)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooMin(k=273.15 + 19)
     "Minimum room air temperature"
     annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
 //--- Weather data -------------------------------------------------------------//
@@ -588,6 +590,13 @@ maintained at their set point.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 6, 2017, by Michael Wetter:<br/>
 Added missing density to computation of air mass flow rate.<br/>

@@ -1,12 +1,10 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-package SetPoints
+package SetPoints "Sequences for setting the setpoints for chilled water control "
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains chilled water plant reset control sequences.
-The implementation is based on section 5.2.5.2. in ASHRAE RP-1711 Advanced Sequences
-of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (draft version on March 23, 2020).
+The implementation is based on section 5.20.5.2. in ASHRAE Guideline36-2021.
 </p>
 </html>"),
   Icon(graphics={

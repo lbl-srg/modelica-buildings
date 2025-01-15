@@ -37,7 +37,7 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp numOfOcc2(
     duration=3600,
     height=3)
     "Occupant number in zone 2"
@@ -45,7 +45,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-220,170},{-200,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp numOfOcc3(
     duration=3600,
     height=3,
     startTime=900) "Occupant number in zone 3"
@@ -59,7 +59,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta1(period=3600)
     "Status of windows"
     annotation (Placement(transformation(extent={{-220,-140},{-200,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp numOfOcc4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp numOfOcc4(
     duration=3600,
     startTime=900,
     height=2) "Occupant number"
@@ -67,23 +67,23 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt3
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-220,-90},{-200,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TZon(
     height=6,
     offset=280.15,
     duration=3600) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-260,130},{-240,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDis(
     height=4,
     duration=3600,
     offset=281.15) "Terminal unit discharge air temperature"
     annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat(k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonPriFloRat(k=0.1)
     "Measured primary flow rate at VAV box"
     annotation (Placement(transformation(extent={{-260,80},{-240,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat1(k=0.12)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonPriFloRat1(k=0.12)
     "Measured primary flow rate at VAV box"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonPriFloRat2(k=0.09)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonPriFloRat2(k=0.09)
     "Measured primary flow rate at VAV box"
     annotation (Placement(transformation(extent={{-260,-170},{-240,-150}})));
 

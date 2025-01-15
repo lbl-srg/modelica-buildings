@@ -57,7 +57,7 @@ block Scheduler
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.CalendarTime calTim(
     final zerTim=zerTim,
     final yearRef=yearRef,
     final offset=offset) if not simTimSta
@@ -186,17 +186,15 @@ equation
         fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{71,7},{85,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+          lineColor=DynamicSelect({235,235,235}, if yRot then {0,255,0}
                else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
+          fillColor=DynamicSelect({235,235,235}, if yRot then {0,255,0}
                else {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-75,-6},{-89,8}},
-          lineColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u1 then {0,255,0}
-               else {235,235,235}),
+          lineColor={235,235,235},
+          fillColor={235,235,235},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
@@ -217,7 +215,7 @@ equation
 <p>
 This block outputs generates a rotation trigger at
 chosen time intervals for lead/standby configurations where a lead device runs continuously.
-The implementation is based on RP 1711 5.1.2.4.2, except 5.1.2.4.2 a.
+The implementation is based on Guideline36-2021 5.1.15.4.b, except 5.1.15.4.b 1.
 </p>
 <p>
 The user may chose to start counting time from simulation start to generate the

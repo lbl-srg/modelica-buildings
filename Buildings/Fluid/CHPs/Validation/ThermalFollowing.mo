@@ -29,13 +29,13 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
     use_T_in=true,
     nPorts=1) "Cooling water source"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dPEleNet
+  Buildings.Controls.OBC.CDL.Reals.Subtract dPEleNet
     "Absolute error for electric power generaton"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dQWat
+  Buildings.Controls.OBC.CDL.Reals.Subtract dQWat
     "Absolute error for heat transfer to water control volume"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTWatOut
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTWatOut
     "Absolute error for water outlet temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Modelica.Blocks.Sources.RealExpression PEleNet(
@@ -52,21 +52,21 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
   HeatTransfer.Sources.PrescribedTemperature preTem
     "Variable temperature boundary condition in Kelvin"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTEng
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTEng
     "Absolute error for engine temperature"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
   Modelica.Blocks.Sources.RealExpression TEng(
     final y=theFol.eng.TEng)
     "Engine temperature"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dQLos
+  Buildings.Controls.OBC.CDL.Reals.Subtract dQLos
     "Absolute error for heat loss to the surroundings"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
   Modelica.Blocks.Sources.RealExpression QLos(
     final y=theFol.QLos.Q_flow)
     "Heat loss to the surrounding"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dQGen
+  Buildings.Controls.OBC.CDL.Reals.Subtract dQGen
     "Absolute error for heat generaton"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
   Modelica.Blocks.Sources.RealExpression QGen(
@@ -114,7 +114,7 @@ model ThermalFollowing "Validate model ThermalElectricalFollowing"
     waitTime=0)
     "CHP unit with the thermal demand priority and negative water mass flow rate"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow_negative(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mWat_flow_negative(
     final k=-1)
     "Negative water mass flow rate for validation only"
     annotation (Placement(transformation(extent={{-170,-90},{-150,-70}})));

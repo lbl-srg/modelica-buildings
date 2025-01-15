@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "tanSta.TTan[1]",
+    "tanSta.TTan[2]",
+    "tanSta.THig",
+    "tanSta.TLow",
+    "tanSta.y[1]",
+    "tanSta.y[2]"
+  };

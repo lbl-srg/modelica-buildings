@@ -1,6 +1,10 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.Data;
-record AllSystems "Top-level (whole building) record for testing purposes"
-  extends Modelica.Icons.Record;
+class AllSystems "Top-level (whole building) system parameters"
+  extends Buildings.Templates.Data.AllSystems(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
 
   parameter Buildings.Templates.ZoneEquipment.Data.VAVBox VAVBox_1(
     id="VAVBox_1",
@@ -15,6 +19,7 @@ record AllSystems "Top-level (whole building) record for testing purposes"
       TAirEnt_nominal=285.15,
       TWatEnt_nominal=323.15),
     ctl(
+      final stdVen=stdVen,
       VAirCooSet_flow_max=0.1,
       VAirHeaSet_flow_max=0.03,
       VOutMinOcc_flow=2.5e-3,
@@ -23,16 +28,14 @@ record AllSystems "Top-level (whole building) record for testing purposes"
       VOutAre_flow=3e-3,
       VAirSet_flow_min=0.01))
     "Parameters for system VAVBox_1"
-    annotation (
-      Dialog(group="Zone equipment"),
-      Placement(transformation(extent={{-10,-8},{10,12}})));
+    annotation (Dialog(group="Zone equipment"));
 
   annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "dat",
-    Documentation(info="<html>
+  defaultComponentPrefixes = "inner parameter",
+  defaultComponentName = "datAll",
+  Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the whole HVAC system.
 It is aimed for validation purposes only.
 </p>

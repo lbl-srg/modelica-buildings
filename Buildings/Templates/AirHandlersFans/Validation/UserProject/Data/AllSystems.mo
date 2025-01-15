@@ -1,8 +1,12 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.Data;
-record AllSystems "Top-level (whole building) record for testing purposes"
-  extends Modelica.Icons.Record;
+class AllSystems "Top-level (whole building) system parameters"
+  extends Buildings.Templates.Data.AllSystems(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
 
-  parameter .Buildings.Templates.AirHandlersFans.Data.VAVMultiZone VAV_1(
+  parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone VAV_1(
     id="VAV_1",
     damOut(dp_nominal=15),
     damOutMin(dp_nominal=15),
@@ -50,22 +54,20 @@ record AllSystems "Top-level (whole building) record for testing purposes"
       yFanSup_min=0.1,
       yFanRel_min=0.1,
       yFanRet_min=0.1,
-      pBuiSet_rel=12,
       dVFanRet_flow=0.1,
       TAirSupSet_min=12+273.15,
       TAirSupSet_max=18+273.15,
       TOutRes_min=16+273.15,
       TOutRes_max=21+273.15))
-    "Paramerers for system VAV_1"
-    annotation (Dialog(group="Air handlers and fans"),
-      Placement(transformation(extent={{-10,-8},{
-            10,12}})));
+    "Parameters for system VAV_1"
+    annotation (Dialog(group="Air handlers and fans"));
+
 annotation (
-  defaultComponentPrefixes = "parameter",
-  defaultComponentName = "dat",
+  defaultComponentPrefixes = "inner parameter",
+  defaultComponentName = "datAll",
     Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This class provides the set of sizing and operating parameters for
 the whole HVAC system.
 It is aimed for validation purposes only.
 </p>

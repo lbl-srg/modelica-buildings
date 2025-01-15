@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.IO.Files.Validation.WeeklyScheduleWindowsLineEndings", startTime=-10000, stopTime=1000000, tolerance=1e-6, method="dassl", resultFile="WeeklyScheduleWindowsLineEndings");
+createPlot(id=1, position={15, 15, 592, 364}, y={"weeSchLin.y[1]", "weeSchLin.y[2]", "weeSchLin.y[3]", "weeSchLin.y[4]"}, range={-100000.0, 1000000.0, -20.0, 140.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s");

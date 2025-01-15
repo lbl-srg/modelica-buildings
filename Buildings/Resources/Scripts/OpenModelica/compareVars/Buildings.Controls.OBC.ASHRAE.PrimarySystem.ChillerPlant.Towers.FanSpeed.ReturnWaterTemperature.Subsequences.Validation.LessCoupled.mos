@@ -2,11 +2,15 @@ compareVars :=
   {
     "lesCouTowSpe.TConWatRetSet",
     "lesCouTowSpe.TConWatRet",
+    "lesCouTowSpe.TConWatSup",
     "lesCouTowSpe.uConWatPumSpe[1]",
     "lesCouTowSpe.uConWatPumSpe[2]",
     "lesCouTowSpe.TConWatSup",
     "lesCouTowSpe.TConWatSupSet",
     "lesCouTowSpe.uMaxTowSpeSet[1]",
     "lesCouTowSpe.uMaxTowSpeSet[2]",
-    "lesCouTowSpe.ySpeSet"
+    "lesCouTowSpe.ySpeSet",
+    "lesCouTowSpe.plrTowMaxSpe",
+    "lesCouTowSpe.uChi[1]",
+    "lesCouTowSpe.uChi[2]"
   };

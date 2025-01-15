@@ -32,17 +32,17 @@ protected
     final unit="m3/s") = 0.02
     "Average measured chilled water flow rate";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet(
     final k=TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
@@ -52,17 +52,17 @@ protected
     "Stage change is not in process"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet1(
     final k=TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet1(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow1(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
@@ -74,17 +74,17 @@ protected
     "Stage change process status signal"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TCWSupSet2(
     final k= TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet2(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin chiWatFlow2(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
@@ -130,8 +130,8 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.CapacityRequirement\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.CapacityRequirement</a>.
 </p>
 </html>", revisions="<html>
 <ul>

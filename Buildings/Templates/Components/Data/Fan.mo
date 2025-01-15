@@ -4,25 +4,24 @@ record Fan "Record for fan model"
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
-    annotation (Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nFan(
     final min=0,
-    start=1)
+    start=if typ==Buildings.Templates.Components.Types.Fan.None then 0 else 1)
     "Number of fans"
-    annotation (Dialog(group="Configuration",
+    annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typ==Buildings.Templates.Components.Types.Fan.ArrayVariable));
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
-    start=if typ==Buildings.Templates.Components.Types.Fan.None then 0
-    else 1)
-    "Air mass flow rate"
+    start=1)
+    "Total air mass flow rate"
     annotation (
       Dialog(group="Nominal condition",
         enable=typ <> Buildings.Templates.Components.Types.Fan.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
     displayUnit="Pa",
-    start=if typ==Buildings.Templates.Components.Types.Fan.None then 0
+    start=if typ==Buildings.Templates.Components.Types.Fan.None then 1
       else 500)
     "Total pressure rise"
     annotation (
@@ -38,9 +37,12 @@ record Fan "Record for fan model"
       choicesAllMatching=true,
       Dialog(enable=typ <> Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-90,-88},{-70,-68}})));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datFan",
+  Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Fans\">
 Buildings.Templates.Components.Fans</a>.

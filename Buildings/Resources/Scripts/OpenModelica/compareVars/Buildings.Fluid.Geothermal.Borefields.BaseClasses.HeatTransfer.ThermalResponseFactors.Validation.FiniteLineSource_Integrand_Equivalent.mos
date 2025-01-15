@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "yRea",
+    "yMir",
+    "y"
+  };

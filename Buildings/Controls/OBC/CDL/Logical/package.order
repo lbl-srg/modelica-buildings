@@ -1,5 +1,4 @@
 And
-And3
 Change
 Edge
 FallingEdge
@@ -9,19 +8,16 @@ MultiOr
 Nand
 Nor
 Not
-OnOffController
 Or
-Or3
 Pre
+Proof
 Switch
 Timer
 TimerAccumulating
 Toggle
-TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
-TrueHoldWithReset
+VariablePulse
 Xor
-ZeroCrossing
 Sources
 Validation

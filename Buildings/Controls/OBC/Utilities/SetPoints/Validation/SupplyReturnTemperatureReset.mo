@@ -8,7 +8,7 @@ model SupplyReturnTemperatureReset
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with varying outdoor temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TOut(
     height=40,
     duration=1,
     offset=263.15,
@@ -23,7 +23,7 @@ model SupplyReturnTemperatureReset
     TOut_nominal=263.15)
     "Compute the supply and return set point of heating systems with changing room setpoint temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TRoo1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse TRoo1(
     offset=273.15+20,
     shift=0.5,
     amplitude=-5,
@@ -31,12 +31,12 @@ model SupplyReturnTemperatureReset
     y(unit="K"))
     "Night set back from 20 degC to 15 degC"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     k=273.15-10,
     y(unit="K"))
     "Constant outdoor air temperature"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRoo(
     k=273.15+20,
     y(unit="K"))
     "Room temperature 20 degC"

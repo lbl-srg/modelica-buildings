@@ -156,11 +156,11 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{100,-320},{140,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetBac(final uLow=uLow,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysSetBac(final uLow=uLow,
       final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setback mode"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysSetUp(final uLow=uLow,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysSetUp(final uLow=uLow,
       final uHigh=uHigh)
     "Hysteresis that outputs if the group should run in setup mode"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
@@ -242,11 +242,11 @@ protected
     final msk=zonGroMsk) "Zone group filter"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax cooDowTim(
     final nin=numZonGro)
     "Longest cooldown time"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax warUpTim(
     final nin=numZonGro)
     "Longest warm up time"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
@@ -258,11 +258,11 @@ protected
     final nin=numZonGro)
     "Check if there is any zone that the zone temperature is higher than its occupied cooling setpoint"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax maxTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax maxTem(
     final nin=numZonGro)
     "Maximum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-230},{20,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin minTem(
     final nin=numZonGro)
     "Minimum zone temperature in the zone group"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
@@ -286,34 +286,34 @@ protected
     final nin=numZonGro)
     "Check if all zones have ended the setup mode"
     annotation (Placement(transformation(extent={{-2,-190},{18,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoHea(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumUnoHea(
     final nin=numZonGro)
     "Sum of all zones unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoHea
+  Buildings.Controls.OBC.CDL.Reals.Subtract difUnoHea
     "Difference between unoccupied heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Average difference"
+  Buildings.Controls.OBC.CDL.Reals.Divide div1 "Average difference"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant totZon(
     final k=numZonGro) "Total number of zones"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Convert integer to real"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumUnoCoo(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumUnoCoo(
     final nin=numZonGro)
     "Sum of all zones unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sumTem(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum sumTem(
     final nin=numZonGro)
     "Sum of all zones temperature"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difUnoCoo
+  Buildings.Controls.OBC.CDL.Reals.Subtract difUnoCoo
     "Difference between unoccupied cooling setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-30,-130},{-10,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Average difference"
+  Buildings.Controls.OBC.CDL.Reals.Divide div2 "Average difference"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin minToNexOcc(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin minToNexOcc(
     final nin=numZonGro)
     "Minimum time to next occupied period"
     annotation (Placement(transformation(extent={{-60,210},{-40,230}})));
@@ -340,7 +340,7 @@ protected
     final realFalse=1)
     "When any zone becomes occpuied, output zero"
     annotation (Placement(transformation(extent={{0,230},{20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply proOcc
+  Buildings.Controls.OBC.CDL.Reals.Multiply proOcc
     "When it is occupied, output zero"
     annotation (Placement(transformation(extent={{60,210},{80,230}})));
 

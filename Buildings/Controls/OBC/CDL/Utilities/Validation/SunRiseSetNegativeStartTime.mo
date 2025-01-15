@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Utilities.Validation;
 model SunRiseSetNegativeStartTime
   "Test model for the block SunRiseSet with negative start time"
-  extends Modelica.Icons.Example;
+
   Buildings.Controls.OBC.CDL.Utilities.SunRiseSet sunRiseSetArctic(
     lat=1.2566370614359,
     lon=-1.2566370614359,
@@ -43,9 +43,26 @@ The normal cases are represented by San Francisco and Sydney, where there is a s
       revisions="<html>
 <ul>
 <li>
+March 17, 2023, by Michael Wetter:<br/>
+Removed extends statement and added graphical annotation for icon.
+</li>
+<li>
 November 27, 2018, by Kun Zhang:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end SunRiseSetNegativeStartTime;

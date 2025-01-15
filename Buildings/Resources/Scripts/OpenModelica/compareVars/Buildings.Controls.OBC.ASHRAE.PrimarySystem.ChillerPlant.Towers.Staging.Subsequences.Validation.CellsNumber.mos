@@ -5,7 +5,6 @@ compareVars :=
     "enaTowCel.uTowStaCha",
     "enaTowCel.uWse",
     "enaTowCel.yNumCel",
-    "enaTowCel.uLeaConWatPum",
     "enaTowCel.yLeaCel",
     "enaTowCel.uConWatPumSpe[1]"
   };

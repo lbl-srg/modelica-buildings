@@ -3,25 +3,25 @@ block ControlLoops "Heating and cooling control loops"
 
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(group="Cooling control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Cooling control"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(group="Cooling control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Cooling control"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(group="Heating control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Heating control"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(group="Heating control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Heating control"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced"));
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Threshold value to check if the controller output is near zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
@@ -53,20 +53,26 @@ block ControlLoops "Heating and cooling control loops"
     final unit="1") "Heating control signal"
     annotation (Placement(transformation(extent={{160,-90},{200,-50}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-
-protected
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCon(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conCoo(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kCooCon,
     final Ti=TiCooCon,
     final reverseActing=false)
     "Cooling controller"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less enaHeaLoo(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conHea(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k=kHeaCon,
+    final Ti=TiHeaCon)
+    "Heating controller"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Reals.Less enaHeaLoo(
     final h=dTHys)
     "Check if heating control loop should be enabled"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less enaCooLoo(
+  Buildings.Controls.OBC.CDL.Reals.Less enaCooLoo(
     final h=dTHys)
     "Check if cooling control loop should be enabled"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -82,14 +88,9 @@ protected
     final realFalse=1)
     "Output zero control signal when the cooling loop should be disabled"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply cooConSig
+  Buildings.Controls.OBC.CDL.Reals.Multiply cooConSig
     "Cooling control loop signal"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kHeaCon,
-    final Ti=TiHeaCon) "Heating controller"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not holZon
     "Check if the zone temperature is higher than the heating setpoint"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
@@ -102,14 +103,14 @@ protected
     final realFalse=1)
     "Output zero control signal when the heating loop should be disabled"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply heaConSig
+  Buildings.Controls.OBC.CDL.Reals.Multiply heaConSig
     "Heating control loop signal"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold zerCon(
     final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold zerCon1(
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold zerCon1(
     final t=looHys, final h=0.8*looHys)
     "Check if the controller output is near zero"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
@@ -129,31 +130,31 @@ equation
           {-122,12}}, color={0,0,127}));
   connect(TCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},{-140,
           20},{-122,20}}, color={0,0,127}));
-  connect(TCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
+  connect(TCooSet,conCoo. u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
           100},{-82,100}}, color={0,0,127}));
-  connect(TZon, cooCon.u_m)
+  connect(TZon,conCoo. u_m)
     annotation (Line(points={{-180,0},{-70,0},{-70,88}}, color={0,0,127}));
-  connect(enaCooLoo.y, cooCon.trigger)
+  connect(enaCooLoo.y,conCoo. trigger)
     annotation (Line(points={{-98,20},{-76,20},{-76,88}}, color={255,0,255}));
   connect(enaCooLoo.y, colZon.u)
     annotation (Line(points={{-98,20},{-42,20}}, color={255,0,255}));
-  connect(cooCon.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
+  connect(conCoo.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
           110,76},{118,76}}, color={0,0,127}));
-  connect(THeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
+  connect(THeaSet,conHea. u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
           -40},{-82,-40}}, color={0,0,127}));
-  connect(TZon, heaCon.u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
+  connect(TZon,conHea. u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
           {-70,-60},{-70,-52}}, color={0,0,127}));
   connect(enaHeaLoo.y, holZon.u)
     annotation (Line(points={{-98,-120},{-42,-120}}, color={255,0,255}));
-  connect(enaHeaLoo.y, heaCon.trigger) annotation (Line(points={{-98,-120},{-76,
+  connect(enaHeaLoo.y,conHea. trigger) annotation (Line(points={{-98,-120},{-76,
           -120},{-76,-52}}, color={255,0,255}));
-  connect(heaCon.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
+  connect(conHea.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
           110,-64},{118,-64}}, color={0,0,127}));
   connect(zerCon.y, disCoo.u)
     annotation (Line(points={{-18,60},{-2,60}}, color={255,0,255}));
-  connect(cooCon.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
+  connect(conCoo.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
           60},{-42,60}}, color={0,0,127}));
-  connect(heaCon.y, zerCon1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
+  connect(conHea.y, zerCon1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
           -80},{-42,-80}}, color={0,0,127}));
   connect(zerCon1.y, disHea.u)
     annotation (Line(points={{-18,-80},{-2,-80}}, color={255,0,255}));

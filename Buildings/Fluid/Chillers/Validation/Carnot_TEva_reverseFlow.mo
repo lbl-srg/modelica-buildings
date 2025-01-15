@@ -24,7 +24,6 @@ model Carnot_TEva_reverseFlow
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,
@@ -40,14 +39,14 @@ model Carnot_TEva_reverseFlow
     use_T_in=false,
     use_m_flow_in=true,
     T=298.15)
-    annotation (Placement(transformation(extent={{-50,-4},{-30,16}})));
+    annotation (Placement(transformation(extent={{-60,-4},{-40,16}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     m_flow=m2_flow_nominal,
     use_T_in=false,
     use_m_flow_in=true,
     T=295.15)
-    annotation (Placement(transformation(extent={{60,-16},{40,4}})));
+    annotation (Placement(transformation(extent={{70,-16},{50,4}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium1,
     nPorts=1)
@@ -60,15 +59,15 @@ model Carnot_TEva_reverseFlow
     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        origin={-40,-30})));
+        origin={-80,-30})));
   Modelica.Blocks.Sources.Constant TEvaLvg(k=273.15 + 10)
     "Control signal for evaporator leaving temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Blocks.Math.Gain mCon_flow(k=-1/cp1_default/dTEva_nominal)
     "Condenser mass flow rate"
-    annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
+    annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
   Modelica.Blocks.Math.Add QCon_flow(k2=-1) "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 
   final parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default=
       Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -80,38 +79,58 @@ model Carnot_TEva_reverseFlow
     duration=60,
     startTime=1800,
     height=-2*m2_flow_nominal,
-    offset=m2_flow_nominal) "Mass flow rate for evaporater"
-    annotation (Placement(transformation(extent={{92,-8},{72,12}})));
+    offset=m2_flow_nominal) "Mass flow rate for evaporator"
+    annotation (Placement(transformation(extent={{98,-8},{78,12}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTConEnt(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1_flow_nominal,
+    tau=0) "Temperature sensor for fluid entering condenser"
+    annotation (Placement(transformation(extent={{-30,-4},{-10,16}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTConLvg(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=m1_flow_nominal,
+    tau=0) "Temperature sensor for fluid leaving condenser"
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaEnt(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2_flow_nominal,
+    tau=0) "Temperature sensor for fluid entering evaporator"
+    annotation (Placement(transformation(extent={{46,-16},{26,4}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTEvaLvg(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=m2_flow_nominal,
+    tau=0) "Temperature sensor for fluid leaving evaporator"
+    annotation (Placement(transformation(extent={{-30,-40},{-50,-20}})));
 equation
-  connect(sou1.ports[1], chi.port_a1)    annotation (Line(
-      points={{-30,6},{-2,6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sou2.ports[1], chi.port_a2)    annotation (Line(
-      points={{40,-6},{18,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sin2.ports[1], chi.port_b2)    annotation (Line(
-      points={{-30,-30},{-12,-30},{-12,-6},{-2,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TEvaLvg.y, chi.TSet) annotation (Line(points={{-19,40},{-12,40},{-12,10},
           {-12,9},{-4,9}},
                   color={0,0,127}));
-  connect(chi.P, QCon_flow.u1) annotation (Line(points={{19,0},{34,0},{34,0},{
-          34,-34},{38,-34}},
-                    color={0,0,127}));
-  connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{19,-9},{26,-9},
-          {26,-10},{26,-46},{38,-46}},
-                              color={0,0,127}));
-  connect(QCon_flow.y, mCon_flow.u) annotation (Line(points={{61,-40},{80,-40},{
-          80,-60},{-92,-60},{-92,14},{-82,14}}, color={0,0,127}));
+  connect(chi.P, QCon_flow.u1) annotation (Line(points={{19,0},{24,0},{24,-54},{
+          38,-54}}, color={0,0,127}));
+  connect(chi.QEva_flow, QCon_flow.u2) annotation (Line(points={{19,-9},{22,-9},
+          {22,-66},{38,-66}}, color={0,0,127}));
+  connect(QCon_flow.y, mCon_flow.u) annotation (Line(points={{61,-60},{70,-60},{
+          70,-80},{-98,-80},{-98,14},{-92,14}}, color={0,0,127}));
   connect(mCon_flow.y, sou1.m_flow_in)
-    annotation (Line(points={{-59,14},{-52,14}},          color={0,0,127}));
-  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{18,6},{30,6},{30,
-          30},{70,30}},    color={0,127,255}));
+    annotation (Line(points={{-69,14},{-62,14}},          color={0,0,127}));
   connect(mEva_flow.y, sou2.m_flow_in)
-    annotation (Line(points={{71,2},{62,2}},        color={0,0,127}));
+    annotation (Line(points={{77,2},{72,2}},        color={0,0,127}));
+  connect(sou1.ports[1], senTConEnt.port_a)
+    annotation (Line(points={{-40,6},{-30,6}}, color={0,127,255}));
+  connect(senTConEnt.port_b, chi.port_a1)
+    annotation (Line(points={{-10,6},{-2,6}}, color={0,127,255}));
+  connect(chi.port_b1, senTConLvg.port_a) annotation (Line(points={{18,6},{30,6},
+          {30,30},{40,30}}, color={0,127,255}));
+  connect(senTConLvg.port_b, sin1.ports[1])
+    annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
+  connect(sou2.ports[1], senTEvaEnt.port_a)
+    annotation (Line(points={{50,-6},{46,-6}}, color={0,127,255}));
+  connect(senTEvaEnt.port_b, chi.port_a2)
+    annotation (Line(points={{26,-6},{18,-6}}, color={0,127,255}));
+  connect(sin2.ports[1], senTEvaLvg.port_b)
+    annotation (Line(points={{-70,-30},{-50,-30}}, color={0,127,255}));
+  connect(senTEvaLvg.port_a, chi.port_b2) annotation (Line(points={{-30,-30},{-10,
+          -30},{-10,-6},{-2,-6}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Validation/Carnot_TEva_reverseFlow.mos"
         "Simulate and plot"),
@@ -131,8 +150,20 @@ This example checks the correct behavior if a mass flow rate attains zero.
 revisions="<html>
 <ul>
 <li>
+August 9, 2024, by Hongxiang Fu:<br/>
+Added two-port temperature sensors to replace <code>sta_*.T</code>
+in reference results. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1913\">IBPSA #1913</a>.
+</li>
+<li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

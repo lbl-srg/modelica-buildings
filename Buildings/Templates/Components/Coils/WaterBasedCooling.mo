@@ -2,9 +2,8 @@ within Buildings.Templates.Components.Coils;
 model WaterBasedCooling "Chilled water coil"
   extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
-    final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumChiWat),
-    port_bSou(redeclare final package Medium = MediumChiWat));
+    typVal=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    redeclare final package MediumSou = MediumChiWat);
 
   replaceable package MediumChiWat=Buildings.Media.Water
     "Source side medium";
@@ -19,29 +18,20 @@ model WaterBasedCooling "Chilled water coil"
     dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-    "Heat exchanger configuration"
-    annotation (Evaluate=true);
-
-  replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Interfaces.PartialValve(       redeclare
-      final package Medium = MediumChiWat,
-      final dat=datVal)
+  Buildings.Templates.Components.Actuators.Valve val(
+    redeclare final package Medium = MediumChiWat,
+    final typ=typVal,
+    final energyDynamics=energyDynamics,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversalLiq,
+    final show_T=show_T,
+    final dat=datVal)
     "Valve"
     annotation (
-      choices(
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.None val
-          "No valve"),
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
-          "Three-way modulating valve"),
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
-          "Two-way modulating valve")),
       Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-40,-60})));
 
-  // We allow for declaration but not through the parameter dialog box.
   replaceable Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hex(
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
@@ -56,16 +46,29 @@ model WaterBasedCooling "Chilled water coil"
     redeclare final package Medium1 = MediumChiWat,
     redeclare final package Medium2 = MediumAir,
     final m1_flow_nominal=mWat_flow_nominal,
-    final m2_flow_nominal=mAir_flow_nominal)
+    final m2_flow_nominal=mAir_flow_nominal,
+    final allowFlowReversal1=allowFlowReversalLiq,
+    final allowFlowReversal2=allowFlowReversalAir,
+    final show_T=show_T)
     "Heat exchanger"
     annotation (
+      __ctrlFlow(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3))
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     if typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Junction"
     annotation (
@@ -73,8 +76,9 @@ model WaterBasedCooling "Chilled water coil"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={40,-60})));
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
-      package Medium = MediumChiWat)
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(
+    redeclare final package Medium = MediumChiWat,
+    final allowFlowReversal=allowFlowReversalLiq)
     if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

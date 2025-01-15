@@ -5,6 +5,7 @@ compareVars :=
     "plaRes.chaPro",
     "plaRes.triSam.y",
     "plaRes.truHol.y",
+    "plaRes.TChiWatSupResReq",
     "devRes.triRes.y",
     "devRes.yChiWatPlaRes",
     "devRes.TChiWatSupResReq",

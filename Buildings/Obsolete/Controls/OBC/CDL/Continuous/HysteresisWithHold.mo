@@ -18,7 +18,7 @@ block HysteresisWithHold
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysteresis(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysteresis(
     final uLow=uLow,
     final uHigh=uHigh)
     "Transform Real to Boolean signal with Hysteresis"
@@ -39,7 +39,7 @@ equation
     annotation (Line(points={{62,0},{120,0}}, color={255,0,255}));
 annotation (
   defaultComponentName="hysWitHol",
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Hysteresis and Buildings.Controls.OBC.CDL.Logical.TrueFalseHold instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.Hysteresis and Buildings.Controls.OBC.CDL.Logical.TrueFalseHold instead",
   Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

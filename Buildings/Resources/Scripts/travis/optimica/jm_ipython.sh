@@ -11,9 +11,9 @@
 set -e
 
 IMG_NAME=${OPTIMICA_VERSION}
-DOCKER_USERNAME=michaelwetter
+DOCKER_REPONAME=lbnlblum
 
-NAME=${DOCKER_USERNAME}/${IMG_NAME}
+NAME=${DOCKER_REPONAME}/${IMG_NAME}
 
 # Function declarations
 function create_mount_command()

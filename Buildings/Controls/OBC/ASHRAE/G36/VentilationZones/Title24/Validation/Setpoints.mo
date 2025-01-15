@@ -48,11 +48,11 @@ model Setpoints "Validate the outdoor airflow setpoint according to the Title 24
     final VMin_flow=0.018)
     "Setpoints of a zone with  CO2 sensor and single zone VAV AHU"
     annotation (Placement(transformation(extent={{180,-20},{200,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final duration=7200)
     "Generate ramp output"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=0.75)
     "Check if input is greater than 0.75"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
@@ -66,18 +66,18 @@ model Setpoints "Validate the outdoor airflow setpoint according to the Title 24
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse winSta(
     final period=7200,
     final width=0.2) "Window operating status"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
     final period=7200,
     final width=0.8)
     "Occupancy status"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp co2Con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp co2Con(
     final height=300,
     final duration=7200,
     offset=800) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram1(
     final height=2.6,
     final duration=7200,
     offset=0.6) "Generate ramp output"
@@ -85,15 +85,17 @@ model Setpoints "Validate the outdoor airflow setpoint according to the Title 24
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin parFanFlo(
     final amplitude=0.01,
     final freqHz=1/7200,
     final offset=0.008) "Parallel fan flow rate"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant CO2Set(
     final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(ram.y, greThr.u)
     annotation (Line(points={{-178,110},{-162,110}}, color={0,0,127}));
@@ -101,8 +103,6 @@ equation
     annotation (Line(points={{-138,110},{-122,110}}, color={255,0,255}));
   connect(not1.y, booToInt.u)
     annotation (Line(points={{-98,110},{-82,110}},   color={255,0,255}));
-  connect(winSta.y, winSenZon.u1Win) annotation (Line(points={{-58,-30},{-10,-30},
-          {-10,-41},{-2,-41}}, color={255,0,255}));
   connect(occSta.y, occSenZon.u1Occ) annotation (Line(points={{-58,-80},{-10,-80},
           {-10,-94},{-2,-94}}, color={255,0,255}));
   connect(booToInt.y, co2SenZon.uOpeMod) annotation (Line(points={{-58,110},{-40,
@@ -129,6 +129,10 @@ equation
           0},{170,-10},{178,-10}},   color={0,0,127}));
   connect(CO2Set.y, co2SenZon.ppmCO2Set) annotation (Line(points={{-98,0},{-50,0},
           {-50,-150},{-2,-150}},    color={0,0,127}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-138,-30},{-82,-30}}, color={255,0,255}));
+  connect(not2.y, winSenZon.u1Win) annotation (Line(points={{-58,-30},{-10,-30},
+          {-10,-41},{-2,-41}}, color={255,0,255}));
 annotation (experiment(StopTime=7200.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/VentilationZones/Title24/Validation/Setpoints.mos"
     "Simulate and plot"),

@@ -25,13 +25,18 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
-    start=Medium.T_default-2,
+    start=Medium.T_default,
     final quantity="ThermodynamicTemperature",
     final unit="K",
     min=0) "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
+  // Modelica.Math.atan returns a value with unit set to "rad".
+  // The following constant is used to satisfy the unit check.
 protected
+  constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
+  constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
+
   Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
@@ -46,11 +51,12 @@ equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
     rh_per       = 100*phi;
-    TWetBul      = 273.15 + TDryBul_degC
+    TWetBul      = 273.15 + uniCon1 * TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
-       + Modelica.Math.atan(TDryBul_degC + rh_per)
-       - Modelica.Math.atan(rh_per-1.676331)
-       + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
+       + uniConK * (Modelica.Math.atan(TDryBul_degC + rh_per)
+         - Modelica.Math.atan(rh_per-1.676331)
+         + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per))
+       - 4.686035;
     XiSat    = 0;
     XiDryBul = 0;
     XiSatRefIn=0;
@@ -170,6 +176,18 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 18, 2024, by Michael Wetter:<br/>
+Added <code>start</code> and <code>nominal</code> attributes
+to avoid warnings in OpenModelica due to conflicting values.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1890\">IBPSA, #1890</a>.
+</li>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Changed icon.

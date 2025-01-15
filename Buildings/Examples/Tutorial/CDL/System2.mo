@@ -133,8 +133,8 @@ for the valve control signal, which we called <code>yVal</code>.
 <p>
 To output the valve control signal, which we set for now to a constant value of <i>1</i>,
 we used an instance of
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>,
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Reals.Sources.Constant</a>,
 set its parameter to <i>1</i>, and connected it to the output.
 </p>
 <p>

@@ -114,27 +114,27 @@ protected
     final desChiNum=desChiNum)
     "Design pump speed of condenser water pump at current stage"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract speDif if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Subtract speDif if not fixSpe
     "Calculate difference between speed setpoint and operating speed"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Abs abs if not fixSpe
     "Absolute difference"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(final uLow=pumSpeChe,
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(final uLow=pumSpeChe,
       final uHigh=2*pumSpeChe)    if not fixSpe
     "Check if operating speed equals to setpoint"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 if not fixSpe
     "Logical not"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     if not fixSpe
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant zer1(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi if not fixSpe
+  Buildings.Controls.OBC.CDL.Reals.Switch swi if not fixSpe
     "Real switch"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi "Integer switch"
@@ -230,10 +230,12 @@ equation
           {78,-58}}, color={255,0,255}));
   connect(abs.y, hys.u) annotation (Line(points={{-18,-90},{-2,-90}},
                     color={0,0,127}));
-  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{-100,
-          -70},{-100,-84},{-82,-84}}, color={0,0,127}));
-  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,-110},
-          {-100,-96},{-82,-96}}, color={0,0,127}));
+  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{
+          -100,-70},{-100,-84},{-82,-84}},
+                                      color={0,0,127}));
+  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,
+          -110},{-100,-96},{-82,-96}},
+                                 color={0,0,127}));
   connect(uEnaPla, enaLeaHeaPum.uEnaPla) annotation (Line(points={{-140,30},{10,
           30},{10,124},{18,124}}, color={255,0,255}));
   connect(uEnaPla, enaLeaDedPum.uEnaPla) annotation (Line(points={{-140,30},{10,
@@ -272,9 +274,8 @@ annotation (Dialog(tab="Advanced"),
   Documentation(info="<html>
 <p>
 Block that generates control signals for condenser water pumps control, 
-according to ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II –
-Central Plants and Hydronic Systems (Draft on March 23, 2020), 
-section 5.2.9 Condenser water pumps. 
+according to ASHRAE Guideline36-2021, 
+section 5.20.9 Condenser water pumps. 
 </p>
 <p>
 This sequence contains three subsequences:
@@ -284,11 +285,11 @@ This sequence contains three subsequences:
 Enabling and disabling lead pump should be controlled based on weather the pumps
 are configurated as headered or dedicated. If it is headered, 
 <code>have_heaPum</code> = true, then use block <code>enaLeaHeaPum</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_headered\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_headered</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_headered</a>
 for a description. Otherwise, use block <code>enaLeaDedPum</code>. See
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_dedicated\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pump.CondenserWaterP.Subsequences.EnableLead_dedicated</a>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.CondenserWater.Subsequences.EnableLead_dedicated</a>
 for a description.
 </li>
 <li>

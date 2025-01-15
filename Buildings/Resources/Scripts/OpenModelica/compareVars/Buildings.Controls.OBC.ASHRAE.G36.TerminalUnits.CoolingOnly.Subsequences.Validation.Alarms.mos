@@ -7,6 +7,7 @@ compareVars :=
     "ala.VDis_flow",
     "ala.VCooMax_flow",
     "ala.yFloSenAla",
+    "ala.uOpeMod",
     "ala.uDam",
     "ala.yLeaDamAla"
   };

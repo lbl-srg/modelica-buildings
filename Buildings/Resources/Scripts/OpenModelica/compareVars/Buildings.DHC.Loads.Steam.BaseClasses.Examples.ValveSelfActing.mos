@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "prv.port_a.p",
+    "prv.port_b.p",
+    "prv.dp",
+    "speEntIn.h_out",
+    "speEntOut.h_out",
+    "prv.m_flow"
+  };

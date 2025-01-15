@@ -13,13 +13,14 @@ model ShaGFunction
     0.075,
     1e-6,
     12,
+    1,
     26,
     50,
     exp(5)) "SHA1-encrypted g-function inputs";
 
-  //Expected output (SHA1-encryption of (1,{{0,0}},150,4,0.075,1e-6,12,26,50,exp(5)))
+  //Expected output (SHA1-encryption of (1,{{0,0}},150,4,0.075,1e-6,12,1,26,50,exp(5)))
   parameter String strEx=
-    "f1213b0067741511110ed55c9689cd740f9d42ae"
+    "6dc3c2b9dfa5807ce25f7d34dc9e718a1119ce9f"
     "Expected string output";
 
   //Comparison result
@@ -38,6 +39,10 @@ arguments required to determine the borehole's thermal response factor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added number of clusters to the function call.
+</li>
 <li>
 July 18, 2018, by Alex Laferri&egrave;re:<br/>
 First implementation.

@@ -5,73 +5,73 @@ model OperationMode "Validate block for selecting operation mode"
     opeModSel(final nZon=1) "Operation mode selection"
     annotation (Placement(transformation(extent={{120,80},{140,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     final height=6.2831852,
     final duration=172800)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sin sin1
+  Buildings.Controls.OBC.CDL.Reals.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter zonTem(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter zonTem(
     final p=295.65) "Zone temperarure"
     annotation (Placement(transformation(extent={{-48,40},{-28,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetUno(
     final k=285.15)  "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetUno(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetUno(
     final k=303.15)  "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonHeaSetOcc(
     final k=293.15)  "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonCooSetOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonCooSetOcc(
     final k=297.15)  "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warUpTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warUpTim(
     final k=1800) "Warm-up time"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowTim(
     final k=1800) "Cooling down time"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cloWin(
     final k=0) "No window is open"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, origin={-150,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater lowThaHeaSet
+  Buildings.Controls.OBC.CDL.Reals.Greater lowThaHeaSet
     "True when the zone temperature is lower than the occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater higThaCooSet
+  Buildings.Controls.OBC.CDL.Reals.Greater higThaCooSet
     "True when the zone temperature is higher than the occupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu2
+  Buildings.Controls.OBC.CDL.Reals.Greater greEqu2
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater greEqu3
+  Buildings.Controls.OBC.CDL.Reals.Greater greEqu3
     "True when the zone temperature is lower than unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1 "Convert boolean to integer"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dif2
+  Buildings.Controls.OBC.CDL.Reals.Subtract dif2
     "Calculate zone temperature difference to unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=-0.5,
     final uHigh=0.5)
     "Hysteresis that outputs if the zone temperature is higher than its unoccupied heating setpoint by a given limit"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dif1
+  Buildings.Controls.OBC.CDL.Reals.Subtract dif1
     "Calculate zone temperature difference to unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=-0.5,
     final uHigh=0.5)
     "Hysteresis that outputs if the zone temperature is lower than its unoccupied cooling setpoint by a given limit"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=14.5) "Gain factor"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation

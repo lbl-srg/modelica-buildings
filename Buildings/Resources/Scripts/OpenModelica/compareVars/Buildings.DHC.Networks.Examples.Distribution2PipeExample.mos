@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "terAutoSize[1].TLoaODE.TAir",
+    "minTSet.y",
+    "terAutoSize[1].QReqHea_flow",
+    "terAutoSize[1].QActHea_flow",
+    "terAutoSize[1].mReqHeaWat_flow",
+    "terAutoSize[1].port_aHeaWat.m_flow",
+    "terPlugFlow[1].TLoaODE.TAir",
+    "minTSet.y",
+    "terPlugFlow[1].QReqHea_flow",
+    "terPlugFlow[1].QActHea_flow",
+    "terPlugFlow[1].mReqHeaWat_flow",
+    "terPlugFlow[1].port_aHeaWat.m_flow"
+  };

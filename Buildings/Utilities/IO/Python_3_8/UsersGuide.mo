@@ -13,7 +13,7 @@ with web services, with hardware, or to do other computations
 inside a Python module.
 </p>
 <p>
-The code has been tested with Python 3.8 on
+The code has been tested with Python 3.8.10 on
 Linux 64 bit and Windows 64 bit.
 </p>
 <h4>Software configuration to use classes from this package</h4>

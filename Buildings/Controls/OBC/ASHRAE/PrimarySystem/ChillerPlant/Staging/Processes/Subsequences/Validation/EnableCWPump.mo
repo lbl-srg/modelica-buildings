@@ -10,13 +10,13 @@ model EnableCWPump
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch curSta
+  Buildings.Controls.OBC.CDL.Reals.Switch curSta
     "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt[2]
     "Real input to integer output"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch curSta1
+  Buildings.Controls.OBC.CDL.Reals.Switch curSta1
     "Current chiller stage setpoint"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[2]
@@ -38,10 +38,10 @@ protected
     final k=false)
     "No stage change"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staTwo(
     final k=2) "Chiller stage index"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staOne(
     final k=1) "Chiller stage index"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
@@ -115,10 +115,56 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.EnableCWPump</a>.
 </p>
+<p>
+It has two instances <code>staUpInd</code> and <code>staDowInd</code>, which shows
+the calculation of the chiller stage index in the staging up and staging down process.
+</p>
+<p>
+For the instance <code>staUpInd</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging up process. The chiller stage
+<code>yChiSta</code> equals previous stage setpoint, which is 1.
+</li>
+<li>
+In the period from 540 seconds to 720 seconds, the plant is in staging up process
+but the process is not yet requiring changing the condenser water pumps
+(<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
+equals previous stage setpoint (1) but not yet equals the new setpoint
+<code>uStaSet</code> (2).
+</li>
+<li>
+Since the 720 seconds, the process requires changing the condenser water pumps
+(<code>uUpsDevSta=true</code>). The chiller stage <code>yChiSta</code> equals the
+new setpoint <code>uStaSet</code> (2).
+</li>
+</ul>
+<p>
+For the instance <code>staDowInd</code>,
+</p>
+<ul>
+<li>
+Before 540 seconds, the plant is not in staging down process. The chiller stage
+<code>yChiSta</code> equals previous stage setpoint, which is 2.
+</li>
+<li>
+In the period from 540 seconds to 720 seconds, the plant is in staging down process
+but the process is not yet requiring changing the condenser water pumps
+(<code>uUpsDevSta=false</code>). The chiller stage <code>yChiSta</code> still
+equals previous stage setpoint (2) but not yet equals the new setpoint
+<code>uStaSet</code> (1).
+</li>
+<li>
+Since the 720 seconds, the process requires changing the condenser water pumps
+(<code>uUpsDevSta=true</code>). The chiller stage <code>yChiSta</code> equals the
+new setpoint <code>uStaSet</code> (1).
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-September 24, by Jianjun Hu:<br/>
+September 24, 2019 by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>

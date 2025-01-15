@@ -16,7 +16,7 @@ model WindowSteadyState
       winDirSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HInfHorSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
       HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor));
-  Controls.OBC.CDL.Continuous.Sources.Constant HSol(
+  Controls.OBC.CDL.Reals.Sources.Constant HSol(
     k=0) "Solar irradiation"
     annotation (Placement(transformation(extent={{-92,-30},{-72,-10}})));
 equation

@@ -229,19 +229,10 @@ int ffd(int cosimulation) {
 		* @return no return
 		*/
 void modelicaError(char *msg) {
-	/*Allocate memory for cosim->ffd->msg*/
-	para.cosim->ffd->msg = (char *) malloc(400*sizeof(char));
-  if (para.cosim->ffd->msg == NULL){
-		ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
-  }
-	
   strcpy(para.cosim->ffd->msg, msg);
   /* Write the command to stop the cosimulation*/
   para.cosim->para->flag = 2;
   /* Indicate there is an error*/
   para.cosim->para->ffdError = 1;
 
-	/*Free memory for cosim->ffd->msg*/	
-	free(para.cosim->ffd->msg);
-	
 } /* End of modelicaError*/

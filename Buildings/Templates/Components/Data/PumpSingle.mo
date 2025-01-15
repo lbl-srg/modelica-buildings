@@ -9,22 +9,24 @@ record PumpSingle "Record for single pump model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     start=1,
     final min=0)
-    "Individual pump nominal mass flow rate"
-    annotation (Dialog(group="Pump"));
+    "Mass flow rate"
+    annotation (Dialog(group="Nominal condition",
+    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     start=0,
     final min=0)
     "Total pressure rise"
-    annotation (Dialog(group="Pump",
+    annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  replaceable parameter Fluid.Movers.Data.Generic per
-    constrainedby Buildings.Fluid.Movers.Data.Generic(
-      pressure(
-        V_flow={0, 1, 2} * m_flow_nominal / rho_default,
-        dp={1.14, 1, 0.42} * dp_nominal))
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
+    pressure(
+      V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
+      {0, 1, 2} * m_flow_nominal / rho_default else {0,0,0},
+      dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
+      {1.14, 1, 0.42} * dp_nominal else {0,0,0}))
+    constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data"
-    annotation(Dialog(group="Pump",
-    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
+    annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
   parameter Modelica.Units.SI.Density rho_default=
     Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
@@ -32,25 +34,20 @@ record PumpSingle "Record for single pump model"
     annotation(Dialog(enable=false));
 
   annotation (
+  defaultComponentPrefixes = "parameter",
   defaultComponentName="datPum", Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the single pump model
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Single\">
 Buildings.Templates.Components.Pumps.Single</a>.
 </p>
 <p>
-A default pump characteristic is provided, which goes through
-the design operating point and spans over
-<i>0</i> and twice the design flow rate at maximum speed.
-This default characteristic is based on a least squares
-polynomial fit of the characteristics from
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
-Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
-Note that a default medium density is used to parameterize 
-the pump characteristic. So models that use this record should
-overwrite this default value with the density of the medium
-in use, especially in the case of a water/glycol mix. 
+A default flow characteristic is provided and can be overwritten as
+described in the documentation of
+<a href=\"modelica://Buildings.Templates.Components.Data.PumpMultiple\">
+Buildings.Templates.Components.Data.PumpMultiple</a>
+in the more generic case of multiple units.
 </p>
 </html>"));
 end PumpSingle;

@@ -64,6 +64,7 @@ block HVACZones
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal) "Supply air fan"
@@ -162,6 +163,7 @@ block HVACZones
     redeclare package Medium = MediumA,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mA_flow_nominal/10,
     inputType=Buildings.Fluid.Types.InputType.Constant)
     "Supply air fan that extracts a constant amount of outside air"
@@ -328,6 +330,13 @@ ports which are exposed at the FMU interface.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 September 21, 2021 by David Blum:<br/>
 Correct supply and return water parameterization.<br/>

@@ -4,15 +4,15 @@ block EnableChiller "Sequence for enabling chiller"
   parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
-    final quantity="Time",
-    displayUnit="h") = 300
+    final quantity="Time") = 300
     "Enabled chiller operation time to indicate if it is proven on";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nexEnaChi
     "Index of next enabling chiller"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp "Stage-up command"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uStaUp
+    "Stage-up command"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaChiWatIsoVal
@@ -47,6 +47,7 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "In staging up process and the chilled water isolation valve has open"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=nChi)
     "Replicate boolean input"
@@ -59,7 +60,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nChi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nChi](
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -88,16 +89,19 @@ protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam[nChi]
     "Record the old chiller status"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep3(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
@@ -107,7 +111,8 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[nChi](
     final k=chiInd) "Chiller index array"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep1(
+    final nout=nChi)
     "Replicate integer input"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
@@ -116,7 +121,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi4 "Logical switch"
@@ -125,67 +131,67 @@ protected
 equation
   connect(nexEnaChi, intRep.u)
     annotation (Line(points={{-220,120},{-162,120}}, color={255,127,0}));
-  connect(intRep.y,intEqu. u1)
+  connect(intRep.y, intEqu.u1)
     annotation (Line(points={{-138,120},{-102,120}}, color={255,127,0}));
   connect(uEnaChiWatIsoVal,and2. u2)
     annotation (Line(points={{-220,30},{-180,30},{-180,52},{-162,52}},
       color={255,0,255}));
   connect(uStaUp, and2.u1)
     annotation (Line(points={{-220,60},{-162,60}}, color={255,0,255}));
-  connect(and2.y,booRep. u)
+  connect(and2.y, booRep.u)
     annotation (Line(points={{-138,60},{-102,60}}, color={255,0,255}));
-  connect(intEqu.y,and1. u1)
+  connect(intEqu.y, and1.u1)
     annotation (Line(points={{-78,120},{-42,120}},  color={255,0,255}));
-  connect(booRep.y,and1. u2)
+  connect(booRep.y, and1.u2)
     annotation (Line(points={{-78,60},{-60,60},{-60,112},{-42,112}},
       color={255,0,255}));
-  connect(and1.y,logSwi. u2)
+  connect(and1.y, logSwi.u2)
     annotation (Line(points={{-18,120},{98,120}}, color={255,0,255}));
-  connect(con.y,logSwi. u1)
+  connect(con.y, logSwi.u1)
     annotation (Line(points={{-18,150},{0,150},{0,128},{98,128}}, color={255,0,255}));
-  connect(uChi,booToRea. u)
+  connect(uChi, booToRea.u)
     annotation (Line(points={{-220,0},{-162,0}}, color={255,0,255}));
-  connect(booToRea.y,triSam. u)
+  connect(booToRea.y, triSam.u)
     annotation (Line(points={{-138,0},{-22,0}}, color={0,0,127}));
-  connect(edg.y,booRep1. u)
+  connect(edg.y, booRep1.u)
     annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
-  connect(booRep1.y,triSam. trigger)
+  connect(booRep1.y, triSam.trigger)
     annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
-  connect(triSam.y,greEquThr. u)
+  connect(triSam.y, greEquThr.u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
-  connect(and2.y,tim. u)
+  connect(and2.y, tim.u)
     annotation (Line(points={{-138,60},{-120,60},{-120,-110},{-102,-110}},
       color={255,0,255}));
-  connect(booRep2.y,and3. u1)
+  connect(booRep2.y, and3.u1)
     annotation (Line(points={{2,-110},{38,-110}}, color={255,0,255}));
-  connect(and3.y,logSwi1. u2)
+  connect(and3.y, logSwi1.u2)
     annotation (Line(points={{62,-110},{98,-110}}, color={255,0,255}));
-  connect(con1.y,logSwi1. u1)
+  connect(con1.y, logSwi1.u1)
     annotation (Line(points={{62,-80},{80,-80},{80,-102},{98,-102}},
       color={255,0,255}));
-  connect(uChi,logSwi1. u3)
+  connect(uChi, logSwi1.u3)
     annotation (Line(points={{-220,0},{-180,0},{-180,-130},{80,-130},{80,-118},
       {98,-118}}, color={255,0,255}));
-  connect(booRep3.y,logSwi2. u2)
+  connect(booRep3.y, logSwi2.u2)
     annotation (Line(points={{102,-50},{158,-50}}, color={255,0,255}));
-  connect(uOnOff,not2. u)
+  connect(uOnOff, not2.u)
     annotation (Line(points={{-220,-50},{-162,-50}}, color={255,0,255}));
-  connect(logSwi1.y,logSwi2. u3)
+  connect(logSwi1.y, logSwi2.u3)
     annotation (Line(points={{122,-110},{140,-110},{140,-58},{158,-58}},
       color={255,0,255}));
-  connect(logSwi.y,logSwi2. u1)
+  connect(logSwi.y, logSwi2.u1)
     annotation (Line(points={{122,120},{140,120},{140,-42},{158,-42}},
       color={255,0,255}));
   connect(logSwi2.y,yChi)
     annotation (Line(points={{182,-50},{220,-50}}, color={255,0,255}));
-  connect(not2.y,or2. u1)
+  connect(not2.y, or2.u1)
     annotation (Line(points={{-138,-50},{38,-50}},color={255,0,255}));
-  connect(not1.y,or2. u2)
+  connect(not1.y, or2.u2)
     annotation (Line(points={{2,-70},{20,-70},{20,-58},{38,-58}},
       color={255,0,255}));
-  connect(or2.y,booRep3. u)
+  connect(or2.y, booRep3.u)
     annotation (Line(points={{62,-50},{78,-50}},color={255,0,255}));
-  connect(conInt.y,intEqu. u2)
+  connect(conInt.y, intEqu.u2)
     annotation (Line(points={{-138,90},{-110,90},{-110,112},{-102,112}},
       color={255,127,0}));
   connect(nexDisChi, intRep1.u)
@@ -316,7 +322,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
           Text(
-          extent={{68,104},{148,96}},
+          extent={{14,174},{94,166}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -324,7 +330,7 @@ annotation (
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
-          extent={{46,-76},{124,-84}},
+          extent={{40,-72},{120,-88}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -333,7 +339,7 @@ annotation (
           textString="Disable 
 small chiller"),
           Text(
-          extent={{70,94},{262,74}},
+          extent={{16,168},{208,148}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -342,7 +348,7 @@ small chiller"),
           textString=
               "1. When the stage change does not require one chiller off and another chiller on."),
           Text(
-          extent={{72,76},{284,54}},
+          extent={{16,154},{208,136}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -351,7 +357,7 @@ small chiller"),
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
           Text(
-          extent={{82,-122},{162,-130}},
+          extent={{-24,-132},{56,-140}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
@@ -359,21 +365,19 @@ but the enabled chiller has not yet finished starting."),
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
-          extent={{24,-132},{236,-154}},
+          extent={{-20,-142},{152,-158}},
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
-          textString="When the stage change does require one chiller off and another chiller on, 
-          and the enabled chiller has finished starting.")}),
+          textString="When the stage change does require one chiller off
+and another chiller on, and the enabled chiller has finished starting.")}),
 Documentation(info="<html>
 <p>
 Block that controlles chiller when there is staging up command <code>uStaUp=true</code>.
-
-This implementation is based on ASHRAE RP-1711 Advanced Sequences of Operation for HVAC Systems Phase II – 
-Central Plants and Hydronic Systems (Draft on March 23, 2020), section 5.2.4.16,
-item 6 and item 7.a. These sections specify when the next chiller should be enabled
+This implementation is based on ASHRAE Guideline36-2021, section 5.20.4.16,
+item f and item g.1. These sections specify when the next chiller should be enabled
 and when the running smaller chiller should be diabled.
 </p>
 <p>

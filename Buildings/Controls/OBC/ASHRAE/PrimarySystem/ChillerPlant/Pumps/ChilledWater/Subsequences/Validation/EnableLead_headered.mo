@@ -3,39 +3,31 @@ model EnableLead_headered
   "Validate sequence for enabling lead pump of plants with headered primary chilled water pumps"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps.ChilledWater.Subsequences.EnableLead_headered
-    enaLeaChiPum(final nChi=3)
+    enaLeaChiPum(final nChi=2, have_WSE=true)
     "Enable lead chilled water pump based on the status of chilled water isolation valves"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal(
-    final period=3600,
-    final shift=300) "Isolation valve status"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal1(
-    final period=3600,
-    final shift=600) "Isolation valve status"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse isoVal2(
-    final period=3600,
-    final shift=1000) "Isolation valve status"
-    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false)
-    "Logical false"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal1(
+    duration=3000,
+    startTime=300)
+    "Chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp isoVal2(
+    duration=3000,
+    startTime=900)
+    "Chilled water isolation valve position"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant wse(k=false)
+    "Waterside economizer status"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
-  connect(isoVal.y, enaLeaChiPum.uChiIsoVal[3])
-    annotation (Line(points={{2,60},{20,60},{20,0.666667},{38,0.666667}},
-      color={255,0,255}));
-  connect(isoVal1.y, enaLeaChiPum.uChiIsoVal[2])
-    annotation (Line(points={{2,0},{38,0}}, color={255,0,255}));
-  connect(isoVal2.y, enaLeaChiPum.uChiIsoVal[1])
-    annotation (Line(points={{2,-60},{20,-60},{20,-0.666667},{38,-0.666667}},
-      color={255,0,255}));
-  connect(con1.y, enaLeaChiPum.uEnaPla) annotation (Line(points={{-38,-30},{10,-30},
-          {10,-6},{38,-6}}, color={255,0,255}));
+  connect(isoVal1.y, enaLeaChiPum.uChiWatIsoVal[1]) annotation (Line(points={{-18,
+          20},{0,20},{0,-0.5},{18,-0.5}}, color={0,0,127}));
+  connect(isoVal2.y, enaLeaChiPum.uChiWatIsoVal[2]) annotation (Line(points={{-18,
+          -20},{0,-20},{0,0.5},{18,0.5}}, color={0,0,127}));
+  connect(wse.y, enaLeaChiPum.uWse) annotation (Line(points={{-18,-60},{10,-60},
+          {10,-6},{18,-6}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_headered.mos"

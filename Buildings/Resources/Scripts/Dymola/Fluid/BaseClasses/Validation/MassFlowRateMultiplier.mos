@@ -4,7 +4,7 @@ createPlot(
   id   = 1,
   position = {35, 30, 631, 456},
   x    = "time",
-  y    = {"ram_m_flow.y", "massFlowRateMultiplier.port_a.m_flow", "massFlowRateMultiplier.port_b.m_flow"},
+  y    = {"ram_m_flow.y", "gaiMasFlo.y", "massFlowRateMultiplier.port_a.m_flow", "massFlowRateMultiplier.port_b.m_flow", "massFlowRateMultiplier1.port_b.m_flow"},
   autoscale = true,
   autoerase = true,
   autoreplot = true,

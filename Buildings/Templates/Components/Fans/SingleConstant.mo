@@ -1,23 +1,25 @@
 within Buildings.Templates.Components.Fans;
 model SingleConstant "Single fan - Constant speed"
   extends Buildings.Templates.Components.Interfaces.PartialFan(
+    final nFan=1,
     final typ=Buildings.Templates.Components.Types.Fan.SingleConstant);
 
   Buildings.Fluid.Movers.SpeedControlled_y fan(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    redeclare final package Medium =Medium,
+    redeclare final package Medium = Medium,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final per=dat.per)
-    "Fan"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    final per=dat.per,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    use_riseTime=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal) "Fan"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
     "Start/stop signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,50})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold evaSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold evaSta(
     t=1E-2,
     h=0.5E-2)
     "Evaluate fan status" annotation (Placement(transformation(
@@ -63,6 +65,13 @@ The fan is commanded On with a Boolean signal <code>y1</code> (starter contact).
 <li>
 A status signal <code>y1_actual</code> (Boolean) is returned.
 <code>y1_actual = true</code> means that the fan is On.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -8,8 +8,7 @@ record Damper "Record for damper model"
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
-    start=if typ==Buildings.Templates.Components.Types.Damper.None then 0
-    else 1)
+    start=1)
     "Air mass flow rate"
     annotation (
       Dialog(group="Mechanical",
@@ -30,12 +29,15 @@ record Damper "Record for damper model"
     "Air pressure drop of fixed elements in series with damper"
     annotation (
       Dialog(group="Mechanical", enable=false));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName="datDam",
+  Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-the classes within
-<a href=\"modelica://Buildings.Templates.Components.Dampers\">
-Buildings.Templates.Components.Dampers</a>.
+This record provides the set of sizing parameters for
+the class
+<a href=\"modelica://Buildings.Templates.Components.Actuators.Damper\">
+Buildings.Templates.Components.Actuators.Damper</a>.
 </p>
 </html>"));
 end Damper;

@@ -14,7 +14,7 @@ model ThermalZoneHVACWithExhaust
     dp_nominal=1200,
     inputType=Buildings.Fluid.Types.InputType.Constant,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    use_inputFilter=false,
+    use_riseTime=false,
     m_flow_nominal=0.1*m_flow_nominal) "Constant air exhaust"
     annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 equation
@@ -39,7 +39,7 @@ Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
 It is identical to
-<a href=\"Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
 Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust</a>
 except that it adds a forced exhaust air stream.
 </p>

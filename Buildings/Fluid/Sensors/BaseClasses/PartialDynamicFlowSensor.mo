@@ -29,7 +29,7 @@ equation
     k = 1;
   end if;
   annotation (Icon(graphics={
-        Line(visible=(tau <> 0),
+        Line(visible=(tau > 0),
         points={{52,60},{58,74},{66,86},{76,92},{88,96},{98,96}}, color={0,
               0,127})}), Documentation(info="<html>
 <p>
@@ -43,6 +43,13 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2022, by Michael Wetter:<br/>
+Corrected annotation to avoid comparing a real-valued parameter
+for equality.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1671\">IBPSA, #1671</a>.
+</li>
 <li>
 August 9, 2016, by Michael Wetter:<br/>
 Improved documentation for <code>tau</code>.

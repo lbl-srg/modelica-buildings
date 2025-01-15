@@ -13,7 +13,7 @@ model IntegratedPrimaryPlantSide
 
   Fluid.FixedResistances.Junction jun3(
     redeclare package Medium = Medium2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal={numChi*m2_flow_chi_nominal,-numChi*m2_flow_chi_nominal,
         m2_flow_wse_nominal},
     dp_nominal={0,0,0}) "Junction"
@@ -87,6 +87,13 @@ The details about how to switch among different cooling modes are shown as:
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 27, 2023, by Michael Wetter:<br/>
+Changed <code>jun3</code> to use dynamic energy balance rather than
+steady state. This simplifies the initialization problem.<br/>
+This corrects the
+<a href=\"https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/594309354#L420\">CI test</a>.
+</li>
 <li>
 April 13, 2021, by Kathryn Hinkelman:<br/>
 Added junctions.

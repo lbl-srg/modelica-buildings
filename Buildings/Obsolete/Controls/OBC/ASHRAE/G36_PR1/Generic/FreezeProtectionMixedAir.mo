@@ -42,7 +42,7 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     final max=1) "Inverse freeze protection control signal, 1 if no frost, 0 if TMix below TFreSet"
     annotation (Placement(transformation(extent={{100,10},{140,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID con(
+  Buildings.Controls.OBC.CDL.Reals.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
@@ -53,13 +53,13 @@ block FreezeProtectionMixedAir "Freeze protection based on mixed air temperature
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setPoi(final k=TFreSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant setPoi(final k=TFreSet)
     "Set point for freeze protection"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract yOut
+  Buildings.Controls.OBC.CDL.Reals.Subtract yOut
     "Freeze protection control signal inverter"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1) "Constant 1"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 

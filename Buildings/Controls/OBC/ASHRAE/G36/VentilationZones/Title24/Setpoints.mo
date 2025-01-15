@@ -3,20 +3,26 @@ block Setpoints
   "Specify zone minimum outdoor air and minimum airflow set points for compliance with California Title 24"
 
   parameter Boolean have_winSen=false
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=false
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=false
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
     annotation(Dialog(group="Design conditions"));
@@ -28,10 +34,11 @@ block Setpoints
     annotation(Dialog(enable=not (have_CO2Sen and have_SZVAV), group="Design conditions"));
   parameter Real VCooMax_flow(unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-340,230},{-300,270}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -91,50 +98,50 @@ block Setpoints
         iconTransformation(extent={{100,-110},{140,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=0.25) "Gain factor"
     annotation (Placement(transformation(extent={{-100,220},{-80,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Find the larger input value"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonOccOAMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonOccOAMin(
     final k=VOccMin_flow)
     "Zone minimum outdoor airflow for occupants"
     annotation (Placement(transformation(extent={{-280,320},{-260,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAreOAMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonAreOAMin(
     final k=VAreMin_flow)
     "Zone minimum outdoor airflow for building area"
     annotation (Placement(transformation(extent={{-280,270},{-260,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer1(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Logical.Not notOcc
     "Not occupied"
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin1
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin1
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant havCO2Sen(
     final k=have_CO2Sen)
     "Check if the zone has CO2 sensor"
     annotation (Placement(transformation(extent={{-260,160},{-240,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonAbsMin2
+  Buildings.Controls.OBC.CDL.Reals.Switch zonAbsMin2
     "Zone absolute outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonDesMin
+  Buildings.Controls.OBC.CDL.Reals.Switch zonDesMin
     "Zone design outdoor air minimum flow"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonDesMin1
+  Buildings.Controls.OBC.CDL.Reals.Switch zonDesMin1
     "Zone design outdoor air minimum flow"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin if not have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Switch zonOccMin if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{240,50},{260,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch zonOccMin1 if not have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Switch zonOccMin1 if not have_SZVAV
     "Zone occupied minimum flow"
     annotation (Placement(transformation(extent={{180,30},{200,50}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant occMod(
@@ -145,39 +152,39 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal inOccMod if have_CO2Sen
     "Check if it is in occupied mode"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-200)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(final p=-200)
     if have_CO2Sen
     "Lower threshold of CO2 setpoint"
     annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line lin if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Line lin if have_CO2Sen
     "CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply co2Con if have_CO2Sen
+  Buildings.Controls.OBC.CDL.Reals.Multiply co2Con if have_CO2Sen
     "Corrected CO2 control loop output"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea if have_CO2Sen
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin2
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin2
     if have_CO2Sen and have_typTerUni
     "Zone occupied minimum flow when the system has typical terminal units"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonMinFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonMinFlo(
     final k=VMin_flow)
     "Zone minimum airflow"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonCooMaxFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonCooMaxFlo(
     final k=VCooMax_flow)
     if have_CO2Sen and (have_typTerUni or have_parFanPowUni)
     "Zone cooling maximum airflow"
     annotation (Placement(transformation(extent={{-280,-158},{-260,-138}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hal(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hal(
     final k=0.5)
     if have_CO2Sen and (have_typTerUni or have_parFanPowUni) "Constant value"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
@@ -190,45 +197,45 @@ protected
     if have_CO2Sen and have_parFanPowUni
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-220,-220},{-200,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difCooMax
+  Buildings.Controls.OBC.CDL.Reals.Subtract difCooMax
     if have_CO2Sen and have_parFanPowUni
     "Maximum cooling airflw set point minus parallel fan airflow"
     annotation (Placement(transformation(extent={{-220,-260},{-200,-240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch maxFloCO2
+  Buildings.Controls.OBC.CDL.Reals.Switch maxFloCO2
     if have_CO2Sen and have_parFanPowUni
     "Maximum airflow set point for CO2"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin3
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin3
     if have_CO2Sen and have_parFanPowUni
     "Zone occupied minimum flow when the system has parallel fan-powered terminal unit"
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line zonOccMin4 if have_SZVAV
+  Buildings.Controls.OBC.CDL.Reals.Line zonOccMin4 if have_SZVAV
     "Zone minimum outdoor flow when it is the single zone VAV system"
     annotation (Placement(transformation(extent={{120,-310},{140,-290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false)
     if not have_winSen
     "Constant false"
-    annotation (Placement(transformation(extent={{-180,270},{-160,290}})));
+    annotation (Placement(transformation(extent={{-180,280},{-160,300}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=true)
     if not have_occSen "Constant true"
     annotation (Placement(transformation(extent={{-280,220},{-260,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
     final k=1)
     if not have_CO2Sen
     "Dummy gain for conditional input"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one2(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one2(final k=1)
     if not have_CO2Sen "Constant one"
     annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer3(final k=0)
     if not have_CO2Sen
     "Constant zero"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-180,240},{-160,260}})));
 equation
-  connect(u1Win, zonAbsMin.u2)
-    annotation (Line(points={{-320,250},{38,250}}, color={255,0,255}));
   connect(zer1.y, zonAbsMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           258},{38,258}}, color={0,0,127}));
   connect(u1Occ, notOcc.u)
@@ -245,8 +252,6 @@ equation
     annotation (Line(points={{-238,170},{-82,170}}, color={255,0,255}));
   connect(zonAbsMin2.y, zonAbsMin1.u3) annotation (Line(points={{-58,170},{-30,170},
           {-30,202},{-22,202}}, color={0,0,127}));
-  connect(u1Win, zonDesMin.u2) annotation (Line(points={{-320,250},{-140,250},{-140,
-          130},{38,130}}, color={255,0,255}));
   connect(zer1.y, zonDesMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           138},{38,138}}, color={0,0,127}));
   connect(zonDesMin1.y, zonDesMin.u3) annotation (Line(points={{2,110},{30,110},
@@ -271,8 +276,6 @@ equation
           {-120,60},{238,60}}, color={255,0,255}));
   connect(gai.y, zonOccMin.u1) annotation (Line(points={{-78,230},{-40,230},{-40,
           68},{238,68}}, color={0,0,127}));
-  connect(u1Win, zonOccMin1.u2) annotation (Line(points={{-320,250},{-140,250},{
-          -140,40},{178,40}}, color={255,0,255}));
   connect(zer1.y, zonOccMin1.u1) annotation (Line(points={{-78,280},{20,280},{20,
           48},{178,48}}, color={0,0,127}));
   connect(zonOccMin1.y, zonOccMin.u3) annotation (Line(points={{202,40},{220,40},
@@ -351,11 +354,11 @@ equation
           -190},{160,32},{178,32}}, color={0,0,127}));
   connect(zonOccMin.y, VOccZonMin_flow)
     annotation (Line(points={{262,60},{320,60}}, color={0,0,127}));
-  connect(con.y, zonAbsMin.u2) annotation (Line(points={{-158,280},{-140,280},{-140,
+  connect(con.y, zonAbsMin.u2) annotation (Line(points={{-158,290},{-140,290},{-140,
           250},{38,250}}, color={255,0,255}));
-  connect(con.y, zonDesMin.u2) annotation (Line(points={{-158,280},{-140,280},{-140,
+  connect(con.y, zonDesMin.u2) annotation (Line(points={{-158,290},{-140,290},{-140,
           130},{38,130}}, color={255,0,255}));
-  connect(con.y, zonOccMin1.u2) annotation (Line(points={{-158,280},{-140,280},{
+  connect(con.y, zonOccMin1.u2) annotation (Line(points={{-158,290},{-140,290},{
           -140,40},{178,40}}, color={255,0,255}));
   connect(con1.y, notOcc.u) annotation (Line(points={{-258,230},{-240,230},{-240,
           210},{-182,210}}, color={255,0,255}));
@@ -371,6 +374,14 @@ equation
     annotation (Line(points={{-58,-50},{320,-50}}, color={0,0,127}));
   connect(zer3.y, yCO2) annotation (Line(points={{222,-80},{240,-80},{240,-50},{
           320,-50}}, color={0,0,127}));
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-320,250},{-182,250}}, color={255,0,255}));
+  connect(winOpe.y, zonAbsMin.u2)
+    annotation (Line(points={{-158,250},{38,250}}, color={255,0,255}));
+  connect(winOpe.y, zonDesMin.u2) annotation (Line(points={{-158,250},{-140,250},
+          {-140,130},{38,130}}, color={255,0,255}));
+  connect(winOpe.y, zonOccMin1.u2) annotation (Line(points={{-158,250},{-140,250},
+          {-140,40},{178,40}}, color={255,0,255}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

@@ -2,7 +2,7 @@ within Buildings.Templates.ZoneEquipment.Components.Controls;
 block G36VAVBoxCoolingOnly
   "Guideline 36 controller for VAV terminal unit cooling only"
   extends
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.G36VAVBox(
+    Buildings.Templates.ZoneEquipment.Components.Interfaces.ControllerG36VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly);
 
   annotation (
@@ -26,7 +26,7 @@ Main controller for the terminal unit
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
-Computation of the zone temperature set points
+Computation of the zone temperature setpoints
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">
