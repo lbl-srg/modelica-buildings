@@ -747,30 +747,20 @@ block Controller "Chiller plant controller"
      "Lower threshold value to check fan or pump speed"
      annotation (Dialog(tab="Advanced", group="Cooling towers"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
-    "Chiller condenser water isolation valve status"
-    annotation (Placement(transformation(extent={{-940,644},{-900,684}}),
-      iconTransformation(extent={{-140,360},{-100,400}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatReq[nChi]
-    "Chilled water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-940,614},{-900,654}}),
+    "Chilled water request for each chiller"
+    annotation (Placement(transformation(extent={{-940,620},{-900,660}}),
       iconTransformation(extent={{-140,340},{-100,380}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConWatReq[nChi]
-    "Condenser water requst status for each chiller"
-    annotation (Placement(transformation(extent={{-940,584},{-900,624}}),
+    "Condenser water request for each chiller"
+    annotation (Placement(transformation(extent={{-940,590},{-900,630}}),
       iconTransformation(extent={{-140,320},{-100,360}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
     "Chilled water pump status"
     annotation(Placement(transformation(extent={{-940,554},{-900,594}}),
       iconTransformation(extent={{-140,300},{-100,340}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiIsoVal[nChi] if have_heaChiWatPum
-    "Chilled water isolation valve status"
-    annotation(Placement(transformation(extent={{-940,520},{-900,560}}),
-      iconTransformation(extent={{-140,280},{-100,320}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat_local(
     final quantity="PressureDifference",
@@ -1017,20 +1007,19 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{100,170},{140,210}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChi[nChi]
-    "Chiller enabling status setpoint"
+    "Chiller commanded setpoint"
     annotation(Placement(transformation(extent={{920,330},{960,370}}),
       iconTransformation(extent={{100,140},{140,180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaPreConValSta[nChi]
-    "Chiller head pressure control status setpoint"
-    annotation (Placement(transformation(extent={{920,260},{960,300}}),
-      iconTransformation(extent={{100,110},{140,150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
+    "Chiller condenser water isolation valve commanded setpoint" annotation (
+      Placement(transformation(extent={{920,260},{960,300}}),
+        iconTransformation(extent={{100,110},{140,150}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaPreConVal[nChi](
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
     final min=fill(0, nChi),
     final max=fill(1, nChi),
-    final unit=fill("1", nChi))
-    "Head pressure control valve position"
+    final unit=fill("1", nChi)) "Condenser water isolation valve position"
     annotation (Placement(transformation(extent={{920,220},{960,260}}),
       iconTransformation(extent={{100,70},{140,110}})));
 
@@ -1743,18 +1732,16 @@ equation
           -528.4},{-704,-528.4}}, color={0,0,127}));
   connect(towCon.uFanSpe, uFanSpe)
     annotation (Line(points={{-268,-588},{-920,-588}}, color={0,0,127}));
-  connect(uChiConIsoVal, dowProCon.uChiConIsoVal) annotation (Line(points={{-920,
-          664},{100,664},{100,-260},{172,-260}}, color={255,0,255}));
-  connect(uChiConIsoVal, upProCon.uChiConIsoVal) annotation (Line(points={{-920,
-          664},{100,664},{100,380},{172,380}}, color={255,0,255}));
-  connect(upProCon.uConWatReq, uConWatReq) annotation (Line(points={{172,352},{80,
-          352},{80,604},{-920,604}},  color={255,0,255}));
-  connect(upProCon.uChiWatReq, uChiWatReq) annotation (Line(points={{172,284},{90,
-          284},{90,634},{-920,634}},  color={255,0,255}));
-  connect(uChiWatReq, dowProCon.uChiWatReq) annotation (Line(points={{-920,634},
-          {90,634},{90,-240},{172,-240}},   color={255,0,255}));
-  connect(uConWatReq, dowProCon.uConWatReq) annotation (Line(points={{-920,604},
-          {80,604},{80,-248},{172,-248}},   color={255,0,255}));
+  connect(upProCon.uConWatReq, uConWatReq) annotation (Line(points={{172,352},{
+          80,352},{80,610},{-920,610}},
+                                      color={255,0,255}));
+  connect(upProCon.uChiWatReq, uChiWatReq) annotation (Line(points={{172,284},{
+          90,284},{90,640},{-920,640}},
+                                      color={255,0,255}));
+  connect(uChiWatReq, dowProCon.uChiWatReq) annotation (Line(points={{-920,640},
+          {90,640},{90,-240},{172,-240}},   color={255,0,255}));
+  connect(uConWatReq, dowProCon.uConWatReq) annotation (Line(points={{-920,610},
+          {80,610},{80,-248},{172,-248}},   color={255,0,255}));
   connect(VChiWat_flow, upProCon.VChiWat_flow) annotation (Line(points={{-920,440},
           {-880,440},{-880,390.4},{172,390.4}}, color={0,0,127}));
   connect(wseSta.y, booRep.u) annotation (Line(points={{-656,326},{-630,326},{-630,
@@ -1932,7 +1919,7 @@ equation
           {150,-80},{150,-216},{172,-216}}, color={255,0,255}));
   connect(uChiHeaCon, upProCon.uChiHeaCon) annotation (Line(points={{-920,-80},{
           150,-80},{150,300},{172,300}}, color={255,0,255}));
-  connect(chiHeaCon.y, yHeaPreConValSta)
+  connect(chiHeaCon.y, y1ConWatIsoVal)
     annotation (Line(points={{542,280},{940,280}}, color={255,0,255}));
   connect(chiWatPumCon.yChiWatPum, booToRea.u) annotation (Line(points={{506,510},
           {540,510},{540,500},{578,500}}, color={255,0,255}));
@@ -2018,15 +2005,15 @@ equation
           350},{710,-461},{738,-461}}, color={255,0,255}));
   connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,0},{
           660,0},{660,-465},{738,-465}}, color={0,0,127}));
-  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,634},{
-          -810,634},{-810,-463},{738,-463}}, color={255,0,255}));
+  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,640},{
+          -810,640},{-810,-463},{738,-463}}, color={255,0,255}));
   connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,-465},
           {810,-465},{810,0},{940,0}},        color={0,0,127}));
   connect(uChiWatPum, disChi.uConWatReq) annotation (Line(points={{-920,574},{
           -790,574},{-790,-468},{738,-468}}, color={255,0,255}));
   connect(pro4.y, disChi.uConWatIsoVal) annotation (Line(points={{682,240},{700,
           240},{700,-471},{738,-471}}, color={0,0,127}));
-  connect(disChi.yConWatIsoVal, yHeaPreConVal) annotation (Line(points={{762,-468},
+  connect(disChi.yConWatIsoVal,yConWatIsoVal)  annotation (Line(points={{762,-468},
           {820,-468},{820,240},{940,240}},        color={0,0,127}));
   connect(disChi.yChiWatPumSpe, yChiPumSpe) annotation (Line(points={{762,-472},
           {830,-472},{830,480},{940,480}},  color={0,0,127}));
@@ -2085,6 +2072,10 @@ equation
           {-630,-479},{738,-479}}, color={255,0,255}));
   connect(wseSta.y, chiWatPumCon.uWse) annotation (Line(points={{-656,326},{
           -630,326},{-630,507},{434,507}}, color={255,0,255}));
+  connect(staSetCon.yChiSet, upProCon.uChiConIsoVal) annotation (Line(points={{
+          -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
+  connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={
+          {-172,4},{-130,4},{-130,-260},{172,-260}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2111,10 +2102,6 @@ annotation (
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,388},{-50,374}},
-          textColor={255,0,255},
-          textString="uChiConIsoVal"),
-        Text(
           extent={{-98,366},{-58,354}},
           textColor={255,0,255},
           textString="uChiWatReq"),
@@ -2126,11 +2113,6 @@ annotation (
           extent={{-98,346},{-56,334}},
           textColor={255,0,255},
           textString="uConWatReq"),
-        Text(
-          extent={{-100,306},{-62,296}},
-          textColor={255,0,255},
-          textString="uChiIsoVal",
-          visible=have_heaChiWatPum),
         Text(
           extent={{-98,248},{-50,234}},
           textColor={0,0,127},

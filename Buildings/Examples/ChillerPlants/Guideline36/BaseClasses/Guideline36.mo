@@ -213,10 +213,10 @@ equation
           {120,92},{120,224},{220,224},{220,210},{212,210}}, color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe[2], conWatPum2.y) annotation (Line(points={{-216,92},
           {120,92},{120,224},{280,224},{280,210},{272,210}}, color={0,0,127}));
-  connect(chiPlaCon.yHeaPreConVal[1], cwIsoVal1.y) annotation (Line(points={{-216,98},
-          {70,98},{70,118},{380,118},{380,112}}, color={0,0,127}));
-  connect(chiPlaCon.yHeaPreConVal[2], cwIsoVal2.y) annotation (Line(points={{-216,98},
-          {70,98},{70,50},{380,50},{380,22}}, color={0,0,127}));
+  connect(chiPlaCon.yConWatIsoVal[1], cwIsoVal1.y) annotation (Line(points={{-216,
+          98},{70,98},{70,118},{380,118},{380,112}}, color={0,0,127}));
+  connect(chiPlaCon.yConWatIsoVal[2], cwIsoVal2.y) annotation (Line(points={{-216,
+          98},{70,98},{70,50},{380,50},{380,22}}, color={0,0,127}));
   connect(chi1.P, chiSta[1].u) annotation (Line(points={{341,103},{350,103},{
           350,116},{90,116},{90,268},{-480,268},{-480,240},{-402,240}}, color={
           0,0,127}));
@@ -285,14 +285,10 @@ equation
           160},{-340,160},{-340,36},{-264,36}}, color={255,0,255}));
   connect(pre3.y, chiPlaCon.uChiHeaCon) annotation (Line(points={{-318,290},{
           -292,290},{-292,60},{-264,60}}, color={255,0,255}));
-  connect(pre3.y, chiPlaCon.uChiConIsoVal) annotation (Line(points={{-318,290},
-          {-292,290},{-292,156},{-264,156}},color={255,0,255}));
   connect(pre2.y, chiPlaCon.uChiWatReq) annotation (Line(points={{-318,330},{
           -280,330},{-280,152},{-264,152}}, color={255,0,255}));
   connect(pre2.y, chiPlaCon.uConWatReq) annotation (Line(points={{-318,330},{
           -280,330},{-280,148},{-264,148}}, color={255,0,255}));
-  connect(pre2.y, chiPlaCon.uChiIsoVal) annotation (Line(points={{-318,330},{
-          -280,330},{-280,140},{-264,140}}, color={255,0,255}));
   connect(pre4.y, chiPlaCon.uChi) annotation (Line(points={{-332,240},{-300,240},
           {-300,120},{-264,120}}, color={255,0,255}));
   connect(chiWatPumSta.y, pre6.u)

@@ -112,6 +112,7 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Placement(transformation(extent={{-280,30},{-240,70}}),
       iconTransformation(extent={{-140,56},{-100,96}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
+    if have_heaConWatPum
     "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-280,-10},{-240,30}}),
       iconTransformation(extent={{-140,30},{-100,70}})));

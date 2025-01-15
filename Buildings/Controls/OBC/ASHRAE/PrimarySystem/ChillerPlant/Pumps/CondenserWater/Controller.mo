@@ -30,6 +30,7 @@ block Controller "Condenser water pump controller"
     "Lower threshold value to check if condenser water pump has achieved setpoint";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
+    if have_heaPum
     "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-160,130},{-120,170}}),
       iconTransformation(extent={{-140,80},{-100,120}})));
