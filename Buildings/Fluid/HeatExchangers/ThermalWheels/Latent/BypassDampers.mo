@@ -4,12 +4,7 @@ model BypassDampers
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
 
   parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
-    "Nominal pressure drop of dampers"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real P_nominal(final unit="W")
-    "Power consumption at the design condition"
-    annotation (Dialog(group="Nominal condition"));
-
+    "Nominal pressure drop of dampers";
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close valve using strokeTime"
     annotation (Dialog(tab="Dynamics", group="Actuator position"));
@@ -37,7 +32,7 @@ model BypassDampers
       iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamSup(
     redeclare package Medium = Medium,
-    final m_flow_nominal=mSup_flow_nominal,
+    final m_flow_nominal=per.mSup_flow_nominal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -47,7 +42,7 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-48,70},{-28,90}})));
   Buildings.Fluid.Actuators.Dampers.Exponential damSup(
     redeclare package Medium = Medium,
-    final m_flow_nominal=mSup_flow_nominal,
+    final m_flow_nominal=per.mSup_flow_nominal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -58,7 +53,7 @@ model BypassDampers
     extent={{-10,-10},{10,10}},rotation=0,origin={-90,36})));
   Buildings.Fluid.Actuators.Dampers.Exponential damExh(
     redeclare package Medium = Medium,
-    final m_flow_nominal=mExh_flow_nominal,
+    final m_flow_nominal=per.mExh_flow_nominal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -69,7 +64,7 @@ model BypassDampers
     extent={{10,10},{-10,-10}},rotation=-90,origin={40,-44})));
   Buildings.Fluid.Actuators.Dampers.Exponential bypDamExh(
     redeclare package Medium = Medium,
-    final m_flow_nominal=mExh_flow_nominal,
+    final m_flow_nominal=per.mExh_flow_nominal,
     final use_strokeTime=use_strokeTime,
     final strokeTime=strokeTime,
     final init=init,
@@ -93,13 +88,21 @@ protected
     "Difference of the two inputs"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
   Modelica.Blocks.Math.BooleanToReal PEle(
-    final realTrue=P_nominal,
+    final realTrue=per.P_nominal,
     final realFalse=0)
     "Electric power consumption for motor"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   Modelica.Blocks.Sources.Constant zero(final k=0)
     "Zero signal"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+
+initial equation
+  assert(not per.haveVariableSpeed,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the variable speed flag must be false",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
+
 equation
   connect(sub.y, damSup.y)
     annotation (Line(points={{-78,100},{0,100},{0,54},{-90,54},{-90,48}},
@@ -166,12 +169,11 @@ equation
   connect(swiEpsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
           {-10,-3},{8,-3}}, color={0,0,127}));
   connect(swiEpsSen.y, epsSen) annotation (Line(points={{-18,160},{40,160},{40,40},
-          {120,40}},     color={0,0,127}));
+          {120,40}}, color={0,0,127}));
   connect(swiEpsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
           {120,0}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-122,-100},{-168,-100},{-168,
-          0},{-200,0}},
-                     color={255,0,255}));
+          0},{-200,0}}, color={255,0,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -237,7 +239,7 @@ a heat exchanger and two dampers to bypass the supply and exhaust airflow.
 <p>
 This model does not require geometric data. The performance is defined by specifying
 the part load (75% of the nominal supply flow rate) and nominal sensible and latent
-heat exchanger effectiveness in both heating and cooling conditions.
+heat exchanger effectiveness.
 This operation of the wheel is configured as follows.
 </p>
 <ul>

@@ -4,18 +4,28 @@ model VariableSpeedThermalWheels
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
     perSenWhe(
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
+    motorEfficiency(uSpe={0.1,0.6,0.8,1},
+    eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=false,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
-    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.85,1}),
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
+    perLatWhe(
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
+    motorEfficiency(uSpe={0.1,0.6,0.8,1},
+    eta={0.3,0.8,0.85,1}),
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
+    perLatWheDefMotCur(
+    mSup_flow_nominal=1,
+    mExh_flow_nominal=1,
     haveLatentHeatExchange=true,
     useDefaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
@@ -24,7 +34,6 @@ model VariableSpeedThermalWheels
     senWhe(per=perSenWhe)
     "Sensible heat wheel"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
   Modelica.Blocks.Sources.Ramp uSpe(
     duration=1,
     startTime=0,
@@ -32,11 +41,13 @@ model VariableSpeedThermalWheels
     height=1)
     "Speed ratio"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent latWhe(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent
+    latWhe(
     per=perLatWhe)
     "Enthalpy wheel"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent latWheDefMotCur(
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent
+    latWheDefMotCur(
     per=perLatWheDefMotCur)
     "Enthalpy wheel with default motor curve"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));

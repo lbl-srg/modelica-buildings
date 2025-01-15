@@ -4,6 +4,13 @@ model BypassDampers
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air
     "Air";
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
+    mSup_flow_nominal=5,
+    mExh_flow_nominal=5,
+    haveLatentHeatExchange=false,
+    haveVariableSpeed=false)
+    "Performance record for the sensible heat wheel"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     p(displayUnit="Pa") = 101325,
@@ -13,40 +20,39 @@ model BypassDampers
     annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
   Buildings.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 + 500,
-    T(displayUnit="degC") = 293.15,
+    p(displayUnit="Pa")=101325+500,
+    T(displayUnit="degC")=293.15,
     nPorts=1)
     "Exhaust air source"
     annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Modelica.Blocks.Sources.Ramp TSup(
     height=10,
     duration=60,
-    offset=273.15 + 30,
+    offset=273.15+30,
     startTime=60)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
-    T=273.15 + 30,
+    T=273.15+30,
     X={0.012,1 - 0.012},
-    p(displayUnit="Pa") = 101325 - 500,
+    p(displayUnit="Pa")=101325-500,
     nPorts=1)
     "Supply air sink"
     annotation (Placement(transformation(extent={{90,20},{70,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
-    T=273.15 + 50,
+    T=273.15+50,
     X={0.012,1 - 0.012},
     use_T_in=true,
-    p(displayUnit="Pa") = 101325,
+    p(displayUnit="Pa")=101325,
     nPorts=1)
     "Supply air source"
     annotation (Placement(transformation(extent={{-40,26},{-20,46}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BypassDampers whe(
     redeclare package Medium = Medium,
-    mSup_flow_nominal=5,
-    mExh_flow_nominal=5,
-    P_nominal=100) "Wheel"
+    per=per)
+    "Wheel"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp bypDamPos(
     height=0.2,
@@ -58,7 +64,8 @@ model BypassDampers
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse opeSig(
     width=0.8,
     period=400,
-    shift=72) "Operating signal"
+    shift=72)
+    "Operating signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senExhTem(
     redeclare package Medium = Medium,
@@ -90,7 +97,8 @@ equation
     annotation (Line(points={{60,30},{70,30}}, color={0,127,255}));
   connect(senSupTem.port_b, whe.port_b1) annotation (Line(points={{40,30},{30,
           30},{30,7.8},{20,7.8}},color={0,127,255}));
-annotation(experiment(Tolerance=1e-6, StopTime=360),
+    annotation (Placement(transformation(extent={{20,60},{40,80}})),
+           experiment(Tolerance=1e-6, StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/Sensible/Validation/BypassDampers.mos"
         "Simulate and plot"),
     Documentation(info="<html>

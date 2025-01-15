@@ -2,11 +2,6 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Latent;
 model SpeedControlled
   "Enthalpy recovery wheel with a variable speed drive"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BaseClasses.PartialWheel;
-  parameter
-    Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic
-    per
-    "Record with performance data"
-    annotation (Placement(transformation(extent={{60,120},{80,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSpe(
     final unit="1",
@@ -14,7 +9,8 @@ model SpeedControlled
     "Wheel speed ratio"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent speCor(final per=per)
+  Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionLatent speCor(
+    final per=per)
     "Correct the wheel performance based on the wheel speed"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulSen
@@ -23,6 +19,13 @@ model SpeedControlled
   Buildings.Controls.OBC.CDL.Reals.Multiply mulLat
     "Correct the latent heat exchanger effectiveness"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+
+initial equation
+  assert(per.haveVariableSpeed,
+         "In " + getInstanceName() + ": The performance data record
+         is wrong, the variable speed flag must be true",
+         level=AssertionLevel.error)
+         "Check if the performance data record is correct";
 
 equation
   connect(hex.port_a2, port_a2)
@@ -70,7 +73,7 @@ wheel speed as the input to control the heat recovery.
 <p>
 This model does not require geometric data. The performance is defined by specifying
 the part load (75% of the nominal supply flow rate) and nominal sensible and latent
-heat exchanger effectiveness in both heating and cooling conditions.
+heat exchanger effectiveness.
 </p>
 <p>
 The operation of the heat recovery wheel is adjustable by modulating the wheel speed.
