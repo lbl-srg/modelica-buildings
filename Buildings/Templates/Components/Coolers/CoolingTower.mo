@@ -18,63 +18,59 @@ model CoolingTower "Cooling tower model using Merkel method"
     final energyDynamics=energyDynamics,
     final tau=tau)
     "Cooling tower (single cell)"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Controls.OBC.CDL.Continuous.Multiply sigCon
-    "Resulting control signal"
-    annotation (Placement(transformation(
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+  Buildings.Controls.OBC.CDL.Reals.Multiply yCom "Commanded speed" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,30})));
-  Controls.OBC.CDL.Conversions.BooleanToReal sigSta
-    "Start/stop signal"
-    annotation (Placement(transformation(
+        origin={-20,-20})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1Rea
+    "Convert start/stop signal into real" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-26,62})));
-  Controls.OBC.CDL.Logical.Pre pre
-    "Compute chiller status by delaying chiller on/off signal"
-    annotation (Placement(transformation(extent={{20,64},{40,84}})));
+        origin={-40,20})));
+  Controls.StatusEmulator y1_actual "Compute cooling tower status"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
+      origin={40,70})));
 equation
   connect(tow.port_b, port_b)
-    annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
-  connect(sigCon.u2, sigSta.y)
-    annotation (Line(points={{-26,42},{-26,50}},          color={0,0,127}));
-  connect(bus.y1, sigSta.u) annotation (Line(
-      points={{0,100},{0,80},{-26,80},{-26,74}},
+    annotation (Line(points={{10,-60},{80,-60},{80,0},{100,0}},
+                                              color={0,127,255}));
+  connect(yCom.u2, y1Rea.y) annotation (Line(points={{-26,-8},{-26,0},{-40,0},{
+          -40,8}}, color={0,0,127}));
+  connect(bus.y1, y1Rea.u) annotation (Line(
+      points={{0,100},{0,60},{-40,60},{-40,32}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(sigCon.y, tow.y) annotation (Line(points={{-20,18},{-20,8},{-12,8}},
-               color={0,0,127}));
+  connect(yCom.y, tow.y)
+    annotation (Line(points={{-20,-32},{-20,-52},{-12,-52}}, color={0,0,127}));
   connect(busWea.TWetBul, tow.TAir) annotation (Line(
-      points={{-60,100},{-60,4},{-12,4}},
+      points={{-59.9,100.1},{-59.9,-56},{-12,-56}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(bus.y, sigCon.u1) annotation (Line(
-      points={{0,100},{0,52},{-14,52},{-14,42}},
+  connect(bus.y, yCom.u1) annotation (Line(
+      points={{0,100},{0,0},{-14,0},{-14,-8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(sigSta.u, pre.u) annotation (Line(points={{-26,74},{18,74}},
-                color={255,0,255}));
-  connect(pre.y, bus.y1_actual) annotation (Line(points={{42,74},{60,74},{60,96},
-          {0,96},{0,100}}, color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(port_a, tow.port_a)
-    annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-80,0},{-80,-60},{-10,-60}},
+                                                color={0,127,255}));
+  connect(y1Rea.u, y1_actual.y1) annotation (Line(points={{-40,32},{-40,40},{40,
+          40},{40,58}}, color={255,0,255}));
+  connect(y1_actual.y1_actual, bus.y1_actual) annotation (Line(points={{40,82},
+          {40,96},{6,96},{6,100},{0,100}}, color={255,0,255}));
   annotation (
   defaultComponentName="coo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

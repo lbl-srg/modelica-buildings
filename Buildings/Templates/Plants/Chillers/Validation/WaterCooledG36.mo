@@ -2,21 +2,21 @@ within Buildings.Templates.Plants.Chillers.Validation;
 model WaterCooledG36
   "Validation of water-cooled chiller plant template with closed-loop controls"
   extends Buildings.Templates.Plants.Chillers.Validation.WaterCooledOpenLoop(
-    CHI(nAirHan=1,
+    pla(nAirHan=1,
         redeclare Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl));
 
-  UserProject.DistributionControlPoints disChiWat(nSenDpChiWatRem=CHI.ctl.nSenDpChiWatRem)
+  UserProject.DistributionControlPoints disChiWat(nSenDpChiWatRem=pla.ctl.nSenDpChiWatRem)
     "Emulation of control points from CHW distribution system"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
-  UserProject.AirHandlerControlPoints airHan[CHI.nAirHan]
+  UserProject.AirHandlerControlPoints airHan[pla.nAirHan]
     "Emulation of air handling unit control points"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
 equation
-  connect(disChiWat.bus, CHI.bus) annotation (Line(
+  connect(disChiWat.bus,pla.bus)  annotation (Line(
       points={{-70,20},{-60,20},{-60,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(airHan.bus, CHI.busAirHan) annotation (Line(
+  connect(airHan.bus,pla.busAirHan)  annotation (Line(
       points={{-70,50},{-20,50},{-20,4}},
       color={255,204,51},
       thickness=0.5));

@@ -11,12 +11,14 @@ record Chiller
     annotation (Evaluate=true,
     Dialog(group="Configuration",
       enable=false));
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "CHW default specific heat capacity"
     annotation (Dialog(group="Configuration",
       enable=false));
   parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default=if typ ==
-    Buildings.Templates.Components.Types.Chiller.AirCooled then Buildings.Utilities.Psychrometrics.Constants.cpAir
+    Buildings.Templates.Components.Types.Chiller.AirCooled then
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
     else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Condenser cooling fluid default specific heat capacity"
     annotation (Dialog(group="Configuration",
@@ -28,8 +30,9 @@ record Chiller
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Chiller.None and use_datDes));
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(
-    start=if not use_datDes then per.mCon_flow_nominal elseif typ == Buildings.Templates.Components.Types.Chiller.AirCooled
-      then Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(cap_nominal)
+    start=if not use_datDes then per.mCon_flow_nominal elseif
+    typ == Buildings.Templates.Components.Types.Chiller.AirCooled
+      then Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(cap_nominal)
       else 1E-3,
     final min=0)
     "Condenser cooling fluid (e.g. CW) mass flow rate"
@@ -131,11 +134,11 @@ record Chiller
     annotation (Dialog(enable=typ<>Buildings.Templates.Components.Types.Chiller.None
       and use_datDes));
   replaceable parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic per(
+    COP_nominal=if use_datDes then COP_nominal else 1.1,
+    QEva_flow_nominal=if use_datDes then - abs(cap_nominal) else 1E-3,
     TConLvg_nominal=if use_datDes then TConLvg_nominal else 273.15,
     TConLvgMin=if use_datDes then TConLvg_min else 273.15,
     TConLvgMax=if use_datDes then TConLvg_max else 273.15,
-    COP_nominal=if use_datDes then COP_nominal else 1.1,
-    QEva_flow_nominal=if use_datDes then - abs(cap_nominal) else 1E-3,
     TEvaLvg_nominal=if use_datDes then TChiWatSup_nominal else 273.15,
     TEvaLvgMin=if use_datDes then TChiWatSup_nominal else 273.15,
     TEvaLvgMax=if use_datDes then TChiWatSup_max else 273.15,
@@ -162,7 +165,7 @@ record Chiller
     a=per.EIRFunPLR,
     x1=Modelica.Units.Conversions.to_degC(TConLvg_nominal),
     x2=1)
-    "Cooling COP computed from performance record"
+    "Cooling COP computed at design conditions from performance record"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate capPer_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.Chiller.None then abs(per.QEva_flow_nominal)
@@ -170,7 +173,7 @@ record Chiller
     a=per.capFunT,
     x1=Modelica.Units.Conversions.to_degC(TChiWatSup_nominal),
     x2=Modelica.Units.Conversions.to_degC(TConLvg_nominal))
-    "Cooling capacity computed from performance record"
+    "Cooling capacity computed at design conditions from performance record"
     annotation (Dialog(group="Nominal condition"));
   final parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic perSca(
     final COP_nominal=per.COP_nominal * COP_nominal / COPPer_nominal,
@@ -249,17 +252,6 @@ When using this logic, no assignment shall be made for the design
 parameters, except for the design pressure drops <code>dp*_nominal</code>.
 </li>
 </ul>
-<p>
-note that placeholders values are assigned to the performance curves,
-the reference source temperature and the input power in
-cooling mode to avoid assigning these parameters in case of non-reversible
-heat pumps.
-These values are unrealistic and must be overwritten for reversible heat pumps, which
-is always the case when redeclaring or
-reassigning the performance record <code>per</code>.
-Models that use this record will issue a warning if these placeholders values
-are not overwritten in case of reversible heat pumps.
-</p>
 <p>
 Note that placeholders values are assigned to the chiller performance curves
 (<code>per.capFunT</code> , <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>)

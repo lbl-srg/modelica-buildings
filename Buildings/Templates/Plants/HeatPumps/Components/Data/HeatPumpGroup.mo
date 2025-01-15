@@ -23,7 +23,8 @@ record HeatPumpGroup
     Dialog(group="Configuration",
       enable=false));
   // Default fluid properties
-  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "HW default specific heat capacity"
     annotation (Dialog(group="Configuration",
       enable=false));
@@ -37,7 +38,8 @@ record HeatPumpGroup
     cpHeaWat_default
     "CHW default specific heat capacity";
   parameter Modelica.Units.SI.SpecificHeatCapacity cpSou_default=if typ ==
-    Buildings.Templates.Components.Types.HeatPump.AirToWater then Buildings.Utilities.Psychrometrics.Constants.cpAir
+    Buildings.Templates.Components.Types.HeatPump.AirToWater then
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
     else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Source fluid default specific heat capacity"
     annotation (Dialog(group="Configuration",
@@ -114,7 +116,7 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
   final parameter Modelica.Units.SI.MassFlowRate mSouHeaHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwHeaHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capHeaHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capHeaHp_nominal)
     "Source fluid mass flow rate in heating mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouHeaHp_nominal=if typ ==
@@ -136,7 +138,7 @@ record HeatPumpGroup
       enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater and is_rev));
   final parameter Modelica.Units.SI.MassFlowRate mSouCooHp_flow_nominal=if typ ==
     Buildings.Templates.Components.Types.HeatPump.WaterToWater then mSouWwCooHp_flow_nominal
-    else Buildings.Templates.Data.Defaults.mAirFloByCapChi * abs(capCooHp_nominal)
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capCooHp_nominal)
     "Source fluid mass flow rate in cooling mode - Each heat pump"
     annotation (Evaluate=true);
   final parameter Modelica.Units.SI.PressureDifference dpSouCooHp_nominal=
@@ -173,7 +175,7 @@ record HeatPumpGroup
     defaultComponentName="datHp",
     Documentation(info="<html>
 <p>
-This record provides the set of parameters for heat pump group models 
+This record provides the set of parameters for heat pump group models
 that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups\">
 Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.

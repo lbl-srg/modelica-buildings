@@ -27,22 +27,20 @@ record Cooler "Record for condenser water cooling equipment"
     enable=typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen));
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,
-    start=mConWat_flow_nominal / Buildings.Templates.Data.Defaults.ratFloWatByAirTow)
+    start=mConWat_flow_nominal / Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow)
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal(
     final min=273.15,
-    start=Buildings.Templates.Data.Defaults.TAirDryCooEnt)
+    start=Buildings.Templates.Data.Defaults.TOutDryCoo)
     "Entering air drybulb temperature"
     annotation (Dialog(group="Nominal condition", enable=
     typ==Buildings.Templates.Components.Types.Cooler.DryCooler));
-  parameter Modelica.Units.SI.Temperature TWetBulEnt_nominal(
-    final min=273.15,
-    start=Buildings.Templates.Data.Defaults.TWetBulTowEnt)
-    "Entering air wetbulb temperature"
-    annotation (Dialog(group="Nominal condition", enable=
-    typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen or
-    typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed));
+  parameter Modelica.Units.SI.Temperature TWetBulEnt_nominal(final min=273.15,
+      start=Buildings.Templates.Data.Defaults.TWetBulTowEnt)
+    "Entering air wetbulb temperature" annotation (Dialog(group=
+          "Nominal condition", enable=typ == Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+           or typ == Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed));
   parameter Modelica.Units.SI.Temperature TConWatRet_nominal(
     final min=273.15,
     start=Buildings.Templates.Data.Defaults.TConWatRet)
@@ -55,7 +53,7 @@ record Cooler "Record for condenser water cooling equipment"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PFan_nominal(
     final min=0,
-    start=Buildings.Templates.Data.Defaults.PFanByFloConWatTow * mConWat_flow_nominal)
+    start=Buildings.Templates.Data.Defaults.ratPFanByMFloConWatTow * mConWat_flow_nominal)
     "Fan power"
     annotation (Dialog(group="Nominal condition"));
 end Cooler;

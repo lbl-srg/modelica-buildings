@@ -1,37 +1,49 @@
 within Buildings.Templates.Plants.Chillers.Components.Data;
-record ChillerGroup "Record for chiller group model"
+record ChillerGroup
+  "Record for chiller group model"
   extends Modelica.Icons.Record;
-
-  parameter Integer nChi(final min=1)
+  parameter Integer nChi(
+    start =1, final min=1)
     "Number of chillers (as installed)"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.Chiller typChi
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+      enable=false));
+  parameter Buildings.Templates.Components.Types.Chiller typ
     "Type of chiller"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-
+    annotation (Evaluate=true,
+    Dialog(group="Configuration",
+      enable=false));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpChiWat_default=
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "CHW default specific heat capacity"
+    annotation (Dialog(group="Configuration",
+      enable=false));
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCon_default=if typ ==
+    Buildings.Templates.Components.Types.Chiller.AirCooled then
+    Buildings.Utilities.Psychrometrics.Constants.cpAir
+    else Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Condenser cooling fluid default specific heat capacity"
+    annotation (Dialog(group="Configuration",
+      enable=false));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi](
     each final min=0)
     "CHW mass flow rate - Each chiller"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal[nChi](
     each final min=0,
-    start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiWatCoo)/
-      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
-      (Buildings.Templates.Data.Defaults.TConWatRet-
-      Buildings.Templates.Data.Defaults.TConWatSup)
-      else fill(0, nChi))
+    start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then capChi_nominal *(1 + 1 / Buildings.Templates.Data.Defaults.COPChiWatCoo) /
+      Buildings.Utilities.Psychrometrics.Constants.cpWatLiq /(
+      Buildings.Templates.Data.Defaults.TConWatRet -
+      Buildings.Templates.Data.Defaults.TConWatSup) else fill(0, nChi))
     "CW mass flow rate - Each chiller"
-    annotation(Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi](
-    each final min=0,
-    start=if typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then capChi_nominal*Buildings.Templates.Data.Defaults.mConAirByCapChi
-      else fill(0, nChi))
-    "Condenser air mass flow rate - Each chiller"
-    annotation(Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.AirCooled));
+    annotation (Dialog(group="Nominal condition",
+      enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  final parameter Modelica.Units.SI.MassFlowRate mConChi_flow_nominal[nChi]=if typ ==
+    Buildings.Templates.Components.Types.Chiller.WaterCooled then mConWatChi_flow_nominal
+    else Buildings.Templates.Data.Defaults.ratMFloAirByCapChi * abs(capChi_nominal)
+    "Condenser cooling fluid mass flow rate - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi](
     each final min=0,
     each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
@@ -39,46 +51,55 @@ record ChillerGroup "Record for chiller group model"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConChi_nominal[nChi](
     each final min=0,
-    each start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-    then Buildings.Templates.Data.Defaults.dpConWatChi elseif
-    typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
-    Buildings.Templates.Data.Defaults.dpConAirChi else 0)
+    each start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then Buildings.Templates.Data.Defaults.dpConWatChi elseif
+      typ == Buildings.Templates.Components.Types.Chiller.AirCooled
+      then Buildings.Templates.Data.Defaults.dpAirChi else 0)
     "Condenser cooling fluid pressure drop"
     annotation (Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+      enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each final min=0)
     "Cooling capacity - Each chiller"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChiWatChiSup_nominal[nChi](
+    annotation (Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.HeatFlowRate QConChi_flow_nominal[nChi](
+    each final min=0)=abs(capChi_nominal) .*(fill(1, nChi) ./ COPChi_nominal .+ 1)
+    "Condenser heat flow rate - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real COPChi_nominal[nChi](
+    each start=Buildings.Templates.Data.Defaults.COPChiAirCoo,
+    each final min=1,
+    each final unit="1")
+    "Cooling COP - Each chiller"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
+  parameter Modelica.Units.SI.Temperature TChiWatSupChi_nominal[nChi](
     each final min=260)
-    "(lowest) CHW supply temperature - Each chiller"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChiWatChiSup_max[nChi]=
+    "Design (lowest) CHW supply temperature - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TChiWatSupChi_max[nChi]=
     fill(Buildings.Templates.Data.Defaults.TChiWatSup_max, nChi)
     "Maximum CHW supply temperature - Each chiller"
-    annotation(Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TConWatChiEnt_nominal[nChi](
-    each final min=273.15,
-    start=fill(Buildings.Templates.Data.Defaults.TConWatSup, nChi))
-    "Condenser entering water temperature - Each chiller"
-    annotation (Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.Temperature TConAirChiEnt_nominal[nChi](
-    each final min=273.15,
-    start=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi))
-    "Condenser entering air temperature - Each chiller"
-    annotation (Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.AirCooled));
-  parameter Modelica.Units.SI.Temperature TConChiEnt_min[nChi](
-    each final min=273.15)=
-    fill(Buildings.Templates.Data.Defaults.TConEnt_min, nChi)
-    "Minimum condenser entering fluid temperature (CW or air) - Each chiller"
     annotation (Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TConChiEnt_max[nChi](
-    each final min=273.15)=
-    fill(Buildings.Templates.Data.Defaults.TConEnt_max, nChi)
-    "Maximum condenser entering fluid temperature (CW or air)"
+  parameter Modelica.Units.SI.Temperature TConEntChi_nominal[nChi](
+    each final min=273.15,
+    start=fill(if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then Buildings.Templates.Data.Defaults.TConWatSup else
+      Buildings.Templates.Data.Defaults.TOutChi, nChi))
+    "OAT or CW supply temperature (condenser entering) - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConLvgChi_nominal[nChi](
+    each final min=273.15)=TConEntChi_nominal + QConChi_flow_nominal ./
+    mConChi_flow_nominal / cpCon_default
+    "Condenser leaving fluid temperature (CW or air) - Each chiller"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConLvgChi_min[nChi](
+    each final min=273.15)=fill(Buildings.Templates.Data.Defaults.TConLvg_min, nChi)
+    "Minimum condenser leaving fluid temperature (CW or air) - Each chiller"
+    annotation (Dialog(group="Operating limits"));
+  parameter Modelica.Units.SI.Temperature TConLvgChi_max[nChi](
+    each final min=273.15)=fill(Buildings.Templates.Data.Defaults.TConLvg_max, nChi)
+    "Maximum condenser leaving fluid temperature (CW or air)"
     annotation (Dialog(group="Operating limits"));
   parameter Real PLRUnlChi_min[nChi](
     final min=PLRChi_min,
@@ -88,35 +109,31 @@ record ChillerGroup "Record for chiller group model"
     each final min=0,
     each final max=1)=fill(0.15, nChi)
     "Minimum part load ratio before cycling";
-  /* FIXME DS#SR00937490-01
-  Propagation of per from ChillerGroup to Chiller is not supported in Dymola.
-  */
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi](
-    TConEnt_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then TConWatChiEnt_nominal
-      elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then TConAirChiEnt_nominal
-      else fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
-    TConEntMin=TConChiEnt_min,
-    TConEntMax=TConChiEnt_max)
-    constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
-      QEva_flow_nominal=-1 * capChi_nominal,
-      TEvaLvg_nominal=TChiWatChiSup_nominal,
-      TEvaLvgMin=TChiWatChiSup_nominal,
-      TEvaLvgMax=TChiWatChiSup_max,
-      PLRMin=PLRChi_min,
-      PLRMinUnl=PLRUnlChi_min,
-      mEva_flow_nominal=mChiWatChi_flow_nominal,
-      mCon_flow_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then mConWatChi_flow_nominal
-      elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then mConAirChi_flow_nominal
-      else fill(0, nChi))
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic perChi[nChi](
+    COP_nominal=COPChi_nominal,
+    QEva_flow_nominal=-abs(capChi_nominal),
+    TConLvg_nominal=TConLvgChi_nominal,
+    TConLvgMin=TConLvgChi_min,
+    TConLvgMax=TConLvgChi_max,
+    TEvaLvg_nominal=TChiWatSupChi_nominal,
+    TEvaLvgMin=TChiWatSupChi_nominal,
+    TEvaLvgMax=TChiWatSupChi_max,
+    PLRMin=PLRChi_min,
+    PLRMinUnl=PLRUnlChi_min,
+    PLRMax=1.0,
+    etaMotor=1.0,
+    mEva_flow_nominal=mChiWatChi_flow_nominal,
+    mCon_flow_nominal=mConChi_flow_nominal,
+    capFunT={1, 0, 0, 0, 0, 0},
+    EIRFunT={1, 0, 0, 0, 0, 0},
+    EIRFunPLR={1, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+    constrainedby Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic
     "Chiller performance data"
-    annotation(choicesAllMatching=true);
+    annotation (choicesAllMatching=true);
   annotation (
-  defaultComponentName="datChi",
-  Documentation(info="<html>
+    defaultComponentName="datChi",
+    Documentation(
+      info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 
 chiller group models that can be found within 

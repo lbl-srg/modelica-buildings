@@ -6,11 +6,12 @@ model HeatExchangerWithValve
     final typ=Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve,
     hex(from_dp2=true));
 
-  Buildings.Templates.Components.Valves.TwoWayModulating valChiWatByp(
+  Buildings.Templates.Components.Actuators.Valve valChiWatByp(
     redeclare final package Medium=MediumChiWat,
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatByp,
-    val(from_dp=true))
+    from_dp=true)
     "WSE CHW bypass valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatEco(

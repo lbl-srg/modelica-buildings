@@ -70,7 +70,7 @@ model Economizers "Validation model for waterside economizers"
     final dpConWat_nominal=dpConWatEco_nominal)
     "Parameters for WSE with pump";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yValChiWatEcoByp(table=[0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yValChiWatEcoByp(table=[0,
         1; 1,1; 1.5,0; 2,0], timeScale=1000)
     "WSE CHW bypass valve opening signal"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
@@ -87,7 +87,8 @@ model Economizers "Validation model for waterside economizers"
     final dat=datEcoVal,
     hex(show_T=true),
     final energyDynamics=energyDynamics,
-    final tau=tau) "WSE with CHW bypass valve"
+    final tau=tau)
+    "WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bouConWatRet(
     redeclare final package Medium=MediumConWat,
@@ -131,7 +132,7 @@ model Economizers "Validation model for waterside economizers"
     timeScale=1000,
     period=2000) "WSE CHW pump Start/Stop signal"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yPumChiWatEco(table=[0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yPumChiWatEco(table=[0,
         0; 1,0; 1.5,1; 2,1], timeScale=1000) "WSE CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,70},{-110,90}})));
   .Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla1
@@ -170,11 +171,11 @@ model Economizers "Validation model for waterside economizers"
         origin={-80,0})));
 equation
   connect(ecoVal.port_b, bouChiWatSup.ports[1])
-    annotation (Line(points={{10,20},{79,20},{79,-80}},  color={0,127,255}));
+    annotation (Line(points={{2.5,20},{79,20},{79,-80}}, color={0,127,255}));
   connect(bouConWatSup.ports[1], ecoVal.port_aConWat)
-    annotation (Line(points={{79,40},{79,29},{10,29}},    color={0,127,255}));
-  connect(ecoVal.port_bConWat, bouConWatRet.ports[1]) annotation (Line(points={{-10,29},
-          {-81,29},{-81,40}},            color={0,127,255}));
+    annotation (Line(points={{79,40},{79,28},{-10,28}},   color={0,127,255}));
+  connect(ecoVal.port_bConWat, bouConWatRet.ports[1]) annotation (Line(points={{-10,12},
+          {-81,12},{-81,40}},            color={0,127,255}));
   connect(busPla, ecoVal.bus) annotation (Line(
       points={{0,60},{0,30}},
       color={255,204,51},
@@ -183,9 +184,9 @@ equation
     annotation (Line(points={{-108,0},{-100,0},{-100,76},{0,76},{0,100}},
                                                           color={0,0,127}));
   connect(bouConWatSup.ports[2], ecoPum.port_aConWat) annotation (Line(points={{81,40},
-          {60,40},{60,-71},{10,-71}},        color={0,127,255}));
-  connect(ecoPum.port_bConWat, bouConWatRet.ports[2]) annotation (Line(points={{-10,-71},
-          {-60,-71},{-60,40},{-79,40}},                            color={0,127,
+          {60,40},{60,-72},{-10,-72}},       color={0,127,255}));
+  connect(ecoPum.port_bConWat, bouConWatRet.ports[2]) annotation (Line(points={{-10,-88},
+          {-60,-88},{-60,40},{-79,40}},                            color={0,127,
           255}));
   connect(y1PumChiWatEco.y[1], busPumChiWatEco.y1) annotation (Line(points={{-108,40},
           {-50,40},{-50,-20},{0,-20}},         color={255,0,255}));
@@ -217,12 +218,12 @@ equation
         points={{-108,120},{100,120},{100,-40},{40,-40}},
                                                         color={255,0,255}));
   connect(ecoPum.port_b, bouChiWatSup.ports[2])
-    annotation (Line(points={{10,-80},{81,-80}},
+    annotation (Line(points={{2.5,-80},{81,-80}},
                                                color={0,127,255}));
-  connect(bouChiWatRet1.ports[1], ecoPum.port_a) annotation (Line(points={{-80,
-          -88},{-80,-80},{-10,-80}}, color={0,127,255}));
+  connect(bouChiWatRet1.ports[1], ecoPum.port_a) annotation (Line(points={{-80,-88},
+          {-80,-80},{-2.5,-80}},     color={0,127,255}));
   connect(bouChiWatRet.ports[1], ecoVal.port_a)
-    annotation (Line(points={{-80,10},{-80,20},{-10,20}}, color={0,127,255}));
+    annotation (Line(points={{-80,10},{-80,20},{-2.5,20}},color={0,127,255}));
   annotation (
   experiment(
     StopTime=2000,

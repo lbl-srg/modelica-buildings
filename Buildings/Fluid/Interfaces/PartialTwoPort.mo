@@ -23,7 +23,7 @@ partial model PartialTwoPort "Partial component with two ports"
        nominal = Medium.h_default),
      Xi_outflow(each nominal=0.01))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{port_a_x-10,port_a_y-10},{port_a_x+10,port_a_y+10}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
@@ -32,17 +32,7 @@ partial model PartialTwoPort "Partial component with two ports"
        nominal = Medium.h_default),
      Xi_outflow(each nominal=0.01))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{port_b_x-10,port_b_y-10},{port_b_x+10,port_b_y+10}})));
-
-protected
-  constant Integer port_a_x = -100
-    "x-coordinate of port_a center";
-  constant Integer port_a_y = 0
-    "y-coordinate of port_a center";
-  constant Integer port_b_x = 100
-    "x-coordinate of port_b center";
-  constant Integer port_b_y = 0
-    "y-coordinate of port_b center";
+    annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
   annotation (
     Documentation(info="<html>

@@ -32,23 +32,25 @@ partial model PartialChiller
     annotation (Placement(transformation(extent={{70,80},{90,100}})),
     __ctrlFlow(enable=false));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=dat.mChiWat_flow_nominal
-    "CHW mass flow rate";
+    "Design CHW mass flow rate";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=dat.mCon_flow_nominal
-    "Condenser cooling fluid mass flow rate";
+    "Design condenser cooling fluid mass flow rate";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=dat.cap_nominal
-    "Cooling capacity";
+    "Design cooling capacity";
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=-abs(cap_nominal)
+    "Design cooling heat flow rate";
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=dat.dpChiWat_nominal
-    "CHW pressure drop";
+    "Design CHW pressure drop";
   final parameter Modelica.Units.SI.PressureDifference dpCon_nominal=dat.dpCon_nominal
-    "Condenser cooling fluid pressure drop";
+    "Design condenser cooling fluid pressure drop";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=dat.TChiWatSup_nominal
-    "CHW supply temperature";
+    "Design CHW supply temperature";
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=dat.TChiWatRet_nominal
-    "CHW return temperature";
+    "Design CHW return temperature";
   final parameter Modelica.Units.SI.Temperature TConEnt_nominal=dat.TConEnt_nominal
-    "Condenser entering fluid temperature";
+    "Design condenser entering fluid temperature";
   final parameter Modelica.Units.SI.Temperature TConLvg_nominal=dat.TConLvg_nominal
-    "Condenser leaving fluid temperature";
+    "Design condenser leaving fluid temperature";
   parameter Boolean have_dpChiWat=true
     "Set to true for CHW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,

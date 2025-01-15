@@ -33,7 +33,7 @@ model WaterCooled "Water-cooled chiller plant"
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
     icon_dy=intChi.icon_dy,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
     "CW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-110,-202},{-90,-182}})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
@@ -61,7 +61,7 @@ model WaterCooled "Water-cooled chiller plant"
     redeclare final package Medium = MediumCon,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Return)
     "CW return temperature (from chillers to coolers)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -71,7 +71,7 @@ model WaterCooled "Water-cooled chiller plant"
     redeclare final package Medium = MediumCon,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.Supply)
     "CW supply temperature (from coolers to chillers)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

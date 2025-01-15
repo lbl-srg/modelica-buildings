@@ -2,7 +2,7 @@ within Buildings.Templates.Plants.Chillers.Components.Controls;
 block G36 "Guideline 36 controller for CHW plant"
   extends
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
-    final typ=Buildings.Templates.Plants.Chillers.Types.Controller.Guideline36);
+      final typ=Buildings.Templates.Plants.Chillers.Types.Controller.G36);
 
   final parameter Boolean closeCoupledPlant=is_clsCpl
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
@@ -190,11 +190,11 @@ block G36 "Guideline 36 controller for CHW plant"
     "Plant enabling schedule allowing operators to lock out the plant during off-hour"
     annotation(Dialog(tab="Plant enable", enable=false));
 
- final parameter Real TChiLocOut(
+  final parameter Real TChiLocOut(
     unit="K",
-    displayUnit="degC")=dat.TOutLoc
+    displayUnit="degC") = dat.TOutChiWatLck
     "Outdoor air lockout temperature below which the chiller plant should be disabled"
-    annotation(Dialog(tab="Plant enable"));
+    annotation (Dialog(tab="Plant enable"));
 
 
   // ---- Waterside economizer ----
@@ -301,13 +301,13 @@ block G36 "Guideline 36 controller for CHW plant"
 
   final parameter Real TConWatSup_nominal[nChi](
     each final unit="K",
-    each displayUnit="degC")=dat.TConWatChiSup_nominal
+    each displayUnit="degC")=dat.TConWatSupChi_nominal
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   final parameter Real TConWatRet_nominal[nChi](
     each final unit="K",
-    each displayUnit="degC")=dat.TConWatChiRet_nominal
+    each displayUnit="degC")=dat.TConWatRetChi_nominal
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
@@ -323,7 +323,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Plants.Chillers.Components.Controls.Controller_debug ctl(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctl(
     final nChi=nChi,
     final closeCoupledPlant=closeCoupledPlant,
     final have_ponyChiller=have_ponyChiller,
@@ -399,7 +399,7 @@ block G36 "Guideline 36 controller for CHW plant"
     if typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "#2299 Chiller CHW isolation valve open end switch status only used for FD + Should be DI or AI"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiWatIsoVal[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uChiWatIsoVal[nChi](
     each k=1) if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "#2299 Should be optional and exclusive from `uChiIsoVal`"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
@@ -408,11 +408,11 @@ block G36 "Guideline 36 controller for CHW plant"
     "#2299 Should be optional and exclusive from `uChiIsoVal`"
     annotation (Placement(transformation(extent={{-180,170},{-160,190}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RFE_uHeaPreCon[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant RFE_uHeaPreCon[nChi](
       each k=0)
     "Add chiller head pressure control demand signal from built-in chiller controller"
     annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiLoa[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uChiLoa[nChi](
       each k=1) "#2299: Should be computed internally, in J/s, not A"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiAva[nChi](each
@@ -423,21 +423,21 @@ block G36 "Guideline 36 controller for CHW plant"
       each k=true)
     "#2299: This signal should be internally computed by the stage up and down sequences"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uConWatPumSpe[nPumConWat](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uConWatPumSpe[nPumConWat](
     each k=1) "#2299: Should be the commanded speed output from subcontroller."
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiCooLoa[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uChiCooLoa[nChi](
     each k=1)
     "#2299: The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uFanSpe(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uFanSpe(k=1)
     "#2299: This should be the commanded speed `ySpeSet` computed internally"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uIsoVal[nCoo](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uIsoVal[nCoo](
     each k=1)
     "#2299 Should be Boolean + missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant RFE_watLev(k=0.1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant RFE_watLev(k=0.1)
     "Add basin model with level and heating demand signal"
     annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yTowCelIsoVal[nCoo](
@@ -446,36 +446,36 @@ block G36 "Guideline 36 controller for CHW plant"
       typValCooOutIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "#2299 Should be Boolean and conditional to a configuration parameter"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uLifMin(
     k=Buildings.Templates.Data.Defaults.dTLifChi_min)
     "#2299: Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uLifMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_uLifMax(
     k=Buildings.Templates.Data.Defaults.TConWatRet-Buildings.Templates.Data.Defaults.TChiWatSup)
     "#2299: Unconnected inside input connector"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_VChiWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_VChiWat_flow(
     k=0.01) if not have_senVChiWatPri
     "#2299 Should be conditional"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
-  Utilities.Psychrometrics.TWetBul_TDryBulPhi FIXME_TOutWet(
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi FIXME_TOutWet(
     redeclare final package Medium=Buildings.Media.Air)
     "#2299 Two input points should rather be used for OA DB temperature and RH."
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p_default(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p_default(
     final k=Buildings.Media.Air.p_default)
     "Default outdoor air absolute pressure"
     annotation (Placement(transformation(extent={{-180,-90},{-160,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TConWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TConWatRet(
     k=Buildings.Templates.Data.Defaults.TConWatRet)
     "#2299: Missing connectors and dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TChiWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TChiWatSup(
     k=Buildings.Templates.Data.Defaults.TChiWatSup) if not
     have_senTChiWatPriSup "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TConWatSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TConWatSup(
     k=Buildings.Templates.Data.Defaults.TConWatSup)
     if not
           (
@@ -492,9 +492,9 @@ block G36 "Guideline 36 controller for CHW plant"
     k=true) if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
     "#2299 Should be Boolean"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yChiPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME_yChiPumSpe(
     final k=fill(1/nPumChiWatPri, nPumChiWatPri),
-    final nin=nChiWatPum) if have_varPumChiWatPri
+    final nin=nChiWatPum) if have_pumChiWatPriVar
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yChiDem[nChi]
@@ -514,7 +514,7 @@ block G36 "Guideline 36 controller for CHW plant"
     have_varPumConWat and not have_varComPumConWat
     "#2299 Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME1_yConWatPumSpe(final k=
+  Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME1_yConWatPumSpe(final k=
         fill(1/nPumConWat, nPumConWat), final nin=nChiWatPum) if typChi ==
     Buildings.Templates.Components.Types.Chiller.WaterCooled and
     have_varPumConWat and have_varComPumConWat
@@ -532,7 +532,7 @@ block G36 "Guideline 36 controller for CHW plant"
     if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
     "#2299 Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yTowFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME_yTowFanSpe(
     final k=fill(1/nCoo, nCoo),
     final nin=nCoo)
     "#2299 Should be scalar and conditional"
@@ -603,26 +603,26 @@ equation
   connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
   // The three following bus signals are exclusive from on another.
   // FIXME #2299: However, the use of those signals for capacity requirement in primary-only plants is incorrect.
-  connect(bus.TChiWatEcoBef,ctl. TChiWatRet);
-  connect(bus.TChiWatSecRet,ctl. TChiWatRet);
+  connect(bus.TChiWatEcoBef,ctl.TChiWatRet);
+  connect(bus.TChiWatSecRet,ctl.TChiWatRet);
   connect(bus.TChiWatPlaRet, FIXME_TChiWatPlaRet.u);
   // FIXME #2299: Related to above comment, we need to condition the following connect clause to no WSE.
   if typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.None then
-    connect(FIXME_TChiWatPlaRet.y, ctl. TChiWatRet);
+    connect(FIXME_TChiWatPlaRet.y, ctl.TChiWatRet);
   end if;
-  connect(bus.TConWatSup,ctl. TConWatSup);
-  connect(FIXME_TConWatSup.y,ctl. TConWatSup);
-  connect(bus.TChiWatPriSup,ctl. TChiWatSup);
-  connect(FIXME_TChiWatSup.y,ctl. TChiWatSup);
-  connect(bus.dpChiWatEco,ctl. dpChiWat);
-  connect(bus.pumConWat.y1_actual,ctl. uConWatPum);
-  connect(FIXME_uConWatPum.y,ctl. uConWatPum);
+  connect(bus.TConWatSup,ctl.TConWatSup);
+  connect(FIXME_TConWatSup.y,ctl.TConWatSup);
+  connect(bus.TChiWatPriSup,ctl.TChiWatSup);
+  connect(FIXME_TChiWatSup.y,ctl.TChiWatSup);
+  connect(bus.dpChiWatEco,ctl.dpChiWat);
+  connect(bus.pumConWat.y1_actual,ctl.uConWatPum);
+  connect(FIXME_uConWatPum.y,ctl.uConWatPum);
   // HACK Dymola does not automatically remove the clause at translation.
   if typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump then
-    connect(bus.pumChiWatEco.y1_actual,ctl. uEcoPum);
+    connect(bus.pumChiWatEco.y1_actual,ctl.uEcoPum);
   end if;
-  connect(bus.TChiWatEcoEnt,ctl. TEntHex);
-  connect(bus.TOut,ctl. TOut);
+  connect(bus.TChiWatEcoEnt,ctl.TEntHex);
+  connect(bus.TOut,ctl.TOut);
   connect(busCoo.y1_actual, ctl.uTowSta);
 
   connect(busAirHan.reqChiWatRes, FIXME_TChiWatSupResReqAirHan.u);
@@ -630,31 +630,31 @@ equation
   connect(busAirHan.reqChiWatPla, reqChiWatPlaAirHan.u);
   connect(busEquZon.reqChiWatPla, reqChiWatPlaEquZon.u);
 
-  connect(FIXME_uChiConIsoVal.y,ctl. uChiConIsoVal);
-  connect(FIXME_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
-  connect(FIXME_uChiIsoVal.y,ctl. uChiIsoVal);
+  connect(FIXME_uChiConIsoVal.y,ctl.uChiConIsoVal);
+  connect(FIXME_uChiWatIsoVal.y,ctl.uChiWatIsoVal);
+  connect(FIXME_uChiIsoVal.y,ctl.uChiIsoVal);
   connect(busValConWatChiIso.y1_actual, FIXME1_uChiConIsoVal.u);
   connect(busValChiWatChiIso.y_actual, FIXME1_uChiWatIsoVal.u);
   connect(busValChiWatChiIso.y1_actual, FIXME1_uChiIsoVal.u);
-  connect(FIXME1_uChiConIsoVal.y,ctl. uChiConIsoVal);
-  connect(FIXME1_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
-  connect(FIXME1_uChiIsoVal.y,ctl. uChiIsoVal);
+  connect(FIXME1_uChiConIsoVal.y,ctl.uChiConIsoVal);
+  connect(FIXME1_uChiWatIsoVal.y,ctl.uChiWatIsoVal);
+  connect(FIXME1_uChiIsoVal.y,ctl.uChiIsoVal);
 
-  connect(FIXME_uIsoVal.y,ctl. uIsoVal);
+  connect(FIXME_uIsoVal.y,ctl.uIsoVal);
 
-  connect(RFE_uHeaPreCon.y,ctl. uHeaPreCon);
-  connect(FIXME_uChiLoa.y,ctl. uChiLoa);
-  connect(FIXME_uChiAva.y,ctl. uChiAva);
-  connect(FIXME_uChiHeaCon.y,ctl. uChiHeaCon);
-  connect(FIXME_uConWatPumSpe.y,ctl. uConWatPumSpe);
-  connect(FIXME_uChiCooLoa.y,ctl. uChiCooLoa);
-  connect(FIXME_uFanSpe.y,ctl. uFanSpe);
-  connect(RFE_watLev.y,ctl. watLev);
-  connect(FIXME_VChiWat_flow.y,ctl. VChiWat_flow);
+  connect(RFE_uHeaPreCon.y,ctl.uHeaPreCon);
+  connect(FIXME_uChiLoa.y,ctl.uChiLoa);
+  connect(FIXME_uChiAva.y,ctl.uChiAva);
+  connect(FIXME_uChiHeaCon.y,ctl.uChiHeaCon);
+  connect(FIXME_uConWatPumSpe.y,ctl.uConWatPumSpe);
+  connect(FIXME_uChiCooLoa.y,ctl.uChiCooLoa);
+  connect(FIXME_uFanSpe.y,ctl.uFanSpe);
+  connect(RFE_watLev.y,ctl.watLev);
+  connect(FIXME_VChiWat_flow.y,ctl.VChiWat_flow);
   connect(bus.TOut, FIXME_TOutWet.TDryBul);
   connect(bus.phiOut, FIXME_TOutWet.phi);
-  connect(FIXME_TOutWet.TWetBul,ctl. TOutWet);
-  connect(FIXME_TConWatRet.y,ctl. TConWatRet);
+  connect(FIXME_TOutWet.TWetBul,ctl.TOutWet);
+  connect(FIXME_TConWatRet.y,ctl.TConWatRet);
 
   // Controller outputs
   connect(FIXME_yEcoConWatIsoVal.y, bus.valConWatEcoIso.y1);

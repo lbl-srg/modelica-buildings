@@ -15,10 +15,7 @@ model WaterCooledOpenLoop
 
   replaceable parameter
     Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
-    datAll(
-    sysUni=Buildings.Templates.Types.Units.SI)
-           constrainedby
-    Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystems
+    datAll(pla(cfg=pla.cfg))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
@@ -30,7 +27,7 @@ model WaterCooledOpenLoop
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  inner replaceable Buildings.Templates.Plants.Chillers.WaterCooled CHI(
+  inner replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
     typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
@@ -59,7 +56,7 @@ model WaterCooledOpenLoop
       final nChi=nChi,
       final energyDynamics=energyDynamics,
       final tau=tau,
-      final dat=datAll._CHI)
+      final dat=datAll.pla)
     "CHW plant"
     annotation (Placement(transformation(extent={{-60,-30},{-20,10}})));
 
@@ -73,8 +70,8 @@ model WaterCooledOpenLoop
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumChiWat,
-    m_flow_nominal=CHI.mChiWat_flow_nominal,
-    dp_nominal=datAll._CHI.ctl.dpChiWatLocSet_nominal)
+    m_flow_nominal=pla.mChiWat_flow_nominal,
+    dp_nominal=datAll.pla.ctl.dpChiWatLocSet_nominal)
     "Flow resistance of CHW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -85,27 +82,27 @@ model WaterCooledOpenLoop
 
   Fluid.Sensors.TemperatureTwoPort TChiWatRet(
     redeclare final package Medium =MediumChiWat,
-    final m_flow_nominal=sum(datAll._CHI.chi.mChiWatChi_flow_nominal))
+    final m_flow_nominal=sum(datAll.pla.chi.mChiWatChi_flow_nominal))
     "CHW return temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={20,-40})));
   Fluid.Sensors.VolumeFlowRate VChiWat_flow(
     redeclare final package Medium =MediumChiWat,
-    final m_flow_nominal=sum(datAll._CHI.chi.mChiWatChi_flow_nominal))
+    final m_flow_nominal=sum(datAll.pla.chi.mChiWatChi_flow_nominal))
     "CHW volume flow rate"
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
 equation
   connect(res.port_b, bou.ports[1])
     annotation (Line(points={{40,0},{70,0},{70,-21}},      color={0,127,255}));
-  connect(weaDat.weaBus, CHI.busWea) annotation (Line(
+  connect(weaDat.weaBus,pla. busWea) annotation (Line(
       points={{-70,80},{-40,80},{-40,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(CHI.port_b, res.port_a)
+  connect(pla.port_b, res.port_a)
     annotation (Line(points={{-19.8,-10},{0,-10},{0,0},{20,0}},
                                                color={0,127,255}));
-  connect(CHI.port_a, TChiWatRet.port_b) annotation (Line(points={{-19.8,-20},{
+  connect(pla.port_a, TChiWatRet.port_b) annotation (Line(points={{-19.8,-20},{
           0,-20},{0,-40},{10,-40}}, color={0,127,255}));
   connect(TChiWatRet.port_a, VChiWat_flow.port_b)
     annotation (Line(points={{30,-40},{40,-40}}, color={0,127,255}));

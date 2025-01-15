@@ -21,8 +21,9 @@ partial model PartialEconomizerHX "Partial model of WSE with plate and frame hea
     annotation (Placement(
         transformation(extent={{-10,10},{10,-10}}, rotation=180,
         origin={0,74})));
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatIso(
+  Buildings.Templates.Components.Actuators.Valve valConWatIso(
     redeclare final package Medium=MediumConWat,
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatIso,
     final text_flip=true)
@@ -102,11 +103,9 @@ Icon(graphics={
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
     Bitmap(extent={{-220,-320},{-140,-240}}, fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
-  Bitmap(
-          extent={{-100,-100},{100,100}},
+  Bitmap( extent={{-100,-100},{100,100}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
-
           rotation=-90,
           origin={-320,-80})}));
 end PartialEconomizerHX;

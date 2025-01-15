@@ -6,8 +6,8 @@ block DistributionControlPoints
   parameter Integer nSenDpChiWatRem
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatRem[nSenDpChiWatRem](
-    each k=Buildings.Templates.Data.Defaults.dpChiWatSet_max)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dpChiWatRem[nSenDpChiWatRem](
+    each k=Buildings.Templates.Data.Defaults.dpChiWatRemSet_max)
     "CHW differential pressure used for CHW pump speed control"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Plants.Chillers.Interfaces.Bus bus "CHW plant control bus" annotation (Placement(
@@ -28,7 +28,7 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This class generates signals typically yielded by
-sensors from the CHW distribution system. 
+sensors from the CHW distribution system.
 It is aimed for validation purposes only.
 </p>
 </html>"));

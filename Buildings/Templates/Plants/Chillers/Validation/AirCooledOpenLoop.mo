@@ -3,7 +3,7 @@ model AirCooledOpenLoop
   "Validation of air-cooled chiller plant template with open-loop controls"
   extends Buildings.Templates.Plants.Chillers.Validation.WaterCooledOpenLoop(
     redeclare Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsAirCooled datAll,
-    redeclare Buildings.Templates.Plants.Chillers.AirCooled CHI(
+    redeclare Buildings.Templates.Plants.Chillers.AirCooled pla(
       redeclare package MediumCon = MediumAir,
       typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
       typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,

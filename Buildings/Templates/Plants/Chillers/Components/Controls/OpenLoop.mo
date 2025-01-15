@@ -4,41 +4,41 @@ block OpenLoop "Open loop controller (output signals only)"
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
      final typ=Buildings.Templates.Plants.Chillers.Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet[nChi](
     y(each final unit="K", each displayUnit="degC"),
     each k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPri(
     k=1)
-    if have_varPumChiWatPri and have_varComPumChiWatPri
+    if have_pumChiWatPriVar and have_varComPumChiWatPri
     "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,50},{-110,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPriDed[nPumChiWatPri](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriDed[nPumChiWatPri](
     each k=1)
-    if have_varPumChiWatPri and not have_varComPumChiWatPri
+    if have_pumChiWatPriVar and not have_varComPumChiWatPri
     "Primary CHW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatSec(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatSec(
     k=1) if have_pumChiWatSec
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWat(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumConWat(
     k=1) if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     and have_varPumConWat and have_varComPumConWat
     "CW pump speed signal"
     annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWatDed[nPumConWat](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumConWatDed[nPumConWat](
     each k=1)
     if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     and have_varPumConWat and not have_varComPumConWat
     "CW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatChiIso[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValChiWatChiIso[nChi](
     each k=1) if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-110,210},{-130,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValConWatChiIso[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValConWatChiIso[nChi](
     each k=1) if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-40,170},{-60,190}})));
@@ -48,15 +48,15 @@ block OpenLoop "Open loop controller (output signals only)"
     each period=2000) if typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Cooler inlet isolation valve opening signal"
     annotation (Placement(transformation(extent={{-140,-190},{-160,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCooInlIso[nCoo](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValCooInlIso[nCoo](
     each k=1) if typValCooInlIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Cooler inlet isolation valve opening signal"
     annotation (Placement(transformation(extent={{-110,-210},{-130,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCooOutIso[nCoo](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValCooOutIso[nCoo](
     each k=1) if typValCooOutIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Cooler outlet isolation valve opening signal"
     annotation (Placement(transformation(extent={{-30,-250},{-50,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCoo(
     k=1)
     if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Cooler fan speed signal"
@@ -110,7 +110,7 @@ block OpenLoop "Open loop controller (output signals only)"
     if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     "CW pump Start/Stop signal"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatMinByp(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValChiWatMinByp(k=0)
     "CHW minimum flow bypass valve opening signal"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiBypSer[nChi](
@@ -125,10 +125,10 @@ block OpenLoop "Open loop controller (output signals only)"
     period=2000)
     "Chiller CHW bypass valve opening signal - Parallel chillers"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatEcoByp(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValChiWatEcoByp(k=1)
     "WSE CHW bypass valve opening signal"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatEco(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatEco(
     k=1)
     "WSE CHW HX pump speed signal"
     annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
@@ -182,8 +182,8 @@ protected
           extent={{120,-140},{160,-100}}), iconTransformation(extent={{-422,198},
             {-382,238}})));
 equation
-  /* 
-  HACK: The following clauses should be removed at translation if `not have_pumChiWatSec` 
+  /*
+  HACK: The following clauses should be removed at translation if `not have_pumChiWatSec`
   but Dymola fails to do so.
   Hence, explicit `if then` statements are used.
   */
@@ -234,8 +234,7 @@ equation
   connect(yPumChiWatEco.y, busPumChiWatEco.y) annotation (Line(points={{-108,
           -160},{140,-160}},      color={0,0,127}));
   connect(y1PumChiWatEco.y[1], busPumChiWatEco.y1)
-    annotation (Line(points={{-138,-140},{140,-140},{140,-160}},
-                                                      color={255,0,255}));
+    annotation (Line(points={{-138,-140},{140,-140},{140,-160}}, color={255,0,255}));
   connect(yValChiWatEcoByp.y, busValChiWatEcoByp.y)
     annotation (Line(points={{-138,-100},{140,-100}}, color={0,0,127}));
   connect(busPumChiWatEco, bus.pumChiWatEco) annotation (Line(
@@ -270,7 +269,7 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TChiWatSupSet.y, busChi.TChiWatSupSet) annotation (Line(points={{-102,
+  connect(TChiWatSupSet.y, busChi.TSupSet) annotation (Line(points={{-102,
           260},{-254,260},{-254,200},{-240,200}}, color={0,0,127}));
   connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{-2,-260},{-254,-260},
           {-254,0},{-260,0}}, color={255,0,255}), Text(
@@ -312,7 +311,7 @@ equation
     Documentation(info="<html>
 <p>
 This is an open loop controller providing control inputs
-for the templates within 
+for the templates within
 <a href=\"modelica://Buildings.Templates.Plants.Chillers\">
 Buildings.Templates.Plants.Chillers</a>.
 It is mainly used for testing purposes.

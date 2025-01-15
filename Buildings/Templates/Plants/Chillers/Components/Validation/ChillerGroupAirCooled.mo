@@ -23,7 +23,7 @@ model ChillerGroupAirCooled
     "Primary CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi]=
-    capChi_nominal*Buildings.Templates.Data.Defaults.mConAirByCapChi
+    capChi_nominal*Buildings.Templates.Data.Defaults.ratMFloAirByCapChi
     "Air mass flow rate at condenser - Each air-cooled chiller"
     annotation (Dialog(group="Nominal condition"));
 
@@ -34,6 +34,10 @@ model ChillerGroupAirCooled
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each min=0)=fill(1e6, nChi)
     "Cooling capacity - Each chiller (>0)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Real COPChi_nominal[nChi](
+    each min=0)=fill(Buildings.Templates.Data.Defaults.COPChiAirCoo, nChi)
+    "Cooling COP - Each chiller"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
@@ -57,17 +61,20 @@ model ChillerGroupAirCooled
     final m_flow_nominal=mChiWatChi_flow_nominal,
     dp_nominal=1.5*dpChiWatChi_nominal)
     "Parameter record for primary CHW pumps";
-  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup datChi(
+  parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
+    datChi(
     final nChi=nChi,
-    final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+    final typ=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
-    final mConAirChi_flow_nominal=mConAirChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final capChi_nominal=capChi_nominal,
-    final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
-    final TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
+    final COPChi_nominal=COPChi_nominal,
+    final TChiWatSupChi_nominal=fill(TChiWatSup_nominal, nChi),
+    final TConEntChi_nominal=fill(Buildings.Templates.Data.Defaults.TOutChi,nChi),
     PLRChi_min=fill(0.15, nChi),
-    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
+    redeclare
+      Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD
+      perChi)
     "Parameter record for air-cooled chiller group";
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
@@ -82,17 +89,10 @@ model ChillerGroupAirCooled
     redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final have_var=false)
+    final have_var=false,
+    final energyDynamics=energyDynamics)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Fluid.HeatExchangers.HeaterCooler_u loa(
-    redeclare final package Medium=MediumChiWat,
-    final m_flow_nominal=sum(mChiWatChi_flow_nominal),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final Q_flow_nominal=sum(capChi_nominal),
-    dp_nominal=0)
-    "Cooling load"
-    annotation (Placement(transformation(extent={{88,-90},{68,-70}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatPriSup(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal))
@@ -105,8 +105,7 @@ model ChillerGroupAirCooled
     "Primary CHW flow"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Fluid.Sources.Boundary_pT bouChiWat(
-    redeclare final package Medium=MediumChiWat,
-    final nPorts=1)
+    redeclare final package Medium=MediumChiWat, nPorts=1)
     "CHW pressure boundary condition"
     annotation (
       Placement(transformation(
@@ -117,12 +116,12 @@ model ChillerGroupAirCooled
   Plants.Chillers.Components.ChillerGroups.Compression chi(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
-    typArrChi=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    typArr=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only,
     final dat=datChi,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
-    final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+    final typ=Buildings.Templates.Components.Types.Chiller.AirCooled,
     typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None,
     typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
@@ -146,26 +145,13 @@ model ChillerGroupAirCooled
     final energyDynamics=energyDynamics,
     final tau=tau) "Primary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
-    "Chiller control bus" annotation (Placement(transformation(extent={{180,120},
-            {220,160}}), iconTransformation(extent={{-422,198},{-382,238}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
-    "Convert pump return signal to real" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={240,80})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa(k=fill(1/nChi, nChi),
-      nin=nChi) "Compute load modulating signal" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={240,50})));
   Plants.Chillers.Components.Controls.OpenLoop ctl(
-    final typChi=chi.typChi,
+    final typChi=chi.typ,
     final nChi=chi.nChi,
     final typDisChiWat=chi.typDisChiWat,
-    final have_varPumChiWatPri=pumChiWatPri.have_var,
+    final typArrPumChiWatPri=chi.typArrPumChiWatPri,
+    final typArrPumConWat=chi.typArrPumConWat,
+    final have_pumChiWatPriVar=pumChiWatPri.have_var,
     final have_varComPumChiWatPri=pumChiWatPri.have_varCom,
     final typEco=chi.typEco,
     final typValChiWatChiIso=chi.typValChiWatChiIso,
@@ -174,7 +160,7 @@ model ChillerGroupAirCooled
     final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None,
     dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
     "Plant controller"
-    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
+    annotation (Placement(transformation(extent={{-160,170},{-180,190}})));
   Buildings.Templates.Plants.Chillers.Interfaces.Bus busPla
     "Plant control bus"
     annotation (Placement(transformation(extent={{-100,120},{-60,160}}),
@@ -201,6 +187,30 @@ model ChillerGroupAirCooled
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,-80})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
+    "Convert pump return signal to real"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,80})));
+  Buildings.Controls.OBC.CDL.Reals.MultiSum comSigLoa(k=fill(1/nChi, nChi), nin
+      =nChi)    "Compute load modulating signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,50})));
+  Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
+    "Chiller control bus"
+    annotation (Placement(transformation(extent={{180,120},{220,160}}),
+                         iconTransformation(extent={{-422,198},{-382,238}})));
+  Fluid.HeatExchangers.HeaterCooler_u loa(
+    redeclare final package Medium = MediumChiWat,
+    final m_flow_nominal=sum(mChiWatChi_flow_nominal),
+    final energyDynamics=energyDynamics,
+    final Q_flow_nominal=sum(capChi_nominal),
+    dp_nominal=0)
+    "Cooling load"
+    annotation (Placement(transformation(extent={{88,-90},{68,-70}})));
 equation
   connect(chi.ports_bCon, bouConAir.ports)
     annotation (Line(points={{-100,106},{-120,106},{-120,100},{-140,100}},
@@ -214,11 +224,6 @@ equation
     annotation (Line(points={{0,100},{20,100}},  color={0,127,255}));
   connect(TChiWatPriSup.port_b, mChiWatPri_flow.port_a)
     annotation (Line(points={{40,100},{50,100}}, color={0,127,255}));
-  connect(loa.port_a, mChiWatPri_flow.port_b) annotation (Line(points={{88,-80},
-          {100,-80},{100,100},{70,100}},color={0,127,255}));
-  connect(bouChiWat.ports[1], loa.port_b)
-    annotation (Line(points={{40,-90},{40,-80},{68,-80}},
-                                                     color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
     annotation (Line(points={{-52,-80},{-56,-80},{-56,-86},{-60,-86}},
                                                    color={0,127,255}));
@@ -226,24 +231,12 @@ equation
     annotation (Line(points={{-60,106},{-60,100}}, color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{-40,100},{-40,100}}, color={0,127,255}));
-  connect(booToRea.y,comSigLoa. u)
-    annotation (Line(points={{240,68},{240,62}},     color={0,0,127}));
-  connect(comSigLoa.y, loa.u)
-    annotation (Line(points={{240,38},{240,-74},{90,-74}},  color={0,0,127}));
-  connect(busChi.y1_actual, booToRea.u) annotation (Line(
-      points={{200,140},{240,140},{240,92}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.chi, busChi) annotation (Line(
-      points={{-80,140},{200,140}},
-      color={255,204,51},
-      thickness=0.5));
   connect(chi.bus, busPla) annotation (Line(
       points={{-80,110.2},{-80,140}},
       color={255,204,51},
       thickness=0.5));
   connect(ctl.bus, busPla) annotation (Line(
-      points={{-10,180},{-80,180},{-80,140}},
+      points={{-160,180},{-80,180},{-80,140}},
       color={255,204,51},
       thickness=0.5));
   connect(busPla.pumChiWatPri, pumChiWatPri.bus) annotation (Line(
@@ -254,10 +247,26 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(loa.port_b, TChiWatPriRet.port_a)
-    annotation (Line(points={{68,-80},{10,-80}}, color={0,127,255}));
   connect(TChiWatPriRet.port_b, inlChiWatChi.port_b)
     annotation (Line(points={{-10,-80},{-32,-80}}, color={0,127,255}));
+  connect(loa.port_a, mChiWatPri_flow.port_b) annotation (Line(points={{88,-80},
+          {100,-80},{100,100},{70,100}},color={0,127,255}));
+  connect(booToRea.y,comSigLoa. u)
+    annotation (Line(points={{240,68},{240,62}},     color={0,0,127}));
+  connect(comSigLoa.y,loa. u)
+    annotation (Line(points={{240,38},{240,-74},{90,-74}},  color={0,0,127}));
+  connect(busChi.y1_actual,booToRea. u) annotation (Line(
+      points={{200,140},{240,140},{240,92}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.chi,busChi)  annotation (Line(
+      points={{-80,140},{200,140}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(loa.port_b, TChiWatPriRet.port_a)
+    annotation (Line(points={{68,-80},{10,-80}}, color={0,127,255}));
+  connect(bouChiWat.ports[1], loa.port_b)
+    annotation (Line(points={{40,-90},{40,-80},{68,-80}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
   experiment(
     StopTime=2000,
@@ -275,8 +284,8 @@ for air-cooled chillers.
 <p>
 The validation uses open-loop controls and tests a single
 system configuration.
-The controller is automatically configured (by means 
-of parameters bindings with the chiller group component parameters)  
+The controller is automatically configured (by means
+of parameters bindings with the chiller group component parameters)
 to provide the necessary signals for any system configuration.
 To test a different system configuration, one needs only to modify the
 chiller group component.

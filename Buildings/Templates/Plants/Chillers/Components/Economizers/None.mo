@@ -23,8 +23,7 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={
-  Line(
-          points={{400,80},{400,-80}},
+  Line(   points={{400,80},{400,-80}},
           color={0,0,0},
           thickness=5,
           pattern=LinePattern.Dash)}));

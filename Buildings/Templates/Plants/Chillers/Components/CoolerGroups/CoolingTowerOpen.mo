@@ -2,8 +2,6 @@ within Buildings.Templates.Plants.Chillers.Components.CoolerGroups;
 model CoolingTowerOpen "Open-circuit cooling towers in parallel"
   extends
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialCoolerGroup(
-    final typValCooOutIso=valCooOutIso[1].typ,
-    final typValCooInlIso=valCooInlIso[1].typ,
     final typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen);
 
   Buildings.Templates.Components.Coolers.CoolingTower coo[nCoo](
@@ -18,35 +16,25 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
     "Cooling tower"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooInlIso[nCoo]
-    constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
-      redeclare each final package Medium=MediumConWat,
-      final dat=datValCooInlIso,
-      each final show_T=show_T,
-      each final allowFlowReversal=allowFlowReversal,
-      each final m_flow_small=m_flow_small)
+  Buildings.Templates.Components.Actuators.Valve valCooInlIso[nCoo](
+    redeclare each final package Medium=MediumConWat,
+    each final typ=typValCooInlIso,
+    final dat=datValCooInlIso,
+    each final show_T=show_T,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
     "Inlet isolation valve"
     annotation (
-      choices(
-      choice(redeclare each replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooInlIso
-        "Two-way two-position valve"),
-      choice(redeclare each replaceable Buildings.Templates.Components.Valves.None valCooInlIso
-        "No Valve")),
     Placement(transformation(extent={{-50,-10},{-30,10}})));
-  replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooOutIso[nCoo]
-    constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
-      redeclare each final package Medium = MediumConWat,
-      final dat=datValCooOutIso,
-      each final show_T=show_T,
-      each final allowFlowReversal=allowFlowReversal,
-      each final m_flow_small=m_flow_small)
+  Buildings.Templates.Components.Actuators.Valve valCooOutIso[nCoo](
+    redeclare each final package Medium = MediumConWat,
+    each final typ=typValCooOutIso,
+    final dat=datValCooOutIso,
+    each final show_T=show_T,
+    each final allowFlowReversal=allowFlowReversal,
+    each final m_flow_small=m_flow_small)
     "Outlet isolation valve"
     annotation (
-      choices(
-      choice(redeclare each replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooOutIso
-        "Two-way two-position valve"),
-      choice(redeclare each replaceable Buildings.Templates.Components.Valves.None valCooOutIso
-        "No Valve")),
     Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlCoo(
     redeclare final package Medium=MediumConWat,
@@ -56,7 +44,7 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.None)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
     "Cooler group inlet manifold"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outCoo(
@@ -67,7 +55,7 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    icon_pipe=Buildings.Templates.Components.Types.IconPipe.None)
+    icon_pipe=Buildings.Templates.Components.Types.IntegrationPoint.None)
     "Cooling tower group outlet manifold"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
@@ -91,9 +79,11 @@ equation
   connect(valCooInlIso.port_b, coo.port_a)
     annotation (Line(points={{-30,0},{-10,0}}, color={0,127,255}));
   connect(port_b, outCoo.port_b)
-    annotation (Line(points={{0,0},{90,0}},   color={0,127,255}));
+    annotation (Line(points={{100,0},{100,0},{100,0},{90,0}},
+                                              color={0,127,255}));
   connect(port_a, inlCoo.port_a)
-    annotation (Line(points={{0,0},{-90,0}},    color={0,127,255}));
+    annotation (Line(points={{-100,0},{-456,0},{-456,0},{-90,0}},
+                                                color={0,127,255}));
   connect(inlCoo.ports_b, valCooInlIso.port_a)
     annotation (Line(points={{-70,0},{-50,0}}, color={0,127,255}));
   connect(coo.port_b, valCooOutIso.port_a)

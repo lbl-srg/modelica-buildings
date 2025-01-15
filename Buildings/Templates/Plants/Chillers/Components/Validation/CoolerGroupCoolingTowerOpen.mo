@@ -27,7 +27,7 @@ model CoolerGroupCoolingTowerOpen
     "CW elevation head"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo]=
-    mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratFloWatByAirTow
+    mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo]=fill(1e6, nCoo)
@@ -35,7 +35,7 @@ model CoolerGroupCoolingTowerOpen
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=
-    Buildings.Templates.Data.Defaults.TAirDryCooEnt
+    Buildings.Templates.Data.Defaults.TOutDryCoo
     "Entering air drybulb temperature"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TWetBulEnt_nominal=
@@ -74,7 +74,7 @@ model CoolerGroupCoolingTowerOpen
     final TWetBulEnt_nominal=TWetBulEnt_nominal,
     final TConWatSup_nominal=TConWatSup_nominal,
     final TConWatRet_nominal=TConWatRet_nominal,
-    PFanCoo_nominal=Buildings.Templates.Data.Defaults.PFanByFloConWatTow * mConWatCoo_flow_nominal)
+    PFanCoo_nominal=Buildings.Templates.Data.Defaults.ratPFanByMFloConWatTow * mConWatCoo_flow_nominal)
     "Parameter record for cooler group"
     annotation (Placement(transformation(extent={{220,260},{240,280}})));
 
@@ -108,7 +108,8 @@ model CoolerGroupCoolingTowerOpen
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
-    final have_var=false)
+    final have_var=false,
+    final energyDynamics=energyDynamics)
     "CW pumps"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
@@ -145,7 +146,7 @@ model CoolerGroupCoolingTowerOpen
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,60})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum comSigLoa(
     final k=fill(1/nCoo, nCoo),
     final nin=nCoo)
     "Compute load modulating signal"
@@ -156,6 +157,7 @@ model CoolerGroupCoolingTowerOpen
         origin={240,30})));
   Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen coo(
     show_T=true,
+    final energyDynamics=energyDynamics,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datCoo,
     final nCoo=nCoo)
@@ -174,7 +176,7 @@ model CoolerGroupCoolingTowerOpen
     annotation (Placement(
         transformation(extent={{80,100},{120,140}}), iconTransformation(extent={
             {-422,198},{-382,238}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoo(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yCoo(k=1)
     "Fan speed signal"
     annotation (Placement(transformation(extent={{-250,230},{-230,250}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -196,7 +198,8 @@ model CoolerGroupCoolingTowerOpen
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
-    final have_var=false)
+    final have_var=false,
+    final energyDynamics=energyDynamics)
     "CW pumps"
     annotation (Placement(transformation(extent={{-50,-210},{-30,-190}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat1(
@@ -225,13 +228,13 @@ model CoolerGroupCoolingTowerOpen
         origin={-80,-230})));
   Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen coo1(
     show_T=true,
+    final energyDynamics=energyDynamics,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datCoo,
     final nCoo=nCoo,
-    redeclare replaceable Buildings.Templates.Components.Valves.None
-      valCooInlIso "No Valve",
-    redeclare replaceable Buildings.Templates.Components.Valves.None
-      valCooOutIso "No Valve") "Cooler group" annotation (Placement(
+    typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
+    typValCooOutIso=Buildings.Templates.Components.Types.Valve.None)
+    "Cooler group" annotation (Placement(
         transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
@@ -254,16 +257,18 @@ equation
     annotation (Line(points={{240,48},{240,42}},     color={0,0,127}));
   connect(comSigLoa.y, loaCon.u)
     annotation (Line(points={{240,18},{240,0},{26,0},{26,8}},color={0,0,127}));
-  connect(coo.port_b, inlPumConWat.port_a) annotation (Line(points={{-150,60},{-200,
-          60},{-200,-20},{-70,-20}},       color={0,127,255}));
+  connect(coo.port_b, inlPumConWat.port_a) annotation (Line(points={{-144.878,
+          60},{-200,60},{-200,-20},{-70,-20}},
+                                           color={0,127,255}));
   connect(bouCon.ports[1], inlPumConWat.port_a) annotation (Line(points={{-80,-40},
           {-80,-20},{-70,-20}}, color={0,127,255}));
   connect(pumConWat.ports_b, outConWatChi.ports_b)
     annotation (Line(points={{-30,-20},{-20,-20}}, color={0,127,255}));
   connect(outConWatChi.port_a, loaCon.port_a)
     annotation (Line(points={{0,-20},{20,-20},{20,10}},  color={0,127,255}));
-  connect(loaCon.port_b, coo.port_a) annotation (Line(points={{20,30},{20,60},{-130,
-          60}},        color={0,127,255}));
+  connect(loaCon.port_b, coo.port_a) annotation (Line(points={{20,30},{20,60},{
+          -135.122,60}},
+                       color={0,127,255}));
   connect(busPumConWat, pumConWat.bus) annotation (Line(
       points={{200,60},{200,-10},{-40,-10}},
       color={255,204,51},
@@ -285,7 +290,7 @@ equation
   connect(y1ValIso.y[1], valCooOutIso.y1) annotation (Line(points={{-228,160},{140,
           160},{140,120}}, color={255,0,255}));
   connect(weaDat.weaBus, coo.busWea) annotation (Line(
-      points={{-230,120},{-118,120},{-118,100}},
+      points={{-230,120},{-125.366,120},{-125.366,100}},
       color={255,204,51},
       thickness=0.5));
   connect(pumConWat1.ports_a, inlPumConWat1.ports_b)
@@ -293,8 +298,8 @@ equation
                                                    color={0,127,255}));
   connect(y1.y[1], busPumConWat1.y1) annotation (Line(points={{-228,200},{160,200},
           {160,-120},{200,-120}},      color={255,0,255}));
-  connect(coo1.port_b, inlPumConWat1.port_a) annotation (Line(points={{-150,-120},
-          {-200,-120},{-200,-200},{-70,-200}},
+  connect(coo1.port_b, inlPumConWat1.port_a) annotation (Line(points={{-144.878,
+          -120},{-200,-120},{-200,-200},{-70,-200}},
                                           color={0,127,255}));
   connect(bouCon1.ports[1], inlPumConWat1.port_a) annotation (Line(points={{-80,
           -220},{-80,-200},{-70,-200}},
@@ -306,7 +311,7 @@ equation
     annotation (Line(points={{0,-200},{20,-200},{20,-170}},
                                                          color={0,127,255}));
   connect(loaCon1.port_b, coo1.port_a)
-    annotation (Line(points={{20,-150},{20,-120},{-130,-120}},
+    annotation (Line(points={{20,-150},{20,-120},{-135.122,-120}},
                                                         color={0,127,255}));
   connect(busPumConWat1, pumConWat1.bus) annotation (Line(
       points={{200,-120},{200,-190},{-40,-190}},
@@ -317,7 +322,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(weaDat.weaBus, coo1.busWea) annotation (Line(
-      points={{-230,120},{-220,120},{-220,-60},{-118,-60},{-118,-80}},
+      points={{-230,120},{-220,120},{-220,-60},{-125.366,-60},{-125.366,-80}},
       color={255,204,51},
       thickness=0.5));
   connect(yCoo.y, busPla.yCoo) annotation (Line(points={{-228,240},{200,240},{200,
@@ -347,8 +352,8 @@ Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen</a>
 with open-loop controls.
 </p>
 <p>
-Two model configurations are tested: one with inlet and outlet 
-isolation valves, the other without any isolation valves. 
+Two model configurations are tested: one with inlet and outlet
+isolation valves, the other without any isolation valves.
 </p>
 </html>"));
 end CoolerGroupCoolingTowerOpen;

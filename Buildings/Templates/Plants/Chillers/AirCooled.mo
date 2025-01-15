@@ -11,7 +11,7 @@ model AirCooled "Air-cooled chiller plant"
     final nPumConWat=0,
     final typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
     final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None);
-  Fluid.Sources.MassFlowSource_WeatherData souAir[nChi](
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData souAir[nChi](
     redeclare each final package Medium = MediumCon,
     each final nPorts=1,
     each final use_m_flow_in=true)
@@ -22,7 +22,7 @@ model AirCooled "Air-cooled chiller plant"
         origin={-80,-192})));
 
   // Air loop
-  Fluid.Sources.Boundary_pT bouCon(
+  Buildings.Fluid.Sources.Boundary_pT bouCon(
     redeclare final package Medium = MediumCon,
     final nPorts=1)
     "Air pressure boundary condition"
@@ -31,12 +31,12 @@ model AirCooled "Air-cooled chiller plant"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-80,0})));
-  Controls.OBC.CDL.Conversions.BooleanToReal y1Chi[nChi]
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal y1Chi[nChi]
     "Convert chiller Start/Stop signal into real value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-260,110})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter mCon_flow[nChi](
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter mCon_flow[nChi](
     final k=chi.mConChi_flow_nominal)
     "Compute air mass flow rate at condenser"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

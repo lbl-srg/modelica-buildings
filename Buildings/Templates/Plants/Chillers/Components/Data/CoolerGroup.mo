@@ -30,12 +30,12 @@ record CoolerGroup "Record for cooler group model"
     enable=typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen));
   parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo](
     each final min=0,
-    start=mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratFloWatByAirTow)
+    start=mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratMFloConWatByMFloAirTow)
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal(
     final min=273.15,
-    start=Buildings.Templates.Data.Defaults.TAirDryCooEnt)
+    start=Buildings.Templates.Data.Defaults.TOutDryCoo)
     "Entering air drybulb temperature"
     annotation (Dialog(group="Nominal condition", enable=
     typCoo==Buildings.Templates.Components.Types.Cooler.DryCooler));
@@ -43,9 +43,9 @@ record CoolerGroup "Record for cooler group model"
     final min=273.15,
     start=Buildings.Templates.Data.Defaults.TWetBulTowEnt)
     "Entering air wetbulb temperature"
-    annotation (Dialog(group="Nominal condition", enable=
-    typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen or
-    typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed));
+    annotation (Dialog(group="Nominal condition",
+      enable=typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      or typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed));
   parameter Modelica.Units.SI.Temperature TConWatRet_nominal(
     final min=273.15,
     start=Buildings.Templates.Data.Defaults.TConWatRet)
@@ -58,20 +58,20 @@ record CoolerGroup "Record for cooler group model"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PFanCoo_nominal[nCoo](
     each final min=0,
-    start=Buildings.Templates.Data.Defaults.PFanByFloConWatTow * mConWatCoo_flow_nominal)
+    start=Buildings.Templates.Data.Defaults.ratPFanByMFloConWatTow * mConWatCoo_flow_nominal)
     "Fan power"
     annotation (Dialog(group="Nominal condition"));
   annotation (
   defaultComponentName="datCoo",
   Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-cooler group models that can be found within 
+This record provides the set of sizing and operating parameters for
+cooler group models that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.CoolerGroups\">
 Buildings.Templates.Plants.Chillers.Components.CoolerGroups</a>.
 </p>
 <p>
-Design temperature conditions are common to all units and have a 
+Design temperature conditions are common to all units and have a
 dimensionality of zero.
 Mass flow rates, pressure drops and fan power are specific to each unit.
 and have a dimensionality of one.

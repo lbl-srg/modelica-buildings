@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Chillers.Interfaces;
-partial model PartialChilledWaterPlant "Interface class for CHW plant"
+partial model PartialChillerPlant "Interface class for chiller plant"
   replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
@@ -68,17 +68,15 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
   // The following parameter stores the user selection.
   // This parameter is only needed to specify variable speed pumps operated at a constant speed.
-  parameter Boolean have_varPumChiWatPri_select=false
+  parameter Boolean have_pumChiWatPriVar_select=false
     "Set to true for variable speed primary CHW pumps operated at one or more fixed speeds, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=
-      typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only or
-      typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2));
+          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_varPumChiWatPri=
-    if (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only or
-       typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2) and
-       not have_varPumChiWatPri_select then false
-    else true
+  final parameter Boolean have_pumChiWatPriVar=if (typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+       or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
+       and not have_pumChiWatPriVar_select then false else true
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
   final parameter Boolean have_varComPumChiWatPri=true
@@ -172,13 +170,13 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Number of air handling units served by the plant"
     annotation(Evaluate=true,
     Dialog(group="Controls",
-    enable=typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.Guideline36));
+    enable=typCtl == Buildings.Templates.Plants.Chillers.Types.Controller.G36));
   parameter Integer nEquZon(
     final min=0)=0
     "Number of terminal units (zone equipment) served by the plant"
     annotation(Evaluate=true,
     Dialog(group="Controls",
-    enable=typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.Guideline36));
+    enable=typCtl == Buildings.Templates.Plants.Chillers.Types.Controller.G36));
 
   // Following parameters to be assigned by derived classes.
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
@@ -194,20 +192,30 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Cooler outlet isolation valve"
     annotation (Evaluate=true, Dialog(group="Coolers"));
 
-  parameter Buildings.Templates.Plants.Chillers.Data.ChilledWaterPlant dat(
-    typChi=typChi,
-    nChi=nChi,
-    nPumChiWatPri=nPumChiWatPri,
-    nPumConWat=nPumConWat,
-    typDisChiWat=typDisChiWat,
-    nPumChiWatSec=nPumChiWatSec,
-    typCoo=typCoo,
-    nCoo=nCoo,
-    have_varPumConWat=have_varPumConWat,
-    typEco=typEco,
-    typCtl=typCtl,
-    rhoChiWat_default=rhoChiWat_default,
-    rhoConWat_default=rhoCon_default)
+  parameter Buildings.Templates.Plants.Chillers.Configuration.ChillerPlant cfg(
+    final cpChiWat_default=cpChiWat_default,
+    final cpCon_default=cpCon_default,
+    final have_pumChiWatPriVar=have_pumChiWatPriVar,
+    final have_pumChiWatSec=have_pumChiWatSec,
+    final have_varPumConWat=have_varPumConWat,
+    final nAirHan=nAirHan,
+    final nChi=nChi,
+    final nCoo=nCoo,
+    final nEquZon=nEquZon,
+    final nPumChiWatPri=nPumChiWatPri,
+    final nPumChiWatSec=nPumChiWatSec,
+    final nPumConWat=nPumConWat,
+    final rhoChiWat_default=rhoChiWat_default,
+    final rhoCon_default=rhoCon_default,
+    final typArrChi=typArrChi,
+    final typArrPumChiWatPri=typArrPumChiWatPri,
+    final typChi=typChi,
+    final typCoo=typCoo,
+    final typCtl=typCtl,
+    final typDisChiWat=typDisChiWat,
+    final typEco=typEco)
+    "Configurationj parameters";
+  parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant dat
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
@@ -222,17 +230,16 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     else mChiWatPri_flow_nominal
     "CHW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
-    if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled then
-      sum(dat.chi.mConWatChi_flow_nominal)
-    elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
-      sum(dat.chi.mConAirChi_flow_nominal)
+    if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled or
+      typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
+      sum(dat.chi.mConChi_flow_nominal)
     else 0
     "Condenser cooling fluid mass flow rate (total)";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
     sum(dat.chi.capChi_nominal)
     "Cooling capacity (total)";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
-    min(dat.chi.TChiWatChiSup_nominal)
+    min(dat.chi.TChiWatSupChi_nominal)
     "Minimum CHW supply temperature";
 
   parameter Modelica.Units.SI.Time tau=30
@@ -253,6 +260,9 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   final parameter MediumChiWat.Density rhoChiWat_default=
     MediumChiWat.density(staChiWat_default)
     "CHW default density";
+  final parameter MediumChiWat.SpecificHeatCapacity cpChiWat_default=
+    MediumChiWat.density(staChiWat_default)
+    "CHW default specific heat capacity";
   final parameter MediumChiWat.ThermodynamicState staChiWat_default=
      MediumChiWat.setState_pTX(
        T=Buildings.Templates.Data.Defaults.TChiWatSup,
@@ -262,6 +272,9 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   final parameter MediumCon.Density rhoCon_default=
     MediumCon.density(staCon_default)
     "Condenser cooling fluid default density";
+  final parameter MediumCon.SpecificHeatCapacity cpCon_default=
+    MediumCon.density(staCon_default)
+    "Condenser cooling fluid default specific heat capacity";
   final parameter MediumCon.ThermodynamicState staCon_default=
      MediumCon.setState_pTX(
        T=Buildings.Templates.Data.Defaults.TConEnt_max,
@@ -410,14 +423,14 @@ initial equation
           fillColor={0,100,199},
           startAngle=0,
           endAngle=360,
-          visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
+          visible=have_pumChiWatSec),
         Polygon(
           points={{150,19},{150,-19},{169,0},{150,19}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255},
-          visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
+          visible=have_pumChiWatSec),
         Line(
           points={{200,-100},{-60,-100}},
           color={28,108,200},
@@ -624,4 +637,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialChilledWaterPlant;
+end PartialChillerPlant;

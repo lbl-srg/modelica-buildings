@@ -2,7 +2,6 @@ within Buildings.Templates.Plants.Chillers.Components.Interfaces;
 partial model PartialCoolerGroup
   "Interface class for cooler group"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a_x=-820, port_a_y=-240, port_b_x=0, port_b_y=-300,
     redeclare final package Medium=MediumConWat,
     final m_flow_nominal=mConWat_flow_nominal);
 
@@ -20,12 +19,24 @@ partial model PartialCoolerGroup
   parameter Boolean have_varCom=true
     "Set to true for single common speed signal, false for dedicated signals"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typValCooInlIso
+  parameter Buildings.Templates.Components.Types.Valve typValCooInlIso=
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Type of cooler inlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
+    annotation (Evaluate=true, Dialog(group="Configuration"),
+    choices(
+      choice=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        "Two-way two-position valve",
+      choice=Buildings.Templates.Components.Types.Valve.None
+        "No Valve"));
+  parameter Buildings.Templates.Components.Types.Valve typValCooOutIso=
+    Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Type of cooler outlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration"),
+    choices(
+      choice=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+        "Two-way two-position valve",
+      choice=Buildings.Templates.Components.Types.Valve.None
+        "No Valve"));
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.CoolerGroup dat(
     final typCoo=typCoo,
@@ -50,7 +61,8 @@ partial model PartialCoolerGroup
   final parameter Buildings.Templates.Components.Data.Cooler datCoo[nCoo](
     final typ=fill(typCoo, nCoo),
     final mConWat_flow_nominal=dat.mConWatCoo_flow_nominal,
-    final dpConWatFri_nominal=if typValCooInlIso==Buildings.Templates.Components.Types.Valve.None and
+    final dpConWatFri_nominal=
+      if typValCooInlIso==Buildings.Templates.Components.Types.Valve.None and
       typValCooOutIso==Buildings.Templates.Components.Types.Valve.None then
       dat.dpConWatFriCoo_nominal else fill(0, nCoo),
     final dpConWatSta_nominal=dat.dpConWatStaCoo_nominal,
@@ -63,7 +75,7 @@ partial model PartialCoolerGroup
     "Parameter record - Each cooler unit";
   final parameter Buildings.Templates.Components.Data.Valve datValCooInlIso[nCoo](
     final typ=fill(typValCooInlIso, nCoo),
-    final m_flow_nominal=mConWatCoo_flow_nominal,
+    final m_flow_nominal=dat.mConWatCoo_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nCoo),
     dpFixed_nominal=if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
       dat.dpConWatFriCoo_nominal else fill(0, nCoo))
@@ -71,7 +83,7 @@ partial model PartialCoolerGroup
     annotation (Dialog(enable=false));
   final parameter Buildings.Templates.Components.Data.Valve datValCooOutIso[nCoo](
     final typ=fill(typValCooOutIso, nCoo),
-    final m_flow_nominal=mConWatCoo_flow_nominal,
+    final m_flow_nominal=dat.mConWatCoo_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nCoo),
     dpFixed_nominal=
       if typValCooInlIso==Buildings.Templates.Components.Types.Valve.None and

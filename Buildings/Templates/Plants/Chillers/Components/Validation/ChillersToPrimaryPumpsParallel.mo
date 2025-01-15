@@ -130,7 +130,7 @@ model ChillersToPrimaryPumpsParallel
     each timeScale=1000,
     each period=2000) "Primary CHW pumps Start/Stop signal"
     annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPri(
     k=1) "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-250,290},{-230,310}})));
   Fluid.HeatExchangers.HeaterCooler_u loa(
@@ -166,7 +166,7 @@ model ChillersToPrimaryPumpsParallel
     each final use_T_in=true)
     "Ideal cooling to input set point (representing chiller evaporator)"
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWat[nChi](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWat[nChi](
     each final k=TChiWatSup_nominal) "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-250,70},{-230,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiByp(
@@ -283,8 +283,9 @@ model ChillersToPrimaryPumpsParallel
     final use_T_in=true)
     "Ideal cooling to input set point (representing WSE)"
     annotation (Placement(transformation(extent={{-180,-270},{-160,-250}})));
-  Buildings.Templates.Components.Valves.TwoWayModulating valChiWatEcoByp(
+  Buildings.Templates.Components.Actuators.Valve valChiWatEcoByp(
     redeclare final package Medium=MediumChiWat,
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datValChiWatEcoByp)
     "WSE CHW bypass valve" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -296,7 +297,7 @@ model ChillersToPrimaryPumpsParallel
           extent={{180,-300},{220,-260}}),
                                        iconTransformation(extent={{-316,184},{-276,
             224}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yValChiWatEcoByp(table=[0,
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable yValChiWatEcoByp(table=[0,
         1; 1.5,1; 1.5,0; 2,0], timeScale=1000)
     "WSE CHW bypass valve opening signal"
     annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
@@ -313,7 +314,7 @@ model ChillersToPrimaryPumpsParallel
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,70})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa(k=fill(1/nChi, nChi),
+  Buildings.Controls.OBC.CDL.Reals.MultiSum comSigLoa(k=fill(1/nChi, nChi),
       nin=nChi) "Compute load modulating signal" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -325,7 +326,7 @@ model ChillersToPrimaryPumpsParallel
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,-170})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa1(k=fill(1/nChi, nChi),
+  Buildings.Controls.OBC.CDL.Reals.MultiSum comSigLoa1(k=fill(1/nChi, nChi),
       nin=nChi) "Compute load modulating signal" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -341,7 +342,8 @@ equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{10,220},{20,220}},  color={0,127,255}));
   connect(mChiWatChi_flow.port_a, rou.ports_bRet[1:nChi])
-    annotation (Line(points={{-130,-20},{-80,-20}},color={0,127,255}));
+    annotation (Line(points={{-130,-20},{-106,-20},{-106,-26.1194},{-80,-26.1194}},
+                                                   color={0,127,255}));
   connect(mChiWatChi_flow.port_b, TChiWatChiEnt.port_a)
     annotation (Line(points={{-150,-20},{-170,-20}},
                                                    color={0,127,255}));
@@ -362,26 +364,29 @@ equation
   connect(loa.port_a, mChiWatPri_flow.port_b) annotation (Line(points={{30,-20},
           {120,-20},{120,220},{110,220}},
                                         color={0,127,255}));
-  connect(loa.port_b, rou.port_aRet) annotation (Line(points={{10,-20},{-40,-20}},
+  connect(loa.port_b, rou.port_aRet) annotation (Line(points={{10,-20},{-16,-20},
+          {-16,-26.1194},{-40,-26.1194}},
                                     color={0,127,255}));
   connect(bouChiWat.ports[1], loa.port_b)
     annotation (Line(points={{0,-30},{0,-20},{10,-20}},
                                                      color={0,127,255}));
   connect(coo.port_b, rou.ports_aSup[1:nChi])
-    annotation (Line(points={{-160,220},{-80,220}},color={0,127,255}));
+    annotation (Line(points={{-160,220},{-120,220},{-120,226.119},{-80,226.119}},
+                                                   color={0,127,255}));
   connect(resEva.port_b, coo.port_a) annotation (Line(points={{-200,20},{-200,220},
           {-180,220}}, color={0,127,255}));
   connect(TChiWat.y, coo.T_in) annotation (Line(points={{-228,80},{-220,80},{-220,
           240},{-174,240},{-174,232}},
                  color={0,0,127}));
   connect(rou.ports_bSup, pumChiWatPri.ports_a)
-    annotation (Line(points={{-40,220},{-10,220}},   color={0,127,255}));
+    annotation (Line(points={{-40,226.119},{-26,226.119},{-26,220},{-10,220}},
+                                                     color={0,127,255}));
   connect(pumChiWatPri1.ports_b, outPumChiWatPri1.ports_a)
     annotation (Line(points={{10,-80},{20,-80}},
                                                color={0,127,255}));
   connect(mChiWatChi_flow1.port_a, rou1.ports_bRet[1:nChi])
-    annotation (Line(points={{-130,-140},{-100,-140},{-100,-320},{-80,-320}},
-                                                    color={0,127,255}));
+    annotation (Line(points={{-130,-140},{-100,-140},{-100,-326.119},{-80,
+          -326.119}},                               color={0,127,255}));
   connect(mChiWatChi_flow1.port_b, TChiWatChiEnt1.port_a)
     annotation (Line(points={{-150,-140},{-170,-140}},
                                                      color={0,127,255}));
@@ -404,12 +409,13 @@ equation
   connect(loa1.port_a, mChiWatPri_flow1.port_b) annotation (Line(points={{30,-320},
           {120,-320},{120,-80},{110,-80}},
                                         color={0,127,255}));
-  connect(loa1.port_b, rou1.port_aRet) annotation (Line(points={{10,-320},{-40,-320}},
+  connect(loa1.port_b, rou1.port_aRet) annotation (Line(points={{10,-320},{-16,
+          -320},{-16,-326.119},{-40,-326.119}},
                                       color={0,127,255}));
   connect(bouChiWat1.ports[1], loa1.port_b) annotation (Line(points={{0,-330},{0,
           -320},{10,-320}},    color={0,127,255}));
   connect(coo1.port_b, rou1.ports_aSup[1:nChi])
-    annotation (Line(points={{-160,-80},{-80,-80}},
+    annotation (Line(points={{-160,-80},{-120,-80},{-120,-73.8806},{-80,-73.8806}},
                                                   color={0,127,255}));
   connect(resEva1.port_b, coo1.port_a) annotation (Line(points={{-200,-100},{-200,
           -80},{-180,-80}},
@@ -417,7 +423,8 @@ equation
   connect(TChiWat.y, coo1.T_in) annotation (Line(points={{-228,80},{-220,80},{-220,
           -60},{-174,-60},{-174,-68}},   color={0,0,127}));
   connect(rou1.ports_bSup, pumChiWatPri1.ports_a)
-    annotation (Line(points={{-40,-80},{-10,-80}}, color={0,127,255}));
+    annotation (Line(points={{-40,-73.8806},{-26,-73.8806},{-26,-80},{-10,-80}},
+                                                   color={0,127,255}));
   connect(mChiWatEco_flow.port_b,TChiWatEcoEnt. port_a)
     annotation (Line(points={{-150,-320},{-170,-320}}, color={0,127,255}));
   connect(TChiWatEcoEnt.port_b,resEco. port_a) annotation (Line(points={{-190,-320},
@@ -428,7 +435,7 @@ equation
           {-220,-170},{-174,-170},{-174,-248}},
                                              color={0,0,127}));
   connect(cooEco.port_b, rou1.ports_aSup[nChi + 1]) annotation (Line(points={{-160,
-          -260},{-120,-260},{-120,-80},{-80,-80}},
+          -260},{-120,-260},{-120,-73.8806},{-80,-73.8806}},
                                                color={0,127,255}));
   connect(busValChiWatEcoByp, valChiWatEcoByp.bus) annotation (Line(
       points={{200,-280},{200,-290},{-110,-290}},
@@ -446,7 +453,8 @@ equation
   connect(y1ValChiWatChiByp.y[1], busValChiWatChiByp.y1) annotation (Line(
         points={{-170,260},{170,260},{170,-40},{200,-40}}, color={255,0,255}));
   connect(rou1.ports_bRet[nChi + 1], mChiWatEco_flow.port_a) annotation (Line(
-        points={{-80,-320},{-130,-320}},                       color={0,127,255}));
+        points={{-80,-326.119},{-106,-326.119},{-106,-320},{-130,-320}},
+                                                               color={0,127,255}));
   connect(mChiWatEco_flow.port_a, valChiWatEcoByp.port_a) annotation (Line(
         points={{-130,-320},{-120,-320},{-120,-300}}, color={0,127,255}));
   connect(valChiWatEcoByp.port_b, cooEco.port_b) annotation (Line(points={{-120,
@@ -474,10 +482,12 @@ equation
       points={{200,-100},{240,-100},{240,-158}},
       color={255,204,51},
       thickness=0.5));
-  connect(rou.ports_bRet[nChi + 1], pas.port_a) annotation (Line(points={{-80,-20},
-          {-100,-20},{-100,20}},  color={0,127,255}));
+  connect(rou.ports_bRet[nChi + 1], pas.port_a) annotation (Line(points={{-80,-26.1194},
+          {-100,-26.1194},{-100,20}},
+                                  color={0,127,255}));
   connect(pas.port_b, rou.ports_aSup[nChi + 1]) annotation (Line(points={{-100,40},
-          {-100,220},{-80,220}}, color={0,127,255}));
+          {-100,226.119},{-80,226.119}},
+                                 color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-400},{260,320}})),
   experiment(
     StopTime=2000,

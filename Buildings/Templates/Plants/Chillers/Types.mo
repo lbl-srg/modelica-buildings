@@ -18,7 +18,7 @@ package Types "Package with type definitions"
       External "Head pressure control by BAS")
     "Enumeration to specify the type of head pressure control";
   type Controller = enumeration(
-      Guideline36 "Guideline 36 control sequence",
+      G36 "Guideline 36 controller",
       OpenLoop "Open loop")
       "Enumeration to specify the plant controller";
   type CoolerFanSpeedControl = enumeration(

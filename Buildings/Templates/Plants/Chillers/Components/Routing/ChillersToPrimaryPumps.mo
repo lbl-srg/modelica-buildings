@@ -118,8 +118,9 @@ model ChillersToPrimaryPumps
           extent={{-20,180},{20,220}}), iconTransformation(extent={{-20,1320},{20,
             1360}})));
 
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypPar(
+  Buildings.Templates.Components.Actuators.Valve valChiWatChiBypPar(
     redeclare final package Medium = MediumChiWat,
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiByp)
     if have_valChiWatChiBypPar
