@@ -1,4 +1,4 @@
-within Buildings.Fluid.AirFilters.BaseClasses;
+within Buildings.Fluid.AirFilters.Data;
 package Characteristics "Functions for filter characteristics"
 
 annotation (Documentation(info="<html>

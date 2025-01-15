@@ -16,7 +16,7 @@ model FlowCoefficientCorrection
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 initial equation
   assert(b - 1.0 > 0.01,
-          "In " + getInstanceName() + ":The resistance coefficient should be larger
+          "In " + getInstanceName() + ":The resistance coefficient must be larger
           than 1",
          level = AssertionLevel.error)
          "Validate the resistance coefficient";

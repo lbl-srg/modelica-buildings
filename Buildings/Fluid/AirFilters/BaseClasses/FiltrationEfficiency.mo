@@ -8,7 +8,7 @@ model FiltrationEfficiency
   parameter String namCon[:] = {"CO2"}
     "Name of trace substance";
   parameter
-    Buildings.Fluid.AirFilters.BaseClasses.Characteristics.FiltrationEfficiencyParameters
+    Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
     filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
@@ -59,8 +59,8 @@ Documentation(info="<html>
 <p>
 This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite spline interpolation of
 the filter dataset (see 
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters\">
-Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters</a>)
+<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters\">
+Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters</a>)
 with respect to <i>rat</i>.
 </p>
 <p>

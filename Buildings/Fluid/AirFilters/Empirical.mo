@@ -4,7 +4,7 @@ model Empirical "Empirical air filter model"
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
 
-  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
+  parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
@@ -255,23 +255,18 @@ Documentation(info="<html>
 <p>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
-The characteristics of the filters are defined in the performance dataset
-<code>per</code> that determines:
+This model does not require geometric data.
+Its performance is characterizied with a performance dataset <code>per</code> (see
+<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
+Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
 </p>
 <ul>
 <li>
-the maximum amount of contaminants <code>mCon_nominal</code> that
-the filter can capture before reaching its nominal capacity;
+the pressure drop of the filter is defined with <code>per.b</code>. 
 </li>
 <li>
-the types of contaminants can be captured by the filter;
-</li>
-<li>
-how the flow coefficient changes as contaminants build up;
-</li>
-<li>
-how the filtration efficiency changes along with the contaminant accumulation,
-specific to each type.
+the filtration efficiency of the filter is defined with <code>per.filEffPar</code> 
+for each type of contaminant, as specified in <code>per.namCon</code>. 
 </li>
 </ul>
 <p>

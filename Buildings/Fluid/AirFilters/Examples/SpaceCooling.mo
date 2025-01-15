@@ -52,12 +52,14 @@ model SpaceCooling
   parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=-QCoiC_flow_nominal/
       (TWRet_nominal - TWSup_nominal)/4200 "Nominal water mass flow rate";
 
-  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
+  parameter Buildings.Fluid.AirFilters.Data.Generic per(
     mCon_nominal=5,
-    substanceName={"PM10"},
+    namCon={"PM10"},
     filEffPar(rat={{0,0.5,1}},
     eps={{0.5,0.4,0.2}}),
-    b=1.3)
+    b=1.3,
+    m_flow_nominal=mA_flow_nominal,
+    dp_nominal=50)
     "Performance dataset of the air filter"
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));
 
@@ -168,8 +170,6 @@ model SpaceCooling
     annotation (Placement(transformation(extent={{-100,-102},{-80,-82}})));
   Buildings.Fluid.AirFilters.Empirical airFil(
     redeclare package Medium = MediumA,
-    m_flow_nominal=mA_flow_nominal,
-    dp_nominal(displayUnit="Pa") = 50,
     per=per)
     annotation (Placement(transformation(extent={{-128,-10},{-108,10}})));
   Modelica.Blocks.Sources.Ramp C_inflow(
