@@ -5,7 +5,8 @@ partial model PartialWheel
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
+     final haveLatentHeatExchange=false)
     "Record with performance data"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
 
@@ -67,13 +68,6 @@ protected
     final mSup_flow_nominal=per.mSup_flow_nominal)
     "Calculate the effectiveness of heat exchanger"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
-initial equation
-  assert(not per.haveLatentHeatExchange,
-         "In " + getInstanceName() + ": The performance data record
-         is wrong, the latent heat exchange flag must be false",
-         level=AssertionLevel.error)
-         "Check if the performance data record is correct";
 
 equation
   connect(senExhMasFlo.port_b, port_b2)
