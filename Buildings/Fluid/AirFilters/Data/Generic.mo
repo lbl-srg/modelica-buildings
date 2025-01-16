@@ -37,7 +37,8 @@ Record that contains performance parameters for air filters.
 <a href=\"modelica://Buildings.Fluid.AirFilters\">Buildings.Fluid.AirFilters</a>.
 </p>
 <p>
-This record includes the nominal air flow rate and the nominal pressure drop value.
+This record includes the nominal air flow rate, the maximum mass of the contaminants that can be captured by the filter,
+and the nominal pressure drop value.
 </p>
 <p>
 Additionally, it features a curve that represents the relationship between the mass of captured contaminants 
