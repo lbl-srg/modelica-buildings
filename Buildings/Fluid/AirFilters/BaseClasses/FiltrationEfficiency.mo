@@ -5,7 +5,7 @@ model FiltrationEfficiency
   parameter Real mCon_nominal(
     final unit = "kg")
     "Maximum mass of the contaminant that can be captured by the filter";
-  parameter String namCon[:] = {"CO2"}
+  parameter String namCon[:]={"CO2"}
     "Name of trace substance";
   parameter
     Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters

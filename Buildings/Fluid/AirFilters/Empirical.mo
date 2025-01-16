@@ -256,16 +256,16 @@ Documentation(info="<html>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
 This model does not require geometric data.
-Its performance is characterizied with a performance dataset <code>per</code> (see
+Its performance is characterized by a performance dataset <code>per</code> (see
 <a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
 Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
 </p>
 <ul>
 <li>
-the pressure drop of the filter is defined with <code>per.b</code>.
+the pressure drop of the filter is defined by <code>per.b</code>.
 </li>
 <li>
-the filtration efficiency of the filter is defined with <code>per.filEffPar</code>
+the filtration efficiency of the filter is defined by <code>per.filEffPar</code>
 for each type of contaminant, as specified in <code>per.namCon</code>. 
 </li>
 </ul>

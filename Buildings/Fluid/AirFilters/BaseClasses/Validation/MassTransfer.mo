@@ -2,7 +2,6 @@ within Buildings.Fluid.AirFilters.BaseClasses.Validation;
 model MassTransfer
   "Validation model for the MassTransfer model"
   extends Modelica.Icons.Example;
-
   package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2","VOC"})
     "Air";
   Buildings.Fluid.Sources.Boundary_pT sin(

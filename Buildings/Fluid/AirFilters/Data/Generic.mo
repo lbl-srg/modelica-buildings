@@ -9,7 +9,8 @@ record Generic "Generic data record for air filters"
     annotation (Dialog(group="Nominal condition"));
   parameter Real mCon_nominal(
     final unit = "kg")
-    "Maximum mass of the contaminant that can be captured by the filter";
+    "Maximum mass of the contaminant that can be captured by the filter"
+    annotation (Dialog(group="Nominal condition"));
   parameter String namCon[:]={"CO2"}
     "Contaminant names";
   parameter
@@ -36,7 +37,7 @@ Record that contains performance parameters for air filters.
 <a href=\"modelica://Buildings.Fluid.AirFilters\">Buildings.Fluid.AirFilters</a>.
 </p>
 <p>
-This record include the nominal air flow rate and the nominal pressure drop value.
+This record includes the nominal air flow rate and the nominal pressure drop value.
 </p>
 <p>
 Additionally, it features a curve that represents the relationship between the mass of captured contaminants 
