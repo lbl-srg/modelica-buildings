@@ -329,11 +329,15 @@ model AllElectricCWStorage
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
-  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "= true, if control signal is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered signal for actuators and movers"));
+  parameter Boolean use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+    "Time needed to open or close valve"
+    annotation(Dialog(tab="Dynamics", group="Dynamics of actuators and pump motors"));
 
+  parameter Boolean use_riseTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+    "Time needed to change motor speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered signal for actuators"));
   // Outside connectors
+
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{-420,260},{-380,300}}),
@@ -376,7 +380,7 @@ model AllElectricCWStorage
     final dpEva_nominal=dpEvaChi_nominal,
     final dpCon_nominal=dpConChi_nominal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal)
     "Cooling-only chillers"
@@ -389,7 +393,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mChiWat_flow_nominal / nPumChiWat,
     final dpPum_nominal=dpPumChiWat_nominal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final allowFlowReversal=allowFlowReversal)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{170,190},{190,210}})));
@@ -468,7 +472,7 @@ model AllElectricCWStorage
     from_dp=true,
     linearized=true,
     dpValve_nominal=1E3,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final allowFlowReversal=allowFlowReversal)
     "CHW minimum flow bypass valve"
     annotation (Placement(transformation(
@@ -517,7 +521,7 @@ model AllElectricCWStorage
     final dpEva_nominal=dpEvaChiHea_nominal,
     final dpCon_nominal=dpConChiHea_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final energyDynamics=energyDynamics)
     "Heat recovery chillers"
     annotation (Placement(transformation(extent={{50,-158},{70,-138}})));
@@ -530,7 +534,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mHeaWat_flow_nominal/nPumHeaWat,
     final dpPum_nominal=dpPumHeaWat_nominal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final allowFlowReversal=allowFlowReversal)
     "Primary HW pumps"
     annotation (Placement(transformation(extent={{170,-150},{190,-130}})));
@@ -571,7 +575,7 @@ model AllElectricCWStorage
     from_dp=true,
     linearized=true,
     dpValve_nominal=1E3,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final allowFlowReversal=allowFlowReversal) "HW minimum flow bypass valve"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -619,7 +623,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mConWatCon_flow_nominal / nPumConWatCon,
     final dpPum_nominal=dpPumConWatCon_nominal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving condenser barrels"
     annotation (Placement(transformation(extent={{-90,-350},{-70,-330}})));
@@ -631,7 +635,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mConWatEva_flow_nominal / nPumConWatEva,
     final dpPum_nominal=dpPumConWatEva_nominal,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving evaporator barrels"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
@@ -745,7 +749,7 @@ model AllElectricCWStorage
     final nUni=nHeaPum,
     final dat=datHeaPum,
     final energyDynamics=energyDynamics,
-    final use_inputFilter=use_inputFilter,
+    final use_riseTime=use_riseTime,
     final allowFlowReversal=allowFlowReversal)
     "Heat pumps"
     annotation (Placement(transformation(extent={{-90,150},{-110,170}})));
@@ -1074,7 +1078,7 @@ public
     from_dp=true,
     linearized=true,
     dpValve_nominal=1E3,
-    final use_inputFilter=use_inputFilter,
+    final use_strokeTime=use_strokeTime,
     final allowFlowReversal=allowFlowReversal)
     "CW chiller bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -1169,7 +1173,7 @@ equation
   connect(junConWatHeaPumEnt.port_2, junConWatHeaPumLvg.port_1)
     annotation (Line(points={{-90,40},{-110,40}},  color={0,127,255}));
   connect(weaBus.TDryBul, out.T) annotation (Line(
-      points={{0,380},{0,120},{-100,120},{-100,-128}},
+      points={{0.1,380.1},{0.1,120},{-100,120},{-100,-128}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -1185,7 +1189,8 @@ equation
   connect(ctl.THeaPumSet, heaPum.TSet) annotation (Line(points={{-296,264},{-44,
           264},{-44,154},{-88,154}},        color={0,0,127}));
   connect(bouConWat.ports[1], tan.port_b)
-    annotation (Line(points={{-110,-200},{-110,-180}}, color={0,127,255}));
+    annotation (Line(points={{-110,-200},{-110,-196},{-110,-190},{-120,-190}},
+                                                       color={0,127,255}));
   connect(ctl.yPumChiWat, pumChiWat.y) annotation (Line(points={{-296,305},{162,
           305},{162,204},{168,204}},   color={0,0,127}));
   connect(ctl.yPumHeaWat, pumHeaWat.y) annotation (Line(points={{-296,280},{158,
@@ -1198,9 +1203,8 @@ equation
           {310,0},{310,-260},{250,-260}},                        color={0,127,255}));
   connect(junConWatTanEnt.port_2, valBypTan.port_2)
     annotation (Line(points={{-160,-50},{-160,-90}}, color={0,127,255}));
-  connect(valBypTan.port_1, tan.port_a) annotation (Line(points={{-160,-110},{
-          -160,-180},{-130,-180}},
-                              color={0,127,255}));
+  connect(valBypTan.port_1, tan.port_a) annotation (Line(points={{-160,-110},{-160,
+          -170},{-120,-170}}, color={0,127,255}));
   connect(ctl.yValBypTan, valBypTan.y) annotation (Line(points={{-296,252},{
           -180,252},{-180,-86},{-146,-86},{-146,-100},{-148,-100}},
                                             color={0,0,127}));
@@ -1307,8 +1311,8 @@ equation
         color={0,0,127}));
   connect(TTan.T, ctl.TTan) annotation (Line(points={{-120,-129},{-120,-120},{
           -374,-120},{-374,288},{-344,288}},              color={0,0,127}));
-  connect(tan.port_b, mConWatOutTan_flow.port_a) annotation (Line(points={{-110,
-          -180},{-80,-180},{-80,-230}},   color={0,127,255}));
+  connect(tan.port_b, mConWatOutTan_flow.port_a) annotation (Line(points={{-120,
+          -190},{-80,-190},{-80,-230}},   color={0,127,255}));
   connect(mConWatHexCoo_flow.m_flow, ctl.mConWatHexCoo_flow) annotation (Line(
         points={{-211,-240},{-230,-240},{-230,-202},{-358,-202},{-358,258},{
           -344,258}},

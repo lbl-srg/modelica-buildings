@@ -52,7 +52,7 @@ model EquipmentEnable "Validation model for equipment enable logic"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
     "Cast to real"
     annotation (Placement(transformation(extent={{-28,50},{-8,70}})));
-  Utilities.SortWithIndices sort(
+  Buildings.Controls.OBC.CDL.Reals.Sort sort(
     ascending=false,
     nin=3)
     "Sort lead/lag alternate equipment with available equipment first"
@@ -60,7 +60,7 @@ model EquipmentEnable "Validation model for equipment enable logic"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     "Cast to real"
     annotation (Placement(transformation(extent={{-28,-90},{-8,-70}})));
-  Utilities.SortWithIndices sort1(
+  Buildings.Controls.OBC.CDL.Reals.Sort sort1(
     ascending=false,
     nin=2)
     "Sort lead/lag alternate equipment with available equipment first"

@@ -3,7 +3,10 @@ model Haldi2008WindowsTOut "A model to predict occupants' window behavior with o
   extends Modelica.Blocks.Icons.DiscreteBlock;
   parameter Real A = 0.049 "Slope of the logistic relation";
   parameter Real B = -1.12 "Intercept of the logistic relation";
-  parameter Integer seed = 30 "Seed for the random number generator";
+  parameter Integer localSeed = 3002
+    "Local seed to be used to generate the initial state of the random number generator";
+  parameter Integer globalSeed = 30129
+    "Global seed to be combined with the local seed";
   parameter Modelica.Units.SI.Time samplePeriod=120 "Sample period";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
@@ -25,19 +28,25 @@ protected
   parameter Modelica.Units.SI.Time t0(final fixed=false)
     "First sample time instant";
   output Boolean sampleTrigger "True, if sample time instant";
-  Real curSeed "Current value for seed as a real-valued variable";
+  Integer state[Modelica.Math.Random.Generators.Xorshift1024star.nState]
+    "State of the random number generator";
+  discrete Real ran(min=0, max=1) "Random number";
+
 initial equation
   t0 = time;
-  curSeed = t0*seed;
   p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-  on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+  (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(
+    stateIn=Modelica.Math.Random.Generators.Xorshift1024star.initialState(
+      localSeed = localSeed,
+      globalSeed = globalSeed));
+  on = ran < p;
 equation
   sampleTrigger = sample(t0,samplePeriod);
   when sampleTrigger then
-    curSeed = seed*time;
+    (ran, state) = Modelica.Math.Random.Generators.Xorshift1024star.random(pre(state));
     if occ then
       p = Modelica.Math.exp(A*(TOut - 273.15)+B)/(Modelica.Math.exp(A*(TOut - 273.15)+B) + 1);
-      on = Buildings.Occupants.BaseClasses.binaryVariableGeneration(p=p, globalSeed=integer(curSeed));
+      on = ran < p;
     else
       p = 0;
       on = false;
@@ -55,28 +64,34 @@ equation
 defaultComponentName="win",
 Documentation(info="<html>
 <p>
-Model predicting the state of the window with the outdoor air temperature 
+Model predicting the state of the window with the outdoor air temperature
 and occupancy.
 </p>
 <h4>Dynamics</h4>
 <p>
-When the space is unoccupied, the window is always closed. When the 
-space is occupied, the lower the outdoor temperature is, the lower 
+When the space is unoccupied, the window is always closed. When the
+space is occupied, the lower the outdoor temperature is, the lower
 the chance to open the window.
 </p>
 <h4>References</h4>
 <p>
-The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008. 
-On the behaviour and adaptation of office occupants. Building and environment, 
+The model is documented in the paper &quot;Haldi, F. and Robinson, D., 2008.
+On the behaviour and adaptation of office occupants. Building and environment,
 43(12), pp.2163-2177.&quot;
 </p>
 <p>
-The model parameters are regressed from the field study in eight Swiss office 
+The model parameters are regressed from the field study in eight Swiss office
 buildings in 2006. The outdoor air temperature range during the study is 5 ~ 35 degC.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 6, 2024, by Michael Wetter:<br/>
+Refactored implementation of random number calculations, transfering the local state of
+the random number generator from one call to the next.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4069\">#4069</a>.
+</li>
 <li>
 July 25, 2018, by Zhe Wang:<br/>
 First implementation.

@@ -1,5 +1,6 @@
 within Buildings.Templates.Plants.HeatPumps.Validation.UserProject;
-package Data "Package with classes for storing system parameters"
+package Data
+  "Package with classes for storing system parameters"
   extends Modelica.Icons.MaterialPropertiesPackage;
   annotation (
     Documentation(

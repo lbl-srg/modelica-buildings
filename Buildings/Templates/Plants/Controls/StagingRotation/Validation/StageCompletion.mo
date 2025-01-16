@@ -17,7 +17,8 @@ model StageCompletion "Validation model for the evaluation of stage completion"
     period=1800)
     "Source for Boolean signals"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold      y1ComSta(duration=1)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold y1ComSta(
+    final falseHoldDuration=0, trueHoldDuration=1)
     "Hold stage completion signal for plotting"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.TimeTable idxSta(
@@ -29,7 +30,12 @@ model StageCompletion "Validation model for the evaluation of stage completion"
     period=1800)
     "Stage index"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+initial equation
+  Modelica.Utilities.Streams.print("At initialization: comSta.y1End = " + String(comSta.y1End));
 equation
+  when initial() then
+    Modelica.Utilities.Streams.print("When initial(): comSta.y1End = " + String(comSta.y1End));
+  end when;
   connect(comSta.y1End, y1ComSta.u)
     annotation (Line(points={{42,6},{50,6},{50,0},{58,0}},color={255,0,255}));
   connect(booTimTab.y[1:2], comSta.u1[1:2])
@@ -61,15 +67,15 @@ equation
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion\">
 Buildings.Templates.Plants.Controls.StagingRotation.StageCompletion</a>
-in a configuration with one small unit and two large equally sized 
+in a configuration with one small unit and two large equally sized
 units (component <code>avaStaOneTwo</code>).
 In response to a varying flow rate, the variation of the
 required capacity <code>chaSta.capReq.y</code> triggers stage change
 events.
-The block 
+The block
 <a href=\"modelica://Buildings.Templates.Plants.Controls.Utilities.StageIndex\">
 Buildings.Templates.Plants.Controls.Utilities.StageIndex</a>
 is used to illustrate how these events translate into

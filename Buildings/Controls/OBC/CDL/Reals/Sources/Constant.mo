@@ -4,7 +4,7 @@ block Constant
   parameter Real k
     "Constant output value";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Constant output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

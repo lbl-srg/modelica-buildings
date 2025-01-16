@@ -15,5 +15,7 @@ compareVars :=
     "truFalHol6.u",
     "truFalHol6.y",
     "truFalHol7.u",
-    "truFalHol7.y"
+    "truFalHol7.y",
+    "truFalHol8.u",
+    "truFalHol8.y"
   };

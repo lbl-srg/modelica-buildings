@@ -188,7 +188,7 @@ equation
         Text(
          extent={{190,-12},{70,-62}},
           textColor={0,0,0},
-          textString=DynamicSelect("", String(TLvg-273.15, format=".1f"))),
+          textString=DynamicSelect("", String(TConWatSup-273.15, format=".1f"))),
         Ellipse(
           extent={{-54,56},{0,44}},
           lineColor={255,255,255},
@@ -253,6 +253,12 @@ to switch to a free convection regime at zero fan power.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 20, 2024, by Michael Wetter:<br/>
+Corrected annotation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3900\">issue 3900</a>.
+</li>
 <li>
 February 24, 2023, by Antoine Gautier:<br/>
 First implementation.

@@ -322,20 +322,20 @@ February 8, 2021, by Michael Wetter:<br/>
 Renamed to <code>Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset</code>
 and reimplemented using elementary CDL blocks.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2355\">issue 2355</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2355\">Buildings, issue 2355</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 January 3, 2020, by Jianjun Hu:<br/>
 Changed name from <code>HotWaterTemperatureReset</code> to
 <code>SupplyReturnTemperatureReset</code>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">#860</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/860\">Buildings, issue 860</a>.
 </li>
 <li>
 January 10, 2017, by Milica Grahovac:<br/>
@@ -349,7 +349,7 @@ Removed undesirable annotation <code>Evaluate=true</code>.
 February 13, 2013, by Michael Wetter:<br/>
 Corrected error that led to wrong results if the zone air temperature is
 different from its nominal value <code>TZon_nominal</code>.
-See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>.
+See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">Buildings, issue 74</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br/>

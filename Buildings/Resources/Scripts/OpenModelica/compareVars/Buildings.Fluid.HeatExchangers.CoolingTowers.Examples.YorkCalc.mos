@@ -5,7 +5,6 @@ compareVars :=
     "tow.TAir",
     "tow.TApp_nominal",
     "tow.TAppAct",
-    "tow.TRan",
     "tow.FRAir",
     "tow.FRWat",
     "tow.PFan",

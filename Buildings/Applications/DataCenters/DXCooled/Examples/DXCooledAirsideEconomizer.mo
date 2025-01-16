@@ -70,13 +70,8 @@ model DXCooledAirsideEconomizer
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=false,
-    per(
-      pressure(
-        V_flow=mA_flow_nominal*{0, 2}/1.2,
-        dp=500*{2, 0})),
-    use_inputFilter=true)
-    "Supply air fan"
-    annotation (Placement(transformation(
+    per(pressure(V_flow=mA_flow_nominal*{0,2}/1.2, dp=500*{2,0})),
+    use_riseTime=true) "Supply air fan" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={120,-94})));
@@ -145,7 +140,7 @@ model DXCooledAirsideEconomizer
     mOut_flow_nominal=mA_flow_nominal,
     mRec_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamExh_nominal=0.27,
     dpDamOut_nominal=0.27,
     dpDamRec_nominal=0.27,

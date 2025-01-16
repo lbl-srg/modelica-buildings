@@ -7,7 +7,7 @@ partial model PartialOutdoorSectionDedicatedDampers
   Buildings.Templates.Components.Actuators.Damper damOut(
     redeclare final package Medium = MediumAir,
     final typ=typDamOut,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Economizer outdoor air damper"
@@ -18,7 +18,7 @@ partial model PartialOutdoorSectionDedicatedDampers
   Buildings.Templates.Components.Actuators.Damper damOutMin(
     redeclare final package Medium = MediumAir,
     final typ=typDamOutMin,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)
     "Minimum outdoor air damper"

@@ -6,7 +6,7 @@ model Damper
 
   Buildings.Fluid.Actuators.Dampers.Exponential res(
     redeclare package Medium = Medium,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamper_nominal=10,
     m_flow_nominal=1,
     k1=0.45) "A damper with quadratic relationship between m_flow and dp"
@@ -33,7 +33,7 @@ model Damper
         transformation(extent={{94,-10},{74,10}})));
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndDpFixed_nominal(
-    use_inputFilter=false,
+    use_strokeTime=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=5,
@@ -42,7 +42,7 @@ model Damper
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
   Buildings.Fluid.Actuators.Dampers.PressureIndependent preIndFrom_dp(
-    use_inputFilter=false,
+    use_strokeTime=false,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpFixed_nominal=0,
@@ -55,7 +55,7 @@ model Damper
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dpDamper_nominal=10,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "A damper with a mass flow proportional to the input signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 

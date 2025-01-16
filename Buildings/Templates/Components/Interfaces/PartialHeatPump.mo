@@ -17,7 +17,7 @@ model PartialHeatPump
   final package MediumChiWat=MediumHeaWat
     "CHW medium";
   /*
-  Derived classes representing AWHP shall use: 
+  Derived classes representing AWHP shall use:
   redeclare final package MediumSou = MediumAir
   */
   replaceable package MediumSou=Buildings.Media.Water
@@ -119,16 +119,16 @@ model PartialHeatPump
   parameter Boolean allowFlowReversalSou = true
     "Source side flow reversal: false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions",
-    enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater), Evaluate=true);
-  parameter Boolean have_preDroChiHeaWat=true
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater), Evaluate=true);
+  parameter Boolean have_dpChiHeaWat=true
     "Set to true for CHW/HW pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
     Dialog(tab="Assumptions"));
-  parameter Boolean have_preDroSou=true
+  parameter Boolean have_dpSou=true
     "Set to true for source fluid pressure drop computed by this model, false for external computation"
     annotation (Evaluate=true,
     Dialog(tab="Assumptions",
-    enable=Buildings.Templates.Components.Types.HeatPump.WaterToWater));
+    enable=typ==Buildings.Templates.Components.Types.HeatPump.WaterToWater));
 
   final parameter MediumHeaWat.SpecificHeatCapacity cpHeaWat_default=
     MediumHeaWat.specificHeatCapacityCp(staHeaWat_default)
@@ -181,8 +181,9 @@ model PartialHeatPump
     "Weather bus"
     annotation (Placement(transformation(extent={{-60,-160},{-20,-120}}),
         iconTransformation(extent={{-80,80},{-40,120}})));
-  Fluid.Sources.Outside air(redeclare final package Medium = MediumAir, nPorts=
-        2)
+  Fluid.Sources.Outside air(
+    redeclare final package Medium = MediumAir,
+    nPorts=2)
     if typ == Buildings.Templates.Components.Types.HeatPump.AirToWater
     "Outdoor air" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

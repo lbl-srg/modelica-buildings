@@ -23,9 +23,9 @@ block SwitchBox "Controller for flow switch box"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold posDom(final t, h=0.001*m_flow_nominal)
     "Output true in case of dominating positive flow"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Logical.Switch swi "Switch to select the mode"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Sources.Constant posModOn(final k=1)
     "Output signal in case of dominating positive flow"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -33,31 +33,34 @@ block SwitchBox "Controller for flow switch box"
     final trueHoldDuration=trueHoldDuration,
     final falseHoldDuration=falseHoldDuration)
     "True/false hold to remove the risk of chattering"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Sources.Constant revModOn(final k=0)
     "Output signal in case of dominating reverse flow"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-protected
   Buildings.Controls.OBC.CDL.Reals.Subtract sub
-    "Differences in mass flow rates"
+    "Flow difference"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(delta=trueHoldDuration/10)
+    "Rolling average of flow difference"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(posModOn.y, swi.u1)
-    annotation (Line(points={{21,80},{40,80},{40,8},{58,8}}, color={0,0,127}));
-  connect(swi.y, y) annotation (Line(points={{81,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{21,80},{60,80},{60,8},{68,8}}, color={0,0,127}));
+  connect(swi.y, y) annotation (Line(points={{91,0},{120,0}}, color={0,0,127}));
   connect(posDom.y, truFalHol.u)
-    annotation (Line(points={{-18,0},{-2,0}},
-                                            color={255,0,255}));
+    annotation (Line(points={{12,0},{28,0}},color={255,0,255}));
   connect(truFalHol.y, swi.u2)
-    annotation (Line(points={{22,0},{58,0}}, color={255,0,255}));
-  connect(revModOn.y, swi.u3) annotation (Line(points={{21,-80},{40,-80},{40,-8},
-          {58,-8}}, color={0,0,127}));
-  connect(posDom.u, sub.y)
-    annotation (Line(points={{-42,0},{-58,0}}, color={0,0,127}));
+    annotation (Line(points={{52,0},{68,0}}, color={255,0,255}));
+  connect(revModOn.y, swi.u3) annotation (Line(points={{21,-80},{60,-80},{60,-8},
+          {68,-8}}, color={0,0,127}));
   connect(mPos_flow, sub.u1) annotation (Line(points={{-120,80},{-90,80},{-90,6},
           {-82,6}}, color={0,0,127}));
   connect(mRev_flow, sub.u2) annotation (Line(points={{-120,-80},{-90,-80},{-90,
           -6},{-82,-6}}, color={0,0,127}));
+  connect(posDom.u, movAve.y)
+    annotation (Line(points={{-12,0},{-28,0}}, color={0,0,127}));
+  connect(movAve.u, sub.y)
+    annotation (Line(points={{-52,0},{-58,0}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a control logic preventing flow reversal in the
@@ -76,6 +79,11 @@ Buildings.DHC.ETS.Combined.Subsystems.Validation.SwitchBox</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 21, 2024, by Antoine Gautier:<br/>
+Added moving average to break the algebraic loop when using components configured in steady state.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+</li>
 <li>
 February 28, 2024, by Michael Wetter:<br/>
 Added hysteresis to avoid chattering if signals are near zero and have numerical noise.

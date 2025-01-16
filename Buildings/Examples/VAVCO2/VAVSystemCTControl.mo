@@ -61,15 +61,14 @@ parameter Real scaDpFanRet_nominal = 1
     redeclare package Medium = Medium,
     allowFlowReversal=true,
     from_dp=false,
-    use_inputFilter=false,
+    use_strokeTime=false,
     dpDamExh_nominal=0.27,
     dpDamOut_nominal=0.27,
     dpDamRec_nominal=0.27,
     dpFixExh_nominal=0.467,
     dpFixOut_nominal=0.467,
     dpFixRec_nominal=0.665,
-    l=l)
-    "mixing box"
+    l=l) "mixing box"
     annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
@@ -90,7 +89,7 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.Movers.FlowControlled_dp fan32(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100})),
-    use_inputFilter=false,
+    use_riseTime=false,
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -98,7 +97,7 @@ parameter Real scaDpFanRet_nominal = 1
   Buildings.Fluid.Movers.FlowControlled_dp fan56(
     redeclare package Medium = Medium,
     per(pressure(final V_flow={2.676,11.05}, dp={600,100})),
-    use_inputFilter=false,
+    use_riseTime=false,
     init=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=mMIT_flow,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)

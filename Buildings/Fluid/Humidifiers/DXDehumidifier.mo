@@ -10,9 +10,9 @@ model DXDehumidifier "DX dehumidifier"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,80},{80,100}})));
 
-  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal(
     final min=0)
-    "Rated water removal rate"
+    "Rated water removal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
@@ -72,7 +72,7 @@ model DXDehumidifier "DX dehumidifier"
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final mWat_flow_nominal=-VWat_flow_nominal*rhoWat)
+    final mWat_flow_nominal=-mWat_flow_nominal)
     "Baseclass for conditioning fluid medium"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -99,13 +99,13 @@ model DXDehumidifier "DX dehumidifier"
     "Inlet air relative humidity"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(
-    final k=eneFac_nominal/(1000*1000*3600))
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eneFac(final k=
+        eneFac_nominal/(1000*3600))
     "Multiply energy factor modifier by nominal energy factor"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(
-    final k=VWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter watRemRat(final k=
+        mWat_flow_nominal)
     "Calculate water removal rate by multiplying water removal modifier by nominal removal rate"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
@@ -120,9 +120,6 @@ model DXDehumidifier "DX dehumidifier"
 protected
   constant Modelica.Units.SI.SpecificEnthalpy h_fg= Buildings.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of water vapor";
-
-  constant Modelica.Units.SI.Density rhoWat=1000
-    "Water density";
 
 equation
   connect(preHeaFlo.port, heaFloSen.port_a)

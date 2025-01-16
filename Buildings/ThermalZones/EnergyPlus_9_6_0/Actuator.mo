@@ -45,6 +45,7 @@ protected
     idfVersion=idfVersion,
     idfName=idfName,
     epwName=epwName,
+    runPeriod=runPeriod,
     relativeSurfaceTolerance=relativeSurfaceTolerance,
     epName=variableName,
     usePrecompiledFMU=usePrecompiledFMU,

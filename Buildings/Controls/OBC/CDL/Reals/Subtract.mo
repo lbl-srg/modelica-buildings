@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Subtract "Output the difference of the two inputs"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Input with minuend"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Input with subtrahend"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Output with difference"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

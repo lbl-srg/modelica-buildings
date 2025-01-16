@@ -4,7 +4,7 @@ block PerformanceCurveModifier
 
   parameter Buildings.Fluid.Humidifiers.Data.DXDehumidifier.Generic per
     "Data record"
-    annotation (Placement(transformation(extent={{22,64},{42,84}})));
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
   Modelica.Blocks.Interfaces.RealInput T
     "Temperature"

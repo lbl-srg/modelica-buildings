@@ -1,6 +1,6 @@
 within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp_der2
-  "2nd derivative of flow function2nd derivative of function that computes mass flow rate for given pressure drop"
+  "2nd derivative of function that computes mass flow rate for given pressure drop"
   extends Modelica.Icons.Function;
 
   input Modelica.Units.SI.PressureDifference dp(displayUnit="Pa")
@@ -35,8 +35,16 @@ Documentation(info="<html>
 <p>
 Function that implements the second order derivative of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
-with respect to the mass flow rate.
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>,
+assuming a constant flow coefficient.
+</p>
+<p>
+When called with <code>dp_der=der(dp)</code> and <code>dp_der2=der(dp_der)</code>,
+this function returns the second order derivative of <code>m_flow</code>
+with respect to time.
+When called with <code>dp_der=1</code> and <code>dp_der2=0</code>,
+this function returns the second order derivative of <code>m_flow</code>
+with respect to <code>dp</code>.
 </p>
 </html>",
 revisions="<html>

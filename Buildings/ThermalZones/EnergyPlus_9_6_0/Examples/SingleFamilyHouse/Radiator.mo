@@ -114,7 +114,7 @@ model Radiator
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     dpFixed_nominal=1000,
     from_dp=true,
-    use_inputFilter=false) "Radiator valve"
+    use_strokeTime=false) "Radiator valve"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset watRes(
     TSup_nominal=TSup_nominal,

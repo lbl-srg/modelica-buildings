@@ -24,7 +24,6 @@ model ElectricChillerParallel "Model that test electric chiller parallel"
     per2 "Chiller performance data"
     annotation (Placement(transformation(extent={{32,50},{52,70}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
-    num=2,
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow_nominal=mEva_flow_nominal,
@@ -104,10 +103,10 @@ equation
     annotation (Line(points={{-20,-50},{-16,-50},{-16,-26},{-10,-26}},
                             color={0,127,255}));
   connect(greaterThreshold.y, chiPar.on[1])
-    annotation (Line(points={{-19,60},{-16,60},{-16,-17},{-12,-17}},
+    annotation (Line(points={{-19,60},{-16,60},{-16,-16},{-12,-16}},
       color={255,0,255}));
   connect(greaterThreshold.y, chiPar.on[2])
-    annotation (Line(points={{-19,60},{-16,60},{-16,-15},{-12,-15}},
+    annotation (Line(points={{-19,60},{-16,60},{-16,-16},{-12,-16}},
       color={255,0,255}));
   connect(TSet.y, chiPar.TSet)
     annotation (Line(points={{-59,30},{-28,30},{-28,-20},{-12,-20}},
