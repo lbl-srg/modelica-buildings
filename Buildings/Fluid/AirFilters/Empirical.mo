@@ -262,10 +262,10 @@ Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
 </p>
 <ul>
 <li>
-the pressure drop of the filter is defined with <code>per.b</code>. 
+the pressure drop of the filter is defined with <code>per.b</code>.
 </li>
 <li>
-the filtration efficiency of the filter is defined with <code>per.filEffPar</code> 
+the filtration efficiency of the filter is defined with <code>per.filEffPar</code>
 for each type of contaminant, as specified in <code>per.namCon</code>. 
 </li>
 </ul>
@@ -289,7 +289,7 @@ the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
 </li>
 <li>
 the <code>extraPropertiesNames</code> in the medium model does not contain all the contaminants
-specified in the <code>per</code>.
+specified in the <code>per.namCon</code>.
 </li>
 </ul>
 </html>", revisions="<html>

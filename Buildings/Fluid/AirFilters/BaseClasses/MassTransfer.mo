@@ -18,7 +18,7 @@ model MassTransfer
 protected
   parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
-  parameter Real s[:,:]= {
+  parameter Real s[:,:]={
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=namCon[j],
                                             caseSensitive=false))
@@ -40,28 +40,28 @@ equation
       if max(s[i]) > 0.9 then
         for j in 1:nConSub loop
            if s[i,j]>0.9 then
-              port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
-              port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
-              mCon_flow[j] = inStream(port_a.C_outflow[j])* eps[j];
+              port_b.C_outflow[i]=inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
+              port_a.C_outflow[i]=inStream(port_a.C_outflow[i]);
+              mCon_flow[j]=inStream(port_a.C_outflow[j])* eps[j];
            end if;
         end for;
       else
-        port_b.C_outflow[i] = inStream(port_a.C_outflow[i]);
-        port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
+        port_b.C_outflow[i]=inStream(port_a.C_outflow[i]);
+        port_a.C_outflow[i]=inStream(port_b.C_outflow[i]);
       end if;
   end for;
   // Mass balance (no storage).
-  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-  port_a.m_flow = -port_b.m_flow;
+  port_a.Xi_outflow=inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow=inStream(port_a.Xi_outflow);
+  port_a.m_flow =-port_b.m_flow;
   // Pressure balance (no pressure drop).
-  port_a.p = port_b.p;
+  port_a.p=port_b.p;
   // Energy balance (no heat exchange).
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
+  port_a.h_outflow=inStream(port_b.h_outflow);
+  port_b.h_outflow=inStream(port_a.h_outflow);
 
   if not allowFlowReversal then
-    assert(m_flow > -m_flow_small,
+    assert(m_flow>-m_flow_small,
       "In " + getInstanceName() + ": Reverting flow occurs even though allowFlowReversal is false.",
       level=AssertionLevel.error);
   end if;

@@ -10,13 +10,13 @@ record Generic "Generic data record for air filters"
   parameter Real mCon_nominal(
     final unit = "kg")
     "Maximum mass of the contaminant that can be captured by the filter";
-  parameter String namCon[:] = {"CO2"}
+  parameter String namCon[:]={"CO2"}
     "Contaminant names";
   parameter
     Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
     filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
-  parameter Real b = 1.1
+  parameter Real b=1.1
     "Resistance coefficient";
   annotation (
   defaultComponentPrefixes = "parameter",

@@ -1,7 +1,7 @@
 within Buildings.Fluid.AirFilters.BaseClasses;
 model FlowCoefficientCorrection
   "Component that calculates the flow coefficient correction factor"
-  parameter Real b = 1.1
+  parameter Real b=1.1
     "Resistance coefficient";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput rat(
     final unit="1",
@@ -15,13 +15,13 @@ model FlowCoefficientCorrection
     "Flow coefficient correction"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 initial equation
-  assert(b - 1.0 > 0.01,
+  assert(b-1.0>0.01,
           "In " + getInstanceName() + ":The resistance coefficient must be larger
           than 1",
          level = AssertionLevel.error)
          "Validate the resistance coefficient";
 equation
-  y = b^rat;
+  y=b^rat;
 
 annotation (defaultComponentName="coeCor",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -52,7 +52,7 @@ Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency</a>).
 <h4>References</h4>
 <p>
 Qiang Li ta al., (2022). Experimental study on the synthetic dust loading characteristics of air filters.
-Separation and Purification Technology 284 (2022), 120209
+Separation and Purification Technology 284 (2022), 120209.
 </p>
 </html>", revisions="<html>
 <ul>
