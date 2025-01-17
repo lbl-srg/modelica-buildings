@@ -6,7 +6,7 @@ model ChillersToPrimaryPumps
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
 
-  constant Integer icon_dy = 360
+  parameter Integer icon_dy = 360
     "Distance in y-direction between each branch in icon layer";
 
   parameter Integer nChi
