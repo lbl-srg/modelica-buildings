@@ -2,7 +2,7 @@ within Buildings.Fluid.AirFilters.BaseClasses;
 model MassTransfer
   "Component that sets the trace substance at port_b based on an input trace substance mass flow rate and an input mass transfer efficiency"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
-  parameter String substanceName[:] = {"CO2"}
+  parameter String namCon[:]={"CO2"}
     "Name of trace substance";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput eps[nConSub](
     each final unit = "1",
@@ -16,11 +16,11 @@ model MassTransfer
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 
 protected
-  parameter Integer nConSub = size(substanceName,1)
+  parameter Integer nConSub=size(namCon,1)
     "Total types of contaminant substances";
-  parameter Real s[:,:]= {
+  parameter Real s[:,:]={
     {if (Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
-                                            string2=substanceName[j],
+                                            string2=namCon[j],
                                             caseSensitive=false))
     then 1 else 0 for i in 1:nConSub}
     for j in 1:Medium.nC}
@@ -40,28 +40,28 @@ equation
       if max(s[i]) > 0.9 then
         for j in 1:nConSub loop
            if s[i,j]>0.9 then
-              port_b.C_outflow[i] =inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
-              port_a.C_outflow[i] = inStream(port_a.C_outflow[i]);
-              mCon_flow[j] = inStream(port_a.C_outflow[j])* eps[j];
+              port_b.C_outflow[i]=inStream(port_a.C_outflow[i])*(1 - eps[j] * s[i,j]);
+              port_a.C_outflow[i]=inStream(port_a.C_outflow[i]);
+              mCon_flow[j]=inStream(port_a.C_outflow[j])* eps[j];
            end if;
         end for;
       else
-        port_b.C_outflow[i] = inStream(port_a.C_outflow[i]);
-        port_a.C_outflow[i] = inStream(port_b.C_outflow[i]);
+        port_b.C_outflow[i]=inStream(port_a.C_outflow[i]);
+        port_a.C_outflow[i]=inStream(port_b.C_outflow[i]);
       end if;
   end for;
   // Mass balance (no storage).
-  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-  port_a.m_flow = -port_b.m_flow;
+  port_a.Xi_outflow=inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow=inStream(port_a.Xi_outflow);
+  port_a.m_flow =-port_b.m_flow;
   // Pressure balance (no pressure drop).
-  port_a.p = port_b.p;
+  port_a.p=port_b.p;
   // Energy balance (no heat exchange).
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
+  port_a.h_outflow=inStream(port_b.h_outflow);
+  port_b.h_outflow=inStream(port_a.h_outflow);
 
   if not allowFlowReversal then
-    assert(m_flow > -m_flow_small,
+    assert(m_flow>-m_flow_small,
       "In " + getInstanceName() + ": Reverting flow occurs even though allowFlowReversal is false.",
       level=AssertionLevel.error);
   end if;

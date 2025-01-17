@@ -3,13 +3,8 @@ model Empirical "Empirical air filter model"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation (Dialog(group="Nominal"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure drop"
-    annotation (Dialog(group="Nominal"));
-  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per
+
+  parameter Buildings.Fluid.AirFilters.Data.Generic per
     "Performance dataset"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRep
@@ -33,24 +28,24 @@ model Empirical "Empirical air filter model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 protected
-  parameter Integer nConSub = size(per.substanceName,1)
+  parameter Integer nConSub = size(per.namCon,1)
     "Total types of contaminant substances";
   Buildings.Fluid.AirFilters.BaseClasses.PressureDropWithVaryingFlowCoefficient
     res(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal)
+    final m_flow_nominal=per.m_flow_nominal,
+    final dp_nominal=per.dp_nominal)
     "Pressure resistance"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.MassTransfer masTra(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final substanceName=per.substanceName)
+    final m_flow_nominal=per.m_flow_nominal,
+    final namCon=per.namCon)
     "Contaminant removal"
     annotation (Placement(transformation(extent={{36,-10},{56,10}})));
   Buildings.Fluid.AirFilters.BaseClasses.FiltrationEfficiency epsCal(
     final mCon_nominal = per.mCon_nominal,
-    final substanceName=per.substanceName,
+    final namCon=per.namCon,
     final filEffPar=per.filEffPar)
     "Filter characterization"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
@@ -260,23 +255,18 @@ Documentation(info="<html>
 <p>
 An empirical model of air filters, which considers the impacts of the contaminant
 accumulation on the pressure drop and the filtration efficiency.
-The characteristics of the filters are defined in the performance dataset
-<code>per</code> that determines:
+This model does not require geometric data.
+Its performance is characterized by a performance dataset <code>per</code> (see
+<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Generic\">
+Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
 </p>
 <ul>
 <li>
-the maximum amount of contaminants <code>mCon_nominal</code> that
-the filter can capture before reaching its nominal capacity;
+the pressure drop of the filter is defined by <code>per.b</code>.
 </li>
 <li>
-the types of contaminants can be captured by the filter;
-</li>
-<li>
-how the flow coefficient changes as contaminants build up;
-</li>
-<li>
-how the filtration efficiency changes along with the contaminant accumulation,
-specific to each type.
+the filtration efficiency of the filter is defined by <code>per.filEffPar</code>
+for each type of contaminant, as specified in <code>per.namCon</code>. 
 </li>
 </ul>
 <p>
@@ -299,7 +289,7 @@ the captured contaminant mass exceeds the <code>mCon_nominal</code>, or
 </li>
 <li>
 the <code>extraPropertiesNames</code> in the medium model does not contain all the contaminants
-specified in the <code>per</code>.
+specified in the <code>per.namCon</code>.
 </li>
 </ul>
 </html>", revisions="<html>

@@ -5,10 +5,10 @@ model FiltrationEfficiency
   parameter Real mCon_nominal(
     final unit = "kg")
     "Maximum mass of the contaminant that can be captured by the filter";
-  parameter String substanceName[:] = {"CO2"}
+  parameter String namCon[:]={"CO2"}
     "Name of trace substance";
   parameter
-    Buildings.Fluid.AirFilters.BaseClasses.Characteristics.FiltrationEfficiencyParameters
+    Buildings.Fluid.AirFilters.Data.Characteristics.FiltrationEfficiencyParameters
     filEffPar
     "Filtration efficiency versus relative mass of the contaminant";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mCon(
@@ -28,7 +28,7 @@ model FiltrationEfficiency
     "Relative mass of the contaminant captured by the filter"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
 protected
-  parameter Integer nConSub = size(substanceName,1)
+  parameter Integer nConSub = size(namCon,1)
     "Total types of contaminant substances";
 equation
   rat = Buildings.Utilities.Math.Functions.smoothMin(
@@ -59,8 +59,8 @@ Documentation(info="<html>
 <p>
 This model calculates the filtration efficiency, <i>eps</i>, using cubic Hermite spline interpolation of
 the filter dataset (see 
-<a href=\"modelica://Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters\">
-Buildings.Fluid.AirFilters.BaseClasses.Characteristics.filtrationEfficiencyParameters</a>)
+<a href=\"modelica://Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters\">
+Buildings.Fluid.AirFilters.Data.Characteristics.filtrationEfficiencyParameters</a>)
 with respect to <i>rat</i>.
 </p>
 <p>

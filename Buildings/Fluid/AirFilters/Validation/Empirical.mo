@@ -3,12 +3,14 @@ model Empirical "Example for using the empirical air filter model"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air(extraPropertiesNames={"VOC","CO2"})
     "Air";
-  parameter Buildings.Fluid.AirFilters.BaseClasses.Data.Generic per(
+  parameter Buildings.Fluid.AirFilters.Data.Generic per(
     mCon_nominal=10,
-    substanceName={"CO2","VOC"},
+    namCon={"CO2","VOC"},
     filEffPar(
       rat={{0,0.5,1},{0,0.5,1}},
-      eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}))
+      eps={{0.7,0.6,0.5},{0.8,0.7,0.5}}),
+    m_flow_nominal=1,
+    dp_nominal=100)
     "Performance dataset"
     annotation (Placement(transformation(extent={{22,46},{42,66}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -44,8 +46,6 @@ model Empirical "Example for using the empirical air filter model"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Buildings.Fluid.AirFilters.Empirical airFil(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    dp_nominal(displayUnit="Pa") = 100,
     per=per) "Air filter"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubCO2In(

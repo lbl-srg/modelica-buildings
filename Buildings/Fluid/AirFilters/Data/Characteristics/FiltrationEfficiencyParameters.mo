@@ -1,4 +1,4 @@
-within Buildings.Fluid.AirFilters.BaseClasses.Characteristics;
+within Buildings.Fluid.AirFilters.Data.Characteristics;
 record FiltrationEfficiencyParameters
   "Record for filtration efficiency verse relative mass of the contaminant captured by the filter"
   extends Modelica.Icons.Record;
