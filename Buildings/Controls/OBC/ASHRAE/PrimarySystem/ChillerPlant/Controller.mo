@@ -30,7 +30,7 @@ block Controller "Chiller plant controller"
   parameter Integer chiTyp[nChi]={
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
     Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal}
-    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
+    "Chiller type"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Real chiDesCap[nChi](unit=fill("W", nChi))
