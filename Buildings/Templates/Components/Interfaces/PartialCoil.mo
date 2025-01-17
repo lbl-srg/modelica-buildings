@@ -122,6 +122,7 @@ partial model PartialCoil "Interface class for coil"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+
 protected
   parameter Buildings.Templates.Components.Data.Valve datVal(
     final typ=typVal,

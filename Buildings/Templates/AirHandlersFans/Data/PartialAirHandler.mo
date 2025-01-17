@@ -40,7 +40,7 @@ This record provides the set of sizing and operating parameters for the class
 Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler</a>.
 </p>
 <p>
-The tab <code>Advanced</code> contains some optional parameters that can be used
+The tab <code>Advanced</code> contains some optional parameters that can be used 
 for workflow automation, but are not used for simulation.
 </p>
 </html>"));

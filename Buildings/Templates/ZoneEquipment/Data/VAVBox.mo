@@ -34,7 +34,7 @@ and
 Buildings.Templates.ZoneEquipment.VAVBoxReheat</a>.
 </p>
 <p>
-The tab <code>Advanced</code> contains some optional parameters that can be used
+The tab <code>Advanced</code> contains some optional parameters that can be used 
 for workflow automation, but are not used for simulation.
 </p>
 </html>"));
