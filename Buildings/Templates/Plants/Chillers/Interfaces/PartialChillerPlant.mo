@@ -604,7 +604,7 @@ The following modeling assumptions and limitations are considered.
 <li>
 The chillers are assumed to be of the same type as defined
 by the enumeration
-<a href=\\\"modelica://Buildings.Templates.Components.Types.Chiller\\\">
+<a href=\"modelica://Buildings.Templates.Components.Types.Chiller\">
 Buildings.Templates.Components.Types.Chiller</a>.
 </li>
 <li>

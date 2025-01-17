@@ -48,7 +48,7 @@ fluid temperature <code>TConEnt_nominal</code>
 when redeclaring the performance data record <code>per</code>,
 </li>
 <li>
-how the original bindings for other design parameters such as the 
+how the original bindings for other design parameters such as the
 CHW and CW flow rates persist when redeclaring the performance data record,
 </li>
 <li>
@@ -60,6 +60,6 @@ see the parameter binding for <code>QEva_flow_nominal</code>,
 how different performance curves may be assigned to each chiller
 inside the same group.
 </li>
-<ul>
+</ul>
 </html>"));
 end RecordChillerGroup;
