@@ -1,12 +1,27 @@
 within Buildings.Templates.Plants.Chillers;
 model WaterCooled "Water-cooled chiller plant"
+  /* FIXME: Add comment for
+  typArrChi_select
+  typDisChiWat
+  typArrPumChiWatPri_select
+  have_pumChiWatPriVar_select
+  chi(typValChiWatChiIso_select
+  typArrPumConWat_select
+  and make them final after testing
+  */
   extends
     Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Water,
     final typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     final typCoo=coo.typCoo,
     final typValCooInlIso=coo.typValCooInlIso,
-    final typValCooOutIso=coo.typValCooOutIso);
+    final typValCooOutIso=coo.typValCooOutIso,
+    typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    have_pumChiWatPriVar_select=false,
+    chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating),
+    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered);
 
   // Coolers
   replaceable Buildings.Templates.Plants.Chillers.Components.CoolerGroups.CoolingTowerOpen
@@ -110,12 +125,12 @@ equation
       thickness=0.5,
       pattern=LinePattern.Dash));
   connect(TConWatRet.port_a, coo.port_a) annotation (Line(
-      points={{-90,40},{-118,40}},
+      points={{-90,40},{-140,40},{-140,64},{-190,64}},
       color={0,0,0},
       thickness=0.5,
       pattern=LinePattern.Dash));
-  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-200,34},{
-          -200,-192},{-170,-192}},           color={0,0,0},
+  connect(coo.port_b,TConWatSup. port_b) annotation (Line(points={{-210,64},{-210,
+          -192},{-170,-192}},                color={0,0,0},
       thickness=0.5));
   connect(TConWatSup.port_a, inlPumConWat.port_a)
     annotation (Line(points={{-150,-192},{-110,-192}}, color={0,0,0},
@@ -125,8 +140,13 @@ equation
 This template represents a chilled water plant with water-cooled compression chillers.
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below where
-the first option displayed in bold characters corresponds to the default configuration.
+The table below lists all available equipment configurations. 
+The first option (shown in <b>bold</b>) represents the default plant configuration.
+Options shown in <font color=\"gray\"><em>gray italics</em></font> are not currently
+supported by the plant controller         
+<a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\\\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>
+and cannot be selected.
 The user may refer to ASHRAE (2021) for further details.
 </p>
 <table summary=\"summary\" border=\"1\">
@@ -134,7 +154,7 @@ The user may refer to ASHRAE (2021) for further details.
 <tr><td>Chiller arrangement</td>
 <td>
 <b>Parallel chillers</b><br/>
-Series chillers
+<font color=\"gray\"><em>Series chillers</em></font>
 </td>
 <td></td>
 </tr>
@@ -152,9 +172,9 @@ all chillers have the same head pressure control.
 </tr>
 <tr><td>Chiller CHW isolation valve</td>
 <td>
-No valve<br/>
-Two-way modulating valve<br/>
-Two-way two-position valve
+<b>Two-way modulating valve</b><br/>
+<font color=\"gray\"><em>Two-way two-position valve</em></font><br/>
+<font color=\"gray\"><em>No valve</em></font>
 </td>
 <td>
 If the primary CHW pumps are dedicated, the option with no isolation valve
@@ -189,10 +209,10 @@ pumps but no waterside economizer.
 <tr><td>CHW distribution</td>
 <td>
 <b>Variable primary-only</b><br/>
-Constant primary-only<br/>
-Constant primary-variable secondary<br/>
-Variable primary-variable secondary with centralized secondary pumps<br/>
-Variable primary-variable secondary with distributed secondary pumps
+<font color=\"gray\"><em>Constant primary-only</em></font><br/>
+<font color=\"gray\"><em>Constant primary-variable secondary</em></font><br/>
+<font color=\"gray\"><em>Variable primary-variable secondary with centralized secondary pumps</em></font><br/>
+<font color=\"gray\"><em>Variable primary-variable secondary with distributed secondary pumps</em></font>
 </td>
 <td>
 Constant primary-only systems are typically encountered when
@@ -208,7 +228,7 @@ of secondary pumps.
 <tr><td>Primary CHW pump arrangement</td>
 <td>
 <b>Headered</b><br/>
-Dedicated
+<font color=\"gray\"><em>Dedicated</em></font>
 </td>
 <td>
 Headered pumps are required (and automatically selected) for configurations with
@@ -220,8 +240,8 @@ Headered pumps are required (and automatically selected) for configurations with
 </tr>
 <tr><td>Type of primary CHW pumps for constant flow configurations</td>
 <td>
-<b>Constant speed pumps</b><br/>
-Variable speed pumps operated at a constant speed
+<font color=\"gray\"><em><b>Constant speed pumps</b></em></font><br/>
+<font color=\"gray\"><em>Variable speed pumps operated at a constant speed</em></font>
 </td>
 <td>
 Variable speed pumps operated at a constant speed most commonly applies
@@ -248,7 +268,7 @@ No valve
 <tr><td>CW pump arrangement</td>
 <td>
 <b>Headered</b><br/>
-Dedicated
+<font color=\"gray\"><em>Dedicated</em></font>
 </td>
 <td>
 Headered pumps are required (and automatically selected) for configurations with

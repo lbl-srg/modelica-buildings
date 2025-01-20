@@ -1,5 +1,13 @@
 within Buildings.Templates.Plants.Chillers;
 model AirCooled "Air-cooled chiller plant"
+  /* FIXME: Add comment for
+  typArrChi_select
+  typDisChiWat
+  typArrPumChiWatPri_select
+  have_pumChiWatPriVar_select
+  chi(typValChiWatChiIso_select
+  and make them final after testing
+  */
   extends
     Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Air,
@@ -10,7 +18,12 @@ model AirCooled "Air-cooled chiller plant"
     final nCoo=0,
     final nPumConWat=0,
     final typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
-    final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None);
+    final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None,
+    typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
+    typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
+    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    have_pumChiWatPriVar_select=false,
+    chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating));
   Buildings.Fluid.Sources.MassFlowSource_WeatherData souAir[nChi](
     redeclare each final package Medium = MediumCon,
     each final nPorts=1,
@@ -77,8 +90,13 @@ equation
 This template represents a chilled water plant with air-cooled compression chillers.
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below where
-the first option displayed in bold characters corresponds to the default configuration.
+The table below lists all available equipment configurations. 
+The first option (shown in <b>bold</b>) represents the default plant configuration.
+Options shown in <font color=\"gray\"><em>gray italics</em></font> are not currently
+supported by the plant controller         
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>
+and cannot be selected.
 The user may refer to ASHRAE (2021) for further details.
 </p>
 <table summary=\"summary\" border=\"1\">
@@ -86,15 +104,15 @@ The user may refer to ASHRAE (2021) for further details.
 <tr><td>Chiller arrangement</td>
 <td>
 <b>Parallel chillers</b><br/>
-Series chillers
+<font color=\"gray\"><em>Series chillers</em></font>
 </td>
 <td></td>
 </tr>
 <tr><td>Chiller CHW isolation valve</td>
 <td>
-No valve<br/>
-Two-way modulating valve<br/>
-Two-way two-position valve
+<b>Two-way modulating valve</b><br/>
+<font color=\"gray\"><em>Two-way two-position valve</em></font><br/>
+<font color=\"gray\"><em>No valve</em></font>
 </td>
 <td>
 If the primary CHW pumps are dedicated, the option with no isolation valve
@@ -111,10 +129,10 @@ Two-position valves are acceptable on primary-secondary systems.
 <tr><td>CHW distribution</td>
 <td>
 <b>Variable primary-only</b><br/>
-Constant primary-only<br/>
-Constant primary-variable secondary<br/>
-Variable primary-variable secondary with centralized secondary pumps<br/>
-Variable primary-variable secondary with distributed secondary pumps
+<font color=\"gray\"><em>Constant primary-only</em></font><br/>
+<font color=\"gray\"><em>Constant primary-variable secondary</em></font><br/>
+<font color=\"gray\"><em>Variable primary-variable secondary with centralized secondary pumps</em></font><br/>
+<font color=\"gray\"><em>Variable primary-variable secondary with distributed secondary pumps</em></font>
 </td>
 <td>
 Constant primary-only systems are typically encountered when
@@ -130,7 +148,7 @@ of secondary pumps.
 <tr><td>Primary CHW pump arrangement</td>
 <td>
 <b>Headered</b><br/>
-Dedicated
+<font color=\"gray\"><em>Dedicated</em></font>
 </td>
 <td>
 Headered pumps are required (and automatically selected) for configurations with
@@ -139,8 +157,8 @@ series chillers.
 </tr>
 <tr><td>Type of primary CHW pumps for constant flow configurations</td>
 <td>
-<b>Constant speed pumps</b><br/>
-Variable speed pumps operated at a constant speed
+<font color=\"gray\"><em><b>Constant speed pumps</b></em></font><br/>
+<font color=\"gray\"><em>Variable speed pumps operated at a constant speed</em></font>
 </td>
 <td>
 Variable speed pumps operated at a constant speed most commonly applies

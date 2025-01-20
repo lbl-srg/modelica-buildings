@@ -323,7 +323,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctl(
+  ControllerG36Debug ctl(
     final nChi=nChi,
     final closeCoupledPlant=closeCoupledPlant,
     final have_ponyChiller=have_ponyChiller,
@@ -523,50 +523,48 @@ block G36 "Guideline 36 controller for CHW plant"
   Modelica.Blocks.Routing.RealPassThrough FIXME_yChiWatIsoVal[nChi]
  if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "#2299 Various plant configurations not covered: only modulating valve in controller"
-    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME1_yChiWatIsoVal[nChi](
       each k=true) if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "#2299 Various plant configurations not covered: only modulating valve in controller"
-    annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+    annotation (Placement(transformation(extent={{90,-110},{110,-90}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yMinValPosSet
     if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
     "#2299 Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+    annotation (Placement(transformation(extent={{90,-150},{110,-130}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME_yTowFanSpe(
     final k=fill(1/nCoo, nCoo),
     final nin=nCoo)
     "#2299 Should be scalar and conditional"
-    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
+    annotation (Placement(transformation(extent={{90,-270},{110,-250}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_TChiWatPlaRet
     if have_senTChiWatPlaRet
     "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPlaAirHan(
-    final nin=nAirHan)
-    "Sum of CHW plant requests from AHU"
-    annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPlaEquZon(
-    final nin=nEquZon)
-    "Sum of CHW plant requests from zone equipment"
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
-  Buildings.Controls.OBC.CDL.Integers.Add reqChiWatPla
-    "Sum of CHW plant requests from all served units"
-    annotation (Placement(transformation(extent={{-100,-210},{-80,-190}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReqAirHan(
-    final nin=nAirHan)
-    "#2299: Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReqZonEqu(
-    final nin=nEquZon)
-    "#2299: Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Integers.Add reqChiWatRes
-    "Sum of CHW plant requests from all served units"
-    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator FIXME_TChiWatSupSet(
     final nout=nChi)
     "#2299 Should be vectorial (typ. each chiller)"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResChiWatAirHan(final nin=
+        nAirHan) "Sum of CHW reset requests from AHU"
+    annotation (Placement(transformation(extent={{230,110},{210,130}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaChiWatEquZon(final nin=
+        nEquZon)
+    "Sum of CHW plant requests from zone equipment"
+    annotation (Placement(transformation(extent={{230,-130},{210,-110}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqResChiWatEquZon(final nin=
+        nEquZon)
+    "Sum of CHW reset requests from zone equipment"
+    annotation (Placement(transformation(extent={{230,-170},{210,-150}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqPlaChiWatAirHan(final nin=
+        nAirHan) "Sum of CHW plant requests from AHU"
+    annotation (Placement(transformation(extent={{230,150},{210,170}})));
+  Buildings.Controls.OBC.CDL.Integers.Add reqPlaChiWat
+    "Sum of CHW plant requests of all loads served"
+    annotation (Placement(transformation(extent={{190,144},{170,164}})));
+  Buildings.Controls.OBC.CDL.Integers.Add reqResChiWat
+    "Sum of CHW reset requests of all loads served"
+    annotation (Placement(transformation(extent={{190,104},{170,124}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -593,8 +591,8 @@ algorithm
   end when;
 equation
   /* Control point connection - start */
-  connect(busChi.y1ChiWatReq, ctl.uChiWatReq);
-  connect(busChi.y1ConWatReq, ctl.uConWatReq);
+  connect(busChi.y1ReqFloChiWat, ctl.uChiWatReq);
+  connect(busChi.y1ReqFloConWat, ctl.uConWatReq);
   connect(bus.pumChiWatPri.y1_actual, ctl.uChiWatPum);
   connect(bus.dpChiWatLoc, ctl.dpChiWat_local);
   connect(bus.dpChiWatRem, ctl.dpChiWat_remote);
@@ -602,7 +600,7 @@ equation
   connect(busChi.y1_actual, ctl.uChi);
   connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
   // The three following bus signals are exclusive from on another.
-  // FIXME #2299: However, the use of those signals for capacity requirement in primary-only plants is incorrect.
+  // FIXME #2299: However, the use of these signals for capacity requirement in primary-only plants is incorrect.
   connect(bus.TChiWatEcoBef,ctl.TChiWatRet);
   connect(bus.TChiWatSecRet,ctl.TChiWatRet);
   connect(bus.TChiWatPlaRet, FIXME_TChiWatPlaRet.u);
@@ -624,11 +622,6 @@ equation
   connect(bus.TChiWatEcoEnt,ctl.TEntHex);
   connect(bus.TOut,ctl.TOut);
   connect(busCoo.y1_actual, ctl.uTowSta);
-
-  connect(busAirHan.reqChiWatRes, FIXME_TChiWatSupResReqAirHan.u);
-  connect(busEquZon.reqChiWatRes, FIXME_TChiWatSupResReqZonEqu.u);
-  connect(busAirHan.reqChiWatPla, reqChiWatPlaAirHan.u);
-  connect(busEquZon.reqChiWatPla, reqChiWatPlaEquZon.u);
 
   connect(FIXME_uChiConIsoVal.y,ctl.uChiConIsoVal);
   connect(FIXME_uChiWatIsoVal.y,ctl.uChiWatIsoVal);
@@ -661,7 +654,7 @@ equation
   connect(ctl.yWseRetVal, bus.valChiWatEcoByp.y);
   connect(ctl.yWsePumOn, bus.pumChiWatEco.y1);
   connect(ctl.yWsePumSpe, bus.pumChiWatEco.y);
-  connect(FIXME_TChiWatSupSet.y, busChi.TChiWatSupSet);
+  connect(FIXME_TChiWatSupSet.y, busChi.TSupSet);
   connect(ctl.yChiWatPum, bus.pumChiWatPri.y1);
   connect(FIXME_yChiPumSpe.y, bus.pumChiWatPri.y);
   connect(FIXME_yChiDem.u, ctl.yChiDem);
@@ -692,27 +685,41 @@ equation
   connect(ctl.yConWatPumSpe, FIXME_yConWatPumSpe.u) annotation (Line(points={{22,-5.5},
           {38,-5.5},{38,-160},{58,-160}},                       color={0,0,127}));
   connect(ctl.yChiWatIsoVal, FIXME_yChiWatIsoVal.u) annotation (Line(points={{22,
-          -15.25},{36,-15.25},{36,-60},{118,-60}}, color={0,0,127}));
+          -15.25},{36,-15.25},{36,-60},{88,-60}},  color={0,0,127}));
   connect(ctl.yMinValPosSet, FIXME_yMinValPosSet.u) annotation (Line(points={{22,
-          -17.5},{34,-17.5},{34,-140},{118,-140}}, color={0,0,127}));
-  connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u) annotation (Line(points={{22,
-          -28},{30,-28},{30,-260},{118,-260}}, color={0,0,127}));
-  connect(reqChiWatPlaAirHan.y, reqChiWatPla.u1) annotation (Line(points={{-118,
-          -190},{-110,-190},{-110,-194},{-102,-194}}, color={255,127,0}));
-  connect(reqChiWatPlaEquZon.y, reqChiWatPla.u2) annotation (Line(points={{-118,
-          -220},{-110,-220},{-110,-206},{-102,-206}}, color={255,127,0}));
-  connect(reqChiWatPla.y, ctl.chiPlaReq) annotation (Line(points={{-78,-200},{-18,
-          -200},{-18,-22},{-2,-22}}, color={255,127,0}));
-  connect(FIXME_TChiWatSupResReqAirHan.y, reqChiWatRes.u1) annotation (Line(
-        points={{-118,-130},{-110,-130},{-110,-154},{-102,-154}}, color={255,
-          127,0}));
-  connect(FIXME_TChiWatSupResReqZonEqu.y, reqChiWatRes.u2) annotation (Line(
-        points={{-118,-160},{-110,-160},{-110,-166},{-102,-166}}, color={255,
-          127,0}));
-  connect(reqChiWatRes.y, ctl.TChiWatSupResReq) annotation (Line(points={{-78,-160},
-          {-20,-160},{-20,-20.5},{-2,-20.5}}, color={255,127,0}));
+          -17.5},{34,-17.5},{34,-140},{88,-140}},  color={0,0,127}));
+  connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u) annotation (Line(points={{22,-28},
+          {30,-28},{30,-260},{88,-260}},       color={0,0,127}));
   connect(ctl.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={{22,
-          11},{40,11},{40,40},{58,40}}, color={0,0,127}));
+          11},{40,11},{40,40},{58,40}},color={0,0,127}));
+  connect(reqPlaChiWat.y, ctl.chiPlaReq) annotation (Line(points={{168,154},{-18,
+          154},{-18,-22},{-2,-22}}, color={255,127,0}));
+  connect(reqResChiWat.y,ctl.TChiWatSupResReq)  annotation (Line(points={{168,114},
+          {-14,114},{-14,-20.5},{-2,-20.5}}, color={255,127,0}));
+  connect(busAirHan.reqPlaChiWat, reqPlaChiWatAirHan.u) annotation (Line(
+      points={{260,140},{240,140},{240,160},{232,160}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busAirHan.reqResChiWat, reqResChiWatAirHan.u) annotation (Line(
+      points={{260,140},{240,140},{240,120},{232,120}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busEquZon.reqResChiWat, reqResChiWatEquZon.u) annotation (Line(
+      points={{260,-140},{240,-140},{240,-160},{232,-160}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busEquZon.reqPlaChiWat, reqPlaChiWatEquZon.u) annotation (Line(
+      points={{260,-140},{240,-140},{240,-120},{232,-120}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(reqPlaChiWatAirHan.y, reqPlaChiWat.u1)
+    annotation (Line(points={{208,160},{192,160}}, color={255,127,0}));
+  connect(reqResChiWatAirHan.y, reqResChiWat.u1)
+    annotation (Line(points={{208,120},{192,120}}, color={255,127,0}));
+  connect(reqPlaChiWatEquZon.y, reqPlaChiWat.u2) annotation (Line(points={{208,-120},
+          {200,-120},{200,148},{192,148}}, color={255,127,0}));
+  connect(reqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{208,-160},
+          {198,-160},{198,108},{192,108}}, color={255,127,0}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

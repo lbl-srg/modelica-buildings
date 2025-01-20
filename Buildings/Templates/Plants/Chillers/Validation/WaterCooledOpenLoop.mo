@@ -27,7 +27,7 @@ model WaterCooledOpenLoop
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  inner replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
+  replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     typArrChi_select=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
     typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,

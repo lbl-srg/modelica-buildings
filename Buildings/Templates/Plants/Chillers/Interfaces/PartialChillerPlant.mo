@@ -30,6 +30,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     else typArrChi_select
     "Type of chiller arrangement"
     annotation (Evaluate=true, Dialog(group="Chillers"));
+
   parameter Buildings.Templates.Plants.Chillers.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
@@ -71,12 +72,13 @@ partial model PartialChillerPlant "Interface class for chiller plant"
   parameter Boolean have_pumChiWatPriVar_select=false
     "Set to true for variable speed primary CHW pumps operated at one or more fixed speeds, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=
-          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2));
+    typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_pumChiWatPriVar=if (typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-       or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
-       and not have_pumChiWatPriVar_select then false else true
+  final parameter Boolean have_pumChiWatPriVar=
+    if (typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+      or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
+      then have_pumChiWatPriVar_select else true
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
   final parameter Boolean have_varComPumChiWatPri=true
@@ -104,15 +106,19 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     annotation(Evaluate=true, Dialog(group="Coolers",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer nCoo(
-    start=1,
-    final min=0)=nChi
+    start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then 1 else 0,
+    final min=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then 1 else 0)=nChi
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Coolers",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
   parameter Integer nPumConWat(
-    start=1,
-    final min=0)=nChi
+    start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then 1 else 0,
+    final min=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then 1 else 0)=nChi
     "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="CW loop",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled

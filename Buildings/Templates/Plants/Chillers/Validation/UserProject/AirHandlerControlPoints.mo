@@ -11,20 +11,20 @@ block AirHandlerControlPoints "Emulation of VAV box control points"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={100,0})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqChiWatRes(k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqResChiWat(k=0)
     "CHW reset request"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqChiWatPla(k=1)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant reqPlaChiWat(k=1)
     "CHW plant request"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
-  connect(reqChiWatRes.y, bus.reqChiWatRes) annotation (Line(points={{12,0},{
+  connect(reqResChiWat.y, bus.reqResChiWat) annotation (Line(points={{12,0},{
           100,0}}, color={255,127,0}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(reqChiWatPla.y, bus.reqChiWatPla) annotation (Line(points={{12,-40},{
+  connect(reqPlaChiWat.y, bus.reqPlaChiWat) annotation (Line(points={{12,-40},{
           80,-40},{80,0},{100,0}}, color={255,127,0}), Text(
       string="%second",
       index=1,
