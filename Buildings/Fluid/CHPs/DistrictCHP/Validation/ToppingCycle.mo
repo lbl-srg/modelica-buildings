@@ -111,5 +111,10 @@ October 8, 2024, by Zhanwei He:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+experiment(
+  StopTime=3600,
+  Tolerance=1E-6),
+__Dymola_Commands(file(ensureSimulated=true) ="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/DistrictCHP/Validation/ToppingCycle.mos"
+  "Simulate and plot"));
 end ToppingCycle;

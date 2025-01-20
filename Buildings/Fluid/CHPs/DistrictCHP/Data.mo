@@ -1,6 +1,6 @@
 within Buildings.Fluid.CHPs.DistrictCHP;
 package Data "Performance data for gas turbines in the topping cycle models"
-
+  extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Generic data record for gas turibne performance"
     extends Modelica.Icons.Record;
 

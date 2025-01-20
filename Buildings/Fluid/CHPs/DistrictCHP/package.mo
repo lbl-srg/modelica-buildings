@@ -1,10 +1,6 @@
 within Buildings.Fluid.CHPs;
 package DistrictCHP
-
-
-
-
-
+  extends Modelica.Icons.VariantsPackage;
 
   annotation(Documentation(info="<html>
 This package includes models for combined heat and power (CHP) system in district energy systems. This combined-cycle CHP system consists of the topping and bottoming cycles.
