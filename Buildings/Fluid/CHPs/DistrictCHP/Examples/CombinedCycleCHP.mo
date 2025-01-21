@@ -7,7 +7,7 @@ model CombinedCycleCHP
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
-  Combined combinedCyclePowerPlant
+  Combined combinedCyclePowerPlant(botCycExp(steBoi(fixed_p_start=false)))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Modelica.Blocks.Sources.CombiTimeTable LoadProfile(table=[0,1.0; 14400,1.0;
         28800,1.0; 43200,1.0; 57600,0.8; 72000,0.5; 86400,0.5])
@@ -18,8 +18,8 @@ model CombinedCycleCHP
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumWat,
     use_p_in=false,
-    p=1100000,
-    T=333.15,
+    p=30000,
+    T=504.475,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
@@ -53,6 +53,25 @@ equation
           {52,12},{52,30},{58,30}},   color={0,0,127}));
   connect(combinedCyclePowerPlant.port_a, sou.ports[1]) annotation (Line(points={{-20,0},
           {-40,0},{-40,-50},{-60,-50}},                   color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    Icon(
+      coordinateSystem(preserveAspectRatio=false)),
+    Diagram(
+      coordinateSystem(preserveAspectRatio=false)),
+    experiment(
+      StopTime=86400,Tolerance=1E-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/DistrictCHP/Examples/CombinedCycleCHP.mos"
+  "Simulate and plot"),
+    Documentation(info="<html>
+  <p>
+    This example model demonstrates the combined cycle CHP model <a href=\"Modelica://Buildings.Fluid.CHPs.DistrictCHP.Combined\">Buildings.Fluid.CHPs.DistrictCHP.Combined</a> can produce electricity from both gas turbine and steam turbine based on the gas turbine part load and the ambient temperature.
+  </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 1, 2024, by Zhanwei He:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CombinedCycleCHP;

@@ -110,7 +110,8 @@ model BottomingCycle_AnnualSim
     final m_flow_start=m_flow_start,
     final use_T_start=use_T_start,
     final T_start=T_start,
-    final h_start=h_start)
+    final h_start=h_start,
+    steBoi(fixed_p_start=false))
     annotation (Placement(transformation(extent={{-10,-30},{10,-12}})));
 
   Modelica.Blocks.Sources.Constant ambTemp(k=15)
@@ -153,8 +154,11 @@ equation
           70},{-59,70}},                        color={0,0,127}));
   connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-10},{-40,-10},
           {-40,-17},{-12,-17}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+  annotation (
+    Icon(
+      coordinateSystem(preserveAspectRatio=false)),
+    Diagram(
+      coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -180,7 +184,14 @@ the total drum volume.
 <p>
 In this study, the simulation time has been extended from the default 3000 seconds
 to 31,536,000 seconds (one year) to evaluate the performance for annual simulations. 
+It demonstrates that the model can complete annual simulations in approximately 30-40 seconds, 
+compared to 3 hours with the TPL model. 
 </p>
 </html>
-"));
+"),
+experiment(
+  StopTime=31536000,
+  Tolerance=1E-6),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/DistrictCHP/Validation/BottomingCycle_AnnualSim.mos"
+   "Simulate and plot"));
 end BottomingCycle_AnnualSim;
