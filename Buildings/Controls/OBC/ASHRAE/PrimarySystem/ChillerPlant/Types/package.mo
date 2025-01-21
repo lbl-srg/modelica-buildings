@@ -8,7 +8,7 @@ This package provides type definitions used in chiller plant control sequences.
 </html>", revisions="<html>
 <ul>
 <li>
-June 10, 2017, by Milica Grahovac:<br/>
+June 10, 2019, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

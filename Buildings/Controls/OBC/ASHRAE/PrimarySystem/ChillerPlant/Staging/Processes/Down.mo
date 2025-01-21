@@ -134,6 +134,7 @@ block Down
     annotation (Placement(transformation(extent={{-320,-140},{-280,-100}}),
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiConIsoVal[nChi]
+    if have_heaConWatPum
     "Chiller condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-320,-200},{-280,-160}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));

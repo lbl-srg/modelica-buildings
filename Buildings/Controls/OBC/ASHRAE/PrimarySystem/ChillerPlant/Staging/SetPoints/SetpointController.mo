@@ -39,9 +39,9 @@ block SetpointController
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal}
-    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal}
+    "Chiller type"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
   parameter Integer nSta = 3

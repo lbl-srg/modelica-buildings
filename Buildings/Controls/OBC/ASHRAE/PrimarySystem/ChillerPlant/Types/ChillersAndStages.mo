@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types;
-package ChillerAndStageTypes "Chiller and stage type enumeration"
+package ChillersAndStages "Chiller and stage type enumeration"
 
   constant Integer positiveDisplacement = 1 "Positive displacement chiller or a stage with all positive displacement chillers";
   constant Integer variableSpeedCentrifugal = 2 "Variable speed centrifugal chiller or a stage with any variable speed and no constant speed centrifugal chillers";
@@ -11,7 +11,7 @@ Documentation(info="<html>
 This package provides constants that indicate the chiller type based on the compressor type 
 and a chiller stage type based on the type of chillers being staged. 
 The chiller types are enumerated in the order of the recommended staging hierarchy, per
-section 5.2.4.13., July Draft.
+ASHRAE Guideline 36-2021, section 5.20.4.14.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -31,4 +31,4 @@ First implementation.
           lineColor={128,128,128},
           extent={{-100.0,-100.0},{100.0,100.0}},
           radius=25.0)}));
-end ChillerAndStageTypes;
+end ChillersAndStages;

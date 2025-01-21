@@ -2,17 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoint
 model SetpointController_WSE
   "Validates chiller stage status setpoint signal generation for plants with WSE"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
+    staSetCon(
     final have_WSE=true,
     final have_locSen=true,
     final chiDesCap={500000,700000},
     final chiMinCap={100000,200000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement})
     "Chiller stage setpoint controller"
     annotation (Placement(transformation(extent={{60,140},{80,180}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController staSetCon1(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
+    staSetCon1(
     final have_WSE=true,
     final have_locSen=true,
     final nSta=4,
@@ -20,9 +22,9 @@ model SetpointController_WSE
     final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
     final chiDesCap={300000,400000,500000},
     final chiMinCap={50000,100000,150000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal})
     "Chiller stage setpoint controller"
     annotation (Placement(transformation(extent={{60,-100},{80,-60}})));
 

@@ -211,12 +211,12 @@ protected
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(
-    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal)
+    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal)
     "Stage type with any constant speed centrifugal chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(
-    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement)
+    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement)
     "Stage type with none but positive displacement chillers"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 

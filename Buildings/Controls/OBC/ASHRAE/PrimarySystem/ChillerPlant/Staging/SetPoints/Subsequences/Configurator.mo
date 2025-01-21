@@ -22,9 +22,9 @@ block Configurator "Configures chiller staging"
     annotation (Evaluate=true);
 
   parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal}
-    "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal";
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal}
+    "Chiller type";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stage as row index and chiller as column index";
@@ -279,8 +279,8 @@ parameter <code>chiMinCap</code> according to section 3.1.7.6.a of Guideline36-2
 <li>
 Stage type vector <code>yTyp</code> from the chiller type vector input parameter
 <code>uChiTyp</code>, as listed in section 5.20.4.14. Chiller types are defined in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes</a>.<br/>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages</a>.<br/>
 Stage type is, based on the chiller types in that stage and in the recommended staging order:
 <ul>
 <li>
