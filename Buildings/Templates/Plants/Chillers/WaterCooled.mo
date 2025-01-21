@@ -1,13 +1,12 @@
 within Buildings.Templates.Plants.Chillers;
 model WaterCooled "Water-cooled chiller plant"
-  /* FIXME: Add comment for
+  /* FIXME: Add comment for the following bindings and make them final after testing.
   typArrChi_select
   typDisChiWat
   typArrPumChiWatPri_select
   have_pumChiWatPriVar_select
   chi(typValChiWatChiIso_select
   typArrPumConWat_select
-  and make them final after testing
   */
   extends
     Buildings.Templates.Plants.Chillers.Interfaces.PartialChilledWaterLoop(
