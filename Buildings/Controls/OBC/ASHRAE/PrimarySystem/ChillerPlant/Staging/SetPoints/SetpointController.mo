@@ -383,6 +383,7 @@ block SetpointController
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
 protected
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE) "Initia stage"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));

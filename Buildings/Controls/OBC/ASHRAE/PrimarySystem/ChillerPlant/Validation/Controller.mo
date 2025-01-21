@@ -10,7 +10,6 @@ model Controller "Validation head pressure controller"
     final TChiWatSupMin={278.15,278.15},
     final minChiLif=10,
     final have_heaPreConSig=false,
-    final anyVsdCen=false,
     final heaExcAppDes=2,
     final nChiWatPum=2,
     final have_heaChiWatPum=true,

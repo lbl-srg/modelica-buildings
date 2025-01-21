@@ -57,10 +57,6 @@ block Controller "Chiller plant controller"
     "True: if there is head pressure control signal from chiller controller"
     annotation(Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Boolean anyVsdCen = false
-    "True: the plant contains at least one variable speed centrifugal chiller"
-    annotation (Dialog(tab="General", group="Chillers configuration"));
-
   // ---- General: Waterside economizer ----
 
   parameter Boolean have_WSE=false
@@ -1201,7 +1197,6 @@ block Controller "Chiller plant controller"
     final have_serChi=have_serChi,
     final have_locSen=have_locSenChiWatPum,
     final nRemSen=nSenChiWatPum,
-    final anyVsdCen=anyVsdCen,
     final nChi=nChi,
     final chiDesCap=chiDesCap,
     final chiMinCap=chiMinCap,
@@ -1597,6 +1592,12 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{780,-590},{800,-570}})));
 
 protected
+
+  final parameter Boolean anyVsdCen = sum({
+    if chiTyp[i]==Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal
+      then 1 else 0 for i in 1:nChi}) > 0
+    "Plant contains at least one variable speed centrifugal chiller";
+
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
     annotation (Dialog(tab="General", group="Chillers configuration"));
