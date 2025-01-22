@@ -20,12 +20,11 @@ model Direct
     annotation (Placement(transformation(origin={120,80}, extent={{-20,-20},{20,20}}),
       iconTransformation(origin={90,40}, extent={{-20,-20},{20,20}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.DirectCalculations dirEvaCoo(
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Direct dirEvaCoo(
     redeclare final package Medium = Medium,
     final dep=dep,
-    final padAre=padAre)
-    "Direct evaporative cooling calculator"
-    annotation (Placement(transformation(origin={30,60}, extent={{-10,-10},{10,10}})));
+    final padAre=padAre) "Direct evaporative cooling calculator" annotation (
+      Placement(transformation(origin={50,50}, extent={{-10,-10},{10,10}})));
 
 protected
   Medium.ThermodynamicState staInl=Medium.setState_phX(
@@ -35,58 +34,55 @@ protected
   Modelica.Blocks.Sources.RealExpression TDryBul(
     y=Medium.temperature(state=staInl))
     "Inlet air drybulb temperature"
-    annotation (Placement(transformation(extent={{-90,82},{-70,98}})));
+    annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
 
   Modelica.Blocks.Sources.RealExpression XInl[Medium.nXi](
     y=inStream(port_a.Xi_outflow))
     "Inlet air humidity ratio"
-    annotation (Placement(transformation(extent={{-90,72},{-70,88}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
   Modelica.Blocks.Sources.RealExpression pInl(
     y=port_a.p)
     "Inlet air pressure"
-    annotation (Placement(transformation(extent={{-90,52},{-70,68}})));
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
 
   Modelica.Blocks.Sources.RealExpression V_flow(
     y=port_a.m_flow/Medium.density(staInl))
     "Inlet air volume flowrate"
-    annotation (Placement(transformation(extent={{-90,32},{-70,48}})));
+    annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
 
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
     redeclare package Medium = Medium)
     "Calculate wet bulb temperature from inlet medium state"
-    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
   Modelica.Blocks.Routing.RealPassThrough realPassThrough
     "Pass-through block for transmitting real signal with different units"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 
 equation
   connect(dirEvaCoo.dmWat_flow, vol.mWat_flow)
-    annotation (Line(points={{42,60},{60,60},{60,40},{-30,40},{-30,-18},{-11,-18}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{62,50},{80,50},{80,20},{-30,20},{-30,-18},{-11,-18}},
+          color={0,0,127}));
   connect(dirEvaCoo.dmWat_flow, dmWat_flow)
-    annotation (Line(points={{42,60},{60,60},{60,80},{120,80}}, color={0,0,127}));
-
-  connect(TDryBul.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-69,90},{
-          -32,90},{-32,62},{18,62}},
-                                 color={0,0,127}));
-  connect(TDryBul.y, wetBul.TDryBul) annotation (Line(points={{-69,90},{-32,90},
-          {-32,88},{-21,88}}, color={0,0,127}));
-  connect(wetBul.TWetBul, dirEvaCoo.TWetBulIn) annotation (Line(points={{1,80},{
-          10,80},{10,66},{18,66}}, color={0,0,127}));
+    annotation (Line(points={{62,50},{80,50},{80,80},{120,80}}, color={0,0,127}));
+  connect(TDryBul.y, dirEvaCoo.TDryBulIn) annotation (Line(points={{-29,90},{-20,
+          90},{-20,52},{38,52}}, color={0,0,127}));
+  connect(TDryBul.y, wetBul.TDryBul) annotation (Line(points={{-29,90},{-20,90},
+          {-20,88},{-1,88}},  color={0,0,127}));
+  connect(wetBul.TWetBul, dirEvaCoo.TWetBulIn) annotation (Line(points={{21,80},
+          {30,80},{30,56},{38,56}},color={0,0,127}));
   connect(XInl.y, wetBul.Xi)
-    annotation (Line(points={{-69,80},{-21,80}}, color={0,0,127}));
-  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-69,60},{-66,60},{-66,
-          46},{10,46},{10,54},{18,54}},
-                    color={0,0,127}));
-  connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-69,40},{-32,40},
-          {-32,58},{18,58}}, color={0,0,127}));
-  connect(pInl.y, realPassThrough.u) annotation (Line(points={{-69,60},{-62,60}},
-                              color={0,0,127}));
-  connect(realPassThrough.y, wetBul.p) annotation (Line(points={{-39,60},{-28,
-          60},{-28,72},{-21,72}},
-                              color={0,0,127}));
+    annotation (Line(points={{-69,80},{-1,80}},  color={0,0,127}));
+  connect(pInl.y, dirEvaCoo.p) annotation (Line(points={{-69,60},{-60,60},{-60,44},
+          {38,44}}, color={0,0,127}));
+  connect(V_flow.y, dirEvaCoo.V_flow) annotation (Line(points={{-69,30},{20,30},
+          {20,48},{38,48}},  color={0,0,127}));
+  connect(pInl.y, realPassThrough.u) annotation (Line(points={{-69,60},{-52,60}},
+          color={0,0,127}));
+  connect(realPassThrough.y, wetBul.p) annotation (Line(points={{-29,60},{-10,60},
+          {-10,72},{-1,72}},  color={0,0,127}));
+
 annotation (defaultComponentName="dirEvaCoo",
 Icon(graphics={
   Rectangle(lineColor={0,0,255}, fillColor={95,95,95}, pattern=LinePattern.None,
@@ -118,7 +114,7 @@ info="<html>
 Model for a direct evaporative cooler.
 </p>
 <p>
-This model cools the airstream down by adiabatically increasing the humidity 
+The cooler cools down the airstream by adiabatically increasing the humidity 
 mass fraction of the air. The mass of water vapour added to the air is reported by the 
 output signal <code>dmWat_flow</code>.
 </p>

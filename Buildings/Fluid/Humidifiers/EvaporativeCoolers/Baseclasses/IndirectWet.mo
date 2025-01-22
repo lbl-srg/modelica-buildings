@@ -1,5 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
-block IndirectWetCalculations
+block IndirectWet
   "Calculates the heat transfer in an indirect wet evaporative cooler"
 
   parameter Real maxEff(
@@ -103,8 +103,8 @@ TDryBulPriOut = TDryBulPriIn - eff*(TDryBulSecIn - TWetBulSecIn)
 </p>
 <p>
 where <code>TDryBulPriIn</code> is the inlet primary fluid drybulb temperature, 
-<code>TDryBulSecIn</code> is the inlet secondary air drybulb temperature and 
-<code>TWetBulSecIn</code> is the inlet secondary air wetbulb temperature.
+<code>TDryBulSecIn</code> is the inlet secondary fluid drybulb temperature and 
+<code>TWetBulSecIn</code> is the inlet secondary fluid wetbulb temperature.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -122,4 +122,4 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
-end IndirectWetCalculations;
+end IndirectWet;

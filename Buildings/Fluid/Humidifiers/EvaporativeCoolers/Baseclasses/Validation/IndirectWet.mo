@@ -1,6 +1,5 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.Validation;
-model IndirectWetCalculations
-  "Validation of the IndirectWetCalculations block"
+model IndirectWet "Validation of the IndirectWet block"
   extends Modelica.Icons.Example;
 
   parameter Real maxEff(
@@ -20,33 +19,27 @@ model IndirectWetCalculations
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal = 1
     "Nominal supply air volume flowrate";
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal(
-    final maxEff=maxEff,
-    final floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
+    indWetCal(final maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying primary air volume flowrate"
     annotation (Placement(transformation(origin={50,50}, extent={{-12,-12},{12,12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal1(
-    final maxEff=maxEff,
-    final floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
+    indWetCal1(final maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air volume flowrate"
     annotation (Placement(transformation(origin={50,0}, extent={{-12,-12},{12,12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal2(
-    final maxEff=maxEff,
-    final floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
+    indWetCal2(final maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air drybulb temperature"
-    annotation (Placement(transformation(origin={50,-50}, extent={{-12,-12},{12,12}})));
+    annotation (Placement(transformation(origin={50,-50}, extent={{-12,-12},{12,
+            12}})));
 
-  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations
-    indWetCal3(
-    final maxEff=maxEff,
-    final floRat=floRat)
+  Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet
+    indWetCal3(final maxEff=maxEff, final floRat=floRat)
     "Calculation instance with time-varying secondary air wetbulb temperature"
-    annotation (Placement(transformation(origin={50,-90}, extent={{-12,-12},{12,12}})));
+    annotation (Placement(transformation(origin={50,-90}, extent={{-12,-12},{12,
+            12}})));
 
 protected
   Modelica.Blocks.Sources.Constant TWetBulSupCon(k=TWetBulSup_nominal)
@@ -138,8 +131,8 @@ equation
 annotation (Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations\">
-Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWetCalculations</a>
+<a href=\"modelica://Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet\">
+Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses.IndirectWet</a>
 that calculates the outlet drybulb temoerature using measurements from the fluid
 streams and empirically determined perfromace coefficients.
 </p>
@@ -200,8 +193,8 @@ experiment(
     Interval=1,
       Tolerance=1e-6),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/IndirectWetCalculations.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/EvaporativeCoolers/Baseclasses/Validation/IndirectWet.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end IndirectWetCalculations;
+end IndirectWet;

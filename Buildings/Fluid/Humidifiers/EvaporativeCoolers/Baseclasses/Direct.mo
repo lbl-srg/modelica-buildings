@@ -1,6 +1,6 @@
 within Buildings.Fluid.Humidifiers.EvaporativeCoolers.Baseclasses;
-block DirectCalculations
-  "Calculates the water vapor mass flow rate of a direct evaporative coolder"
+block Direct
+  "Calculates the water vapor mass flow rate of a direct evaporative cooler"
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium";
@@ -153,4 +153,4 @@ First implementation.
   Text(extent={{-152,144},{148,104}}, textString="%name", textColor={0,0,255}),
   Rectangle(extent={{-100,100},{100,-100}}, lineColor={0,0,0},
      fillColor={255,255,255}, fillPattern=FillPattern.Solid)}));
-end DirectCalculations;
+end Direct;

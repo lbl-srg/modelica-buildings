@@ -81,7 +81,7 @@ equation
   connect(port_a1, hex.port_a1) annotation (
     Line(points={{-100,60},{-10,60},{-10,16}}));
   connect(hex.port_b1, port_b1) annotation (
-    Line(points={{10,16},{10,60},{100,60}},          color = {0, 127, 255}));
+    Line(points={{10,16},{10,60},{100,60}}, color = {0, 127, 255}));
   connect(dirEvaCoo.dmWat_flow, dmWat_flow) annotation (Line(points={{9,-56},{60,
           -56},{60,90},{120,90}}, color={0,0,127}));
 
