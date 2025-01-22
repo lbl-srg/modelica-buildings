@@ -139,9 +139,9 @@ package Obsolete
   model BottomingCycle
     extends Modelica.Blocks.Icons.Block;
 
-    package MediumSte = Buildings.Media.Steam
+    package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for 1 (inlet)";
 
@@ -160,8 +160,8 @@ package Obsolete
     Buildings.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation steBoi(
       massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       V=1,
-      redeclare package MediumWat = MediumWat,
-      redeclare package MediumSte = MediumSte,
+      redeclare package MediumW = MediumW,
+      redeclare package MediumS = MediumS,
       final m_flow_nominal=m_flow_nominal "",
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       allowFlowReversal=true) "Dynamic volume"
@@ -210,11 +210,11 @@ package Obsolete
       //per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2)),
 
     Modelica.Fluid.Interfaces.FluidPort_b port(redeclare final package Medium =
-          MediumSte)
+          MediumS)
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
       annotation (Placement(transformation(extent={{110,-10},{90,10}})));
     Modelica.Fluid.Sources.MassFlowSource_T sou(
-      redeclare package Medium = MediumWat,
+      redeclare package Medium = MediumW,
       use_m_flow_in=true,
       T=313.15,
       nPorts=1) "Flow source"
@@ -267,9 +267,9 @@ package Obsolete
   model BottomingCycleVolume
     extends Modelica.Blocks.Icons.Block;
 
-    package MediumSte = Buildings.Media.Steam
+    package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for 1 (inlet)";
 
@@ -329,7 +329,7 @@ package Obsolete
       //per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2)),
 
     Modelica.Fluid.Sources.MassFlowSource_T sou(
-      redeclare package Medium = MediumWat,
+      redeclare package Medium = MediumW,
       use_m_flow_in=true,
       T=313.15,
       nPorts=1) "Flow source"
@@ -393,9 +393,9 @@ package Obsolete
   model BottomingCycleExperimentV2
     extends Modelica.Blocks.Icons.Block;
 
-    package MediumSte = Buildings.Media.Steam
+    package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for 1 (inlet)";
 
@@ -425,8 +425,8 @@ package Obsolete
     Buildings.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation steBoi(
       massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       V=12.4,
-      redeclare package MediumWat = MediumWat,
-      redeclare package MediumSte = MediumSte,
+      redeclare package MediumW = MediumW,
+      redeclare package MediumS = MediumS,
       final m_flow_nominal=m_flow_nominal "",
       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       allowFlowReversal=true,
@@ -476,11 +476,11 @@ package Obsolete
       //per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2)),
 
     Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-          MediumWat)
+          MediumW)
       annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
     Buildings.Fluid.Movers.SpeedControlled_y pumFW(
-      redeclare final package Medium = MediumWat,
+      redeclare final package Medium = MediumW,
       final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       p_start=3000000,
       final allowFlowReversal=false,
@@ -494,7 +494,7 @@ package Obsolete
                                                     "Unitary"
       annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
     Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare final package Medium =
-          MediumSte)
+          MediumS)
       "Fluid connector b (positive design flow direction is from port_a to port_b)"
       annotation (Placement(transformation(extent={{110,-10},{90,10}})));
     Buildings.Controls.Continuous.LimPID conPID(
@@ -556,9 +556,9 @@ package Obsolete
 
   model CombinedCycleCHPV2
     extends Modelica.Icons.Example;
-    package MediumSte = Buildings.Media.Steam
+    package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for port_a (inlet)";
 
@@ -572,7 +572,7 @@ package Obsolete
            3600)
       annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
     Modelica.Fluid.Sources.FixedBoundary bou(
-      redeclare package Medium = MediumSte,
+      redeclare package Medium = MediumS,
       p=1000000,
       T=523.15,
       nPorts=1) "Boundary condition"
@@ -608,9 +608,9 @@ package Obsolete
   model BottomingCycleExperimentV2_Validation
 
     extends Modelica.Icons.Example;
-      package MediumSte = Buildings.Media.Steam
+      package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for port_a (inlet)";
 
@@ -642,7 +642,7 @@ package Obsolete
     Modelica.Blocks.Sources.Constant ambTemp(k=15) "Ambient temperature (deg_C)"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
     Buildings.Fluid.Sources.Boundary_pT sou(
-      redeclare package Medium = MediumWat,
+      redeclare package Medium = MediumW,
       use_p_in=false,
       p=50000,
       T=504.475,
@@ -655,7 +655,7 @@ package Obsolete
       startTime=500)
       annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
     Modelica.Fluid.Sources.FixedBoundary bou(
-      redeclare package Medium = MediumSte,
+      redeclare package Medium = MediumS,
       p=3000000,
       T=523.15,
       nPorts=1) "Boundary condition"
@@ -680,9 +680,9 @@ package Obsolete
 
   model BottomingCycleVolume_Validation
     extends Modelica.Icons.Example;
-      package MediumSte = Buildings.Media.Steam
+      package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for port_a (inlet)";
 
@@ -696,7 +696,7 @@ package Obsolete
       "Nominal mass flow rate";
 
     Modelica.Fluid.Sources.FixedBoundary bou(
-      redeclare package Medium = MediumSte,
+      redeclare package Medium = MediumS,
       p=1000000,
       T=523.15,
       nPorts=1) "Boundary condition"
@@ -747,9 +747,9 @@ package Obsolete
 
   model BottomingCycle_Validation
     extends Modelica.Icons.Example;
-      package MediumSte = Buildings.Media.Steam
+      package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for port_a (inlet)";
 
@@ -774,7 +774,7 @@ package Obsolete
       sou(T=383.15))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Fluid.Sources.FixedBoundary bou(
-      redeclare package Medium = MediumSte,
+      redeclare package Medium = MediumS,
       p=1000000,
       T=523.15,
       nPorts=1) "Boundary condition"
@@ -1161,9 +1161,9 @@ This is for
 
     model CombinedCycleCHP
       extends Modelica.Icons.Example;
-      package MediumSte = Buildings.Media.Steam
+      package MediumS = Buildings.Media.Steam
         "Steam medium - Medium model for port_b (outlet)";
-      package MediumWat =
+      package MediumW =
           Buildings.Media.Specialized.Water.TemperatureDependentDensity
         "Water medium - Medium model for port_a (inlet)";
 
@@ -1176,14 +1176,14 @@ This is for
             14400,25; 28800,25; 43200,23; 57600,22; 72000,23; 86400,25])
         annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
       Buildings.Fluid.Sources.Boundary_pT sou(
-        redeclare package Medium = MediumWat,
+        redeclare package Medium = MediumW,
         use_p_in=false,
         p=1100000,
         T=333.15,
         nPorts=1)
         annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
       Modelica.Fluid.Sources.FixedBoundary bou(
-        redeclare package Medium = MediumSte,
+        redeclare package Medium = MediumS,
         p=1000000,
         T=523.15,
         nPorts=1) "Boundary condition"
@@ -1736,9 +1736,9 @@ First implementation.
 
   model BottomingCycle_test
     extends Modelica.Icons.Example;
-      package MediumSte = Buildings.Media.Steam
+      package MediumS = Buildings.Media.Steam
       "Steam medium - Medium model for port_b (outlet)";
-    package MediumWat =
+    package MediumW =
         Buildings.Media.Specialized.Water.TemperatureDependentDensity
       "Water medium - Medium model for port_a (inlet)";
 
@@ -1791,14 +1791,14 @@ First implementation.
     Modelica.Blocks.Sources.Constant ambTemp(k=15) "Ambient temperature (deg_C)"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
     Buildings.Fluid.Sources.Boundary_pT sou(
-      redeclare package Medium = MediumWat,
+      redeclare package Medium = MediumW,
       use_p_in=false,
       p=30000,
       nPorts=1,
       T=504.475)
       annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
     Modelica.Fluid.Sources.FixedBoundary bou(
-      redeclare package Medium = MediumSte,
+      redeclare package Medium = MediumS,
       p=1000000,
       T=523.15,
       nPorts=1) "Boundary condition"

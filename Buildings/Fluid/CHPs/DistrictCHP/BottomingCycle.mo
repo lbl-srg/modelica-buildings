@@ -3,9 +3,9 @@ model BottomingCycle "Bottoming cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
   // Medium declarations
-  package MediumSte = Buildings.Media.Steam
+  package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-  package MediumWat =
+  package MediumW =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
@@ -122,7 +122,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare final package Medium = MediumWat)
+    redeclare final package Medium = MediumW)
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -133,7 +133,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium =MediumSte)
+    redeclare final package Medium =MediumS)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
 
@@ -166,7 +166,7 @@ model BottomingCycle "Bottoming cycle subsystem model"
 
   // Feedwater pump
   Modelica.Fluid.Machines.ControlledPump pump(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumW,
     final p_a_nominal=p_a_nominal,
     final p_b_nominal=p_b_nominal,
     final m_flow_nominal=m_flow_nominal,
@@ -184,8 +184,8 @@ model BottomingCycle "Bottoming cycle subsystem model"
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation steBoi(
-    redeclare package MediumWat = MediumWat,
-    redeclare package MediumSte = MediumSte,
+    redeclare package MediumW = MediumW,
+    redeclare package MediumS = MediumS,
     final m_flow_nominal=m_flow_nominal,
     final V=V,
     final p_start=p_start,
@@ -272,8 +272,7 @@ equation
   connect(powGen.mExh, mExh) annotation (Line(points={{-42,26},{-60,26},{-60,20},
           {-120,20}}, color={0,0,127}));
   connect(powGen.PEle_ST, PEle_ST) annotation (Line(points={{-18,30},{-10,30},{
-          -10,80},{120,80}},
-                         color={0,0,127}));
+          -10,80},{120,80}}, color={0,0,127}));
   connect(steHeaFlo.supSte, sub.u1) annotation (Line(points={{-18.2,70},{0,70},{
           0,66},{8,66}}, color={0,0,127}));
   connect(sub.u2, powGen.PEle_ST) annotation (Line(points={{8,54},{-10,54},{-10,
@@ -286,11 +285,11 @@ equation
           -98},{-30,-98},{-30,-72}},color={0,0,127}));
   connect(conPID.y, product1.u2) annotation (Line(points={{-19,-60},{-10,-60},{-10,
           -46},{-2,-46}}, color={0,0,127}));
-  annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,80}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-    Documentation(revisions="<html>
+annotation (
+  defaultComponentName="botCyc",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,80}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+Documentation(revisions="<html>
 <ul>
 <li>
 March 18, 2023, by Zhanwei He:<br/>

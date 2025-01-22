@@ -152,7 +152,9 @@ equation
           -50,-40},{-120,-40}}, color={0,0,127}));
   connect(exhMas_CorFac.u2, TSet) annotation (Line(points={{-42,-56},{-50,-56},
           {-50,-40},{-120,-40}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+annotation (
+  defaultComponentName="topCyc",
+  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

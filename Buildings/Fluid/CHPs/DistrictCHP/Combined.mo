@@ -1,9 +1,9 @@
 within Buildings.Fluid.CHPs.DistrictCHP;
 model Combined "Combined-cycle CHP model"
 
-  package MediumSte = Buildings.Media.Steam
+  package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-  package MediumWat =
+  package MediumW =
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
@@ -28,28 +28,27 @@ model Combined "Combined-cycle CHP model"
     annotation (Placement(transformation(extent={{100,10},{140,50}}),
         iconTransformation(extent={{100,10},{140,50}})));
 
-  ToppingCycle topCycTab(
+  Buildings.Fluid.CHPs.DistrictCHP.ToppingCycle topCycTab(
     redeclare Buildings.Fluid.CHPs.DistrictCHP.Data.SolarTurbines.NaturalGas.Centaur50_T6200S_NG
       per)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium =MediumWat)
+    redeclare package Medium =MediumW)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-10},{-110,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium =MediumSte)
+    redeclare final package Medium =MediumS)
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}),
         iconTransformation(extent={{110,-10},{90,10}})));
-  BottomingCycle botCycExp
+  Buildings.Fluid.CHPs.DistrictCHP.BottomingCycle botCycExp
     annotation (Placement(transformation(extent={{14,-10},{34,8}})));
 
 equation
   connect(topCycTab.PEle, PEle) annotation (Line(points={{-38,58},{20,58},{20,90},
           {120,90}}, color={0,0,127}));
   connect(topCycTab.mFue, mFue) annotation (Line(points={{-38,52},{40,52},{40,
-          60},{120,60}},
-                     color={0,0,127}));
+          60},{120,60}}, color={0,0,127}));
   connect(port_b, port_b)
     annotation (Line(points={{100,0},{100,0}}, color={0,127,255}));
   connect(y, topCycTab.y) annotation (Line(points={{-120,80},{-80,80},{-80,54},{
@@ -71,7 +70,9 @@ equation
   connect(topCycTab.TExh, botCycExp.TExh) annotation (Line(points={{-38,48},{0,48},
           {0,9},{12,9}}, color={0,0,127}));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+annotation (
+  defaultComponentName="disCHP",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -100,7 +101,8 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This is the combined-cycle CHP model including the topping cycle and the bottoming cycle models.
+This is the combined-cycle CHP model including the topping cycle and the bottoming
+cycle models.
 </p>
 </html>"));
 end Combined;

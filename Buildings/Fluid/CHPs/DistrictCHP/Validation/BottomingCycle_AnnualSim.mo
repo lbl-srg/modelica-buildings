@@ -3,9 +3,9 @@ model BottomingCycle_AnnualSim
   extends Modelica.Icons.Example;
 
   // Medium declarations
-  package MediumSte = Buildings.Media.Steam
+  package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-  package MediumWat =
+  package MediumW =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
@@ -119,14 +119,14 @@ model BottomingCycle_AnnualSim
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = MediumWat,
+    redeclare package Medium = MediumW,
     use_p_in=false,
     p=30000,
     nPorts=1,
     T=504.475)
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
-    redeclare package Medium = MediumSte,
+    redeclare package Medium = MediumS,
     p=1000000,
     T=523.15,
     nPorts=1) "Boundary condition"
