@@ -12,11 +12,11 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
       final cfg=pla.cfg,
       ctl(THeaWatSup_nominal=333.15, TChiWatSup_nominal=279.85),
       hp(
-        mHeaWatHp_flow_nominal=22,
-        capHeaHp_nominal=1.25e6,
+        mHeaWatHp_flow_nominal=58/pla.nHp,
+        capHeaHp_nominal=2.7e6/pla.nHp,
         THeaWatSupHp_nominal=333.15,
-        mChiWatHp_flow_nominal=45,
-        capCooHp_nominal=2.5e6,
+        mChiWatHp_flow_nominal=68/pla.nHp,
+        capCooHp_nominal=2.4e6/pla.nHp,
         TChiWatSupHp_nominal=279.85)))
     "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
@@ -75,7 +75,7 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     have_hrc_select=false,
     final dat=datAll.pla,
     final have_chiWat=have_chiWat,
-    nHp=3,
+    nHp=4,
     typDis_select1=Buildings.Templates.Plants.HeatPumps.Types.Distribution.Constant1Variable2,
     typPumHeaWatPri_select1=Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.Constant,
     typTanHeaWat_select=Buildings.Templates.Components.Types.IntegrationPoint.None,
