@@ -217,9 +217,8 @@ equation
           {140,-40}},                    color={255,0,255}));
   connect(yValChiWatMinByp.y, busValChiWatMinByp.y)
     annotation (Line(points={{-138,120},{140,120}}, color={0,0,127}));
-  connect(y1ValChiWatChiBypSer.y[1], busValChiWatChiByp.y1) annotation (Line(
-        points={{-122,140},{-180,140},{-180,80},{-240,80}},
-                                                        color={255,0,255}));
+  connect(y1ValChiWatChiBypSer.y[1], busValChiWatChiBypSer.y1) annotation (Line(
+        points={{-122,140},{-180,140},{-180,80},{-240,80}}, color={255,0,255}));
   connect(busValChiWatChiBypPar, bus.valChiWatChiByp) annotation (Line(
       points={{140,160},{190,160},{190,0},{-260,0}},
       color={255,204,51},

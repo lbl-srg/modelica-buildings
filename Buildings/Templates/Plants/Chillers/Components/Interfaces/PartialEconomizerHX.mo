@@ -45,11 +45,10 @@ equation
   connect(bus.TConWatEcoRet, TConWatEcoRet.y);
   /* Control point connection - stop */
 
-  connect(hex.port_a1, port_aConWat) annotation (Line(points={{10,80},{100,80}},
-                         color={0,127,255}));
+  connect(hex.port_a1, port_aConWat)
+    annotation (Line(points={{10,80},{100,80}}, color={0,127,255}));
   connect(hex.port_b2, port_b)
-    annotation (Line(points={{10,68},{20,68},{20,0},{100,0}},
-                                              color={0,127,255}));
+    annotation (Line(points={{10,68},{20,68},{20,0},{100,0}}, color={0,127,255}));
   connect(valConWatIso.port_b, port_bConWat)
     annotation (Line(points={{-80,80},{-100,80}}, color={0,127,255}));
   connect(hex.port_b1, TConWatEcoRet.port_a)

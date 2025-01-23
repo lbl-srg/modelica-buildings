@@ -460,34 +460,14 @@ block G36 "Guideline 36 controller for CHW plant"
     final nin=nChiWatPum) if have_pumChiWatPriVar
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Modelica.Blocks.Routing.RealPassThrough FIXME_yConWatPumSpe[nPumConWat]
-    if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
-    have_varPumConWat and not have_varComPumConWat
-    "#2299 Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME1_yConWatPumSpe(final k=
-        fill(1/nPumConWat, nPumConWat), final nin=nChiWatPum) if typChi ==
-    Buildings.Templates.Components.Types.Chiller.WaterCooled and
-    have_varPumConWat and have_varComPumConWat
-    "#2299 Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{60,-210},{80,-190}})));
-  Modelica.Blocks.Routing.RealPassThrough FIXME_yMinValPosSet
-    if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-    "#2299 Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{90,-150},{110,-130}})));
   Buildings.Controls.OBC.CDL.Reals.MultiSum FIXME_yTowFanSpe(
     final k=fill(1/nCoo, nCoo),
     final nin=nCoo)
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{90,-270},{110,-250}})));
-  Modelica.Blocks.Routing.RealPassThrough FIXME_TChiWatPlaRet
-    if have_senTChiWatPlaRet
-    "#2299: Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator FIXME_TChiWatSupSet(
-    final nout=nChi)
-    "#2299 Should be vectorial (typ. each chiller)"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    final nout=nChi) "#2299 Should be vectorial (typ. each chiller)"
+    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum reqResChiWatAirHan(final nin=
         nAirHan) "Sum of CHW reset requests from AHU"
     annotation (Placement(transformation(extent={{230,110},{210,130}})));
@@ -512,22 +492,36 @@ block G36 "Guideline 36 controller for CHW plant"
       =nChi, final nout=nChi)
                         if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValConWatChiIso(final nin
       =nChi, final nout=nChi)
                          if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValChiWatChiIso(final nin
       =nChi, final nout=nChi)
                          if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValChiWatChiIso_actual(final nin
       =nChi, final nout=nChi)
                  if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yValChiWatChiByp(final k=
+        false)
+    if have_valChiWatChiBypPar
+    "#2299 For primary-only parallel chiller plants with WSE, missing logic for chiller bypass valve"
+    annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis FIXME_y1ValConWatIso(uLow=0.1,
+      uHigh=0.2) if typEco == Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve
+    "#2299 Should be Boolean"
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiMax FIXME_yConWatPumSpe(final nin=nConWatPum) if
+    typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+    typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered
+    "#2299 Should be scalar in case of headered CW pumps"
+    annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -562,14 +556,14 @@ equation
   connect(bus.VChiWatPri_flow, ctl.VChiWat_flow);
   connect(busChi.y1_actual, ctl.uChi);
   connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
-  // The three following bus signals are exclusive from on another.
-  // FIXME #2299: However, the use of these signals for capacity requirement in primary-only plants is incorrect.
-  connect(bus.TChiWatEcoBef,ctl.TChiWatRet);
-  connect(bus.TChiWatSecRet,ctl.TChiWatRet);
-  connect(bus.TChiWatPlaRet, FIXME_TChiWatPlaRet.u);
-  // FIXME #2299: Related to above comment, we need to condition the following connect clause to no WSE.
-  if typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.None then
-    connect(FIXME_TChiWatPlaRet.y, ctl.TChiWatRet);
+  /* FIXME #2299: In G36 controller there is only one input point TChiWatRet
+  which is both used for WSE control (as TChiWatEcoBef) and capacity requirement.
+  The use of TChiWatEcoBef for capacity requirement in primary-only plants is incorrect.
+  */
+  if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None then
+    connect(bus.TChiWatEcoBef,ctl.TChiWatRet);
+  else
+    connect(bus.TChiWatPlaRet,ctl.TChiWatRet);
   end if;
   connect(bus.TConWatSup,ctl.TConWatSup);
   connect(FIXME_TConWatSup.y,ctl.TConWatSup);
@@ -605,6 +599,7 @@ equation
   connect(FIXME_TConWatRet.y,ctl.TConWatRet);
 
   // Controller outputs
+  connect(ctl.yMinValPosSet, bus.valChiWatMinByp.y);
   connect(yValChiWatChiIso.y, busValChiWatChiIso.y);
   connect(yValConWatChiIso.y, busValConWatChiIso.y);
   connect(y1ValConWatChiIso.y, busValConWatChiIso.y1);
@@ -616,14 +611,13 @@ equation
   connect(FIXME_yChiPumSpe.y, bus.pumChiWatPri.y);
   connect(ctl.yChi, busChi.y1);
   connect(ctl.yConWatPum, bus.pumConWat.y1);
-  connect(ctl.yConWatPumSpe, FIXME1_yConWatPumSpe.u);
-  connect(FIXME1_yConWatPumSpe.y, bus.pumConWat.y);
   connect(FIXME_yConWatPumSpe.y, bus.pumConWat.y);
-  connect(FIXME_yMinValPosSet.y, bus.valChiWatMinByp.y);
   connect(FIXME_yTowCelIsoVal.y, busValCooInlIso.y1);
   connect(FIXME_yTowCelIsoVal.y, busValCooOutIso.y1);
   connect(FIXME_yTowFanSpe.y, bus.yCoo);
   connect(ctl.yTowCel, bus.y1Coo);
+  connect(FIXME_yValChiWatChiByp.y, bus.valChiWatChiByp.y1);
+  connect(FIXME_y1ValConWatIso.y, bus.valConWatEcoIso.y1);
   /* Control point connection - stop */
 
   connect(p_default.y, FIXME_TOutWet.p)
@@ -632,14 +626,10 @@ equation
   connect(ctl.yChiPumSpe, FIXME_yChiPumSpe.u) annotation (Line(points={{22,6.5},
           {40,6.5},{40,-120},{58,-120}},
                                    color={0,0,127}));
-  connect(ctl.yConWatPumSpe, FIXME_yConWatPumSpe.u) annotation (Line(points={{22,-5.5},
-          {38,-5.5},{38,-160},{58,-160}},                       color={0,0,127}));
-  connect(ctl.yMinValPosSet, FIXME_yMinValPosSet.u) annotation (Line(points={{22,
-          -17.5},{34,-17.5},{34,-140},{88,-140}},  color={0,0,127}));
   connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u) annotation (Line(points={{22,-28},
           {30,-28},{30,-260},{88,-260}},       color={0,0,127}));
   connect(ctl.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={{22,11},
-          {40,11},{40,60},{58,60}},    color={0,0,127}));
+          {28,11},{28,-80},{58,-80}},  color={0,0,127}));
   connect(reqPlaChiWat.y, ctl.chiPlaReq) annotation (Line(points={{168,154},{-18,
           154},{-18,-22},{-2,-22}}, color={255,127,0}));
   connect(reqResChiWat.y,ctl.TChiWatSupResReq)  annotation (Line(points={{168,114},
@@ -669,13 +659,17 @@ equation
   connect(reqResChiWatEquZon.y, reqResChiWat.u2) annotation (Line(points={{208,-160},
           {198,-160},{198,108},{192,108}}, color={255,127,0}));
   connect(ctl.y1ConWatIsoVal, y1ValConWatChiIso.u) annotation (Line(points={{22,
-          -0.25},{30,-0.25},{30,20},{58,20}}, color={255,0,255}));
+          -0.25},{30,-0.25},{30,40},{58,40}}, color={255,0,255}));
   connect(ctl.yConWatIsoVal, yValConWatChiIso.u) annotation (Line(points={{22,-3.25},
-          {34,-3.25},{34,-4},{44,-4},{44,-20},{58,-20}}, color={0,0,127}));
+          {42,-3.25},{42,0},{58,0}},                     color={0,0,127}));
   connect(ctl.yChiWatIsoVal, yValChiWatChiIso.u) annotation (Line(points={{22,-15.25},
-          {42,-15.25},{42,-60},{58,-60}}, color={0,0,127}));
+          {42,-15.25},{42,-40},{58,-40}}, color={0,0,127}));
   connect(yValChiWatChiIso_actual.y, ctl.uChiWatIsoVal) annotation (Line(points={{-38,0},
           {-20,0},{-20,-19},{-2,-19}},         color={0,0,127}));
+  connect(ctl.yEcoConWatIsoVal, FIXME_y1ValConWatIso.u) annotation (Line(points
+        ={{22,19.25},{60,19.25},{60,20},{98,20}}, color={0,0,127}));
+  connect(ctl.yConWatPumSpe, FIXME_yConWatPumSpe.u) annotation (Line(
+        points={{22,-5.5},{22,-6},{38,-6},{38,-140},{98,-140}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>

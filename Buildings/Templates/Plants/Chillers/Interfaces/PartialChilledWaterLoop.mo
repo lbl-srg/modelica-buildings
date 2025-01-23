@@ -309,6 +309,7 @@ partial model PartialChilledWaterLoop
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typArrPumConWat=typArrPumConWat,
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
+    final have_valChiWatChiBypPar=intChi.have_valChiWatChiBypPar,
     final have_varComPumChiWatPri=have_varComPumChiWatPri,
     final have_varPumConWat=have_varPumConWat,
     final have_varComPumConWat=have_varComPumConWat,
@@ -360,6 +361,7 @@ equation
   connect(VChiWatSecSup_flow.y, bus.VChiWatSec_flow);
   connect(VChiWatSecRet_flow.y, bus.VChiWatSec_flow);
   connect(TChiWatPriSup.y, bus.TChiWatPriSup);
+  connect(TChiWatSecRet.y, bus.TChiWatSecRet);
   /* Control point connection - stop */
   connect(intChi.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{80,0},{80,0}}, color={0,127,255}));

@@ -68,6 +68,10 @@ partial block PartialController "Interface class for plant controller"
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Boolean have_valChiWatChiBypPar
+    "Set to true for chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Buildings.Templates.Components.Types.Cooler typCoo(
     start=Buildings.Templates.Components.Types.Cooler.None)
     "Condenser water cooling equipment"
@@ -196,6 +200,7 @@ partial block PartialController "Interface class for plant controller"
     "Set to true for plant CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  // For plants with WSE, TChiWatEcoBef is used in place of TChiWatSecRet.
   final parameter Boolean have_senTChiWatSecRet=
     if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then false
@@ -318,11 +323,11 @@ protected
     annotation (Placement(
         transformation(extent={{-260,100},{-220,140}}), iconTransformation(extent={{
             -756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiByp[nChi]
-    if typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[nChi] if
+    typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
     "Chiller CHW bypass valve control bus - Series chillers" annotation (
-      Placement(transformation(extent={{-260,60},{-220,100}}), iconTransformation(
-          extent={{-422,198},{-382,238}})));
+      Placement(transformation(extent={{-260,60},{-220,100}}),
+        iconTransformation(extent={{-422,198},{-382,238}})));
 equation
   connect(busValChiWatChiIso, bus.valChiWatChiIso) annotation (Line(
       points={{-240,160},{-220,160},{-220,0},{-260,0}},
@@ -344,7 +349,7 @@ equation
       points={{-240,-180},{-210,-180},{-210,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busValChiWatChiByp, bus.valChiWatChiByp) annotation (Line(
+  connect(busValChiWatChiBypSer, bus.valChiWatChiByp) annotation (Line(
       points={{-240,80},{-240,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));

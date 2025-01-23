@@ -3,6 +3,9 @@ model WaterCooledG36
   "Validation of water-cooled chiller plant template with Guideline 36 controls"
   extends Buildings.Templates.Plants.Chillers.Validation.WaterCooledOpenLoop(
     pla(nAirHan=1,
+      redeclare replaceable
+        Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithValve
+        eco "Heat exchanger with bypass valve for CHW flow control",
         redeclare Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl));
 
   UserProject.DistributionControlPoints disChiWat(nSenDpChiWatRem=pla.ctl.nSenDpChiWatRem)
