@@ -11,8 +11,7 @@ model AirToWater
     Dialog(group="Configuration"));
   inner parameter UserProject.Data.AllSystems datAll(
     pla(
-      final cfg=pla.cfg))
-    "Plant parameters"
+      final cfg=pla.cfg)) "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -107,8 +106,7 @@ model AirToWater
     "AHU control bus"
     annotation (Placement(transformation(extent={{-60,120},{-20,160}}),
       iconTransformation(extent={{-340,-140},{-300,-100}})));
-  Interfaces.Bus busPla
-    "Plant control bus"
+  Interfaces.Bus busPla "Plant control bus"
     annotation (Placement(transformation(extent={{-100,-60},{-60,-20}}),
       iconTransformation(extent={{-370,-70},{-330,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratFlo(
@@ -167,8 +165,7 @@ model AirToWater
     "Importance multiplier"
     annotation (Placement(transformation(extent={{0,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[4](
-    each k=10)
-    "Constant"
+    each k=10) "Request multiplier factor"
     annotation (Placement(transformation(extent={{40,170},{20,190}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
@@ -319,7 +316,7 @@ Three equally sized heat pumps are modeled, which can all be lead/lag alternated
 A heat recovery chiller is included (<code>pla.have_hrc_select=true</code>) 
 and connected to the HW and CHW return pipes (sidestream integration).
 A unique aggregated load is modeled on each loop by means of a cooling or heating
-component controlled to maintain a constant <i>&Delta;T</i>
+component controlled to maintain a constant <i>&Delta;T</i>,
 and a modulating valve controlled to track a prescribed flow rate.
 An importance multiplier of <i>10</i> is applied to the plant requests
 and reset requests generated from the valve position.

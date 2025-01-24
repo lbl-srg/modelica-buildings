@@ -1,5 +1,5 @@
 within Buildings.Templates.Plants.Chillers.Validation.UserProject.Data;
-class AllSystemsWaterCooled
+class AllSystemsWaterCooled1
   "Design and operating parameters for testing purposes"
   extends Buildings.Templates.Data.AllSystems(
     sysUni=Buildings.Templates.Types.Units.SI,
@@ -102,4 +102,4 @@ This class provides system parameters for the validation
 of water-cooled chiller plant models.
 </p>
 </html>"));
-end AllSystemsWaterCooled;
+end AllSystemsWaterCooled1;

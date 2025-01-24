@@ -67,7 +67,7 @@ model WaterCooledOpenLoop
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumChiWat,
     m_flow_nominal=pla.mChiWat_flow_nominal,
-    dp_nominal=datAll.pla.ctl.dpChiWatLocSet_nominal)
+    dp_nominal=datAll.pla.ctl.dpChiWatLocSet_max)
     "Flow resistance of CHW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(

@@ -121,14 +121,16 @@ record Controller
     each final min=273.15)
     "CW return temperature (condenser leaving) at chiller selection conditions - Each chiller"
     annotation (Dialog(group="Temperature setpoints",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TConWatSupChi_nominal[nChi](
     each displayUnit="degC",
     each start=Buildings.Templates.Data.Defaults.TConWatSup,
     each final min=273.15)
     "CW supply temperature (condenser entering) at chiller selection conditions - Each chiller"
     annotation (Dialog(group="Temperature setpoints",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TOutChiWatLck(
     displayUnit="degC",
     final min=250)=Buildings.Templates.Data.Defaults.TOutChiWatLck
@@ -139,13 +141,15 @@ record Controller
     start=Buildings.Templates.Data.Defaults.dpChiWatSet_min)
     "Minimum CHW differential pressure setpoint used in plant reset logic - Local sensor"
     annotation (Dialog(group="Differential pressure setpoints",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         and have_senDpChiWatLoc));
   parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_min[nSenDpChiWatRem](
     each start=Buildings.Templates.Data.Defaults.dpChiWatSet_min)
     "Minimum CHW differential pressure setpoint used in plant reset logic - Each remote sensor"
     annotation (Dialog(group="Differential pressure setpoints",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typDisChiWat<>Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         and not have_senDpChiWatLoc));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatChi_flow_nominal[nChi](
     each displayUnit="L/s",
@@ -286,23 +290,23 @@ record Controller
       enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and ((typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
         or typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed)
         and have_senLevCoo)));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_nominal[nSenDpChiWatRem](
+  parameter Modelica.Units.SI.PressureDifference dpChiWatRemSet_max[nSenDpChiWatRem](
     each start=Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
     each final min=0)
-    "Design (maximum) CHW differential pressure setpoint - Remote sensor"
-    annotation (Dialog(group=
-      "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-        or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-        or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
-  parameter Modelica.Units.SI.PressureDifference dpChiWatLocSet_nominal(
+    "Mmaximum CHW differential pressure setpoint - Remote sensor"
+    annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
+      enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
+           and (typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
+  parameter Modelica.Units.SI.PressureDifference dpChiWatLocSet_max(
     start=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
     final min=0)
     "Design (maximum) CHW differential pressure setpoint - Local sensor"
-    annotation (Dialog(group=
-      "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-        and have_senDpChiWatLoc)));
+    annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
+      enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
+       and (typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+       and have_senDpChiWatLoc)));
   // FIXME #2299: For dedicated CW pumps this should be a 2-D array [nSta, nPumConWat] which is more aligned with §5.20.9.6.
   parameter Real yPumConWatSta_nominal[nSta](
     each final unit="1",
@@ -312,7 +316,8 @@ record Controller
     "CW pump speed delivering design CW flow through chillers and WSE - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+        (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
         and have_varPumConWat)));
   parameter Real yValConWatChiIso_min(
     final unit="1",
@@ -322,7 +327,8 @@ record Controller
     "Minimum head pressure control valve position"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+        (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
         and not have_varPumConWat)));
   parameter Real yPumConWat_min(
     final unit="1",
@@ -332,7 +338,8 @@ record Controller
     "Minimum CW pump speed"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+        (typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
         and have_varPumConWat)));
   parameter Real yPumChiWatEco_nominal(
     final unit="1",
@@ -342,7 +349,8 @@ record Controller
     "WSE heat exchanger pump speed delivering design CHW flow through the heat exchanger "
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump));
   parameter Real yPumChiWatPriSta_nominal[nSta](
     each final unit="1",
     each final min=0,
@@ -351,7 +359,8 @@ record Controller
     "Primary CHW pump speed delivering design flow through chillers - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and ((typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+        ((typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
         or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2)
         and have_pumChiWatPriVar)));
   parameter Real yPumChiWatPriSta_min[nSta](
@@ -362,7 +371,8 @@ record Controller
     "Primary CHW pump speed delivering minimum flow through chillers - Each plant stage"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+        (typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
         or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
   parameter Real yPumChiWatPri_min(
     final unit="1",
@@ -372,7 +382,8 @@ record Controller
     "Primary CHW pump minimum speed"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
   parameter Real yPumChiWatSec_min(
     final unit="1",
     final min=0,

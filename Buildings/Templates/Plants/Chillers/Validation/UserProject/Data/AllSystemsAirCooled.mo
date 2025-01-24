@@ -9,12 +9,10 @@ class AllSystemsAirCooled
 
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
-      COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiAirCoo,
-          pla.cfg.nChi),
+      COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiAirCoo, pla.cfg.nChi),
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
           pla.cfg.nChi),
-      TConEntChi_nominal=fill(Buildings.Templates.Data.Defaults.TOutChi,
-          pla.cfg.nChi),
+      TConEntChi_nominal=fill(Buildings.Templates.Data.Defaults.TOutChi, pla.cfg.nChi),
       redeclare
         Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD
         perChi),
@@ -48,9 +46,6 @@ class AllSystemsAirCooled
       hLevAlaCoo_min=0.05,
       hLevCoo_min=0.1,
       hLevCoo_max=0.2,
-      dpChiWatRemSet_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
-          pla.cfg.nSenDpChiWatRem),
-      dpChiWatLocSet_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max,
       yPumConWatSta_nominal=fill(1, pla.ctl.nSta),
       yValConWatChiIso_min=0,
       yPumConWat_min=0.1,
@@ -66,13 +61,17 @@ class AllSystemsAirCooled
       TConWatRetChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet,
           pla.cfg.nChi),
       TConWatSupChi_nominal=fill(Buildings.Templates.Data.Defaults.TConWatSup,
-          pla.cfg.nChi)),
+          pla.cfg.nChi),
+      dpChiWatRemSet_max=fill(Buildings.Templates.Data.Defaults.dpChiWatRemSet_max,
+          pla.cfg.nSenDpChiWatRem),
+      dpChiWatLocSet_max=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max),
     pumChiWatPri(dp_nominal=fill((if pla.cfg.typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
            then max(pla.chi.dpChiWatChi_nominal) else sum(pla.chi.dpChiWatChi_nominal))
-          *1.5, pla.cfg.nPumChiWatPri) + fill((if pla.cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+          *1.5, pla.cfg.nPumChiWatPri) + fill((if pla.cfg.typDisChiWat ==
+          Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
            or pla.cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-           then pla.ctl.dpChiWatLocSet_nominal else 0), pla.cfg.nChi)),
-    pumChiWatSec(dp_nominal=fill(pla.ctl.dpChiWatLocSet_nominal, pla.cfg.nPumChiWatSec)),
+           then pla.ctl.dpChiWatLocSet_max else 0), pla.cfg.nChi)),
+    pumChiWatSec(dp_nominal=fill(pla.ctl.dpChiWatLocSet_max, pla.cfg.nPumChiWatSec)),
     eco(
       cap_nominal=0.6*sum(pla.ctl.capChi_nominal[1:2]),
       TChiWatEnt_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoEnt,

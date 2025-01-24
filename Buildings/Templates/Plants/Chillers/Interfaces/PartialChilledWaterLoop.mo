@@ -346,6 +346,15 @@ partial model PartialChilledWaterLoop
     warnAboutOnePortConnection=false)
     "OA temperature"
     annotation (Placement(transformation(extent={{30,230},{50,250}})));
+  Fluid.Sources.Boundary_pT bouChiWat(
+    redeclare final package Medium = MediumChiWat,
+    p=Buildings.Templates.Data.Defaults.pChiWat_rel_nominal + 101325,
+    nPorts=1)
+    "Pressure boundary condition mimicking expansion tank" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,-220})));
 equation
   /* Control point connection - start */
   connect(TOut.T, bus.TOut);
@@ -481,6 +490,8 @@ equation
       points={{10,194},{280,194},{280,160},{300,160}},
       color={255,204,51},
       thickness=0.5));
+  connect(bouChiWat.ports[1], intChi.port_aByp)
+    annotation (Line(points={{0,-230},{40,-230}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This serves as the base class to build chilled water plant

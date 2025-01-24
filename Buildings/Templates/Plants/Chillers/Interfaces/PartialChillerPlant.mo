@@ -242,11 +242,19 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     else 0
     "Condenser cooling fluid mass flow rate (total)";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
-    sum(dat.chi.capChi_nominal)
+    sum(abs(dat.chi.capChi_nominal))
     "Cooling capacity (total)";
+  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0)=
+    -cap_nominal
+    "Design cooling heat flow rate (total)";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     min(dat.chi.TChiWatSupChi_nominal)
     "Minimum CHW supply temperature";
+  final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
+    TChiWatSup_nominal - Q_flow_nominal / cpChiWat_default /
+    mChiWat_flow_nominal
+    "CHW return temperature - Each heat pump"
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
