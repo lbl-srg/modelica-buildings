@@ -1,7 +1,6 @@
 within Buildings.Templates.Plants.Chillers.Components.ChillerGroups;
 model Compression "Group of compression chillers"
-  extends
-    Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialChillerGroup;
+  extends Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialChillerGroup;
 
   Buildings.Templates.Components.Chillers.Compression chi[nChi](
     redeclare each final package MediumChiWat = MediumChiWat,

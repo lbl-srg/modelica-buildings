@@ -68,16 +68,17 @@ partial block PartialController "Interface class for plant controller"
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_valChiWatChiBypPar
+  parameter Boolean have_valChiWatChiBypPar(start=false)
     "Set to true for chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
+    enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Buildings.Templates.Components.Types.Cooler typCoo(
     start=Buildings.Templates.Components.Types.Cooler.None)
     "Condenser water cooling equipment"
-    annotation(Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi
-           == Buildings.Templates.Components.Types.Chiller.WaterCooled));
+    annotation(Evaluate=true, Dialog(group="Configuration",
+      enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
+      typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer nCoo(
     start=1,
     final min=0)=nChi

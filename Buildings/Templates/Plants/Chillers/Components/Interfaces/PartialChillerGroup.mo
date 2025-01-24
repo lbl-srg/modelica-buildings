@@ -7,7 +7,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model for condenser cooling fluid";
 
-  parameter Integer nChi(final min=0)
+  parameter Integer nChi(final min=1)
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.Chiller typ
@@ -136,7 +136,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.ChillerGroup
-    dat(final typ=typ, final nChi=nChi)
+    dat(typ=typ, nChi=nChi)
     "Parameter record for chiller group";
 
   final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](

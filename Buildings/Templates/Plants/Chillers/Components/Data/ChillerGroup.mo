@@ -120,14 +120,10 @@ record ChillerGroup
     TEvaLvgMax=TChiWatSupChi_max,
     PLRMin=PLRChi_min,
     PLRMinUnl=PLRUnlChi_min,
-    PLRMax=1.0,
-    etaMotor=1.0,
+    each PLRMax=1.0,
+    each etaMotor=1.0,
     mEva_flow_nominal=mChiWatChi_flow_nominal,
-    mCon_flow_nominal=mConChi_flow_nominal,
-    capFunT={1, 0, 0, 0, 0, 0},
-    EIRFunT={1, 0, 0, 0, 0, 0},
-    EIRFunPLR={1, 0, 0, 0, 0, 0, 0, 0, 0, 0})
-    constrainedby Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic
+    mCon_flow_nominal=mConChi_flow_nominal)
     "Chiller performance data"
     annotation (choicesAllMatching=true);
   annotation (

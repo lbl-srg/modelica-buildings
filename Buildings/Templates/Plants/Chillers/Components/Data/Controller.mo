@@ -402,7 +402,8 @@ record Controller
     "Cooler fan minimum speed"
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36
+      and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   // RFE: The following parameter has the type Real for future capability to specify interchangeable chillers with 0.5.
   parameter Real sta[:, nUniSta](
     each min=0,
@@ -419,14 +420,16 @@ record Controller
   final parameter Integer nSta=size(sta, 1)
     "Number of plant stages"
     annotation (Evaluate=true,
-    Dialog(group="Plant staging"));
+    Dialog(group="Plant staging",
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36));
   parameter Real staCoo[nSta](
     each max=nCoo,
     start=fill(0, nSta))
     "Quantity of enabled cooler units (e.g. cooling tower cells) at each plant Stage"
     annotation (Evaluate=true,
     Dialog(group="Plant staging",
-      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36
+      and typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   annotation (
     defaultComponentName="datCtl",
     Documentation(

@@ -43,8 +43,8 @@ It illustrates
 </p>
 <ul>
 <li>
-the manual propagation of the nominal value of the condenser cooling
-fluid temperature <code>TConEnt_nominal</code>
+the manual propagation of the nominal value of the condenser leaving temperature 
+<code>TConLvg_nominal</code>
 when redeclaring the performance data record <code>per</code>,
 </li>
 <li>

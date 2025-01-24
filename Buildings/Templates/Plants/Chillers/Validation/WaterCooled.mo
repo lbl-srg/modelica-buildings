@@ -63,10 +63,8 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       have_senLevCoo=false))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDum(
-    k=293.15,
-    y(final unit="K",
-      displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(k=293.15, y(final
+        unit="K", displayUnit="degC"))
     "Placeholder signal for request generator"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
   Fluid.Sensors.RelativePressure dpChiWatRem[1](
@@ -98,9 +96,9 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     timeScale=3600) "Source signal for CHW flow ratio"
     annotation (Placement(transformation(extent={{-180,90},{-160,110}})));
   Buildings.Controls.OBC.CDL.Reals.PID ctlEquZon(
-    each k=0.1,
-    each Ti=60,
-    each final reverseActing=true) "Zone equipment controller"
+    k=0.1,
+    Ti=60,
+    final reverseActing=true) "Zone equipment controller"
     annotation (Placement(transformation(extent={{90,90},{110,110}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter norFlo(k=1/pla.mChiWat_flow_nominal)
     "Normalize flow rate" annotation (Placement(transformation(
@@ -146,10 +144,10 @@ equation
     annotation (Line(points={{90,-60},{110,-60}},color={0,127,255}));
   connect(loaChiWat.port_a, dpChiWatRem[1].port_a)
     annotation (Line(points={{70,-60},{60,-60},{60,-90}},color={0,127,255}));
-  connect(TDum.y, reqPlaRes.TAirSup)
-    annotation (Line(points={{-158,160},{120,160},{120,146},{112,146}}, color={0,0,127}));
-  connect(TDum.y, reqPlaRes.TAirSupSet)
-    annotation (Line(points={{-158,160},{120,160},{120,141},{112,141}}, color={0,0,127}));
+  connect(TAirSup.y, reqPlaRes.TAirSup) annotation (Line(points={{-158,160},{
+          120,160},{120,146},{112,146}}, color={0,0,127}));
+  connect(TAirSup.y, reqPlaRes.TAirSupSet) annotation (Line(points={{-158,160},
+          {120,160},{120,141},{112,141}}, color={0,0,127}));
   connect(busAirHan, pla.busAirHan[1])
     annotation (Line(points={{-40,140},{-40,-84}},color={255,204,51},thickness=0.5));
   connect(pla.bus, busPla)
