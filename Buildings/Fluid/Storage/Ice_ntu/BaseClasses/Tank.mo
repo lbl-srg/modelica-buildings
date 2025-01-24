@@ -39,7 +39,7 @@ equation
     ua.UAhx,
     m_flow,
     Tin);
-  Qbrine_max = m_flow * Buildings.Media.Antifreeze.Validation.BaseClasses.PropyleneGlycolWater.testSpecificHeatCapacityCp_TX_a(T=(Tin+Ttank)/2, X_a=0.3) * (Tin-Ttank);
+  Qbrine_max = m_flow * Buildings.Media.Antifreeze.EthyleneGlycolWater.specificHeatCapacityCp_TX_a(T=(Tin+Ttank)/2, X_a=0.33) * (Tin-Ttank);
   Qbrine = eps * Qbrine_max;
   Tout = Tin - eps * (Tin-Ttank);
 

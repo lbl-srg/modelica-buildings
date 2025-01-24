@@ -133,6 +133,7 @@ equation
   // Evaporator temperatures
   TEvaEnt = Medium2.temperature(Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow)));
   TEvaLvg = vol2.heatPort.T;
+  //TEvaLvg = TSet;
   TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint

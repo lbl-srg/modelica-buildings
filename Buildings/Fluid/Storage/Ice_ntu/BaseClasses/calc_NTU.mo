@@ -9,7 +9,10 @@ protected
   Real NTU;
 algorithm
   c_flow:= m_flow * Buildings.Media.Antifreeze.Validation.BaseClasses.PropyleneGlycolWater.testSpecificHeatCapacityCp_TX_a(T=Tin, X_a=0.3);
-  NTU := UA/c_flow;
+  NTU := UA/Buildings.Utilities.Math.Functions.smoothMax(
+    x1 = c_flow,
+    x2 = 0.0001,
+    deltaX = 1E-4);
   eps := 1 - exp(-NTU);
 
 end calc_NTU;

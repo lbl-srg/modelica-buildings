@@ -400,7 +400,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTOut.T, hysTOut.u) annotation (Line(
-      points={{-298,30},{-292,30},{-292,-190},{-262,-190}},
+      points={{-297,30},{-292,30},{-292,-190},{-262,-190}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(and1.y, booToReaRad1.u) annotation (Line(
@@ -424,7 +424,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRoo.T,hysPum. u) annotation (Line(
-      points={{-50,30},{-270,30},{-270,-72},{-262,-72}},
+      points={{-51,30},{-270,30},{-270,-72},{-262,-72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y,not1. u) annotation (Line(

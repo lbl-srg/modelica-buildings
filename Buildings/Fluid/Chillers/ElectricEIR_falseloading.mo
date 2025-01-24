@@ -40,7 +40,7 @@ equation
     // unrealistic solution.
     capFunT = Buildings.Utilities.Math.Functions.smoothMax(
        x1 = 1E-6,
-       x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC),
+       x2 = Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=max(TEvaLvg_degC,per.TEvaLvgMin-273.15), x2=TConEnt_degC),
        deltaX = 1E-7);
 /*    assert(capFunT > 0.1, "Error: Received capFunT = " + String(capFunT)  + ".\n"
            + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
@@ -48,7 +48,7 @@ equation
            + "                 TEvaLvg_degC = " + String(TEvaLvg_degC) + " degC");
 */
     // Chiller energy input ratio biquadratic curve.
-    EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConEnt_degC);
+    EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=max(TEvaLvg_degC,per.TEvaLvgMin-273.15), x2=TConEnt_degC);
     // Chiller energy input ratio quadratic curve
     EIRFunPLR   = per.EIRFunPLR[1]+per.EIRFunPLR[2]*PLR2+per.EIRFunPLR[3]*PLR2^2;
   else

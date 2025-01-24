@@ -19,8 +19,8 @@ equation
   y = time - entryTime;
   annotation (
     Icon(graphics={
-        Line(points={{-78,16},{-60,30},{-60,-8},{42,82},{42,-8},{72,18}}, color=
-             {0,0,255}),
+        Line(points={{-78,16},{-60,30},{-60,-8},{42,82},{42,-8},{72,18}}, color
+            ={0,0,255}),
         Polygon(
           points={{92,-78},{70,-70},{70,-86},{92,-78}},
           lineColor={192,192,192},

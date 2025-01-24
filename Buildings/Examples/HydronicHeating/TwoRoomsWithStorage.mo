@@ -829,7 +829,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,-40},{78,-40}},
+      points={{-39.95,340.05},{-39.95,-40},{78,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -981,7 +981,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, cooCon.TOut) annotation (Line(
-      points={{-40,340},{-40,534},{98,534}},
+      points={{-39.95,340.05},{-39.95,534},{98,534}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -1109,7 +1109,7 @@ equation
   connect(onOff.u, aveTOut.y) annotation (Line(points={{578,338},{572,338},{572,
           310},{562,310}}, color={0,0,127}));
   connect(weaBus.TDryBul, aveTOut.u) annotation (Line(
-      points={{-40,340},{470,340},{470,310},{538,310}},
+      points={{-39.95,340.05},{470,340.05},{470,310},{538,310}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -1117,7 +1117,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(weaBus.TDryBul, lesThrTOut.u) annotation (Line(
-      points={{-40,340},{-40,-70},{380,-70},{380,-50},{398,-50}},
+      points={{-39.95,340.05},{-39.95,-70},{380,-70},{380,-50},{398,-50}},
       color={255,204,51},
       thickness=0.5));
   connect(tan.port_b, splVal3.port_3)

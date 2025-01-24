@@ -8,10 +8,11 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     annotation (Placement(transformation(extent={{-110,-40},{-90,40}}),
         iconTransformation(extent={{-60,-40},{-40,40}})));
 equation
-  connect(port_a, vol[1].ports[1]) annotation (Line(points={{0,0},{-80,0},{-80,
-          -20},{16,-20},{16,-16}},     color={0,127,255}));
+  connect(port_a, vol[1].ports[1]) annotation (Line(points={{0,100},{-80,100},{
+          -80,-20},{16,-20},{16,-16}}, color={0,127,255}));
   connect(vol[nSeg].ports[2], port_b) annotation (Line(points={{16,-16},{20,-16},
-          {20,-20},{90,-20},{90,0},{0,0}},   color={0,127,255}));
+          {20,-20},{90,-20},{90,-100},{0,-100}},
+                                             color={0,127,255}));
   for i in 1:(nSeg-1) loop
     connect(vol[i].ports[2], vol[i + 1].ports[1]) annotation (Line(points={{16,-16},
             {16,-32},{14,-32},{14,-16},{16,-16}}, color={0,127,255}));

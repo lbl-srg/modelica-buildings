@@ -66,24 +66,28 @@ equation
   connect(yRam.y, preInd.y) annotation (Line(points={{1,70},{30,70},{30,20},{10,
           20},{10,12}}, color={0,0,127}));
   connect(res.port_a, sou.ports[1]) annotation (Line(points={{0,40},{-20,40},{
-          -20,4},{-20,3},{-40,3}},
+          -20,4},{-20,-1.5},{-40,-1.5}},
                                color={0,127,255}));
   connect(preInd.port_a, sou.ports[2])
-    annotation (Line(points={{0,0},{-40,0},{-40,1}}, color={0,127,255}));
+    annotation (Line(points={{0,0},{-40,0},{-40,-0.5}},
+                                                     color={0,127,255}));
   connect(preIndFrom_dp.port_a, sou.ports[3]) annotation (Line(points={{0,-40},
-          {-20,-40},{-20,-1},{-40,-1}}, color={0,127,255}));
+          {-20,-40},{-20,0.5},{-40,0.5}},
+                                        color={0,127,255}));
   connect(res.port_b, sin.ports[1]) annotation (Line(points={{20,40},{60,40},{
-          60,3},{74,3}},
+          60,-1.5},{74,-1.5}},
                       color={0,127,255}));
   connect(preInd.port_b, sin.ports[2])
-    annotation (Line(points={{20,0},{74,0},{74,1}}, color={0,127,255}));
-  connect(sou.ports[4], preIndDpFixed_nominal.port_a) annotation (Line(points={
-          {-40,-3},{-24,-3},{-24,-4},{-24,-4},{-24,-80},{0,-80}}, color={0,127,
+    annotation (Line(points={{20,0},{74,0},{74,-0.5}},
+                                                    color={0,127,255}));
+  connect(sou.ports[4], preIndDpFixed_nominal.port_a) annotation (Line(points={{-40,1.5},
+          {-24,1.5},{-24,-4},{-24,-4},{-24,-80},{0,-80}},         color={0,127,
           255}));
   connect(preIndFrom_dp.port_b, sin.ports[3]) annotation (Line(points={{20,-40},
-          {60,-40},{60,-1},{74,-1}}, color={0,127,255}));
-  connect(preIndDpFixed_nominal.port_b, sin.ports[4]) annotation (Line(points={
-          {20,-80},{44,-80},{64,-80},{64,-3},{74,-3}}, color={0,127,255}));
+          {60,-40},{60,0.5},{74,0.5}},
+                                     color={0,127,255}));
+  connect(preIndDpFixed_nominal.port_b, sin.ports[4]) annotation (Line(points={{20,-80},
+          {44,-80},{64,-80},{64,1.5},{74,1.5}},        color={0,127,255}));
   connect(preIndFrom_dp.y, yRam.y) annotation (Line(points={{10,-28},{10,-20},{
           30,-20},{30,70},{1,70}}, color={0,0,127}));
   connect(preIndDpFixed_nominal.y, yRam.y) annotation (Line(points={{10,-68},{

@@ -45,13 +45,15 @@ equation
           -150}},      color={0,0,127}));
   connect(conEquSta.TBoi, boi.T) annotation (Line(points={{-202,-204},{-240,-204},
           {-240,-302},{-1,-302}}, color={0,0,127}));
-  connect(conSysSta.TOut, senTOut.T) annotation (Line(points={{-262,-44},{-280,-44},
-          {-280,30},{-298,30}}, color={0,0,127}));
+  connect(conSysSta.TOut, senTOut.T) annotation (Line(points={{-262,-44},{-280,
+          -44},{-280,30},{-297,30}},
+                                color={0,0,127}));
   connect(conRadSup.TRoo, temRoo.T) annotation (Line(points={{-202,-144},{-268,
-          -144},{-268,30},{-50,30}},
+          -144},{-268,30},{-51,30}},
                                color={0,0,127}));
-  connect(conSysSta.TRoo, temRoo.T) annotation (Line(points={{-262,-56},{-268,-56},
-          {-268,30},{-50,30}}, color={0,0,127}));
+  connect(conSysSta.TRoo, temRoo.T) annotation (Line(points={{-262,-56},{-268,
+          -56},{-268,30},{-51,30}},
+                               color={0,0,127}));
   connect(temRet.T, conBoiRet.TRet)
     annotation (Line(points={{71,-280},{98,-280}}, color={0,0,127}));
   connect(conBoiRet.yVal, valBoi.y) annotation (Line(points={{122,-280},{140,-280},

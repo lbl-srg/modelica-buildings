@@ -1,14 +1,11 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
-model CoolToolsCrossFlow
+model CoolToolsCrossFlow_old
   "Cooling tower with variable speed using the CoolTools calculation for the approach temperature"
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTowerVariableSpeed(
     TWatIn_nominal(fixed=false),
     TWatOut_nominal(fixed=false),
-    fanRelPowDer(each fixed=false),
-    fanRelPow(r_V={0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1}, r_P={0.33162901,
-          0.250065534,0.186304253,0.146036061,0.134951852,0.15874252,
-          0.223098958,0.33371206,0.49627272,0.716471832,1}));
+    fanRelPowDer(each fixed=false));
 
   parameter Modelica.Units.SI.TemperatureDifference TApp_nominal(displayUnit=
         "K") = 3.89 "Design approach temperature"
@@ -22,17 +19,14 @@ model CoolToolsCrossFlow
 
   Modelica.Units.SI.TemperatureDifference TRan(displayUnit="K") = T_a - T_b
     "Range temperature";
-
   Modelica.Units.SI.TemperatureDifference TAppAct(displayUnit="K")=
     Buildings.Utilities.Math.Functions.spliceFunction(
     pos=TAppCor,
     neg=TAppFreCon,
     x=y - yMin + yMin/20,
     deltax=yMin/20) "Approach temperature difference";
-
   Modelica.Units.SI.MassFraction FRWat=m_flow/mWat_flow_nominal
     "Ratio actual over design water mass flow ratio";
-
   Modelica.Units.SI.MassFraction FRAir=y
     "Ratio actual over design air mass flow ratio";
 
@@ -54,7 +48,10 @@ protected
     TRan=TRan,
     TWetBul=TAir,
     FRWat=FRWat,
-    FRAir=FRAir) "Approach temperature for forced convection";
+    FRAir=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=FRWat/bou.liqGasRat_max,
+      x2=FRAir,
+      deltaX=0.01)) "Approach temperature for forced convection";
   Modelica.Units.SI.TemperatureDifference TAppFreCon(
     min=0,
     displayUnit="K") = (1 - fraFreCon)*dTMax + fraFreCon*
@@ -367,4 +364,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolToolsCrossFlow;
+end CoolToolsCrossFlow_old;

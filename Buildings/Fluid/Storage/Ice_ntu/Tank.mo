@@ -108,7 +108,7 @@ equation
   connect(tank.SOC, SOC) annotation (Line(points={{1,-75},{88,-75},{88,-40},{110,
           -40}}, color={0,0,127}));
   connect(limQ_flow.y, tank.m_flow) annotation (Line(points={{-59,-90},{-32,-90},
-          {-32,-73},{-22,-73}}, color={0,0,127}));
+          {-32,-75},{-22,-75}}, color={0,0,127}));
   connect(preHeaFlo.Q_flow, gain.y)
     annotation (Line(points={{-1,-40},{19,-40}}, color={0,0,127}));
   connect(tank.Qbrine, gain.u) annotation (Line(points={{1,-63},{60,-63},{60,
