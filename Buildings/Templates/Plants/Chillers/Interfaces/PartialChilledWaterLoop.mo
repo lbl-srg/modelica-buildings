@@ -17,7 +17,8 @@ partial model PartialChilledWaterLoop
 
   replaceable
     Buildings.Templates.Plants.Chillers.Components.ChillerGroups.Compression
-    chi constrainedby
+    chi(final linearized=linearized, final show_T=show_T)
+        constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialChillerGroup(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumCon,
@@ -81,11 +82,14 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Buildings.Templates.Components.Actuators.Valve valChiWatMinByp(
     redeclare final package Medium=MediumChiWat,
+    final show_T=show_T,
     final typ=if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
       then Buildings.Templates.Components.Types.Valve.TwoWayModulating else
       Buildings.Templates.Components.Types.Valve.None,
     final dat=dat.valChiWatMinByp,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    from_dp=true,
+    final linearized=linearized)
     if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only or
       have_bypChiWatFix
     "CHW minimum flow bypass valve or fixed CHW bypass (common leg)"
@@ -274,7 +278,8 @@ partial model PartialChilledWaterLoop
         origin={200,-260})));
 
   // WSE
-  replaceable Buildings.Templates.Plants.Chillers.Components.Economizers.None eco
+  replaceable Buildings.Templates.Plants.Chillers.Components.Economizers.None eco(final
+      show_T=show_T)
     constrainedby
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialEconomizer(
       redeclare final package MediumChiWat=MediumChiWat,

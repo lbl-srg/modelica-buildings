@@ -10,7 +10,6 @@ class AllSystemsWaterCooled
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant pla(
     chi(
       COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiWatCoo, pla.cfg.nChi),
-      TConEntChi_nominal=fill(Buildings.Templates.Data.Defaults.TOutChi, pla.cfg.nChi),
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
           pla.cfg.nChi),
       dpConChi_nominal=fill(Buildings.Templates.Data.Defaults.dpConWatChi, pla.cfg.nChi),

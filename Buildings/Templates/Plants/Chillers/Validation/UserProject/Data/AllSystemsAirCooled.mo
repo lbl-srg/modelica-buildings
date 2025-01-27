@@ -12,7 +12,7 @@ class AllSystemsAirCooled
       COPChi_nominal=fill(Buildings.Templates.Data.Defaults.COPChiAirCoo, pla.cfg.nChi),
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi,
           pla.cfg.nChi),
-      TConEntChi_nominal=fill(Buildings.Templates.Data.Defaults.TOutChi, pla.cfg.nChi),
+      TOut_nominal=Buildings.Templates.Data.Defaults.TOutChi,
       redeclare
         Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_742kW_5_42COP_VSD
         perChi),

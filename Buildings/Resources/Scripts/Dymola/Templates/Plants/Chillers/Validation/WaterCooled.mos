@@ -31,7 +31,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"pla.ctl.ctl.idxStaHea.y", "pla.ctl.ctl.idxStaCoo.y"},
+    y={"pla.ctl.ctl.staSetCon.ySta"},
     autoscale=true,
     grid=true,
     timeUnit="h"

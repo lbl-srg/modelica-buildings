@@ -48,8 +48,14 @@ model Compression "Group of compression chillers"
   Buildings.Templates.Components.Actuators.Valve valConWatChiIso[nChi](
     redeclare each final package Medium = MediumCon,
     each final typ=typValConWatChiIso,
-    each final allowFlowReversal=allowFlowReversal,
-    final dat=datValConWatChiIso)
+    each final allowFlowReversal=allowFlowReversalSou,
+    final dat=datValConWatChiIso,
+    each final use_strokeTime=use_strokeTime,
+    each final strokeTime=strokeTime,
+    each final init=init,
+    each final y_start=y_start,
+    each final from_dp=from_dp,
+    each final linearized=linearized)
     "Chiller CW isolation valve"
     annotation (Placement(transformation(extent={{-150,110},{-170,130}})));
 
@@ -58,7 +64,13 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium = MediumChiWat,
     each final typ=typValChiWatChiIso,
     each final allowFlowReversal=allowFlowReversal,
-    final dat=datValChiWatChiIso)
+    final dat=datValChiWatChiIso,
+    each final use_strokeTime=use_strokeTime,
+    each final strokeTime=strokeTime,
+    each final init=init,
+    each final y_start=y_start,
+    each final from_dp=from_dp,
+    each final linearized=linearized)
     if typArr == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
     "Chiller CHW isolation valve - Parallel chillers"
     annotation (Placement(transformation(extent={{130,110},{150,130}})));
@@ -66,9 +78,16 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium = MediumChiWat,
     each final typ=typValChiWatChiIso,
     each final allowFlowReversal=allowFlowReversal,
-    each final dat=datValChiWatChiIso)
+    each final dat=datValChiWatChiIso,
+    each final use_strokeTime=use_strokeTime,
+    each final strokeTime=strokeTime,
+    each final init=init,
+    each final y_start=y_start,
+    each final from_dp=from_dp,
+    each final linearized=linearized)
     if typArr == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
-    "Chiller CHW isolation valve - Series chillers" annotation (Placement(
+    "Chiller CHW isolation valve - Series chillers"
+    annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270,
         origin={180,0})));
 equation
@@ -157,8 +176,6 @@ connectors that require a unique medium model.
 </li>
 <li>
 Same type of CW (and CHW) isolation valve for all chillers.
-This is a technical debt that will be purged when actuator models are
-refactored as container classes.<br/>
 Hence, only the same type of head pressure control for all chillers is supported
 (as the latter conditions the former).
 </li>

@@ -4,9 +4,9 @@ model WaterCooled "Validation of water-cooled chiller plant template"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common for CHW and CW)";
-  parameter Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled1 datAll(
-    pla(final cfg=pla.cfg))
-    "Plant parameters"
+  parameter
+    Buildings.Templates.Plants.Chillers.Validation.UserProject.Data.AllSystemsWaterCooled
+    datAll(pla(final cfg=pla.cfg)) "Plant parameters"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -57,10 +57,9 @@ model WaterCooled "Validation of water-cooled chiller plant template"
       coo,
     redeclare replaceable
       Buildings.Templates.Plants.Chillers.Components.Economizers.None eco,
-    redeclare final Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl(
-      typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
-      typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature,
-      have_senLevCoo=false))
+    redeclare final Buildings.Templates.Plants.Chillers.Components.Controls.G36
+      ctl(typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
+        typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature))
     "Chiller plant"
     annotation (Placement(transformation(extent={{-80,-118},{-40,-78}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TAirSup(k=293.15, y(final

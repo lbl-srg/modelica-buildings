@@ -22,6 +22,7 @@ record ChillerPlant "Record for chiller plant"
     capChi_nominal=ctl.capChi_nominal,
     TChiWatSupChi_nominal=ctl.TChiWatChiSup_nominal,
     TChiWatSupChi_max=fill(ctl.TChiWatSup_max, cfg.nChi),
+    TConWatEntChi_nominal=ctl.TConWatSupChi_nominal,
     PLRUnlChi_min=ctl.capUnlChi_min ./ ctl.capChi_nominal)
     "Chiller group"
     annotation (Dialog(group="Chillers"));

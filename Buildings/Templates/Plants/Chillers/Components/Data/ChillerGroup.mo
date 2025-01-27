@@ -81,11 +81,21 @@ record ChillerGroup
     fill(Buildings.Templates.Data.Defaults.TChiWatSup_max, nChi)
     "Maximum CHW supply temperature - Each chiller"
     annotation (Dialog(group="Operating limits"));
-  parameter Modelica.Units.SI.Temperature TConEntChi_nominal[nChi](
+  parameter Modelica.Units.SI.Temperature TConWatEntChi_nominal[nChi](
     each final min=273.15,
-    start=fill(if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then Buildings.Templates.Data.Defaults.TConWatSup else
-      Buildings.Templates.Data.Defaults.TOutChi, nChi))
+    start=fill(Buildings.Templates.Data.Defaults.TConWatSup, nChi))
+    "CW supply temperature (condenser entering) - Each chiller"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Modelica.Units.SI.Temperature TOut_nominal(
+    final min=273.15,
+    start=Buildings.Templates.Data.Defaults.TOutChi)
+    "Design OAT"
+    annotation (Dialog(group="Nominal condition",
+      enable=typ==Buildings.Templates.Components.Types.Chiller.AirCooled));
+  final parameter Modelica.Units.SI.Temperature TConEntChi_nominal[nChi]=
+    if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled then
+      TConWatEntChi_nominal else fill(TOut_nominal, nChi)
     "OAT or CW supply temperature (condenser entering) - Each chiller"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TConLvgChi_nominal[nChi](

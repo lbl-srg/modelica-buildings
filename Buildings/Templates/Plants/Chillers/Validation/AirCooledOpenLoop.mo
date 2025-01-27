@@ -9,8 +9,7 @@ model AirCooledOpenLoop
       typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typDisChiWat=Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only,
       chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-          typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating)),
-    bou(T=Buildings.Templates.Data.Defaults.TChiWatRet));
+          typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating)));
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

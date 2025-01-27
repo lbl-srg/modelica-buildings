@@ -313,8 +313,8 @@ equation
           120},{-200,140},{-170,140}},            color={0,127,255}));
   connect(junSupChiSer[1].port_2, rouSupSer.port_a)
     annotation (Line(points={{-150,140},{-10,140}}, color={0,127,255}));
-  connect(junSupChiSer[2:nChi].port_2, rouSupRetSer.port_a) annotation (Line(
-        points={{-150,140},{-120,140},{-120,10}}, color={0,127,255}));
+  connect(junSupChiSer[2:nChi].port_2, rouSupRetSer.port_a)
+    annotation (Line(points={{-150,140},{-120,140},{-120,10}}, color={0,127,255}));
   connect(port_aByp, junByp.port_3)
     annotation (Line(points={{200,0},{150,0}}, color={0,127,255}));
   connect(TChiWatEcoAft.port_b, junByp.port_1)
@@ -640,6 +640,11 @@ the optional bypass (common leg for primary-secondary systems
 and bypass with modulating valve for variable primary-only systems).
 </li>
 </ul>
+<h4>Implementation details</h4>
+<p>
+In the case of series chillers, the chiller CHW bypass valves that 
+serve 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

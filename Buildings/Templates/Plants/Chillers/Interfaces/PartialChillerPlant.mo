@@ -278,6 +278,9 @@ partial model PartialChillerPlant "Interface class for chiller plant"
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for all valves"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   final parameter MediumChiWat.Density rhoChiWat_default=
     MediumChiWat.density(staChiWat_default)

@@ -13,7 +13,8 @@ partial model PartialChillerGroup "Interface class for chiller group"
   parameter Buildings.Templates.Components.Types.Chiller typ
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Types.ChillerArrangement typArr "Type of chiller arrangement"
+  parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArr
+    "Type of chiller arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumChiWatPri "Type of primary CHW pump arrangement"
@@ -129,9 +130,10 @@ partial model PartialChillerGroup "Interface class for chiller group"
           Buildings.Templates.Components.Types.Chiller.WaterCooled and not
           typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_senTConWatChiRet=if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External
-       then true elseif typ <> Buildings.Templates.Components.Types.Chiller.WaterCooled
-       then false else have_senTConWatChiRet_select
+  final parameter Boolean have_senTConWatChiRet=
+    if typCtlHea == Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.External
+    then true elseif typ <> Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then false else have_senTConWatChiRet_select
     "Set to true for chiller CW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -146,6 +148,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     final cap_nominal=capChi_nominal,
     final COP_nominal=dat.COPChi_nominal,
     final dpChiWat_nominal=if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.None
+      and typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
       then dat.dpChiWatChi_nominal else fill(0, nChi),
     final dpCon_nominal=if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.None
       then dat.dpConChi_nominal else fill(0, nChi),
@@ -162,8 +165,9 @@ partial model PartialChillerGroup "Interface class for chiller group"
     final typ=fill(typValChiWatChiIso, nChi),
     final m_flow_nominal=mChiWatChi_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi),
-    dpFixed_nominal=if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None then
-      dat.dpChiWatChi_nominal else fill(0, nChi))
+    dpFixed_nominal=if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+      and typArr==Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel
+      then dat.dpChiWatChi_nominal else fill(0, nChi))
     "Parallel chillers CHW bypass valve parameters"
     annotation (Dialog(enable=false));
   final parameter Buildings.Templates.Components.Data.Valve datValConWatChiIso[nChi](
@@ -216,6 +220,47 @@ partial model PartialChillerGroup "Interface class for chiller group"
     annotation (Dialog(tab="Assumptions",
       enable=Buildings.Templates.Components.Types.Chiller.WaterCooled),
     Evaluate=true);
+
+  parameter Boolean use_strokeTime=
+    energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+    "Set to true to continuously open and close valve"
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Time needed to open or close valve",
+    enable=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+     or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Modelica.Units.SI.Time strokeTime=120
+    "Time needed to open or close valve"
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Time needed to open or close valve",
+    enable=use_strokeTime and (
+    typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+    or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None)));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Time needed to open or close valve",
+    enable=use_strokeTime and (
+    typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+    or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None)));
+  parameter Real y_start=1
+    "Initial position of actuator"
+    annotation (__ctrlFlow(enable=false),
+  Dialog(tab="Dynamics",group="Time needed to open or close valve",
+    enable=use_strokeTime and (
+    typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+    or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None)));
+  parameter Boolean from_dp=true
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced",
+      enable=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+    or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Boolean linearized=false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation (Evaluate=true,
+    Dialog(tab="Advanced",
+      enable=typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+    or typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None));
 
   // Diagnostics
   parameter Boolean show_T=false
