@@ -180,12 +180,16 @@ block G36
   final parameter Real minConWatPumSpe(
     unit="1")=dat.yPumConWat_min
     "Minimum condenser water pump speed"
-    annotation (Dialog(enable=not((not have_WSE)and have_fixSpeConWatPum),tab=
+    annotation (Dialog(enable=not
+                                 ((not have_WSE) and
+                                                    have_fixSpeConWatPum),tab=
     "Head pressure",group="Limits"));
   final parameter Real minHeaPreValPos(
     unit="1")=dat.yValConWatChiIso_min
     "Minimum head pressure control valve position"
-    annotation (Dialog(enable=(not((not have_WSE)and (not have_fixSpeConWatPum))),tab=
+    annotation (Dialog(enable=(not
+                                  ((not have_WSE) and
+                                                     (not have_fixSpeConWatPum))),tab=
     "Head pressure",group="Limits"));
   // ---- Minimum flow bypass ----
   final parameter Real minFloSet[cfg.nChi](
@@ -398,7 +402,8 @@ block G36
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_TConWatSup(
     k=Buildings.Templates.Data.Defaults.TConWatSup)
-    if not(typCtlFanCoo == Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature
+    if not
+          (typCtlFanCoo == Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature
       or typCtlFanCoo == Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.ReturnTemperature
       and not is_clsCpl)
     "#2299: Missing dependency to plant configuration"
@@ -445,30 +450,6 @@ block G36
   Buildings.Controls.OBC.CDL.Integers.Add reqResChiWat
     "Sum of CHW reset requests of all loads served"
     annotation (Placement(transformation(extent={{190,104},{170,124}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal y1ValConWatChiIso(
-    final nin=cfg.nChi,
-    final nout=cfg.nChi)
-    if cfg.typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
-    "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValConWatChiIso(
-    final nin=cfg.nChi,
-    final nout=cfg.nChi)
-    if cfg.typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
-    "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValChiWatChiIso(
-    final nin=cfg.nChi,
-    final nout=cfg.nChi)
-    if cfg.typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
-    "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal yValChiWatChiIso_actual(
-    final nin=cfg.nChi,
-    final nout=cfg.nChi)
-    if cfg.typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
-    "Workaround for asymmetric slice operations in OCT in OCT #2023022839000276"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yValChiWatChiByp(
     final k=false)
     if cfg.have_valChiWatChiBypPar
@@ -545,7 +526,7 @@ equation
   connect(bus.TChiWatEcoEnt, ctl.TEntHex);
   connect(bus.TOut, ctl.TOut);
   connect(busCoo.y1_actual, ctl.uTowSta);
-  connect(busValChiWatChiIso.y_actual, yValChiWatChiIso_actual.u);
+  connect(busValChiWatChiIso.y_actual, ctl.uChiWatIsoVal);
   connect(FIXME_uIsoVal.y, ctl.uIsoVal);
   connect(RFE_uHeaPreCon.y, ctl.uHeaPreCon);
   connect(FIXME_uChiLoa.y, ctl.uChiLoa);
@@ -563,9 +544,9 @@ equation
   // Controller outputs
   connect(ctl.TChiWatSupSet, bus.TChiWatSupSet);
   connect(ctl.yMinValPosSet, bus.valChiWatMinByp.y);
-  connect(yValChiWatChiIso.y, busValChiWatChiIso.y);
-  connect(yValConWatChiIso.y, busValConWatChiIso.y);
-  connect(y1ValConWatChiIso.y, busValConWatChiIso.y1);
+  connect(ctl.yChiWatIsoVal, busValChiWatChiIso.y);
+  connect(ctl.yConWatIsoVal, busValConWatChiIso.y);
+  connect(ctl.y1ConWatIsoVal, busValConWatChiIso.y1);
   connect(ctl.yWseRetVal, bus.valChiWatEcoByp.y);
   connect(ctl.yWsePumOn, bus.pumChiWatEco.y1);
   connect(ctl.yWsePumSpe, bus.pumChiWatEco.y);
@@ -610,14 +591,6 @@ equation
     annotation (Line(points={{208,-120},{200,-120},{200,148},{192,148}},color={255,127,0}));
   connect(reqResChiWatEquZon.y, reqResChiWat.u2)
     annotation (Line(points={{208,-160},{198,-160},{198,108},{192,108}},color={255,127,0}));
-  connect(ctl.y1ConWatIsoVal, y1ValConWatChiIso.u)
-    annotation (Line(points={{22,-0.25},{30,-0.25},{30,40},{58,40}},color={255,0,255}));
-  connect(ctl.yConWatIsoVal, yValConWatChiIso.u)
-    annotation (Line(points={{22,-3.25},{42,-3.25},{42,0},{58,0}},color={0,0,127}));
-  connect(ctl.yChiWatIsoVal, yValChiWatChiIso.u)
-    annotation (Line(points={{22,-15.25},{42,-15.25},{42,-40},{58,-40}},color={0,0,127}));
-  connect(yValChiWatChiIso_actual.y, ctl.uChiWatIsoVal)
-    annotation (Line(points={{-38,0},{-20,0},{-20,-19},{-2,-19}},color={0,0,127}));
   connect(ctl.yEcoConWatIsoVal, FIXME_y1ValConWatIso.u)
     annotation (Line(points={{22,19.25},{100,19.25},{100,20},{98,20}},color={0,0,127}));
   connect(ctl.yConWatPumSpe, FIXME_yConWatPumSpe.u)

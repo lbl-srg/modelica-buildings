@@ -44,10 +44,9 @@ partial block PartialController "Interface class for plant controller"
     start=Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.FlowDecoupler)
     "Type of sensors for primary CHW pump control in variable primary-variable secondary plants"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
-          cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-           or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
-
+      Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
+      cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+      or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
   final parameter Boolean have_senVChiWatPri=
     if cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only then
       true
