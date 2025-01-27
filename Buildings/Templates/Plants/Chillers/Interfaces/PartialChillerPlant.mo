@@ -202,12 +202,15 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     final cpChiWat_default=cpChiWat_default,
     final cpCon_default=cpCon_default,
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
+    final have_varComPumChiWatPri=have_varComPumChiWatPri,
     final have_pumChiWatSec=have_pumChiWatSec,
     final have_varPumConWat=have_varPumConWat,
+    final have_varComPumConWat=have_varComPumConWat,
     final nAirHan=nAirHan,
     final nChi=nChi,
     final nCoo=nCoo,
     final nEquZon=nEquZon,
+    final nLooChiWatSec=nLooChiWatSec,
     final nPumChiWatPri=nPumChiWatPri,
     final nPumChiWatSec=nPumChiWatSec,
     final nPumConWat=nPumConWat,
@@ -215,11 +218,16 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     final rhoCon_default=rhoCon_default,
     final typArrChi=typArrChi,
     final typArrPumChiWatPri=typArrPumChiWatPri,
+    final typArrPumConWat=typArrPumConWat,
     final typChi=typChi,
     final typCoo=typCoo,
     final typCtl=typCtl,
     final typDisChiWat=typDisChiWat,
-    final typEco=typEco)
+    final typEco=typEco,
+    final typValChiWatChiIso=typValChiWatChiIso,
+    final typValConWatChiIso=typValConWatChiIso,
+    final typValCooInlIso=typValCooInlIso,
+    final typValCooOutIso=typValCooOutIso)
     "Configurationj parameters";
   parameter Buildings.Templates.Plants.Chillers.Data.ChillerPlant dat
     "Design and operating parameters";

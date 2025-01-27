@@ -6,7 +6,8 @@ model WaterCooledG36
       redeclare replaceable
         Buildings.Templates.Plants.Chillers.Components.Economizers.HeatExchangerWithPump
         eco "Heat exchanger with pump for CHW flow control",
-      redeclare final Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl));
+      redeclare final
+        Buildings.Templates.Plants.Chillers.Components.Controls.G36 ctl));
 
   UserProject.DistributionControlPoints disChiWat(nSenDpChiWatRem=pla.ctl.nSenDpChiWatRem)
     "Emulation of control points from CHW distribution system"

@@ -7,13 +7,13 @@ partial model PartialChilledWaterLoop
     final typEco=eco.typ,
     final typCtl=ctl.typ,
     cfg(
-      final have_senDpChiWatLoc=ctl.have_senDpChiWatLoc,
+      final have_senDpChiWatRemWir=ctl.have_senDpChiWatRemWir,
       final have_senVChiWatSec=ctl.have_senVChiWatSec,
       final have_senLevCoo=ctl.have_senLevCoo,
       final nSenDpChiWatRem=ctl.nSenDpChiWatRem,
-      final nLooChiWatSec=ctl.nLooChiWatSec,
       final typCtlHea=ctl.typCtlHea,
-      final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri));
+      final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
+      final have_valChiWatChiBypPar=intChi.have_valChiWatChiBypPar));
 
   replaceable
     Buildings.Templates.Plants.Chillers.Components.ChillerGroups.Compression
@@ -232,9 +232,8 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpChiWatLoc(
     redeclare final package Medium=MediumChiWat,
-    final have_sen=ctl.have_senDpChiWatLoc,
     final allowFlowReversal=allowFlowReversal,
-    final text_rotation=-90)
+    final text_rotation=-90) if not ctl.have_senDpChiWatRemWir
     "Local CHW differential pressure sensor"
     annotation (Placement(
         transformation(
@@ -301,26 +300,8 @@ partial model PartialChilledWaterLoop
     Buildings.Templates.Plants.Chillers.Components.Interfaces.PartialController(
     final nAirHan=nAirHan,
     final nEquZon=nEquZon,
-    final dat=dat.ctl,
-    final typChi=typChi,
-    final nChi=nChi,
-    final typArrChi=typArrChi,
-    final typDisChiWat=typDisChiWat,
-    final typArrPumChiWatPri=typArrPumChiWatPri,
-    final typArrPumConWat=typArrPumConWat,
-    final have_pumChiWatPriVar=have_pumChiWatPriVar,
-    final have_valChiWatChiBypPar=intChi.have_valChiWatChiBypPar,
-    final have_varComPumChiWatPri=have_varComPumChiWatPri,
-    final have_varPumConWat=have_varPumConWat,
-    final have_varComPumConWat=have_varComPumConWat,
-    final typEco=typEco,
-    final typCoo=typCoo,
-    final nCoo=nCoo,
-    final nPumChiWatSec=nPumChiWatSec,
-    final typValChiWatChiIso=typValChiWatChiIso,
-    final typValConWatChiIso=typValConWatChiIso,
-    final typValCooInlIso=typValCooInlIso,
-    final typValCooOutIso=typValCooOutIso)
+    final cfg=cfg,
+    final dat=dat.ctl)
     "Plant controller"
     annotation (
     Dialog(group="Controls"),
@@ -549,5 +530,5 @@ First implementation.
 Diagram(graphics={Rectangle(
   extent={{280,0},{281,-240}},
   lineColor={0,0,0},
-  visible=ctl.have_senDpChiWatLoc)}));
+  visible=not ctl.have_senDpChiWatRemWir)}));
 end PartialChilledWaterLoop;

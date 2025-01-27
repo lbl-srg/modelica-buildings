@@ -1,6 +1,7 @@
 within Buildings.Templates.Plants.Chillers.Components.Controls;
 block ControllerG36Debug
-  extends Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller;
+  extends Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller(
+    dpChiWat_local(final unit="Pa"));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant FIXME_dTLifMax(k=max(
         TConWatRet_nominal - TChiWatSupMin)) "Maximum chiller lift"
     annotation (Placement(transformation(extent={{-1020,-50},{-1000,-30}})));

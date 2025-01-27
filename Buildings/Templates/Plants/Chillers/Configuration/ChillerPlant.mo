@@ -14,6 +14,15 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea
     "Type of head pressure control"
     annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
+    "Type of chiller CHW isolation valve"
+    annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso
+    "Type of chiller CW isolation valve"
+    annotation (Evaluate=true);
+  parameter Boolean have_valChiWatChiBypPar
+    "Set to true for chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
+    annotation (Evaluate=true);
   // Controls
   parameter Buildings.Templates.Plants.Chillers.Types.Controller typCtl
     "Type of controller"
@@ -48,6 +57,9 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Boolean have_pumChiWatPriVar
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
+  parameter Boolean have_varComPumChiWatPri
+    "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
+    annotation (Evaluate=true);
   parameter Integer nPumChiWatPri
     "Number of primary CHW pumps"
     annotation (Evaluate=true);
@@ -62,16 +74,16 @@ record ChillerPlant "Configuration parameters for chiller plant"
     annotation (Evaluate=true);
   parameter Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement typMeaCtlChiWatPri
     "Type of sensors for primary CHW pump control in variable primary-variable secondary plants"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_senDpChiWatLoc
-    "Set to true for local CHW differential pressure sensor hardwired to plant controller"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_senDpChiWatRemWir
+    "Set to true for remote CHW differential pressure sensor(s) hardwired to plant or pump controller"
+    annotation (Evaluate=true);
   parameter Integer nLooChiWatSec=1
     "Number of secondary CHW loops"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_senVChiWatSec
     "Set to true if secondary loop is equipped with a flow meter"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   // WSE
   parameter Buildings.Templates.Plants.Chillers.Types.Economizer typEco
     "Type of WSE"
@@ -80,8 +92,14 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Integer nPumConWat
     "Number of CW pumps"
     annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumConWat
+    "Type of CW pump arrangement"
+    annotation (Evaluate=true);
   parameter Boolean have_varPumConWat
     "Set to true for variable speed CW pumps, false for constant speed pumps"
+    annotation (Evaluate=true);
+  parameter Boolean have_varComPumConWat
+    "Set to true for single common speed signal for CW pumps, false for dedicated signals"
     annotation (Evaluate=true);
   // Coolers
   parameter Buildings.Templates.Components.Types.Cooler typCoo
@@ -93,6 +111,12 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Boolean have_senLevCoo
     "Set to true if cooling towers have level sensor for makeup water control"
     annotation (Evaluate=true);
+  parameter Buildings.Templates.Components.Types.Valve typValCooInlIso
+    "Cooler inlet isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
+    "Cooler outlet isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   annotation (
     defaultComponentPrefixes="parameter",

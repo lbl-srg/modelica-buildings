@@ -3,153 +3,56 @@ partial block PartialController "Interface class for plant controller"
   parameter Buildings.Templates.Plants.Chillers.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Chiller typChi
-    "Type of chiller"
+  parameter Buildings.Templates.Plants.Chillers.Configuration.ChillerPlant cfg
+    "Plant configuration parameters"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nChi(start=1)
-    "Number of chillers"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Plants.Chillers.Types.ChillerArrangement typArrChi(
-    start=Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Parallel)
-    "Type of chiller arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36));
-  parameter Buildings.Templates.Plants.Chillers.Types.Distribution typDisChiWat
-    "Type of CHW distribution system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Boolean have_pumChiWatSec=
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2 or
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-    "Set to true if the plant includes secondary CHW pumps"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumChiWatPri(
-    start=1,
-    final min=1)=nChi
-    "Number of primary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumChiWatPri
-    "Type of primary CHW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatPriVar
-    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumConWat(
-    start=1,
-    final min=0)=nChi
-    "Number of CW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumConWat
-    "Type of CW pump arrangement"
-    annotation (Evaluate=true,
-      Dialog(group="Configuration", enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_varComPumChiWatPri
-    "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_varPumConWat(
-    start=false)
-    "Set to true for variable speed CW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_varComPumConWat(
-    start=false)
-    "Set to true for single common speed signal for CW pumps, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl typCtlHea(
     start=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None)
     "Type of head pressure control"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi
-           == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Buildings.Templates.Plants.Chillers.Types.Economizer typEco
-    "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_valChiWatChiBypPar(start=false)
-    "Set to true for chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-      typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
-  parameter Buildings.Templates.Components.Types.Cooler typCoo(
-    start=Buildings.Templates.Components.Types.Cooler.None)
-    "Condenser water cooling equipment"
-    annotation(Evaluate=true, Dialog(group="Configuration",
-      enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-      typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nCoo(
-    start=1,
-    final min=0)=nChi
-    "Number of cooler units"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nPumChiWatSec(
-    start=1,
-    final min=0)=nChi
-    "Number of secondary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-    or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2));
-  parameter Integer nLooChiWatSec=1
-    "Number of secondary CHW loops"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed));
-  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
-    "Type of chiller CHW isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso
-    "Type of chiller CW isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typValCooInlIso
-    "Cooler inlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
-    "Cooler outlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  parameter Boolean have_senDpChiWatLoc = false
-    "Set to true for local CHW differential pressure sensor hardwired to plant controller"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
-          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
+       enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
+       and cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Boolean have_senDpChiWatRemWir=false
+    "Set to true for remote CHW differential pressure sensor(s) hardwired to plant or pump controller"
+    annotation (Evaluate=true,
+      Dialog(group="Configuration",
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
+        cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+        or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+        or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
   parameter Integer nSenDpChiWatRem(final min=if typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
          then 1 else 0) = 1
     "Number of remote CHW differential pressure sensors used for CHW pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
-          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
-
+    annotation (Evaluate=true, Dialog(group="Configuration",
+      enable=typ==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
+       cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+       or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+       or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
   parameter Integer nAirHan(
     final min=0)=0
     "Number of air handling units served by the plant"
-    annotation(Dialog(group="Configuration", enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36),
+    annotation(Dialog(group="Configuration",
+    enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36),
     Evaluate=true);
   parameter Integer nEquZon(
     final min=0)=0
     "Number of terminal units (zone equipment) served by the plant"
-    annotation(Dialog(group="Configuration", enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36),
+    annotation(Dialog(group="Configuration",
+    enable=typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36),
     Evaluate=true);
-
   parameter Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement typMeaCtlChiWatPri(
     start=Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.FlowDecoupler)
     "Type of sensors for primary CHW pump control in variable primary-variable secondary plants"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and (
-          typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-           or typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
+          cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+           or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed)));
 
   final parameter Boolean have_senVChiWatPri=
-    if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only then
+    if cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only then
       true
-    elseif typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-    or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed then
+    elseif cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+    or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed then
       typMeaCtlChiWatPri==Buildings.Templates.Plants.Chillers.Types.PrimaryOverflowMeasurement.FlowDifference
     else false
     "Set to true for primary CHW flow sensor"
@@ -161,9 +64,9 @@ partial block PartialController "Interface class for plant controller"
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
           have_senVChiWatPri));
   final parameter Boolean have_senVChiWatSec=
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2 or
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2 or
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
+    cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2 or
+    cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2 or
+    cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true for secondary CHW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Plants.Chillers.Types.SensorLocation locSenFloChiWatSec=
@@ -177,11 +80,11 @@ partial block PartialController "Interface class for plant controller"
     "Set to true for primary CHW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-          typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-           and typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
+          cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+           and cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
   final parameter Boolean have_senTChiWatPriSup=
-    typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-    or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+    cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
     or have_senTChiWatPlaRet_select
     "Set to true for plant CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -190,12 +93,12 @@ partial block PartialController "Interface class for plant controller"
     "Set to true for plant CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
           Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-          typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
-           and typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
+          cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+           and cfg.typDisChiWat <> Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only));
   final parameter Boolean have_senTChiWatPlaRet=
-    if typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
+    if cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Only
       then false
-    elseif typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
+    elseif cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
       then true
     else have_senTChiWatPlaRet_select
     "Set to true for plant CHW return temperature sensor"
@@ -203,20 +106,20 @@ partial block PartialController "Interface class for plant controller"
 
   // For plants with WSE, TChiWatEcoBef is used in place of TChiWatSecRet.
   final parameter Boolean have_senTChiWatSecRet=
-    if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
+    if cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then false
-    else typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
-      or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
-      or typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
+    else cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
+      or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2
+      or cfg.typDisChiWat==Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2Distributed
     "Set to true for secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl typCtlFanCoo=
     Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature
     "Cooler fan speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi
-           == Buildings.Templates.Components.Types.Chiller.WaterCooled));
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typ ==Buildings.Templates.Plants.Chillers.Types.Controller.G36
+    and cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Boolean is_clsCpl=true
     "Set to true if the plant is close coupled (pipe length from chillers to coolers under 30 m)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
@@ -224,32 +127,13 @@ partial block PartialController "Interface class for plant controller"
   parameter Boolean have_senLevCoo=false
     "Set to true if cooling towers have level sensor for makeup water control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=typ ==
-          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and typChi
+          Buildings.Templates.Plants.Chillers.Types.Controller.G36 and cfg.typChi
            == Buildings.Templates.Components.Types.Chiller.WaterCooled and (
-          typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
-           or typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed)));
+          cfg.typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+           or cfg.typCoo == Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed)));
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.Controller dat(
-    final typ=typ,
-    final typChi=typChi,
-    final nChi=nChi,
-    final nPumChiWatPri=nPumChiWatPri,
-    final nPumConWat=nPumConWat,
-    final typArrPumChiWatPri=typArrPumChiWatPri,
-    final typDisChiWat=typDisChiWat,
-    final nPumChiWatSec=nPumChiWatSec,
-    final typCoo=typCoo,
-    final nCoo=nCoo,
-    final have_pumChiWatPriVar=have_pumChiWatPriVar,
-    final have_varPumConWat=have_varPumConWat,
-    final typCtlHea=typCtlHea,
-    final typEco=typEco,
-    final typMeaCtlChiWatPri=typMeaCtlChiWatPri,
-    final have_senDpChiWatLoc=have_senDpChiWatLoc,
-    final nSenDpChiWatRem=nSenDpChiWatRem,
-    final nLooChiWatSec=nLooChiWatSec,
-    final have_senVChiWatSec=have_senVChiWatSec,
-    final have_senLevCoo=have_senLevCoo)
+    cfg=cfg)
     "Parameter record for controller";
 
   final parameter Real sta[:,:]=dat.sta
@@ -291,41 +175,41 @@ partial block PartialController "Interface class for plant controller"
         rotation=-90,
         origin={100,-60})));
 protected
-  Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
+  Buildings.Templates.Components.Interfaces.Bus busChi[cfg.nChi]
     "Chiller control bus"
     annotation (Placement(transformation(extent={{-260,180},{-220,220}}),
                         iconTransformation(extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
-    if typCoo<>Buildings.Templates.Components.Types.Cooler.None
+  Buildings.Templates.Components.Interfaces.Bus busCoo[cfg.nCoo]
+    if cfg.typCoo<>Buildings.Templates.Components.Types.Cooler.None
     "Cooler control bus"
     annotation (Placement(transformation(extent={{-260,-120},{-220,-80}}),
                          iconTransformation(extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCooInlIso[nCoo]
-    if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None
+  Buildings.Templates.Components.Interfaces.Bus busValCooInlIso[cfg.nCoo]
+    if cfg.typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None
     "Cooler inlet isolation valve control bus"
     annotation (Placement(
         transformation(extent={{-260,-160},{-220,-120}}), iconTransformation(
           extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValCooOutIso[nCoo]
-    if typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None
+  Buildings.Templates.Components.Interfaces.Bus busValCooOutIso[cfg.nCoo]
+    if cfg.typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None
     "Cooler outlet isolation valve control bus"
     annotation (Placement(
         transformation(extent={{-260,-200},{-220,-160}}), iconTransformation(
           extent={{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
-    if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[cfg.nChi]
+    if cfg.typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
     "Chiller CHW isolation valve control bus"
     annotation (Placement(
         transformation(extent={{-260,140},{-220,180}}), iconTransformation(extent=
            {{-756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
-    if typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None
+  Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[cfg.nChi]
+    if cfg.typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None
     "Chiller CW isolation valve control bus"
     annotation (Placement(
         transformation(extent={{-260,100},{-220,140}}), iconTransformation(extent={{
             -756,150},{-716,190}})));
-  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[nChi] if
-    typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiBypSer[cfg.nChi] if
+    cfg.typArrChi == Buildings.Templates.Plants.Chillers.Types.ChillerArrangement.Series
     "Chiller CHW bypass valve control bus - Series chillers" annotation (
       Placement(transformation(extent={{-260,60},{-220,100}}),
         iconTransformation(extent={{-422,198},{-382,238}})));

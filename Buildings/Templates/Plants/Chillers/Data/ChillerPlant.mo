@@ -7,26 +7,7 @@ record ChillerPlant "Record for chiller plant"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.Plants.Chillers.Components.Data.Controller ctl(
-    final typ=cfg.typCtl,
-    final typChi=cfg.typChi,
-    final nChi=cfg.nChi,
-    final nPumChiWatPri=cfg.nPumChiWatPri,
-    final typArrPumChiWatPri=cfg.typArrPumChiWatPri,
-    final have_pumChiWatPriVar=cfg.have_pumChiWatPriVar,
-    final nPumConWat=cfg.nPumConWat,
-    final typDisChiWat=cfg.typDisChiWat,
-    final nPumChiWatSec=cfg.nPumChiWatSec,
-    final typEco=cfg.typEco,
-    final typCoo=cfg.typCoo,
-    final have_varPumConWat=cfg.have_varPumConWat,
-    final nCoo=cfg.nCoo,
-    final have_senLevCoo=cfg.have_senLevCoo,
-    final typCtlHea=cfg.typCtlHea,
-    final typMeaCtlChiWatPri=cfg.typMeaCtlChiWatPri,
-    final have_senDpChiWatLoc=cfg.have_senDpChiWatLoc,
-    final nSenDpChiWatRem=cfg.nSenDpChiWatRem,
-    final nLooChiWatSec=cfg.nLooChiWatSec,
-    final have_senVChiWatSec=cfg.have_senVChiWatSec)
+    final cfg=cfg)
     "Controller"
     annotation(Dialog(group="Controls"));
 
