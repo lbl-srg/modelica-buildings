@@ -9,5 +9,4 @@ MotorModel
 MotorMachineInterface
 VoltageConversion
 SimVFD
-MotorModel1
 FrequencyConversion
