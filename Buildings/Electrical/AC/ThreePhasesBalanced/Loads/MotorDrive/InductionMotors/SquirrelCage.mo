@@ -80,11 +80,11 @@ model SquirrelCage
     Ls=per.Ls,
     Rr=per.Rr,
     Lm=per.Lm,
-    Rs=per.Rs) annotation (Placement(transformation(extent={{2,-6},{16,8}})));
+    Rs=per.Rs) "Calculates Electromagnetic torque of induction machine" annotation (Placement(transformation(extent={{2,-6},{16,8}})));
   BaseClasses.SpeedBlock speBlo(J=per.J, P=per.P)
-    annotation (Placement(transformation(extent={{-4,-76},{16,-56}})));
+   "Calculates Speed of induction machine rotor" annotation (Placement(transformation(extent={{-4,-76},{16,-56}})));
   BaseClasses.CurrentBlock current_Block
-    annotation (Placement(transformation(extent={{66,28},{86,48}})));
+   "Calculates current of induction machine rotor" annotation (Placement(transformation(extent={{66,28},{86,48}})));
 equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";
@@ -98,8 +98,10 @@ equation
   connect(integrator.u, angFre1.y) annotation (Line(points={{-4,70},{-19,70}},
                          color={0,0,127}));
   connect(fre.y, torSpe.f)
-    annotation (Line(points={{-43,0},{0,0}},   color={0,0,127}));
-  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-39,20},{-4,20},{-4,6}},
+    annotation (Line(points={{-43,0},{-22,0},{-22,1.77778},{0.833333,1.77778}},
+                                               color={0,0,127}));
+  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-39,20},{0.833333,20},
+          {0.833333,6.44444}},
                        color={0,0,127}));
   connect(speed.flange, shaft)
     annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
@@ -110,9 +112,11 @@ equation
   connect(eleTor.y, speBlo.tau_e) annotation (Line(points={{-45,-58},{-42,-58},{
           -42,-60},{-6,-60}}, color={0,0,127}));
   connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{17.9,-59.9},
-          {17.9,-58},{28,-58},{28,-16},{-18,-16},{-18,-6},{-4,-6}}, color={0,0,127}));
+          {17.9,-58},{28,-58},{28,-16},{-18,-16},{-18,-2.88889},{0.833333,-2.88889}},
+                                                                    color={0,0,127}));
   connect(speed.w_ref, torSpe.omega_r) annotation (Line(points={{62.4,0},{46,0},
-          {46,-58},{28,-58},{28,-16},{-18,-16},{-18,-6},{-4,-6}}, color={0,0,127}));
+          {46,-58},{28,-58},{28,-16},{-18,-16},{-18,-2.88889},{0.833333,-2.88889}},
+                                                                  color={0,0,127}));
   connect(integrator.y, current_Block.wt) annotation (Line(points={{19,70},{46,70},
           {46,54},{64,54},{64,46}}, color={0,0,127}));
   connect(i_ds.y, current_Block.i_ds)
