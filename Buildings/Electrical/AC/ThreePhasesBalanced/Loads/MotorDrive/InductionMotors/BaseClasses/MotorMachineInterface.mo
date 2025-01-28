@@ -4,12 +4,12 @@ model MotorMachineInterface
 
   parameter Integer P=4 "Number of poles";
 
-  parameter Real J;
-  parameter Real Lr;
-  parameter Real Ls;
-  parameter Real Rr;
-  parameter Real Lm;
-  parameter Real Rs;
+  parameter Real J "Moment of Inertia [Kg/m2]";
+  parameter Real Lr "Rotor Inductance [H]";
+  parameter Real Ls "Stator Inductance [H]";
+  parameter Real Rr "Rotor Resistance [ohm]";
+  parameter Real Lm "Mutual Inductance [H]";
+  parameter Real Rs "Stator Resistance [ohm]";
 
   Modelica.Blocks.Interfaces.RealInput V_rms(unit="V") "Prescribed RMS voltage"
     annotation (Placement(transformation(
@@ -19,18 +19,18 @@ model MotorMachineInterface
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,60})));
+        origin={-160,60})));
   Modelica.Blocks.Interfaces.RealInput f(final quantity="Frequency",
     final unit="Hz")
     "Controllable freuqency to the motor"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-80,0}),
+        origin={-160,0}),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-80,0})));
+        origin={-160,0})));
   Modelica.Blocks.Interfaces.RealInput omega_r(final quantity="AngularVelocity",
     final unit="rad/s")
     "Prescribed rotational speed of rotor"
@@ -41,11 +41,11 @@ model MotorMachineInterface
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-120,-60})));
+        origin={-160,-60})));
   Modelica.Blocks.Interfaces.RealOutput tau_e(final quantity="Torque",
       final unit="N.m") "Electromagenetic torque of rotor" annotation (
-      Placement(transformation(extent={{-20,-20},{20,20}}, origin={100,0}),
-        iconTransformation(extent={{80,-20},{120,20}})));
+      Placement(transformation(extent={{-20,-20},{20,20}}, origin={160,0}),
+        iconTransformation(extent={{140,-20},{180,20}})));
 
   VoltageConversion volCon
     "Obtain the stator voltage values in q-axis and d-axis"
@@ -76,7 +76,8 @@ equation
     annotation (Line(points={{-50,50},{-80,50}},  color={0,0,127},
       thickness=1));
   connect(frequencyConversion.f, f)
-    annotation (Line(points={{-46,0},{-80,0}},  color={0,0,127},
+    annotation (Line(points={{-46,0},{-66,0},{-66,0},{-160,0}},
+                                                color={0,0,127},
       thickness=1));
   connect(motMod.omega_r, omega_r) annotation (Line(points={{-1.42857,-6.71429},
           {-16,-6.71429},{-16,-50},{-80,-50}},
@@ -105,30 +106,33 @@ equation
       color={0,0,127},
       thickness=1));
   connect(torBlo.tau_e, tau_e) annotation (Line(
-      points={{60,0},{100,0}},
+      points={{60,0},{160,0}},
       color={0,0,127},
       thickness=1));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-60,
-            -60},{80,80}}),                                    graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,127},
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,80}}),
+        graphics={Rectangle(
+          extent={{-140,140},{140,-144}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-          Text(
-          extent={{-82,162},{82,116}},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{-58,170},{62,142}},
           textColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
-          textString="%name")}),
-          defaultComponentName="torSpe",
+          textString="%name
+")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
+            80}})),
     Documentation(info="<html>
 <ul>
+<li>
+January, 2025, by Viswanathan Ganesh:<br/>
+Updated Icon Layer.
 <li>
 September, 2023, by Zhanwei He:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(extent={{-60,-60},{80,80}})));
+
+</html>"));
 end MotorMachineInterface;
