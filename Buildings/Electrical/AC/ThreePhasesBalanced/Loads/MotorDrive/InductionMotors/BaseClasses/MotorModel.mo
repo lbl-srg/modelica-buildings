@@ -189,5 +189,17 @@ equation
           textString="%name
 ")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
-            140}})));
+            140}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+November 10, 2023, by Viswanathan Ganesh:<br/>
+Initial Implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+Induction Machine Model
+</p>
+</html>"));
 end MotorModel;
