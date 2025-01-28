@@ -57,7 +57,7 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Boolean have_pumChiWatPriVar
     "Set to true for variable speed primary CHW pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_varComPumChiWatPri
+  parameter Boolean have_pumChiWatPriVarCom
     "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
     annotation (Evaluate=true);
   parameter Integer nPumChiWatPri
@@ -95,10 +95,10 @@ record ChillerPlant "Configuration parameters for chiller plant"
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumConWat
     "Type of CW pump arrangement"
     annotation (Evaluate=true);
-  parameter Boolean have_varPumConWat
+  parameter Boolean have_pumConWatVar
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true);
-  parameter Boolean have_varComPumConWat
+  parameter Boolean have_pumConWatVarCom
     "Set to true for single common speed signal for CW pumps, false for dedicated signals"
     annotation (Evaluate=true);
   // Coolers

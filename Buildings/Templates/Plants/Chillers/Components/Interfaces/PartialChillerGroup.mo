@@ -24,7 +24,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
     "Type of CW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Boolean have_varPumConWat(start=false)
+  parameter Boolean have_pumConWatVar(start=false)
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -72,7 +72,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
   final parameter Boolean enaTypValConWatChiIso=
     typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Headered
       and (typCtlHea==Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None
-      or have_varPumConWat
+      or have_pumConWatVar
       and typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.None)
     "Enable choices of chiller CW isolation valve type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -899,7 +899,7 @@ Sub-bus <code>bus.chi=busChi</code> storing all signals dedicated
 to each unit, with a dimensionality of one
 <ul>
 <li>
-See the class 
+See the class
 <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
 Buildings.Templates.Components.Chillers.Compression</a>
 for the control signals typically included in this sub-bus.

@@ -53,8 +53,8 @@ model WaterCooled "Water-cooled chiller plant"
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
     redeclare final package Medium=MediumCon,
     final nPum=nPumConWat,
-    final have_var=have_varPumConWat,
-    final have_varCom=have_varComPumConWat,
+    final have_var=have_pumConWatVar,
+    final have_varCom=have_pumConWatVarCom,
     final dat=dat.pumConWat,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
@@ -139,10 +139,10 @@ equation
 This template represents a chilled water plant with water-cooled compression chillers.
 </p>
 <p>
-The table below lists all available equipment configurations. 
+The table below lists all available equipment configurations.
 The first option (shown in <b>bold</b>) represents the default plant configuration.
 Options shown in <font color=\"gray\"><em>gray italics</em></font> are not currently
-supported by the plant controller         
+supported by the plant controller
 <a href=\\\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\\\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>
 and cannot be selected.

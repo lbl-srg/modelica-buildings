@@ -252,12 +252,6 @@ model ChillersToPrimaryPumps
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary CHW volume flow rate"
     annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
-protected
-  parameter Boolean have_controlVolume=
-    energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "Boolean flag used to remove conditional components"
-    annotation(Evaluate=true);
-public
   Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
     redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),

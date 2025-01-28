@@ -5,12 +5,12 @@ simulateModel("Buildings.Templates.Plants.Chillers.Components.Validation.CoolerG
   stopTime=2000.0,
   resultFile="CoolerGroupCoolingTowerOpen");
 createPlot(id=1,
-  position={15, 15, 1184, 744},
+  position={5, 5, 400, 300},
   y={"coo.coo[2].sta_a.T", "coo.coo[2].sta_b.T", "coo.coo[1].sta_a.T", "coo.coo[1].sta_b.T"},
   autoscale=true,
   grid=true);
 createPlot(id=2,
-  position={215, 15, 1184, 744},
+  position={415, 5, 400, 300},
   y={"coo1.coo[2].sta_a.T", "coo1.coo[2].sta_b.T", "coo1.coo[1].sta_a.T", "coo1.coo[1].sta_b.T"},
   autoscale=true,
   grid=true);

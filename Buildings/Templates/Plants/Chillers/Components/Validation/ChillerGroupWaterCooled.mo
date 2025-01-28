@@ -93,7 +93,7 @@ model ChillerGroupWaterCooled
     final capChi_nominal=capChi_nominal,
     final COPChi_nominal=COPChi_nominal,
     final TChiWatSupChi_nominal=fill(TChiWatSup_nominal, nChi),
-    final TConEntChi_nominal=fill(TConWatSup_nominal, nChi),
+    final TConWatEntChi_nominal=fill(TConWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
     redeclare
       Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD
@@ -157,7 +157,7 @@ model ChillerGroupWaterCooled
     typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.None,
     typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    have_varPumConWat=false,
+    have_pumConWatVar=false,
     typEco=Buildings.Templates.Plants.Chillers.Types.Economizer.None,
     show_T=true)
     "Chiller group"
@@ -218,20 +218,17 @@ model ChillerGroupWaterCooled
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
 
   Plants.Chillers.Components.Controls.OpenLoop ctl(
-    final typChi=chi.typ,
-    final nChi=chi.nChi,
-    final typDisChiWat=chi.typDisChiWat,
-    final typArrPumChiWatPri=chi.typArrPumChiWatPri,
-    final typArrPumConWat=chi.typArrPumConWat,
-    final have_pumChiWatPriVar=pumChiWatPri.have_var,
-    final have_varComPumChiWatPri=pumChiWatPri.have_varCom,
-    final have_varPumConWat=pumConWat.have_var,
-    final have_varComPumConWat=pumConWat.have_varCom,
-    final typEco=chi.typEco,
-    final typValChiWatChiIso=chi.typValChiWatChiIso,
-    final typValConWatChiIso=chi.typValConWatChiIso,
-    final typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
-    final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None,
+    cfg=Buildings.Templates.Plants.Chillers.Components.Validation.Configuration.Variable1OnlyWaterCooledParallel(
+      nChi=chi.nChi,
+      typArrPumChiWatPri=chi.typArrPumChiWatPri,
+      typArrPumConWat=chi.typArrPumConWat,
+      have_pumChiWatPriVar=pumChiWatPri.have_var,
+      have_pumChiWatPriVarCom=pumChiWatPri.have_varCom,
+      have_pumConWatVar=pumConWat.have_var,
+      have_pumConWatVarCom=pumConWat.have_varCom,
+      typEco=chi.typEco,
+      typValChiWatChiIso=chi.typValChiWatChiIso,
+      typValConWatChiIso=chi.typValConWatChiIso),
     dat(sta=fill(fill(0, ctl.dat.nUniSta), ctl.dat.nUniSta)))
     "Plant controller"
     annotation (Placement(transformation(extent={{-160,170},{-180,190}})));

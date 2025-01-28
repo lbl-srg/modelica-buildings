@@ -12,12 +12,12 @@ block OpenLoop
     annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPri(
     k=1)
-    if cfg.have_pumChiWatPriVar and cfg.have_varComPumChiWatPri
+    if cfg.have_pumChiWatPriVar and cfg.have_pumChiWatPriVarCom
     "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,50},{-110,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatPriDed[cfg.nPumChiWatPri](
     each k=1)
-    if cfg.have_pumChiWatPriVar and not cfg.have_varComPumChiWatPri
+    if cfg.have_pumChiWatPriVar and not cfg.have_pumChiWatPriVarCom
     "Primary CHW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumChiWatSec(
@@ -28,13 +28,13 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumConWat(
     k=1)
     if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and cfg.have_varPumConWat and cfg.have_varComPumConWat
+      and cfg.have_pumConWatVar and cfg.have_pumConWatVarCom
     "CW pump speed signal"
     annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yPumConWatDed[cfg.nPumConWat](
     each k=1)
     if cfg.typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and cfg.have_varPumConWat and not cfg.have_varComPumConWat
+      and cfg.have_pumConWatVar and not cfg.have_pumConWatVarCom
     "CW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant yValChiWatChiIso[cfg.nChi](

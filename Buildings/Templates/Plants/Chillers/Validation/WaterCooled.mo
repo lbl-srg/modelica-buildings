@@ -45,7 +45,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     final energyDynamics=energyDynamics,
     final dat=datAll.pla,
     typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_varPumConWat_select=true,
+    have_pumConWatVar_select=true,
     chi(
       have_senTChiWatChiSup_select=true,
       have_senTChiWatChiRet=true,
@@ -108,7 +108,7 @@ model WaterCooled "Validation of water-cooled chiller plant template"
     redeclare final package Medium=Medium)
     "CHW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={160,-80})));
+      origin={160,-100})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(
     p=pla.TChiWatRet_nominal - pla.TChiWatSup_nominal)
     "Prescribed CHW return temperature"
@@ -154,9 +154,9 @@ equation
   connect(valDisChiWat.y_actual, reqPlaRes.uCooCoiSet)
     annotation (Line(points={{125,-53},{140,-53},{140,135},{112,135}}, color={0,0,127}));
   connect(valDisChiWat.port_b, mChiWat_flow.port_a)
-    annotation (Line(points={{130,-60},{160,-60},{160,-70}},color={0,127,255}));
+    annotation (Line(points={{130,-60},{160,-60},{160,-90}},color={0,127,255}));
   connect(mChiWat_flow.port_b, dpChiWatRem[1].port_b)
-    annotation (Line(points={{160,-90},{160,-140},{60,-140},{60,-110}}, color={0,127,255}));
+    annotation (Line(points={{160,-110},{160,-140},{60,-140},{60,-110}},color={0,127,255}));
   connect(busPla.TChiWatPriSup, TChiWatRet.u)
     annotation (Line(points={{-80,-40},{-140,-40},{-140,20},{-130,20}},color={255,204,51},thickness=0.5));
   connect(min1.y, loaChiWat.TSet)
@@ -165,7 +165,8 @@ equation
     annotation (Line(points={{88,180},{60,180},{60,146},{12,146}},
                                                                color={255,127,0}));
   connect(mChiWat_flow.port_b, pipChiWat.port_a)
-    annotation (Line(points={{160,-90},{160,-140},{10,-140}},color={0,127,255}));
+    annotation (Line(points={{160,-110},{160,-140},{10,-140}},
+                                                             color={0,127,255}));
   connect(dpChiWatRem.p_rel, busPla.dpChiWatRem)
     annotation (Line(points={{51,-100},{40.5,-100},{40.5,-40},{-80,-40}},
                                                                        color={0,0,127}),
@@ -177,7 +178,8 @@ equation
   connect(ratFlo.y[1], ctlEquZon.u_s)
     annotation (Line(points={{-158,100},{88,100}}, color={0,0,127}));
   connect(mChiWat_flow.m_flow, norFlo.u)
-    annotation (Line(points={{171,-80},{180,-80},{180,-12}}, color={0,0,127}));
+    annotation (Line(points={{171,-100},{180,-100},{180,-12}},
+                                                             color={0,0,127}));
   connect(norFlo.y, ctlEquZon.u_m) annotation (Line(points={{180,12},{180,80},{100,
           80},{100,88}}, color={0,0,127}));
   connect(ctlEquZon.y, valDisChiWat.y)
@@ -204,7 +206,7 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.WaterCooled\">
 Buildings.Templates.Plants.Chillers.WaterCooled</a>
-by simulating a <i>24</i>-hour period during which the cooling loads reach 
+by simulating a <i>24</i>-hour period during which the cooling loads reach
 their peak value.
 </p>
 <p>

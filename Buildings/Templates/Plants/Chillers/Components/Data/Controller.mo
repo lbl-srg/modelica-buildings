@@ -75,7 +75,7 @@ record Controller
     annotation (Dialog(group="Chiller flow setpoints",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
       and cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      and cfg.have_varPumConWat));
+      and cfg.have_pumConWatVar));
   parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min[cfg.nChi](
     each start=Buildings.Templates.Data.Defaults.dTLifChi_min,
     each final min=0)
@@ -133,21 +133,21 @@ record Controller
     "Design heat exchanger approach"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
+      and cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Modelica.Units.SI.TemperatureDifference TWetBulCooEnt_nominal(
     start=Buildings.Templates.Data.Defaults.TWetBulTowEnt,
     final min=273.15)
     "Design cooling tower wetbulb temperature"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
+      and cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Modelica.Units.SI.TemperatureDifference dTAppCoo_nominal(
     start=Buildings.Templates.Data.Defaults.TConWatSup - Buildings.Templates.Data.Defaults.TWetBulTowEnt,
     final min=0)
     "Design cooling tower approach"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
+      and cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Modelica.Units.SI.VolumeFlowRate VChiWatEco_flow_nominal(
     start=0.01,
     displayUnit="L/s",
@@ -155,7 +155,7 @@ record Controller
     "Design waterside economizer CHW volume flow rate"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
+      and cfg.typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   parameter Modelica.Units.SI.VolumeFlowRate VConWatEco_flow_nominal(
     start=0.01,
     displayUnit="L/s",
@@ -163,23 +163,23 @@ record Controller
     "Design waterside economizer CW volume flow rate"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve));
+      and cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve));
   parameter Modelica.Units.SI.PressureDifference dpChiWatEco_nominal(
     start=Buildings.Templates.Data.Defaults.dpChiWatEco,
     final min=0)
     "Design waterside economizer CHW pressure drop"
     annotation (Dialog(group="Waterside economizer design information",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
-      and cfg.cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve));
+      and cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithValve));
   parameter Modelica.Units.SI.Height hLevAlaCoo_max(
     start=0.3,
     final min=0)
     "Maximum level just below overflow"
     annotation (Dialog(group="Cooling tower level control",
-      enable=cfg.typCtlBuildings.Templates.Plants.Chillers.Types.Controller.G36
-      and ((cfg.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
+      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
+      and (cfg.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen
         or cfg.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerClosed)
-        and cfg.have_senLevCoo)));
+        and cfg.have_senLevCoo));
   parameter Modelica.Units.SI.Height hLevAlaCoo_min(
     start=0.05,
     final min=0)
@@ -212,7 +212,7 @@ record Controller
     each final min=0)
     "Mmaximum CHW differential pressure setpoint - Remote sensor"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
-      enable=cfg.typ == Buildings.Templates.Plants.Chillers.Types.Controller.G36
+      enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36
        and (cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1Only
        or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Constant1Variable2
        or cfg.typDisChiWat == Buildings.Templates.Plants.Chillers.Types.Distribution.Variable1And2)));
@@ -235,7 +235,7 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
         (cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-        and cfg.have_varPumConWat)));
+        and cfg.have_pumConWatVar)));
   parameter Real yValConWatChiIso_min(
     final unit="1",
     final min=0,
@@ -246,7 +246,7 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
         (cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-        and not cfg.have_varPumConWat)));
+        and not cfg.have_pumConWatVar)));
   parameter Real yPumConWat_min(
     final unit="1",
     final min=0,
@@ -257,7 +257,7 @@ record Controller
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
         (cfg.typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-        and cfg.have_varPumConWat)));
+        and cfg.have_pumConWatVar)));
   parameter Real yPumChiWatEco_nominal(
     final unit="1",
     final min=0,
@@ -267,7 +267,7 @@ record Controller
     annotation (Dialog(group=
       "Information provided by testing, adjusting, and balancing contractor",
       enable=cfg.typCtl==Buildings.Templates.Plants.Chillers.Types.Controller.G36 and
-      cfg.cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump));
+      cfg.typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.HeatExchangerWithPump));
   parameter Real yPumChiWatPriSta_nominal[nSta](
     each final unit="1",
     each final min=0,

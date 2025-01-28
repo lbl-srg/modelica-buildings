@@ -87,7 +87,7 @@ block G36
   final parameter Integer nConWatPum=cfg.nPumConWat
     "Total number of condenser water pumps"
     annotation (Dialog(tab="General",group="Condenser water pump"));
-  final parameter Boolean have_fixSpeConWatPum=not cfg.have_varPumConWat
+  final parameter Boolean have_fixSpeConWatPum=not cfg.have_pumConWatVar
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
     annotation (Dialog(tab="General",group="Condenser water pump",
       enable=not have_WSE));

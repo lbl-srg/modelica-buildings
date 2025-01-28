@@ -6,8 +6,7 @@ record Economizer "Record for waterside economizer model"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Modelica.Units.SI.Density rhoChiWat_default=
-    Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
+  parameter Modelica.Units.SI.Density rhoChiWat_default=Buildings.Media.Water.d_const
     "Default medium density"
     annotation(Dialog(enable=false));
 
@@ -81,8 +80,8 @@ record Economizer "Record for waterside economizer model"
   defaultComponentName="datEco",
   Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-waterside economizer models that can be found within 
+This record provides the set of sizing and operating parameters for
+waterside economizer models that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Economizers\">
 Buildings.Templates.Plants.Chillers.Components.Economizers</a>.
 </p>

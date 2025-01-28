@@ -22,7 +22,7 @@ model WaterCooledOpenLoop
 
   replaceable Buildings.Templates.Plants.Chillers.WaterCooled pla(
     typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-    have_varPumConWat_select=true,
+    have_pumConWatVar_select=true,
     ctl(
       typCtlHea=Buildings.Templates.Plants.Chillers.Types.ChillerLiftControl.BuiltIn,
       typCtlFanCoo=Buildings.Templates.Plants.Chillers.Types.CoolerFanSpeedControl.SupplyTemperature,

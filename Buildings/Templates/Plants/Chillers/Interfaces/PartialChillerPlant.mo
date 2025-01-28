@@ -81,7 +81,7 @@ partial model PartialChillerPlant "Interface class for chiller plant"
       then have_pumChiWatPriVar_select else true
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
-  final parameter Boolean have_varComPumChiWatPri=true
+  final parameter Boolean have_pumChiWatPriVarCom=true
     "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
     annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
 
@@ -141,19 +141,19 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     "Type of CW pump arrangement"
     annotation (Evaluate=true, Dialog(group="CW loop"));
   // The following parameter stores the user selection.
-  parameter Boolean have_varPumConWat_select=false
+  parameter Boolean have_pumConWatVar_select=false
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="CW loop",
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco==Buildings.Templates.Plants.Chillers.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_varPumConWat=
+  final parameter Boolean have_pumConWatVar=
     if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then true
     else false
     "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="CW loop"));
-  final parameter Boolean have_varComPumConWat=
+  final parameter Boolean have_pumConWatVarCom=
     if typEco<>Buildings.Templates.Plants.Chillers.Types.Economizer.None
       then true
     elseif typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
@@ -202,10 +202,10 @@ partial model PartialChillerPlant "Interface class for chiller plant"
     final cpChiWat_default=cpChiWat_default,
     final cpCon_default=cpCon_default,
     final have_pumChiWatPriVar=have_pumChiWatPriVar,
-    final have_varComPumChiWatPri=have_varComPumChiWatPri,
+    final have_pumChiWatPriVarCom=have_pumChiWatPriVarCom,
     final have_pumChiWatSec=have_pumChiWatSec,
-    final have_varPumConWat=have_varPumConWat,
-    final have_varComPumConWat=have_varComPumConWat,
+    final have_pumConWatVar=have_pumConWatVar,
+    final have_pumConWatVarCom=have_pumConWatVarCom,
     final nAirHan=nAirHan,
     final nChi=nChi,
     final nCoo=nCoo,
