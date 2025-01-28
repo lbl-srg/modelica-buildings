@@ -71,21 +71,22 @@ model MotorModel "Induction Machine Model"
     Rr=Rr,
     Lm=Lm,
     Rs=Rs,
-    Ls=Ls) annotation (Placement(transformation(extent={{66,80},{86,100}})));
+    Ls=Ls)
+          "Calculates Q-axis current of stator" annotation (Placement(transformation(extent={{66,80},{86,100}})));
   StatorCurrent_d i_ds_block(
     Lr=Lr,
     Rr=Rr,
     Lm=Lm,
     Rs=Rs,
-    Ls=Ls) annotation (Placement(transformation(extent={{64,40},{84,60}})));
+    Ls=Ls) "Calculates D-axis current of stator" annotation (Placement(transformation(extent={{64,40},{84,60}})));
   RotorCurrent_d i_dr_block(
     Lr=Lr,
     Rr=Rr,
-    Lm=Lm) annotation (Placement(transformation(extent={{62,-110},{82,-90}})));
+    Lm=Lm) "Calculates D-axis current of rotor" annotation (Placement(transformation(extent={{62,-110},{82,-90}})));
   RotorCurrent_q i_qr_block(
     Lr=Lr,
     Rr=Rr,
-    Lm=Lm) annotation (Placement(transformation(extent={{62,-50},{82,-30}})));
+    Lm=Lm) "Calculates Q-axis current of rotor" annotation (Placement(transformation(extent={{62,-50},{82,-30}})));
 equation
   connect(i_qr_block.der_i_qr, int_qr.u)
     annotation (Line(points={{84,-40},{98,-40}}, color={0,0,127}));
