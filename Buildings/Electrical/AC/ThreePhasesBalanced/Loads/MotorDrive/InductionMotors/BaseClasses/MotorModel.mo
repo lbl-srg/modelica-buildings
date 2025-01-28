@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model MotorModel
+model MotorModel "Induction Machine Model"
   parameter Modelica.Units.SI.Reactance Lr;
   parameter Modelica.Units.SI.Reactance Ls;
   parameter Modelica.Units.SI.Resistance Rr;
