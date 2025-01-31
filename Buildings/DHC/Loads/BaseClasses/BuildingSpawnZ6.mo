@@ -26,7 +26,7 @@ model BuildingSpawnZ6
       nZon) ./ facMulTerUni
     "Design cooling heat flow rate (single terminal unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
+  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String epwName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
     "Name of the weather file";
@@ -62,42 +62,42 @@ model BuildingSpawnZ6
     k=0)
     "Latent heat gain"
     annotation (Placement(transformation(extent={{-60,64},{-40,84}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znAttic(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znAttic(
     redeclare package Medium=Medium2,
     zoneName="Attic")
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,84},{64,124}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znCore_ZN(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znCore_ZN(
     redeclare package Medium=Medium2,
     zoneName="Core_ZN",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,42},{64,82}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znPerimeter_ZN_1(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znPerimeter_ZN_1(
     redeclare package Medium=Medium2,
     zoneName="Perimeter_ZN_1",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,0},{64,40}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znPerimeter_ZN_2(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znPerimeter_ZN_2(
     redeclare package Medium=Medium2,
     zoneName="Perimeter_ZN_2",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,-40},{64,0}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znPerimeter_ZN_3(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znPerimeter_ZN_3(
     redeclare package Medium=Medium2,
     zoneName="Perimeter_ZN_3",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,-80},{64,-40}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone znPerimeter_ZN_4(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone znPerimeter_ZN_4(
     redeclare package Medium=Medium2,
     zoneName="Perimeter_ZN_4",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{24,-120},{64,-80}})));
-  inner Buildings.ThermalZones.EnergyPlus_9_6_0.Building building(
+  inner Buildings.ThermalZones.EnergyPlus_24_2_0.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       idfName),
     epwName=Modelica.Utilities.Files.loadResource(
@@ -280,5 +280,5 @@ First implementation.
       graphics={
         Bitmap(
           extent={{-108,-100},{92,100}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/EnergyPlusLogo.png")}));
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ6;

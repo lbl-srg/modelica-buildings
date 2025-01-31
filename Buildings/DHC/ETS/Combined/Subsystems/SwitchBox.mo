@@ -77,23 +77,25 @@ model SwitchBox
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valSup(
     redeclare package Medium = Medium,
     dpValve_nominal=dpValve_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     m_flow_nominal=m_flow_nominal,
     linearized={true,true},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Directional valve"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}}, origin={-20,0},
-     rotation=-90)));
+    "Directional valve" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        origin={-20,0},
+        rotation=-90)));
   Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRet(
     redeclare package Medium = Medium,
     dpValve_nominal=dpValve_nominal,
-    use_inputFilter=false,
+    use_strokeTime=false,
     m_flow_nominal=m_flow_nominal,
     linearized={true,true},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Directional valve"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={20,-40},
-      rotation=-90)));
+    "Directional valve" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        origin={20,-40},
+        rotation=-90)));
 equation
   connect(port_bSup, splSup.port_2)
     annotation (Line(points={{-20,100},{-20,50}}, color={0,127,255}));

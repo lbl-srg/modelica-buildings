@@ -120,7 +120,7 @@ test-openmodelica-spawn-spaces-failure:
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
 	@(cd $(TMP) && omc openmod.mos > /dev/null )
-	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@cd $(TMP) && sudo grep -q "To run a simulation with EnergyPlus coupling, the working directory must not have spaces." SpawnTest.log
 	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
@@ -174,7 +174,7 @@ test-optimica:
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification -n $(NPROC))
 
 test-templates-dymola:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Dymola --cover 0.3)
 
 test-templates-optimica:
-	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica)
+	(cd $(ROOT)/Buildings && ../Buildings/Resources/Scripts/travis/templates/checkandrun.sh --checksum --tool Optimica --cover 0.3)

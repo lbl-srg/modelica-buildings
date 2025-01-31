@@ -6,10 +6,10 @@ block BooleanToInteger
   parameter Integer integerFalse=0
     "Output signal for false Boolean input";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
-    "Connector of Boolean input signal"
+    "Boolean signal to be converted to an Integer signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Connector of Integer output signal"
+    "Converted input signal as an Integer"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -40,7 +40,7 @@ and <code>integerTrue</code> and <code>integerFalse</code> are parameters.
 May 17, 2022, by Hongxiang Fu:<br/>
 Corrected documentation texts where the variables were described with wrong types.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">Buildings, issue 3016</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

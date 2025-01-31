@@ -21,7 +21,6 @@ createPlot(id = 2,
    bottomTitleType = 1);
 createPlot(id = 2,
    subPlot=2,
-   position = {670, 460, 600, 450},
    y = {"heaPum.COP"},
    autoscale = true,
    autoerase = true,

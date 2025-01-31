@@ -12,7 +12,7 @@ model BuildingSpawnZ1
     "Load side medium";
   parameter Integer nZon=1
     "Number of thermal zones";
-  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
+  parameter String idfName="modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus_24_2_0/Examples/RefBldgSmallOffice/RefBldgSmallOfficeNew2004_Chicago.idf"
     "Name of the IDF file";
   parameter String epwName="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"
     "Name of the weather file";
@@ -32,13 +32,13 @@ model BuildingSpawnZ1
     k=0)
     "Latent heat gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus_24_2_0.ThermalZone zon(
     redeclare package Medium=Medium2,
     zoneName="Core_ZN",
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{40,-20},{80,20}})));
-  inner Buildings.ThermalZones.EnergyPlus_9_6_0.Building building(
+  inner Buildings.ThermalZones.EnergyPlus_24_2_0.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
       idfName),
     epwName=Modelica.Utilities.Files.loadResource(
@@ -176,5 +176,5 @@ First implementation.
       graphics={
         Bitmap(
           extent={{-108,-100},{92,100}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/EnergyPlusLogo.png")}));
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png")}));
 end BuildingSpawnZ1;

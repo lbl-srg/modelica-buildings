@@ -4,6 +4,8 @@ package Defaults
   extends Modelica.Icons.MaterialPropertiesPackage;
   constant Modelica.Units.SI.Temperature TChiWatSup=7 + 273.15
     "CHW supply temperature (AHRI 551/591)";
+  constant Modelica.Units.SI.Temperature TChiWatSup_min=3.3 + 273.15
+    "Minimum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatSup_max=16 + 273.15
     "Maximum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatRet=12 + 273.15
@@ -18,6 +20,10 @@ package Defaults
     "Minimum condenser entering fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TConEnt_max=45 + 273.15
     "Maximum condenser entering fluid temperature (air or water)";
+  constant Modelica.Units.SI.Temperature TConLvg_min=16 + 273.15
+    "Minimum condenser leaving fluid temperature (air or water)";
+  constant Modelica.Units.SI.Temperature TConLvg_max=50 + 273.15
+    "Maximum condenser leaving fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TChiWatEcoEnt=18 + 273.15
     "WSE entering CHW temperature";
   constant Modelica.Units.SI.Temperature TChiWatEcoLvg=11 + 273.15

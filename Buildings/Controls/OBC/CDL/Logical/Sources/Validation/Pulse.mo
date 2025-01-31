@@ -116,13 +116,13 @@ the same output.
 October 19, 2020, by Michael Wetter:<br/>
 Refactored test for systematic testing.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, issue 2170</a>.
 </li>
 <li>
 September 1, 2020, by Milica Grahovac:<br/>
 Added test cases for simulation time starting before and after the pulse <code>startTime</code>.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">Buildings, issue 2110</a>.
 </li>
 <li>
 July 17, 2017, by Jianjun Hu:<br/>

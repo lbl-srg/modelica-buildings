@@ -7,21 +7,17 @@ block TimeTable
     "Smoothness of table interpolation";
   parameter CDL.Types.Extrapolation extrapolation=CDL.Types.Extrapolation.Periodic
     "Extrapolation of data outside the definition range";
-  parameter Real offset[:]=fill(
-    0,
-    nout)
+  parameter Real offset[:]=fill(0, nout)
     "Offsets of output signals as a vector with length equal to number of table matrix columns less one";
   parameter Real timeScale(
     final unit="1")=1
     "Time scale of first table column. Set to 3600 if time in table is in hours";
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
-    "Output of the table"
+    "Output with tabulated values"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  final parameter Integer nout=size(
-    table,
-    2)-1
+  final parameter Integer nout=size(table,2)-1
     "Dimension of output vector";
   parameter Real t0(
     final quantity="Time",
@@ -59,11 +55,7 @@ protected
         Modelica.Blocks.Types.Extrapolation.Periodic,
     final offset=offset,
     final startTime=
-      if
-        (extrapolation == Types.Extrapolation.Periodic) then
-        t0
-      else
-        0,
+      if (extrapolation == Types.Extrapolation.Periodic) then t0 else 0,
     final timeScale=timeScale)
     "Time table"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));
@@ -264,12 +256,12 @@ Removed writing output value in icon (as it is an array of values).
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Revised to call <code>round()</code> as a function.<br/>
-For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+For <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, issue 2170</a>.
 </li>
 <li>
 October 7, 2020, by Michael Wetter:<br/>
@@ -280,7 +272,7 @@ March 13, 2020, by Michael Wetter:<br/>
 Corrected implementation so that the table also works if the simulation
 starts at a negative time.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1834\">issue 1834</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1834\">Buildings, issue 1834</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

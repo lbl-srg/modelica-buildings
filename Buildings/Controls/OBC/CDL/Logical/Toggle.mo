@@ -8,7 +8,7 @@ block Toggle
     "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Output signal"
+    "Output with toggled signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -19,25 +19,25 @@ initial equation
 equation
   when initial() then
     //scenario = 1
-    y=if clr then
-        false
-      else
-        u;
-  elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == false) then
+    y=if clr then false else u;
+      elsewhen
+	(not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == false)
+      then
     //scenario = 2
     y=true;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == false) and
-                                                          (pre(y) == true) then
+        (not clr) and change(u) and
+        (pre(u) == false) and
+        (pre(y) == true)
+  then
     //scenario = 3
     y=false;
   elsewhen
-          (not clr) and change(u) and
-                                     (pre(u) == true) then
+       (not clr) and change(u) and
+       (pre(u) == true)
+  then
     //scenario = 4
     y=pre(y);
   elsewhen clr then
@@ -158,7 +158,7 @@ At initial time, if <code>clr = false</code>, then the output will be
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to toggle input when the clear input is <code>false</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">Buildings, issue 2177</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
@@ -167,7 +167,7 @@ Simplified implementation, and made model work with OpenModelica.
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Corrected implementation that causes wrong output at initial stage.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>

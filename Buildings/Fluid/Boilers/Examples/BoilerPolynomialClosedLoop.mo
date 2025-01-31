@@ -36,6 +36,7 @@ model BoilerPolynomialClosedLoop
         origin={0,40})));
   Movers.FlowControlled_m_flow pumLoa(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=2*m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for heating load" annotation (Placement(transformation(
@@ -44,6 +45,7 @@ model BoilerPolynomialClosedLoop
         origin={0,110})));
   Movers.FlowControlled_m_flow pumBoi(
     redeclare package Medium = Medium,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for boiler loop" annotation (Placement(transformation(
@@ -269,6 +271,13 @@ and it is used to accommodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed parameter <code>dynamicBalance</code>.

@@ -1,0 +1,24 @@
+compareVars :=
+  {
+    "kappa[2, 2, 1]",
+    "kappa[2, 2, 2]",
+    "kappa[2, 2, 3]",
+    "kappa[2, 2, 4]",
+    "kappa[2, 2, 5]",
+    "kappa[2, 2, 6]",
+    "kappa[2, 2, 7]",
+    "kappa[1, 4, 1]",
+    "kappa[1, 4, 2]",
+    "kappa[1, 4, 3]",
+    "kappa[1, 4, 4]",
+    "kappa[1, 4, 5]",
+    "kappa[1, 4, 6]",
+    "kappa[1, 4, 7]",
+    "kappa[7, 6, 1]",
+    "kappa[7, 6, 2]",
+    "kappa[7, 6, 3]",
+    "kappa[7, 6, 4]",
+    "kappa[7, 6, 5]",
+    "kappa[7, 6, 6]",
+    "kappa[7, 6, 7]"
+  };

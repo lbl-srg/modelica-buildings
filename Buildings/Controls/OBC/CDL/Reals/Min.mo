@@ -2,19 +2,17 @@ within Buildings.Controls.OBC.CDL.Reals;
 block Min
   "Pass through the smallest signal"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
-    "Connector of Real input signal 1"
+    "Input to the min function"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2
-    "Connector of Real input signal 2"
+    "Input to the min function"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Minimum of the inputs"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=min(
-    u1,
-    u2);
+  y=min(u1, u2);
   annotation (
     defaultComponentName="min",
     Documentation(

@@ -37,7 +37,7 @@ partial model PartialMultiplePumps
     final nPum=nPum,
     final mPum_flow_nominal=mPum_flow_nominal,
     final dpPum_nominal=dpPum_nominal,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Multiple pumps in parallel - Speed controlled"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -72,14 +72,13 @@ partial model PartialMultiplePumps
     timeScale=100,
     period=1000) "Pump Start signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  replaceable Fluid.Movers.SpeedControlled_y pum1
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+  replaceable Fluid.Movers.SpeedControlled_y pum1 constrainedby
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare final package Medium = Medium,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
+    use_riseTime=false,
     final per=pum.per,
-    addPowerToMedium=false)
-    "Pump"
+    addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Fluid.FixedResistances.CheckValve cheVal1(
     redeclare final package Medium = Medium,
@@ -87,14 +86,13 @@ partial model PartialMultiplePumps
     final dpValve_nominal=pum.dpValve_nominal)
     "Check valve"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  replaceable Fluid.Movers.SpeedControlled_y pum2
-    constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
+  replaceable Fluid.Movers.SpeedControlled_y pum2 constrainedby
+    Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_inputFilter=false,
+    use_riseTime=false,
     final per=pum.per,
-    addPowerToMedium=false)
-    "Pump"
+    addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Fluid.FixedResistances.CheckValve cheVal2(
     redeclare final package Medium = Medium,

@@ -3,8 +3,8 @@ model Building
   "Model that declares a building to which EnergyPlus objects belong to"
   extends Modelica.Blocks.Icons.Block;
 
-  constant String spawnExe="spawn-0.4.3-7048a72798"
-      "Name of the spawn executable, without extension, such as spawn-0.4.3-7048a72798aaa"
+  constant String spawnExe="spawn-0.5.0-ab07bde9bb"
+      "Name of the spawn executable, without extension, such as spawn-0.5.0-ab07bde9bbaaa"
     annotation (HideResult=true);
 
   constant String idfVersion = "9_6_0"
@@ -39,6 +39,9 @@ model Building
     "If true, then this model computes the wet bulb temperature"
     annotation (Dialog(tab="Advanced"));
 
+  parameter Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod runPeriod
+      "EnergyPlus RunPeriod configuration"
+    annotation (Dialog(tab="Run period"));
   parameter Boolean setInitialRadiativeHeatGainToZero = true
     "If true, then the radiative heat gain sent from Modelica to EnergyPlus is zero during the model initialization"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
@@ -153,6 +156,14 @@ must be provided. When starting the simulation, EnergyPlus will
 be run with the weather file whose name is identical to <code>epwName</code>,
 while Modelica will use the file specified by <code>weaName</code>.
 </p>
+<p>
+The parameter <code>runPeriod</code> can be used to configure certain data of the EnergyPlus
+<code>RunPeriod</code> object. See
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</a>
+for the available options.
+Note however that the simulation start and stop time is controlled by Modelica,
+and therefore the entries in the EnergyPlus input data file for the <code>RunPeriod</code> object are ignored.
 <h4>Note regarding <code>setInitialRadiativeHeatGainToZero</code> and <code>relativeSurfaceTolerance</code></h4>
 <p>
 To configure models that connect components for radiative heat exchange to the thermal zone model,
@@ -188,6 +199,11 @@ is not possible.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 21, 2024, by Michael Wetter:<br/>
+Added support for EnergyPlus <code>RunPeriod</code> object.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
+</li>
 <li>
 March 16, 2024, by Michael Wetter:<br/>
 Introduced parameter <code>setInitialRadiativeHeatGainToZero</code>.

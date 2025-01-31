@@ -101,6 +101,7 @@ protected
     final idfVersion=idfVersion,
     final idfName=idfName,
     final epwName=epwName,
+    final runPeriod=runPeriod,
     final relativeSurfaceTolerance=relativeSurfaceTolerance,
     final setInitialRadiativeHeatGainToZero=setInitialRadiativeHeatGainToZero,
     final zoneName=zoneName,
@@ -394,7 +395,7 @@ equation
         Bitmap(
           visible=false,
           extent={{134,-176},{174,-146}},
-          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus_9_6_0/EnergyPlusLogo.png"),
+          fileName="modelica://Buildings/Resources/Images/ThermalZones/EnergyPlus/EnergyPlusLogo.png"),
         Text(
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,

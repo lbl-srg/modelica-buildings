@@ -12,7 +12,7 @@ model ReliefDamper "Modulating relief damper without fan"
   Buildings.Templates.Components.Actuators.Damper damRel(
     redeclare final package Medium = MediumAir,
     final typ=Buildings.Templates.Components.Types.Damper.Modulating,
-    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    use_strokeTime=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRel,
     final text_flip=true,

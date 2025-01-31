@@ -232,7 +232,8 @@ block ZoneTemperatures
   Buildings.Controls.OBC.CDL.Logical.Timer tim(final t=300)
     "Check whether the zone has been unpopulated for 5 minutes continuously during occupied mode"
     annotation (Placement(transformation(extent={{-220,-280},{-200,-260}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueHold truHol(duration=60)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truHol(
+    final falseHoldDuration=0, trueHoldDuration=60)
     "When the zone is unpopulated by more than 5 minute and then becomes populated, hold the change by 1 minute"
     annotation (Placement(transformation(extent={{-100,-280},{-80,-260}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1

@@ -26,7 +26,7 @@ partial model DataCenter
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=293.15,
     dp_nominal=750) "Fan for air flow through the data center"
@@ -63,10 +63,10 @@ partial model DataCenter
     m_flow(start=mCHW_flow_nominal),
     dp(start=325474),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Chilled water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Chilled water pump" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={218,-120})));
@@ -90,10 +90,10 @@ partial model DataCenter
     m_flow_nominal=mCW_flow_nominal,
     dp(start=214992),
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
+    use_riseTime=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=130000)
-    "Condenser water pump" annotation (Placement(transformation(
+    dp_nominal=130000) "Condenser water pump" annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={358,200})));
@@ -112,7 +112,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
     y_start=1,
-    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    use_strokeTime=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -121,7 +121,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -154,7 +154,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
     y_start=1,
-    use_inputFilter=false,
+    use_strokeTime=false,
     from_dp=true)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
@@ -187,7 +187,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
     y_start=0,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -222,7 +222,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
     y_start=0,
-    use_inputFilter=false,
+    use_strokeTime=false,
     from_dp=true)          "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
@@ -232,7 +232,7 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
-    use_inputFilter=false)
+    use_strokeTime=false)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={
             118,-60})));
@@ -317,8 +317,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(linPieTwo.y[2], chi.TSet) annotation (Line(
-      points={{-99,200.3},{-82,200},{-64,200},{-64,125},{284,125},{284,90},{276,
-          90}},
+      points={{-99,200.05},{-82,200.05},{-64,200.05},{-64,125},{284,125},{284,90},
+          {276,90}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -328,7 +328,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(linPieTwo.y[2], chiSwi.TSet) annotation (Line(
-      points={{-99,200.3},{-64,200.3},{-64,249},{-274,249},{-274,88},{-227,88}},
+      points={{-99,200.05},{-64,200.05},{-64,249},{-274,249},{-274,88},{-227,88}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -375,12 +375,12 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[1],TAirSup. port_b) annotation (Line(
-      points={{250.475,-229.3},{250.475,-225},{278,-225}},
+      points={{247.438,-229.3},{247.438,-225},{278,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{246.425,-229.3},{246.425,-225},{218,-225},{218,-176},{280,-176}},
+      points={{249.462,-229.3},{249.462,-225},{218,-225},{218,-176},{280,-176}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -454,7 +454,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(wseCon.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{-162,-28.4118},{-322,-28.4118},{-322,-88}},
+      points={{-162,-28.4118},{-321.95,-28.4118},{-321.95,-87.95}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
@@ -462,7 +462,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(
-      points={{257,243},{82,243},{82,268},{-322,268},{-322,-88}},
+      points={{257,243},{82,243},{82,268},{-321.95,268},{-321.95,-87.95}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
@@ -521,7 +521,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(linPieTwo.y[1], gain.u) annotation (Line(
-      points={{-99,199.3},{-80,199.3},{-80,100},{-62,100}},
+      points={{-99,199.55},{-80,199.55},{-80,100},{-62,100}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

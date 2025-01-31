@@ -1,6 +1,7 @@
 CountTrue
 FirstTrueIndex
 HoldReal
+Initialization
 LastTrueIndex
 MultiMaxInteger
 MultiMinInteger
@@ -8,7 +9,6 @@ PIDWithEnable
 PlaceholderInteger
 PlaceholderLogical
 PlaceholderReal
-SortWithIndices
 StageIndex
 TimerWithReset
 TrueArrayConditional

@@ -2,13 +2,13 @@ within Buildings.Controls.OBC.CDL.Discrete;
 block TriggeredMax
   "Output the maximum, absolute value of a continuous signal at trigger instants"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Connector with a Real input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Connector for trigger"
+    "Input for trigger that causes u to be sampled"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector with a Real output signal"
+    "Maximum of input signal over all trigger instants"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -98,7 +98,7 @@ September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> and <code>sampleTime</code>
 as these are not needed for this block, and introduced parameter
 <code>y_start=0</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">Buildings, issue 938</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

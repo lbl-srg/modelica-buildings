@@ -8,15 +8,14 @@ block Hysteresis
   parameter Boolean pre_y_start=false
     "Value of pre(y) at initial time";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Real input signal"
+    "Input to be compared against hysteresis values"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Boolean output signal"
+    "Output value of comparison"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  assert(
-    uHigh > uLow,
+  assert(uHigh > uLow,
     "Hysteresis limits wrong. uHigh must be larger than uLow");
   pre(y)=pre_y_start;
 

@@ -84,6 +84,7 @@ model System2
 Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nominalValuesDefineDefaultPressureCurve=true,
     m_flow_nominal=mRad_flow_nominal) "Pump for radiator"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
@@ -349,7 +350,7 @@ For numerical reasons, in particular in large system models, it is recommended t
 continuously change the mass flow rate, as opposed to having a step change.
 Therefore,
 in the instance <code>pumRad</code>, we leave the parameter
-<code>use_inputFilter</code> at its default value <code>true</code>.
+<code>use_riseTime</code> at its default value <code>true</code>.
 This will approximate a continuous change in mass flow rate when the
 pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
@@ -388,6 +389,13 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 9, 2024, by Hongxiang Fu:<br/>
+Specified <code>nominalValuesDefineDefaultPressureCurve=true</code>
+in the mover component to suppress a warning.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
+</li>
 <li>
 March 6, 2017, by Michael Wetter:<br/>
 Added missing density to computation of air mass flow rate.<br/>

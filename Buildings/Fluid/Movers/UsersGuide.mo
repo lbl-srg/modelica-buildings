@@ -120,16 +120,10 @@ motor part load ratio requires knowing the nominal power.
 ** The models will ignore this record if the pressure curve is not provided
 and the speed is unknown. This is because the models wouldn't be able
 to compute the elctrical power correctly using similarity laws without speed.
-In this case the user can mitigate the error by providing other information for
-hydraulic efficiency. Compare validation models
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
-Buildings.Fluid.Movers.Validation.PowerSimplified</a>,
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
-Buildings.Fluid.Movers.Validation.PowerExact</a>,
-and
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-as an example.
+In this case the user should consider using the preconfigured mover models in
+<a href=\"modelica://Buildings.Fluid.Movers.Preconfigured\">
+Buildings.Fluid.Movers.Preconfigured</a>
+which will auto-populate a pressure curve from nominal flow rate and pressure.
 </li>
 </ul>
 <p>
@@ -216,6 +210,11 @@ i.e., the fan or pump has idealized perfect control and infinite capacity.
 Using these models that take as an input the head or the mass flow rate often leads
 to smaller system of equations compared to using the models that take
 as an input the speed.
+The validation model
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerInput\">
+Buildings.Fluid.Movers.Validation.ComparePowerInput</a>
+demonstrates that the models with different input signals produce the same
+power consumption estimates.
 </p>
 <p>
 These models can be configured for three different control inputs.
@@ -461,10 +460,6 @@ constant. If the array has more than one element, the efficiency is interpolated
 or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiency</a>.
-See
-<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerSimplified\">
-Buildings.Fluid.Movers.Validation.PowerSimplified</a>
-as an example.
 </li>
 <li>
 <code>Power_VolumeFlowRate</code> -
@@ -473,10 +468,6 @@ The power is interpolated or extrapolated using
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.power\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.power</a>.
 <i>&eta;<sub>hyd</sub></i> is then computed from <i>W&#775;<sub>hyd</sub></i>.
-See
-<a href=\"Modelica://Buildings.Fluid.Movers.Validation.PowerExact\">
-Buildings.Fluid.Movers.Validation.PowerExact</a>
-as an example.
 </li>
 <li>
 <b><code>EulerNumber</code> (default 1)</b> -
@@ -523,11 +514,6 @@ Buildings.Fluid.Movers.Examples.StaticReset</a>
 specifies the peak point directly.
 </li>
 <li>
-<a href=\"modelica://Buildings.Fluid.Movers.Validation.PowerEuler\">
-Buildings.Fluid.Movers.Validation.PowerEuler</a>
-explictly calls the function.
-</li>
-<li>
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison\">
 Buildings.Fluid.Movers.BaseClasses.Validation.EulerComparison</a>
 implicitly calls the function when
@@ -571,9 +557,11 @@ The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </ul>
 
 <p>
-These options are tested in
+These options are validated in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerHydraulic\">
+Buildings.Fluid.Movers.Validation.ComparePowerHydraulic</a>.
 </p>
 <p>
 The model uses <code>EulerNumber</code> as the default option
@@ -587,9 +575,11 @@ This changes the default constant value to <i>&eta;=0.49</i> and also imposes
 an additional constraint of <i>&eta;<sub>hyd</sub> &le; 1</i> to prevent the division
 <i>&eta;<sub>hyd</sub> = &eta; &frasl; &eta;<sub>mot</sub></i>
 from producing efficiency values larger than one.
-This configuration is tested in
+This configuration is validated in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods\">
-Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a>.
+Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods</a> and
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.ComparePowerTotal\">
+Buildings.Fluid.Movers.Validation.ComparePowerTotal</a>.
 </p>
 <p>
 Although the Euler number method is defined for <i>&eta;<sub>hyd</sub></i>,
@@ -666,7 +656,8 @@ P<sub>mot,nominal</sub>=
 &frasl; &eta;<sub>hyd,p</sub>,
 </p>
 where the factor <i>1.2</i> also assumes a 20% oversize
-and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>.
+and the assumed peak hydraulic efficiency <i>&eta;<sub>hyd,p</sub>=0.7</i>
+unless a hydraulic peak value is available in the record.
 </li>
 </ul>
 The model then computes the efficiency the same way as in the option of
@@ -732,64 +723,64 @@ amount of heat dissipates into the ambient, the separation of
 
 <h5>Start-up and shut-down transients</h5>
 <p>
-All models have a parameter <code>use_inputFilter</code>. This
+All models have a parameter <code>use_riseTime</code>. This
 parameter affects the fan output as follows:
 </p>
 <ol>
 <li>
-If <code>use_inputFilter=false</code>, then the input signal <code>y</code>
+If <code>use_riseTime=false</code>, then the input signal <code>y</code>
 (or <code>m_flow_in</code>, or <code>dp_in</code>)
 is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
-If <code>use_inputFilter=true</code>, which is the default,
+If <code>use_riseTime=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
-is equal to the output of a filter. This filter is implemented
-as a 2nd order differential equation and can be thought of as
-approximating the inertia of the rotor and the fluid.
-Thus, a step change in the fan input signal will cause a gradual change
-in the fan speed.
-The filter has a parameter <code>riseTime</code>, which by default is set to
-<i>30</i> seconds.
-The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
-if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
+changes linear in time until it reaches the control input.
+The parameter <code>riseTime</code>, which by default is set to
+<i>30</i> seconds, determines how fast the speed changes.
+For example, if <code>riseTime=30</code> seconds and the current speed is <i>0</i>, then
+a step change in the fan input signal from <i>0</i> to <i>1</i> will
+cause the fan speed to increase its speed linearly to the full speed within
+<i>30</i> seconds. Similarly, if the fan speed is then reduced by changing
+the input signal from <i>1</i> to <i>0.5</i>, it will take <i>15</i> seconds
+to achieve the new set point.
 </li>
 </ol>
 <p>
-The figure below shows for a fan with <code>use_inputFilter=true</code>
+The figure below shows for a fan with <code>use_riseTime=true</code>
 and <code>riseTime=30</code> seconds the
 speed input signal and the actual speed.</p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
+<img alt=\"image\" width=\"506\" height=\"280\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png\"/>
 </p>
 
 <p>
 Although many simulations do not require such a detailed model
 that approximates the transients of fans or pumps, it turns
-out that using this filter can reduce computing time and
-can lead to fewer convergence problems in large system models.
-With a filter, any sudden change in control signal, such as when
+out that using such a continuous change in speed can reduce computing time and
+can lead to fewer convergence problems in large system models, because
+a sudden change in control signal, such as when
 a fan switches on, is damped before it affects the air flow rate.
 This continuous change in flow rate turns out to be easier, and in
 some cases faster, to simulate compared to a step change.
 For most simulations, we therefore recommend to use the default settings
-of <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+of <code>use_riseTime=true</code> and <code>riseTime=30</code> seconds.
 An exception are situations in which the fan or pump is operated at a fixed speed during
-the whole simulation. In this case, set <code>use_inputFilter=false</code>.
+the whole simulation. In this case, set <code>use_riseTime=false</code>.
 </p>
 <p>
-Note that if the fan is part of a closed loop control, then the filter affects
+Note that if the fan is part of a closed loop control, then the value of <code>riseTime</code> affects
 the transient response of the control.
-When changing the value of <code>use_inputFilter</code>, the control gains
+When changing the value of <code>riseTime</code>, the control gains
 may need to be retuned.
 We now present values control parameters that seem to work in most cases.
 Suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
-and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
+and a fan or pump, configured with <code>use_riseTime=true</code> and <code>riseTime=30</code> seconds.
 Assume that the transient response of the other dynamic elements in the control loop is fast
-compared to the rise time of the filter.
+compared to the value of <code>riseTime</code>.
 Then, a proportional gain of <code>k=0.5</code> and an integrator time constant of
 <code>Ti=15</code> seconds often yields satisfactory closed loop control performance.
 These values may need to be changed for different applications as they are also a function

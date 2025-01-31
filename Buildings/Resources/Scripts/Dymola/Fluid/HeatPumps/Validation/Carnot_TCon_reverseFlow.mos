@@ -1,5 +1,6 @@
 simulateModel("Buildings.Fluid.HeatPumps.Validation.Carnot_TCon_reverseFlow", tolerance=1e-6, stopTime=3600, method="CVode", resultFile="Carnot_TCon_reverseFlow");
-createPlot(id=2, position={75, 70, 1210, 980}, y={"heaPum.sta_a1.T", "heaPum.sta_b1.T", "heaPum.sta_a2.T", "heaPum.sta_b2.T", "heaPum.TSet"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="Carnot_TCon_reverseFlow.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}, {0,0,0}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.QCon_flow", "heaPum.QEva_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=2, position={75, 70, 1210, 241}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, 0.0, 14000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={75, 70, 1210, 240}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 3.0, 10.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={2, 6, 1125, 580}, y={"senTConEnt.T", "senTConLvg.T", "senTEvaEnt.T", "senTEvaLvg.T"}, range={0.0, 3600.0, 260.0, 320.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}}, timeUnit="s", displayUnits={"K", "K", "K", "K"});
+createPlot(id=2, position={2, 6, 1125, 580}, y={"heaPum.QCon_flow", "heaPum.QEva_flow", "heaPum.P"}, range={0.0, 3600.0, -200000.0, 400000.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"W", "W", "W"});
+createPlot(id=2, position={2, 6, 1125, 580}, y={"heaPum.dp1", "heaPum.dp2"}, range={0.0, 3600.0, -10000.0, 20000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa", "Pa"});
+createPlot(id=2, position={2, 6, 1125, 580}, y={"heaPum.COP_nominal", "heaPum.COP"}, range={0.0, 3600.0, 2.0, 4.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+
