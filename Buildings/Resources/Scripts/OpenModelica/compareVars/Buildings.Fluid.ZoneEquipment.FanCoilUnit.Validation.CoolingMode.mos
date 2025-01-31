@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "datRea.y[5]",
+    "fanCoiUni.TAirRet.T",
+    "datRea.y[6]",
+    "datRea.y[4]",
+    "fanCoiUni.TAirLvg.T",
+    "datRea.y[11]",
+    "datRea.y[2]",
+    "fanCoiUni.cooCoi.Q1_flow",
+    "datRea.y[15]",
+    "datRea.y[3]",
+    "fanCoiUni.fan.P",
+    "fanCoiUni.fan.P"
+  };
