@@ -302,8 +302,6 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-  optimica:
-    comment: PyModelicaException due to NullPointerException
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatRecoveryChiller
   openmodelica:
     comment: Translation failed.
@@ -311,6 +309,9 @@
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
   openmodelica:
     comment: Translation failed.
+    translate: false
+  optimica:
+    comment: PyModelicaException due to NullPointerException
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
