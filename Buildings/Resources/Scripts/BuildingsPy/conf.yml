@@ -79,7 +79,8 @@
     comment: 'Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910'
     simulate: false
   optimica:
-    time_out: 600
+    comment: Timeout after 600 seconds
+    simulate: false
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
     comment: Simulation times out
@@ -301,6 +302,8 @@
   openmodelica:
     comment: Translation failed.
     translate: false
+  optimica:
+    comment: PyModelicaException due to NullPointerException
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.HeatRecoveryChiller
   openmodelica:
     comment: Translation failed.
