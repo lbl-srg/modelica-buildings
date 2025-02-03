@@ -140,16 +140,16 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
   optimica:
-    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
