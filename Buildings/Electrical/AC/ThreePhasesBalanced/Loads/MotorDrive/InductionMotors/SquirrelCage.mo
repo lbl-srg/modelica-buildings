@@ -18,9 +18,8 @@ model SquirrelCage
    Real Lm=per.Lm "Mutual inductance [H]";
    Real Rr=per.Rr "Rotor resistance [ohm]";
    Real Rs=per.Rs "Stator resistance [ohm]";
-            Real i_rms "RMS current";
-            Real v_rms "RMS voltage";
-            Real pow_gap "Power gap";
+   Real v_rms "RMS voltage";
+
 
   Modelica.Units.SI.Angle theta_s
     "Supply voltage phase angel";
@@ -31,12 +30,14 @@ model SquirrelCage
     "Voltage vector";
   Modelica.Units.SI.Current i[:] = terminal.i
     "Current vector";
+
+
   final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-64,10},{-44,30}})));
 
   final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
     "Supply voltage frequency"
-    annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
+    annotation (Placement(transformation(extent={{-64,-8},{-44,12}})));
 
   Modelica.Blocks.Interfaces.RealInput tau_m(unit="N.m")
     "Load torque"
@@ -86,43 +87,38 @@ model SquirrelCage
   BaseClasses.CurrentBlock current_Block
    "Calculates current of induction machine rotor" annotation (Placement(transformation(extent={{66,28},{86,48}})));
 equation
-  // Assign values for motor model calculation from electrical interface
-  theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";
-  omega = der(theta_s);
-  v_rms=sqrt(v[1]^2+v[2]^2);
-  pow_gap = speBlo.N/9.55*torSpe.tau_e;
-  // Equations to calculate current
-  i[1] = 3/2*torSpe.motMod.i_ds;
-  i[2] = torSpe.motMod.i_qs;
-  i_rms=sqrt(i[1]^2+i[2]^2);
+theta_s = PhaseSystem.thetaRef(terminal.theta) "phase angle";
+omega = der(theta_s);
+v_rms=Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.RMS_Voltage(v[1],v[2]);
+i[1] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationD(torSpe.motMod.i_ds);
+i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationQ(torSpe.motMod.i_qs);
   connect(integrator.u, angFre1.y) annotation (Line(points={{-4,70},{-19,70}},
                          color={0,0,127}));
   connect(fre.y, torSpe.f)
-    annotation (Line(points={{-43,0},{-22,0},{-22,1.77778},{0.833333,1.77778}},
+    annotation (Line(points={{-43,2},{-22,2},{-22,1.77778},{0.833333,1.77778}},
                                                color={0,0,127}));
-  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-39,20},{0.833333,20},
-          {0.833333,6.44444}},
+  connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-43,20},{-26,20},{-26,
+          6},{0,6},{0,6.44444},{0.833333,6.44444}},
                        color={0,0,127}));
   connect(speed.flange, shaft)
     annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
   connect(angFre.y, speBlo.omega) annotation (Line(points={{-21,-80},{-12,-80},{
           -12,-72},{-6,-72}}, color={0,0,127}));
-  connect(tau_m, speBlo.tau_m) annotation (Line(points={{-120,-80},{-46,-80},{-46,
-          -66},{-6,-66}}, color={0,0,127}));
-  connect(eleTor.y, speBlo.tau_e) annotation (Line(points={{-45,-58},{-42,-58},{
-          -42,-60},{-6,-60}}, color={0,0,127}));
-  connect(speBlo.omega_r, torSpe.omega_r) annotation (Line(points={{17.9,-59.9},
-          {17.9,-58},{28,-58},{28,-16},{-18,-16},{-18,-2.88889},{0.833333,-2.88889}},
-                                                                    color={0,0,127}));
-  connect(speed.w_ref, torSpe.omega_r) annotation (Line(points={{62.4,0},{46,0},
-          {46,-58},{28,-58},{28,-16},{-18,-16},{-18,-2.88889},{0.833333,-2.88889}},
-                                                                  color={0,0,127}));
   connect(integrator.y, current_Block.wt) annotation (Line(points={{19,70},{46,70},
           {46,54},{64,54},{64,46}}, color={0,0,127}));
   connect(i_ds.y, current_Block.i_ds)
     annotation (Line(points={{41,40},{41,38},{64,38}}, color={0,0,127}));
   connect(i_qs.y, current_Block.i_qs) annotation (Line(points={{41,24},{56,24},{
           56,30},{64,30}}, color={0,0,127}));
+  connect(eleTor.y, speBlo.tau_e) annotation (Line(points={{-45,-58},{-42,-58},
+          {-42,-60},{-6,-60}}, color={0,0,127}));
+  connect(tau_m, speBlo.tau_m) annotation (Line(points={{-120,-80},{-82,-80},{
+          -82,-66},{-6,-66}}, color={0,0,127}));
+  connect(speBlo.omega_r, speed.w_ref) annotation (Line(points={{17.9,-59.9},{
+          48,-59.9},{48,0},{62.4,0}}, color={0,0,127}));
+  connect(torSpe.omega_r, speed.w_ref) annotation (Line(points={{0.833333,
+          -2.88889},{-8,-2.88889},{-8,-40},{48,-40},{48,0},{62.4,0}}, color={0,
+          0,127}));
  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
         Rectangle(

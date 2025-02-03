@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-block SimVFD
+block SimVFD "Simple VFD maintaing constant V/F ratio"
     extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput N_ref
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),

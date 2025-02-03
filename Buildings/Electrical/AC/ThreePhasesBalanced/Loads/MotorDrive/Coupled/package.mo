@@ -8,6 +8,7 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains models for motor coupled HVAC equipments with electrical 
 interface.
 </p>
+</html>", revisions="<html>
 <ul>
 <li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>First Implementation. </li>
 </ul>

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model RotorCurrent_q "q-axis rotor current calculation blck"
+model RotorCurrent_q "q-axis rotor current calculation block"
   extends Modelica.Blocks.Icons.Block;
    parameter Real Lr;
    parameter Real Rr;

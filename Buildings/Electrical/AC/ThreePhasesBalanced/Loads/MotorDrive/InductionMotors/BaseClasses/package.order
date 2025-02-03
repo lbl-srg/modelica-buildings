@@ -10,3 +10,8 @@ MotorMachineInterface
 VoltageConversion
 SimVFD
 FrequencyConversion
+CurrentCalculationD
+CurrentCalculationQ
+CurrentCalculationD_VFD
+CurrentCalculationQ_VFD
+RMS_Voltage

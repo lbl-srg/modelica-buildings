@@ -24,31 +24,23 @@ model SquirrelCageDrive
     k=0.1,
     Ti=0.1)
     annotation (Placement(transformation(extent={{-2,0},{22,20}})));
-  Real Efficiency,Loss,slip,Ns;
+
   Modelica.Blocks.Sources.Step Speed_ref1(
     height=26.5,
     offset=0,
     startTime=1)   "Set point of control target"
     annotation (Placement(transformation(extent={{-58,-76},{-38,-56}})));
 equation
- Ns = (120*sou.f)/motDri.P;
- slip =((Ns-motDri.speBlo.N)/Ns);
- Loss = abs(sou.P.real - motDri.pow_gap);
-if (sou.P.real) <=0 then
-   Efficiency = 0;
-else
-   Efficiency = ((motDri.pow_gap)/(sou.P.real))*100;
-end if;
+
 
   connect(motDri.terminal, sou.terminal)
     annotation (Line(points={{12,20},{12,40}}, color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
     annotation (Line(points={{-39,18},{-3.8,18}}, color={0,0,127}));
-  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-28,-26},{-28,
-          12},{-3.8,12}},
-                      color={0,0,127}));
-  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-10,
-          -66},{-10,2},{-3.8,2}}, color={0,0,127}));
+  connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,
+          12},{-3.8,12}}, color={0,0,127}));
+  connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,
+          -66},{-8,2},{-3.8,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(

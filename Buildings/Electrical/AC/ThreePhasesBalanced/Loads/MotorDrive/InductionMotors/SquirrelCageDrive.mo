@@ -13,21 +13,11 @@ model SquirrelCageDrive
       Placement(transformation(extent={{52,60},{72,80}})));
   Integer P=per.P "Number of poles";
   Real J=per.J "Moment of inertia";
- Real Lr=per.Lr "Rotor inductance [H]";
+  Real Lr=per.Lr "Rotor inductance [H]";
   Real Ls=per.Ls "Stator inductance [H]";
   Real Lm=per.Lm "Mutual inductance [H]";
   Real Rr=per.Rr "Rotor resistance [ohm]";
   Real Rs=per.Rs "Stator resistance [ohm]";
-
-  //-----------------------------------------------
-  // parameter Integer P=4      "Number of poles";
-  //parameter Real J=0.17    "Moment of inetia";
-  //parameter Real Lr=0.1458    "Rotor inductance [H]";
-  //parameter Real Ls=0.1457    "Stator inductance [H]";
-  //parameter Real Rr=1.145   "Rotor resistance [ohm]";
-  //parameter Real Lm=0.1406   "Mutual inductance [H]";
-  //parameter Real Rs=1   "Stator resistance [ohm]";
-  //-------------------------------------------------
 
   parameter Boolean have_controller = true
     "Set to true for enable PID control, False for simple speed control";
@@ -68,8 +58,6 @@ model SquirrelCageDrive
                        enable=true));
 
   Real v_rms "RMS voltage";
-  Real i_rms "RMS current";
-  Real  pow_gap;
   Modelica.Units.SI.Angle theta_s "Supply voltage phase angel";
   Modelica.Units.SI.AngularVelocity omega "Supply voltage angular frequency";
   Modelica.Units.SI.Voltage v[:] = terminal.v "Voltage vector";
@@ -176,11 +164,9 @@ equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);
   omega = der(theta_s);
-  v_rms=sqrt(v[1]^2+v[2]^2); // Equations to calculate current
-  i[1] = 3/2*torSpe.motMod.i_ds*(VFDvol.y/v_rms);
-  i[2] = torSpe.motMod.i_qs*(VFDvol.y/v_rms);
-  i_rms=sqrt(i[1]^2+i[2]^2);
-  pow_gap = speBlo.N/9.55*torSpe.tau_e;
+  v_rms=Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.RMS_Voltage(v[1],v[2]); // Equations to calculate current
+  i[1] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationD_VFD(torSpe.motMod.i_ds,VFDvol.y,v_rms);
+  i[2] =Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.CurrentCalculationQ_VFD(torSpe.motMod.i_qs,VFDvol.y,v_rms);
 
   connect(Vrms.y, VFDvol.u1) annotation (Line(points={{-55,56},{-28,56},{-28,36},
           {-22,36}}, color={0,0,127}));

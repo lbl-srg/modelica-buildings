@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model SpeedBlock
+model SpeedBlock "Calculate speed and slip using electromagnetic torque, load torque and frequency"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput tau_e annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,
@@ -51,17 +51,15 @@ equation
         color={0,0,127}));
   connect(feedback1.u1, omega) annotation (Line(points={{-68,-80},{-80,-80},{-80,-60},
           {-120,-60}},     color={0,0,127}));
-  connect(feedback1.u2, gain1.u) annotation (Line(points={{-60,-72},{42,
-          -72},{42,0},{48,0}},
-                           color={0,0,127}));
   connect(N, N)
     annotation (Line(points={{120,-60},{120,-60}}, color={0,0,127}));
   connect(feedback1.y, omega_r) annotation (Line(points={{-51,-80},{88,
           -80},{88,61},{119,61}},
                          color={0,0,127}));
-  connect(omega_r1, integrator.y) annotation (Line(points={{119,-3},{106,
-          -3},{106,-4},{94,-4},{94,-40},{36,-40},{36,0},{33,0}}, color={0,
-          0,127}));
+  connect(feedback1.u2, gain1.u) annotation (Line(points={{-60,-72},{-60,-48},{
+          40,-48},{40,0},{48,0}}, color={0,0,127}));
+  connect(omega_r1, gain1.u) annotation (Line(points={{119,-3},{94,-3},{94,-48},
+          {40,-48},{40,0},{48,0}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)));

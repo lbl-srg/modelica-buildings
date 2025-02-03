@@ -24,13 +24,6 @@ model Pump "Motor coupled chiller"
     Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record of Induction Machine with performance data" annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
-  //parameter Integer P=per1.P "Number of poles";
-  //parameter Real J=per1.J "Moment of inertia";
-  //parameter Real Lr=per1.Lr "Rotor inductance [H]";
-  //parameter Real Ls=per1.Ls "Stator inductance [H]";
-  //parameter Real Lm=per1.Lm "Mutual inductance [H]";
-  //parameter Real Rr=per1.Rr "Rotor resistance [ohm]";
-  //parameter Real Rs=per1.Rs "Stator resistance [ohm]";
 
   //Controller parameters
   parameter Boolean have_controller = true

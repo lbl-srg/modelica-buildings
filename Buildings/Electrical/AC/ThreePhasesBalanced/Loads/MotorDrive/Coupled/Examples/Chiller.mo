@@ -82,31 +82,26 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{90,-36},{70,-16}})));
 equation
-  connect(senTem.T, chi.meaPoi)
-    annotation (Line(points={{-30,-19},{-30,-1.77778},{-11,-1.77778}},
-                                                        color={0,0,127}));
-  connect(sou1.ports[1], chi.port_a1) annotation (Line(points={{-40,30},{-34,30},
-          {-34,1.55556},{-10,1.55556}},
-                           color={0,127,255}));
-  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,1.55556},{10,
-          0},{34,0},{34,10},{40,10}},
-                           color={0,127,255}));
-  connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{10,-11.7778},{
-          10,-10},{26,-10},{26,-30},{32,-30}},
-                            color={0,127,255}));
-  connect(TSet.y, chi.setPoi)
-    annotation (Line(points={{-69,70},{-18,70},{-18,6},{-11,6},{-11,4.88889}},
-                                                       color={0,0,127}));
   connect(Sou.terminal, chi.terminal)
     annotation (Line(points={{0,22},{0,6}},               color={0,120,120}));
-  connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-30},{-10,
-          -30},{-10,-11.7778}},               color={0,127,255}));
-  connect(senTem.port_b, sin2.ports[1])
-    annotation (Line(points={{-40,-30},{-60,-30}}, color={0,127,255}));
   connect(TCon_in.y, sou1.T_in)
     annotation (Line(points={{-73,34},{-62,34}}, color={0,0,127}));
+  connect(chi.port_a1, sou1.ports[1]) annotation (Line(points={{-10,1.55556},{
+          -10,0},{-34,0},{-34,30},{-40,30}}, color={0,127,255}));
+  connect(senTem.port_a, chi.port_b2) annotation (Line(points={{-20,-30},{-14,
+          -30},{-14,-11.7778},{-10,-11.7778}}, color={0,127,255}));
+  connect(senTem.port_b, sin2.ports[1])
+    annotation (Line(points={{-40,-30},{-60,-30}}, color={0,127,255}));
+  connect(chi.port_a2, sou2.ports[1]) annotation (Line(points={{10,-11.7778},{
+          10,-10},{26,-10},{26,-30},{32,-30}}, color={0,127,255}));
+  connect(chi.port_b1, sin1.ports[1]) annotation (Line(points={{10,1.55556},{10,
+          0},{34,0},{34,10},{40,10}}, color={0,127,255}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{69,-26},{54,-26}}, color={0,0,127}));
+  connect(TSet.y, chi.setPoi) annotation (Line(points={{-69,70},{-18,70},{-18,
+          4.88889},{-11,4.88889}}, color={0,0,127}));
+  connect(senTem.T, chi.meaPoi) annotation (Line(points={{-30,-19},{-30,
+          -1.77778},{-11,-1.77778}}, color={0,0,127}));
   annotation (experiment(
       StopTime=900,
       Tolerance=1e-06,

@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model TorqueBlock
+model TorqueBlock "Calculate Electromagnetic torque using stator and rotor current"
   extends Modelica.Blocks.Icons.Block;
   parameter Integer P=4 "Number of pole pairs";
   parameter Real Lm( start=0.5, fixed=true);

@@ -1,8 +1,7 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples;
 model SquirrelCageStartUp
     extends Modelica.Icons.Example;
-  Real Efficiency;
-  Real Loss,slip,Ns;
+
   Modelica.Blocks.Sources.RealExpression loaTor(y=26.5) "Load torque"
     annotation (Placement(transformation(extent={{-54,-28},{-34,-8}})));
   Sources.Grid                                             sou(f=50, V=400)
@@ -11,14 +10,7 @@ model SquirrelCageStartUp
   SquirrelCage motDri
     annotation (Placement(transformation(extent={{-18,-20},{2,0}})));
 equation
- Ns = (120*sou.f)/motDri.P;
- slip =((Ns-motDri.speBlo.N)/Ns);
- Loss = abs(sou.P.real - motDri.pow_gap);
-if (sou.P.real) <=0 then
-   Efficiency = 0;
- else
-   Efficiency = ((motDri.pow_gap)/(sou.P.real))*100;
- end if;
+
 
   connect(loaTor.y, motDri.tau_m)
     annotation (Line(points={{-33,-18},{-20,-18}}, color={0,0,127}));

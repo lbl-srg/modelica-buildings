@@ -1,5 +1,5 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses;
-model CurrentBlock
+model CurrentBlock "Converts DQ-abc"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput i_ds
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
