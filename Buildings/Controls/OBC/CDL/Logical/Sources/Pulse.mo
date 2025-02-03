@@ -16,7 +16,7 @@ block Pulse
     final unit="s")=0
     "Shift time for output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "Connector of Boolean output signal"
+    "Output with pulse value"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -176,19 +176,19 @@ The pulse signal is generated an infinite number of times, and aligned with <cod
 December 03, 2020, by Milica Grahovac:<br/>
 Renamed <code>delay</code> parameter to <code>shift</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">issue 2282</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2282\">Buildings, issue 2282</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation, avoided state events.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, issue 2170</a>.
 </li>
 <li>
 September 8, 2020, by Milica Grahovac:<br/>
@@ -198,7 +198,7 @@ Enabled specification of number of periods as a parameter.
 September 1, 2020, by Milica Grahovac:<br/>
 Revised initial equation section to ensure expected simulation results when <code>startTime</code> is before simulation start time.
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">#2110</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2110\">Buildings, issue 2110</a>.
 </li>
 <li>
 March 23, 2017, by Jianjun Hu:<br/>

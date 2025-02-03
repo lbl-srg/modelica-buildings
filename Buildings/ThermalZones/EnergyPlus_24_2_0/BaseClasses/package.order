@@ -1,0 +1,10 @@
+PartialEnergyPlusObject
+SpawnExternalObject
+ThermalZoneAdapter
+exchange
+getParameters
+getUnitAsString
+initialize
+Synchronize
+buildingsRootFileLocation
+Validation

@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block PID
   "P, PI, PD, and PID controller"
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(
     min=100*Constants.eps)=1
@@ -45,13 +46,13 @@ block PID
   parameter Boolean reverseActing=true
     "Set to true for reverse acting, or false for direct acting control action";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Connector of setpoint input signal"
+    "Setpoint input signal"
     annotation (Placement(transformation(extent={{-260,-20},{-220,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector of measurement input signal"
+    "Measurement input signal"
     annotation (Placement(transformation(origin={0,-220},extent={{20,-20},{-20,20}},rotation=270),iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of actuator output signal"
+    "Actuator output signal"
     annotation (Placement(transformation(extent={{220,-20},{260,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract controlError "Control error (set point - measurement)"
     annotation (Placement(transformation(extent={{-200,-16},{-180,4}})));
@@ -86,16 +87,16 @@ block PID
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
 
 protected
-  final parameter Real revAct=
-    if reverseActing then
-      1
-    else
-      -1
+  final parameter Real revAct= if reverseActing then 1 else -1
     "Switch for sign for reverse or direct acting controller";
-  final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    final parameter Boolean with_I =
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable integral action"
     annotation (Evaluate=true,HideResult=true);
-  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+    final parameter Boolean with_D =
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
+      controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
   Sources.Constant kDer(k=k*Td) if with_D
@@ -104,8 +105,8 @@ protected
   Sources.Constant TDer(k=Td/Nd) if with_D
     "Time constant for approximation in derivative block"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Dzero(
-    final k=0) if not with_D
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Dzero(final k=0)
+    if not with_D
     "Zero input signal"
     annotation (Evaluate=true,HideResult=true,Placement(transformation(extent={{-50,90},
             {-30,110}})));
@@ -136,16 +137,16 @@ protected
     "Assertion on yMin and yMax"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Izero(
-    final k=0) if not with_I
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Izero(final k=0)
+    if not with_I
     "Zero input signal"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
-    final k=0) if with_I
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
+    if with_I
     "Constant zero"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
-    final k=false) if with_I
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
+    if with_I
     "Constant false"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
@@ -486,43 +487,43 @@ American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. At
 May 20, 2022, by Michael Wetter:<br/>
 Refactored implementation to use new derivative block from CDL package.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">Buildings, issue 3022</a>.
 </li>
 <li>
 May 6, 2022, by Michael Wetter:<br/>
 Corrected wrong documentation in how the derivative of the control error is approximated.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">issue 2994</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2994\">Buildings, issue 2994</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 15, 2020, by Michael Wetter:<br/>
 Added scaling factor <code>r</code>, removed set point weights <code>wp</code> and <code>wd</code>.
 Revised documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">issue 2182</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2182\">Buildings, issue 2182</a>.
 </li>
 <li>
 August 4, 2020, by Jianjun Hu:<br/>
 Removed the conditional inputs <code>trigger</code> and <code>y_rest_in</code>.
 Refactored to internally implement the derivative block.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">issue 2056</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2056\">Buildings, issue 2056</a>.
 </li>
 <li>
 June 1, 2020, by Michael Wetter:<br/>
 Corrected wrong convention of reverse and direct action.<br/>
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issue 1365</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">Buildings, issue 1365</a>.
 </li>
 <li>
 April 23, 2020, by Michael Wetter:<br/>
 Changed default parameters for limits <code>yMax</code> from unspecified to <code>1</code>
 and <code>yMin</code> from <code>-yMax</code> to <code>0</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">issue 1888</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1888\">Buildings, issue 1888</a>.
 </li>
 <li>
 April 7, 2020, by Michael Wetter:<br/>
@@ -539,12 +540,12 @@ the removal of options that can be realized differently and are hardly ever used
 This refactoring also removes the parameter <code>strict</code> that
 was used in the output limiter. The new implementation enforces a strict check by default.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">issue 1878</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1878\">Buildings, issue 1878</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
 Corrected unit declaration for gain <code>k</code>.<br/>
-See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">issue 1821</a>.
+See <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1821\">Buildings, issue 1821</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
@@ -559,7 +560,7 @@ October 19, 2019, by Michael Wetter:<br/>
 Disabled homotopy to ensure bounded outputs
 by copying the implementation from MSL 3.2.3 and by
 hardcoding the implementation for <code>homotopyType=NoHomotopy</code>.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">issue 1221</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1221\">Buildings, issue 1221</a>.
 </li>
 <li>
 November 13, 2017, by Michael Wetter:<br/>
@@ -586,13 +587,13 @@ Revised implemenentation, added comments, made some parameter in the instances f
 </li>
 <li>July 18, 2016, by Philipp Mehrfeld:<br/>
 Added integrator reset.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">issue 494</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/494\">Buildings, issue 494</a>.
 </li>
 <li>
 March 15, 2016, by Michael Wetter:<br/>
 Changed the default value to <code>strict=true</code> in order to avoid events
 when the controller saturates.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">issue 433</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/433\">Buildings, issue 433</a>.
 </li>
 <li>
 February 24, 2010, by Michael Wetter:<br/>

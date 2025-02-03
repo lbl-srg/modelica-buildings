@@ -120,7 +120,7 @@ protected
       n=6);
     t_end = t_sta + u*period;
 
-    y = ((time>=t_sta) and (time<t_end));
+    y = (time>=t_sta) and (time<t_end);
 
   annotation (Icon(
         graphics={

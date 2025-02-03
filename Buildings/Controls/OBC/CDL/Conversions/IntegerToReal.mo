@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.CDL.Conversions;
 block IntegerToReal
   "Convert Integer to Real signals"
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
-    "Connector of Integer input signal"
+    "Integer signal to be converted to a Real signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Converted input signal as a Real"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation

@@ -9,10 +9,10 @@ block UnitDelay
   parameter Real y_start=0
     "Initial value of output signal";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Continuous input signal"
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Continuous output signal"
+    "Input signal at the previous sample instant"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
@@ -67,19 +67,19 @@ the output <code>y</code> is identical to parameter <code>y_start</code>.
 August 8, 2024, by Jianjun Hu:<br/>
 Delayed the input.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">#3953</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3953\">Buildings, issue 3953</a>.
 </li> 
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">#2170</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2170\">Buildings, issue 2170</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
@@ -90,7 +90,7 @@ September 14, 2017, by Michael Wetter:<br/>
 Removed parameter <code>startTime</code> to allow model to work
 also for negative start time without having to change the value of this
 parameters.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">issue 938</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/938\">Buildings, issue 938</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

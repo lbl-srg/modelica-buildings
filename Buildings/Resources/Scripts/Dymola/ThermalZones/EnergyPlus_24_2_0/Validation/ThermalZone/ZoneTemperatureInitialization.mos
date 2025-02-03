@@ -1,0 +1,5 @@
+old_hidden_avoid_double_computation=Hidden.AvoidDoubleComputation;
+Hidden.AvoidDoubleComputation=true;
+simulateModel("Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.ThermalZone.ZoneTemperatureInitialization", stopTime=86400, method="Cvode", tolerance=1e-06, resultFile="ZoneTemperatureInitialization");
+createPlot(id=1, position={18, 126, 764, 539}, y={"zon.TAir", "TRad.y", "zon.TRad"}, range={0.0, 1.0, -300.0, 50.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"degC", "degC", "degC"});
+Hidden.AvoidDoubleComputation=old_hidden_avoid_double_computation;

@@ -204,6 +204,10 @@ Buildings.DHC.Loads.BaseClasses.SimpleRoomODE</a>.
       revisions="<html>
 <ul>
 <li>
+November 9, 2024, by Michael Wetter:<br/>
+Corrected annotation that used non-existent variable.
+</li>
+<li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
@@ -233,7 +237,7 @@ First implementation.
     Polygon(
       points={{-72,-100},{-86,-90},{-86,-112},{-72,-100}},
       lineColor={0,0,0},
-      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
+      fillColor=DynamicSelect({0,0,0}, val.y_actual*{255,255,255}),
       fillPattern=FillPattern.Solid),
     Polygon(
       points={{-72,-100},{-60,-90},{-60,-112},{-72,-100}},

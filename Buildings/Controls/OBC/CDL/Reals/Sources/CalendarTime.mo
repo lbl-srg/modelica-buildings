@@ -100,7 +100,7 @@ for 21 years.
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
@@ -110,7 +110,7 @@ Changed icon to display dynamically the output value.
 August 20, 2019, by Filip Jorissen:<br/>
 Revised implementation such that the meaning of <code>time</code> is better explained
 and unix time stamps are correctly defined with respect to GMT.
-(see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">#1192</a>).
+(see <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1192\">Buildings, issue 1192</a>).
 </li>
 <li>
 March 14, 2017, by Michael Wetter:<br/>
