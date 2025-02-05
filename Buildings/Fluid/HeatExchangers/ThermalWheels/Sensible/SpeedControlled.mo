@@ -26,20 +26,18 @@ initial equation
 
 equation
   connect(port_a1, hex.port_a1) annotation (Line(points={{-180,80},{-60,80},{-60,6},
-    {-10,6}}, color={0,127,255},
-      thickness=0.5));
+          {-10,6}}, color={0,127,255}, thickness=0.5));
   connect(hex.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},{60,
-          -80},{100,-80}}, color={0,127,255},
-      thickness=0.5));
-  connect(speCor.epsSenCor, mulEps.u2) annotation (Line(points={{-138,0},{-114,
-          0},{-114,-16},{-62,-16}}, color={0,0,127}));
+          -80},{100,-80}}, color={0,127,255}, thickness=0.5));
+  connect(speCor.epsSenCor, mulEps.u2) annotation (Line(points={{-138,0},{-130,0},
+          {-130,-16},{-62,-16}},    color={0,0,127}));
   connect(effCal.eps, mulEps.u1) annotation (Line(points={{-78,0},{-70,0},{-70,
           -4},{-62,-4}}, color={0,0,127}));
   connect(mulEps.y, hex.eps) annotation (Line(points={{-38,-10},{-20,-10},{-20,
           0},{-12,0}}, color={0,0,127}));
   connect(uSpe,speCor. uSpe) annotation (Line(points={{-200,0},{-162,0}},
           color={0,0,127}));
-  connect(speCor.P, P) annotation (Line(points={{-138,8},{-134,8},{-134,68},{88,
+  connect(speCor.P, P) annotation (Line(points={{-138,8},{-130,8},{-130,68},{88,
           68},{88,-40},{120,-40}}, color={0,0,127}));
   connect(eps, mulEps.y) annotation (Line(points={{120,40},{80,40},{80,-20},{-20,
           -20},{-20,-10},{-38,-10}}, color={0,0,127}));

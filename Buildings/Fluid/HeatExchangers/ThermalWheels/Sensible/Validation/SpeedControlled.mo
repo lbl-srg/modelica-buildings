@@ -7,8 +7,7 @@ model SpeedControlled
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE per(
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    motorEfficiency(uSpe={0.1,0.6,0.8,1},
-	eta={0.3,0.8,0.9,1}),
+    motorEfficiency(uSpe={0.1,0.6,0.8,1}, eta={0.3,0.8,0.9,1}),
     have_latHEX=false,
     use_defaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"

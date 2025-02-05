@@ -3,7 +3,8 @@ model BypassDampers
   "Sensible heat recovery wheel with bypass dampers"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.PartialWheel;
 
-  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit="Pa") = 20
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(
+    displayUnit="Pa") = 20
     "Nominal pressure drop of dampers";
   parameter Boolean use_strokeTime=true
     "Set to true to continuously open and close damper using strokeTime"
@@ -121,45 +122,39 @@ equation
     annotation (Line(points={{-50,92},{-50,140},{-202,140}}, color={0,0,127}));
   connect(damSup.port_b, hex.port_a1)
     annotation (Line(points={{-40,20},{-26,20},{-26,6},{-10,6}},
-    color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}, thickness=0.5));
   connect(bypDamExh.y, uBypDamPos)
     annotation (Line(points={{-10,-68},{-10,-60},{-20,-60},{-20,140},{-202,140}},
     color={0,0,127}));
   connect(hex.port_a2, damExh.port_b)
     annotation (Line(points={{10,-6},{20,-6},{20,-16},{40,-16},{40,-30}},
-    color={0,127,255},
-      thickness=0.5));
+    color={0,127,255}, thickness=0.5));
   connect(sub.u2, uBypDamPos)
     annotation (Line(points={{-102,94},{-160,94},{-160,140},{-202,140}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(uni.y, sub.u1)
     annotation (Line(points={{-119,120},{-110,120},{-110,106},{-102,106}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(damSup.port_a, port_a1)
     annotation (Line(points={{-60,20},{-160,20},{-160,80},{-180,80}},
-    color={0,127,255},
-      thickness=0.5));
+      color={0,127,255}, thickness=0.5));
   connect(PEle.y, P) annotation (Line(points={{-39,160},{70,160},{70,-40},{120,-40}},
-    color={0,0,127}));
+      color={0,0,127}));
   connect(bypDamExh.port_b, port_b2)
     annotation (Line(points={{-20,-80},{-180,-80}}, color={0,127,255},
       thickness=0.5));
   connect(zero.y,swiEpsSen. u3) annotation (Line(points={{-119,180},{-100,180},
-          {-100,192},{-62,192}},                  color={0,0,127}));
-  connect(effCal.eps,swiEpsSen. u1) annotation (Line(points={{-78,0},{-74,0},{
-          -74,208},{-62,208}},
-                           color={0,0,127}));
+          {-100,192},{-62,192}}, color={0,0,127}));
+  connect(effCal.eps,swiEpsSen. u1) annotation (Line(points={{-78,0},{-70,0},{-70,
+          208},{-62,208}}, color={0,0,127}));
   connect(swiEpsSen.y, hex.eps) annotation (Line(points={{-38,200},{-32,200},{
-          -32,0},{-12,0}},
-                       color={0,0,127}));
+          -32,0},{-12,0}}, color={0,0,127}));
   connect(swiEpsSen.y, eps) annotation (Line(points={{-38,200},{80,200},{80,40},
           {120,40}}, color={0,0,127}));
   connect(uRot,swiEpsSen. u2) annotation (Line(points={{-200,0},{-170,0},{-170,
-          200},{-62,200}},
-                      color={255,0,255}));
+          200},{-62,200}}, color={255,0,255}));
   connect(PEle.u, uRot) annotation (Line(points={{-62,160},{-170,160},{-170,0},
-          {-200,0}},                     color={255,0,255}));
+          {-200,0}}, color={255,0,255}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

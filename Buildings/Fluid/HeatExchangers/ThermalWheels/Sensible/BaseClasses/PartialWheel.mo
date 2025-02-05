@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses;
 partial model PartialWheel
   "Partial model for sensible heat recovery wheel"
   extends Modelica.Blocks.Icons.Block;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases
+  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
      final have_latHEX=false)
@@ -46,13 +45,13 @@ partial model PartialWheel
      redeclare package Medium = Medium)
     "Exhaust air mass flow rate"
     annotation (Placement(transformation(extent={{-70,-50},{-90,-30}})));
+
 protected
   parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
       T=Buildings.Utilities.Psychrometrics.Constants.T_ref,
       p=101325,
       X=Medium.X_default)
    "State of the supply air at the default properties";
-
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.HeatExchangerWithInputEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -61,7 +60,6 @@ protected
     final dp1_nominal=per.dpSup_nominal,
     final dp2_nominal=per.dpExh_nominal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Buildings.Fluid.HeatExchangers.ThermalWheels.Sensible.BaseClasses.Effectiveness effCal(
     final eps_nominal=per.epsSen_nominal,
     final epsPL=per.epsSenPL,
@@ -86,9 +84,9 @@ equation
     {60,80},{100,80}}, color={0,127,255},
       thickness=0.5));
   connect(senExhMasFlo.m_flow, effCal.mExh_flow) annotation (Line(points={{-80,-29},
-          {-80,-20},{-130,-20},{-130,-6},{-102,-6}}, color={0,0,127}));
+          {-80,-20},{-120,-20},{-120,-6},{-102,-6}}, color={0,0,127}));
   connect(senSupMasFlo.m_flow, effCal.mSup_flow) annotation (Line(points={{40,31},
-          {40,40},{-130,40},{-130,6},{-102,6}}, color={0,0,127}));
+          {40,40},{-120,40},{-120,6},{-102,6}}, color={0,0,127}));
 annotation (
         defaultComponentName="whe",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
