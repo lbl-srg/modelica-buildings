@@ -612,6 +612,15 @@ void getSimulationTemporaryDirectory(
   replaceChar(curDir, '\\', '/');
 #endif
 
+  /* Ensure that there are no spaces in the current working directory.
+     See https://github.com/lbl-srg/modelica-buildings/issues/3993
+  */
+  if(strchr(curDir, ' ') != NULL){
+    SpawnFormatError(
+      "To run a simulation with EnergyPlus coupling, the working directory must not have spaces. Working directory is '%s'.",
+      curDir);
+  }
+
   /* Reduced the name of modelicaNameBuilding because Windows has limits on the length
      of the file name.
   */

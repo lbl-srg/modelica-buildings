@@ -87,7 +87,7 @@ Changed icon to display dynamically the output value.
 June 28, 2017, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the Modelica Standard
 Library. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">Buildings, issue 825</a>.
 </li>
 </ul>
 </html>"));
