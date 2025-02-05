@@ -79,7 +79,8 @@
     comment: 'Simulation works locally, see https://github.com/lbl-srg/modelica-buildings/issues/3910'
     simulate: false
   optimica:
-    time_out: 600
+    comment: Timeout after 600 seconds
+    simulate: false
 - model_name: Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage
   optimica:
     comment: Simulation times out
@@ -139,16 +140,16 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
   optimica:
-    comment: timeout on travis after 300s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/618700275
-    time_out: 600
+    comment: timeout on travis after 600s, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222413
+    translate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
@@ -308,6 +309,9 @@
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
   openmodelica:
     comment: Translation failed.
+    translate: false
+  optimica:
+    comment: PyModelicaException due to NullPointerException
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:

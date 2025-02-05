@@ -579,6 +579,16 @@ of the current EnergyPlus time step.<br/>
 This will be addressed through
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2000\">issue 2000</a>.
 </p>
+<h5>Running Spawn from a directory with spaces</h5>
+<p>
+Spawn stops with an error message if run from a directory that contains spaces (because loading the FMU would fail).
+Therefore, make sure the working directory has no spaces.
+The installation directory of the Buildings library however is allowed to have spaces.
+</p>
+<p>
+This error check has been introduced in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3993\">issue 3993</a>.
+</p>
 </html>"));
   end KnownIssues;
 

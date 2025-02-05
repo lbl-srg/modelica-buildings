@@ -22,7 +22,7 @@ block TrueFalseHold
 protected
   /* The following parameter is required solely as a warkaround for a bug in OCT [Modelon - 1263].
   Both Dymola and OMC can handle the initial equation pre(u)=u, which complies with MLS. */
-  parameter Boolean pre_u_start=false
+ parameter Boolean pre_u_start=false
     "Value of pre(u) at initial time"
     annotation (Evaluate=true);
   Boolean not_u = not u
@@ -49,19 +49,13 @@ equation
     y = u;
     entryTimeTrue = if y then time else pre(entryTimeTrue);
     entryTimeFalse = if not y then time else pre(entryTimeFalse);
-  /*
-  The two elsewhen clauses below are kept separate to address an issue
-  with event handling in the CVODE solver.
-  */
-  elsewhen {edge(u), edge(not_u)} then
-    y = if time >= pre(entryTimeFalse) + falseHoldDuration and
-      time >= pre(entryTimeTrue) + trueHoldDuration then u
+  elsewhen {edge(u),
+            edge(not_u),
+            time >= pre(entryTimeFalse) + falseHoldDuration and
+            time >= pre(entryTimeTrue) + trueHoldDuration} then
+    y=if time >= pre(entryTimeFalse) + falseHoldDuration and
+         time >= pre(entryTimeTrue) + trueHoldDuration then u
       else pre(y);
-    entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
-    entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
-  elsewhen time >= pre(entryTimeFalse) + falseHoldDuration and
-    time >= pre(entryTimeTrue) + trueHoldDuration then
-    y = u;
     entryTimeTrue = if edge(y) then time else pre(entryTimeTrue);
     entryTimeFalse = if edge(not_y) then time else pre(entryTimeFalse);
   end when;
@@ -144,6 +138,12 @@ alt=\"Input and output of the block\"/>
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 13, 2025, by Antoine Gautier:<br/>
+Merge <code>elsewhen</code> clauses.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4082\">Buildings, issue 4082</a>.
+</li>
 <li>
 August 26, 2024, by Antoine Gautier:<br/>
 Resolved an issue with unit impulse signals.<br/>
