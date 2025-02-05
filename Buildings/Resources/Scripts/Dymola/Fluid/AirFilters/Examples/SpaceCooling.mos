@@ -1,0 +1,3 @@
+simulateModel("Buildings.Fluid.AirFilters.Examples.SpaceCooling", startTime=15552000, stopTime=15638400, tolerance=1e-06,method="Cvode", resultFile="SpaceCooling");
+createPlot(id=1, position={15, 15, 636, 459}, y={"C_inflow.y", "C_out.C"}, range={15550000.0, 15640000.0, -5.000000000000002E-09, 1.5000000000000005E-08}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 636, 459}, y={"fan.P"}, range={15550000.0, 15640000.0, -200.0, 800.0}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"W"});
