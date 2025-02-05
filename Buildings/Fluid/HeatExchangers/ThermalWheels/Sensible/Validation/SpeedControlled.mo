@@ -9,15 +9,15 @@ model SpeedControlled
     mExh_flow_nominal=5,
     motorEfficiency(uSpe={0.1,0.6,0.8,1},
 	eta={0.3,0.8,0.9,1}),
-    haveLatentHeatExchange=false,
-    useDefaultMotorEfficiencyCurve=false)
+    have_latHEX=false,
+    use_defaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-34,60},{-14,80}})));
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perDefMotCur(
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    haveLatentHeatExchange=false,
-    useDefaultMotorEfficiencyCurve=true)
+    have_latHEX=false,
+    use_defaultMotorEfficiencyCurve=true)
     "Performance record for the sensible heat wheel with default motor curve"
     annotation (Placement(transformation(extent={{6,60},{26,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(

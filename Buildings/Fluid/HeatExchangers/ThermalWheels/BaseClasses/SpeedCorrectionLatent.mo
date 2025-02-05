@@ -3,24 +3,24 @@ model SpeedCorrectionLatent "Enthalpy wheels"
   extends Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible;
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput epsLatCor(
     final unit="1")
-    "Latent heat exchanger effectiveness correction" annotation (Placement(
-        transformation(extent={{100,-100},{140,-60}}), iconTransformation(
-          extent={{100,-100},{140,-60}})));
+    "Latent heat exchanger effectiveness correction"
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{100,-100},{140,-60}})));
 equation
   epsLatCor = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=uSpe,
-                xSup=per.latHeatExchangeEffectiveness.uSpe,
-                ySup=per.latHeatExchangeEffectiveness.epsCor)
+                xSup=per.latEff.uSpe,
+                ySup=per.latEff.epsCor)
                 "Calculate the latent heat exchanger effectiveness correction";
 
   annotation (
   defaultComponentName="speCor",
   Documentation(info="<html>
 <p>
-This model calculates the power consumption, and the corrections
-due to different rotational speeds for the sensible
-heat exchange effectiveness and the latent
-heat exchange effectiveness of an enthalpy wheel.
+This model calculates the power consumption, the sensible
+heat exchange effectiveness correction, and the latent
+heat exchange effectiveness correction of an enthalpy wheel
+when it is in different rotational speed.
 </p>
 <p>
 The calculation of the power consumption and the sensible

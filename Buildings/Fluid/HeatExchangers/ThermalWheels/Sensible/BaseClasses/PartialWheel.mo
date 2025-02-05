@@ -6,7 +6,7 @@ partial model PartialWheel
     Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
-     final haveLatentHeatExchange=false)
+     final have_latHEX=false)
     "Record with performance data"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
 

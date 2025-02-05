@@ -2,11 +2,11 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses;
 model SpeedCorrectionSensible "Sensible heat wheels"
   extends Modelica.Blocks.Icons.Block;
 
-  final parameter Real xSpe[:] = if per.useDefaultMotorEfficiencyCurve
+  final parameter Real xSpe[:] = if per.use_defaultMotorEfficiencyCurve
     then per.motorEfficiency_default.y else per.motorEfficiency.uSpe
     "x-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
-  final parameter Real[size(xSpe,1)] yEta = if per.useDefaultMotorEfficiencyCurve
+  final parameter Real[size(xSpe,1)] yEta = if per.use_defaultMotorEfficiencyCurve
     then per.motorEfficiency_default.eta else per.motorEfficiency.eta
     "y-axis support points of the power efficiency curve"
     annotation (Dialog(group="Efficiency"));
@@ -55,15 +55,16 @@ equation
         "Calculate the wheel power consumption";
   epsSenCor = Buildings.Utilities.Math.Functions.smoothInterpolation(
                 x=uSpe,
-                xSup=per.senHeatExchangeEffectiveness.uSpe,
-                ySup=per.senHeatExchangeEffectiveness.epsCor)
+                xSup=per.senEff.uSpe,
+                ySup=per.senEff.epsCor)
                 "Calculate the sensible heat exchanger effectiveness correction";
    annotation (
    defaultComponentName="speCor",
    Documentation(info="<html>
 <p>
 This model calculates the power consumption and the sensible heat exchanger
-effectiveness correction due to different rotational speed of a sensible heat wheel.
+effectiveness correction of a sensible heat wheel
+when it is in the different rotational speed.
 </p>
 <ul>
 <li>

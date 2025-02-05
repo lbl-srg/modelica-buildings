@@ -15,13 +15,13 @@ model SpeedControlled
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulSen
     "Correct the sensible heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
+    annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply mulLat
     "Correct the latent heat exchanger effectiveness"
-    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
+    annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
 
 initial equation
-  assert(per.haveVariableSpeed,
+  assert(per.have_varSpe,
          "In " + getInstanceName() + ": The performance data record
          is wrong, the variable speed flag must be true",
          level=AssertionLevel.error)
@@ -36,20 +36,21 @@ equation
     annotation (Line(points={{10,6},{-32,6},{-32,80},{-180,80}},  color={0,127,255},
       thickness=0.5));
   connect(speCor.epsSenCor, mulSen.u1) annotation (Line(points={{-98,120},{-80,
-          120},{-80,146},{-62,146}}, color={0,0,127}));
+          120},{-80,146},{-42,146}}, color={0,0,127}));
   connect(speCor.epsLatCor, mulLat.u1) annotation (Line(points={{-98,112},{-80,
-          112},{-80,106},{-62,106}}, color={0,0,127}));
-  connect(effCal.epsSen, mulSen.u2) annotation (Line(points={{-78,5},{-70,5},{-70,
-          134},{-62,134}}, color={0,0,127}));
-  connect(effCal.epsLat, mulLat.u2) annotation (Line(points={{-78,-5},{-64,-5},
-          {-64,94},{-62,94}}, color={0,0,127}));
+          112},{-80,106},{-42,106}}, color={0,0,127}));
+  connect(effCal.epsSen, mulSen.u2) annotation (Line(points={{-78,5},{-70,5},{
+          -70,134},{-42,134}},
+                           color={0,0,127}));
+  connect(effCal.epsLat, mulLat.u2) annotation (Line(points={{-78,-5},{-60,-5},
+          {-60,94},{-42,94}}, color={0,0,127}));
   connect(mulSen.y, hex.epsSen)
-    annotation (Line(points={{-38,140},{0,140},{0,3},{8,3}}, color={0,0,127}));
-  connect(hex.epsLat, mulLat.y) annotation (Line(points={{8,-3},{-20,-3},{-20,
-          100},{-38,100}}, color={0,0,127}));
-  connect(mulSen.y, epsSen) annotation (Line(points={{-38,140},{20,140},{20,40},
-          {120,40}}, color={0,0,127}));
-  connect(mulLat.y, epsLat) annotation (Line(points={{-38,100},{90,100},{90,0},
+    annotation (Line(points={{-18,140},{0,140},{0,3},{8,3}}, color={0,0,127}));
+  connect(hex.epsLat, mulLat.y) annotation (Line(points={{8,-3},{-10,-3},{-10,
+          100},{-18,100}}, color={0,0,127}));
+  connect(mulSen.y, epsSen) annotation (Line(points={{-18,140},{0,140},{0,40},{
+          120,40}},  color={0,0,127}));
+  connect(mulLat.y, epsLat) annotation (Line(points={{-18,100},{90,100},{90,0},
           {120,0}}, color={0,0,127}));
   connect(speCor.P, P) annotation (Line(points={{-98,128},{-88,128},{-88,40},{
           -46,40},{-46,-40},{120,-40}},color={0,0,127}));

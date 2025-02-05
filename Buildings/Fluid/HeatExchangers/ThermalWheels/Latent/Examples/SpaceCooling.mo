@@ -5,24 +5,13 @@ model SpaceCooling "Space cooling system"
   replaceable package MediumA = Buildings.Media.Air "Medium for air";
   replaceable package MediumW = Buildings.Media.Water "Medium for water";
 
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = MediumA,
-    m_flow_nominal=mA_flow_nominal,
-    V=V,
-    nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    mSenFac=3)
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
-    "Thermal conductance with the ambient"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
   // Heat recovery effectiveness
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
     mSup_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
     dpSup_nominal=200,
-    haveVariableSpeed=false)
+    have_varSpe=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -38,8 +27,9 @@ model SpaceCooling "Space cooling system"
     "Nominal mixed air temperature";
   parameter Modelica.Units.SI.Temperature TOut_nominal=303.15
     "Design outlet air temperature";
-  parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - per.epsSen_nominal*(
-      TOut_nominal - TRooSet) "Air temperature leaving the heat recovery";
+  parameter Modelica.Units.SI.Temperature THeaRecLvg=
+    TOut_nominal - per.epsSen_nominal*(TOut_nominal - TRooSet)
+    "Air temperature leaving the heat recovery";
   parameter Modelica.Units.SI.DimensionlessRatio wHeaRecLvg=0.0135
     "Air humidity ratio leaving the heat recovery [kg/kg]";
 
@@ -47,10 +37,11 @@ model SpaceCooling "Space cooling system"
   // Cooling loads and air mass flow rates
   parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=1000
     "Internal heat gains of the room";
-  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=-QRooInt_flow -
-      10E3/30*(TOut_nominal - TRooSet) "Nominal cooling load of the room";
-  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=1.3*
-      QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=
+    -QRooInt_flow -10E3/30*(TOut_nominal - TRooSet)
+    "Nominal cooling load of the room";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=
+    1.3*QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
   parameter Modelica.Units.SI.TemperatureDifference dTFan=2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
@@ -65,14 +56,30 @@ model SpaceCooling "Space cooling system"
     "Water supply temperature";
   parameter Modelica.Units.SI.Temperature TWRet_nominal=289.15
     "Water return temperature";
-  parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=-QCoiC_flow_nominal/
-      (TWRet_nominal - TWSup_nominal)/4200 "Nominal water mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mW_flow_nominal=
+    -QCoiC_flow_nominal/(TWRet_nominal - TWSup_nominal)/4200
+    "Nominal water mass flow rate";
 
+
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal,
+    V=V,
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    mSenFac=3)
+    "Indoor room"
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
+    G=10000/30)
+    "Thermal conductance with the ambient"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(Q_flow=
-        QRooInt_flow) "Prescribed heat flow"
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
+    Q_flow=QRooInt_flow)
+    "Prescribed heat flow"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -83,10 +90,10 @@ model SpaceCooling "Space cooling system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Supply air fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-
   Buildings.Fluid.HeatExchangers.ThermalWheels.Latent.BypassDampers whe(
     redeclare package Medium = MediumA,
-    per=per) "Heat recovery"
+    per=per)
+    "Heat recovery with bypass damper"
     annotation (Placement(transformation(extent={{-102,-40},{-80,-18}})));
   Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU cooCoi(
     redeclare package Medium1 = MediumW,
@@ -101,22 +108,25 @@ model SpaceCooling "Space cooling system"
     T_a2_nominal=THeaRecLvg,
     w_a2_nominal=wHeaRecLvg,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Cooling coil"
-   annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-30,-26})));
-  Buildings.Fluid.Sources.Outside out(nPorts=2, redeclare package Medium = MediumA)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Cooling coil"
+   annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180, origin={-30,-26})));
+  Buildings.Fluid.Sources.Outside out(
+    redeclare package Medium = MediumA,
+    nPorts=2)
+    "Outdoor"
     annotation (Placement(transformation(extent={{-140,-32},{-120,-12}})));
   Buildings.Fluid.Sources.MassFlowSource_T souWat(
     nPorts=1,
     redeclare package Medium = MediumW,
     use_m_flow_in=true,
-    T=TWSup_nominal) "Source for water flow rate"
+    T=TWSup_nominal)
+    "Source for water flow rate"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Fluid.Sources.Boundary_pT sinWat(
-    nPorts=1, redeclare package Medium = MediumW) "Sink for water circuit"
+    nPorts=1, redeclare package Medium = MediumW)
+    "Sink for water circuit"
     annotation (Placement(transformation(extent={{-80,-76},{-60,-56}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
@@ -125,7 +135,8 @@ model SpaceCooling "Space cooling system"
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data bus"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse mAir_flow(
     amplitude=-mA_flow_nominal,
@@ -135,15 +146,18 @@ model SpaceCooling "Space cooling system"
     offset=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package
-      Medium = MediumA, m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-62,-26},{-50,-14}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
-      Medium = MediumA, m_flow_nominal=mA_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{6,-26},{18,-14}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(k=TRooSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSetPoi(
+    k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
@@ -158,20 +172,23 @@ model SpaceCooling "Space cooling system"
   Buildings.Controls.Continuous.LimPID conHX(k=0.1, Ti=60)
     "Heat recovery controller"
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(k=TMixSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMixSetPoi(
+    k=TMixSet)
     "Mixed air temperature set point"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemRetAir(
-      redeclare package Medium = MediumA,
-      m_flow_nominal=mA_flow_nominal)
-      "Temperature sensor for return air"
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for return air"
     annotation (Placement(transformation(extent={{54,-52},{42,-40}})));
   Buildings.Controls.Continuous.LimPID conRoo(
     k=0.1,
     Ti=60,
     yMax=mW_flow_nominal,
-    reverseActing=false) "Room controller"
+    reverseActing=false)
+    "Room controller"
     annotation (Placement(transformation(extent={{-90,-110},{-70,-90}})));
+
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},

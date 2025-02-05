@@ -7,7 +7,7 @@ partial model PartialWheel
     "Air";
 
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
-    final haveLatentHeatExchange=true)
+    final have_latHEX=true)
     "Record with performance data"
     annotation (Placement(transformation(extent={{-150,-40},{-130,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(

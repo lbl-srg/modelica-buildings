@@ -7,7 +7,7 @@ model BypassDampers
   parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.Generic per(
     mSup_flow_nominal=5,
     mExh_flow_nominal=5,
-    haveVariableSpeed=false)
+    have_varSpe=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin_2(

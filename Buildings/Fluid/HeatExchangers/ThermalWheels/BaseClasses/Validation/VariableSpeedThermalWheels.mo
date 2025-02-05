@@ -2,32 +2,29 @@ within Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.Validation;
 model VariableSpeedThermalWheels
   "Model that tests the variable-speed thermal wheels"
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
-    perSenWhe(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perSenWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
     motorEfficiency(uSpe={0.1,0.6,0.8,1},
     eta={0.3,0.8,0.85,1}),
-    haveLatentHeatExchange=false,
-    useDefaultMotorEfficiencyCurve=false)
+    have_latHEX=false,
+    use_defaultMotorEfficiencyCurve=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
-    perLatWhe(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWhe(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
     motorEfficiency(uSpe={0.1,0.6,0.8,1},
     eta={0.3,0.8,0.85,1}),
-    haveLatentHeatExchange=true,
-    useDefaultMotorEfficiencyCurve=false)
+    have_latHEX=true,
+    use_defaultMotorEfficiencyCurve=false)
     "Performance record for the enthalpy wheel"
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE
-    perLatWheDefMotCur(
+  parameter Buildings.Fluid.HeatExchangers.ThermalWheels.Data.ASHRAE perLatWheDefMotCur(
     mSup_flow_nominal=1,
     mExh_flow_nominal=1,
-    haveLatentHeatExchange=true,
-    useDefaultMotorEfficiencyCurve=true)
+    have_latHEX=true,
+    use_defaultMotorEfficiencyCurve=true)
     "Performance record for the enthalpy wheel with default motor dataset"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
   Buildings.Fluid.HeatExchangers.ThermalWheels.BaseClasses.SpeedCorrectionSensible
@@ -54,13 +51,11 @@ model VariableSpeedThermalWheels
 
 equation
   connect(uSpe.y, senWhe.uSpe)
-    annotation (Line(points={{-39,0},{-28,0},{-28,50},
-          {-12,50}}, color={0,0,127}));
+    annotation (Line(points={{-39,0},{-28,0},{-28,50},{-12,50}}, color={0,0,127}));
   connect(latWhe.uSpe, uSpe.y)
     annotation (Line(points={{-12,0},{-39,0}}, color={0,0,127}));
   connect(latWheDefMotCur.uSpe, uSpe.y)
-    annotation (Line(points={{-12,-50},{-28,
-          -50},{-28,0},{-39,0}}, color={0,0,127}));
+    annotation (Line(points={{-12,-50},{-28,-50},{-28,0},{-39,0}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
         "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/ThermalWheels/BaseClasses/Validation/VariableSpeedThermalWheels.mos"

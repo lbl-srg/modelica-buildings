@@ -22,8 +22,8 @@ model SpaceCooling "Space cooling system"
     mSup_flow_nominal=mA_flow_nominal,
     mExh_flow_nominal=mA_flow_nominal,
     dpSup_nominal=200,
-    haveLatentHeatExchange=false,
-    haveVariableSpeed=false)
+    have_latHEX=false,
+    have_varSpe=false)
     "Performance record for the sensible heat wheel"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 

@@ -97,7 +97,7 @@ protected
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
 
 initial equation
-  assert(not per.haveVariableSpeed,
+  assert(not per.have_varSpe,
          "In " + getInstanceName() + ": The performance data record
          is wrong, the variable speed flag must be false",
          level=AssertionLevel.error)
@@ -168,8 +168,9 @@ equation
           -6,3},{8,3}}, color={0,0,127}));
   connect(swiEpsLat.y, hex.epsLat) annotation (Line(points={{-18,130},{-10,130},
           {-10,-3},{8,-3}}, color={0,0,127}));
-  connect(swiEpsSen.y, epsSen) annotation (Line(points={{-18,160},{40,160},{40,40},
-          {120,40}}, color={0,0,127}));
+  connect(swiEpsSen.y, epsSen) annotation (Line(points={{-18,160},{-6,160},{-6,
+          40},{120,40}},
+                     color={0,0,127}));
   connect(swiEpsLat.y, epsLat) annotation (Line(points={{-18,130},{88,130},{88,0},
           {120,0}}, color={0,0,127}));
   connect(PEle.u, uRot) annotation (Line(points={{-122,-100},{-168,-100},{-168,
