@@ -10,16 +10,12 @@ TRAVIS_BUILD_DIR ?= $(shell dirname \
   $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))))))
 ROOT = $(TRAVIS_BUILD_DIR)
 
-# Sometimes Dymola may fail as acquiring the license took too long.
-# This section reruns the target once.
-# See https://lists.gnu.org/archive/html/help-gnu-utils/2005-12/msg00009.html
-ifdef RETRY
- RETRY_ONCE = false
-else
- RETRY_ONCE = echo && echo "--> RETRYING target $@"; \
-               $(MAKE) $(MFLAGS) RETRY=1 $@ || \
-               (echo "--> RETRY target $@ FAILED. Continuing..."; true)
-endif
+# Command to run Dymola tests. This is stored as a variable
+# so it can be tried once more if it fails.
+CMD = echo "cd $(ROOT)/Buildings && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola -n $(NPROC)"
 
 # Test whether all EnergyPlus validation files are up to date.
 # This targets searches all files `run.sh` and executes them.
@@ -171,12 +167,13 @@ Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.ASHRAE2006Summer
 
 endef
 
+
 test-dymola:
 	$(eval BUILDINGSPY_SKIP_STATISTICS_VERIFICATION := $(buiPyMod))
-	(cd $(ROOT)/Buildings && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola -n $(NPROC)) || $(RETRY_ONCE)
+	@eval $(CMD) || \
+	if [ $$? <> 0 ]; then \
+	  eval $(CMD); \
+	fi
 	@echo "    Target $@ successful."
 
 test-openmodelica:
