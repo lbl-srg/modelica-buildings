@@ -69,7 +69,12 @@ equation
 annotation (defaultComponentName="masTra",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
     Rectangle(extent={{-100,100},{100,-100}}, fillColor={255,255,255},
-              fillPattern=FillPattern.Solid, pattern=LinePattern.None)}),
+              fillPattern=FillPattern.Solid, pattern=LinePattern.None),
+          Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

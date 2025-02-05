@@ -1,7 +1,6 @@
 within Buildings.Fluid.AirFilters;
 model Empirical "Empirical air filter model"
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases
+  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
     "Air";
 
   parameter Buildings.Fluid.AirFilters.Data.Generic per
@@ -19,14 +18,15 @@ model Empirical "Empirical air filter model"
       iconTransformation(extent={{100,-80},{140,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
-     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-     redeclare final package Medium = Medium,
-     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
+    redeclare final package Medium = Medium,
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
 protected
   parameter Integer nConSub = size(per.namCon,1)
     "Total types of contaminant substances";
@@ -262,11 +262,12 @@ Buildings.Fluid.AirFilters.Data.Generic</a>), Specifically,
 </p>
 <ul>
 <li>
-the pressure drop of the filter is defined by <code>per.b</code>.
+the pressure drop of the filter is defined by the resistance coefficient <code>per.b</code>.
 </li>
 <li>
-the filtration efficiency of the filter is defined by <code>per.filEffPar</code>
-for each type of contaminant, as specified in <code>per.namCon</code>. 
+the filtration efficiency of the filter is defined by the filtration efficiency
+<code>per.filEffPar</code> for each type of contaminant. The contaminant type is
+specified by <code>per.namCon</code>. 
 </li>
 </ul>
 <p>
