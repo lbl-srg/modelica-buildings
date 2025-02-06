@@ -10,49 +10,77 @@ block ValveCondenserEvaporator
     "Number of units operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal
+  parameter Real mChiWatChi_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min
+  parameter Real mChiWatChi_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal
+  parameter Real mConWatChi_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller CW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(displayUnit="Pa")
+  parameter Real dpEvaChi_nominal(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa")
     "Chiller evaporator design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpValEvaChi_nominal(
-      displayUnit="Pa")
+  parameter Real dpValEvaChi_nominal(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa")
     "Chiller evaporator isolation valve design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal
+  parameter Real mChiWatChiHea_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min
+  parameter Real mChiWatChiHea_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatChiHea_flow_nominal
+  parameter Real mConWatChiHea_flow_nominal(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "HRC CW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWatChiHea_flow_min
+  parameter Real mHeaWatChiHea_flow_min(
+    final unit="kg/s",
+    final quantity="MassFlowRate")
     "Chiller HW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpEvaChiHea_nominal(
-      displayUnit="Pa")
+  parameter Real dpEvaChiHea_nominal(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa")
     "Design chiller evaporator  pressure drop (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpValEvaChiHea_nominal(
-      displayUnit="Pa")
+  parameter Real dpValEvaChiHea_nominal(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    displayUnit="Pa")
     "HRC evaporator isolation valve design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
+  parameter Real TTanSet[2, 2](
+    each final quantity="ThermodynamicTemperature",
+    each final unit="K",
+    each displayUnit="degC")
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real k(min=0)=0.01
     "Gain of controller"
     annotation (Dialog(group="Control parameters"));
-  parameter Modelica.Units.SI.Time Ti=60
+  parameter Real Ti(
+    final quantity="Time",
+    final unit="s")=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control parameters"));
   parameter Real yMin=0.1
@@ -71,13 +99,15 @@ block ValveCondenserEvaporator
     then 1 else (dpValEvaChiHea_nominal / (dpEvaChi_nominal + dpValEvaChi_nominal - dpEvaChiHea_nominal))^0.5
     "HRC evaporator isolation valve opening for flow balancing with chiller";
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput idxCycTan(final min=1,
-      final max=2)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput idxCycTan(
+    final min=1,
+    final max=2)
     "Index of active tank cycle"
     annotation (Placement(transformation(extent={{-280,80},{-240,120}}),
     iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode(final min=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge,
-      final max=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.heatRejection)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode(
+    final min=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge,
+    final max=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.heatRejection)
     "Condenser loop operating mode"
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
@@ -113,17 +143,16 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={-260,-100}),
-                           iconTransformation(
+        origin={-260,-100}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaLvgChiHea[nChiHea](each final
-            unit="K", each displayUnit="degC")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaLvgChiHea[nChiHea](
+    each final unit="K",
+    each displayUnit="degC")
     "HRC evaporator barrel leaving temperature"
-                                               annotation (Placement(
-        transformation(extent={{-280,20},{-240,60}}),   iconTransformation(
-          extent={{-140,-160},{-100,-120}})));
+    annotation (Placement(transformation(extent={{-280,20},{-240,60}}),
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mEvaChiSet_flow(final
       unit="kg/s") "Chiller evaporator flow setpoint" annotation (Placement(
@@ -255,8 +284,8 @@ block ValveCondenserEvaporator
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,20})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChi[nChi](each final
-      unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChi[nChi](
+    each final unit="1")
     "Cooling-only chiller condenser isolation valve commanded position"
     annotation (
       Placement(transformation(
@@ -266,8 +295,9 @@ block ValveCondenserEvaporator
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaChiHea[nChiHea](each final
-            unit="1") "HRC evaporator isolation valve commanded position"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaChiHea[nChiHea](
+    each final unit="1")
+    "HRC evaporator isolation valve commanded position"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -276,8 +306,9 @@ block ValveCondenserEvaporator
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-20})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChiHea[nChiHea](each final
-            unit="1") "HRC condenser isolation valve commanded position"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChiHea[nChiHea](
+    each final unit="1")
+    "HRC condenser isolation valve commanded position"
     annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -288,7 +319,8 @@ block ValveCondenserEvaporator
         rotation=0,
         origin={120,-40})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaSwiChiHea[nChiHea](
-      each final unit="1") "HRC evaporator switchover valve commanded position"
+    each final unit="1")
+    "HRC evaporator switchover valve commanded position"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -297,7 +329,8 @@ block ValveCondenserEvaporator
         rotation=0,
         origin={120,-60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConSwiChiHea[nChiHea](
-      each final unit="1") "HRC condenser switchover valve commanded position"
+    each final unit="1")
+    "HRC condenser switchover valve commanded position"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -306,7 +339,8 @@ block ValveCondenserEvaporator
         rotation=0,
         origin={120,-80})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatEvaMix
-    "HRC evaporator CW mixing valve commanded position" annotation (Placement(
+    "HRC evaporator CW mixing valve commanded position"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -314,15 +348,18 @@ block ValveCondenserEvaporator
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-100})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(final unit=
-        "1") "CHW minimum flow bypass valve control signal" annotation (
-      Placement(transformation(extent={{240,440},{280,480}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
+    final unit="1")
+    "CHW minimum flow bypass valve control signal"
+    annotation (Placement(transformation(extent={{240,440},{280,480}}),
         iconTransformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(final unit=
-        "1") "HW minimum flow bypass valve control signal" annotation (
-      Placement(transformation(extent={{240,400},{280,440}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
+    final unit="1")
+    "HW minimum flow bypass valve control signal"
+    annotation (Placement(transformation(extent={{240,400},{280,440}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  ETS.Combined.Controls.PIDWithEnable valEvaChi[nChi](
+
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valEvaChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -332,7 +369,7 @@ block ValveCondenserEvaporator
     each final y_neutral=y_neutral)
     "Chiller evaporator isolation valve control when HRC in direct HR"
     annotation (Placement(transformation(extent={{-110,390},{-90,410}})));
-  ETS.Combined.Controls.PIDWithEnable valConChi[nChi](
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConChi[nChi](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -341,7 +378,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "Chiller condenser isolation valve control"
     annotation (Placement(transformation(extent={{70,350},{90,370}})));
-  ETS.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
     each k=4*k,
     each Ti=Ti/3,
     each final yMin=yMin,
@@ -350,7 +387,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral) "HRC evaporator isolation valve control"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
-  ETS.Combined.Controls.PIDWithEnable valConChiHea[nChiHea](
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConChiHea[nChiHea](
     each k=k,
     each Ti=Ti,
     each final yMin=yMin,
@@ -362,10 +399,8 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yValConSwi[nChiHea]
     "HRC condenser switchover valve commanded position"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={130,-240})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0, origin={130,-240})));
   Buildings.Controls.OBC.CDL.Logical.Not hea[nChiHea] "Return true if heating"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -540,7 +575,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,-380})));
-  ETS.Combined.Controls.PIDWithEnable valConSwi(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valConSwi(
     u_s(unit="K", displayUnit="degC"),
     u_m(unit="K", displayUnit="degC"),
     k=k,
@@ -591,7 +626,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-360})));
-  ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
     each final k=k/2,
@@ -639,7 +674,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch selFloSet[nChiHea]
     "Select HRC evaporator flow setpoint based on operating mode"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatEvaEnt(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -678,7 +713,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TConWatConRetSet(final nin=2)
     "Extract value at given index"
     annotation (Placement(transformation(extent={{-170,90},{-150,110}})));
-  ETS.Combined.Controls.PIDWithEnable ctlTConWatConRet(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConWatConRet(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
     k=k,
@@ -718,7 +753,7 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-40})));
-  ETS.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
     nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
@@ -731,7 +766,8 @@ block ValveCondenserEvaporator
     each final y_neutral=0) "Condenser leaving temperature control"
     annotation (Placement(transformation(extent={{-70,250},{-50,270}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant tanCha(final k=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant tanCha(
+    final k=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge)
     "Tank charge/discharge mode index"
     annotation (Placement(transformation(extent={{-210,190},{-190,210}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isTanCha
@@ -762,7 +798,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Reals.Switch swiFloSet1[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
-  ETS.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valChiWatMinByp[nChi +
     nChiHea](
     each k=0.01,
     each Ti=Ti,
@@ -772,7 +808,7 @@ block ValveCondenserEvaporator
     each final y_reset=0,
     each final y_neutral=0) "CHW minimum flow bypass valve control"
     annotation (Placement(transformation(extent={{144,450},{164,470}})));
-  ETS.Combined.Controls.PIDWithEnable valHeaWatMinByp[nChiHea](
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable valHeaWatMinByp[nChiHea](
     each k=0.01,
     each Ti=Ti,
     each final yMin=0,
