@@ -210,7 +210,7 @@ block PartialController "Interface class for plant controller"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Integer nTTan(final min=0)=0
     "Number of tank temperature points"
-    annotation (Dialog(group="CW loop, TES tank and heat pumps"));
+    annotation (Dialog(group="CW loop, TES tank and heat pumps", connectorSizing=true),HideResult=true);
   parameter Real ratFraChaTanLim[5](each final unit="1/h")=
     {-0.3, -0.2, -0.15, -0.10, -0.08}
     "Rate of change of tank charge fraction (over 10, 30, 120, 240, and 360') that triggers Charge Assist (<0)"
