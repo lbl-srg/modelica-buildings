@@ -6,54 +6,77 @@ model MainPump1Pipe
   parameter Integer nBui(min=1) "Number of heat sources (and heat sinks)";
   parameter Real yPumMin(min=0.01, max=1, final unit="1") = 0.05
     "Minimum pump speed";
-  parameter Modelica.Units.SI.Temperature TMin(displayUnit="degC") = 281.15
+  parameter Real TMin(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 281.15
     "Minimum loop temperature";
-  parameter Modelica.Units.SI.Temperature TMax(displayUnit="degC") = 291.15
+  parameter Real TMax(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") = 291.15
     "Maximum loop temperature";
-  parameter Modelica.Units.SI.TemperatureDifference dTSlo(min=1) = 2
+  parameter Real dTSlo(
+    final min=1,
+    final quantity="TemperatureDifference",
+    final unit="K") = 2
     "Temperature difference for slope";
   parameter Boolean use_temperatureShift = false
     "Set to false to disable temperature shift of slopes";
   parameter Boolean use_constantHeaTemShift = true
     "Set to false to disable constant temperature shift of TMax when only heating is occurring";
-  parameter Modelica.Units.SI.TemperatureDifference offTMax = 2
+  parameter Real offTMax(
+    final quantity="TemperatureDifference",
+    final unit="K")= 2
     "TMax constant temperature shift";
-  final parameter Modelica.Units.SI.TemperatureDifference delta=if
-      use_temperatureShift then TMax - TMin - 3*dTSlo else 0
+  final parameter Real delta(
+    final quantity="TemperatureDifference",
+    final unit="K")=if use_temperatureShift then TMax - TMin - 3*dTSlo else 0
     "Maximum shift of slopes";
-  parameter Modelica.Units.SI.TemperatureDifference dTSou_nominal[nSou](
-    each min=0) = fill(4, nSou)
+  parameter Real dTSou_nominal[nSou](
+    each min=0,
+    each final quantity="TemperatureDifference",
+    each final unit="K") = fill(4, nSou)
     "Nominal temperature difference over source";
   parameter Real k=0.01
     "Gain of controller that shifts upper and lower temperature setpoints";
-  parameter Modelica.Units.SI.Time Ti(displayUnit="min") = 300
+  parameter Real Ti(
+    displayUnit="min",
+    final unit="s",
+    final quantity="Time") = 300
     "Time constant of integrator block that shifts upper and lower temperature setpoints";
+  parameter Real PpumCooThr=100
+    "Threshold for comparison for pump cooling power";
+  parameter Real hysPpumCoo=10 "Hysteresis for cooling pump power threshold";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TMix[nMix](
     each final unit="K",
     each displayUnit="degC")
     "Temperatures at the mixing points"
-    annotation (Placement(transformation(extent={{-142,100},{-102,140}}),
-        iconTransformation(extent={{-142,100},{-102,140}})));
+    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn[nSou](
     each final unit="K",
-    each displayUnit="degC") "Temperatures at the inlets of the sources"
-    annotation (Placement(transformation(extent={{-142,20},{-102,60}}),
-        iconTransformation(extent={{-142,20},{-102,60}})));
+    each displayUnit="degC")
+    "Temperatures at the inlets of the sources"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut[nSou](
     each final unit="K",
-    each displayUnit="degC") "Temperatures at the outlets of the sources"
-    annotation (Placement(transformation(extent={{-142,-80},{-102,-40}}),
-        iconTransformation(extent={{-142,-80},{-102,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](each final unit=
-        "W") "Cooling power required by each building" annotation (Placement(
-        transformation(extent={{-140,-220},{-100,-180}}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-122,-140})));
+    each displayUnit="degC")
+    "Temperatures at the outlets of the sources"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](
+    each final unit="W")
+    "Cooling power required by each building"
+    annotation (Placement(transformation(extent={{-142,-190},{-102,-150}}),
+        iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1")
     "Pump control signal"
     annotation (Placement(transformation(extent={{160,-40},{200,0}}),
-        iconTransformation(extent={{160,-40},{200,0}})));
+        iconTransformation(extent={{160,-20},{200,20}})));
+
   Buildings.Controls.OBC.CDL.Reals.MultiMin TMixMin(
     final nin=nMix,
     y(final unit="K",
@@ -70,9 +93,9 @@ model MainPump1Pipe
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTSou[nSou]
     "Temperature differences over source"
-    annotation (Placement(transformation(extent={{-92,-130},{-72,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dTSou_nor(k=1/(
-        sum(dTSou_nominal)))
+    annotation (Placement(transformation(extent={{-78,-130},{-58,-110}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter dTSou_nor(
+    final k=1/(sum(dTSou_nominal)))
     "Normalization of temperature difference over source"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   Buildings.Controls.OBC.CDL.Reals.PID conShi(
@@ -90,10 +113,12 @@ model MainPump1Pipe
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(k=1) "Constant 1"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yMin(k=yPumMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yMin(
+    final k=yPumMin)
     "Minimum pump speed"
     annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMax_nominal(k=TMax)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMax_nominal(
+    final k=TMax)
     "Maximum temperature"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
   Buildings.Controls.OBC.CDL.Reals.Add TMax_upper(
@@ -111,7 +136,8 @@ model MainPump1Pipe
     annotation (Placement(transformation(extent={{10,149},{30,171}})));
   Buildings.Controls.OBC.CDL.Reals.Line lowCur "Lower curve"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMin_nominal(k=TMin)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TMin_nominal(
+    final k=TMin)
     "Minimum temperature"
     annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
   Buildings.Controls.OBC.CDL.Reals.Add TMin_lower(
@@ -127,47 +153,48 @@ model MainPump1Pipe
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Switch on and off constant offset"
-    annotation (Placement(transformation(extent={{102,-190},{122,-210}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=
-        use_constantHeaTemShift) "Boolean parameter to activate mode"
-    annotation (Placement(transformation(extent={{-6,-222},{14,-202}})));
-
+    annotation (Placement(transformation(extent={{100,-190},{120,-210}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant actMod(
+    final k=use_constantHeaTemShift) "True: activate mode"
+    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    t=PpumCooThr,
-    h=hysPpumCoo,
-    pre_y_start=false)
+    final t=PpumCooThr,
+    final h=hysPpumCoo,
+    final pre_y_start=false)
     "Check pump consumption higher than zero"
-    annotation (Placement(transformation(extent={{-36,-210},{-16,-190}})));
+    annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
-    annotation (Placement(transformation(extent={{22,-210},{42,-190}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(          k=fill(1,
-        nBui), nin=nBui) "Sum of all pump consumptions"
-    annotation (Placement(transformation(extent={{-92,-210},{-72,-190}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=-delta)
+    "With pump consumption and activate mode"
+    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(
+    final k=fill(1,nBui),
+    final nin=nBui) "Sum of all pump consumptions"
+    annotation (Placement(transformation(extent={{-94,-180},{-74,-160}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=-delta)
     "Gain factor"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(final k=-delta)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai2(
+    final k=-delta)
     "Gain factor"
-    annotation (Placement(transformation(extent={{98,-150},{118,-130}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant offTMaxExp(k=offTMax)
+    annotation (Placement(transformation(extent={{100,-150},{120,-130}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant offTMaxExp(
+    final k=offTMax)
     "Constant TMax offset"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
-  Buildings.Controls.OBC.CDL.Reals.Add Add(y(unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.Add Add(
+    y(unit="K", displayUnit="degC"))
     "If use_heaTemShift and not use_temperatureShift use constant offset, if use_temperatureShift use PI"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={90,140})));
-  parameter Real PpumCooThr=100
-    "Threshold for comparison for pump cooling power";
-  parameter Real hysPpumCoo=10 "Hysteresis for cooling pump power threshold";
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(final k=-1)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0, origin={90,140})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=-1)
     "Gain factor"
-    annotation (Placement(transformation(extent={{-64,-210},{-44,-190}})));
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 equation
-  connect(TMix, TMixMin.u) annotation (Line(points={{-122,120},{-80,120},{-80,-20},
+  connect(TMix, TMixMin.u) annotation (Line(points={{-120,120},{-80,120},{-80,-20},
           {-72,-20}}, color={0,0,127}));
-  connect(TMix, TMixMax.u) annotation (Line(points={{-122,120},{-80,120},{-80,20},
+  connect(TMix, TMixMax.u) annotation (Line(points={{-120,120},{-80,120},{-80,20},
           {-72,20}}, color={0,0,127}));
   connect(mulSum.y, dTSou_nor.u)
     annotation (Line(points={{-28,-120},{-22,-120}}, color={0,0,127}));
@@ -228,42 +255,40 @@ equation
   connect(ySetPum.y, y)
     annotation (Line(points={{82,0},{132,0},{132,-20},{180,-20}},
                                               color={0,0,127}));
-  connect(TSouOut, dTSou.u1) annotation (Line(points={{-122,-60},{-94,-60},{-94,
-          -104},{-102,-104},{-102,-114},{-94,-114}},
-                             color={0,0,127}));
-  connect(TSouIn, dTSou.u2) annotation (Line(points={{-122,40},{-90,40},{-90,-86},
-          {-104,-86},{-104,-126},{-94,-126}},
-                       color={0,0,127}));
-  connect(booleanExpression.y, and2.u2) annotation (Line(points={{15,-212},{20,
-          -212},{20,-208}},                      color={255,0,255}));
-  connect(and2.y, swi2.u2) annotation (Line(points={{44,-200},{100,-200}},
-                       color={255,0,255}));
+  connect(TSouOut, dTSou.u1) annotation (Line(points={{-120,-60},{-94,-60},{-94,
+          -114},{-80,-114}}, color={0,0,127}));
+  connect(TSouIn, dTSou.u2) annotation (Line(points={{-120,40},{-90,40},{-90,-126},
+          {-80,-126}}, color={0,0,127}));
+  connect(actMod.y, and2.u2) annotation (Line(points={{2,-200},{10,-200},{10,-178},
+          {18,-178}}, color={255,0,255}));
+  connect(and2.y, swi2.u2) annotation (Line(points={{42,-170},{52,-170},{52,-200},
+          {98,-200}},  color={255,0,255}));
   connect(dTSou.y, mulSum.u)
-    annotation (Line(points={{-70,-120},{-52,-120}}, color={0,0,127}));
-  connect(greThr.y, and2.u1) annotation (Line(points={{-14,-200},{20,-200}},
+    annotation (Line(points={{-56,-120},{-52,-120}}, color={0,0,127}));
+  connect(greThr.y, and2.u1) annotation (Line(points={{2,-170},{18,-170}},
                             color={255,0,255}));
   connect(QCoo_flow, mulSum1.u)
-    annotation (Line(points={{-120,-200},{-94,-200}}, color={0,0,127}));
+    annotation (Line(points={{-122,-170},{-96,-170}}, color={0,0,127}));
   connect(sPos.y, gai.u)
     annotation (Line(points={{82,-60},{98,-60}}, color={0,0,127}));
   connect(sNeg.y, gai2.u)
-    annotation (Line(points={{82,-140},{96,-140}}, color={0,0,127}));
-  connect(gai2.y, TMin_lower.u2) annotation (Line(points={{120,-140},{126,-140},
+    annotation (Line(points={{82,-140},{98,-140}}, color={0,0,127}));
+  connect(gai2.y, TMin_lower.u2) annotation (Line(points={{122,-140},{126,-140},
           {126,100},{-40,100},{-40,114},{-32,114}}, color={0,0,127}));
-  connect(swi2.y, Add.u1) annotation (Line(points={{124,-200},{150,-200},{150,146},
+  connect(swi2.y, Add.u1) annotation (Line(points={{122,-200},{150,-200},{150,146},
           {102,146}},      color={0,0,127}));
   connect(gai.y, Add.u2) annotation (Line(points={{122,-60},{140,-60},{140,132},
           {102,132},{102,134}}, color={0,0,127}));
   connect(Add.y, TMax_upper.u2) annotation (Line(points={{78,140},{-38,140},{-38,
           154},{-32,154}}, color={0,0,127}));
-  connect(offTMaxExp.y, swi2.u3) annotation (Line(points={{82,-170},{90,-170},{
-          90,-192},{100,-192}}, color={0,0,127}));
+  connect(offTMaxExp.y, swi2.u3) annotation (Line(points={{82,-170},{90,-170},{90,
+          -192},{98,-192}},     color={0,0,127}));
   connect(zer.y, swi2.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-208},
-          {100,-208}}, color={0,0,127}));
+          {98,-208}},  color={0,0,127}));
   connect(mulSum1.y, gai1.u)
-    annotation (Line(points={{-70,-200},{-66,-200}}, color={0,0,127}));
+    annotation (Line(points={{-72,-170},{-62,-170}}, color={0,0,127}));
   connect(gai1.y, greThr.u)
-    annotation (Line(points={{-42,-200},{-38,-200}}, color={0,0,127}));
+    annotation (Line(points={{-38,-170},{-22,-170}}, color={0,0,127}));
   annotation (
     defaultComponentName="conPum",
     Diagram(coordinateSystem(extent={{-100,-220},{160,180}})), Icon(
@@ -287,11 +312,11 @@ equation
           textColor={0,0,127},
           textString="TSouIn"),
         Text(
-          extent={{-98,-44},{-66,-78}},
+          extent={{-96,-44},{-64,-78}},
           textColor={0,0,127},
           textString="TSouOut"),
         Text(
-          extent={{140,-2},{162,-22}},
+          extent={{140,12},{162,-8}},
           textColor={0,0,127},
           textString="y"),
         Ellipse(
@@ -306,10 +331,10 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,-122},{-68,-156}},
+          extent={{-96,-122},{-64,-156}},
           textColor={0,0,127},
-          textString="PpumCoo"),        Text(
-        extent={{-136,190},{164,150}},
+          textString="QCoo_flow"),      Text(
+        extent={{-140,220},{160,180}},
         textString="%name",
         textColor={0,0,255})}),
     Documentation(revisions="<html>

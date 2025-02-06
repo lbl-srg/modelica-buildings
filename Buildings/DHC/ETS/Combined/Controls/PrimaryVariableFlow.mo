@@ -2,25 +2,35 @@ within Buildings.DHC.ETS.Combined.Controls;
 block PrimaryVariableFlow
   "Ideal control of condenser or evaporator variable flow rate"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
+  constant Real cp(
+    final quantity="SpecificHeatCapacity",
+    final unit="J/(kg.K)")=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Specific heat capacity";
+  parameter Real Q_flow_nominal(
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Heat flow rate at nominal conditions (>0 for condenser)";
-  parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=if
-        Q_flow_nominal > 0 then Modelica.Constants.eps else -100, max=if
-        Q_flow_nominal < 0 then -Modelica.Constants.eps else 100)
+  parameter Real dT_nominal(
+    final quantity="TemperatureDifference",
+    final unit="K",
+    min=if Q_flow_nominal > 0 then Modelica.Constants.eps else -100,
+    max=if Q_flow_nominal < 0 then -Modelica.Constants.eps else 100)
     "DeltaT at nominal conditions (>0 for condenser)";
   parameter Real ratFloMin(
     final unit="1",
     final min=0,
     final max=1)=0.3
     "Minimum mass flow rate (ratio to nominal)";
-  constant Modelica.Units.SI.SpecificHeatCapacity cp=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
-    "Specific heat capacity";
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)=
-    Q_flow_nominal/cp/dT_nominal "Mass flow rate at nominal conditions";
+
+  final parameter Real m_flow_nominal(
+    final quantity="MassFlowRate",
+    final unit="kg/s",
+    final min=0)=
+    Q_flow_nominal/cp/dT_nominal
+    "Mass flow rate at nominal conditions";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput loa(final unit="W")
     "Signal approximating the load on condenser or evaporator"
-    annotation (
-      Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput m_flow(final unit="kg/s")
     "Mass flow rate"
@@ -30,8 +40,9 @@ block PrimaryVariableFlow
     final k=ratFloMin*m_flow_nominal)
     "Minimum mass flow rate"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter masFlo_dT(final k=1
-        /cp/dT_nominal) "Mass flow rate for constant DeltaT"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter masFlo_dT(
+    final k=1/cp/dT_nominal)
+    "Mass flow rate for constant DeltaT"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Max masFlo "Mass flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

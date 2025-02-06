@@ -17,28 +17,32 @@ block AgentPump1Pipe
    parameter Real uHighCoo = 2 "if y=false and u>uHigh, switch to y=true";
    parameter Real h = 0.15 "Hysteresis for net demand temperature calculation";
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(final unit="K",
-       displayUnit="degC") "Temperatures at the inlet of the source"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(
+    final unit="K",
+    displayUnit="degC")
+    "Temperatures at the inlet of the source"
     annotation (Placement(transformation(extent={{-160,50},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut(final unit="K",
-      displayUnit="degC") "Agent supply temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut(
+    final unit="K",
+    displayUnit="degC")
+    "Agent supply temperature"
     annotation (Placement(transformation(extent={{-160,-30},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(final unit="K",
-      displayUnit="degC") "Average temperature available at source"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(
+    final unit="K",
+    displayUnit="degC")
+    "Average temperature available at source"
     annotation (Placement(transformation(extent={{-160,10},{-120,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetDis(final unit="K",
-      displayUnit="degC") "District return temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetDis(
+    final unit="K",
+    displayUnit="degC")
+    "District return temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupDis(final unit="K",
-      displayUnit="degC") "Plant supply temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupDis(
+    final unit="K",
+    displayUnit="degC")
+    "Plant supply temperature"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
         iconTransformation(extent={{-160,-100},{-120,-60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Less NetDemBool(h=h)
-    "Net district demand boolean"
-    annotation (Placement(transformation(extent={{-102,-100},{-82,-80}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     min=0,
     max=1,
@@ -46,60 +50,75 @@ block AgentPump1Pipe
     "Pump control signal"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
         iconTransformation(extent={{140,-20},{180,20}})));
-  Buildings.Controls.OBC.CDL.Reals.PID conPIDHea(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    yMax=yPumMax,
-    yMin=yPumMin) "Controller to track target heating setpoint temperature"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
+  Buildings.Controls.OBC.CDL.Reals.Less NetDemBool(
+    final h=h)
+    "Net district demand boolean"
+    annotation (Placement(transformation(extent={{-102,-100},{-82,-80}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDHea(
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=yPumMax,
+    final yMin=yPumMin)
+    "Controller to track target heating setpoint temperature"
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Reals.PID conPIDCoo(
-    controllerType=controllerType,
-    k=k,
-    Ti=Ti,
-    Td=Td,
-    yMax=yPumMax,
-    yMin=yPumMin,
-    reverseActing=false)
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=yPumMax,
+    final yMin=yPumMin,
+    final reverseActing=false)
     "Controller to track target cooling setpoint temperature"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(uLow=uLowCoo, uHigh=uHighCoo)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
+    final uLow=uLowCoo,
+    final uHigh=uHighCoo)
     "Turn on pump when source temperature lower than inlet temperature"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi1
     annotation (Placement(transformation(extent={{60,-20},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Zero(k=0) "Pump off signal"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant Zero(
+    final k=0)
+    "Pump off signal"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(uLow=uLowHea, uHigh=uHighHea)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
+    final uLow=uLowHea,
+    final uHigh=uHighHea)
     "Turn on pump when source temperature higher than inlet temperature"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(k=-1)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai1(
+    final k=-1)
     "Change sign for hysteresis"
     annotation (Placement(transformation(extent={{-8,-40},{12,-20}})));
-
-  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_negshift(final p=-dToff,
-  y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_negshift(
+    final p=-dToff,
+    y(final unit="K", displayUnit="degC"))
     "Source temperature after negative shift"
     annotation (Placement(transformation(extent={{-40,69},{-20,91}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_posshift(final p=dToff,
-  y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter Tsou_posshift(
+    final p=dToff,
+    y(final unit="K", displayUnit="degC"))
     "Source temperature after positive shift"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract dTSouSup
     "Temperature difference between source and source inlet"
     annotation (Placement(transformation(extent={{-100,40},{-80,20}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupHea(final p=-dToff,
-  y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupHea(
+    final p=-dToff,
+    y(final unit="K", displayUnit="degC"))
     "Temperature difference between source and source inlet corrected for heating"
     annotation (Placement(transformation(extent={{-40,19},{-20,41}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupCoo(final p=dToff,
-  y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Reals.AddParameter dTSouSupCoo(
+    final p=dToff,
+    y(final unit="K", displayUnit="degC"))
     "Temperature difference between source and source inlet corrected for cooling"
     annotation (Placement(transformation(extent={{-40,-41},{-20,-19}})));
 

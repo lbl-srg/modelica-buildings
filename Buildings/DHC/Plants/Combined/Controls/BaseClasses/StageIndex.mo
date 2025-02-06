@@ -5,15 +5,16 @@ block StageIndex
   parameter Integer nSta(start=1)
     "Number of stages"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.Time tSta=0
+  parameter Real tSta(
+    final quantity="Time",
+    final unit="s")=0
     "Minimum runtime of each stage"
     annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1
     "Enable signal"
-    annotation (Placement(
-        transformation(extent={{-220,40},{-180,80}}),iconTransformation(extent={{-140,40},
-            {-100,80}})));
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Up
     "Staging up signal"
     annotation (Placement(

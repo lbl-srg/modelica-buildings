@@ -2,7 +2,10 @@ within Buildings.DHC.ETS.Combined.Controls;
 model Borefield
   "Borefield controller"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Temperature TBorWatEntMax(displayUnit="degC")
+  parameter Real TBorWatEntMax(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Maximum value of borefield water entering temperature";
   parameter Real spePumBorMin(
     final unit="1")=0.1

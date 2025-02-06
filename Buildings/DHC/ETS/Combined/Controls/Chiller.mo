@@ -2,9 +2,15 @@ within Buildings.DHC.ETS.Combined.Controls;
 model Chiller
   "Chiller controller"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Temperature TConWatEntMin(displayUnit="degC")
+  parameter Real TConWatEntMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.Units.SI.Temperature TEvaWatEntMax(displayUnit="degC")
+  parameter Real TEvaWatEntMax(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
@@ -41,7 +47,7 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  PIDWithEnable conValEva(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValEva(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
@@ -52,7 +58,7 @@ model Chiller
     final reverseActing=true)
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  PIDWithEnable conValCon(
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValCon(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,

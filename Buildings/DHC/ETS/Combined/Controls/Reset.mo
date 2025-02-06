@@ -2,7 +2,10 @@ within Buildings.DHC.ETS.Combined.Controls;
 model Reset
   "Supervisory supply temperature reset"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
+  parameter Real THeaWatSupSetMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
     "Heating enable signal"
@@ -27,8 +30,9 @@ model Reset
   Buildings.Controls.OBC.CDL.Reals.Switch swiHea
     "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLimHea(raisingSlewRate
-      =0.1) "Limit the rate of change"
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLimHea(
+    raisingSlewRate=0.1)
+    "Limit the rate of change"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 equation
   connect(THeaWatSupPreSet,swiHea.u1)
