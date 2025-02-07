@@ -1,7 +1,7 @@
 within Buildings.Fluid.Storage.Ice_ntu.Data.Tank;
 record Experiment =
-  Buildings.Fluid.Storage.Ice_ntu.Data.Tank.Generic
-  ( Vtank=1655*0.00378541,
+  Buildings.Fluid.Storage.Ice_ntu.Data.Tank.Generic (
+    Vtank=1655*0.00378541,
     Dtank=89*0.0254,
     Htank=101*0.0254,
     coeCha={4.950E04,-1.262E05,2.243E05,-1.455E05},

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Chillers;
 model ElectricEIR_falseloading "Electric chiller based on the DOE-2.1 model"
-  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectric_falseloading (
+  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectric_falseloading(
   final QEva_flow_nominal = per.QEva_flow_nominal,
   final COP_nominal= per.COP_nominal,
   final PLRMax= per.PLRMax,

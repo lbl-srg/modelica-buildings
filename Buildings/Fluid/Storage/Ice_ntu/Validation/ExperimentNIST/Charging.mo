@@ -1,7 +1,7 @@
 within Buildings.Fluid.Storage.Ice_ntu.Validation.ExperimentNIST;
 model Charging "Validation against charging experiment"
-  extends Buildings.Fluid.Storage.Ice_ntu.Validation.ExperimentNIST.BaseClasses.PartialChargingDischarging
-                                                                                                      (fileName=
+  extends Buildings.Fluid.Storage.Ice_ntu.Validation.ExperimentNIST.BaseClasses.PartialChargingDischarging(
+                                                                                                       fileName=
         Modelica.Utilities.Files.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Validation/Experiment/charging.txt"),
       SOC_start=0.158);

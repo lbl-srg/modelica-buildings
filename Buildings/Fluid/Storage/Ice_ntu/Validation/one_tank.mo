@@ -38,8 +38,7 @@ model one_tank "Example that test the tank model"
     fileName="C:/git/s4b/perso/tank/test_tank_new.txt",
     verboseRead=false,
     columns=2:13,
-    tableName="tab1",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    tableName="tab1")
     "Reader for \"CoolingTower_VariableSpeed_Merkel.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=6.8)
