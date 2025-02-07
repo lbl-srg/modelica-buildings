@@ -155,8 +155,8 @@ block DirectHeatRecovery
     final nin=nChiHea)
     "Keep reset value from HRC in direct HR with higher index"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant idxHig(
-    final k=max({if heaCooAndOn[i].y then i else 1 for i in 1:nChiHea}))
+  Modelica.Blocks.Sources.IntegerExpression idxHig(
+    final y=max({if heaCooAndOn[i].y then i else 1 for i in 1:nChiHea}))
     "Highest index of HRC in direct HR (defaulted to 1 if all false)"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Buildings.Controls.OBC.CDL.Reals.MovingAverage mea(delta=5*60)
@@ -221,8 +221,9 @@ equation
     annotation (Line(points={{112,-80},{160,-80}}, color={0,0,127}));
   connect(chiHeaConTemRes.y, extIndRea.u)
     annotation (Line(points={{62,-80},{88,-80}}, color={0,0,127}));
-  connect(idxHig.y, extIndRea.index) annotation (Line(points={{82,-120},{100,-120},
-          {100,-92}}, color={255,127,0}));
+  connect(idxHig.y, extIndRea.index) annotation (Line(points={{81,-120},{100,
+          -120},{100,-92}},
+                      color={255,127,0}));
   connect(addOff.u, mea.y)
     annotation (Line(points={{-92,-80},{-108,-80}}, color={0,0,127}));
   connect(THeaWatPriRet, mea.u) annotation (Line(points={{-160,-80},{-144,-80},{

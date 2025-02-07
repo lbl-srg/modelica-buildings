@@ -95,9 +95,7 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Logical.Not thrTwoToOne
     "Threshold of turning off the second chiller"
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract dT(
-    final k1=-1,
-    final k2=+1)
+  Buildings.Controls.OBC.CDL.Reals.Subtract dT
     "Temperature difference"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pro

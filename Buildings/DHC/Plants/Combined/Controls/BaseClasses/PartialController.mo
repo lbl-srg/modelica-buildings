@@ -100,6 +100,7 @@ block PartialController "Interface class for plant controller"
   parameter Real dpChiWatSet_max(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CHW differential pressure setpoint"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
@@ -111,6 +112,7 @@ block PartialController "Interface class for plant controller"
   parameter Real dpHeaWatSet_max(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) HW differential pressure setpoint"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
@@ -165,36 +167,42 @@ block PartialController "Interface class for plant controller"
   parameter Real dpEvaChi_nominal(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Real dpValEvaChi_nominal(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Chiller evaporator isolation valve design pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Real dpEvaChiHea_nominal(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design chiller evaporator  pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Real dpValEvaChiHea_nominal(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "HRC evaporator isolation valve design pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Real dpConWatConSet_max(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CW condenser loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real dpConWatEvaSet_max(
     final quantity="PressureDifference",
     final min=0,
+    final unit="Pa",
     displayUnit="Pa")
     "Design (maximum) CW evaporator loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));

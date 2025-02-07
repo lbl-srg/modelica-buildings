@@ -227,8 +227,8 @@ block StagingPlant
     final nSta=nChi + nChiHea, tSta=15*60)
     "Compute cooling stage"
     annotation (Placement(transformation(extent={{50,144},{70,164}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capCoo(
-    final k=abs(PLRStaTra*(min(nChi, staCoo.preIdxSta)/nChi*QChiWatChi_flow_nominal +
+  Modelica.Blocks.Sources.RealExpression capCoo(
+    final y=abs(PLRStaTra*(min(nChi, staCoo.preIdxSta)/nChi*QChiWatChi_flow_nominal +
         max(0, staCoo.preIdxSta - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
     "Total capacity at current stage (>0) times stage-up PLR limit"
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
@@ -252,8 +252,8 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Integers.Subtract numOpeCooChiHea
     "Number of HRC required for cooling"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capHea(
-    final k=PLRStaTra*staHea.preIdxSta/nChiHea*QHeaWat_flow_nominal)
+  Modelica.Blocks.Sources.RealExpression capHea(
+    final y=PLRStaTra*staHea.preIdxSta/nChiHea*QHeaWat_flow_nominal)
     "Total capacity at current stage times stage-up PLR limit"
     annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
   Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp1(
@@ -268,8 +268,8 @@ block StagingPlant
     tSta=15*60)
     "Compute heating stage"
     annotation (Placement(transformation(extent={{50,-130},{70,-110}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capHeaLow(
-    k=PLRStaTra*max(0,staHea.preIdxSta - 1)/nChiHea*QHeaWat_flow_nominal)
+  Modelica.Blocks.Sources.RealExpression capHeaLow(
+    y=PLRStaTra*max(0,staHea.preIdxSta - 1)/nChiHea*QHeaWat_flow_nominal)
     "Total capacity at next lower stage times stage-down PLR limit"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow(
@@ -280,8 +280,8 @@ block StagingPlant
     t=15*60)
     "Timer for OPLR exceeding limit"
     annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant capCooLow(
-    final k=abs(PLRStaTra*(min(nChi, max(0, staCoo.preIdxSta - 1))/nChi*
+  Modelica.Blocks.Sources.RealExpression capCooLow(
+    final y=abs(PLRStaTra*(min(nChi, max(0, staCoo.preIdxSta - 1))/nChi*
         QChiWatChi_flow_nominal + max(0, staCoo.preIdxSta - 1 - nChi)/nChiHea*
         QChiWatCasCoo_flow_nominal)))
     "Total capacity at next lower stage (>0) times stage-down PLR limit"
@@ -456,17 +456,17 @@ equation
           {30,20},{30,26},{38,26}},    color={255,127,0}));
   connect(movAve.y, cmpOPLRLimUp.u1)
     annotation (Line(points={{-128,120},{-82,120}}, color={0,0,127}));
-  connect(capCoo.y, cmpOPLRLimUp.u2) annotation (Line(points={{-158,90},{-94,90},
+  connect(capCoo.y, cmpOPLRLimUp.u2) annotation (Line(points={{-159,90},{-94,90},
           {-94,112},{-82,112}}, color={0,0,127}));
   connect(movAve.y, cmpOPLRLimDow1.u1) annotation (Line(points={{-128,120},{-90,
           120},{-90,80},{-82,80}},color={0,0,127}));
   connect(capCooLow.y, cmpOPLRLimDow1.u2)
-    annotation (Line(points={{-158,50},{-140,50},{-140,72},{-82,72}}, color={0,0,127}));
-  connect(capHea.y, cmpOPLRLimUp1.u2) annotation (Line(points={{-128,-160},{-94,
+    annotation (Line(points={{-159,50},{-140,50},{-140,72},{-82,72}}, color={0,0,127}));
+  connect(capHea.y, cmpOPLRLimUp1.u2) annotation (Line(points={{-129,-160},{-94,
           -160},{-94,-128},{-82,-128}}, color={0,0,127}));
   connect(movAve1.y, cmpOPLRLimUp1.u1)
     annotation (Line(points={{-128,-120},{-82,-120}}, color={0,0,127}));
-  connect(capHeaLow.y, cmpOPLRLimDow.u2) annotation (Line(points={{-98,-180},{-90,
+  connect(capHeaLow.y, cmpOPLRLimDow.u2) annotation (Line(points={{-99,-180},{-90,
           -180},{-90,-168},{-82,-168}},     color={0,0,127}));
   connect(movAve1.y, cmpOPLRLimDow.u1) annotation (Line(points={{-128,-120},{
           -90,-120},{-90,-160},{-82,-160}}, color={0,0,127}));
