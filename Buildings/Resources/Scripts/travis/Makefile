@@ -12,10 +12,10 @@ ROOT = $(TRAVIS_BUILD_DIR)
 
 # Command to run Dymola tests. This is stored as a variable
 # so it can be tried once more if it fails.
-CMD = echo "cd $(ROOT)/Buildings && \
+CMD = "(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola -n $(NPROC)"
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola -n $(NPROC))"
 
 # Test whether all EnergyPlus validation files are up to date.
 # This targets searches all files `run.sh` and executes them.
