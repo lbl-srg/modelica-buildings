@@ -95,7 +95,7 @@ model WetCoilCounterFlowPControlAutoTuning
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
-    con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PI,
+    con(
     u_s_start=288.15,
     r=5,
     yLow=0.2,
@@ -118,7 +118,7 @@ model WetCoilCounterFlowPControlAutoTuning
     period=2000,
     shift=100)
     "Signal for enabling the autotuning"
-    annotation (Placement(transformation(extent={{20,160},{40,180}})));
+    annotation (Placement(transformation(extent={{-80,130},{-60,150}})));
 equation
   connect(hex.port_b1, res_1.port_a) annotation (Line(points={{80,32},{86,32},{
           86,60},{90,60}}, color={0,127,255}));
@@ -149,7 +149,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(x_pTphi.X, sou_2.X_in) annotation (Line(
-      points={{171,-32},{178,-32},{178,-34},{186,-34},{186,16},{142,16}},
+      points={{171,-32},{186,-32},{186,16},{142,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, x_pTphi.phi) annotation (Line(
@@ -174,8 +174,9 @@ equation
       smooth=Smooth.None));
   connect(resSig.y, con.triRes) annotation (Line(points={{-58,170},{-20,170},{-20,
           80},{4,80},{4,88}}, color={255,0,255}));
-  connect(autTunSig.y, con.triTun) annotation (Line(points={{42,170},{74,170},{74,
-          80},{16,80},{16,88}}, color={255,0,255}));
+  connect(autTunSig.y, con.triTun) annotation (Line(points={{-58,140},{-28,140},
+          {-28,76},{16,76},{16,88}},
+                                color={255,0,255}));
   connect(TSet.y, con.u_s)
     annotation (Line(points={{-59,100},{-2,100}}, color={0,0,127}));
   connect(temSen.T, con.u_m)
