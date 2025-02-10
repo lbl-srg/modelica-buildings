@@ -7,18 +7,16 @@ block FirstOrderAMIGO
     "Type of controller";
   parameter Real k_start(
     final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
-    "Start value of the gain of controller"
+    "Gain of controller used before the first tuning"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
   parameter Real Ti_start(unit="s")=0.5
-    "Start value of the time constant of integrator block"
+    "Time constant of integrator block used before the first tuning"
     annotation (Dialog(group="Initial control gains, used prior to first tuning"));
   parameter Real Td_start(unit="s")=0.1
-    "Start value of the time constant of derivative block"
+    "Time constant of derivative block used before the first tuning"
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
-  parameter Real u_s_start
-    "Start value of the set point"
-    annotation (Dialog(tab="Advanced",group="Initialization"));
+
   parameter Real r(
     final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
@@ -34,7 +32,7 @@ block FirstOrderAMIGO
     final min=1E-6)
     "Deadband for holding the relay output";
   parameter Real yRef
-    "Reference output for the tuning process. It must be greater than the lower limit of the relay output and less than the upper limit of the relay output";
+    "Reference output for the tuning process. It must be between yLow and yHig";
   parameter Real yMax = 1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
@@ -66,7 +64,7 @@ block FirstOrderAMIGO
     "Hysteresis for checking set point";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
-    annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
+    annotation (Placement(transformation(extent={{-320,-20},{-280,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
@@ -208,9 +206,8 @@ protected
     final p=yMin)
     "Sums the inputs"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler sam_u_s(
-    final y_start=u_s_start)
-    "Recording the setpoint"
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler sam_u_s(final y_start=0)
+    "Recording the setpoint. Not that y_start does not influence the tuning."
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   Buildings.Controls.OBC.CDL.Logical.Nand nand1
     "Check if an autotuning is ongoing while the setpoint changes"
@@ -239,8 +236,9 @@ protected
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
 
 equation
-  connect(con.u_s, u_s) annotation (Line(points={{-52,-220},{-80,-220},{-80,-160},
-          {-300,-160}}, color={0,0,127}));
+  connect(con.u_s, u_s) annotation (Line(points={{-52,-220},{-88,-220},{-88,-30},
+          {-260,-30},{-260,0},{-300,0}},
+                        color={0,0,127}));
   connect(con.trigger, triRes) annotation (Line(points={{-46,-232},{-46,-260},{-60,
           -260},{-60,-300}}, color={255,0,255}));
   connect(samk.y,con. k) annotation (Line(points={{-118,-200},{-100,-200},{-100,
@@ -288,14 +286,14 @@ equation
           {-28,-220}}, color={0,0,127}));
   connect(inTunPro.y, swi.u2) annotation (Line(points={{82,-140},{120,-140},{120,
           -200},{238,-200}}, color={255,0,255}));
-  connect(inTunPro.u, triTun) annotation (Line(points={{58,-140},{40,-140},{40,
-          -240},{100,-240},{100,-300}},
+  connect(inTunPro.u, triTun) annotation (Line(points={{58,-140},{40,-140},{40,-240},
+          {100,-240},{100,-300}},
           color={255,0,255}));
-  connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-170},{
-          40,-170},{40,-240},{100,-240},{100,-300}},
+  connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-170},{40,
+          -170},{40,-240},{100,-240},{100,-300}},
                             color={255,0,255}));
-  connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},
-          {-40,-170},{40,-170},{40,-240},{100,-240},{100,-300}},
+  connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
+          -40,-170},{40,-170},{40,-240},{100,-240},{100,-300}},
                                           color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{222,-140},{238,-140}}, color={255,0,255}));
@@ -337,14 +335,14 @@ equation
           {238,-192}},color={0,0,127}));
   connect(rel.u_m, u_m) annotation (Line(points={{-70,-42},{-70,-160},{0,-160},{
           0,-300}}, color={0,0,127}));
-  connect(rel.u_s, u_s) annotation (Line(points={{-82,-30},{-260,-30},{-260,-160},
-          {-300,-160}}, color={0,0,127}));
-  connect(sam_u_s.u, u_s) annotation (Line(points={{-142,130},{-260,130},{-260,-160},
-          {-300,-160}}, color={0,0,127}));
+  connect(rel.u_s, u_s) annotation (Line(points={{-82,-30},{-260,-30},{-260,0},{
+          -300,0}},     color={0,0,127}));
+  connect(sam_u_s.u, u_s) annotation (Line(points={{-142,130},{-260,130},{-260,0},
+          {-300,0}},    color={0,0,127}));
   connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-118,130},{-100,130},{-100,
           116},{-82,116}}, color={0,0,127}));
-  connect(sub3.u2, u_s) annotation (Line(points={{-82,104},{-260,104},{-260,-160},
-          {-300,-160}}, color={0,0,127}));
+  connect(sub3.u2, u_s) annotation (Line(points={{-82,104},{-260,104},{-260,0},{
+          -300,0}},     color={0,0,127}));
   connect(sub3.y, abs2.u)
     annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
   connect(nand1.y, assMes3.u)
@@ -357,8 +355,8 @@ equation
           {-180,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
   connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-230,-248},
           {-230,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
-  connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,
-          -140},{40,-140},{40,-240},{100,-240},{100,-300}},
+  connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,-140},
+          {40,-140},{40,-240},{100,-240},{100,-300}},
                                 color={255,0,255}));
   connect(abs2.y, greThr.u)
     annotation (Line(points={{-18,110},{-2,110}}, color={0,0,127}));
@@ -383,8 +381,10 @@ equation
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a rule-based PID tuning method.
-This method approximates the control process with a first-order plus time-delay
+This block implements a rule-based tuning method for a PI or a PID controller.
+</p>
+<p>
+The method approximates the control process with a first-order plus time-delay
 (FOPTD) model. It then determines the parameters of this FOPTD model based on the
 control process responses to asymmetric relay feedback.
 After that, taking the parameters of this FOPTD mode as inputs, this method
@@ -424,14 +424,14 @@ will be generated.
 </li>
 <li>
 If the set point is changed during an autotuning process, a warning will be
-generated. This tuning process will be halted, and no adjustments will be made
+generated. The ongoing tuning process will be halted, and no adjustments will be made
 to the PID parameters.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
 <p>
 The performance of the autotuning is affected by the parameters including the
-typical range of control error <code>r</code>,
+typical range of the control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and the
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
@@ -458,7 +458,7 @@ The <code>yHig</code> and <code>yLow</code> should be adjusted so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-To specify <code>deaBan</code>, we firstly divide the maximum and the
+To specify <code>deaBan</code>, first divide the maximum and the
 minimum control errors by <code>r</code>.
 The <code>deaBan</code> can then be set as half of the smaller absolute value
 of those two deviations.
@@ -473,6 +473,10 @@ Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 10, 2025, by Michael Wetter:<br/>
+Removed parameter <code>u_s_start</code> as it does not influence the auto-tuning.
+</li>
 <li>
 March 8, 2024, by Michael Wetter:<br/>
 Propagated range of control error <code>r</code> to relay controller.

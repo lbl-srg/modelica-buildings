@@ -96,7 +96,6 @@ model WetCoilCounterFlowPControlAutoTuning
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(
-    u_s_start=288.15,
     r=5,
     yLow=0.2,
     deaBan=0.1,
