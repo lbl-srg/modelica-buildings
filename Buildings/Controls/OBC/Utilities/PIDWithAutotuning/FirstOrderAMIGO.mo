@@ -78,7 +78,7 @@ block FirstOrderAMIGO
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun
     "Connector for starting the autotuning"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={40,-300}),
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={100,-300}),
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
@@ -288,19 +288,23 @@ equation
           {-28,-220}}, color={0,0,127}));
   connect(inTunPro.y, swi.u2) annotation (Line(points={{82,-140},{120,-140},{120,
           -200},{238,-200}}, color={255,0,255}));
-  connect(inTunPro.u, triTun) annotation (Line(points={{58,-140},{40,-140},{40,-300}},
+  connect(inTunPro.u, triTun) annotation (Line(points={{58,-140},{40,-140},{40,
+          -240},{100,-240},{100,-300}},
           color={255,0,255}));
-  connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-140},{40,
-          -140},{40,-300}}, color={255,0,255}));
-  connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
-          -40,-140},{40,-140},{40,-300}}, color={255,0,255}));
+  connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-170},{
+          40,-170},{40,-240},{100,-240},{100,-300}},
+                            color={255,0,255}));
+  connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},
+          {-40,-170},{40,-170},{40,-240},{100,-240},{100,-300}},
+                                          color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{222,-140},{238,-140}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
     annotation (Line(points={{198,-148},{180,-148},{180,-240},{142,-240}},
           color={255,0,255}));
   connect(edgReq.u, triTun)
-    annotation (Line(points={{118,-240},{40,-240},{40,-300}}, color={255,0,255}));
+    annotation (Line(points={{118,-240},{100,-240},{100,-300}},
+                                                              color={255,0,255}));
   connect(tunStaDel.y, nand.u1) annotation (Line(points={{162,-140},{198,-140}},
           color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{138,-140},{82,-140}},
@@ -353,11 +357,13 @@ equation
           {-180,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
   connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-230,-248},
           {-230,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
-  connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,-140},
-          {40,-140},{40,-300}}, color={255,0,255}));
+  connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,
+          -140},{40,-140},{40,-240},{100,-240},{100,-300}},
+                                color={255,0,255}));
   connect(abs2.y, greThr.u)
     annotation (Line(points={{-18,110},{-2,110}}, color={0,0,127}));
-  connect(nand1.u2, triTun) annotation (Line(points={{78,102},{40,102},{40,-300}},
+  connect(nand1.u2, triTun) annotation (Line(points={{78,102},{40,102},{40,-240},
+          {100,-240},{100,-300}},
           color={255,0,255}));
   connect(falEdg.u, nand1.y) annotation (Line(points={{-222,50},{-240,50},{-240,
           80},{120,80},{120,110},{102,110}}, color={255,0,255}));
