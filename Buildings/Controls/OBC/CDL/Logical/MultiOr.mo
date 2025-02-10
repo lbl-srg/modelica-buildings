@@ -80,7 +80,7 @@ revisions="<html>
 <li>
 July 26, 2021, by Jianjun Hu:<br/>
 Renamed parameter <code>nu</code> to <code>nin</code>. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">Buildings, issue 2580</a>.
 </li>
 <li>
 June 6, 2019, by Milica Grahovac:<br/>

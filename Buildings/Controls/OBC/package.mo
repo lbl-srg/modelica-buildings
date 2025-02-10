@@ -6,7 +6,8 @@ annotation (
 Documentation(info="<html>
 <p>
 Package that contains a library of elementary control blocks
-and a library that implements control sequences from the ASHRAE Guideline 36.
+based on ASHRAE Standard 231P,
+and libraries for building control sequences.
 </p>
 <p>
 These implementations have been developed

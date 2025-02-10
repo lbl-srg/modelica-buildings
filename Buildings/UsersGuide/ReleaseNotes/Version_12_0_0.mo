@@ -69,7 +69,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Updated the EnergyPlus coupling to use
                        EnergyPlus version 24.2.0.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.<br/>
+                       Improved the error reporting if a simulation is run from a working directory that has spaces in its name.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3993\">#3993</a>.
     </td>
     </tr>
 </table>
@@ -204,6 +207,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This update also adds support for specifying entries for the EnergyPlus run period.
                        See the documentation of <code>Buildings.ThermalZones.EnergyPlus_9_6_0.Data.RunPeriod</code> for details.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ISO13790</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.ThermalZones.ISO13790
+    </td>
+    <td valign=\"top\">Added BESTEST validation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1707\">IBPSA #1707</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
@@ -503,12 +516,15 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.round
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed wrong <code>parameter</code> declaration which causes an error in
+                       Dymola 2025x beta1.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
     </td>
 </tr>
 </table>
