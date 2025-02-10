@@ -374,7 +374,7 @@ equation
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{182,-47},{220,-47},{220,
           -70},{-250,-70},{-250,-260},{-242,-260}}, color={0,0,127}));
 
-annotation (defaultComponentName = "PIDWitTun",
+annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -499,7 +499,7 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-56,100},{36,70}},
+          extent={{-56,96},{36,66}},
           textString= if controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
@@ -545,31 +545,31 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
           textColor={0,0,0},
           textString=DynamicSelect(
             "k = " + String(k_start,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3),
             "k = " + String(con.k,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3))),
         Text(
-          extent={{40,8},{-68,-28}},
+          extent={{24,8},{-74,-28}},
           textColor={0,0,0},
           textString=DynamicSelect(
             "Ti = " + String(Ti_start,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3),
             "Ti = " + String(con.Ti,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3))),
         Text(
           visible = controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID,
-          extent={{44,-34},{-62,-70}},
+          extent={{24,-34},{-74,-70}},
           textColor={0,0,0},
           textString=DynamicSelect(
             "Td = " + String(Td_start,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3),
             "Td = " + String(con.Td,
-            leftJustified=false,
+            leftJustified=true,
             significantDigits=3)))}),
 Diagram(coordinateSystem(extent={{-280,-280},{280,280}})));
 end FirstOrderAMIGO;
