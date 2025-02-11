@@ -17,3 +17,4 @@ WetCoilDiscretizedMassFlow
 WetCoilDiscretizedPControl
 WetCoilEffectivenessNTUMassFlow
 BaseClasses
+WetCoilCounterFlowPIDControlAutoTuning
