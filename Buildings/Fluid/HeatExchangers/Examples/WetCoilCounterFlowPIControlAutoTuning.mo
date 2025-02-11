@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Examples;
-model WetCoilCounterFlowPControlAutoTuning
+model WetCoilCounterFlowPIControlAutoTuning
   "Model that demonstrates the use of a heat exchanger with condensation and with autotuning PI feedback control"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.HeatExchangers.Examples.BaseClasses.PartialWetCoilCounterFlow;
@@ -37,7 +37,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
 experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPControlAutoTuning.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilCounterFlowPIControlAutoTuning.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -71,4 +71,4 @@ Replaced the PI controller with an autotuning PI controller.
 </li>
 </ul>
 </html>"));
-end WetCoilCounterFlowPControlAutoTuning;
+end WetCoilCounterFlowPIControlAutoTuning;

@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowPIDControlAutoTuning
   "Model that demonstrates the use of a heat exchanger with condensation and with autotuning PID feedback control"
-  extends WetCoilCounterFlowPControlAutoTuning(con(controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
+  extends Buildings.Fluid.HeatExchangers.Examples.WetCoilCounterFlowPIControlAutoTuning(
+    con(
+      controllerType=Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}})),
