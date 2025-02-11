@@ -234,7 +234,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the autotuning is completed or aborted"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if an autotuning is completed with no error"
+    annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-220},{-88,-220},{-88,-30},
           {-260,-30},{-260,0},{-300,0}},
@@ -349,12 +351,6 @@ equation
     annotation (Line(points={{102,110},{158,110}}, color={255,0,255}));
   connect(greThr.y, nand1.u1)
     annotation (Line(points={{22,110},{78,110}}, color={255,0,255}));
-  connect(conProMod.tunSta, samk.trigger) annotation (Line(points={{82,2},{90,2},
-          {90,-180},{-130,-180},{-130,-188}},   color={255,0,255}));
-  connect(samTi.trigger, conProMod.tunSta) annotation (Line(points={{-180,-218},
-          {-180,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
-  connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-230,-248},
-          {-230,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
   connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,-140},
           {40,-140},{40,-240},{100,-240},{100,-300}},
                                 color={255,0,255}));
@@ -377,7 +373,20 @@ equation
           {-160,-80},{-160,-200},{-142,-200}}, color={0,0,127}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{182,-47},{220,-47},{220,
           -70},{-250,-70},{-250,-260},{-242,-260}}, color={0,0,127}));
-
+  connect(conProMod.tunSta, and2.u2) annotation (Line(points={{82,2},{102,2},{
+          102,-180},{-216,-180},{-216,-148},{-202,-148}},             color={255,
+          0,255}));
+  connect(and2.y, samk.trigger) annotation (Line(points={{-178,-140},{-148,-140},
+          {-148,-170},{-130,-170},{-130,-188}}, color={255,0,255}));
+  connect(samTi.trigger, and2.y) annotation (Line(points={{-180,-218},{-180,-160},
+          {-168,-160},{-168,-140},{-178,-140}}, color={255,0,255}));
+  connect(samTd.trigger, and2.y) annotation (Line(points={{-230,-248},{-230,-196},
+          {-186,-196},{-186,-156},{-172,-156},{-172,-140},{-178,-140}}, color={255,
+          0,255}));
+  connect(and2.u1, nand1.y) annotation (Line(points={{-202,-140},{-248,-140},{-248,
+          88},{112,88},{112,110},{102,110}}, color={255,0,255}));
+  connect(resPro.inTun, inTunPro.y) annotation (Line(points={{-10,-62},{-12,-62},
+          {-12,-120},{94,-120},{94,-140},{82,-140}}, color={255,0,255}));
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>

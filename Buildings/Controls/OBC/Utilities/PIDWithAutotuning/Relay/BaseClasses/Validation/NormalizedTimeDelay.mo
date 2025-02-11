@@ -10,9 +10,15 @@ model NormalizedTimeDelay "Test model for calculating the normalized time delay"
     offset=1)
     "Half period ratio"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    k=true)
+    "Tuning signal"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 equation
   connect(rho.y, norTimDel.rho)
     annotation (Line(points={{-28,0},{-12,0}}, color={0,0,127}));
+  connect(con.y, norTimDel.inTun)
+    annotation (Line(points={{-18,-40},{0,-40},{0,-12}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

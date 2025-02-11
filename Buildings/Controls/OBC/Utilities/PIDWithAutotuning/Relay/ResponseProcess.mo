@@ -19,6 +19,16 @@ block ResponseProcess
     "Reset the output when trigger becomes true"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
+    "Check if a tuning is ongoing"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
     final quantity="Time",
     final unit="s",
@@ -86,6 +96,8 @@ equation
           10,0},{10,-46},{2,-46}},  color={255,0,255}));
   connect(onOffPer.trigger, trigger) annotation (Line(points={{-82,-6},{-90,-6},
           {-90,-60},{-120,-60}}, color={255,0,255}));
+  connect(norTimDel.inTun, inTun) annotation (Line(points={{70,-12},{70,-66},{0,
+          -66},{0,-120}}, color={255,0,255}));
   annotation (
         defaultComponentName = "resPro",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
