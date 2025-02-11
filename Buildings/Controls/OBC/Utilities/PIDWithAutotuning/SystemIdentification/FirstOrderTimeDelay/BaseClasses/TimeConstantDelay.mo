@@ -97,7 +97,7 @@ protected
     annotation (Placement(transformation(extent={{-82,-100},{-62,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "True when an negative input is given for the log function"
-    annotation (Placement(transformation(extent={{102,-140},{122,-120}})));
+    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=1e-6)
     "Constant"
     annotation (Placement(transformation(extent={{-160,-120},{-140,-100}})));
@@ -158,9 +158,9 @@ equation
   connect(con.y, max1.u2) annotation (Line(points={{-138,-110},{-120,-110},{-120,
           -96},{-84,-96}}, color={0,0,127}));
   connect(gre1.y, edg.u)
-    annotation (Line(points={{62,-130},{100,-130}}, color={255,0,255}));
+    annotation (Line(points={{62,-130},{98,-130}},  color={255,0,255}));
   connect(edg.y, triFai)
-    annotation (Line(points={{124,-130},{200,-130}}, color={255,0,255}));
+    annotation (Line(points={{122,-130},{200,-130}}, color={255,0,255}));
   connect(gre1.u1, gai.y) annotation (Line(points={{38,-130},{20,-130},{20,-120},
           {2,-120}}, color={0,0,127}));
   connect(gai.u, con.y) annotation (Line(points={{-22,-120},{-120,-120},{-120,-110},
