@@ -146,7 +146,7 @@ test-dymola-spawn-spaces:
 	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
 	  echo "exit()" >> run.mos && \
 	  rm -f dslog.txt && \
-	  dymola run.mos /nowindow) || $(RETRY_ONCE)
+	  dymola run.mos /nowindow)
 	@cd $(TMP) && grep -q "Integration terminated successfully" dslog.txt
 	@rm -rf $(TMP)
 	@echo "    Target $@ successful."
