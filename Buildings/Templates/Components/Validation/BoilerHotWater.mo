@@ -30,14 +30,14 @@ model BoilerHotWater "Test model for the hot water boiler model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sources.Boundary_pT retHeaWat(
     redeclare final package Medium = Medium,
-    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min + boiTab.dpHeaWat_nominal,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal + boiTab.dpHeaWat_nominal,
     use_T_in=true,
     T=datBoiTab.THeaWatSup_nominal - 15,
     nPorts=2) "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Fluid.Sources.Boundary_pT supHeaWat(redeclare final package Medium =Medium,
-    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min,
+    p=Buildings.Templates.Data.Defaults.pHeaWat_rel_nominal,
     nPorts=2)
     "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));

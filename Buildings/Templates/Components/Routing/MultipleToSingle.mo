@@ -165,26 +165,6 @@ equation
           color={0,0,0},
           pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Supply
           then LinePattern.Solid else LinePattern.Dash,
-          thickness=5),
-    Line( visible=nPorts>=5 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
-          points=if icon_offset*icon_dy>=0 then
-            {{0, icon_offset+3*icon_dy},{0, icon_offset+4*icon_dy},{-100, icon_offset+4*icon_dy}}
-            elseif icon_offset>0 and icon_offset+4*icon_dy<0 or icon_offset<0 and icon_offset+4*icon_dy>0 then
-            {{0, 0},{0, icon_offset+4*icon_dy},{-100, icon_offset+4*icon_dy}}
-            else {{0, icon_offset+4*icon_dy},{-100, icon_offset+4*icon_dy}},
-          color={0,0,0},
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
-          then LinePattern.Solid else LinePattern.Dash,
-          thickness=5),
-    Line( visible=nPorts>=6 and icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None,
-          points=if icon_offset*icon_dy>=0 then
-            {{0, icon_offset+4*icon_dy},{0, icon_offset+5*icon_dy},{-100, icon_offset+5*icon_dy}}
-            elseif icon_offset>0 and icon_offset+5*icon_dy<0 or icon_offset<0 and icon_offset+5*icon_dy>0 then
-            {{0, 0},{0, icon_offset+5*icon_dy},{-100, icon_offset+5*icon_dy}}
-            else {{0, icon_offset+5*icon_dy},{-100, icon_offset+5*icon_dy}},
-          color={0,0,0},
-          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
-          then LinePattern.Solid else LinePattern.Dash,
           thickness=5)}),
     Diagram(
       coordinateSystem(preserveAspectRatio=false)),
