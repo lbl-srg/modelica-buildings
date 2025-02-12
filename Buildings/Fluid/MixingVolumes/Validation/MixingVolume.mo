@@ -63,7 +63,7 @@ model MixingVolume "Test model for mixing volumes"
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Utilities.Diagnostics.CheckEquality cheEqu1
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu1(threShold = 10)
     "Check for equality of results"
     annotation (Placement(transformation(extent={{156,70},{176,90}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat(
@@ -95,7 +95,7 @@ model MixingVolume "Test model for mixing volumes"
     m_flow_nominal=2,
     dp_nominal=2.5)
     annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
-  Buildings.Utilities.Diagnostics.CheckEquality cheEqu2
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu2(threShold = 10)
     "Check for equality of results"
     annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(
@@ -179,6 +179,12 @@ library.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2025, by Michael Wetter:<br/>
+Changed tolerance of assertion blocks.<br/>
+This is for issue
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1952\">IBPSA #1952</a>.
+</li>
 <li>
 April 12, 2017, by Michael Wetter:<br/>
 Removed temperature connection that is no longer needed.<br/>
