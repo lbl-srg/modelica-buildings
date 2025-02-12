@@ -1,5 +1,7 @@
 CoolingTowerLoop
+Delay
 DirectHeatRecovery
+HoursToNextWarmup
 IntegerArrayHold
 ModeCondenserLoop
 ModeHeatRecoveryChiller
@@ -7,6 +9,8 @@ PartialController
 StageIndex
 StagingPlant
 StagingPump
+TankChargeFraction
+TankChargeFractionRate
 TankCycle
 ValveCondenserEvaporator
 Validation
