@@ -151,7 +151,7 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
 
 equation
-  heaPum.P = Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8)*tauHea;
+  heaPum.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauHea,spe.w,1e-6,1e-8);
 
   connect(port_a1, heaPum.port_a1) annotation (Line(points={{-100,60},{-60,60},
           {-60,6},{-10,6}}, color={0,127,255}));

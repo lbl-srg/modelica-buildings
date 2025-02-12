@@ -68,7 +68,7 @@ model Pump
     "Speed normalization"
     annotation (Placement(transformation(extent={{-10,20},{-30,40}})));
 equation
-  pum.P = tauPum*Buildings.Utilities.Math.Functions.smoothMax(spe.w,1e-6,1e-8);
+  pum.P = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid.BaseClasses.Power(tauPum,spe.w,1e-6,1e-8);
 
   connect(port_a, pum.port_a) annotation (Line(points={{-100,0},{-10,0}},
           color={0,127,255}));
