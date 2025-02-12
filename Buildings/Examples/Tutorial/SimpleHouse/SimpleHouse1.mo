@@ -3,21 +3,22 @@ model SimpleHouse1 "Building wall model"
   extends SimpleHouse0;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(
-    C=AWall*dWall*cpWall*rhoWall, T(fixed=true))
+    C=AWall*dWall*cpWall*rhoWall,
+    T(fixed=true))
     "Thermal mass of wall"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={150,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(R=dWall/AWall
-        /kWall) "Thermal resistor for wall: 25 cm of rockwool"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+        origin={170,0})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor walRes(
+    R=dWall/AWall/kWall) "Thermal resistor for wall: 25 cm of rockwool"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
-  connect(walRes.port_b, walCap.port) annotation (Line(points={{100,0},{112,0},
-          {112,1.77636e-15},{140,1.77636e-15}}, color={191,0,0}));
+  connect(walRes.port_b, walCap.port) annotation (Line(points={{80,0},{100,0},{100,
+          1.77636e-15},{160,1.77636e-15}},      color={191,0,0}));
   connect(TOut.port, walRes.port_a)
-    annotation (Line(points={{0,0},{80,0}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -220},{200,200}})),
+    annotation (Line(points={{-60,0},{60,0}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,
+            -220},{220,220}})),
     experiment(Tolerance=1e-6, StopTime=1e+06),
     Documentation(revisions="<html>
 <ul>
@@ -52,12 +53,12 @@ The heat capacity value of a wall may be computed as <i>C=A*d*c<sub>p</sub>*&rho
 <h4>Required models</h4>
 <ul>
 <li>
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
-Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
-</li>
-<li>
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
 Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+</li>
+<li>
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalResistor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalResistor</a>
 </li>
 </ul>
 <h4>Connection instructions</h4>

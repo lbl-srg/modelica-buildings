@@ -3,17 +3,17 @@ partial model PartialAirHandler "Interface class for air handler"
   inner replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__ctrl_flow(enable=false));
+    annotation(__ctrlFlow(enable=false));
   inner replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium"
     annotation(Dialog(enable=have_souChiWat),
-    __ctrl_flow(enable=false));
+    __ctrlFlow(enable=false));
   inner replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
     annotation(Dialog(enable=have_souHeaWat),
-    __ctrl_flow(enable=false));
+    __ctrlFlow(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.Configuration typ
     "Type of system"
@@ -27,7 +27,8 @@ partial model PartialAirHandler "Interface class for air handler"
     final typFanRet=typFanRet,
     final have_souChiWat=have_souChiWat,
     final have_souHeaWat=have_souHeaWat)
-    "Configuration parameters";
+    "Configuration parameters"
+    annotation(__ctrlFlow(enable=false));
 
   inner parameter Integer nZon(min=1)
     "Number of served zones"
@@ -63,6 +64,15 @@ partial model PartialAirHandler "Interface class for air handler"
   inner parameter Buildings.Templates.Components.Types.Fan typFanRel
     "Type of relief fan"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanSup
+    "Number of supply fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRet
+    "Number of return fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nFanRel
+    "Number of relief fans"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   // Design parameters
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
@@ -90,21 +100,21 @@ partial model PartialAirHandler "Interface class for air handler"
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   final parameter Boolean allowFlowReversalAir=true
     "= true to allow flow reversal, false restricts to design direction - Air side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true,
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   parameter Boolean allowFlowReversalLiq=true
     "= true to allow flow reversal, false restricts to design direction - CHW and HW side"
     annotation (Dialog(tab="Assumptions", enable=have_souChiWat or have_souHeaWat),
       Evaluate=true,
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
   parameter Boolean show_T = false
     "= true, if actual temperature at ports of subcomponents is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"),
-      __ctrl_flow(enable=false));
+      __ctrlFlow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(
     redeclare final package Medium = MediumAir,

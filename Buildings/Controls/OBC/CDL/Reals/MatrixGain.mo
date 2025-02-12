@@ -1,25 +1,19 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block MatrixGain
   "Output the product of a gain matrix with the input signal vector"
-  parameter Real K[:,:]=[
-    1,0;
-    0,1]
+  parameter Real K[:,:]=[1, 0; 0, 1]
     "Gain matrix which is multiplied with the input";
-  Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u[nin]
+    "Input to be multiplied with the gain matrix"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout]
-    "Connector of Real output signals"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y[nout]
+    "Product of gain matrix times the input"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Integer nin=size(
-    K,
-    2)
+  parameter Integer nin=size(K, 2)
     "Number of inputs";
-  parameter Integer nout=size(
-    K,
-    1)
+  parameter Integer nout=size(K, 1)
     "Number of outputs";
 
 equation
@@ -35,20 +29,24 @@ gain matrix <i>K</i> with the input signal vector <i>u</i> as
 For example,
 </p>
 <pre>
-   parameter Real K[:,:] = [0.12 2; 3 1.5];
+   parameter Real K[:,:] = [0.12, 2; 3, 1.5];
 </pre>
 <p>
 results in
 </p>
 <pre>
-     | y[1] |     | 0.12  2.00 |   | u[1] |
+     | y[1] |     | 0.12,  2.00 |   | u[1] |
      |      |  =  |            | * |      |
-     | y[2] |     | 3.00  1.50 |   | u[2] |
+     | y[2] |     | 3.00,  1.50 |   | u[2] |
 </pre>
 
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Michael Wetter:<br/>
+Updated documentation to have valid syntax.
+</li>
 <li>
 February 11, 2019, by Milica Grahovac:<br/>
 First implementation, based on the implementation of the

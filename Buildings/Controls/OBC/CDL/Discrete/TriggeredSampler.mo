@@ -3,14 +3,14 @@ block TriggeredSampler
   "Triggered sampling of continuous signals"
   parameter Real y_start=0
     "Initial value of output signal";
-  Interfaces.RealInput u
-    "Connector with a Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Input signal to be sampled"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger
-    "Signal that triggers the sampler"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
+    "Input for trigger that causes u to be sampled"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
-  Interfaces.RealOutput y
-    "Connector with a Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Input signal at the last trigger instant"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation

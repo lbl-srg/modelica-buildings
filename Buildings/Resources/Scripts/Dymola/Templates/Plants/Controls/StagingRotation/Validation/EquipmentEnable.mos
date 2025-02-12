@@ -1,0 +1,42 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.EquipmentEnable",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=25.0,
+    resultFile="EquipmentEnable");
+createPlot(
+    id=1,
+    position={5, 5, 300, 250},
+    y={"u1AvaEqu.y[1]", "u1AvaEqu.y[2]", "u1AvaEqu.y[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={310, 5, 300, 500},
+    y={"equEnaEqu.uSta"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"equEnaEqu.y1[1]", "equEnaEqu.y1[2]", "equEnaEqu.y1[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=1,
+    position={615, 5, 300, 500},
+    y={"equEnaOneTwo.uSta"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"equEnaOneTwo.y1[1]", "equEnaOneTwo.y1[2]", "equEnaOneTwo.y1[3]"},
+    autoscale=true,
+    grid=true
+);

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialSensor "Interface class for sensor"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface
-    annotation(__ctrl_flow(enable=false));
+    annotation(__Linkage(enable=false));
 
   parameter Boolean have_sen=true
     "Set to true for sensor, false for direct pass through"
@@ -16,10 +16,9 @@ partial model PartialSensor "Interface class for sensor"
   parameter Boolean text_flip = false
     "True to flip text horizontally in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
-    Buildings.Templates.Components.Types.IconPipe.None
-    "Pipe symbol"
-    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Buildings.Templates.Components.Types.IntegrationPoint icon_pipe=
+      Buildings.Templates.Components.Types.IntegrationPoint.None "Pipe symbol"
+    annotation (Dialog(tab="Graphics", enable=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y if have_sen
     "Connector for measured value"
@@ -46,15 +45,15 @@ equation
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
-      graphics={Line(
-        visible=icon_pipe<>Buildings.Templates.Components.Types.IconPipe.None
+    graphics={Line(
+        visible=icon_pipe<>Buildings.Templates.Components.Types.IntegrationPoint.None
         or (not have_sen) and (not isDifPreSen),
         points={{-100,0},{100,0}},
-        color=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.None
+        color=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.None
         then {28,108,200} else {0,0,0},
-        thickness=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.None
+        thickness=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.None
         then 1 else 5,
-        pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Return
+        pattern=if icon_pipe==Buildings.Templates.Components.Types.IntegrationPoint.Return
         then LinePattern.Dash else LinePattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

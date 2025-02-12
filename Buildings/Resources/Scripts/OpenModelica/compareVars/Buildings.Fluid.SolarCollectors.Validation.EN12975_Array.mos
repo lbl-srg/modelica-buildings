@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "solCol.sta_b.T",
+    "solCol1.sta_b.T",
+    "solCol2.sta_b.T",
+    "dT.y",
+    "solCol.m_flow",
+    "solCol1.m_flow",
+    "solCol2.m_flow",
+    "solCol.dp",
+    "solCol1.dp",
+    "solCol2.dp"
+  };

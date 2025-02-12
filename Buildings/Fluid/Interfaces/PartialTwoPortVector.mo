@@ -11,7 +11,6 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
           property_T=293.15,
           X_a=0.40)
           "Propylene glycol water, 40% mass fraction")));
-
   parameter Integer nPorts "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean allowFlowReversal=true
@@ -23,14 +22,14 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connector a (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{port_a_x-10,port_a_y-10},{port_a_x+10,port_a_y+10}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts](
     redeclare each package Medium = Medium,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "Fluid connectors b (positive design flow direction is from port_a to ports_b)"
-    annotation (Placement(transformation(extent={{port_b_x-10,port_b_y-40},{port_b_x+10,port_b_y+40}})));
+    annotation (Placement(transformation(extent={{90,-40},{110,40}})));
 
   // Diagnostics
    parameter Boolean show_T = false
@@ -50,17 +49,6 @@ partial model PartialTwoPortVector "Partial component with two ports, one of whi
                           noEvent(actualStream(ports_b.h_outflow)),
                           noEvent(actualStream(ports_b.Xi_outflow)))
       if show_T "Medium properties in ports_b";
-
-protected
-  constant Integer port_a_x = -100
-    "x-coordinate of port_a center";
-  constant Integer port_a_y = 0
-    "y-coordinate of port_a center";
-  constant Integer port_b_x = 100
-    "x-coordinate of port_b center";
-  constant Integer port_b_y = 0
-    "y-coordinate of port_b center";
-
   annotation (
     Documentation(info="<html>
 <p>
@@ -84,11 +72,6 @@ users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 1, 2023, by Antoine Gautier:<br/>
-Added constants for parameterization of port placement.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">#1781</a>.
-</li>
 <li>
 March 30, 2021, by Michael Wetter:<br/>
 Added annotation <code>HideResult=true</code>.<br/>

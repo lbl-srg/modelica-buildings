@@ -7,6 +7,7 @@ CubicHermite
 ExponentialIntegralE1
 Factorial
 FallingFactorial
+Interpolate
 InverseXDerivativeCheck
 InverseXDerivative_2_Check
 InverseXRegularized

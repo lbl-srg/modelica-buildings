@@ -12,7 +12,8 @@ model Derivative
     offset=0.01,
     startTime=5) "Ramp for time constant used in approximating derivative"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Reals.Sources.ModelTime modTim "Model time"
+  Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
+    "Civil time"
     annotation (Placement(transformation(extent={{-110,0},{-90,20}})));
   Buildings.Controls.OBC.CDL.Reals.IntegratorWithReset intWitRes(y_start=1)
     "Integration of input"
@@ -108,7 +109,7 @@ Hence, there is a fast transient at the beginning, and afterwards the output mat
 May 20, 2022, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">issue 3022</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3022\">Buildings, issue 3022</a>.
 </li>
 </ul>
 </html>"),

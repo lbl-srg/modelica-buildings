@@ -65,6 +65,7 @@ block Overrides "Software switches to override setpoints"
     annotation (Placement(transformation(extent={{140,-220},{180,-180}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
+protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
     "Constant 1"
@@ -101,10 +102,12 @@ block Overrides "Software switches to override setpoints"
     annotation (Placement(transformation(extent={{28,150},{48,170}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{62,190},{82,210}})));
-  Buildings.Controls.OBC.CDL.Reals.Switch swi "Airflow setpoint after considering override"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
+    "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3 "Check if the airflow setpoint should be overrided"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or3
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
     final k=1)
     "Constant 1"
@@ -183,6 +186,9 @@ block Overrides "Software switches to override setpoints"
   Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Damper setpoint position after considering override"
     annotation (Placement(transformation(extent={{80,-210},{100,-190}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or5
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
 equation
   connect(oveFloSet, forZerFlo.u1)
@@ -201,18 +207,16 @@ equation
     annotation (Line(points={{-58,220},{-42,220}}, color={255,0,255}));
   connect(forCooMax.y, cooMax.u)
     annotation (Line(points={{-58,180},{-42,180}}, color={255,0,255}));
-  connect(forMinFlo.y, minFlo.u)
-    annotation (Line(points={{-58,140},{-42,140}}, color={255,0,255}));
   connect(cooMax.y, add2.u1) annotation (Line(points={{-18,180},{0,180},{0,166},
           {26,166}},color={0,0,127}));
   connect(zerFlo.y, add1.u1) annotation (Line(points={{-18,220},{20,220},{20,206},
           {60,206}}, color={0,0,127}));
-  connect(forZerFlo.y, or3.u1) annotation (Line(points={{-58,220},{-50,220},{-50,
-          68},{-22,68}},color={255,0,255}));
-  connect(forCooMax.y, or3.u2) annotation (Line(points={{-58,180},{-50,180},{-50,
-          60},{-22,60}},color={255,0,255}));
-  connect(forMinFlo.y, or3.u3) annotation (Line(points={{-58,140},{-50,140},{-50,
-          52},{-22,52}}, color={255,0,255}));
+  connect(forZerFlo.y, or3.u1) annotation (Line(points={{-58,220},{-50,220},{
+          -50,70},{-42,70}},
+                        color={255,0,255}));
+  connect(forCooMax.y, or3.u2) annotation (Line(points={{-58,180},{-50,180},{
+          -50,62},{-42,62}},
+                        color={255,0,255}));
   connect(add1.y, swi.u1) annotation (Line(points={{84,200},{90,200},{90,48},{98,
           48}}, color={0,0,127}));
   connect(VActSet_flow, swi.u3) annotation (Line(points={{-160,20},{80,20},{80,32},
@@ -261,10 +265,9 @@ equation
           {-8,114}},color={0,0,127}));
   connect(add4.y, add2.u2) annotation (Line(points={{16,120},{22,120},{22,154},{
           26,154}}, color={0,0,127}));
-  connect(or3.y, or1.u1) annotation (Line(points={{2,60},{20,60},{20,40},{38,40}},
-        color={255,0,255}));
-  connect(forMinFlo1.y, or1.u2) annotation (Line(points={{-58,100},{-50,100},{-50,
-          32},{38,32}}, color={255,0,255}));
+  connect(forMinFlo1.y, or1.u2) annotation (Line(points={{-58,100},{-50,100},{
+          -50,32},{38,32}},
+                        color={255,0,255}));
   connect(or1.y, swi.u2)
     annotation (Line(points={{62,40},{98,40}}, color={255,0,255}));
   connect(conInt6.y,intEqu1. u2) annotation (Line(points={{-98,-160},{-90,-160},
@@ -295,7 +298,14 @@ equation
           {78,-208}}, color={0,0,127}));
   connect(swi2.y, yHeaDam)
     annotation (Line(points={{102,-200},{160,-200}}, color={0,0,127}));
-
+  connect(or3.y, or5.u1) annotation (Line(points={{-18,70},{-12,70},{-12,60},{-2,
+          60}}, color={255,0,255}));
+  connect(or5.y, or1.u1) annotation (Line(points={{22,60},{30,60},{30,40},{38,40}},
+        color={255,0,255}));
+  connect(forMinFlo.y, minFlo.u)
+    annotation (Line(points={{-58,140},{-42,140}}, color={255,0,255}));
+  connect(forMinFlo.y, or5.u2) annotation (Line(points={{-58,140},{-50,140},{-50,
+          52},{-2,52}}, color={255,0,255}));
 annotation (defaultComponentName="ove",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

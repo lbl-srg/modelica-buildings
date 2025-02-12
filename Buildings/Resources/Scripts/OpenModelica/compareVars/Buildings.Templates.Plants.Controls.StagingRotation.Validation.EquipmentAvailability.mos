@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "u1_actual.y[1]",
+    "u1Ava.y[1]",
+    "u1Hea_actual.y[1]",
+    "avaHeaCoo.y1Hea",
+    "avaHeaCoo.y1Coo",
+    "avaHea.y1Hea"
+  };

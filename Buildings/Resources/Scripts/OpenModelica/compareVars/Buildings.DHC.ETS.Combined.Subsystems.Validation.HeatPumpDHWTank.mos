@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "theMixVal.TMixSet",
+    "theMixVal.senTMix.T",
+    "theMixVal.senTHot.T",
+    "sch.y[1]",
+    "heaPum.PHea",
+    "heaPum.PPum",
+    "heaPum.heaPumTan.charge",
+    "heaPum.heaPumTan.conCha.TTanTopSet",
+    "heaPum.heaPumTan.conCha.TTanTop",
+    "heaPum.heaPumTan.conCha.TTanBot",
+    "heaPum.COP_nominal",
+    "heaPum.heaPum.COP"
+  };

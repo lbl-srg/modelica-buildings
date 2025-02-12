@@ -6,7 +6,7 @@ model Controller "Validation controller model"
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
-    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
+    final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final VUncDesOutAir_flow=0.05,
     final VDesTotOutAir_flow=0.05) "Multizone VAV AHU controller"
@@ -107,16 +107,6 @@ model Controller "Validation controller model"
     final offset=0,
     final duration=1800) "Building static presure"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaCoi(
-    final k=0)
-    "Heating coil position"
-    annotation (Placement(transformation(extent={{-240,-260},{-220,-240}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoi(
-    final height=-0.3,
-    final offset=0.96,
-    final duration=3600,
-    startTime=1000) "Cooling coil position"
-    annotation (Placement(transformation(extent={{-200,-240},{-180,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
     annotation (Placement(transformation(extent={{-200,-170},{-180,-150}})));
@@ -125,9 +115,18 @@ model Controller "Validation controller model"
     final period=3600)
     "Freeze protection reset"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
-    annotation (Placement(transformation(extent={{220,30},{240,50}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Timer timY1(t=2)
+    "Return true if equipment commanded on for sufficient time"
+    annotation (Placement(transformation(extent={{170,110},{150,130}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notY1
+    "Return true if equipment commanded off"
+    annotation (Placement(transformation(extent={{210,70},{190,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Timer timNotY1(t=2)
+    "Return true if equipment commanded off for sufficient time"
+    annotation (Placement(transformation(extent={{170,70},{150,90}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Lock status until equipment commanded off for sufficient time"
+    annotation (Placement(transformation(extent={{130,110},{110,130}})));
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
           25.4545},{96,25.4545}},  color={0,0,127}));
@@ -161,21 +160,12 @@ equation
           {-140,-6},{-122,-6}}, color={0,0,127}));
   connect(uOutAirFra_max.y, conAHU.uOutAirFra_max) annotation (Line(points={{-218,
           -40},{32,-40},{32,-9.09091},{96,-9.09091}},color={0,0,127}));
-  connect(heaCoi.y, conAHU.uHeaCoi_actual) annotation (Line(points={{-218,-250},
-          {80,-250},{80,-118.182},{96,-118.182}}, color={0,0,127}));
-  connect(cooCoi.y, conAHU.uCooCoi_actual) annotation (Line(points={{-178,-230},
-          {74,-230},{74,-114.545},{96,-114.545}}, color={0,0,127}));
   connect(dpBui.y, conAHU.dpBui) annotation (Line(points={{-218,-210},{68,-210},
           {68,-96.3636},{96,-96.3636}}, color={0,0,127}));
   connect(freRes.y,not1. u)
     annotation (Line(points={{-218,-160},{-202,-160}}, color={255,0,255}));
   connect(not1.y, conAHU.u1SofSwiRes) annotation (Line(points={{-178,-160},{56,
           -160},{56,-76.3636},{96,-76.3636}}, color={255,0,255}));
-  connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,-40},{200,-40},
-          {200,40},{218,40}},          color={255,0,255}));
-  connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
-          250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
-
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));
   connect(sumDesAreBreZon.y, conAHU.VSumAdjAreBreZon_flow) annotation (Line(
@@ -184,6 +174,18 @@ equation
           {32,-3.63636},{96,-3.63636}}, color={0,0,127}));
   connect(opeMod.y, conAHU.uAhuOpeMod) annotation (Line(points={{-178,250},{80,
           250},{80,38.1818},{96,38.1818}}, color={255,127,0}));
+  connect(conAHU.y1SupFan, notY1.u) annotation (Line(points={{184,-40},{220,-40},
+          {220,80},{212,80}}, color={255,0,255}));
+  connect(conAHU.y1SupFan, timY1.u) annotation (Line(points={{184,-40},{220,-40},
+          {220,120},{172,120}}, color={255,0,255}));
+  connect(timNotY1.u, notY1.y)
+    annotation (Line(points={{172,80},{188,80}}, color={255,0,255}));
+  connect(timY1.passed, lat.u) annotation (Line(points={{148,112},{144,112},{
+          144,120},{132,120}}, color={255,0,255}));
+  connect(timNotY1.passed, lat.clr) annotation (Line(points={{148,72},{140,72},
+          {140,114},{132,114}}, color={255,0,255}));
+  connect(lat.y, conAHU.u1SupFan) annotation (Line(points={{108,120},{86,120},{
+          86,16.3636},{96,16.3636}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller.mos"
     "Simulate and plot"),
@@ -195,6 +197,11 @@ Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 27, 2024, by Antoine Gautier:<br/>
+Refactored the computation of the supply fan status.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3787\">#3787</a>.
+</li>
 <li>
 February 8, 2022, by Jianjun Hu:<br/>
 First implementation.

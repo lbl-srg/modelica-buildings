@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# Requires Python >= 3.9
+
 # This script shall be run from the directory `modelica-buildings/Buildings`,
 # i.e., where the top-level `package.mo` file can be found.
 # The script takes as an optional positional argument the Modelica tool to use
@@ -22,11 +24,16 @@
 
 from core import *
 
-MODELS = [
+try:
+    SIMULATOR = sys.argv[1]
+except IndexError:
+    SIMULATOR = 'Dymola'
+
+MODELS: list[str] = [
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant',
 ]
 
-MODIF_GRID = {
+MODIF_GRID: dict[str, dict[str, list[str]]] = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': dict(
         BOI__typ=[
             'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
@@ -87,8 +94,12 @@ MODIF_GRID = {
     ),
 }
 
-# See docstring of `prune_modifications` function for the structure of EXCLUDE.
-EXCLUDE = {
+# A case is excluded if the "exclusion test" returns true for any of the item value from EXCLUDE.
+# Exclusion test:
+#   - concatenate all class modifications,
+#   - return true if all strings from the item value of EXCLUDE are found in the concatenation product.
+#   - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+EXCLUDE: dict[str, list[list[str]]] = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         [
             'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
@@ -97,8 +108,14 @@ EXCLUDE = {
     ],
 }
 
-# See docstring of `prune_modifications` function for the structure of REMOVE_MODIF.
-REMOVE_MODIF = {
+# Class modifications are removed for each model to be simulated according to the following rules.
+# For each item (2-tuple) of the list provided (as value) for each model (key) in REMOVE_MODIF (dict):
+#   - if all patterns of item[0] are found in the original class modifications, and
+#   - if a class modification contains any item within item[1], then it is removed.
+#   - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
+# Removing the class modifications this way yields many duplicate sets of class modifications.
+# Those are pruned afterwards.
+REMOVE_MODIF: dict[str, list[tuple[list[str], list[str]]]] = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         (
             [
@@ -232,19 +249,10 @@ REMOVE_MODIF = {
 
 if __name__ == '__main__':
     # Generate combinations.
-    combinations = generate_combinations(
-        models=MODELS, modif_grid=MODIF_GRID
-    )
+    combinations: list[tuple[str, list[str], str]] = generate_combinations(models=MODELS, modif_grid=MODIF_GRID)
 
     # Prune class modifications.
-    prune_modifications(
-        combinations=combinations,
-        exclude=EXCLUDE,
-        remove_modif=REMOVE_MODIF,
-        fraction_test_coverage=FRACTION_TEST_COVERAGE,
-    )
-
-    print(f'Number of cases to be simulated: {len(combinations)}.\n')
+    prune_modifications(combinations=combinations, remove_modif=REMOVE_MODIF, exclude=EXCLUDE)
 
     # FIXME(AntoineGautier PR#3364): Temporarily limit the number of simulations to be run (for testing purposes only).
     combinations = combinations[:2]

@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "TAirSup.T",
+    "wseCon.TWetBul",
+    "TCHWEntChi.T",
+    "TCWLeaTow.T",
+    "wseCon.y1",
+    "chiCon.y",
+    "EHVAC.y"
+  };

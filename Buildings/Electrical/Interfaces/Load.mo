@@ -22,7 +22,7 @@ model Load "Partial model for a generic load"
            or linearized)));
   parameter Buildings.Electrical.Types.InitMode initMode(
   min=Buildings.Electrical.Types.InitMode.zero_current,
-  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.zero_current
+  max=Buildings.Electrical.Types.InitMode.linearized) = Buildings.Electrical.Types.InitMode.linearized
     "Initialization mode for homotopy operator"  annotation(Dialog(tab = "Initialization"));
 
   Modelica.Units.SI.Voltage v[:](start=PhaseSystem.phaseVoltages(V_nominal)) =
@@ -112,6 +112,13 @@ equation
 
   annotation ( Documentation(revisions="<html>
 <ul>
+<li>
+November 14, 2024, by Michael Wetter:<br/>
+Changed default initialization method to using linearized model rather than zero current, as
+the latter causes a division by zero in OpenModelica during the homotopy initialization.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4048\">Buildings, #4048</a>.
+</li>
 <li>
 January 30, 2019, by Michael Wetter:<br/>
 Set start value for <code>P</code>.

@@ -1,0 +1,56 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.FailsafeCondition",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=5000.0,
+    resultFile="FailsafeCondition");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    subPlot=1,
+    y={"faiSafHea.TSupSet", "faiSafHea.TPriSup", "faiSafHea.TSecSup"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"faiSafHea.reset", "faiSafHea.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 500},
+    subPlot=1,
+    y={"faiSafCoo.TSupSet", "faiSafCoo.TPriSup", "faiSafCoo.TSecSup"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"faiSafCoo.reset", "faiSafCoo.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=3,
+    position={620, 5, 300, 500},
+    subPlot=1,
+    y={"faiSafCooPri.TSupSet", "faiSafCooPri.TPriSup"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"faiSafCooPri.reset", "faiSafCooPri.y1"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

@@ -1,12 +1,6 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type BoilerHotWaterModel = enumeration(
-      Polynomial
-      "Efficiency described by a polynomial",
-      Table
-      "Efficiency described by a table")
-    "Enumeration to specify the type of hot water boiler model";
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
@@ -38,10 +32,6 @@ package Types "Package with type definitions"
       "Dry cooler")
     "Enumeration to configure the condenser water cooling equipment";
   type Damper = enumeration(
-      NoPath
-      "No fluid path",
-      Barometric
-      "Barometric damper",
       Modulating
       "Modulating damper",
       None
@@ -77,14 +67,23 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
-  type IconPipe = enumeration(
+  type HeatPump = enumeration(
+      AirToWater
+      "Air-to-water heat pump",
+      WaterToWater
+      "Water(or brine)-to-water heat pump")
+    "Enumeration to specify the type of heat pump";
+  type HeatPumpModel = enumeration(
+      EquationFit
+      "Heat pump model based on the equation fit method")
+    "Enumeration to specify the heat pump model";
+  type IntegrationPoint = enumeration(
       None
-      "No line",
+      "None",
       Return
-      "Return pipe - Dashed line",
+      "Return side",
       Supply
-      "Supply pipe - Solid line")
-    "Enumeration to specify the pipe symbol";
+      "Supply side") "Enumeration to specify the integration point of equipment";
   type Pump = enumeration(
       None
       "No pump",
@@ -132,10 +131,6 @@ package Types "Package with type definitions"
   type Valve = enumeration(
       None
       "No valve",
-      PumpedCoilThreeWay
-      "Pumped coil with three-way valve",
-      PumpedCoilTwoWay
-      "Pumped coil with two-way valve",
       ThreeWayModulating
       "Three-way modulating valve",
       ThreeWayTwoPosition
@@ -145,6 +140,58 @@ package Types "Package with type definitions"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
+  type ValveCharacteristicTwoWay = enumeration(
+      EqualPercentage
+      "Equal percentage",
+      Linear
+      "Linear",
+      PressureIndependent
+      "Pressure independent (mass flow rate only dependent of input signal)",
+      Table
+      "Table-specified")
+    "Enumeration to specify the characteristic of two-way valves"
+    annotation (
+      Documentation(info="<html>
+<p>
+Enumeration that defines the characteristic of two-way valves.
+</p>
+<table summary=\"summary\"  border=\"1\">
+<tr><th>Enumeration</th>
+    <th>Description</th></tr>
+<tr><td>EqualPercentage</td>
+    <td>Equal percentage</td></tr>
+<tr><td>Linear</td>
+    <td>Linear</td></tr>
+<tr><td>PressureIndependent</td>
+    <td>Pressure independent (mass flow rate only dependent of input signal)</td></tr>
+<tr><td>Table</td>
+    <td>Table-specified</td></tr>
+</table>
+</html>"));
+  type ValveCharacteristicThreeWay = enumeration(
+      EqualPercentageLinear
+      "Equal percentage (direct) and linear (bypass)",
+      Linear
+      "Linear (both direct and bypass)",
+      Table
+      "Table-specified (both direct and bypass)")
+    "Enumeration to specify the characteristic of the bypass valve"
+    annotation (
+      Documentation(info="<html>
+<p>
+Enumeration that defines the characteristic of three-way valves.
+</p>
+<table summary=\"summary\"  border=\"1\">
+<tr><th>Enumeration</th>
+    <th>Description</th></tr>
+<tr><td>EqualPercentageLinear</td>
+    <td>Equal percentage (direct) and linear (bypass)</td></tr>
+<tr><td>Linear</td>
+    <td>Linear (both direct and bypass)</td></tr>
+<tr><td>Table</td>
+<td>Table-specified (both direct and bypass)</td></tr>
+</table>
+</html>"));
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.

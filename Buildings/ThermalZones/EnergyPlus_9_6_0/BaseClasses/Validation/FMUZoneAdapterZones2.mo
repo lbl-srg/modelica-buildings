@@ -26,8 +26,9 @@ model FMUZoneAdapterZones2
     final zoneName="Core_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_9_6_0/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
+    setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
@@ -69,8 +70,9 @@ model FMUZoneAdapterZones2
     final zoneName="South_ZN",
     usePrecompiledFMU=true,
     final fmuName=Modelica.Utilities.Files.loadResource(
-      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_9_6_0/FMUs/Zones3.fmu"),
+      "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus/FMUs/Zones3.fmu"),
     logLevel=building.logLevel,
+    setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));

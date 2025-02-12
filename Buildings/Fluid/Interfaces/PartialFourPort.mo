@@ -4,9 +4,9 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package Medium1 =
     Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium1 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium1 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium1 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -14,9 +14,9 @@ partial model PartialFourPort "Partial model with four ports"
   replaceable package Medium2 =
     Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
+        choice(redeclare package Medium2 = Buildings.Media.Air "Moist air"),
+        choice(redeclare package Medium2 = Buildings.Media.Water "Water"),
+        choice(redeclare package Medium2 =
             Buildings.Media.Antifreeze.PropyleneGlycolWater (
           property_T=293.15,
           X_a=0.40)
@@ -34,44 +34,26 @@ partial model PartialFourPort "Partial model with four ports"
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{port_a1_x-10,port_a1_y-10},{port_a1_x+10,port_a1_y+10}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare final package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
                      h_outflow(start = Medium1.h_default, nominal = Medium1.h_default))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
-    annotation (Placement(transformation(extent={{port_b1_x-10,port_b1_y-10},{port_b1_x+10,port_b1_y+10}})));
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare final package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
                      h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{port_a2_x-10,port_a2_y-10},{port_a2_x+10,port_a2_y+10}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare final package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
                      h_outflow(start = Medium2.h_default, nominal = Medium2.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
-    annotation (Placement(transformation(extent={{port_b2_x-10,port_b2_y-10},{port_b2_x+10,port_b2_y+10}})));
-
-protected
-  constant Integer port_a1_x = -100
-    "x-coordinate of port_a1 center";
-  constant Integer port_a1_y = 60
-    "y-coordinate of port_a1 center";
-  constant Integer port_b1_x = 100
-    "x-coordinate of port_b1 center";
-  constant Integer port_b1_y = 60
-    "y-coordinate of port_b1 center";
-  constant Integer port_a2_x = 100
-    "x-coordinate of port_a2 center";
-  constant Integer port_a2_y = -60
-    "y-coordinate of port_a2 center";
-  constant Integer port_b2_x = -100
-    "x-coordinate of port_b2 center";
-  constant Integer port_b2_y = -60
-    "y-coordinate of port_b2 center";
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
     preferredView="info",
@@ -101,25 +83,25 @@ are not implemented.
 </html>", revisions="<html>
 <ul>
 <li>
-September 1, 2023, by Antoine Gautier:<br/>
-Added constants for parameterization of port placement.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1781\">#1781</a>.
+August 27, 2024, by Jianjun Hu:<br/>
+Corrected dropdown media choice.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1924\">IBPSA #1924</a>.
 </li>
 <li>
 April 6, 2020, by Filip Jorissen:<br/>
 Added arrows to the icon indicating the intended flow direction
 when <code>allowFlowReversal=false</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">#1336</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1336\">IBPSA #1336</a>.
 </li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">#1050</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA #1050</a>.
 </li>
 <li>
 July 8, 2018, by Filip Jorissen:<br/>
 Added nominal value of <code>h_outflow</code> in <code>FluidPorts</code>.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">#977</a>.
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/977\">IBPSA #977</a>.
 </li>
 <li>
 November 12, 2015, by Michael Wetter:<br/>
@@ -131,7 +113,7 @@ Removed parameters
 <code>h_outflow_a2_start</code> and
 <code>h_outflow_b2_start</code>.
 This is for issue
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">#299</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/299\">IBPSA #299</a>.
 </li>
 <li>
 October 30, 2015, by Matthis Thorade:<br/>

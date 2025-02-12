@@ -220,6 +220,7 @@ block DamperValves
     annotation (Placement(transformation(extent={{360,-460},{400,-420}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
   Buildings.Controls.OBC.CDL.Reals.Line lin
@@ -252,8 +253,8 @@ block DamperValves
     annotation (Placement(transformation(extent={{-240,190},{-220,210}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi2 "Hot water valve position"
     annotation (Placement(transformation(extent={{300,10},{320,30}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(final k=
-        VCooMax_flow)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant nomFlow(
+    final k=VCooMax_flow)
     "Nominal volume flow rate"
     annotation (Placement(transformation(extent={{100,240},{120,260}})));
   Buildings.Controls.OBC.CDL.Reals.Divide VDisSet_flowNor
@@ -328,7 +329,6 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Integers.Equal isUno
     "Output true if the operation mode is unoccupied"
     annotation (Placement(transformation(extent={{20,-340},{40,-320}})));
-
   Buildings.Controls.OBC.CDL.Reals.Switch swi4
     "Fan setpoint when it is in cooling state and the supply air temperture is high"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
@@ -364,9 +364,9 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Integers.Equal isOcc
     "Output true if the operation mode is occupied"
     annotation (Placement(transformation(extent={{-220,-340},{-200,-320}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if it is in heating, cooling state, or it is in occupied mode"
-    annotation (Placement(transformation(extent={{-60,-380},{-40,-360}})));
+    annotation (Placement(transformation(extent={{-80,-430},{-60,-410}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge"
     annotation (Placement(transformation(extent={{20,-380},{40,-360}})));
@@ -427,15 +427,21 @@ block DamperValves
     annotation (Placement(transformation(extent={{0,410},{20,430}})));
   Buildings.Controls.OBC.CDL.Reals.Add add1 "Add up inputs"
     annotation (Placement(transformation(extent={{60,450},{80,470}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or1
+  Buildings.Controls.OBC.CDL.Logical.Or or1
     "Check if the airflow setpoint should be overrided"
-    annotation (Placement(transformation(extent={{40,360},{60,380}})));
+    annotation (Placement(transformation(extent={{-80,340},{-60,360}})));
   Buildings.Controls.OBC.CDL.Reals.Switch swi9
     "Airflow setpoint after considering override"
     annotation (Placement(transformation(extent={{120,360},{140,380}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(final k=3)
     "Constant 3"
     annotation (Placement(transformation(extent={{-200,370},{-180,390}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if the airflow setpoint should be overrided"
+    annotation (Placement(transformation(extent={{60,360},{80,380}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or4
+    "Check if it is in heating, cooling state, or it is in occupied mode"
+    annotation (Placement(transformation(extent={{-40,-380},{-20,-360}})));
 
 equation
   connect(uCoo, lin.u)
@@ -518,18 +524,17 @@ equation
   connect(conTDisHeaSet.y, THeaDisSet)
     annotation (Line(points={{-118,70},{380,70}},  color={0,0,127}));
   connect(conZer3.y, swi3.u1) annotation (Line(points={{-258,110},{20,110},{20,
-          126},{258,126}},
-                     color={0,0,127}));
+          126},{258,126}}, color={0,0,127}));
   connect(conHal1.y, heaFanRat.x1) annotation (Line(points={{2,-220},{20,-220},{
           20,-242},{38,-242}},  color={0,0,127}));
   connect(uHea, heaFanRat.u) annotation (Line(points={{-360,0},{-310,0},{-310,-250},
-          {38,-250}},            color={0,0,127}));
+          {38,-250}},  color={0,0,127}));
   connect(conHal2.y, heaFanRat.x2) annotation (Line(points={{-158,-280},{-120,-280},
-          {-120,-254},{38,-254}},       color={0,0,127}));
+          {-120,-254},{38,-254}}, color={0,0,127}));
   connect(maxFan.y, heaFanRat.f2) annotation (Line(points={{2,-280},{20,-280},{20,
-          -258},{38,-258}},     color={0,0,127}));
-  connect(uno.y, isUno.u1) annotation (Line(points={{-58,-330},{18,-330}},
-                              color={255,127,0}));
+          -258},{38,-258}}, color={0,0,127}));
+  connect(uno.y, isUno.u1)
+    annotation (Line(points={{-58,-330},{18,-330}}, color={255,127,0}));
   connect(isUno.y, swi2.u2) annotation (Line(points={{42,-330},{130,-330},{130,20},
           {298,20}},     color={255,0,255}));
   connect(isUno.y, swi3.u2) annotation (Line(points={{42,-330},{130,-330},{130,
@@ -581,13 +586,9 @@ equation
   connect(uOpeMod, isUno.u2) annotation (Line(points={{-360,-350},{0,-350},{0,-338},
           {18,-338}}, color={255,127,0}));
   connect(greThr1.y, or3.u1) annotation (Line(points={{-218,280},{-100,280},{-100,
-          -362},{-62,-362}}, color={255,0,255}));
-  connect(greThr2.y, or3.u2) annotation (Line(points={{-258,0},{-110,0},{-110,-370},
-          {-62,-370}},       color={255,0,255}));
-  connect(isOcc.y, or3.u3) annotation (Line(points={{-198,-330},{-120,-330},{-120,
-          -378},{-62,-378}}, color={255,0,255}));
-  connect(or3.y, edg.u)
-    annotation (Line(points={{-38,-370},{18,-370}}, color={255,0,255}));
+          -420},{-82,-420}}, color={255,0,255}));
+  connect(greThr2.y, or3.u2) annotation (Line(points={{-258,0},{-110,0},{-110,-428},
+          {-82,-428}},       color={255,0,255}));
   connect(edg.y, lat.u)
     annotation (Line(points={{42,-370},{78,-370}}, color={255,0,255}));
   connect(lat.y, booToRea.u)
@@ -600,10 +601,6 @@ equation
     annotation (Line(points={{-360,-440},{-282,-440}}, color={0,0,127}));
   connect(cloDam.y, and2.u1)
     annotation (Line(points={{-258,-440},{18,-440}}, color={255,0,255}));
-  connect(or3.y, and2.u2) annotation (Line(points={{-38,-370},{0,-370},{0,-448},
-          {18,-448}}, color={255,0,255}));
-  connect(or3.y, falEdg.u) annotation (Line(points={{-38,-370},{0,-370},{0,-480},
-          {18,-480}}, color={255,0,255}));
   connect(and2.y, lat1.u)
     annotation (Line(points={{42,-440},{78,-440}}, color={255,0,255}));
   connect(falEdg.y, lat1.clr) annotation (Line(points={{42,-480},{60,-480},{60,-446},
@@ -645,22 +642,20 @@ equation
           {-2,426}},color={0,0,127}));
   connect(zerFlo.y,add1. u1) annotation (Line(points={{-58,480},{0,480},{0,466},
           {58,466}}, color={0,0,127}));
-  connect(forZerFlo.y,or1. u1) annotation (Line(points={{-118,480},{-100,480},{-100,
-          378},{38,378}}, color={255,0,255}));
-  connect(forCooMax.y,or1. u2) annotation (Line(points={{-118,440},{-100,440},{-100,
-          370},{38,370}}, color={255,0,255}));
+  connect(forZerFlo.y,or1. u1) annotation (Line(points={{-118,480},{-100,480},{
+          -100,350},{-82,350}},
+                          color={255,0,255}));
+  connect(forCooMax.y,or1. u2) annotation (Line(points={{-118,440},{-100,440},{
+          -100,342},{-82,342}},
+                          color={255,0,255}));
   connect(add1.y,swi9. u1) annotation (Line(points={{82,460},{100,460},{100,378},
           {118,378}}, color={0,0,127}));
   connect(add2.y,add1. u2) annotation (Line(points={{22,420},{40,420},{40,454},{
           58,454}}, color={0,0,127}));
   connect(minFlo.y,add2. u2) annotation (Line(points={{-58,400},{-20,400},{-20,414},
           {-2,414}}, color={0,0,127}));
-  connect(forMinFlo.y,or1. u3) annotation (Line(points={{-118,400},{-100,400},{-100,
-          362},{38,362}},color={255,0,255}));
   connect(conInt2.y,forMinFlo. u2) annotation (Line(points={{-178,380},{-160,380},
           {-160,392},{-142,392}}, color={255,127,0}));
-  connect(or1.y, swi9.u2)
-    annotation (Line(points={{62,370},{118,370}}, color={255,0,255}));
   connect(swi.y, swi9.u3) annotation (Line(points={{82,300},{100,300},{100,362},
           {118,362}}, color={0,0,127}));
   connect(swi9.y, max1.u1) annotation (Line(points={{142,370},{160,370},{160,-40},
@@ -673,6 +668,22 @@ equation
           244,268}}, color={255,0,255}));
   connect(conDam.y, swi3.u3) annotation (Line(points={{262,280},{270,280},{270,
           200},{220,200},{220,110},{258,110}}, color={0,0,127}));
+  connect(or2.y, swi9.u2)
+    annotation (Line(points={{82,370},{118,370}}, color={255,0,255}));
+  connect(or1.y, or2.u2) annotation (Line(points={{-58,350},{-40,350},{-40,362},
+          {58,362}}, color={255,0,255}));
+  connect(forMinFlo.y, or2.u1) annotation (Line(points={{-118,400},{-100,400},{-100,
+          370},{58,370}}, color={255,0,255}));
+  connect(isOcc.y, or4.u1) annotation (Line(points={{-198,-330},{-180,-330},{-180,
+          -370},{-42,-370}}, color={255,0,255}));
+  connect(or3.y, or4.u2) annotation (Line(points={{-58,-420},{-50,-420},{-50,-378},
+          {-42,-378}}, color={255,0,255}));
+  connect(or4.y, edg.u)
+    annotation (Line(points={{-18,-370},{18,-370}}, color={255,0,255}));
+  connect(or4.y, and2.u2) annotation (Line(points={{-18,-370},{0,-370},{0,-448},
+          {18,-448}}, color={255,0,255}));
+  connect(or4.y, falEdg.u) annotation (Line(points={{-18,-370},{0,-370},{0,-480},
+          {18,-480}}, color={255,0,255}));
 annotation (
   defaultComponentName="damValFan",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-340,-520},{360,520}}),

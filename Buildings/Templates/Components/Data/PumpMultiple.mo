@@ -7,7 +7,7 @@ record PumpMultiple "Record for multiple-pump models"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPum(
     final min=0,
-    start=1)
+    start=0)
     "Number of pumps"
     annotation (Dialog(group="Configuration", enable=false));
 
@@ -15,7 +15,7 @@ record PumpMultiple "Record for multiple-pump models"
     each start=1,
     each final min=0)
     "Mass flow rate - Each pump"
-    annotation (
+    annotation (Evaluate=true,
     Dialog(group="Nominal condition",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
   parameter Modelica.Units.SI.PressureDifference dp_nominal[nPum](
@@ -35,15 +35,15 @@ record PumpMultiple "Record for multiple-pump models"
     "Performance data - Each pump"
     annotation(Dialog(enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
-  parameter Modelica.Units.SI.Density rho_default=
-    Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
+  parameter Modelica.Units.SI.Density rho_default=Buildings.Media.Water.d_const
     "Default medium density"
     annotation(Dialog(enable=false));
 
   annotation (
+  defaultComponentPrefixes = "parameter",
   defaultComponentName="datPum", Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the multiple-pump model
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
 Buildings.Templates.Components.Pumps.Multiple</a>.
@@ -56,14 +56,14 @@ This default characteristic is based on a least squares
 polynomial fit of the characteristics from
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
 Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
-The user may refer to the documentation of 
+The user may refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\">
 Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>
 for further details.
-Note that a default medium density is used to parameterize 
+Note that a default medium density is used to parameterize
 the pump characteristic. So models that use this record should
 overwrite this default value with the density of the medium
-in use, especially in the case of a water/glycol mix. 
+in use, especially in the case of a water/glycol mix.
 </p>
 <p>
 In order to modify the default characteristic, one may use either
@@ -73,12 +73,12 @@ of the following methods.
 <li>Assign the whole subrecord <code>per</code> or
 only its component <code>per.pressure</code>.
 In this case the elements <code>per[i]</code> may differ one from another.
-This is the recommended approach for unequally sized units 
+This is the recommended approach for unequally sized units
 such as dedicated pumps.</li>
 <li>Redeclare the component <code>per</code>.
 In this case the elements <code>per[i]</code> are all equal to the redeclared
 record instance.
-This is the recommended approach for equally sized units 
+This is the recommended approach for equally sized units
 such as headered pumps.</li>
 </ul>
 <p>

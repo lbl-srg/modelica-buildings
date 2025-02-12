@@ -51,11 +51,14 @@ block ZoneWithAHUG36
     VAreBreZon_flow=0.4989,
     VPopBreZon_flow=0.2075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
+
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_6B,
+
     freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     have_winSen=false,
     have_CO2Sen=false,
-    buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief,
+    buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief,
+
     have_locAdj=false,
     TSupDew_max=297.15,
     maxHeaSpe=0.2,
@@ -71,8 +74,7 @@ block ZoneWithAHUG36
     TSup_max=343.15,
     TSup_min=286.15,
     uLow=0,
-    uHigh=0.5)
-    "VAV controller"
+    uHigh=0.5) "VAV controller"
     annotation (Placement(transformation(extent={{-80,-90},{-40,-10}})));
   Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor sinZonFlo(
     redeclare package Medium = MediumA)
@@ -226,12 +228,12 @@ equation
           preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
 Documentation(info="<html>
 <p>
-This base class contains a controller based on Guideline36 
+This base class contains a controller based on Guideline36
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller</a>,
 a single-zone VAV system
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
-Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
+Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>,
 and a single-zone floor building
 <a href=\"modelica://Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor\">
 Buildings.ThermalZones.Detailed.Validation.BaseClasses.SingleZoneFloor</a>.

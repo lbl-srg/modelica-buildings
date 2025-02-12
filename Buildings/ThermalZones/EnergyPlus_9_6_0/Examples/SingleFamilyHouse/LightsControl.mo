@@ -29,7 +29,7 @@ model LightsControl
     k=24*3600)
     "Outputs one day"
     annotation (Placement(transformation(extent={{-150,38},{-130,58}})));
-  Controls.OBC.CDL.Reals.Sources.ModelTime modTim
+  Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Model time"
     annotation (Placement(transformation(extent={{-150,66},{-130,86}})));
   Controls.OBC.CDL.Reals.LessThreshold lesEquThr(

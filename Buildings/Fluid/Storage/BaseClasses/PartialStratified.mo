@@ -1,11 +1,11 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a_x=0, port_a_y=100, port_b_x=0, port_b_y=-100);
+  extends Buildings.Fluid.Storage.BaseClasses.PartialTwoPortInterface;
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
+
   parameter Modelica.Units.SI.Volume VTan "Tank volume";
   parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
   parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
@@ -77,6 +77,7 @@ model PartialStratified
     each final m_flow_small=m_flow_small,
     each final allowFlowReversal=allowFlowReversal) "Tank segment"
     annotation (Placement(transformation(extent={{6,-16},{26,4}})));
+
 protected
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
     T=Medium.T_default,
@@ -393,5 +394,8 @@ Icon(graphics={
         Line(
           points={{22,-74},{70,-74},{70,72}},
           color={127,0,0},
-          pattern=LinePattern.Dot)}));
+          pattern=LinePattern.Dot),     Text(
+        extent={{-100,100},{-8,70}},
+        textString="%name",
+        textColor={0,0,255})}));
 end PartialStratified;

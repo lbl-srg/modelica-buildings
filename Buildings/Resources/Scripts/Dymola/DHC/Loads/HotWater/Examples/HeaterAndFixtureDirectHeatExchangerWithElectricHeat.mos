@@ -1,0 +1,5 @@
+simulateModel("Buildings.DHC.Loads.HotWater.Examples.HeaterAndFixtureDirectHeatExchangerWithElectricHeat", stopTime=172800, numberOfIntervals=0, outputInterval=60, tolerance=1e-06, resultFile="HeaterAndFixtureDirectHeatExchangerWithElectricHeat");
+createPlot(id=1, position={560, 11, 592, 621}, y={"theMixValNoEle.conPID.y", "theMixVal.conPID.y"}, range={0.0, 900000.0, 0.7000000000000001, 1.1}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s");
+createPlot(id=1, position={560, 11, 592, 621}, y={"genNoEle.THexOut", "souDisHot.T"}, range={0.0, 900000.0, 290.0, 330.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"", "K"});
+createPlot(id=1, position={560, 11, 592, 621}, y={"gen.PEle", "genNoEle.PEle"}, range={0.0, 900000.0, -20000.0, 80000.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"W", "W"});
+createPlot(id=1, position={532, 19, 592, 614}, y={"sch.y[1]"}, range={0.0, 180000.0, -1.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");

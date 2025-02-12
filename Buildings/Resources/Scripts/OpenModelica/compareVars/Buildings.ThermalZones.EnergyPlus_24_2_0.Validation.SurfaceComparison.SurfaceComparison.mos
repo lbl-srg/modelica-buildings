@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "refSur.TGarAir.y",
+    "zonSur.TGarAir.y",
+    "refSur.TEasWalGarSur.y",
+    "zonSur.TEasWalGarSur.y",
+    "refSur.TWesWalGarSur.y",
+    "zonSur.TWesWalGarSur.y",
+    "refSur.TIntWalGarSur.y",
+    "zonSur.TIntWalGarSur.y"
+  };

@@ -149,7 +149,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=1) "Controller for fan of hot deck"
@@ -177,7 +179,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     dpFixed_nominal=6000,
-    use_inputFilter=false) "Cooling coil valve" annotation (Placement(
+    use_strokeTime=false) "Cooling coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -221,7 +223,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     mExh_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     linearized=true,
-    riseTime=15,
+    strokeTime=15,
     y_start=0,
     dpDamExh_nominal=0.27,
     dpDamOut_nominal=0.27,
@@ -270,7 +272,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanRet(
-                        xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
     r_N_min=0.2,
@@ -409,8 +413,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dpValve_nominal=6000,
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
-    riseTime=10,
-    use_inputFilter=false) "Preheating coil valve" annotation (Placement(
+    use_strokeTime=false) "Preheating coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -456,7 +459,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
     dpFixed_nominal=6000,
-    use_inputFilter=false) "Heating coil valve" annotation (Placement(
+    use_strokeTime=false) "Heating coil valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -517,7 +520,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FanVFD conFanSupCol(
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    xSet_nominal(displayUnit="Pa") = 30,
+    xSet_nominal(
+      final unit="Pa",
+      displayUnit="Pa") = 30,
     r_N_min=0.2) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant pStaBui_Set(y(final unit="Pa", min=0), k=30)
@@ -748,7 +753,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
-      points={{-350,180},{-322,180}},
+      points={{-349.95,180.05},{-336,180.05},{-336,180},{-322,180}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -967,8 +972,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorHot.port_2, wes.port_aHot) annotation (Line(
-      points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{
-          1124.21,46}},
+      points={{1000,0},{1058,0},{1058,0},{1124.21,0},{1124.21,46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splSupNorCol.port_2, wes.port_aCol) annotation (Line(
@@ -1240,6 +1244,10 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2024, by Michael Wetter:<br/>
+Corrected wrong use of <code>displayUnit</code> attribute.
+</li>
 <li>
 August 22, 2022, by Hongxiang Fu:<br/>
 Replaced <code>fanSupCol</code> and <code>fanRet</code> with preconfigured

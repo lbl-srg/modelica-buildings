@@ -1,56 +1,61 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# This script shall be run from the directory `modelica-buildings/Buildings`,
-# i.e., where the top-level `package.mo` file can be found.
-# The script takes as an optional positional argument the Modelica tool to use
-# (Dymola or Optimica, defaulting to Dymola).
-# The script performs the following tasks.
-# - Generate all possible combinations of class modifications based on a set of
-#   parameter bindings and redeclare statements provided in `MODIF_GRID`.
-# - Exclude the combinations based on a match with the patterns provided in `EXCLUDE`.
-#   - This allows excluding unsupported configurations.
-# - Exclude the class modifications based on a match with the patterns provided in `REMOVE_MODIF`,
-#   and prune the resulting duplicated combinations.
-#   - This allows reducing the number of simulations by excluding class modifications that
-#     yield the same model, i.e., modifications to parameters that are not used (disabled) in
-#     the given configuration.
-# - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
-# The script returns
-# - 0 if all simulations succeed,
-# - 1 otherwise.
+"""Generate combinations and run simulations.
 
-from core import *
+This script shall be run from the directory `modelica-buildings/Buildings`,
+i.e., where the top-level `package.mo` file can be found.
+
+Args:
+    - See docstring of core.py for the optional positional arguments of this script.
+
+Returns:
+    - 0 if all simulations succeed.
+    - 1 otherwise.
+
+Details:
+    The script performs the following tasks.
+    - Generate all possible combinations of class modifications based on a set of
+      parameter bindings and redeclare statements provided in `MODIF_GRID`.
+    - Exclude the combinations based on a match with the patterns provided in `EXCLUDE`.
+    - This allows excluding unsupported configurations.
+    - Exclude the class modifications based on a match with the patterns provided in `REMOVE_MODIF`,
+      and prune the resulting duplicated combinations.
+    - This allows reducing the number of simulations by excluding class modifications that
+      yield the same model, i.e., modifications to parameters that are not used (disabled) in
+      the given configuration.
+    - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
+"""
+
+import core
 
 MODELS = [
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone',
 ]
 
+# See docstring of `generate_combinations` function for the structure of MODIF_GRID.
 # Tested modifications should at least cover the options specified at:
 # https://github.com/lbl-srg/ctrl-flow-dev/blob/main/server/scripts/sequence-doc/src/version/Current%20G36%20Decisions/Guideline%2036-2021%20(mappings).csv
 MODIF_GRID = {
     'Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone': {
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__redeclare__coiHeaPre': [
             'Buildings.Templates.Components.Coils.None',
             'Buildings.Templates.Components.Coils.WaterBasedHeating',
-            # 'Buildings.Templates.Components.Coils.ElectricHeating',
+            'Buildings.Templates.Components.Coils.ElectricHeating',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__redeclare__coiCoo': [
-            # 'Buildings.Templates.Components.Coils.None',
+            'Buildings.Templates.Components.Coils.None',
             'Buildings.Templates.Components.Coils.WaterBasedCooling',
-            # 'Buildings.Templates.Components.Coils.EvaporatorVariableSpeed',
+            'Buildings.Templates.Components.Coils.EvaporatorVariableSpeed',
         ],
         'VAV_1__secOutRel__redeclare__secOut': [
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow',
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure',
             'Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__secOutRel__redeclare__secRel': [
             'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper',
-            # 'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan',
+            'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefFan',
             'Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan',
         ],
         'VAV_1__redeclare__fanSupBlo': [
@@ -66,7 +71,7 @@ MODIF_GRID = {
         'VAV_1__ctl__typCtlEco': [
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb',
             'Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb',
         ],
@@ -78,16 +83,14 @@ MODIF_GRID = {
             'true',
             'false',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__ctl__have_frePro': [
             'true',
-            # 'false',
+            'false',
         ],
-        # FIXME(AntoineGautier #3526): Some options are currently not supported by G36 controller.
         'VAV_1__ctl__typFreSta': [
             'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment',
-            # 'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment',
+            'Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS',
         ],
         'VAV_1__ctl__have_CO2Sen': [
             'true',
@@ -106,11 +109,6 @@ EXCLUDE = {
         [
             'Buildings.Templates.Components.Fans.(SingleVariable|ArrayVariable) fanSupBlo',
             'Buildings.Templates.Components.Fans.(SingleVariable|ArrayVariable) fanSupDra',
-        ],
-        # FIXME(AntoineGautier #3527): Simulation fails with Cvode.
-        [
-            'Buildings.Templates.Components.Coils.None coiHeaPre',
-            'Buildings.Templates.Components.Fans.ArrayVariable fanSup(Blo|Dra)',
         ],
     ],
 }
@@ -142,7 +140,58 @@ REMOVE_MODIF = {
                 'have_CO2Sen',
             ],
         ),
-        # We don't test all combinations of control options to limit the number of simulations.
+        # We don't test all combinations of equipment and control options to limit the number of simulations.
+        (
+            [
+                'Buildings.Templates.Components.Coils.(None|ElectricHeating|EvaporatorVariableSpeed)',
+            ],
+            [
+                'secOut',
+                'secRel',
+                'fanSupBlo',
+                'fanSupDra',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.Components.Fans.ArrayVariable',
+            ],
+            [
+                'coiHeaPre',
+                'coiCoo',
+                'secOut',
+                'secRel',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
+        (
+            [
+                'Buildings.Templates.Components.Fans.(?!None) fanSupBlo',
+            ],
+            [
+                'coiHeaPre',
+                'coiCoo',
+                'secOut',
+                'secRel',
+                'typCtlFanRet',
+                'typCtlEco',
+                'have_perZonRehBox',
+                'have_frePro',
+                'typFreSta',
+                'have_CO2Sen',
+            ],
+        ),
         (
             [
                 'typCtlEco=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.(?!FixedDryBulb)',
@@ -219,38 +268,6 @@ REMOVE_MODIF = {
 
 
 if __name__ == '__main__':
-    # Generate combinations.
-    combinations = generate_combinations(
-        models=MODELS, modif_grid=MODIF_GRID
+    core.main(
+        models=MODELS, modif_grid=MODIF_GRID, exclude=EXCLUDE, remove_modif=REMOVE_MODIF
     )
-
-    # Prune class modifications.
-    prune_modifications(
-        combinations=combinations,
-        exclude=EXCLUDE,
-        remove_modif=REMOVE_MODIF,
-        fraction_test_coverage=FRACTION_TEST_COVERAGE,
-    )
-
-    print(f'Number of cases to be simulated: {len(combinations)}.\n')
-
-    # Lof combinations for debugging.
-    with open('unitTestsCombinations.log', 'w') as FH:
-        for c in combinations:
-            FH.write("*********" + c[0] + "\n\n" + "\n".join(c[1]) + "\n\n")
-
-    # Simulate cases.
-    results = simulate_cases(combinations, simulator=SIMULATOR, asy=False)
-
-    # Report and clean.
-    df = report_clean(combinations, results)
-
-    # Log and exit.
-    if df.errorcode.abs().sum() != 0:
-        print(
-            CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n'
-        )
-        sys.exit(1)
-    else:
-        print(CGREEN + 'All simulations succeeded.\n' + CEND)
-        sys.exit(0)

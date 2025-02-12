@@ -95,13 +95,13 @@ model StratifiedEnhancedInternalHex
     redeclare final package Medium =MediumHex,
      m_flow(min=if allowFlowReversalHex then -Modelica.Constants.inf else 0))
     "Heat exchanger inlet"
-   annotation (Placement(transformation(extent={{-110,-48},{-90,-28}}),
+   annotation (Placement(transformation(extent={{-150,-30},{-130,-10}}),
                    iconTransformation(extent={{-110,-48},{-90,-28}})));
   Modelica.Fluid.Interfaces.FluidPort_b portHex_b(
      redeclare final package Medium = MediumHex,
      m_flow(max=if allowFlowReversalHex then Modelica.Constants.inf else 0))
     "Heat exchanger outlet"
-   annotation (Placement(transformation(extent={{-110,-90},{-90,-70}}),
+   annotation (Placement(transformation(extent={{-150,-90},{-130,-70}}),
         iconTransformation(extent={{-110,-90},{-90,-70}})));
 
   BaseClasses.IndirectTankHeatExchanger indTanHex(
@@ -126,11 +126,10 @@ model StratifiedEnhancedInternalHex
     final allowFlowReversal=allowFlowReversalHex,
     final m_flow_small=1e-4*abs(mHex_flow_nominal))
     "Heat exchanger inside the tank"
-     annotation (Placement(
-        transformation(
-        extent={{-10,-15},{10,15}},
+     annotation (Placement(transformation(
+        extent={{10,-15},{-10,15}},
         rotation=180,
-        origin={-87,32})));
+        origin={-120,-20})));
 
   Modelica.Units.SI.HeatFlowRate QHex_flow=-sum(indTanHex.port.Q_flow)
     "Heat transferred from the heat exchanger to the tank";
@@ -173,17 +172,17 @@ equation
     for i in 1:hexSegMult loop
       connect(indTanHex.port[j*hexSegMult+i], heaPorVol[segHex_a + (if hHex_a > hHex_b then j else -j)])
         annotation (Line(
-       points={{-87,41.8},{-20,41.8},{-20,-2.22045e-16},{0,-2.22045e-16}},
+       points={{-120,-10.2},{-120,0},{0,0}},
        color={191,0,0},
        smooth=Smooth.None));
     end for;
   end for;
   connect(portHex_a, indTanHex.port_a) annotation (Line(
-      points={{-100,-38},{-68,-38},{-68,32},{-77,32}},
+      points={{-140,-20},{-130,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(indTanHex.port_b, portHex_b) annotation (Line(
-      points={{-97,32},{-98,32},{-98,18},{-70,18},{-70,-80},{-100,-80}},
+      points={{-110,-20},{-100,-20},{-100,-80},{-140,-80}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -337,5 +336,6 @@ January 29, 2013 by Peter Grant:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-100},{100,100}})));
 end StratifiedEnhancedInternalHex;

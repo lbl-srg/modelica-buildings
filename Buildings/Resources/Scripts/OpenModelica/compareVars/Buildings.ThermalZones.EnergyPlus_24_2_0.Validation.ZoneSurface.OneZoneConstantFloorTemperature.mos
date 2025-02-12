@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "zon.TAir",
+    "zon.TRad",
+    "flo.T",
+    "flo.q_flow",
+    "building.weaBus.HDirNor",
+    "building.weaBus.HDifHor"
+  };

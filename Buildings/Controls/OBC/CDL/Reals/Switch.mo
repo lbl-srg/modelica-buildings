@@ -1,17 +1,17 @@
 within Buildings.Controls.OBC.CDL.Reals;
 block Switch
   "Switch between two Real signals"
-  Interfaces.RealInput u1
-    "Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u1
+    "Input u1"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealInput u3
-    "Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u3
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.RealOutput y
-    "Real output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Output with u1 if u2 is true, else u3"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
@@ -40,7 +40,7 @@ smooth, and simulations can then fail if it differentiated this output.
 July 17, 2020, by Jianjun Hu:<br/>
 Changed icon to display dynamically which input signal is being outputted.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\">Buildings, issue  2033</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

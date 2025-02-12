@@ -1,29 +1,12 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.Data;
 class AllSystems "Top-level (whole building) system parameters"
-  extends Buildings.Templates.Data.AllSystems(stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-      stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
+  extends Buildings.Templates.Data.AllSystems(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
 
-  /*
-  The construct below where a replaceable model is used inside the `outer`
-  component declaration is for validation purposes only, where various configuration
-  classes are tested with the same instance name `VAV_1`.
-  It is needed here because
-  - the `inner` instance must be a subtype of the `outer` component, and
-  - the `outer` component references only the subcomponents from its own type
-  (as opposed to all the subcomponents from the `inner` type), and
-  - modification of an outer declaration is prohibited.
-  The standard export workflow should use an explicit reference to the configuration
-  class for each MZVAV model instance.
-  */
-  replaceable model VAVBox =
-      Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal
-    "Model of VAV box";
-
-  outer VAVBox VAVBox_1
-    "Instance of VAV box model";
-
-  parameter Buildings.Templates.ZoneEquipment.Data.VAVBox dat_VAVBox_1(
-    final cfg=VAVBox_1.cfg,
+  parameter Buildings.Templates.ZoneEquipment.Data.VAVBox VAVBox_1(
     id="VAVBox_1",
     id_souAir="VAV_1",
     damVAV(dp_nominal=50),
@@ -36,7 +19,7 @@ class AllSystems "Top-level (whole building) system parameters"
       TAirEnt_nominal=285.15,
       TWatEnt_nominal=323.15),
     ctl(
-      final stdVen=VAVBox_1.ctl.stdVen,
+      final stdVen=stdVen,
       VAirCooSet_flow_max=0.1,
       VAirHeaSet_flow_max=0.03,
       VOutMinOcc_flow=2.5e-3,

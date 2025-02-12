@@ -21,9 +21,9 @@ function der_temperature_u
     "Derivatives dT/du at the support points";
 protected
   parameter Real scale=0.999 "Used to place points on the phase transition";
-  parameter Modelica.Units.SI.Temperature Tm1=TSol + (1 - scale)*(TLiq - TSol)
+  Modelica.Units.SI.Temperature Tm1=TSol + (1 - scale)*(TLiq - TSol)
     "Support point";
-  parameter Modelica.Units.SI.Temperature Tm2=TSol + scale*(TLiq - TSol)
+  Modelica.Units.SI.Temperature Tm2=TSol + scale*(TLiq - TSol)
     "Support point";
 algorithm
   assert(Buildings.HeatTransfer.Conduction.nSupPCM == 6,
@@ -60,6 +60,13 @@ to compute for a given specific internal energy the temperature.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 30, 2024, by Michael Wetter:<br/>
+Removed wrong <code>parameter</code> declaration on a protected variable which causes an error in
+Dymola 2025x beta1.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
+</li>
 <li>
 October 17, 2014, by Michael Wetter:<br/>
 Changed the input argument from type

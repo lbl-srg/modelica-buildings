@@ -62,7 +62,7 @@ The following abbreviations are used in that package.<br/>
 <tr><td>DP</td><td>Differential pressure</td></tr>
 <tr><td>FCU</td><td>Fan coil unit</td></tr>
 <tr><td>DP</td><td>Differential pressure</td></tr>
-<tr><td>HW</td><td>Hot water (heating)</td></tr>
+<tr><td>HW or HHW</td><td>Hot water (heating)</td></tr>
 <tr><td>MS</td><td>Motor starter</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 <tr><td>VAV</td><td>Variable air volume</td></tr>

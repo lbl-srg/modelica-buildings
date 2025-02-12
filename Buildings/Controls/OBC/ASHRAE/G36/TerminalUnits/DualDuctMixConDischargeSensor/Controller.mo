@@ -102,8 +102,8 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
     "Threshold time to check damper leaking airflow"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
     annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"

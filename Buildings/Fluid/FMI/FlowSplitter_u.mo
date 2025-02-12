@@ -44,10 +44,10 @@ protected
   final parameter Modelica.Units.SI.MassFlowRate mAve_flow_nominal=sum(
       m_flow_nominal)/nout "Average nominal mass flow rate";
 protected
-  Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
+  input Buildings.Fluid.FMI.Interfaces.FluidProperties bacPro_internal(
     redeclare final package Medium = Medium)
     "Internal connector for fluid properties for back flow";
-  Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
+  output Buildings.Fluid.FMI.Interfaces.MassFractionConnector X_w_out_internal = 0
     "Internal connector for mass fraction of backward flow properties";
 
 initial equation
@@ -144,6 +144,11 @@ the model stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 18, 2024, by Michael Wetter:<br/>
+Added causality.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1853\">IBPSA, #1853</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice.

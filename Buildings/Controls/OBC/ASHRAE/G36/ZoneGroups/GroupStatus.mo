@@ -704,7 +704,7 @@ heating setpoint,
 <code>u1EndSetBac</code>: if the zone could end the setback mode,
 </li>
 <li>
-<code>u1HigUnoCoo</code>: if the zone temperature is higher than its unoccupied 
+<code>u1HigUnoCoo</code>: if the zone temperature is higher than its unoccupied
 cooling setpoint,
 </li>
 <li>

@@ -1,28 +1,12 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.Data;
 class AllSystems "Top-level (whole building) system parameters"
-  extends Buildings.Templates.Data.AllSystems;
+  extends Buildings.Templates.Data.AllSystems(
+    sysUni=Buildings.Templates.Types.Units.SI,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B);
 
-  /*
-  The construct below where a replaceable model is used inside the `outer`
-  component declaration is for validation purposes only, where various configuration
-  classes are tested with the same instance name `VAV_1`.
-  It is needed here because
-  - the `inner` instance must be a subtype of the `outer` component, and
-  - the `outer` component references only the subcomponents from its own type
-  (as opposed to all the subcomponents from the `inner` type), and
-  - modification of an outer declaration is prohibited.
-  The standard export workflow should use an explicit reference to the configuration
-  class for each MZVAV model instance.
-  */
-  replaceable model VAV =
-    Buildings.Templates.AirHandlersFans.Interfaces.PartialAirHandler
-    "Model of MZVAV";
-
-  outer VAV VAV_1
-    "Instance of MZVAV model";
-
-  parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat_VAV_1(
-    final cfg=VAV_1.cfg,
+  parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone VAV_1(
     id="VAV_1",
     damOut(dp_nominal=15),
     damOutMin(dp_nominal=15),

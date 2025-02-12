@@ -240,13 +240,13 @@ annotation (
           extent={{30,-76},{96,-100}},
           textColor={0,0,0},
           textString="outAir_normalized",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)),
         Text(
           extent={{-98,-74},{-54,-88}},
           textColor={0,0,0},
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper),
           textString="VAirOut_flow")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}})),
 Documentation(info="<html>
@@ -298,6 +298,10 @@ outdoor airflow setpoint should be equal to the <code>VEffDesOutAir_flow</code>.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 March 12, 2022, by Jianjun Hu:<br/>
 First implementation.

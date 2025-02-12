@@ -1,0 +1,16 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Validation.FailsafeCondition", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="FailsafeCondition");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"faiSafCon0.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"faiSafCon0.dpChiWatPumSet_local", "faiSafCon0.dpChiWatPum_local"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"faiSafCon0.TChiWatSup", "faiSafCon0.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"faiSafCon0.hysdpSup.y", "faiSafCon0.hysTSup.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {0,140,72}});
+
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"faiSafCon1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"faiSafCon1.dpChiWatPumSet_local", "faiSafCon1.dpChiWatPum_local"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"faiSafCon1.TChiWatSup", "faiSafCon1.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"faiSafCon1.hysdpSup.y", "faiSafCon1.hysTSup.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {0,140,72}});
+
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"faiSafCon2.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"faiSafCon2.TChiWatSup", "faiSafCon2.TChiWatSupSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"faiSafCon2.hysTSup.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72}});
+

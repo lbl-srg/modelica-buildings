@@ -12,24 +12,30 @@ model Dampers "Validation model for damper components"
     nPorts=4) "Boundary conditions for entering air"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Fluid.Sources.Boundary_pT bouAirLvg(
-    redeclare final package Medium =MediumAir, nPorts=4) "Boundary conditions for leaving air"
+    redeclare final package Medium =MediumAir, nPorts=4)
+    "Boundary conditions for leaving air"
     annotation (Placement(transformation(extent={{110,50},{90,70}})));
 
-  Buildings.Templates.Components.Dampers.Modulating mod(
+  Buildings.Templates.Components.Actuators.Damper mod(
+    final typ=Buildings.Templates.Components.Types.Damper.Modulating,
     y_start=0,
     redeclare final package Medium = MediumAir,
     dat(m_flow_nominal=1,
-        dp_nominal=50))       "Modulating damper"
+        dp_nominal=50))
+    "Modulating damper"
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Interfaces.Bus bus
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,60},{20,100}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,60},{20,100}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp y(height=1,
     duration=10) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
-  Buildings.Templates.Components.Dampers.PressureIndependent pre(
+  Buildings.Templates.Components.Actuators.Damper pre(
+    final typ=Buildings.Templates.Components.Types.Damper.PressureIndependent,
     y_start=0,
     redeclare final package  Medium = MediumAir,
     dat(m_flow_nominal=1, dp_nominal=50))
@@ -37,29 +43,36 @@ model Dampers "Validation model for damper components"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Interfaces.Bus bus1
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,0},{20,40}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Buildings.Templates.Components.Dampers.TwoPosition two(
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,0},{20,40}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Templates.Components.Actuators.Damper two(
+    final typ=Buildings.Templates.Components.Types.Damper.TwoPosition,
     y_start=0,
     redeclare final package Medium = MediumAir,
     dat(m_flow_nominal=1, dp_nominal=50)) "Two-position damper"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Interfaces.Bus bus2
     "Control bus"
-    annotation (Placement(transformation(extent={{-20,-60},{20,-20}}),
-        iconTransformation(extent={{-250,-32},{-210,8}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1(
+    annotation (Placement(
+      iconVisible=false,
+      transformation(extent={{-20,-60},{20,-20}}),
+      iconTransformation(extent={{-250,-32},{-210,8}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,0; 1,1],
     timeScale=10,
     period=200) "Damper control signal"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Buildings.Templates.Components.Dampers.None non(
-    redeclare final package Medium = MediumAir) "No damper"
+  Buildings.Templates.Components.Actuators.Damper non(
+    final typ=Buildings.Templates.Components.Types.Damper.None,
+    redeclare final package Medium = MediumAir)
+    "No damper"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumAir,
-    final m_flow_nominal=mod.dat.m_flow_nominal,
-    final dp_nominal=mod.dat.dp_nominal) "Flow resistance"
+    final m_flow_nominal=mod.m_flow_nominal,
+    final dp_nominal=mod.dp_nominal)     "Flow resistance"
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
 equation
   connect(bouAirEnt.ports[1], mod.port_a)
@@ -108,11 +121,11 @@ annotation (
   experiment(Tolerance=1e-6, StopTime=200),
   Diagram(coordinateSystem(extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
-<p> 
-This model validates the models within 
-<a href=\"modelica://Buildings.Templates.Components.Dampers\">
-Buildings.Templates.Components.Dampers</a>
-by exposing them to a fixed pressure difference
+<p>
+This model validates the various configurations of the model
+<a href=\"modelica://Buildings.Templates.Components.Actuators.Damper\">
+Buildings.Templates.Components.Actuators.Damper</a>
+by exposing this model to a fixed pressure difference
 and a control signal varying from <i>0</i> to <i>1</i>.
 </p>
 </html>"));

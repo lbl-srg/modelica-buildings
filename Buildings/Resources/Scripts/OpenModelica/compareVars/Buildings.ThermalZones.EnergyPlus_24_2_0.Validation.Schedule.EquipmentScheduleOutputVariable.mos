@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "zon.TAir",
+    "schInt.u",
+    "equEle.y"
+  };

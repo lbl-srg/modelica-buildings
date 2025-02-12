@@ -17,7 +17,8 @@ record VAVMultiZone "Record for multiple-zone VAV"
       then fanSup.m_flow_nominal else 0);
 
   parameter Buildings.Templates.Components.Data.Fan fanSup(
-    final typ=cfg.typFanSup)
+    final typ=cfg.typFanSup,
+    final nFan=cfg.nFanSup)
     "Supply fan"
     annotation (Dialog(
     group="Fans", enable=cfg.typFanSup <> Buildings.Templates.Components.Types.Fan.None));
@@ -30,6 +31,8 @@ record VAVMultiZone "Record for multiple-zone VAV"
     final typDamRet=cfg.typDamRet,
     final typFanRel=cfg.typFanRel,
     final typFanRet=cfg.typFanRet,
+    final nFanRel=cfg.nFanRel,
+    final nFanRet=cfg.nFanRet,
     fanRel,
     fanRet,
     damOut(
@@ -78,7 +81,7 @@ This record provides the set of sizing and operating parameters for the class
 Buildings.Templates.AirHandlersFans.VAVMultiZone</a>.
 </p>
 <p>
-The tab <code>Advanced</code> contains some optional parameters that can be used 
+The tab <code>Advanced</code> contains some optional parameters that can be used
 for workflow automation, but are not used for simulation.
 </p>
 </html>"));

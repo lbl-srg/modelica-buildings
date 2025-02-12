@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.Math.Examples.Interpolate", stopTime=500, tolerance=1e-06, resultFile="InterpolateBlock");
+createPlot(id=1, position={15, 15, 584, 361}, x="int.u", y={"int.y"}, range={-50.0, 50.0, -0.1, 0.04000000000000001}, grid=true, filename="InterpolateBlock.mat", colors={{28,108,200}}, timeUnit="Pa", displayUnits={"kg/s"});

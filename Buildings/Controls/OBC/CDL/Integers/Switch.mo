@@ -1,24 +1,21 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block Switch
   "Switch between two integer signals"
-  Interfaces.IntegerInput u1
-    "Integer input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u1
+    "Input u1"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Interfaces.BooleanInput u2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u2
     "Boolean switch input signal, if true, y=u1, else y=u3"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerInput u3
-    "Integer input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u3
+    "Input u3"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Interfaces.IntegerOutput y
-    "Integer output signal"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
+    "Output with u1 if u2 is true, else u3"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=if u2 then
-      u1
-    else
-      u3;
+  y=if u2 then u1 else u3;
   annotation (
     defaultComponentName="intSwi",
     Documentation(
@@ -38,7 +35,7 @@ Otherwise, it outputs <code>y = u3</code>.
 July 17, 2020, by Jianjun Hu:<br/>
 Changed icon to display dynamically which input signal is being outputted.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\"># 2033</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2033\">Buildings, issue  2033</a>.
 </li>
 <li>
 July 10, 2019, by Milica Grahovac:<br/>

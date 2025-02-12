@@ -10,7 +10,7 @@
 #################################################
 set -e
 IMG_NAME=${OMC_VERSION}
-DOCKER_USERNAME=michaelwetter
+DOCKER_REPONAME=lbnlblum
 
 # Function declarations
 function create_mount_command()
@@ -100,7 +100,7 @@ docker run \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   --workdir="/mnt/shared/${bas_nam}" \
-  ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
+  ${DOCKER_REPONAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   omc ${arg_lis} && \
   rm -rf spawn-* && \

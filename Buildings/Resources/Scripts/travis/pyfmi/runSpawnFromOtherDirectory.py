@@ -79,7 +79,7 @@ def simulate(expectToFail):
 def run_test(pathVariable):
     # List of files to be moved
     fileMoves = [
-        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-0.4.3-7048a72798", "linux64")),
+        {"src": os.path.abspath(os.path.join("Buildings", "Resources", "bin", "spawn-0.6.0-9f1b36b00b", "linux64")),
          "des": "my-bin"},
         {"src": os.path.abspath(os.path.join("Buildings", "Resources", "weatherdata")),
          "des": "some_weather_directory_that_the_fmu_does_not_know_about"},

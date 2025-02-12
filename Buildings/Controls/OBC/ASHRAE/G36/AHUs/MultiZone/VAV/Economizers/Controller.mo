@@ -4,7 +4,7 @@ block Controller
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
     "Design of minimum outdoor air and economizer function";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl buiPreCon
     "Type of building pressure control system";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";
@@ -169,14 +169,14 @@ block Controller
     "Maximum loop signal for the OA damper to be fully open"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Modulation",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
   parameter Real uRetDamMin(unit="1")=(uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open"
     annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Modulation",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+           or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOutMinSet_flow_normalized(
     final unit="1")
@@ -238,8 +238,8 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
-    if ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+    final quantity="ThermodynamicTemperature") if (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+     or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb)
     "Used only for fixed plus differential dry bulb temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -305,8 +305,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
     final max=1,
-    final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -375,22 +374,22 @@ block Controller
     final disDel=disDel) "Enable or disable economizer"
     annotation (Placement(transformation(extent={{20,-100},{40,-72}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan modRet(
-    final have_dirCon=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan
+    modRet(
+    final have_dirCon=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp,
+
     final uMin=uHeaMax,
-    final uMax=uCooMin)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    final uMax=uCooMin) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs modRel(
     final uMin=uHeaMax,
     final uMax=uCooMin,
     final uOutDamMax=uOutDamMax,
-    final uRetDamMin=uRetDamMin)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief)
+    final uRetDamMin=uRetDamMin) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefDamper
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReliefFan
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.BarometricRelief)
     "Modulate economizer dampers position for buildings with relief damper or fan controlling pressure"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
@@ -589,7 +588,8 @@ annotation (defaultComponentName="ecoCon",
           extent={{-100,-52},{-58,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
+          visible=(ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb
+               or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
           textString="TAirRet"),
         Text(
           extent={{-100,-82},{-58,-98}},
@@ -635,7 +635,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.PressureControl.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},
@@ -698,21 +698,21 @@ outdoor air requirements. Different sequence will be enabled depending on the
 designes minimum outdoor air and economizer function, which include
 <ol type=\"i\">
 <li>
-separate minimum outdoor air damper, with airflow measurement. 
+separate minimum outdoor air damper, with airflow measurement.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithAFMS</a>
 for a description.
 </li>
 <li>
-separate minimum outdoor air damper, with differential pressure measurement. 
+separate minimum outdoor air damper, with differential pressure measurement.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP</a>
 for a description.
 </li>
 <li>
-single common minimum outdoor air and economizer damper. 
+single common minimum outdoor air and economizer damper.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Common</a>
@@ -738,14 +738,14 @@ that were computed in the above blocks. Different sequence will be enabled depen
 on the types of building pressure control system, which include
 <ol type=\"i\">
 <li>
-relief damper or relief fan control. 
+relief damper or relief fan control.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Reliefs</a>
 for a description.
 </li>
 <li>
-return fan control with airflow tracking, or with direct building pressure control. 
+return fan control with airflow tracking, or with direct building pressure control.
 See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.ReturnFan</a>

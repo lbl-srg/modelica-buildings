@@ -8,13 +8,13 @@ model Enable_TOut_hOut
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut1(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
     final rising=1000,
     final falling=800,
     final amplitude=4,
     final offset=TOutCutoff - 2) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
     final amplitude=4000,
     final offset=hOutCutoff - 2200,
     final rising=1000,
@@ -35,7 +35,7 @@ model Enable_TOut_hOut
   Enable enaDis4(use_enthalpy=false, use_fixed_plus_differential_drybulb=true)
     "Test fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TRet(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid TRet(
     final rising=1000,
     final falling=800,
     final amplitude=4,
