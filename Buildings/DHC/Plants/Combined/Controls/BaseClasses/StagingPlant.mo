@@ -177,18 +177,18 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiHeaCoo
     "Number of HRC required in direct HR mode"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0, origin={10,-20})));
+        rotation=0, origin={50,-20})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChiHea(
     final k = nChiHea)
     "Number of HRC"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Add nChiHeaAndCooUnb
     "Number of HRC required to meet heating and cooling load - Unbounded"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,origin={-70,0})));
+        rotation=0,origin={-30,0})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiCasCoo
     "Number of HRC required in cascading cooling"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.DHC.Plants.Combined.Controls.BaseClasses.ModeHeatRecoveryChiller modHeaCoo(
     final nChiHea=nChiHea)
     "Compute the cascading cooling and direct HR switchover signals"
@@ -196,7 +196,7 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Integers.Min nChiHeaHeaAndCoo
     "Number of HRC required to meet heating and cooling load - Bounded by number of HRC"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0, origin={-30,-40})));
+        rotation=0, origin={10,-40})));
   Buildings.Controls.OBC.CDL.Reals.Subtract errTChiWatSup
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
@@ -234,11 +234,6 @@ block StagingPlant
     final nSta=nChi + nChiHea, tSta=15*60)
     "Compute cooling stage"
     annotation (Placement(transformation(extent={{50,144},{70,164}})));
-  Modelica.Blocks.Sources.RealExpression capCoo(
-    final y=abs(PLRStaTra*(min(nChi, staCoo.preIdxSta)/nChi*QChiWatChi_flow_nominal +
-        max(0, staCoo.preIdxSta - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
-    "Total capacity at current stage (>0) times stage-up PLR limit"
-    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
   Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp(
     final h=-1E-4*(QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
@@ -258,11 +253,7 @@ block StagingPlant
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numOpeCooChiHea
     "Number of HRC required for cooling"
-    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Modelica.Blocks.Sources.RealExpression capHea(
-    final y=PLRStaTra*staHea.preIdxSta/nChiHea*QHeaWat_flow_nominal)
-    "Total capacity at current stage times stage-up PLR limit"
-    annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Reals.Greater cmpOPLRLimUp1(
     final h=1E-1)
     "Check OPLR limit"
@@ -275,10 +266,6 @@ block StagingPlant
     tSta=15*60)
     "Compute heating stage"
     annotation (Placement(transformation(extent={{50,-130},{70,-110}})));
-  Modelica.Blocks.Sources.RealExpression capHeaLow(
-    y=PLRStaTra*max(0,staHea.preIdxSta - 1)/nChiHea*QHeaWat_flow_nominal)
-    "Total capacity at next lower stage times stage-down PLR limit"
-    annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow(
     final h=1E-1)
     "Check OPLR limit"
@@ -287,12 +274,6 @@ block StagingPlant
     t=15*60)
     "Timer for OPLR exceeding limit"
     annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
-  Modelica.Blocks.Sources.RealExpression capCooLow(
-    final y=abs(PLRStaTra*(min(nChi, max(0, staCoo.preIdxSta - 1))/nChi*
-        QChiWatChi_flow_nominal + max(0, staCoo.preIdxSta - 1 - nChi)/nChiHea*
-        QChiWatCasCoo_flow_nominal)))
-    "Total capacity at next lower stage (>0) times stage-down PLR limit"
-    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
   Buildings.Controls.OBC.CDL.Reals.Less cmpOPLRLimDow1(
     h=-1E-4*(QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
@@ -352,6 +333,15 @@ block StagingPlant
     nin=4)
     "Minimum plant stage runtime (needed because cooling and heating stage runtimes are handled separately)"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+  Buildings.DHC.Plants.Combined.Controls.BaseClasses.StagingCapacity staCap(
+    final nChi=nChi,
+    final QChiWatChi_flow_nominal=QChiWatChi_flow_nominal,
+    final nChiHea=nChiHea,
+    final PLRStaTra=PLRStaTra,
+    final QChiWatCasCoo_flow_nominal=QChiWatCasCoo_flow_nominal,
+    final QHeaWat_flow_nominal=QHeaWat_flow_nominal)
+    "Total capacity at current stages times stage-up PLR limit"
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
 
 equation
   connect(dTChiWatPos.y, loaChiWat.u2) annotation (Line(points={{-188,80},{-186,
@@ -384,17 +374,17 @@ equation
   connect(modHeaCoo.y1HeaCoo, y1HeaCooChiHea) annotation (Line(points={{202,-6},
           {220,-6},{220,-40},{260,-40}},  color={255,0,255}));
   connect(numChiHea.y, nChiHeaHeaAndCoo.u2)
-    annotation (Line(points={{-58,-40},{-50,-40},{-50,-46},{-42,-46}}, color={255,127,0}));
-  connect(nChiHeaAndCooUnb.y, nChiHeaHeaAndCoo.u1) annotation (Line(points={{-58,0},
-          {-50,0},{-50,-34},{-42,-34}},     color={255,127,0}));
+    annotation (Line(points={{-18,-40},{-10,-40},{-10,-46},{-2,-46}},  color={255,127,0}));
+  connect(nChiHeaAndCooUnb.y, nChiHeaHeaAndCoo.u1) annotation (Line(points={{-18,0},
+          {-10,0},{-10,-34},{-2,-34}},      color={255,127,0}));
   connect(nChiHeaAndCooUnb.y, numChiHeaCoo.u1)
-    annotation (Line(points={{-58,0},{-20,0},{-20,-14},{-2,-14}}, color={255,127,0}));
-  connect(nChiHeaHeaAndCoo.y, numChiHeaCoo.u2) annotation (Line(points={{-18,-40},
-          {-10,-40},{-10,-26},{-2,-26}}, color={255,127,0}));
+    annotation (Line(points={{-18,0},{-10,0},{-10,-14},{38,-14}}, color={255,127,0}));
+  connect(nChiHeaHeaAndCoo.y, numChiHeaCoo.u2) annotation (Line(points={{22,-40},
+          {30,-40},{30,-26},{38,-26}},   color={255,127,0}));
   connect(modHeaCoo.y1Coo, y1CooChiHea) annotation (Line(points={{202,6},{220,6},
           {220,40},{260,40}}, color={255,0,255}));
-  connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{22,-20},{
-          30,-20},{30,14},{38,14}}, color={255,127,0}));
+  connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{62,-20},{70,
+          -20},{70,14},{78,14}},    color={255,127,0}));
   connect(TChiWatSupSet, errTChiWatSup.u1) annotation (Line(points={{-260,80},{
           -230,80},{-230,180},{-204,180},{-204,216},{-202,216}}, color={0,0,127}));
   connect(dpChiWatSet, errDpChiWat.u1) annotation (Line(points={{-260,280},{
@@ -435,12 +425,12 @@ equation
           84,114},{88,114}}, color={255,127,0}));
   connect(staCoo.idxSta, numOpeChi.u1) annotation (Line(points={{72,154},{80,
           154},{80,126},{88,126}}, color={255,127,0}));
-  connect(staCoo.idxSta, numOpeCooChiHea.u1) annotation (Line(points={{72,154},
-          {80,154},{80,60},{-132,60},{-132,26},{-122,26}},   color={255,127,0}));
-  connect(numOpeChi.y, numOpeCooChiHea.u2) annotation (Line(points={{112,120},{
-          120,120},{120,54},{-126,54},{-126,14},{-122,14}},  color={255,127,0}));
-  connect(numOpeCooChiHea.y, nChiHeaAndCooUnb.u1) annotation (Line(points={{-98,20},
-          {-90,20},{-90,6},{-82,6}},           color={255,127,0}));
+  connect(staCoo.idxSta, numOpeCooChiHea.u1) annotation (Line(points={{72,154},{
+          80,154},{80,60},{-100,60},{-100,26},{-82,26}},     color={255,127,0}));
+  connect(numOpeChi.y, numOpeCooChiHea.u2) annotation (Line(points={{112,120},{120,
+          120},{120,54},{-90,54},{-90,14},{-82,14}},         color={255,127,0}));
+  connect(numOpeCooChiHea.y, nChiHeaAndCooUnb.u1) annotation (Line(points={{-58,20},
+          {-50,20},{-50,6},{-42,6}},           color={255,127,0}));
   connect(cmpOPLRLimUp1.y, timOPLRExcLim1.u)
     annotation (Line(points={{-58,-120},{-52,-120}}, color={255,0,255}));
   connect(u1Hea, staHea.u1) annotation (Line(points={{-260,140},{-234,140},{
@@ -458,23 +448,15 @@ equation
   connect(notFail.y, dowAndNotFail.u1) annotation (Line(points={{-18,200},{-10,
           200},{-10,100},{-2,100}}, color={255,0,255}));
   connect(staHea.idxSta, nChiHeaAndCooUnb.u2) annotation (Line(points={{72,-120},
-          {80,-120},{80,-80},{-100,-80},{-100,-6},{-82,-6}},   color={255,127,0}));
-  connect(numOpeCooChiHea.y, numChiCasCoo.u1) annotation (Line(points={{-98,20},
-          {30,20},{30,26},{38,26}},    color={255,127,0}));
+          {80,-120},{80,-80},{-50,-80},{-50,-6},{-42,-6}},     color={255,127,0}));
+  connect(numOpeCooChiHea.y, numChiCasCoo.u1) annotation (Line(points={{-58,20},
+          {70,20},{70,26},{78,26}},    color={255,127,0}));
   connect(movAve.y, cmpOPLRLimUp.u1)
     annotation (Line(points={{-128,120},{-82,120}}, color={0,0,127}));
-  connect(capCoo.y, cmpOPLRLimUp.u2) annotation (Line(points={{-159,90},{-94,90},
-          {-94,112},{-82,112}}, color={0,0,127}));
   connect(movAve.y, cmpOPLRLimDow1.u1) annotation (Line(points={{-128,120},{-90,
           120},{-90,80},{-82,80}},color={0,0,127}));
-  connect(capCooLow.y, cmpOPLRLimDow1.u2)
-    annotation (Line(points={{-159,50},{-140,50},{-140,72},{-82,72}}, color={0,0,127}));
-  connect(capHea.y, cmpOPLRLimUp1.u2) annotation (Line(points={{-129,-160},{-94,
-          -160},{-94,-128},{-82,-128}}, color={0,0,127}));
   connect(movAve1.y, cmpOPLRLimUp1.u1)
     annotation (Line(points={{-128,-120},{-82,-120}}, color={0,0,127}));
-  connect(capHeaLow.y, cmpOPLRLimDow.u2) annotation (Line(points={{-99,-180},{-90,
-          -180},{-90,-168},{-82,-168}},     color={0,0,127}));
   connect(movAve1.y, cmpOPLRLimDow.u1) annotation (Line(points={{-128,-120},{
           -90,-120},{-90,-160},{-82,-160}}, color={0,0,127}));
   connect(TChiWatSupSet, dTChiWatPos.u2) annotation (Line(points={{-260,80},{
@@ -522,12 +504,12 @@ equation
     annotation (Line(points={{32,-120},{48,-120}}, color={255,0,255}));
   connect(numOpeChi.y, hol.u[1]) annotation (Line(points={{112,120},{120,120},{
           120,-0.75},{128,-0.75}}, color={255,127,0}));
-  connect(numChiCasCoo.y, hol.u[2]) annotation (Line(points={{62,20},{116,20},{
+  connect(numChiCasCoo.y, hol.u[2]) annotation (Line(points={{102,20},{116,20},{
           116,-0.25},{128,-0.25}}, color={255,127,0}));
-  connect(numChiHeaCoo.y, hol.u[3]) annotation (Line(points={{22,-20},{116,-20},
+  connect(numChiHeaCoo.y, hol.u[3]) annotation (Line(points={{62,-20},{116,-20},
           {116,0.25},{128,0.25}}, color={255,127,0}));
-  connect(nChiHeaHeaAndCoo.y, hol.u[4]) annotation (Line(points={{-18,-40},{120,
-          -40},{120,-2},{128,-2},{128,0.75}}, color={255,127,0}));
+  connect(nChiHeaHeaAndCoo.y, hol.u[4]) annotation (Line(points={{22,-40},{120,-40},
+          {120,-2},{128,-2},{128,0.75}},      color={255,127,0}));
   connect(hol.y[1], rep.u) annotation (Line(points={{152,0},{160,0},{160,120},{
           178,120}}, color={255,127,0}));
   connect(hol.y[2], modHeaCoo.nCasCoo) annotation (Line(points={{152,0},{160,0},
@@ -546,6 +528,18 @@ equation
           -220,-220},{-220,-226},{-202,-226}}, color={0,0,127}));
   connect(dpHeaWat, errDpHeaWat.u2) annotation (Line(points={{-260,-280},{-220,
           -280},{-220,-286},{-202,-286}}, color={0,0,127}));
+  connect(staCoo.preIdxSta, staCap.uCooPreIdxSta) annotation (Line(points={{72,148},
+          {130,148},{130,40},{-170,40},{-170,-6},{-162,-6}}, color={255,127,0}));
+  connect(staHea.preIdxSta, staCap.uHeaPreIdxSta) annotation (Line(points={{72,-126},
+          {90,-126},{90,-70},{-170,-70},{-170,-14},{-162,-14}}, color={255,127,0}));
+  connect(staCap.yCoo, cmpOPLRLimUp.u2) annotation (Line(points={{-138,-2},{-120,
+          -2},{-120,112},{-82,112}}, color={0,0,127}));
+  connect(staCap.yCooLow, cmpOPLRLimDow1.u2) annotation (Line(points={{-138,-6},
+          {-110,-6},{-110,72},{-82,72}}, color={0,0,127}));
+  connect(staCap.yHea, cmpOPLRLimUp1.u2) annotation (Line(points={{-138,-14},{-110,
+          -14},{-110,-128},{-82,-128}}, color={0,0,127}));
+  connect(staCap.yHeaLow, cmpOPLRLimDow.u2) annotation (Line(points={{-138,-18},
+          {-120,-18},{-120,-168},{-82,-168}}, color={0,0,127}));
   annotation (
   defaultComponentName="staPla",
   Documentation(info="<html>
