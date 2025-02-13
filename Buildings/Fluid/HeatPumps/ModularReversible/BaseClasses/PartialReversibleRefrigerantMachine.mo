@@ -39,6 +39,19 @@ partial model PartialReversibleRefrigerantMachine
     "if use_rev=true, device data for cooling and heating need to entered. Set allowDifferentDeviceIdentifiers=true to allow different device identifiers devIde"
     annotation(Dialog(tab="Advanced", enable=use_rev));
 
+  // Safety control
+  parameter Boolean use_intSafCtr=true
+    "=true to enable internal safety control"
+    annotation (Dialog(group="Safety control"), choices(checkBox=true));
+  replaceable parameter
+    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
+    constrainedby
+    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
+    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
+    group="Safety control"),
+      choicesAllMatching=true,
+      Placement(transformation(extent={{42,-18},{58,-2}})));
+
   //Condenser
   parameter Modelica.Units.SI.Time tauCon=30
     "Condenser heat transfer time constant at nominal flow"
@@ -129,20 +142,6 @@ partial model PartialReversibleRefrigerantMachine
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpEva=
       MediumEva.specificHeatCapacityCp(staEva_nominal)
     "Evaporator medium specific heat capacity";
-
-  // Safety control
-  parameter Boolean use_intSafCtr=true
-    "=true to enable internal safety control"
-    annotation (Dialog(group="Safety control"), choices(checkBox=true));
-  replaceable parameter
-    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Wuellhorst2021 safCtrPar
-    constrainedby
-    Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.Data.Generic
-    "Safety control parameters" annotation (Dialog(enable=use_intSafCtr,
-    group="Safety control"),
-      choicesAllMatching=true,
-      Placement(transformation(extent={{42,-18},{58,-2}})));
-
 
 //Assumptions
   parameter Boolean allowFlowReversalEva=true
