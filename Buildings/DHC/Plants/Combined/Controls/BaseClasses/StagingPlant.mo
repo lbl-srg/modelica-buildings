@@ -131,7 +131,8 @@ block StagingPlant
     annotation (Placement(transformation(extent={{240,-60},{280,-20}}),
         iconTransformation(extent={{100,-160},{140,-120}})));
 
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(delta=300)
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movAve(
+    final delta=300)
     "Moving average"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply loaChiWat
@@ -202,16 +203,22 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Reals.Subtract errDpChiWat
     "Compute tracking error"
     annotation (Placement(transformation(extent={{-200,250},{-180,270}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold cmpErrLim(t=-1, h=1E-4)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold cmpErrLim(
+    final t=-1,
+    final h=1E-4)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,200},{-150,220}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim1(t=1.5E4, h=1E-1)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold cmpErrLim1(
+    final t=1.5E4,
+    final h=1E-1)
     "Check tracking error limit"
     annotation (Placement(transformation(extent={{-170,250},{-150,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim(t=15*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim(
+    final t=15*60)
     "Timer for error exceeding error limit"
     annotation (Placement(transformation(extent={{-110,200},{-90,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim1(t=15*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim1(
+    final t=15*60)
     "Timer for error exceeding error limit"
     annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
