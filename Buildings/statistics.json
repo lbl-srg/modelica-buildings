@@ -1,0 +1,40 @@
+{
+    "testCase": [
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.CoolingMode\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos",
+            "model": "Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.CoolingMode",
+            "simulate": {
+                "command": "RunScript(\"modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos\");",
+                "elapsed_time": 17.788,
+                "final_time": 16588800.0,
+                "jacobians": 14968,
+                "result": true,
+                "start_time": 15724800.0,
+                "state_events": 0,
+                "translationLog": "C:/Users/mouc074/AppData/Local/Temp/tmp-Buildings-0-3k29w03k/Buildings/Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.CoolingMode.translation.log"
+            }
+        },
+        {
+            "check": {
+                "command": "checkModel(\"Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.HeatingMode\");",
+                "result": true
+            },
+            "file": "Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/HeatingMode.mos",
+            "model": "Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.HeatingMode",
+            "simulate": {
+                "command": "RunScript(\"modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/HeatingMode.mos\");",
+                "elapsed_time": 27.966,
+                "final_time": 864000,
+                "jacobians": 15079,
+                "result": true,
+                "start_time": 0,
+                "state_events": 0,
+                "translationLog": "C:/Users/mouc074/AppData/Local/Temp/tmp-Buildings-1-d4r37ttk/Buildings/Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.HeatingMode.translation.log"
+            }
+        }
+    ]
+}

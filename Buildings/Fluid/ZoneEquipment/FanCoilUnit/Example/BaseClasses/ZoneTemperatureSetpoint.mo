@@ -22,25 +22,25 @@ block ZoneTemperatureSetpoint
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHeaOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetHeaOcc(
     final k=THeaOn)
     "Occupied zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiTSetHea
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTSetHea
     "Switch between occupied and unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHeaUnocc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetHeaUnocc(
     final k=THeaOff)
     "Unoccupied zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiTSetCoo
+  Buildings.Controls.OBC.CDL.Reals.Switch swiTSetCoo
     "Switch between occupied and unoccupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCooOcc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetCooOcc(
     final k=TCooOn)
     "Occupied zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCooUnocc(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetCooUnocc(
     final k=TCooOff)
     "Unoccupied zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));

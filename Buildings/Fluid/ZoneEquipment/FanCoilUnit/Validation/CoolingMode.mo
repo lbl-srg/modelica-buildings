@@ -97,12 +97,12 @@ model CoolingMode
     "Sink for zone air"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant damPos(
     final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](
+  Buildings.Controls.OBC.CDL.Reals.AddParameter K2C[3](
     final p=fill(273.15,3))
     "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -112,21 +112,21 @@ model CoolingMode
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter totMasAir(
     final p=1)
     "Add 1 to humidity ratio value to find total mass of moist air"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant valPos(
     final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/(FCUSizing.mAir_flow_nominal))
     "Calculate normalized fan speed signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));

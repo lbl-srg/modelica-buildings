@@ -17,17 +17,17 @@ model MultispeedFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooSetPoi(
     final k=273.15 + 25)
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaSetPoi(
     final k=273.15 + 23)
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final amplitude=2,
     final freqHz=1/3600,
     final offset=273.15 + 24)
