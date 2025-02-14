@@ -153,13 +153,12 @@ The tank charge fraction <code>y</code> is computed as the
 (max(TTanSet) - min(TTanSet)) / nTTan - fraUslTan) /
 (1 - fraUslTan)</i>,
 </p>
-where
-<i>TTan<sub>i</sub></i> is the measurement from the <i>i</i>-th temperature sensor
+<p>
+where <i>TTan<sub>i</sub></i> is the measurement from the <i>i</i>-th temperature sensor
 along the vertical axis of the tank,
-<i>TTanSet</i> are the tank temperature setpoints (two values for each
-tank cycle),
-<i>nTTan</i> is the number of temperature sensors along the vertical axis of the tank,
-<i>fraUslTan</i> is the useless fraction of the tank which is computed as
+<code>TTanSet</code> are the tank temperature setpoints (two values for each tank cycle),
+<code>nTTan</code> is the number of temperature sensors along the vertical axis of the tank,
+<code>fraUslTan</code> is the useless fraction of the tank which is computed as
 shown in
 <a href=\"modelica://Buildings.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop\">
 Buildings.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop</a>.

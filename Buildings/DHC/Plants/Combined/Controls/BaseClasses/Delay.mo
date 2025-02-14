@@ -3,8 +3,7 @@ block Delay "Delay input"
 
   parameter Real delayTime(
     final quantity="Time",
-    final unit="s",
-    min=1E-3)
+    final unit="s")
     "Delay time";
   parameter Real delayMax(
     final quantity="Time",
@@ -34,11 +33,13 @@ annotation (defaultComponentName="del",
         Text(
           textColor={0,0,255},
           extent={{-100,100},{100,140}},
-          textString="%name")}),                                 Diagram(
+          textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-FIXME
+Returns <code>u(time - delayTime)</code> for <code>time &gt; time.start + delayTime</code>
+and <code>u(time.start)</code> for <code>time &le; time.start + delayTime</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
