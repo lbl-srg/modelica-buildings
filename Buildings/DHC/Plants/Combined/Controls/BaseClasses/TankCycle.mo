@@ -27,13 +27,15 @@ block TankCycle "Block that determines the tank cycle flag"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput idxCycTan(
-    final min=1, final max=2)
+    final min=1,
+    final max=2)
     "Index of active tank cycle"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criTem1[nTTan](
-    each t=sum(TTanSet[2])/2, each h=1E-4)
+    each t=sum(TTanSet[2])/2,
+    each h=1E-4)
     "Temperature criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem1(
@@ -44,13 +46,14 @@ block TankCycle "Block that determines the tank cycle flag"
     final t=1E-3*mConWatHexCoo_flow_nominal,
     h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Flow criterion for first tank cycle"
-    annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold criTem2[nTTan](
     each t=sum(TTanSet[1])/2,
     each h=1E-4)
   "Temperature criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem2(final nin=nTTan)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem2(
+    final nin=nTTan)
     "All temperature criteria met"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt(
@@ -59,31 +62,30 @@ block TankCycle "Block that determines the tank cycle flag"
     "Convert"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Neither of temperature criterion is true" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-20,10})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(final
-      integerTrue=2, final integerFalse=0) "Convert" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-60,10})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(final
-      integerTrue=1, final integerFalse=0) "Convert" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-90,10})));
-  Buildings.Controls.OBC.CDL.Integers.Max maxInt1 "Set cycle index as maximum"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,90})));
-  Buildings.Controls.OBC.CDL.Logical.And allCri2 "All criteria met"
+    "Neither of temperature criterion is true"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={-20,10})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt3(
+    final integerTrue=2,
+    final integerFalse=0)
+    "Convert"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={-60,10})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
+    final integerTrue=1,
+    final integerFalse=0)
+    "Convert"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={-90,10})));
+  Buildings.Controls.OBC.CDL.Integers.Max maxInt1
+    "Set cycle index as maximum"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={-50,90})));
+  Buildings.Controls.OBC.CDL.Logical.And allCri2
+    "All criteria met"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.And allCri1 "All criteria met"
+  Buildings.Controls.OBC.CDL.Logical.And allCri1
+    "All criteria met"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch idxIni
     "Index at initial time"
@@ -104,14 +106,11 @@ block TankCycle "Block that determines the tank cycle flag"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Switch index"
-    annotation (Placement(transformation(extent={{42,-110},{62,-90}})));
+    annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idx2(
     final k=2)
     "Index"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Modelica.Blocks.Sources.IntegerExpression preIdxCycTan(y=pre(idxCycTan))
-    "Previous index value"
-    annotation (Placement(transformation(extent={{-20,-130},{2,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not criFlo2
     "Flow criterion for second tank cycle"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
@@ -119,85 +118,92 @@ block TankCycle "Block that determines the tank cycle flag"
     holdDuration=30*60,
     nin=1)
     "Hold for minimum runtime"
-    annotation (Placement(transformation(extent={{110,-10},{130,10}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
+    final t=1)
+    "Convert the cycling index to boolean"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+  "Value from previou state"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
+    final integerTrue=2,
+    final integerFalse=1)
+    "Reverted back to cycling index"
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
 
 initial equation
   pre(idxCycTan)=idxIni.y;
+
 equation
   connect(criTem1.y, allCriTem1.u)
-    annotation (Line(points={{-118,-40},{-102,-40}},
-                                                   color={255,0,255}));
-  connect(TTan, criTem2.u) annotation (Line(points={{-180,-40},{-152,-40},{-152,
-          -80},{-142,-80}},
-                      color={0,0,127}));
+    annotation (Line(points={{-118,-40},{-102,-40}}, color={255,0,255}));
+  connect(TTan, criTem2.u) annotation (Line(points={{-180,-40},{-150,-40},{-150,
+          -80},{-142,-80}}, color={0,0,127}));
   connect(TTan, criTem1.u)
     annotation (Line(points={{-180,-40},{-142,-40}},color={0,0,127}));
   connect(criTem2.y, allCriTem2.u)
     annotation (Line(points={{-118,-80},{-102,-80}}, color={255,0,255}));
   connect(allCriTem2.y, booToInt3.u) annotation (Line(points={{-78,-80},{-60,
-          -80},{-60,-2}},
-                      color={255,0,255}));
+          -80},{-60,-2}}, color={255,0,255}));
   connect(allCriTem1.y, booToInt4.u) annotation (Line(points={{-78,-40},{-70,
-          -40},{-70,-10},{-90,-10},{-90,-2}},
-                                          color={255,0,255}));
+          -40},{-70,-10},{-90,-10},{-90,-2}}, color={255,0,255}));
   connect(allCriTem1.y, allCri1.u1)
     annotation (Line(points={{-78,-40},{-42,-40}}, color={255,0,255}));
   connect(allCriTem2.y, allCri2.u1)
-    annotation (Line(points={{-78,-80},{-42,-80}},   color={255,0,255}));
+    annotation (Line(points={{-78,-80},{-42,-80}}, color={255,0,255}));
   connect(maxInt1.u2, booToInt3.y) annotation (Line(points={{-44,78},{-44,30},{
-          -60,30},{-60,22}},
-                         color={255,127,0}));
+          -60,30},{-60,22}}, color={255,127,0}));
   connect(booToInt4.y, maxInt1.u1) annotation (Line(points={{-90,22},{-90,40},{
-          -56,40},{-56,78}},
-                         color={255,127,0}));
+          -56,40},{-56,78}}, color={255,127,0}));
   connect(allCriTem1.y, or2.u1) annotation (Line(points={{-78,-40},{-70,-40},{
-          -70,-10},{-20,-10},{-20,-2}},                color={255,0,255}));
+          -70,-10},{-20,-10},{-20,-2}}, color={255,0,255}));
   connect(allCriTem2.y, or2.u2) annotation (Line(points={{-78,-80},{-60,-80},{
-          -60,-20},{-12,-20},{-12,-2}},
-                                     color={255,0,255}));
+          -60,-20},{-12,-20},{-12,-2}}, color={255,0,255}));
   connect(or2.y, idxIni.u2) annotation (Line(points={{-20,22},{-20,120},{98,120}},
-                         color={255,0,255}));
+          color={255,0,255}));
   connect(maxInt1.y, idxIni.u1)
-    annotation (Line(points={{-50,102},{-50,128},{98,128}},
-                                                          color={255,127,0}));
+    annotation (Line(points={{-50,102},{-50,128},{98,128}}, color={255,127,0}));
   connect(criFlo1.y, booToInt.u)
-    annotation (Line(points={{-128,120},{-102,120}},
-                                                 color={255,0,255}));
+    annotation (Line(points={{-118,120},{-102,120}}, color={255,0,255}));
   connect(booToInt.y, idxIni.u3) annotation (Line(points={{-78,120},{-70,120},{
-          -70,112},{98,112}},
-                         color={255,127,0}));
+          -70,112},{98,112}}, color={255,127,0}));
   connect(mConWatOutTan_flow, criFlo1.u)
-    annotation (Line(points={{-180,120},{-152,120}},
-                                                   color={0,0,127}));
+    annotation (Line(points={{-180,120},{-142,120}},  color={0,0,127}));
   connect(allCri1.y, timAllCri1.u)
-    annotation (Line(points={{-18,-40},{-2,-40}},
-                                               color={255,0,255}));
+    annotation (Line(points={{-18,-40},{-2,-40}}, color={255,0,255}));
   connect(allCri2.y, timAllCri2.u)
     annotation (Line(points={{-18,-80},{-2,-80}},color={255,0,255}));
   connect(timAllCri1.passed, intSwi.u2) annotation (Line(points={{22,-48},{50,
           -48},{50,0},{78,0}},  color={255,0,255}));
   connect(idx1.y, intSwi.u1) annotation (Line(points={{22,90},{70,90},{70,8},{
-          78,8}},   color={255,127,0}));
-  connect(timAllCri2.passed, intSwi1.u2) annotation (Line(points={{22,-88},{30,
-          -88},{30,-100},{40,-100}},  color={255,0,255}));
-  connect(idx2.y, intSwi1.u1) annotation (Line(points={{22,50},{34,50},{34,-92},
-          {40,-92}},        color={255,127,0}));
-  connect(intSwi1.y, intSwi.u3) annotation (Line(points={{64,-100},{70,-100},{
-          70,-8},{78,-8}},   color={255,127,0}));
-  connect(preIdxCycTan.y, intSwi1.u3) annotation (Line(points={{3.1,-120},{32,
-          -120},{32,-108},{40,-108}}, color={255,127,0}));
-  connect(criFlo1.y, criFlo2.u) annotation (Line(points={{-128,120},{-110,120},
-          {-110,-120},{-102,-120}},
-                               color={255,0,255}));
+          78,8}}, color={255,127,0}));
+  connect(timAllCri2.passed, intSwi1.u2) annotation (Line(points={{22,-88},{28,-88},
+          {28,-100},{38,-100}}, color={255,0,255}));
+  connect(idx2.y, intSwi1.u1) annotation (Line(points={{22,50},{32,50},{32,-92},
+          {38,-92}}, color={255,127,0}));
+  connect(intSwi1.y, intSwi.u3) annotation (Line(points={{62,-100},{70,-100},{70,
+          -8},{78,-8}}, color={255,127,0}));
+  connect(criFlo1.y, criFlo2.u) annotation (Line(points={{-118,120},{-110,120},{
+          -110,-120},{-102,-120}},  color={255,0,255}));
   connect(hol.y[1], idxCycTan)
-    annotation (Line(points={{132,0},{180,0}}, color={255,127,0}));
-  connect(criFlo1.y, allCri1.u2) annotation (Line(points={{-128,120},{-110,120},
+    annotation (Line(points={{142,0},{180,0}}, color={255,127,0}));
+  connect(criFlo1.y, allCri1.u2) annotation (Line(points={{-118,120},{-110,120},
           {-110,-60},{-50,-60},{-50,-48},{-42,-48}}, color={255,0,255}));
   connect(criFlo2.y, allCri2.u2) annotation (Line(points={{-78,-120},{-50,-120},
-          {-50,-88},{-42,-88}},                     color={255,0,255}));
+          {-50,-88},{-42,-88}}, color={255,0,255}));
   connect(intSwi.y, hol.u[1])
-    annotation (Line(points={{102,0},{108,0}}, color={255,127,0}));
-  annotation (
+    annotation (Line(points={{102,0},{118,0}}, color={255,127,0}));
+  connect(hol.y[1], intGreThr.u) annotation (Line(points={{142,0},{150,0},{150,-20},
+          {90,-20},{90,-40},{98,-40}}, color={255,127,0}));
+  connect(intGreThr.y, pre.u) annotation (Line(points={{122,-40},{130,-40},{130,
+          -62},{90,-62},{90,-80},{98,-80}}, color={255,0,255}));
+  connect(pre.y, booToInt1.u) annotation (Line(points={{122,-80},{130,-80},{130,
+          -100},{90,-100},{90,-120},{98,-120}}, color={255,0,255}));
+  connect(booToInt1.y, intSwi1.u3) annotation (Line(points={{122,-120},{130,-120},
+          {130,-140},{30,-140},{30,-108},{38,-108}}, color={255,127,0}));
+
+  annotation (__cdl(extensionBlock=true),
   defaultComponentName="cycTan",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
