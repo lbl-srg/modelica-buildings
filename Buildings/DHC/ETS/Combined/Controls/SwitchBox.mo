@@ -1,6 +1,6 @@
 within Buildings.DHC.ETS.Combined.Controls;
 block SwitchBox "Controller for flow switch box"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Real m_flow_nominal(
     final quantity="MassFlowRate",
     final unit="kg/s")
@@ -115,5 +115,14 @@ January 12, 2020, by Michael Wetter:<br/>
 Added documentation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}));
 end SwitchBox;

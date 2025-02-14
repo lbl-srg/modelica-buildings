@@ -1,7 +1,7 @@
 within Buildings.DHC.ETS.Combined.Controls;
 block PIDWithEnable
   "PID controller with enable signal"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k(
@@ -73,7 +73,7 @@ block PIDWithEnable
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant valDis(
     final k=y_neutral)
     "Value when disabled"
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
 equation
   connect(conPID.u_s,swi.y)
@@ -93,14 +93,23 @@ equation
   connect(swi1.y,y)
     annotation (Line(points={{94,0},{120,0}},color={0,0,127}));
   connect(uEna,swi1.u2)
-    annotation (Line(points={{-60,-120},{-60,-20},{60,-20},{60,0},{70,0}},color={255,0,255}));
+    annotation (Line(points={{-60,-120},{-60,-20},{50,-20},{50,0},{70,0}},color={255,0,255}));
   connect(valDis.y,swi1.u3)
-    annotation (Line(points={{52,-40},{64,-40},{64,-8},{70,-8}},color={0,0,127}));
+    annotation (Line(points={{42,-40},{60,-40},{60,-8},{70,-8}},color={0,0,127}));
   annotation (
     defaultComponentName="conPID",
     Icon(
       coordinateSystem(
-        preserveAspectRatio=false)),
+        preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)),

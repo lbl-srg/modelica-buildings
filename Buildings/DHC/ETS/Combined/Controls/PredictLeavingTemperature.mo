@@ -1,7 +1,7 @@
 within Buildings.DHC.ETS.Combined.Controls;
 model PredictLeavingTemperature
   "Block that predicts heat exchanger leaving water temperature"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Real dTApp_nominal(
     final quantity="TemperatureDifference",
     final unit="K")
@@ -110,5 +110,15 @@ Which gives the predicted heat exchanger leaving water temperature as
 <p>
 <i>T2WatLvg = T1WatEnt + dTApp</i>.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}));
 end PredictLeavingTemperature;

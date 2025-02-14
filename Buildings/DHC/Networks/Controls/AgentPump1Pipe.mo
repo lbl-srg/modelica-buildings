@@ -126,33 +126,33 @@ equation
   connect(NetDemBool.y, swi.u2) annotation (Line(points={{-80,-90},{98,-90},{98,
           0},{108,0}}, color={255,0,255}));
   connect(TRetDis, NetDemBool.u1) annotation (Line(points={{-140,-50},{-110,-50},
-          {-110,-90},{-104,-90}},                        color={0,0,127}));
+          {-110,-90},{-104,-90}}, color={0,0,127}));
   connect(TSupDis, NetDemBool.u2) annotation (Line(points={{-140,-80},{-112,-80},
           {-112,-98},{-104,-98}},  color={0,0,127}));
   connect(hys.y, swi1.u2) annotation (Line(points={{42,-30},{58,-30}},
-                 color={255,0,255}));
+        color={255,0,255}));
   connect(Zero.y, swi1.u3) annotation (Line(points={{22,0},{50,0},{50,-22},{58,-22}},
         color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{132,0},{160,0}},
         color={0,0,127}));
   connect(conPIDCoo.y, swi1.u1) annotation (Line(points={{22,-70},{50,-70},{50,-38},
-          {58,-38}},  color={0,0,127}));
+          {58,-38}}, color={0,0,127}));
   connect(swi1.y, swi.u3) annotation (Line(points={{82,-30},{100,-30},{100,-8},{
-          108,-8}},                color={0,0,127}));
+          108,-8}}, color={0,0,127}));
   connect(hys1.y, swi2.u2) annotation (Line(points={{42,30},{58,30}},
-                    color={255,0,255}));
+         color={255,0,255}));
   connect(conPIDHea.y, swi2.u1) annotation (Line(points={{22,80},{50,80},{50,38},
           {58,38}},  color={0,0,127}));
   connect(Zero.y, swi2.u3)
     annotation (Line(points={{22,0},{50,0},{50,22},{58,22}}, color={0,0,127}));
   connect(swi2.y, swi.u1) annotation (Line(points={{82,30},{100,30},{100,8},{108,
-          8}},                  color={0,0,127}));
+          8}}, color={0,0,127}));
   connect(TSou, Tsou_negshift.u) annotation (Line(points={{-140,30},{-116,30},{-116,
-          80},{-42,80}},     color={0,0,127}));
+          80},{-42,80}}, color={0,0,127}));
   connect(Tsou_negshift.y, conPIDHea.u_s)
     annotation (Line(points={{-18,80},{-2,80}}, color={0,0,127}));
   connect(TSou, Tsou_posshift.u) annotation (Line(points={{-140,30},{-116,30},{-116,
-          -70},{-42,-70}},     color={0,0,127}));
+          -70},{-42,-70}}, color={0,0,127}));
   connect(Tsou_posshift.y, conPIDCoo.u_s)
     annotation (Line(points={{-18,-70},{-2,-70}}, color={0,0,127}));
   connect(TSouOut, conPIDCoo.u_m) annotation (Line(points={{-140,-10},{-70,-10},
@@ -160,7 +160,7 @@ equation
   connect(TSouOut, conPIDHea.u_m) annotation (Line(points={{-140,-10},{-70,-10},
           {-70,60},{10,60},{10,68}}, color={0,0,127}));
   connect(gai1.y, hys.u) annotation (Line(points={{14,-30},{18,-30}},
-                                      color={0,0,127}));
+          color={0,0,127}));
   connect(dTSouSup.y, dTSouSupHea.u)
     annotation (Line(points={{-78,30},{-42,30}}, color={0,0,127}));
   connect(TSou,dTSouSup. u1) annotation (Line(points={{-140,30},{-116,30},{-116,
@@ -170,12 +170,11 @@ equation
   connect(dTSouSup.y,dTSouSupCoo. u) annotation (Line(points={{-78,30},{-50,30},
           {-50,-30},{-42,-30}}, color={0,0,127}));
   connect(dTSouSupCoo.y, gai1.u) annotation (Line(points={{-18,-30},{-10,-30}},
-                                      color={0,0,127}));
+          color={0,0,127}));
   connect(TSouIn,dTSouSup. u2) annotation (Line(points={{-140,70},{-110,70},{-110,
-          36},{-102,36}},                  color={0,0,127}));
+          36},{-102,36}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -100},{140,100}}),                                  graphics={
-                                Rectangle(
+            -100},{140,100}}), graphics={Rectangle(
         extent={{-120,-100},{140,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},

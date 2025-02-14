@@ -1,7 +1,7 @@
 within Buildings.DHC.ETS.Combined.Controls;
 block PrimaryVariableFlow
   "Ideal control of condenser or evaporator variable flow rate"
-  extends Modelica.Blocks.Icons.Block;
+
   constant Real cp(
     final quantity="SpecificHeatCapacity",
     final unit="J/(kg.K)")=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
@@ -61,7 +61,16 @@ equation
     annotation (Line(points={{12,0},{20,0},{20,-6},{38,-6}}, color={0,0,127}));
   annotation (
     defaultComponentName="conFlo",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}),                       Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

@@ -1,7 +1,7 @@
 within Buildings.DHC.ETS.Combined.Controls;
 block SideHot
   "Control block for hot side"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Integer nSouAmb=1
     "Number of ambient sources to control"
     annotation (Evaluate=true);
@@ -290,5 +290,15 @@ The command signal is held for 5&nbsp;min to avoid short cycling.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-180,-140},{180,140}})));
+        extent={{-180,-140},{180,140}})),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}));
 end SideHot;

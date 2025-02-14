@@ -133,7 +133,7 @@ equation
       color={255,0,255}));
   connect(dT.y,pro.u1)
     annotation (Line(points={{-118,-10},{-114,-10},{-114,-40},{-150,-40},{-150,-64},
-          {-142,-64}},       color={0,0,127}));
+          {-142,-64}}, color={0,0,127}));
   connect(plr.u, pro.y)
     annotation (Line(points={{-102,-70},{-118,-70}},
       color={0,0,127}));
@@ -163,8 +163,7 @@ equation
     annotation (Line(points={{10,-100.5},{10,-120},{60,-120},{60,-44}},
       color={0,0,0}));
   connect(offToOne.outPort,oneOn.inPort[1])
-    annotation (Line(points={{10,58.5},{10,11},{10.25,11}},
-                                                         color={0,0,0}));
+    annotation (Line(points={{10,58.5},{10,11},{10.25,11}}, color={0,0,0}));
   connect(oneToOff.outPort,off.inPort[1])
     annotation (Line(points={{40,61.5},{40,120},{10,120},{10,101}},
       color={0,0,0}));
@@ -182,7 +181,7 @@ equation
           -4},{-142,-4}}, color={0,0,127}));
   connect(TChiWatRet, dT.u2) annotation (Line(points={{-180,-10},{-148,-10},{-148,
           -16},{-142,-16}}, color={0,0,127}));
-  annotation (
+  annotation (__cdl(extensionBlock=true),
     defaultComponentName="chiStaCon",
     Diagram(
       coordinateSystem(
