@@ -1,7 +1,7 @@
 within Buildings.DHC.Plants.Cooling.Controls;
 model ChilledWaterPumpSpeed
   "Controller for two headered variable speed chilled water pumps"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Real dpSetPoi(
     final unit="Pa",
     final quantity="PressureDifference",
@@ -75,7 +75,8 @@ model ChilledWaterPumpSpeed
     each final min=0,
     each final max=1)
     "Pump speed signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply pumSpe[numPum]
     "Output pump speed"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -141,7 +142,7 @@ equation
   connect(totPum.y, twoPum.u)
     annotation (Line(points={{18,-50},{12,-50}},color={0,0,127}));
   connect(pumSpe.y, y)
-    annotation (Line(points={{82,0},{110,0}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(on, pumStaCon.on) annotation (Line(points={{-120,80},{4,80},{4,8},{8,
           8}}, color={255,0,255}));
   connect(twoPum.y, orRes.u2) annotation (Line(points={{-12,-50},{-20,-50},{-20,
@@ -156,6 +157,11 @@ equation
       coordinateSystem(
         preserveAspectRatio=false),
       graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
@@ -179,7 +185,11 @@ equation
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{100,140}},
+          textString="%name")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)),

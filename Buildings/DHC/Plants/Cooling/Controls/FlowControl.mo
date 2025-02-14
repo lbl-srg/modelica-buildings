@@ -1,7 +1,7 @@
 within Buildings.DHC.Plants.Cooling.Controls;
 block FlowControl
   "This block controls the flow at the primary and secondary pumps"
-  extends Modelica.Blocks.Icons.Block;
+
 
   parameter Real mChi_flow_nominal(
     final quantity="MassFlowRate",
@@ -266,6 +266,11 @@ equation
 annotation (__cdl(extensionBlock=true),
   Diagram(coordinateSystem(extent={{-100,-220},{780,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(extent={{-20,80},{20,40}}, lineColor={28,108,200}),
         Line(points={{-40,-20},{-40,20},{40,20},{40,-20}}, color={28,108,200}),
         Line(points={{0,40},{0,20}}, color={28,108,200}),
@@ -318,7 +323,11 @@ annotation (__cdl(extensionBlock=true),
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),
+          lineColor={0,0,0}),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{100,140}},
+          textString="%name")}),
 Documentation(info="<html>
 <p>
 This block implements a state graph to control the flows of the storage plant.

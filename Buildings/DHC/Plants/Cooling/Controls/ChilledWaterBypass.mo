@@ -1,7 +1,7 @@
 within Buildings.DHC.Plants.Cooling.Controls;
 model ChilledWaterBypass
   "Controller for chilled water bypass valve"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Integer numChi(
     min=1)
     "Number of chillers";
@@ -93,7 +93,16 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{100,140}},
+          textString="%name"),
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

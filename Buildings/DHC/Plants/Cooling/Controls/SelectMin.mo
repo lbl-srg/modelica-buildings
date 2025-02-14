@@ -1,7 +1,7 @@
 within Buildings.DHC.Plants.Cooling.Controls;
 block SelectMin
   "Block that includes or excludes storage plant pressure signal for min"
-  extends Modelica.Blocks.Icons.Block;
+
   parameter Integer nin
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
@@ -16,10 +16,10 @@ block SelectMin
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput isChaRem
     "The storage plant is in remote charging mode"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(nin=nin)
     "Find minimum value from the input vector"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -43,13 +43,23 @@ equation
           {-2,44}}, color={0,0,127}));
   connect(swi.y, y) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
 annotation(defaultComponentName="selMin",
-    Icon(graphics={Line(
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                   Line(
           points={{-80,60},{-60,40},{-20,80}},
           color={0,140,72},
           thickness=5), Text(
           extent={{-78,2},{-20,-78}},
           textColor={28,108,200},
-          textString="?")}),
+          textString="?"),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{100,140}},
+          textString="%name")}),
     Documentation(info="<html>
 <p>
 This block finds the minimum value from pressure head signals.

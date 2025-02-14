@@ -48,7 +48,7 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[2]
     "On/off signal for the chillers - false: off; true: on"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{160,-10},{180,10}})));
+      iconTransformation(extent={{160,-20},{200,20}})));
 
   Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
     "No cooling is demanded"
