@@ -123,8 +123,7 @@ block TankCycle "Block that determines the tank cycle flag"
     final t=1)
     "Convert the cycling index to boolean"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
-  "Value from previou state"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Value from previou state"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1(
     final integerTrue=2,
@@ -196,10 +195,10 @@ equation
     annotation (Line(points={{102,0},{118,0}}, color={255,127,0}));
   connect(hol.y[1], intGreThr.u) annotation (Line(points={{142,0},{150,0},{150,-20},
           {90,-20},{90,-40},{98,-40}}, color={255,127,0}));
-  connect(intGreThr.y, pre.u) annotation (Line(points={{122,-40},{130,-40},{130,
-          -62},{90,-62},{90,-80},{98,-80}}, color={255,0,255}));
-  connect(pre.y, booToInt1.u) annotation (Line(points={{122,-80},{130,-80},{130,
-          -100},{90,-100},{90,-120},{98,-120}}, color={255,0,255}));
+  connect(intGreThr.y, pre1.u) annotation (Line(points={{122,-40},{130,-40},{
+          130,-62},{90,-62},{90,-80},{98,-80}}, color={255,0,255}));
+  connect(pre1.y, booToInt1.u) annotation (Line(points={{122,-80},{130,-80},{
+          130,-100},{90,-100},{90,-120},{98,-120}}, color={255,0,255}));
   connect(booToInt1.y, intSwi1.u3) annotation (Line(points={{122,-120},{130,-120},
           {130,-140},{30,-140},{30,-108},{38,-108}}, color={255,127,0}));
 
