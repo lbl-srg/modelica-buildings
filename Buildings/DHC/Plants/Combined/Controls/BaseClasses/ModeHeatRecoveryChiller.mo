@@ -54,7 +54,7 @@ algorithm
     counter := counter + 1;
   end for;
 
-  annotation (
+  annotation (__cdl(extensionBlock=true),
   defaultComponentName="idxHeaCoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
