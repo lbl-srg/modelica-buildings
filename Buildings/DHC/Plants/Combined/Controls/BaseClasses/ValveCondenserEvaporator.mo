@@ -944,6 +944,7 @@ block ValveCondenserEvaporator
     "Convert real to integer"
     annotation (Placement(transformation(extent={{-20,-500},{0,-480}})));
   Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(nin=nChiHea)
+    "Maximum value of a vector input"
     annotation (Placement(transformation(extent={{-60,-500},{-40,-480}})));
 
 protected
