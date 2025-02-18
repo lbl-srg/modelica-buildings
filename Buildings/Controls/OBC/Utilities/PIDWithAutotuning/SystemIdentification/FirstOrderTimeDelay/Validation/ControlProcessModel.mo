@@ -39,7 +39,7 @@ model ControlProcessModel
     period=1,
     shift=0.9)
     "The signal for the tuning period ends"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-88},{-60,-68}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse ratioLT(
     amplitude=-0.1,
     width=0.4,
@@ -47,19 +47,25 @@ model ControlProcessModel
     offset=0.4)
     "Ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant truSig(
+    k=true)
+    "True signal"
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 equation
   connect(tunSta.y, conProMod.triSta)
     annotation (Line(points={{-18,-40},{44,-40},{44,-12}}, color={255,0,255}));
   connect(conProMod.triEnd, tunEnd.y)
-    annotation (Line(points={{56,-12},{56,-70},{-58,-70}}, color={255,0,255}));
+    annotation (Line(points={{56,-12},{56,-78},{-58,-78}}, color={255,0,255}));
   connect(u.y, conProMod.u) annotation (Line(points={{-18,80},{20,80},{20,8},{38,
-          8}},     color={0,0,127}));
+          8}}, color={0,0,127}));
   connect(tOn.y, conProMod.tOn) annotation (Line(points={{-58,50},{10,50},{10,4},
-          {38,4}},     color={0,0,127}));
+          {38,4}}, color={0,0,127}));
   connect(conProMod.tOff, tOff.y) annotation (Line(points={{38,-4},{0,-4},{0,20},
-          {-18,20}},     color={0,0,127}));
+          {-18,20}}, color={0,0,127}));
   connect(ratioLT.y, conProMod.tau) annotation (Line(points={{-58,-10},{-20,-10},
-          {-20,-8},{38,-8}},  color={0,0,127}));
+          {-20,-8},{38,-8}}, color={0,0,127}));
+  connect(truSig.y, conProMod.inTun)
+    annotation (Line(points={{22,-60},{50,-60},{50,-12}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

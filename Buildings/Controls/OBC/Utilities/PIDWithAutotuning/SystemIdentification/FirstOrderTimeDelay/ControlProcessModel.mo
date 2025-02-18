@@ -68,6 +68,16 @@ block ControlProcessModel
     "True when the autotuning completes successfully"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
+    "Check if a tuning is ongoing"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1)
@@ -123,6 +133,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if an error occurs"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Check if the errors occur during tuning"
+    annotation (Placement(transformation(extent={{66,50},{86,70}})));
 equation
   connect(gain.u, u) annotation (Line(points={{-122,28},{-140,28},{-140,80},{-180,
           80}},  color={0,0,127}));
@@ -181,10 +194,14 @@ equation
           0},{8,0},{8,-50},{18,-50}}, color={255,0,255}));
   connect(not2.y, assMes4.u)
     annotation (Line(points={{122,60},{132,60}}, color={255,0,255}));
-  connect(not2.u, timConDel.triFai) annotation (Line(points={{98,60},{96,60},{96,
-          12},{82,12}}, color={255,0,255}));
   connect(gain.k, samk.u)
     annotation (Line(points={{-98,20},{-62,20}}, color={0,0,127}));
+  connect(and1.u1, inTun) annotation (Line(points={{64,60},{42,60},{42,2},{4,2},
+          {4,-94},{0,-94},{0,-120}}, color={255,0,255}));
+  connect(and1.u2, timConDel.triFai) annotation (Line(points={{64,52},{58,52},{
+          58,38},{86,38},{86,12},{82,12}}, color={255,0,255}));
+  connect(and1.y, not2.u)
+    annotation (Line(points={{88,60},{98,60}}, color={255,0,255}));
 annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

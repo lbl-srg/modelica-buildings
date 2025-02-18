@@ -385,8 +385,10 @@ equation
           0,255}));
   connect(and2.u1, nand1.y) annotation (Line(points={{-202,-140},{-248,-140},{-248,
           88},{112,88},{112,110},{102,110}}, color={255,0,255}));
-  connect(resPro.inTun, inTunPro.y) annotation (Line(points={{-10,-62},{-12,-62},
-          {-12,-120},{94,-120},{94,-140},{82,-140}}, color={255,0,255}));
+  connect(resPro.inTun, inTunPro.y) annotation (Line(points={{-10,-62},{-10,
+          -120},{96,-120},{96,-140},{82,-140}}, color={255,0,255}));
+  connect(conProMod.inTun, inTunPro.y) annotation (Line(points={{70,-2},{70,
+          -100},{90,-100},{90,-140},{82,-140}}, color={255,0,255}));
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
