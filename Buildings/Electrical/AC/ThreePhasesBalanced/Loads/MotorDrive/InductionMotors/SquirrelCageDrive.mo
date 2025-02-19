@@ -2,60 +2,38 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SquirrelCageDrive
   "Squirrel cage type induction motor with electrical interface and closed loop built-in speed control"
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-   redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
-   redeclare replaceable Interfaces.Terminal_n terminal);
-     replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
-    constrainedby
-    Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+    redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare replaceable Interfaces.Terminal_n terminal);
+
+  replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
+    constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record with Induction Machine performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{52,60},{72,80}})));
-  Integer P=per.P "Number of poles";
-  Real J=per.J "Moment of inertia";
-  Real Lr=per.Lr "Rotor inductance [H]";
-  Real Ls=per.Ls "Stator inductance [H]";
-  Real Lm=per.Lm "Mutual inductance [H]";
-  Real Rr=per.Rr "Rotor resistance [ohm]";
-  Real Rs=per.Rs "Stator resistance [ohm]";
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{60,64},{80,84}})));
 
   parameter Boolean have_controller = true
     "Set to true for enable PID control, False for simple speed control";
-  parameter Modelica.Blocks.Types.SimpleController
-  controllerType=Modelica.Blocks.Types.SimpleController.PI
-     "Type of controller"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=true));
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(tab="Advanced", group="Controller"));
   parameter Real k(min=0) = 1
-     "Gain of controller"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=true));
+    "Gain of controller"
+    annotation (Dialog(tab="Advanced", group="Controller"));
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small)=1
-     "Time constant of Integrator block"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=true and
-  controllerType == Modelica.Blocks.Types.SimpleController.PI or
-  controllerType == Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of Integrator block"
+    annotation (Dialog(tab="Advanced", group="Controller",
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                              or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(min=0) = 0.1
-     "Time constant of Derivative block"
-      annotation (Dialog(tab="Advanced",
-                         group="Controller",
-                         enable=true and
-  controllerType == Modelica.Blocks.Types.SimpleController.PD or
-  controllerType == Modelica.Blocks.Types.SimpleController.PID));
+    "Time constant of Derivative block"
+    annotation (Dialog(tab="Advanced", group="Controller",
+                       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                              or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real yMax(start=1)=1
     "Upper limit of output"
-     annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=true));
+     annotation (Dialog(tab="Advanced", group="Controller"));
   parameter Real yMin=0
     "Lower limit of output"
-     annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=true));
+    annotation (Dialog(tab="Advanced", group="Controller"));
 
   Real v_rms "RMS voltage";
   Modelica.Units.SI.Angle theta_s "Supply voltage phase angel";
@@ -63,89 +41,80 @@ model SquirrelCageDrive
   Modelica.Units.SI.Voltage v[:] = terminal.v "Voltage vector";
   Modelica.Units.SI.Current i[:] = terminal.i "Current vector";
 
-  final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput setPoi
+    "Set point of control target"
+    annotation (Placement(transformation(extent={{-180,50},{-140,90}}),
+        iconTransformation(extent={{-180,60},{-140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mea
+    "Measured value of control target"
+    annotation (Placement(transformation(extent={{-180,-10},{-140,30}}),
+        iconTransformation(extent={{-180,-20},{-140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(
+    final unit="N.m")
+    "Load torque"
+    annotation (Placement(transformation(extent={{-180,-90},{-140,-50}}),
+        iconTransformation(extent={{-180,-100},{-140,-60}})));
+
+  Modelica.Blocks.Sources.RealExpression Vrms(
+    y=v_rms)
+    "RMS voltage"
     annotation (Placement(transformation(extent={{-76,46},{-56,66}})));
-  final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
+  Modelica.Blocks.Sources.RealExpression fre(
+    y=omega/(2*Modelica.Constants.pi))
     "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Modelica.Blocks.Math.Product VFDfre "Controlled frequency"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Product VFDvol "Controlled voltage"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-
-  Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,70}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,80})));
-  Modelica.Blocks.Interfaces.RealInput mea "Measured value of control target"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,20}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,20})));
-  Modelica.Blocks.Interfaces.RealInput tau_m(unit="N.m")
-    "Load torque"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,-80}),
-        iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-158,-80})));
-
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{-2,60},{18,80}})));
-  Modelica.Blocks.Sources.RealExpression i_ds(y=torSpe.motMod.i_ds)
-                                                             annotation (
-      Placement(transformation(extent={{-10,-12},{10,12}}, origin={30,40})));
-  Modelica.Blocks.Sources.RealExpression i_qs(y=torSpe.motMod.i_qs)
-                                                             annotation (
-      Placement(transformation(extent={{-10,-12},{10,12}}, origin={30,24})));
-  Modelica.Blocks.Sources.RealExpression angFre(y=switch1.y*omega)
-    "Supply voltage angular frequency" annotation (Placement(transformation(
-          extent={{-10,-12},{10,12}}, origin={-24,-88})));
+  Modelica.Blocks.Sources.RealExpression i_ds(
+    y=torSpe.motMod.i_ds)
+    annotation (Placement(transformation(extent={{-10,-12},{10,12}}, origin={30,40})));
+  Modelica.Blocks.Sources.RealExpression i_qs(
+    y=torSpe.motMod.i_qs)
+    annotation (Placement(transformation(extent={{-10,-12},{10,12}}, origin={30,24})));
+  Modelica.Blocks.Sources.RealExpression angFre(
+    y=switch1.y*omega)
+    "Supply voltage angular frequency"
+    annotation (Placement(transformation(extent={{-10,-12},{10,12}}, origin={-24,-88})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft
     "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(
-    useSupport=false,                               exact=true,
+    useSupport=false,
+    exact=true,
     phi(fixed=true))
     "Speed connector"
     annotation (Placement(transformation(extent={{64,-8},{80,8}})));
-  Modelica.Blocks.Sources.RealExpression angFre1(y=switch1.y*omega)
-    "Supply voltage angular frequency" annotation (Placement(transformation(
-          extent={{-10,-12},{10,12}}, origin={-66,70})));
-
+  Modelica.Blocks.Sources.RealExpression angFre1(
+    y=switch1.y*omega)
+    "Supply voltage angular frequency"
+    annotation (Placement(transformation(extent={{-10,-12},{10,12}}, origin={-66,70})));
   Modelica.Blocks.Math.Gain VFD_Equivalent_Freq(k=per.P/120)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Controls.Continuous.LimPID VFD(
+  Buildings.Controls.OBC.CDL.Reals.PID VFD(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final Td=Td*2,
     final yMax=yMax,
     final yMin=yMin,
     final k=k,
     final Ti=Ti,
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    final reverseActing=reverseActing)
+    final reverseActing=true)
     "PI controller as variable frequency drive"
-    annotation (Placement(transformation(extent={{-102,14},{-82,34}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Logical.Switch switch1
-    annotation (Placement(transformation(extent={{-62,-14},{-42,6}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=have_controller)
+    annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(
+    y=have_controller)
     annotation (Placement(transformation(extent={{-118,-14},{-98,6}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=setPoi/(120*per.Freq/
-        per.P))
+  Modelica.Blocks.Sources.RealExpression realExpression(
+    y=setPoi/(120*per.Freq/per.P))
     annotation (Placement(transformation(extent={{-120,-28},{-100,-8}})));
-  BaseClasses.CurrentBlock current_Block "Calculates current of induction machine rotor" annotation (Placement(transformation(extent={{60,30},{80,50}})));
+  BaseClasses.CurrentBlock current_Block
+    "Calculates current of induction machine rotor"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   BaseClasses.MotorMachineInterface torSpe(
     P=per.P,
     J=per.J,
@@ -153,13 +122,13 @@ model SquirrelCageDrive
     Ls=per.Ls,
     Rr=per.Rr,
     Lm=per.Lm,
-    Rs=per.Rs) "Calculates Electromagnetic torque of induction machine" annotation (Placement(transformation(extent={{18,-14},{32,0}})));
+    Rs=per.Rs)
+    "Calculates Electromagnetic torque of induction machine"
+    annotation (Placement(transformation(extent={{18,-14},{32,0}})));
   BaseClasses.SpeedBlock speBlo(J=per.J, P=per.P)
-   "Calculates Speed of induction machine rotor" annotation (Placement(transformation(extent={{26,-78},{46,-58}})));
+   "Calculates Speed of induction machine rotor"
+   annotation (Placement(transformation(extent={{26,-80},{46,-60}})));
 
-parameter Boolean reverseActing = true
-  "Default: Set to true for reverseActing in heating and set to false in cooling mode"
-  annotation(Dialog(visible=false));
 equation
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);
@@ -176,26 +145,25 @@ equation
   connect(torSpe.f, VFDfre.y)
     annotation (Line(points={{16.8333,-6.22222},{10.0714,-6.22222},{10.0714,-10},
           {1,-10}},                            color={0,0,127}));
-  connect(speBlo.tau_m, tau_m) annotation (Line(points={{24,-68},{-132,-68},{
-          -132,-80},{-158,-80}},
+  connect(speBlo.tau_m, tau_m) annotation (Line(points={{24,-70},{-160,-70}},
                             color={0,0,127}));
   connect(angFre1.y, integrator.u) annotation (Line(points={{-55,70},{-4,70}},
                                  color={0,0,127}));
-  connect(speBlo.omega, angFre.y) annotation (Line(points={{24,-74},{-8,-74},{
-          -8,-88},{-13,-88}},                 color={0,0,127}));
+  connect(speBlo.omega, angFre.y) annotation (Line(points={{24,-76},{-8,-76},{-8,
+          -88},{-13,-88}},                    color={0,0,127}));
   connect(VFD_Equivalent_Freq.u, setPoi)
-    annotation (Line(points={{-122,70},{-158,70}}, color={0,0,127}));
-  connect(VFD.u_s, setPoi) annotation (Line(points={{-104,24},{-132,24},{
-          -132,70},{-158,70}}, color={0,0,127}));
-  connect(VFD.u_m, mea) annotation (Line(points={{-92,12},{-92,6},{-132,6},
-          {-132,20},{-158,20}}, color={0,0,127}));
+    annotation (Line(points={{-122,70},{-160,70}}, color={0,0,127}));
+  connect(VFD.u_s, setPoi) annotation (Line(points={{-102,30},{-130,30},{-130,70},
+          {-160,70}},          color={0,0,127}));
+  connect(VFD.u_m, mea) annotation (Line(points={{-90,18},{-90,10},{-160,10}},
+                                color={0,0,127}));
   connect(speed.flange, shaft)
     annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
   connect(torSpe.omega_r, speBlo.omega_r) annotation (Line(points={{16.8333,
-          -10.8889},{4,-10.8889},{4,-26},{52,-26},{52,-61.9},{47.9,-61.9}},
+          -10.8889},{4,-10.8889},{4,-26},{52,-26},{52,-63.9},{47.9,-63.9}},
                                                          color={0,0,127}));
-  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{47.9,-68.3},{
-          47.9,-68},{56,-68},{56,0},{62.4,0}},          color={0,0,127}));
+  connect(speBlo.omega_r1, speed.w_ref) annotation (Line(points={{47.9,-70.3},{47.9,
+          -68},{56,-68},{56,0},{62.4,0}},               color={0,0,127}));
   connect(fre.y, VFDfre.u2)
     annotation (Line(points={{-49,-50},{-28,-50},{-28,-16},{-22,-16}},
                                                  color={0,0,127}));
@@ -203,16 +171,16 @@ equation
           24},{-22,24}},
                      color={0,0,127}));
   connect(torSpe.tau_e, speBlo.tau_e) annotation (Line(points={{35.5,-6.22222},{
-          50,-6.22222},{50,-42},{16,-42},{16,-62},{24,-62}},
+          50,-6.22222},{50,-42},{16,-42},{16,-64},{24,-64}},
         color={0,0,127}));
-  connect(switch1.y, VFDvol.u2) annotation (Line(points={{-41,-4},{-28,-4},{-28,
+  connect(switch1.y, VFDvol.u2) annotation (Line(points={{-39,-4},{-28,-4},{-28,
           24},{-22,24}}, color={0,0,127}));
-  connect(switch1.u1, VFD.y) annotation (Line(points={{-64,4},{-74,4},{-74,24},{
-          -81,24}}, color={0,0,127}));
+  connect(switch1.u1, VFD.y) annotation (Line(points={{-62,4},{-74,4},{-74,30},{
+          -78,30}}, color={0,0,127}));
   connect(booleanExpression.y, switch1.u2)
-    annotation (Line(points={{-97,-4},{-64,-4}}, color={255,0,255}));
+    annotation (Line(points={{-97,-4},{-62,-4}}, color={255,0,255}));
   connect(realExpression.y, switch1.u3) annotation (Line(points={{-99,-18},{-72,
-          -18},{-72,-12},{-64,-12}}, color={0,0,127}));
+          -18},{-72,-12},{-62,-12}}, color={0,0,127}));
   connect(integrator.y, current_Block.wt) annotation (Line(points={{19,70},{46,
           70},{46,48},{58,48}}, color={0,0,127}));
   connect(i_ds.y, current_Block.i_ds)

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "chi.shaft.tau",
+    "chi.to_rpm.y",
+    "chi.chi.P"
+  };

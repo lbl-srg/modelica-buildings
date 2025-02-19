@@ -2,30 +2,18 @@ within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
 model SquirrelCage
   "Squirrel cage type induction motor with electrical interface"
   extends Buildings.Electrical.Interfaces.PartialOnePort(
-   redeclare package PhaseSystem =
-        Buildings.Electrical.PhaseSystems.OnePhase,
-   redeclare replaceable Interfaces.Terminal_n terminal);
-   replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
-    constrainedby
-    Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
+    redeclare package PhaseSystem =Buildings.Electrical.PhaseSystems.OnePhase,
+    redeclare replaceable Interfaces.Terminal_n terminal);
+  replaceable parameter Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per
+    constrainedby Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
     "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{52,60},{72,80}})));
-   Integer P=per.P "Number of poles";
-   Real J=per.J "Moment of inertia";
-   Real Lr=per.Lr "Rotor inductance [H]";
-   Real Ls=per.Ls "Stator inductance [H]";
-   Real Lm=per.Lm "Mutual inductance [H]";
-   Real Rr=per.Rr "Rotor resistance [ohm]";
-   Real Rs=per.Rs "Stator resistance [ohm]";
-   Real v_rms "RMS voltage";
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{52,60},{72,80}})));
 
-
+  Real v_rms "RMS voltage";
   Modelica.Units.SI.Angle theta_s
     "Supply voltage phase angel";
   Modelica.Units.SI.AngularVelocity omega
     "Supply voltage angular frequency";
-
   Modelica.Units.SI.Voltage v[:] = terminal.v
     "Voltage vector";
   Modelica.Units.SI.Current i[:] = terminal.i
@@ -39,16 +27,12 @@ model SquirrelCage
     "Supply voltage frequency"
     annotation (Placement(transformation(extent={{-64,-8},{-44,12}})));
 
-  Modelica.Blocks.Interfaces.RealInput tau_m(unit="N.m")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau_m(unit="N.m")
     "Load torque"
     annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-80}),
+        extent={{-140,-100},{-100,-60}}),
         iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={-120,-80})));
+        extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Continuous.Integrator integrator
     annotation (Placement(transformation(extent={{-2,60},{18,80}})));
@@ -95,10 +79,10 @@ i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
   connect(integrator.u, angFre1.y) annotation (Line(points={{-4,70},{-19,70}},
                          color={0,0,127}));
   connect(fre.y, torSpe.f)
-    annotation (Line(points={{-43,2},{-22,2},{-22,1.77778},{0.833333,1.77778}},
+    annotation (Line(points={{-43,2},{-22,2},{-22,1},{0.6,1}},
                                                color={0,0,127}));
   connect(Vrms.y, torSpe.V_rms) annotation (Line(points={{-43,20},{-26,20},{-26,
-          6},{0,6},{0,6.44444},{0.833333,6.44444}},
+          6},{0,6},{0,5.2},{0.6,5.2}},
                        color={0,0,127}));
   connect(speed.flange, shaft)
     annotation (Line(points={{80,0},{100,0}}, color={0,0,0}));
@@ -112,12 +96,12 @@ i[2] = Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMot
           56,30},{64,30}}, color={0,0,127}));
   connect(eleTor.y, speBlo.tau_e) annotation (Line(points={{-45,-58},{-42,-58},
           {-42,-60},{-6,-60}}, color={0,0,127}));
-  connect(tau_m, speBlo.tau_m) annotation (Line(points={{-120,-80},{-82,-80},{
-          -82,-66},{-6,-66}}, color={0,0,127}));
-  connect(speBlo.omega_r, speed.w_ref) annotation (Line(points={{17.9,-59.9},{
-          48,-59.9},{48,0},{62.4,0}}, color={0,0,127}));
-  connect(torSpe.omega_r, speed.w_ref) annotation (Line(points={{0.833333,
-          -2.88889},{-8,-2.88889},{-8,-40},{48,-40},{48,0},{62.4,0}}, color={0,
+  connect(tau_m, speBlo.tau_m) annotation (Line(points={{-120,-80},{-60,-80},{
+          -60,-66},{-6,-66}}, color={0,0,127}));
+  connect(speBlo.omega_r, speed.w_ref) annotation (Line(points={{18,-60},{48,
+          -60},{48,0},{62.4,0}},      color={0,0,127}));
+  connect(torSpe.omega_r, speed.w_ref) annotation (Line(points={{0.6,-3.2},{-8,
+          -3.2},{-8,-40},{48,-40},{48,0},{62.4,0}},                   color={0,
           0,127}));
  annotation(Icon(coordinateSystem(preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

@@ -1,25 +1,24 @@
 within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Examples;
 model SquirrelCageDrive
-  "This example shows how to use the squirrel cage induction motor with closed loop built-in speed control"
+  "Squirrel cage induction motor with closed loop built-in speed control"
 
   extends Modelica.Icons.Example;
 
-  Sources.Grid                                             sou(f=50, V=400)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=50, V=400)
     "Voltage source"
     annotation (Placement(transformation(extent={{2,40},{22,60}})));
-  Modelica.Blocks.Sources.RealExpression mea(y=motDri.speBlo.N)
+  Modelica.Blocks.Sources.RealExpression mea(
+    y=motDri.speBlo.N)
     "Measured value of control target"
     annotation (Placement(transformation(extent={{-60,-36},{-40,-16}})));
   Modelica.Blocks.Sources.Step Speed_ref(
     height=1500,
     offset=0,
-    startTime=0)   "Set point of control target"
+    startTime=0)
+    "Set point of control target"
     annotation (Placement(transformation(extent={{-60,8},{-40,28}})));
-  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive
-    motDri(
-    redeclare
-      Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic
-      per,
+  Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive motDri(
+    redeclare Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.Data.Generic per,
     have_controller=true,
     k=0.1,
     Ti=0.1)
@@ -30,17 +29,16 @@ model SquirrelCageDrive
     offset=0,
     startTime=1)   "Set point of control target"
     annotation (Placement(transformation(extent={{-58,-76},{-38,-56}})));
+
 equation
-
-
   connect(motDri.terminal, sou.terminal)
     annotation (Line(points={{12,20},{12,40}}, color={0,120,120}));
   connect(Speed_ref.y, motDri.setPoi)
-    annotation (Line(points={{-39,18},{-3.8,18}}, color={0,0,127}));
+    annotation (Line(points={{-39,18},{-4,18}},   color={0,0,127}));
   connect(mea.y, motDri.mea) annotation (Line(points={{-39,-26},{-20,-26},{-20,
-          12},{-3.8,12}}, color={0,0,127}));
+          10},{-4,10}},   color={0,0,127}));
   connect(Speed_ref1.y, motDri.tau_m) annotation (Line(points={{-37,-66},{-8,
-          -66},{-8,2},{-3.8,2}}, color={0,0,127}));
+          -66},{-8,2},{-4,2}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(

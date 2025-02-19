@@ -147,7 +147,7 @@ model HeatPump "Motor coupled heat pump"
   InductionMotors.SquirrelCageDrive simMot(
     per=per,
     k=k,
-    Ti=Ti) annotation (Placement(transformation(extent={{-44,40},{-20,60}})));
+    Ti=Ti) annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
@@ -182,15 +182,15 @@ equation
           {60,6},{10,6}}, color={0,127,255}));
   connect(port_a2,mecHea. port_a2) annotation (Line(points={{100,-60},{60,-60},
           {60,-6},{10,-6}}, color={0,127,255}));
-  connect(simMot.setPoi, setPoi) annotation (Line(points={{-45.8,58},{-60,58},
+  connect(simMot.setPoi, setPoi) annotation (Line(points={{-41.6667,58},{-60,58},
           {-60,90},{-110,90}},color={0,0,127}));
-  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{
-          -60,52},{-45.8,52}},                                   color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,22},{-50,22},
-          {-50,42},{-45.8,42}},
+  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,
+          50},{-41.6667,50}},                                    color={0,0,127}));
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-41,22},{-50,22},{
+          -50,42},{-41.6667,42}},
                        color={0,0,127}));
-  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,66},
-          {-30,66},{-30,60}},         color={0,120,120}));
+  connect(terminal, simMot.terminal) annotation (Line(points={{0,100},{0,66},{
+          -28.3333,66},{-28.3333,60}},color={0,120,120}));
   connect(mecHea.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},
           {-20,50}},            color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,

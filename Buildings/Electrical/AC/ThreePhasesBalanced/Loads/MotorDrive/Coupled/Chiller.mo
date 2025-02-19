@@ -144,7 +144,7 @@ model Chiller "Motor coupled chiller"
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin) "Motor model"
-    annotation (Placement(transformation(extent={{-40,36},{-20,56}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
   Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
     annotation (Placement(transformation(
@@ -192,20 +192,20 @@ equation
           {100,60}}, color={0,127,255}));
   connect(mecChi.port_a2, port_a2) annotation (Line(points={{10,-6},{60,-6},
           {60,-60},{100,-60}}, color={0,127,255}));
-  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-60,90},
-          {-60,54},{-41.5,54}},
+  connect(setPoi, simMot.setPoi) annotation (Line(points={{-110,90},{-60,90},{
+          -60,58},{-41.6667,58}},
                               color={0,0,127}));
-  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{
-          -60,48},{-41.5,48}},
+  connect(meaPoi, simMot.mea) annotation (Line(points={{-110,30},{-60,30},{-60,
+          50},{-41.6667,50}},
                      color={0,0,127}));
-  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-37,18},
-          {-46,18},{-46,38},{-41.5,38}},
+  connect(loaTor.y, simMot.tau_m) annotation (Line(points={{-37,20},{-37,18},{
+          -46,18},{-46,42},{-41.6667,42}},
                               color={0,0,127}));
-  connect(simMot.terminal, terminal) annotation (Line(points={{-28.3333,56},{
+  connect(simMot.terminal, terminal) annotation (Line(points={{-28.3333,60},{
           -28.3333,86},{0,86},{0,100}},
                     color={0,120,120}));
-  connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,46},
-          {-20,46}},               color={0,0,0}));
+  connect(mecChi.shaft, simMot.shaft) annotation (Line(points={{0,10},{0,50},{
+          -20,50}},                color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,extent={{-100,
             -80},{100,100}}),
                          graphics={
