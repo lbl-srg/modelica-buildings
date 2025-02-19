@@ -8,3 +8,6 @@ StageAvailability
 StageChangeCommand
 StageCompletion
 Validation
+StageChangeCommand_hybridPlant
+EquipmentEnable_hybridPlant
+StageAvailability_hybridPlant

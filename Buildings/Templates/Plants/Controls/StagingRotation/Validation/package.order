@@ -7,3 +7,5 @@ SortRuntime
 StageAvailability
 StageChangeCommand
 StageCompletion
+StageChangeCommand_hybridPlant
+StageAvailability_hybridPlant

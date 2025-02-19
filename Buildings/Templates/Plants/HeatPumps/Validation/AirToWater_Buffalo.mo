@@ -145,14 +145,6 @@ model AirToWater_Buffalo "Validation of AWHP plant template"
     "HW mass flow rate"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
       origin={160,-140})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter TChiWatRet(
-    p=pla.TChiWatRet_nominal - pla.TChiWatSup_nominal) if have_chiWat
-    "Prescribed CHW return temperature"
-    annotation (Placement(transformation(extent={{-130,60},{-110,80}})));
-  Buildings.Controls.OBC.CDL.Reals.AddParameter THeaWatRet(
-    p=pla.THeaWatRet_nominal - pla.THeaWatSup_nominal)
-    "Prescribed HW return temperature"
-    annotation (Placement(transformation(extent={{-130,10},{-110,30}})));
   Buildings.Controls.OBC.CDL.Reals.Max max2
     "Limit prescribed HWRT"
     annotation (Placement(transformation(extent={{-90,12},{-70,32}})));
@@ -265,10 +257,6 @@ equation
   connect(ctlEquZon[1].y, valDisHeaWat.y)
     annotation (Line(points={{92,100},{100,100},{100,-104},{120,-104},{120,-108}},
       color={0,0,127}));
-  connect(busPla.THeaWatPriSup, THeaWatRet.u)
-    annotation (Line(points={{-80,-40},{-140,-40},{-140,20},{-132,20}},color={255,204,51},thickness=0.5));
-  connect(busPla.TChiWatPriSup, TChiWatRet.u)
-    annotation (Line(points={{-80,-40},{-140,-40},{-140,70},{-132,70}},color={255,204,51},thickness=0.5));
   connect(cst.y, mulInt.u1)
     annotation (Line(points={{18,180},{6,180},{6,146},{2,146}},color={255,127,0}));
   connect(mulInt[1].y, busAirHan.reqResHeaWat)
