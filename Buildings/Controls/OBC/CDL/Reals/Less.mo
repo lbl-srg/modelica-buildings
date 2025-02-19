@@ -236,17 +236,17 @@ revisions="<html>
 <li>
 April 29, 2022, by Jianjun Hu:<br/>
 Corrected the condition of swiching true back to false.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">Buildings, issue 2981</a>.
 </li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">issue 2246</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2246\">Buildings, issue 2246</a>.
 </li>
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Added hysteresis.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">issue 2076</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2076\">Buildings, issue 2076</a>.
 </li>
 <li>
 January 3, 2017, by Michael Wetter:<br/>

@@ -143,20 +143,20 @@ DOI: 10.1175/JAMC-D-11-0143.1
 <li>
 March 6, 2023, by Michael Wetter:<br/>
 Added a constant in order for unit check to pass.<br/>
-See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">Buildings, issue 1711</a>
 for a discussion.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed unused input <code>p</code> and renamed block.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">issue 2139</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2139\">Buildings, issue 2139</a>
 </li>
 <li>
 April 11, 2017, by Jianjun Hu:<br/>
@@ -169,7 +169,7 @@ Changed icon.
 <li>
 May 24, 2016, by Filip Jorissen:<br/>
 Corrected exact implementation.
-See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">#474</a>
+See  <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/474\">Buildings, issue 474</a>
 for a discussion.
 </li>
 <li>

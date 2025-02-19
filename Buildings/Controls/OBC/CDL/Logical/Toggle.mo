@@ -158,7 +158,7 @@ At initial time, if <code>clr = false</code>, then the output will be
 October 13, 2020, by Jianjun Hu:<br/>
 Removed the parameter <code>pre_y_start</code>, and made the initial output to be
 equal to toggle input when the clear input is <code>false</code>.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">issue 2177</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2177\">Buildings, issue 2177</a>.
 </li>
 <li>
 March 9, 2020, by Michael Wetter:<br/>
@@ -167,7 +167,7 @@ Simplified implementation, and made model work with OpenModelica.
 <li>
 April 4, 2019, by Jianjun Hu:<br/>
 Corrected implementation that causes wrong output at initial stage.
-This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">issue 1402</a>.
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1402\">Buildings, issue 1402</a>.
 </li>
 <li>
 March 31, 2017, by Jianjun Hu:<br/>
