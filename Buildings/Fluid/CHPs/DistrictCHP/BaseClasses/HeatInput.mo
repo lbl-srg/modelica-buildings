@@ -51,7 +51,6 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Multiply heaInp
     "Calculated heat flow rate"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-protected
   Buildings.Controls.OBC.CDL.Reals.Multiply masSte
     "The calculated steam mass flow rate"
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
@@ -116,35 +115,30 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This calculation block determines the required heat input to meet the enthalpy difference between the feedwater and the saturated steam.
+This calculation block determines the required heat input to meet the enthalpy
+difference between the feedwater and the saturated steam.
 </p>
-
 <p align=\"center\">
 <i>
 Q&#775;<sub>in</sub> = m&#775;<sub>ste</sub> ( h<sub>ste</sub> - h<sub>wat</sub> ),
 </i>
 </p>
-
 <p>
 where
 <i>Q&#775;<sub>in</sub></i> is the required heat flow, 
 <i>h<sub>ste</sub></i> is the defined saturated steam specific enthalpy,
 and <i>h<sub>wat</sub></i> is the defined feedwater specific enthalpy.
-The <i>m&#775;<sub>ste</sub><i> is calculated by
+The <i>m&#775;<sub>ste</sub></i> is calculated by
+</p>
 <p align=\"center\">
 <i>
 m&#775;<sub>ste</sub> = &mu; m&#775;<sub>exh</sub>,
 </i>
 </p>
+<p>
 where <i>m&#775;<sub>exh</sub></i> is the exhaust gas mass flow rate.
 The parameter <i>&mu;</i> denotes the ratio of the steam mass flow rate to the exhaust gas mass flow rate. 
 This ratio is determined using the calculation block <code>SteamToExhaustMassFlowRatio</code>.
-
-
-
 </p>
-
-
-
 </html>"));
 end HeatInput;
