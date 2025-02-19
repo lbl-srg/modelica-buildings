@@ -58,10 +58,4 @@ equation
     annotation (Line(points={{118,40},{118,40}}, color={0,0,127}));
   connect(gain.y, Freq_out)
     annotation (Line(points={{81,40},{118,40}}, color={0,0,127}));
- // annotation (
-    //Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-     //       {100,100}})),
-   // Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-     //       -100},{100,100}})),
-   // uses(Modelica(version="4.0.0")));
 end SimVFD;

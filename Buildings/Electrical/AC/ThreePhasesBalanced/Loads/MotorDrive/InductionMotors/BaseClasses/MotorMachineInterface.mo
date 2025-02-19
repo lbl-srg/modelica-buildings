@@ -94,11 +94,11 @@ equation
 <li>
 January, 2025, by Viswanathan Ganesh:<br/>
 Updated Icon Layer.
+</li>
 <li>
 September, 2023, by Zhanwei He:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end MotorMachineInterface;

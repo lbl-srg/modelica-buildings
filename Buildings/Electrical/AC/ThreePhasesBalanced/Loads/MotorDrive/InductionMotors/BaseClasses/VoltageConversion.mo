@@ -16,8 +16,4 @@ algorithm
   v_ds:= V_rms;
 algorithm
   v_qs:= 0;
-
-   // annotation (Line(points={{120,-60},{120,-60}}, color={0,0,127}),
-   // Icon(coordinateSystem(preserveAspectRatio=false)),
-   // Diagram(coordinateSystem(preserveAspectRatio=false)));
 end VoltageConversion;

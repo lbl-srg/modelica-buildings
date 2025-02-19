@@ -42,18 +42,17 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=4,
-      Tolerance=0.001,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=2,
+      Tolerance=1e-06),
+__Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Examples/SquirrelCageDrive.mos"
+      "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>May 07, 2024, by Viswanathan Ganesh and Zhanwei He:<br>First Implementation. </li>
 </ul>
 </html>",
-      info="<html>
+info="<html>
 An example of induction motor drive with closed loop variable speed controller.
-</html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/InductionMotors/Examples/SquirrelCageDrive.mos"
-        "Simulate and Plot"));
+</html>"));
 end SquirrelCageDrive;
