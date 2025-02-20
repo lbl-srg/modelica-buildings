@@ -330,6 +330,9 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final k=1/mAir_flow_nominal)
     "Normalized fan signal"
     annotation (Placement(transformation(extent={{300,100},{320,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSup annotation (
+      Placement(transformation(extent={{200,-116},{240,-76}}),
+        iconTransformation(extent={{200,-116},{240,-76}})));
 protected
   final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
     "Check if a hot water heating coil exists"
@@ -427,6 +430,10 @@ equation
           240,-5},{240,110},{298,110}}, color={0,0,127}));
   connect(heaCoiHW.port_a1, VHW_flow.port_b)
     annotation (Line(points={{0,-44},{4,-44},{4,-74}}, color={0,127,255}));
+  connect(TAirLvg.T, TAirSup)
+    annotation (Line(points={{250,1},{250,-96},{220,-96}}, color={0,0,127}));
+  connect(TAirSup, TAirSup)
+    annotation (Line(points={{220,-96},{220,-96}}, color={0,0,127}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

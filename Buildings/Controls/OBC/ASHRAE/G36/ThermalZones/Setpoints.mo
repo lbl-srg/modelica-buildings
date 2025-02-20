@@ -523,7 +523,7 @@ protected
     annotation (Placement(transformation(extent={{-160,62},{-140,82}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu4
     "Check if the cooling demand limit level is level 2"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-98,60},{-78,80}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.DemandLimitLevels.cooling3)
     "Cool demand limit level 3"
@@ -634,14 +634,14 @@ equation
   connect(intEqu3.y, booToRea.u)
     annotation (Line(points={{-78,110},{-42,110}}, color={255,0,255}));
   connect(intEqu4.y, booToRea1.u)
-    annotation (Line(points={{-78,70},{-42,70}}, color={255,0,255}));
+    annotation (Line(points={{-76,70},{-42,70}}, color={255,0,255}));
   connect(intEqu5.y, booToRea2.u)
     annotation (Line(points={{-78,30},{-42,30}}, color={255,0,255}));
   connect(uCooDemLimLev, intEqu3.u1)
     annotation (Line(points={{-440,130},{-120,130},{-120,110},{-102,110}},
       color={255,127,0}));
   connect(uCooDemLimLev, intEqu4.u1)
-    annotation (Line(points={{-440,130},{-120,130},{-120,70},{-102,70}},
+    annotation (Line(points={{-440,130},{-120,130},{-120,70},{-100,70}},
       color={255,127,0}));
   connect(uCooDemLimLev, intEqu5.u1)
     annotation (Line(points={{-440,130},{-120,130},{-120,30},{-102,30}},
@@ -650,7 +650,7 @@ equation
     annotation (Line(points={{-138,110},{-128,110},{-128,102},{-102,102}},
       color={255,127,0}));
   connect(conInt4.y, intEqu4.u2)
-    annotation (Line(points={{-138,72},{-128,72},{-128,62},{-102,62}},
+    annotation (Line(points={{-138,72},{-128,72},{-128,62},{-100,62}},
       color={255,127,0}));
   connect(conInt5.y, intEqu5.u2)
     annotation (Line(points={{-138,30},{-128,30},{-128,22},{-102,22}},
@@ -659,7 +659,7 @@ equation
     annotation (Line(points={{-78,110},{-70,110},{-70,160},{-62,160}},
       color={255,0,255}));
   connect(intEqu4.y, or1.u2)
-    annotation (Line(points={{-78,70},{-70,70},{-70,152},{-62,152}},
+    annotation (Line(points={{-76,70},{-70,70},{-70,152},{-62,152}},
       color={255,0,255}));
   connect(not1.y, booToRea6.u)
     annotation (Line(points={{22,150},{38,150}}, color={255,0,255}));
