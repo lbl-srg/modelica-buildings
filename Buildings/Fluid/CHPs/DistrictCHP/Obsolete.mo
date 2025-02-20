@@ -1786,7 +1786,7 @@ First implementation.
         use_T_start=false,
         T_start=504.475,
         h_start=1e5),
-      watLevel(y=0.8*botCyc.steBoi.V))
+      watLev(y=0.8*botCyc.steBoi.V))
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
     Modelica.Blocks.Sources.Constant ambTemp(k=15) "Ambient temperature (deg_C)"
       annotation (Placement(transformation(extent={{-80,10},{-60,30}})));

@@ -3,25 +3,28 @@ block HRSGEfficiency
   "A block calculates the efficiency of HRSG"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.Units.NonSI.Temperature_degC TSta
+  parameter Real TSta(
+    final unit="K",
+    displayUnit="degC",
+    final quantity = "ThermodynamicTemperature")
     "Exhaust stack temperature in Celsius";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TExh(
-    final unit="degC",
+    displayUnit="degC",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Exhaust gas temperature inlet temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAmb(
-    final unit="degC",
+    displayUnit="degC",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Ambient temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput eta_HRSG(
-    final unit="1") "Steam turbine electrical generation efficiency"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    final unit="1")
+    "Steam turbine electrical generation efficiency"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
   Modelica.Units.NonSI.Temperature_degF TExh_degF
@@ -32,9 +35,9 @@ protected
    "Ambient temperature in degree Fahrenheit";
 
 algorithm
-  TExh_degF := TExh*(9/5) +32;
-  TSta_degF := TSta*(9/5) +32;
-  TAmb_degF := TAmb*(9/5) +32;
+  TExh_degF := (TExh-273.15)*(9/5) +32;
+  TSta_degF := (TSta-273.15)*(9/5) +32;
+  TAmb_degF := (TAmb-273.15)*(9/5) +32;
 
 equation
   eta_HRSG =Functions.HRSGEffectiveness(
@@ -42,12 +45,16 @@ equation
      TSta=TSta_degF,
      TAmb=TAmb_degF)
     "HRSG effectiveness calculation";
-annotation (Documentation(info="<html>
+annotation (defaultComponentName="effHRSG",
+Documentation(info="<html>
 <p>
 This block calculates the efficiency of the Heat Recovery Steam Generator (HRSG).
 </p>
 <p>
-It uses the function <code>Functions.HRSGEffectiveness</code> along with unit conversion.
+It uses the function
+<a href=\"modelica://Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.HRSGEffectiveness\">
+Buildings.Fluid.CHPs.DistrictCHP.BaseClasses.Functions.HRSGEffectiveness</a>
+along with unit conversion.
 </p>
 </html>",
 revisions="<html>

@@ -7,14 +7,27 @@ model Combined "Example of the usage of the combined model"
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
-  Buildings.Fluid.CHPs.DistrictCHP.Combined comCyc(botCycExp(steBoi(
-          fixed_p_start=false))) "Combined cycle CHP plant"
+  Buildings.Fluid.CHPs.DistrictCHP.Combined comCyc(
+    botCycExp(steBoi(fixed_p_start=false)))
+    "Combined cycle CHP plant"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Modelica.Blocks.Sources.CombiTimeTable LoadProfile(table=[0,1.0; 14400,1.0;
-        28800,1.0; 43200,1.0; 57600,0.8; 72000,0.5; 86400,0.5])
+  Modelica.Blocks.Sources.CombiTimeTable LoadProfile(
+    table=[0,1.0;
+           14400,1.0;
+           28800,1.0;
+           43200,1.0;
+           57600,0.8;
+           72000,0.5;
+           86400,0.5])
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.CombiTimeTable AmbientTemperature(table=[0.0,25;
-        14400,25; 28800,25; 43200,23; 57600,22; 72000,23; 86400,25])
+  Modelica.Blocks.Sources.CombiTimeTable AmbientTemperature(
+    table=[0.0,25;
+           14400,25;
+           28800,25;
+           43200,23;
+           57600,22;
+           72000,23;
+           86400,25])
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumW,

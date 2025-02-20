@@ -2,60 +2,62 @@ within Buildings.Fluid.CHPs.DistrictCHP;
 model ToppingCycle "Topping cycle subsystem model"
   extends Modelica.Blocks.Icons.Block;
 
+  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.Generic per
+    "Records of gas turbine performance data"
+     annotation (choicesAllMatching= true, Placement(transformation(extent={{40,-90},
+            {60,-70}})));
+
   // Parameters for the nominal condition
-  parameter Modelica.Units.SI.Power P_nominal = per.P_nominal
-    "Gas turbine power generation capacity"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TExh_nominal = per.TExh_nominal
-    "Nominal exhaust gas temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mExh_nominal = per.mExh_nominal
-    "Nominal exhaust mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Efficiency eta_nominal=per.eta_nominal
-    "Nominal gas turbine efficiency"
-    annotation (Dialog(group="Nominal condition"));
-  // Natural gas properties
-  parameter Modelica.Units.SI.SpecificEnthalpy  LHVFue = per.LHVFue
-    "Lower heating value";
+//   parameter Modelica.Units.SI.Power P_nominal = per.P_nominal
+//     "Gas turbine power generation capacity"
+//     annotation (Dialog(group="Nominal condition"));
+//   parameter Modelica.Units.SI.Temperature TExh_nominal = per.TExh_nominal
+//     "Nominal exhaust gas temperature"
+//     annotation (Dialog(group="Nominal condition"));
+//   parameter Modelica.Units.SI.MassFlowRate mExh_nominal = per.mExh_nominal
+//     "Nominal exhaust mass flow rate"
+//     annotation (Dialog(group="Nominal condition"));
+//   parameter Modelica.Units.SI.Efficiency eta_nominal=per.eta_nominal
+//     "Nominal gas turbine efficiency"
+//     annotation (Dialog(group="Nominal condition"));
+//   // Natural gas properties
+//   parameter Modelica.Units.SI.SpecificEnthalpy  LHVFue = per.LHVFue
+//     "Lower heating value";
 
   // Inputs
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput y "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet "Ambient temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput y
+    "Part load ratio"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    displayUnit="degC",
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
+    "Ambient temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PEle(
     final quantity= "Power",
     final unit = "W")
     "Gas turbine electricity generation"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mFue(
     final unit= "kg/s")
     "Fuel mass flow rate"
-    annotation (Placement(transformation(extent={{100,10},{140,50}}),
-        iconTransformation(extent={{100,0},{140,40}})));
+    annotation (Placement(transformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TExh(
-    final quantity="ThermodynamicTemperature",
-    final unit = "degC")
+    displayUnit="degC",
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")
     "Exhaust temperature"
-    annotation (Placement(transformation(extent={{100,-30},{140,10}}),
-        iconTransformation(extent={{100,-40},{140,0}})));
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mExh(
-    final unit= "kg/s")
+    final unit= "kg/s",
+    final quantity="MassFlowRate")
     "Exhaust mass flow rate"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
 
   // Look-up tables
-  replaceable parameter Buildings.Fluid.CHPs.DistrictCHP.Data.Generic per
-    "Records of gas turbine performance data"
-     annotation (choicesAllMatching= true, Placement(transformation(extent={{-80,-78},{-60,-58}})));
   Modelica.Blocks.Tables.CombiTable2Ds eleCap_CorFac(
     final table=per.capPowCor_GTG,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
@@ -88,24 +90,28 @@ protected
     "Gross heat input into the system"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter eleCap(
-    final k=P_nominal) "Fuel mass flow rate computation"
+    final k=per.P_nominal) "Fuel mass flow rate computation"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter nomHea(
-    final k=1/LHVFue)    "Low heating value"
+    final k=1/per.LHVFue)    "Low heating value"
     annotation (Placement(transformation(extent={{72,20},{92,40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gasTurEff(
-    final k=eta_nominal) "Gas turbine efficiency computation"
+    final k=per.eta_nominal) "Gas turbine efficiency computation"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhTemp(
-    final k=TExh_nominal) "Exhaust temperature computation"
+    final k=per.TExh_nominal) "Exhaust temperature computation"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter exhMas(
-    final k=mExh_nominal) "Exhaust mass flow rate computation"
+    final k=per.mExh_nominal) "Exhaust mass flow rate computation"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter loaPer(
     final k=1)
     "load ratio"
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=-273.15)
+    "Convert from degK to degC"
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
 equation
   connect(exhT_CorFac.y, exhTemp.u)
@@ -127,9 +133,9 @@ equation
   connect(gasTurEff.y, groHea.u2) annotation (Line(points={{22,30},{30,30},{30,
           24},{38,24}}, color={0,0,127}));
   connect(exhTemp.y, TExh)
-    annotation (Line(points={{22,-10},{120,-10}}, color={0,0,127}));
+    annotation (Line(points={{22,-10},{72,-10},{72,-30},{120,-30}}, color={0,0,127}));
   connect(exhMas.y, mExh)
-    annotation (Line(points={{22,-50},{120,-50}}, color={0,0,127}));
+    annotation (Line(points={{22,-50},{72,-50},{72,-80},{120,-80}},color={0,0,127}));
   connect(nomHea.y, mFue)
     annotation (Line(points={{94,30},{120,30}}, color={0,0,127}));
   connect(nomHea.u, groHea.y) annotation (Line(points={{70,30},{62,30}},
@@ -144,14 +150,16 @@ equation
           32,60},{32,36},{38,36}}, color={0,0,127}));
   connect(eleCap_CorFac.u1, fulCap.y) annotation (Line(points={{-42,76},{-60,76},
           {-60,80},{-67,80}}, color={0,0,127}));
-  connect(eleCap_CorFac.u2, TSet) annotation (Line(points={{-42,64},{-50,64},{
-          -50,-40},{-120,-40}}, color={0,0,127}));
-  connect(gasTurEff_CorFac.u2, TSet) annotation (Line(points={{-42,24},{-50,24},
-          {-50,-40},{-120,-40}}, color={0,0,127}));
-  connect(exhT_CorFac.u2, TSet) annotation (Line(points={{-42,-16},{-50,-16},{
-          -50,-40},{-120,-40}}, color={0,0,127}));
-  connect(exhMas_CorFac.u2, TSet) annotation (Line(points={{-42,-56},{-50,-56},
-          {-50,-40},{-120,-40}}, color={0,0,127}));
+  connect(TSet, addPar.u)
+    annotation (Line(points={{-120,-40},{-92,-40}}, color={0,0,127}));
+  connect(addPar.y, eleCap_CorFac.u2) annotation (Line(points={{-68,-40},{-50,-40},
+          {-50,64},{-42,64}}, color={0,0,127}));
+  connect(addPar.y, gasTurEff_CorFac.u2) annotation (Line(points={{-68,-40},{-50,
+          -40},{-50,24},{-42,24}}, color={0,0,127}));
+  connect(addPar.y, exhT_CorFac.u2) annotation (Line(points={{-68,-40},{-50,-40},
+          {-50,-16},{-42,-16}}, color={0,0,127}));
+  connect(addPar.y, exhMas_CorFac.u2) annotation (Line(points={{-68,-40},{-50,-40},
+          {-50,-56},{-42,-56}}, color={0,0,127}));
 annotation (
   defaultComponentName="topCyc",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -203,7 +211,7 @@ Q<sub>exhaust</sub> = Q<sub>fuel</sub> (1 - &eta;<sub>GTG</sub>).
 <p>
 In theory, the waste heat <i>Q<sub>exhaust</sub></i> can be expressed by the
 equation above. In the model, the corresponding values of exhaust gas mass flow
-rate and exhaust temperature are given to provide the waste heat. 
+rate and exhaust temperature are given to provide the waste heat.
 </p>
 <p>
 This model uses look-up tables to capture the gas turbine's performance. The Solar

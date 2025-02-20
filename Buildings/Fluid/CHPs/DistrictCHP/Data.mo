@@ -14,8 +14,11 @@ package Data "Performance data for gas turbines in the topping cycle models"
     parameter Modelica.Units.SI.MassFlowRate mExh_nominal
       "Nominal exhaust mass flow rate (kg/s)";
 
-    parameter Modelica.Units.NonSI.Temperature_degC TExh_nominal
-      "Nominal exhaust temperature (C)";
+    parameter Real TExh_nominal(
+      final unit="K",
+      displayUnit="degC",
+      final quantity = "ThermodynamicTemperature")
+      "Nominal exhaust temperature";
 
     parameter Modelica.Units.SI.SpecificEnthalpy LHVFue
       "Lower heating value of fuel:
@@ -50,9 +53,7 @@ package Data "Performance data for gas turbines in the topping cycle models"
 <p>
 This record is used as a template for performance data
 for the gas turbine model
-
 </p>
-
 </html>",   revisions="<html>
 <ul>
 <li>
@@ -70,7 +71,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 18.804,
-        final TExh_nominal = 446,
+        final TExh_nominal = 446+273.15,
         final P_nominal = 3420000,
         final eta_nominal = 0.274,
         final capPowCor_GTG = [
@@ -131,7 +132,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 18.891,
-        final TExh_nominal = 513,
+        final TExh_nominal = 513+273.15,
         final P_nominal = 4483000,
         final eta_nominal = 0.289,
         final capPowCor_GTG = [
@@ -192,7 +193,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 17.646,
-        final TExh_nominal = 367,
+        final TExh_nominal = 367+273.15,
         final P_nominal = 4505000,
         final eta_nominal = 0.381,
         final capPowCor_GTG = [
@@ -253,7 +254,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 21.555,
-        final TExh_nominal = 514,
+        final TExh_nominal = 514+273.15,
         final P_nominal = 5526000,
         final eta_nominal = 0.310,
         final capPowCor_GTG = [
@@ -314,7 +315,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 21.133,
-        final TExh_nominal = 543,
+        final TExh_nominal = 543+273.15,
         final P_nominal = 6330000,
         final eta_nominal = 0.326,
         final capPowCor_GTG = [
@@ -377,7 +378,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal= 26.580,
-        final TExh_nominal = 523,
+        final TExh_nominal = 523+273.15,
         final P_nominal= 7.968E6,
         final eta_nominal= 0.339,
         final capPowCor_GTG=
@@ -438,7 +439,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 42.726,
-        final TExh_nominal = 483,
+        final TExh_nominal = 483+273.15,
         final P_nominal = 10971000,
         final eta_nominal = 0.322,
         final capPowCor_GTG = [
@@ -499,7 +500,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 49.299,
-        final TExh_nominal = 506,
+        final TExh_nominal = 506+273.15,
         final P_nominal = 14631000,
         final eta_nominal = 0.347,
         final capPowCor_GTG = [
@@ -560,7 +561,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal = 106.191,
-        final TExh_nominal = 451,
+        final TExh_nominal = 451+273.15,
         final P_nominal = 33045000,
         final eta_nominal = 0.387,
         final capPowCor_GTG = [
@@ -621,7 +622,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 47.614E6,
         final mExh_nominal= 106.361,
-        final TExh_nominal = 491,
+        final TExh_nominal = 491+273.15,
         final P_nominal= 37767000,
         final eta_nominal= 0.396,
         final capPowCor_GTG=
@@ -692,7 +693,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 18.835,
-        final TExh_nominal = 446,
+        final TExh_nominal = 446+273.15,
         final P_nominal = 3345000,
         final eta_nominal = 0.271,
         final capPowCor_GTG = [
@@ -753,7 +754,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 18.930,
-        final TExh_nominal = 514,
+        final TExh_nominal = 514+273.15,
         final P_nominal = 4407000,
         final eta_nominal = 0.287,
         final capPowCor_GTG = [
@@ -814,7 +815,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 21.562,
-        final TExh_nominal = 514,
+        final TExh_nominal = 514+273.15,
         final P_nominal = 5368000,
         final eta_nominal = 0.307,
         final capPowCor_GTG = [
@@ -876,7 +877,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 26.662,
-        final TExh_nominal = 498,
+        final TExh_nominal = 498+273.15,
         final P_nominal = 7220000,
         final eta_nominal = 0.331,
         final capPowCor_GTG = [
@@ -937,7 +938,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 42.293,
-        final TExh_nominal = 477,
+        final TExh_nominal = 477+273.15,
         final P_nominal = 10509000,
         final eta_nominal = 0.319,
         final capPowCor_GTG = [
@@ -998,7 +999,7 @@ First implementation.
         extends Buildings.Fluid.CHPs.DistrictCHP.Data.Generic(
         final LHVFue = 42.6E6,
         final mExh_nominal = 49.358,
-        final TExh_nominal = 493,
+        final TExh_nominal = 493+273.15,
         final P_nominal = 13505000,
         final eta_nominal = 0.339,
         final capPowCor_GTG = [

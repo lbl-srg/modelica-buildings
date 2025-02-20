@@ -5,8 +5,7 @@ model BottomingCycle_AnnualSim
   // Medium declarations
   package MediumS = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-  package MediumW =
-    Buildings.Media.Specialized.Water.TemperatureDependentDensity
+  package MediumW = Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
   // Parameters for the calculation blocks
@@ -16,13 +15,19 @@ model BottomingCycle_AnnualSim
   parameter Real a_SteMas[:]={0.1140,0,0}
     "Coefficients for bottoming cycle steam mass flow function"
     annotation (Dialog(group="Coefficients for functions"));
-  parameter Modelica.Units.NonSI.Temperature_degC TSta=182.486
-    "HRSG stack temperature in Celsius";
+  parameter Real TSta(
+    displayUnit="degC",
+    final unit="K",
+    final quantity = "ThermodynamicTemperature") =182.486+273.15
+    "HRSG stack temperature";
 
   // Advanced tab: parameters for the fluid systems
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=56.9972
     "Nominal mass flow rate in fluid ports";
-  parameter Modelica.Units.NonSI.Temperature_degC TSte=550
+  parameter Real TSte(
+    displayUnit="degC",
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")=550+273.15
     "Superheated steam temperature in Celsius used for correlation function";
   parameter Modelica.Units.SI.AbsolutePressure p_a_nominal=30000
     "Nominal inlet pressure for predefined pump characteristics";
@@ -32,7 +37,7 @@ model BottomingCycle_AnnualSim
     "Total volume of evaporator";
 
   // Advanced tab: parameters for PI controller
-  parameter Modelica.Units.SI.Volume watLev=V*0.8
+  parameter Modelica.Units.SI.Volume watLevSet=V*0.8
     "Water volume setpoint in for PI controller";
   parameter Real k(min=0) = 2
     "Gain of controller";
@@ -77,7 +82,10 @@ model BottomingCycle_AnnualSim
     "Start value of mass flow rate for pump";
   parameter Boolean use_T_start=false
     "Boolean to indicate if T_start is used";
-  parameter Modelica.Units.NonSI.Temperature_degC T_start=504.475
+  parameter Real T_start(
+    displayUnit="degC",
+    final unit="K",
+    final quantity = "ThermodynamicTemperature")=504.475+273.15
     "Start value of temperature for pump";
   parameter Modelica.Units.SI.SpecificEnthalpy h_start=1e5
     "Start value of specific enthalpy for pump";
@@ -104,7 +112,7 @@ model BottomingCycle_AnnualSim
     final y_start=y_start,
     final VWat_flow_start=VWat_flow_start,
     final TSte=TSte,
-    final watLev=watLev,
+    final watLevSet=watLevSet,
     final p_a_start=p_a_start,
     final p_b_start=p_b_start,
     final m_flow_start=m_flow_start,
@@ -144,16 +152,16 @@ model BottomingCycle_AnnualSim
     startTime=500) "Exhaust mass flow rate changes (kg/s)"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 equation
-  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-14},{-30,-14},{
+  connect(botCyc.TAmb, ambTemp.y) annotation (Line(points={{-12,-15},{-30,-15},{
           -30,30},{-59,30}},          color={0,0,127}));
   connect(botCyc.port_a, sou.ports[1]) annotation (Line(points={{-10,-20},{-20,-20},
           {-20,-40},{-30,-40}}, color={0,127,255}));
   connect(botCyc.port_b, bou.ports[1]) annotation (Line(points={{10,-20},{20,-20},
           {20,-40},{30,-40}},color={0,127,255}));
-  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-12,-11},{-20,-11},{-20,
+  connect(botCyc.TExh, exhTem.y) annotation (Line(points={{-12,-12},{-20,-12},{-20,
           70},{-59,70}},                        color={0,0,127}));
   connect(trapezoid.y, botCyc.mExh) annotation (Line(points={{-59,-10},{-40,-10},
-          {-40,-17},{-12,-17}}, color={0,0,127}));
+          {-40,-18},{-12,-18}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(preserveAspectRatio=false)),
