@@ -1,11 +1,15 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+  type BoilerHotWaterModel = enumeration(
+      Polynomial
+      "Efficiency described by a polynomial",
+      Table
+      "Efficiency described by a table")
+    "Enumeration to specify the type of hot water boiler model";
   type Chiller = enumeration(
       AirCooled
       "Air-cooled compression chiller",
-      None
-      "No chiller",
       WaterCooled
       "Water-cooled compression chiller")
     "Enumeration to specify the type of chiller";

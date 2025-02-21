@@ -1,0 +1,7 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.Validation.ControlLoop", method="Cvode", stopTime=5, tolerance=1e-06, resultFile="ControlLoop");
+createPlot(id=1, position={20, 10, 700, 650}, subPlot=1, y={"chiHeaPreLoo.uHeaPreEna"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 700, 650}, subPlot=2, y={"chiHeaPreLoo.TConWatRet", "chiHeaPreLoo.TChiWatSup"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{238,46,47}});
+
+createPlot(id=2, position={740, 10, 700, 650}, subPlot=1, y={"chiHeaPreLoo.conPID.u_s","chiHeaPreLoo.conPID.u_m"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={740, 10, 700, 650}, subPlot=2, y={"chiHeaPreLoo.conPID.y"}, range={0.0, 5.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+

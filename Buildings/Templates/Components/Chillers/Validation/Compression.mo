@@ -14,7 +14,6 @@ model Compression
     Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Data.Chiller datChiAirCoo(
     final typ=chiAirCoo.typ,
-    final use_datDes=true,
     mChiWat_flow_nominal=datChiAirCoo.cap_nominal / abs(datChiAirCoo.TChiWatSup_nominal -
       Buildings.Templates.Data.Defaults.TChiWatRet) / datChiAirCoo.cpChiWat_default,
     cap_nominal=750E3,
@@ -32,15 +31,21 @@ model Compression
         1.535993E+00, - 4.944902E-02, 0.000000E+00, 1.396972E+00, 0.000000E+00, 0.000000E+00},
       PLRMax=1.15,
       etaMotor=1.0))
-    "Air-cooled chiller parameters – Parameterization based on design conditions and direct assignment of performance curves"
+    "Air-cooled chiller parameters – Parameterization by direct assignment of performance curves"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   parameter Buildings.Templates.Components.Data.Chiller datChiWatCoo(
     final typ=chiWatCoo.typ,
-    final use_datDes=false,
+    mChiWat_flow_nominal=datChiWatCoo.cap_nominal / abs(datChiWatCoo.TChiWatSup_nominal -
+      Buildings.Templates.Data.Defaults.TChiWatRet) / datChiWatCoo.cpChiWat_default,
+    mCon_flow_nominal=datChiWatCoo.mChiWat_flow_nominal,
+    cap_nominal=750E3,
+    COP_nominal=Buildings.Templates.Data.Defaults.COPChiWatCoo,
+    TChiWatSup_nominal=Buildings.Templates.Data.Defaults.TChiWatSup,
+    TConEnt_nominal=Buildings.Templates.Data.Defaults.TConWatSup,
     dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatChi,
     dpCon_nominal=Buildings.Templates.Data.Defaults.dpConWatChi,
     redeclare Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
-    "Water-cooled chiller parameters – Parameterization based on rating conditions specified in the sub-record per"
+    "Water-cooled chiller parameters – Parameterization by redeclaring sub-record per"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TChiWatSupSet(
     k=datChiAirCoo.TChiWatSup_nominal,
@@ -78,8 +83,8 @@ model Compression
     "Boundary condition at distribution system supply"
     annotation (Placement(transformation(extent={{130,10},{110,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin TChiWatRet(
-    amplitude=(datChiAirCoo.TChiWatRet_nominal - datChiAirCoo.TChiWatSup_nominal) /
-      2,
+    amplitude=(datChiAirCoo.TChiWatRet_nominal - datChiAirCoo.TChiWatSup_nominal)
+        /2,
     freqHz=2 / 3000,
     y(final unit="K",
       displayUnit="degC"),
@@ -193,7 +198,8 @@ protected
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}}),
       iconTransformation(extent={{-276,6},{-236,46}})));
 initial equation
-  Modelica.Utilities.Streams.print("Coef at rating conditions = " + String(Buildings.Utilities.Math.Functions.biquadratic(
+  Modelica.Utilities.Streams.print(
+    "Coef at rating conditions = " + String(Buildings.Utilities.Math.Functions.biquadratic(
     a=datChiWatCoo.per.capFunT,
     x1=Modelica.Units.Conversions.to_degC(datChiWatCoo.per.TEvaLvg_nominal),
     x2=Modelica.Units.Conversions.to_degC(datChiWatCoo.per.TConLvg_nominal))));
@@ -262,26 +268,13 @@ This model validates the model
 <a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
 Buildings.Templates.Components.Chillers.Compression</a>
 in a configuration in which the chiller is exposed
-to a constant differential pressure and a varying
-return temperature.
+to the design CHW differential pressure and a varying
+CHW return temperature.
 </p>
 <p>
 The chiller model is configured to represent either an air-cooled
 chiller (component <code>chiAirCoo</code>) or a water-cooled
 chiller (component <code>chiWatCoo</code>).
-</p>
-<p>
-Regarding the parameterization logic described in the documentation of 
-<a href=\"modelica://Buildings.Templates.Components.Chillers.Compression\">
-Buildings.Templates.Components.Chillers.Compression</a>:
-The air-cooled chiller component is parameterized using the 
-specified design conditions (<code>datChiAirCoo.use_datDes=true</code>)
-and a direct assignment of the performance curves
-<code>per.capFunT</code>, <code>per.EIRFunT</code> and <code>per.EIRFunPLR</code>.
-The water-cooled chiller component is parameterized using the 
-rating conditions specified in the redeclared performance record
-(<code>datChiWatCoo.use_datDes=false</code>) and no direct assignment
-of the design parameters.
 </p>
 </html>",
       revisions="<html>
