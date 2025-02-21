@@ -25,14 +25,15 @@ model Compression
     "Compute chiller status"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
       origin={60,0})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal reqConWat(
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal reqFloConWat(
     final nin=1,
     final nout=1,
     final extract={1})
     if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
-    "Compute CW request"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,
-      origin={-60,80})));
+    "Compute CW flow request" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-60,80})));
   Buildings.Controls.OBC.CDL.Logical.Not off
     "Return true if status is off"
     annotation (Placement(transformation(extent={{40,10},{20,30}})));
@@ -65,18 +66,18 @@ equation
     annotation (Line(points={{0,100},{0,-20},{60,-20},{60,-12}},color={255,204,51},thickness=0.5));
   connect(y1_actual.y1_actual, bus.y1_actual)
     annotation (Line(points={{60,12},{60,94},{0,94},{0,100}},color={255,0,255}));
-  connect(reqConWat.y[1], bus.reqConWat)
-    annotation (Line(points={{-60,92},{-60,96},{0,96},{0,100}},color={255,0,255}));
+  connect(reqFloConWat.y[1], bus.y1ReqFloConWat) annotation (Line(points={{-60,
+          92},{-60,96},{0,96},{0,100}}, color={255,0,255}));
   connect(y1_actual.y1_actual, off.u)
     annotation (Line(points={{60,12},{60,20},{42,20}},color={255,0,255}));
   connect(off.y, delOff.u)
     annotation (Line(points={{18,20},{-8,20}},color={255,0,255}));
   connect(delOff.y, reqFlo.u)
     annotation (Line(points={{-32,20},{-40,20},{-40,38}},color={255,0,255}));
-  connect(reqFlo.y, bus.reqChiWat)
+  connect(reqFlo.y, bus.y1ReqFloChiWat)
     annotation (Line(points={{-40,62},{-40,94},{0,94},{0,100}},color={255,0,255}));
-  connect(reqFlo.y, reqConWat.u[1])
-    annotation (Line(points={{-40,62},{-40,64},{-60,64},{-60,68}},color={255,0,255}));
+  connect(reqFlo.y, reqFloConWat.u[1]) annotation (Line(points={{-40,62},{-40,
+          64},{-60,64},{-60,68}}, color={255,0,255}));
   annotation (
     defaultComponentName="chi",
     Documentation(
@@ -92,11 +93,11 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-On/off command <code>y1</code>: 
+On/off command <code>y1</code>:
 DO signal
 </li>
 <li>
-(Only if <code>have_switchover=true</code>) Operating mode command <code>y1Coo</code>: 
+(Only if <code>have_switchover=true</code>) Operating mode command <code>y1Coo</code>:
 DO signal, true for cooling, false for heating
 </li>
 <li>
@@ -104,7 +105,7 @@ Supply temperature setpoint <code>TSupSet</code>:
 AO signal corresponding to
 <ul>
 <li>CHW supply temperature setpoint if
-<code>have_switchover=false</code> or if 
+<code>have_switchover=false</code> or if
 <code>have_switchover=true</code> and <code>y1Coo=true</code>, or
 </li>
 <li>HW supply temperature setpoint if
@@ -116,11 +117,11 @@ AO signal corresponding to
 Chiller status <code>y1_actual</code>: DI signal
 </li>
 <li>
-CHW request <code>reqChiWat</code>: DI signal
+CHW flow request <code>y1ReqFloChiWat</code>: DI signal
 </li>
 <li>
-(Only if <code>typ=Buildings.Templates.Components.Types.Chiller.WaterCooled</code>) 
-CW request <code>reqConWat</code>: DI signal
+(Only if <code>typ=Buildings.Templates.Components.Types.Chiller.WaterCooled</code>)
+CW flow request <code>y1ReqFloConWat</code>: DI signal
 </li>
 </ul>
 <h4>Model parameters</h4>
@@ -128,7 +129,7 @@ CW request <code>reqConWat</code>: DI signal
 The design parameters and the chiller performance data are specified with an instance of
 <a href=\"modelica://Buildings.Templates.Components.Data.Chiller\">
 Buildings.Templates.Components.Data.Chiller</a>.
-The documentation of this record class provides further details on how to 
+The documentation of this record class provides further details on how to
 properly parameterize the model.
 </p>
 </html>",
