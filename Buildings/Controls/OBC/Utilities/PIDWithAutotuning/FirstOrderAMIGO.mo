@@ -22,7 +22,7 @@ block FirstOrderAMIGO
     "Typical range of control error, used for scaling the control error";
   parameter Real yHig(
      final min = 0,
-     final max = 1) = 1
+     final max = 1)
     "Higher value for the relay output";
   parameter Real yLow(
      final min = 0,
@@ -392,15 +392,46 @@ equation
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a rule-based tuning method for a PI or a PID controller.
+This block implements a rule-based tuning method for a PI or a PID controller, with the following
+steps:
 </p>
 <p>
-The method approximates the control process with a first-order plus time-delay
-(FOPTD) model. It then determines the parameters of this FOPTD model based on the
-control process responses to asymmetric relay feedback.
-After that, taking the parameters of this FOPTD mode as inputs, this method
-calculates the PID gains with the Approximate M-constrained Integral Gain
-Optimization (AMIGO) method.
+Step 1: Introducing a periodic disturbance
+</p>
+<ul>
+<li>
+During the tuning process, the relay controller
+switches the output between two constants (<code>yHig</code> and <code>yLow</code>), based
+on the control error (see 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
+The control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
+</li>
+</ul>
+<p>
+Step 2: Extracting parameters of a first-order plus time-delay (FOPTD) model
+</p>
+<ul>
+<li>
+Based on the inputs and outputs from the relay controller during the tuning process, the
+parameters of the FOPTD model is calculated (see 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
+In this case, the FOPTD serves as a simplified representation of the control process.
+</li>
+</ul>
+<p>
+Step 3: Calculating the PID gains
+</p>
+<ul>
+<li>
+The PID gains are calculated with the Approximate M-constrained Integral Gain Optimization (AMIGO) method
+based on the FOPTD model parameters (see 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO</a>).
+</li>
+</ul>
+<p>
 This block is implemented using
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
@@ -448,33 +479,50 @@ lower values for the relay output <code>yHig</code> and <code>yLow</code>, and t
 deadband <code>deaBan</code>.
 These parameters can be specified as below.
 </p>
-<ol>
+<p>
+Step 1: conducting a &quot;test run&quot;
+</p>
+<ul>
 <li>
-Perform a &quot;test run&quot; to determine the maximum and the minimum values of
-measurement. In the test run, the autotuning should be disabled and the set point
+In the test run, the autotuning should be disabled and the set point
 should be constant.
+</li>
+<li>
+During the test run, <code>r</code> should be adjusted so that the 
+output of the relay controller <code>rel.yDif</code>,
+stays between 0 and 1.
+</li>
+<li>
 This test run should stop after the system is stable.
-Record the maximum and the minimum values of measurement after the system is stable.
 </li>
 <li>
-The <code>r</code> should be adjusted so that the output of the relay controller,
-<code>rel.yDif</code>, is within the range from 0 to 1.
+Once stable, note the highest and lowest values of the measurement.
 </li>
+</ul>
+<p>
+Step 2: calculating <code>yRef</code> and <code>deaBan</code>
+</p>
+<ul>
 <li>
-The <code>yRef</code> can be determined by dividing the set point by the sum of the
+The <code>yRef</code> is calculated by dividing the set point by the sum of the
 minimum and the maximum values of the measurement.
 </li>
+<li>
+To calculate <code>deaBan</code>, first divide the maximum and the
+minimum control errors during the test run by <code>r</code>.
+The <code>deaBan</code> can then be set as half of the smaller absolute value
+of those two deviations.
+</li>
+</ul>
+<p>
+Step 3: determining <code>yHig</code> and <code>yLow</code>
+</p>
+<ul>
 <li>
 The <code>yHig</code> and <code>yLow</code> should be adjusted so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
-<li>
-To specify <code>deaBan</code>, first divide the maximum and the
-minimum control errors by <code>r</code>.
-The <code>deaBan</code> can then be set as half of the smaller absolute value
-of those two deviations.
-</li>
-</ol>
+</ul>
 <h4>References</h4>
 <p>
 J. Berner (2017).
