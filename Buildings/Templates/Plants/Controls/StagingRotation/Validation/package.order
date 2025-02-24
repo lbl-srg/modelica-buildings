@@ -5,7 +5,7 @@ FailsafeCondition
 LoadAverage
 SortRuntime
 StageAvailability
-StageChangeCommand
-StageCompletion
-StageChangeCommand_hybridPlant
 StageAvailability_hybridPlant
+StageChangeCommand
+StageChangeCommand_hybridPlant
+StageCompletion
