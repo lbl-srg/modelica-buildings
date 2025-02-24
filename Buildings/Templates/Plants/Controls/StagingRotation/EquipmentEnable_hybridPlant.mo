@@ -29,11 +29,11 @@ block EquipmentEnable_hybridPlant
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uSta
     "Stage index"
     annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Ava[nEqu]
     "Equipment available signal"
     annotation (Placement(transformation(extent={{-240,-100},{-200,-60}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-40},{-100,0}})));
   Modelica.Blocks.Sources.RealExpression traMatStaEqu[nEqu, nSta](y=traStaEqu)
     "Transpose of staging matrix"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
@@ -108,7 +108,8 @@ block EquipmentEnable_hybridPlant
   Buildings.Controls.OBC.CDL.Integers.Less intLes
     "Compare to required number of equipment"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or swiEna
+  Buildings.Controls.OBC.CDL.Logical.MultiOr
+                                        swiEna(nin=3)
     "Evaluate condition to switch to newly computed enable signal"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And isEnaPreAva[nEqu]
@@ -142,6 +143,12 @@ block EquipmentEnable_hybridPlant
   Buildings.Controls.OBC.CDL.Reals.Multiply voiStaZer[nEqu]
     "Void if stage is equal to zero"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1HeaCoo
+    "Detect plant switching to heating-cooling mode" annotation (Placement(
+        transformation(extent={{-240,-140},{-200,-100}}), iconTransformation(
+          extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Change cha1
+    annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 equation
   connect(intScaRep.y, reqEquSta.index)
     annotation (Line(points={{-108,0},{-100,0},{-100,60},{-150,60},{-150,68}},
@@ -193,10 +200,6 @@ equation
     annotation (Line(points={{12,80},{20,80},{20,-108},{28,-108}},color={255,127,0}));
   connect(swiEna.y, booScaRep.u)
     annotation (Line(points={{102,-60},{108,-60}},color={255,0,255}));
-  connect(cha.y, swiEna.u1)
-    annotation (Line(points={{52,-60},{78,-60}},color={255,0,255}));
-  connect(intLes.y, swiEna.u2)
-    annotation (Line(points={{52,-100},{60,-100},{60,-68},{78,-68}},color={255,0,255}));
   connect(isEnaPreAva.y, nEnaAvaPre.u1)
     annotation (Line(points={{108,-100},{102,-100}},color={255,0,255}));
   connect(y1Pre.y, isEnaPreAva.u2)
@@ -235,6 +238,15 @@ equation
     annotation (Line(points={{-78,80},{-70,80},{-70,0},{-62,0}},color={0,0,127}));
   connect(voiStaZer.y, isReq.u)
     annotation (Line(points={{-78,80},{-70,80},{-70,-40},{-62,-40}},color={0,0,127}));
+  connect(cha.y, swiEna.u[1]) annotation (Line(points={{52,-60},{66,-60},{66,
+          -62.3333},{78,-62.3333}}, color={255,0,255}));
+  connect(intLes.y, swiEna.u[2]) annotation (Line(points={{52,-100},{62,-100},{
+          62,-60},{78,-60}}, color={255,0,255}));
+  connect(u1HeaCoo, cha1.u) annotation (Line(points={{-220,-120},{-180,-120},{
+          -180,-100},{-142,-100}}, color={255,0,255}));
+  connect(cha1.y, swiEna.u[3]) annotation (Line(points={{-118,-100},{-40,-100},
+          {-40,-116},{62,-116},{62,-58},{78,-58},{78,-57.6667}}, color={255,0,
+          255}));
   annotation (
     defaultComponentName="enaEqu",
     Icon(

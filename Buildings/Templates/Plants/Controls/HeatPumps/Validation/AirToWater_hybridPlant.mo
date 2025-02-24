@@ -92,6 +92,7 @@ model AirToWater_hybridPlant
       6, 1, 0;
       12, 0.2, 0.2;
       15, 0, 1;
+      18, 1, 0.6;
       22, 0.1, 0.1;
       24, 0, 0],
     timeScale=3600)
@@ -163,10 +164,10 @@ model AirToWater_hybridPlant
     annotation (Placement(transformation(extent={{-108,30},{-88,50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reqResHeaWat
     "Generate HW reset request"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reqResChiWat
     "Generate CHW reset request"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[1](
     amplitude=0.1 * ctl.dpHeaWatRemSet_max,
     freqHz={4 / 8000},
@@ -291,13 +292,13 @@ equation
   connect(ratV_flow.y, gai.u)
     annotation (Line(points={{-138,-40},{-120,-40},{-120,40},{-110,40}},color={0,0,127}));
   connect(gai[1].y, reqResHeaWat.u)
-    annotation (Line(points={{-86,40},{-82,40}},color={0,0,127}));
+    annotation (Line(points={{-86,40},{-72,40}},color={0,0,127}));
   connect(gai[2].y, reqResChiWat.u)
-    annotation (Line(points={{-86,40},{-84,40},{-84,10},{-82,10}},color={0,0,127}));
+    annotation (Line(points={{-86,40},{-80,40},{-80,10},{-72,10}},color={0,0,127}));
   connect(reqResHeaWat.y, ctl.nReqResHeaWat)
-    annotation (Line(points={{-58,40},{-42,40},{-42,24},{-2,24}},color={255,127,0}));
+    annotation (Line(points={{-48,40},{-42,40},{-42,24},{-2,24}},color={255,127,0}));
   connect(reqResChiWat.y, ctl.nReqResChiWat)
-    annotation (Line(points={{-58,10},{-40,10},{-40,22},{-2,22}},color={255,127,0}));
+    annotation (Line(points={{-48,10},{-40,10},{-40,22},{-2,22}},color={255,127,0}));
   connect(sin.y, dpHeaWatRem.u2)
     annotation (Line(points={{-138,-86},{-82,-86}},color={0,0,127}));
   connect(dpChiWatRem.y, ctl.dpChiWatRem)
