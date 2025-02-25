@@ -326,7 +326,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
 
+    </td>
+    <td valign=\"top\">Removed parameter <code>nPanelsSer</code> to avoid allowing an inconsistent
+                       declaration of the number of panel of the collector field, and of how
+                       many panels are installed in parallel and in series.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
