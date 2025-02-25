@@ -684,6 +684,12 @@ Failsafe conditions: the failsafe stage up conditions are not true.
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2025, by Jianjun Hu:<br/>
+Reimplemented it to comply with CDL specification.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">#4110</a>.
+</li>
+<li>
 February 24, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
