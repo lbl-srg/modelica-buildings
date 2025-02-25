@@ -499,6 +499,12 @@ The mode is enabled whenever neither Charge Assist nor Heat Rejection mode is en
 </html>", revisions="<html>
 <ul>
 <li>
+February 25, 2025, by Jianjun Hu:<br/>
+Reimplemented it to comply with CDL specification.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">#4110</a>.
+</li>
+<li>
 August 29, 2023, by Hongxiang Fu:<br/>
 Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,
 replaced it with a stack of two <code>Logical.And</code> blocks.
