@@ -1,9 +1,12 @@
 within Buildings.DHC.Networks.Controls;
 model MainPump1Pipe
   "Main pump controller for 1 pipe networks, developed for reservoir network main circulation loop"
-  parameter Integer nMix(min=1) "Number of mixing points after the substations";
-  parameter Integer nSou(min=1) "Number of heat sources (and heat sinks)";
-  parameter Integer nBui(min=1) "Number of heat sources (and heat sinks)";
+  parameter Integer nMix(min=1)
+    "Number of mixing points after the substations";
+  parameter Integer nSou(min=1)
+    "Number of heat sources (and heat sinks)";
+  parameter Integer nBui(min=1)
+    "Number of heat sources (and heat sinks)";
   parameter Real yPumMin(min=0.01, max=1, final unit="1") = 0.05
     "Minimum pump speed";
   parameter Real TMin(
@@ -54,7 +57,7 @@ model MainPump1Pipe
     each displayUnit="degC")
     "Temperatures at the mixing points"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-        iconTransformation(extent={{-140,100},{-100,140}})));
+        iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn[nSou](
     each final unit="K",
     each displayUnit="degC")
@@ -66,16 +69,16 @@ model MainPump1Pipe
     each displayUnit="degC")
     "Temperatures at the outlets of the sources"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput QCoo_flow[nBui](
     each final unit="W")
     "Cooling power required by each building"
     annotation (Placement(transformation(extent={{-142,-190},{-102,-150}}),
-        iconTransformation(extent={{-140,-160},{-100,-120}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1")
     "Pump control signal"
     annotation (Placement(transformation(extent={{160,-40},{200,0}}),
-        iconTransformation(extent={{160,-20},{200,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.MultiMin TMixMin(
     final nin=nMix,
@@ -201,8 +204,7 @@ equation
   connect(dTSou_nor.y, conShi.u_m)
     annotation (Line(points={{2,-120},{20,-120},{20,-112}},  color={0,0,127}));
   connect(conShi.u_s, zer.y) annotation (Line(points={{8,-100},{0,-100},{0,
-          -80},{-28,-80}},
-                 color={0,0,127}));
+          -80},{-28,-80}}, color={0,0,127}));
   connect(uppCur.u, TMixMax.y)
     annotation (Line(points={{28,20},{-48,20}}, color={0,0,127}));
   connect(uppCur.f1, yMin.y) annotation (Line(points={{28,24},{-30,24},{-30,50},
@@ -211,13 +213,11 @@ equation
           -48,80}}, color={0,0,127}));
   connect(TMax_nominal.y, TMax_upper.u1)
     annotation (Line(points={{-48,160},{-40,160},{-40,166},{-32,166}},
-                                                   color={0,0,127}));
+          color={0,0,127}));
   connect(zer.y, sPos.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-54},
-          {58,-54}},
-                 color={0,0,127}));
+          {58,-54}}, color={0,0,127}));
   connect(zer.y, sNeg.u1) annotation (Line(points={{-28,-80},{46,-80},{46,
-          -134},{58,-134}},
-                 color={0,0,127}));
+          -134},{58,-134}}, color={0,0,127}));
   connect(conShi.y, sPos.u2) annotation (Line(points={{32,-100},{50,-100},{50,-66},
           {58,-66}}, color={0,0,127}));
   connect(conShi.y, sNeg.u2) annotation (Line(points={{32,-100},{50,-100},{50,-146},
@@ -225,36 +225,29 @@ equation
   connect(TMax_lower.u, TMax_upper.y)
     annotation (Line(points={{8,160},{-8,160}},   color={0,0,127}));
   connect(uppCur.x1, TMax_lower.y) annotation (Line(points={{28,28},{20,28},{
-          20,80},{40,80},{40,160},{32,160}},
-                                          color={0,0,127}));
+          20,80},{40,80},{40,160},{32,160}}, color={0,0,127}));
   connect(TMax_upper.y, uppCur.x2) annotation (Line(points={{-8,160},{0,160},
-          {0,16},{28,16}},
-                        color={0,0,127}));
+          {0,16},{28,16}}, color={0,0,127}));
   connect(TMixMin.y, lowCur.u)
     annotation (Line(points={{-48,-20},{28,-20}}, color={0,0,127}));
   connect(TMin_nominal.y, TMin_lower.u1) annotation (Line(points={{-48,120},{
-          -40,120},{-40,126},{-32,126}},
-                                     color={0,0,127}));
+          -40,120},{-40,126},{-32,126}}, color={0,0,127}));
   connect(TMin_lower.y, TMin_upper.u)
     annotation (Line(points={{-8,120},{8,120}}, color={0,0,127}));
   connect(TMin_upper.y, lowCur.x2) annotation (Line(points={{32,120},{36,120},
-          {36,84},{16,84},{16,-24},{28,-24}},
-                                          color={0,0,127}));
+          {36,84},{16,84},{16,-24},{28,-24}}, color={0,0,127}));
   connect(TMin_lower.y, lowCur.x1) annotation (Line(points={{-8,120},{-4,120},
-          {-4,-12},{28,-12}},
-                        color={0,0,127}));
+          {-4,-12},{28,-12}}, color={0,0,127}));
   connect(lowCur.f1, one.y) annotation (Line(points={{28,-16},{-26,-16},{-26,80},
           {-48,80}},color={0,0,127}));
   connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-28},{-30,-28},{-30,
-          50},{-50,50}},
-                     color={0,0,127}));
+          50},{-50,50}}, color={0,0,127}));
   connect(uppCur.y, ySetPum.u1)
     annotation (Line(points={{52,20},{56,20},{56,6},{58,6}}, color={0,0,127}));
   connect(lowCur.y, ySetPum.u2) annotation (Line(points={{52,-20},{56,-20},{56,-6},
           {58,-6}}, color={0,0,127}));
   connect(ySetPum.y, y)
-    annotation (Line(points={{82,0},{132,0},{132,-20},{180,-20}},
-                                              color={0,0,127}));
+    annotation (Line(points={{82,0},{132,0},{132,-20},{180,-20}}, color={0,0,127}));
   connect(TSouOut, dTSou.u1) annotation (Line(points={{-120,-60},{-94,-60},{-94,
           -114},{-80,-114}}, color={0,0,127}));
   connect(TSouIn, dTSou.u2) annotation (Line(points={{-120,40},{-90,40},{-90,-126},
@@ -266,7 +259,7 @@ equation
   connect(dTSou.y, mulSum.u)
     annotation (Line(points={{-56,-120},{-52,-120}}, color={0,0,127}));
   connect(greThr.y, and2.u1) annotation (Line(points={{2,-170},{18,-170}},
-                            color={255,0,255}));
+         color={255,0,255}));
   connect(QCoo_flow, mulSum1.u)
     annotation (Line(points={{-122,-170},{-96,-170}}, color={0,0,127}));
   connect(sPos.y, gai.u)
@@ -276,13 +269,13 @@ equation
   connect(gai2.y, TMin_lower.u2) annotation (Line(points={{122,-140},{126,-140},
           {126,100},{-40,100},{-40,114},{-32,114}}, color={0,0,127}));
   connect(swi2.y, Add.u1) annotation (Line(points={{122,-200},{150,-200},{150,146},
-          {102,146}},      color={0,0,127}));
+          {102,146}}, color={0,0,127}));
   connect(gai.y, Add.u2) annotation (Line(points={{122,-60},{140,-60},{140,132},
           {102,132},{102,134}}, color={0,0,127}));
   connect(Add.y, TMax_upper.u2) annotation (Line(points={{78,140},{-38,140},{-38,
           154},{-32,154}}, color={0,0,127}));
   connect(offTMaxExp.y, swi2.u3) annotation (Line(points={{82,-170},{90,-170},{90,
-          -192},{98,-192}},     color={0,0,127}));
+          -192},{98,-192}}, color={0,0,127}));
   connect(zer.y, swi2.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-208},
           {98,-208}},  color={0,0,127}));
   connect(mulSum1.y, gai1.u)
@@ -292,19 +285,14 @@ equation
   annotation (
     defaultComponentName="conPum",
     Diagram(coordinateSystem(extent={{-100,-220},{160,180}})), Icon(
-        coordinateSystem(extent={{-100,-220},{160,180}}), graphics={
-        Ellipse(
-          extent={{-52,52},{54,-52}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
+        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
                                 Rectangle(
-        extent={{-100,-222},{160,180}},
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,128},{-78,114}},
+          extent={{-96,88},{-78,74}},
           textColor={0,0,127},
           textString="TMix"),
         Text(
@@ -312,29 +300,29 @@ equation
           textColor={0,0,127},
           textString="TSouIn"),
         Text(
-          extent={{-96,-44},{-64,-78}},
+          extent={{-96,-24},{-64,-58}},
           textColor={0,0,127},
           textString="TSouOut"),
         Text(
-          extent={{140,12},{162,-8}},
+          extent={{80,12},{102,-8}},
           textColor={0,0,127},
           textString="y"),
         Ellipse(
-          extent={{-14,48},{88,-52}},
+          extent={{-52,50},{50,-50}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{36,48},{36,-52},{88,-2},{36,48}},
+          points={{0,50},{0,-50},{52,0},{0,50}},
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-96,-122},{-64,-156}},
+          extent={{-96,-62},{-64,-96}},
           textColor={0,0,127},
           textString="QCoo_flow"),      Text(
-        extent={{-140,220},{160,180}},
+        extent={{-120,140},{120,100}},
         textString="%name",
         textColor={0,0,255})}),
     Documentation(revisions="<html>

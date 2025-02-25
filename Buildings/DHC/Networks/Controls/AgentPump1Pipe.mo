@@ -1,55 +1,73 @@
 within Buildings.DHC.Networks.Controls;
 block AgentPump1Pipe
   "Ambient network storage and plants agent pump control, developed for reservoir network"
-   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType =
       Buildings.Controls.OBC.CDL.Types.SimpleController.P "Type of controller";
-   parameter Real yPumMin(min=0, max=1, final unit="1") = 0.05
+  parameter Real yPumMin(
+    min=0,
+    max=1,
+    final unit="1") = 0.05
     "Minimum pump speed";
-   parameter Real yPumMax(min=0, max=1, final unit="1") = 1 "Upper limit of output";
-   parameter Real k = 1 "Gain of controller";
-   parameter Real Ti = 0.5 "Time constant of integrator block";
-   parameter Real Td = 0.1 "Time constant of derivative block";
-   parameter Modelica.Units.SI.TemperatureDifference dToff(min=0.1) = 1
+  parameter Real yPumMax(
+    min=0,
+    max=1,
+    final unit="1") = 1
+    "Upper limit of output";
+  parameter Real k = 1 "Gain of controller";
+  parameter Real Ti = 0.5 "Time constant of integrator block";
+  parameter Real Td = 0.1 "Time constant of derivative block";
+  parameter Real dToff(
+    min=0.1,
+    unit="K") = 1
     "Temperature offset to account for heat exchanger pinch point";
-   parameter Real uLowHea = 1 "if y=true and u<uLow, switch to y=false";
-   parameter Real uHighHea = 2 "if y=false and u>uHigh, switch to y=true";
-   parameter Real uLowCoo = 1 "if y=true and u<uLow, switch to y=false";
-   parameter Real uHighCoo = 2 "if y=false and u>uHigh, switch to y=true";
-   parameter Real h = 0.15 "Hysteresis for net demand temperature calculation";
+  parameter Real uLowHea = 1
+    "if y=true and u<uLow, switch to y=false";
+  parameter Real uHighHea = 2
+    "if y=false and u>uHigh, switch to y=true";
+  parameter Real uLowCoo = 1
+    "if y=true and u<uLow, switch to y=false";
+  parameter Real uHighCoo = 2
+    "if y=false and u>uHigh, switch to y=true";
+  parameter Real h = 0.15
+    "Hysteresis for net demand temperature calculation";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn(
     final unit="K",
     displayUnit="degC")
     "Temperatures at the inlet of the source"
-    annotation (Placement(transformation(extent={{-160,50},{-120,90}})));
+    annotation (Placement(transformation(extent={{-160,50},{-120,90}}),
+        iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut(
     final unit="K",
     displayUnit="degC")
     "Agent supply temperature"
-    annotation (Placement(transformation(extent={{-160,-30},{-120,10}})));
+    annotation (Placement(transformation(extent={{-160,-30},{-120,10}}),
+        iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSou(
     final unit="K",
     displayUnit="degC")
     "Average temperature available at source"
-    annotation (Placement(transformation(extent={{-160,10},{-120,50}})));
+    annotation (Placement(transformation(extent={{-160,10},{-120,50}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TRetDis(
     final unit="K",
     displayUnit="degC")
     "District return temperature"
-    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
+        iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupDis(
     final unit="K",
     displayUnit="degC")
     "Plant supply temperature"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-        iconTransformation(extent={{-160,-100},{-120,-60}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     min=0,
     max=1,
     unit="1")
     "Pump control signal"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
-        iconTransformation(extent={{140,-20},{180,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Reals.Less NetDemBool(
     final h=h)
@@ -173,9 +191,9 @@ equation
           color={0,0,127}));
   connect(TSouIn,dTSouSup. u2) annotation (Line(points={{-140,70},{-110,70},{-110,
           36},{-102,36}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -100},{140,100}}), graphics={Rectangle(
-        extent={{-120,-100},{140,100}},
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={Rectangle(
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
@@ -194,31 +212,31 @@ equation
           extent={{-62,-46},{68,-84}},
           textColor={0,0,0},
           textString="Agent"),          Text(
-        extent={{-152,170},{148,130}},
+        extent={{-120,140},{120,100}},
         textString="%name",
         textColor={0,0,255}),
         Text(
-          extent={{-116,82},{-88,58}},
+          extent={{-96,82},{-68,58}},
           textColor={0,0,127},
           textString="TSouIn"),
         Text(
-          extent={{118,16},{140,-4}},
+          extent={{78,16},{100,-4}},
           textColor={0,0,127},
           textString="y"),
         Text(
-          extent={{-116,42},{-94,20}},
+          extent={{-96,42},{-74,20}},
           textColor={0,0,127},
           textString="TSou"),
         Text(
-          extent={{-116,6},{-82,-24}},
+          extent={{-96,6},{-62,-24}},
           textColor={0,0,127},
           textString="TSouOut"),
         Text(
-          extent={{-116,-34},{-84,-62}},
+          extent={{-96,-34},{-64,-62}},
           textColor={0,0,127},
           textString="TretDis"),
         Text(
-          extent={{-116,-66},{-84,-94}},
+          extent={{-96,-66},{-64,-94}},
           textColor={0,0,127},
           textString="TsupDis")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{140,

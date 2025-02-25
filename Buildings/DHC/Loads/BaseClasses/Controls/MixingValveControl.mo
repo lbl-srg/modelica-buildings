@@ -12,7 +12,7 @@ block MixingValveControl
     final unit="1")=0.1
     "Gain of controller";
   parameter Real Ti(
-    final min=Modelica.Constants.small,
+    final min=Buildings.Controls.OBC.CDL.Constants.small,
     final quantity="Time",
     final unit="s") = 10
     "Time constant of integrator block";

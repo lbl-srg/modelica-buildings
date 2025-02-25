@@ -17,7 +17,7 @@ model ChilledWaterBypass
   parameter Real Ti(
     final quantity="Time",
     final unit="s",
-    final min=Modelica.Constants.small) = 60
+    final min=Buildings.Controls.OBC.CDL.Constants.small) = 60
     "Time constant of Integrator block"
     annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -91,13 +91,9 @@ equation
         preserveAspectRatio=false),
       graphics={
         Text(
-          extent={{-150,150},{150,110}},
+          extent={{-120,140},{120,100}},
           textString="%name",
           textColor={0,0,255}),
-        Text(
-          textColor={0,0,255},
-          extent={{-100,100},{100,140}},
-          textString="%name"),
         Rectangle(
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},

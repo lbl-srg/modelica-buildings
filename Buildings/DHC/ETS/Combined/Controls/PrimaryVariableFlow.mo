@@ -13,8 +13,8 @@ block PrimaryVariableFlow
   parameter Real dT_nominal(
     final quantity="TemperatureDifference",
     final unit="K",
-    min=if Q_flow_nominal > 0 then Modelica.Constants.eps else -100,
-    max=if Q_flow_nominal < 0 then -Modelica.Constants.eps else 100)
+    min=if Q_flow_nominal > 0 then Buildings.Controls.OBC.CDL.Constants.eps else -100,
+    max=if Q_flow_nominal < 0 then -Buildings.Controls.OBC.CDL.Constants.eps else 100)
     "DeltaT at nominal conditions (>0 for condenser)";
   parameter Real ratFloMin(
     final unit="1",

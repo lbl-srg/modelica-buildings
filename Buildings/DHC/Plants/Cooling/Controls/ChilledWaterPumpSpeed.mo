@@ -44,7 +44,7 @@ model ChilledWaterPumpSpeed
   parameter Real Ti(
     final quantity="Time",
     final unit="s",
-    final min=Modelica.Constants.small) = 60
+    final min=Buildings.Controls.OBC.CDL.Constants.small) = 60
     "Time constant of Integrator block"
     annotation (Dialog(group= "Speed Controller",
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
@@ -163,7 +163,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-150,150},{150,110}},
+          extent={{-120,140},{120,100}},
           textString="%name",
           textColor={0,0,255}),
         Ellipse(
@@ -185,11 +185,7 @@ equation
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          textColor={0,0,255},
-          extent={{-100,100},{100,140}},
-          textString="%name")}),
+          fillPattern=FillPattern.Solid)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)),

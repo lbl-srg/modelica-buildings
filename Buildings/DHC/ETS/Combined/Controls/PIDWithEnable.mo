@@ -22,7 +22,7 @@ block PIDWithEnable
     annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                               or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real r(
-    min=100*Modelica.Constants.eps)=1
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yMin=0
     "Lower limit of output";

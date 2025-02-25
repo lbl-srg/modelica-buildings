@@ -32,23 +32,23 @@ model ChillerStage
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Enabling signal of the plant. True: chiller should be enabled"
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
-      iconTransformation(extent={{-200,40},{-160,80}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet
     "Chilled water return temperature"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
-      iconTransformation(extent={{-200,-24},{-160,16}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-200,-60},{-160,-20}}),
-      iconTransformation(extent={{-200,-60},{-160,-20}})));
+      iconTransformation(extent={{-140,-56},{-100,-16}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mFloChiWat
     "Chilled water mass flow rate"
     annotation (Placement(transformation(extent={{-200,-96},{-160,-56}}),
-      iconTransformation(extent={{-200,-96},{-160,-56}})));
+      iconTransformation(extent={{-140,-92},{-100,-52}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[2]
     "On/off signal for the chillers - false: off; true: on"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
-      iconTransformation(extent={{160,-20},{200,20}})));
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Modelica.StateGraph.InitialStep off(nIn=1, nOut=1)
     "No cooling is demanded"
@@ -190,15 +190,15 @@ equation
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-160,-160},{160,160}}),
+        extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
-          extent={{-160,-160},{160,160}},
+          extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-154,206},{146,166}},
+          extent={{-120,140},{120,100}},
           textColor={0,0,255},
           textString="%name")}),
     Documentation(

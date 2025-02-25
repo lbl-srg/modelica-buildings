@@ -40,7 +40,7 @@ model Borefield
     final reverseActing=true,
     y_reset=0,
     k=0.1,
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti(displayUnit="s")=120)
     "Mixing valve controller"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));

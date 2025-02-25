@@ -48,7 +48,7 @@ model Chiller
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
   Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValEva(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
@@ -59,7 +59,7 @@ model Chiller
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValCon(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
