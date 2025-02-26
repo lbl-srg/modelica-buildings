@@ -7,8 +7,8 @@ model SetpointController_noWSE
     have_locSen=true,
     final chiDesCap={500000,700000},
     final chiMinCap={100000,200000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement})
     "Chiller stage setpoint controller"
     annotation (Placement(transformation(extent={{60,140},{84,178}})));
 
@@ -21,9 +21,9 @@ model SetpointController_noWSE
     final staMat={{1,0,0},{0,1,0},{1,1,0},{1,1,1}},
     final chiDesCap={300000,400000,500000},
     final chiMinCap={50000,100000,150000},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.ConstantSpeedCentrifugal})
     "Chiller stage setpoint controller"
     annotation (Placement(transformation(extent={{60,-100},{84,-62}})));
 

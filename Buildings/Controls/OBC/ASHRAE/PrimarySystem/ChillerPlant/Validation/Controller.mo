@@ -31,8 +31,8 @@ model Controller "Validation head pressure controller"
     final have_WSE=true,
     final chiDesCap={200,200},
     final chiMinCap={20,20},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement})
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-20,-180},{80,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](

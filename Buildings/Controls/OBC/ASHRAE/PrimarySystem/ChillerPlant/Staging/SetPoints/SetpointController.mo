@@ -38,9 +38,9 @@ block SetpointController
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal}
+  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
+    chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal}
     "Chiller type"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 

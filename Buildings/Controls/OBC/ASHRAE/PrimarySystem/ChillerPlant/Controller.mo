@@ -27,9 +27,9 @@ block Controller "Chiller plant controller"
     "Plant design capacity"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal}
+  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
+    chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal}
     "Chiller type"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -43,7 +43,7 @@ block Controller "Chiller plant controller"
 
   parameter Real TChiWatSupMin[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC",nChi))={278.15,278.15}
+    each displayUnit="degC")={278.15,278.15}
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
@@ -418,9 +418,8 @@ block Controller "Chiller plant controller"
     "Minimum chilled water pump differential static pressure, default 5 psi"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatPumMax[nSenChiWatPum](
-    unit=fill("Pa", nSenChiWatPum),
-    displayUnit=fill("Pa",nSenChiWatPum))
+  parameter Real dpChiWatPumMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
+      each displayUnit="Pa")
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
@@ -607,13 +606,13 @@ block Controller "Chiller plant controller"
 
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC",nChi))={293.15,293.15}
+    each displayUnit="degC")={293.15,293.15}
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   parameter Real TConWatRet_nominal[nChi](
     unit=fill("K", nChi),
-    displayUnit=fill("degC",nChi))={303.15,303.15}
+    each displayUnit="degC")={303.15,303.15}
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
@@ -1008,8 +1007,8 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{100,140},{140,180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ConWatIsoVal[nChi]
-    "Chiller condenser water isolation valve commanded setpoint" annotation (
-      Placement(transformation(extent={{920,260},{960,300}}),
+    "Chiller condenser water isolation valve commanded setpoint"
+    annotation (Placement(transformation(extent={{920,260},{960,300}}),
         iconTransformation(extent={{100,110},{140,150}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal[nChi](
@@ -1594,7 +1593,7 @@ block Controller "Chiller plant controller"
 protected
 
   final parameter Boolean anyVsdCen = sum({
-    if chiTyp[i]==Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.variableSpeedCentrifugal
+    if chiTyp[i]==Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal
       then 1 else 0 for i in 1:nChi}) > 0
     "Plant contains at least one variable speed centrifugal chiller";
 
