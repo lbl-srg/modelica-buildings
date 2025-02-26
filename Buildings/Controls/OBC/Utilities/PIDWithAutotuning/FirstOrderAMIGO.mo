@@ -402,10 +402,10 @@ Step 1: Introducing a periodic disturbance
 <li>
 During the tuning process, the relay controller
 switches the output between two constants (<code>yHig</code> and <code>yLow</code>), based
-on the control error (see 
+on the control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
+Details can be found in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
-The control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </li>
 </ul>
 <p>
@@ -417,7 +417,7 @@ Based on the inputs and outputs from the relay controller during the tuning proc
 parameters of the FOPTD model is calculated (see 
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
-In this case, the FOPTD serves as a simplified representation of the control process.
+The FOPTD is a simplified representation of the control process.
 </li>
 </ul>
 <p>
@@ -474,26 +474,26 @@ to the PID parameters.
 <p>
 The performance of the autotuning is affected by the parameters including the
 typical range of the control error <code>r</code>,
-the reference output for the tuning process <code>yRef</code>, the higher and the
+the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-These parameters can be specified as below.
+These parameters can be specified as follows.
 </p>
 <p>
 Step 1: conducting a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, the autotuning should be disabled and the set point
-should be constant.
+In the test run, the autotuning must be disabled and the set point
+must be constant.
 </li>
 <li>
-During the test run, <code>r</code> should be adjusted so that the 
+During the test run, <code>r</code> must be adjusted so that the 
 output of the relay controller <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
-This test run should stop after the system is stable.
+This test run must stop after the system is stable.
 </li>
 <li>
 Once stable, note the highest and lowest values of the measurement.

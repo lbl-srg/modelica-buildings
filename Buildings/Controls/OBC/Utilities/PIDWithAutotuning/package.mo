@@ -5,7 +5,7 @@ package PIDWithAutotuning "Package with blocks for PID autotuning"
     Documentation(
       info="<html>
 <p>
-This package contains blocks for the PID controller that can tune the gains
+This package contains blocks for the PID controller that tune their control gains
 automatically.
 </p>
 </html>"),
