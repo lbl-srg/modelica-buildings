@@ -1196,6 +1196,7 @@ block Controller "Chiller plant controller"
     final have_serChi=have_serChi,
     final have_locSen=have_locSenChiWatPum,
     final nRemSen=nSenChiWatPum,
+    final anyVsdCen=anyVsdCen,
     final nChi=nChi,
     final chiDesCap=chiDesCap,
     final chiMinCap=chiMinCap,
@@ -1582,7 +1583,8 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.IdentifyStage ideSta(
     final nSta=nSta,
     final nChi=nChi,
-    final staMat=staMat) "Identify stage index"
+    final staMat=staMat)
+    "Identify stage index"
     annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep3(
