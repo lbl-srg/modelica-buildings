@@ -21,10 +21,12 @@ block Configurator "Configures chiller staging"
     "Chiller minimum cycling loads vector"
     annotation (Evaluate=true);
 
-  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
-    chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.ConstantSpeedCentrifugal}
-    "Chiller type";
+//   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
+//     chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+//                   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.ConstantSpeedCentrifugal}
+//     "Chiller type";
+  parameter Integer chiTypInt[nChi]={1,3}
+    "Chiller type indicator";
 
   parameter Integer staMat[nSta, nChi] = {{1,0},{0,1},{1,1}}
     "Staging matrix with stage as row index and chiller as column index";
@@ -57,8 +59,7 @@ block Configurator "Configures chiller staging"
         iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  final parameter Integer chiTypInt[nChi]=Integer(chiTyp)
-    "Convert chiller type to integer";
+
   final parameter Integer chiTypMat[nSta, nChi] = {chiTypInt[i] for i in 1:nChi, j in 1:nSta}
     "Chiller type array expanded to allow for element-wise multiplication with the staging matrix";
 
