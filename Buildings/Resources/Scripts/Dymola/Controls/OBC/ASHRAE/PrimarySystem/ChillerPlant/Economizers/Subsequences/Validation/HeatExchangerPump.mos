@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Validation.HeatExchangerPump", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="HeatExchangerPump");
+createPlot(id=1, position={75, 75, 1290, 1130}, y={"wsePum.uWSE", "wsePum.uPum", "wsePum.yPumOn", "wsePum.uPla"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {28,108,200}, {28,108,200},{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={75, 75, 1290, 1130}, y={"wsePum.TEntWSE", "wsePum.TEntHex"}, range={0.0, 3600.0, 5.0, 20.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC","degC"});
+createPlot(id=1, position={75, 75, 1290, 1130}, y={"wsePum.yConWatIsoVal", "wsePum.yPumSpe"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1","1"});
+createPlot(id=1, position={75, 75, 1290, 1130}, y={"wsePum.resSpeReq.y"}, range={0.0, 3600.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");

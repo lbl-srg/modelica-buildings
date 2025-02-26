@@ -1,0 +1,18 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.Subsequences.Validation.ContinuousLeadSwapTwo_uDevSta", method="Cvode", stopTime=180, tolerance=1e-06, resultFile="ContinuousLeadSwapTwo_uDevSta");
+
+createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"leaSwa.uDevRolSet[1]","leaSwa.uDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"leaSwa.uDevSta[1]","leaSwa.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"leaSwa.yDevStaSet[1]","leaSwa.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, subPlot=1, position={10, 10, 1200, 800}, y={"leaSwa1.uDevRolSet[1]","leaSwa1.uDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={10, 10, 1200, 800}, y={"leaSwa1.uDevSta[1]","leaSwa1.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=3, position={10, 10, 1200, 800}, y={"leaSwa1.yDevStaSet[1]","leaSwa1.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={10, 10, 1200, 800}, y={"leaSwa2.uDevRolSet[1]","leaSwa2.uDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=2, position={10, 10, 1200, 800}, y={"leaSwa2.uDevSta[1]","leaSwa2.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=3, position={10, 10, 1200, 800}, y={"leaSwa2.yDevStaSet[1]","leaSwa2.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=4, subPlot=1, position={10, 10, 1200, 800}, y={"leaSwa3.uDevRolSet[1]","leaSwa3.uDevRolSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=4, subPlot=2, position={10, 10, 1200, 800}, y={"leaSwa3.uDevSta[1]","leaSwa3.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=4, subPlot=3, position={10, 10, 1200, 800}, y={"leaSwa3.yDevStaSet[1]","leaSwa3.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
