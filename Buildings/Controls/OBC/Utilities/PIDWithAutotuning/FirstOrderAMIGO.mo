@@ -16,13 +16,12 @@ block FirstOrderAMIGO
     "Time constant of derivative block used before the first tuning"
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
-
   parameter Real r(
     final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
   parameter Real yHig(
      final min = 0,
-     final max = 1) = 1
+     final max = 1)
     "Higher value for the relay output";
   parameter Real yLow(
      final min = 0,
@@ -82,7 +81,6 @@ block FirstOrderAMIGO
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-
   Buildings.Controls.OBC.Utilities.PIDWithInputGains con(
     final controllerType=conTyp,
     final r=r,
@@ -234,7 +232,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if the autotuning is completed or aborted"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Check if an autotuning is completed with no error"
+    annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
 equation
   connect(con.u_s, u_s) annotation (Line(points={{-52,-220},{-88,-220},{-88,-30},
           {-260,-30},{-260,0},{-300,0}},
@@ -291,10 +291,10 @@ equation
           color={255,0,255}));
   connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-170},{40,
           -170},{40,-240},{100,-240},{100,-300}},
-                            color={255,0,255}));
+          color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
           -40,-170},{40,-170},{40,-240},{100,-240},{100,-300}},
-                                          color={255,0,255}));
+          color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{222,-140},{238,-140}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
@@ -302,7 +302,7 @@ equation
           color={255,0,255}));
   connect(edgReq.u, triTun)
     annotation (Line(points={{118,-240},{100,-240},{100,-300}},
-                                                              color={255,0,255}));
+          color={255,0,255}));
   connect(tunStaDel.y, nand.u1) annotation (Line(points={{162,-140},{198,-140}},
           color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{138,-140},{82,-140}},
@@ -336,28 +336,21 @@ equation
   connect(rel.u_m, u_m) annotation (Line(points={{-70,-42},{-70,-160},{0,-160},{
           0,-300}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{-82,-30},{-260,-30},{-260,0},{
-          -300,0}},     color={0,0,127}));
+          -300,0}}, color={0,0,127}));
   connect(sam_u_s.u, u_s) annotation (Line(points={{-142,130},{-260,130},{-260,0},
-          {-300,0}},    color={0,0,127}));
+          {-300,0}}, color={0,0,127}));
   connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-118,130},{-100,130},{-100,
           116},{-82,116}}, color={0,0,127}));
   connect(sub3.u2, u_s) annotation (Line(points={{-82,104},{-260,104},{-260,0},{
-          -300,0}},     color={0,0,127}));
+          -300,0}}, color={0,0,127}));
   connect(sub3.y, abs2.u)
     annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
   connect(nand1.y, assMes3.u)
     annotation (Line(points={{102,110},{158,110}}, color={255,0,255}));
   connect(greThr.y, nand1.u1)
     annotation (Line(points={{22,110},{78,110}}, color={255,0,255}));
-  connect(conProMod.tunSta, samk.trigger) annotation (Line(points={{82,2},{90,2},
-          {90,-180},{-130,-180},{-130,-188}},   color={255,0,255}));
-  connect(samTi.trigger, conProMod.tunSta) annotation (Line(points={{-180,-218},
-          {-180,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
-  connect(samTd.trigger, conProMod.tunSta) annotation (Line(points={{-230,-248},
-          {-230,-180},{90,-180},{90,2},{82,2}},  color={255,0,255}));
   connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,-140},
-          {40,-140},{40,-240},{100,-240},{100,-300}},
-                                color={255,0,255}));
+          {40,-140},{40,-240},{100,-240},{100,-300}}, color={255,0,255}));
   connect(abs2.y, greThr.u)
     annotation (Line(points={{-18,110},{-2,110}}, color={0,0,127}));
   connect(nand1.u2, triTun) annotation (Line(points={{78,102},{40,102},{40,-240},
@@ -377,19 +370,65 @@ equation
           {-160,-80},{-160,-200},{-142,-200}}, color={0,0,127}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{182,-47},{220,-47},{220,
           -70},{-250,-70},{-250,-260},{-242,-260}}, color={0,0,127}));
-
+  connect(conProMod.tunSta, and2.u2) annotation (Line(points={{82,2},{102,2},{
+          102,-180},{-216,-180},{-216,-148},{-202,-148}},             color={255,
+          0,255}));
+  connect(and2.y, samk.trigger) annotation (Line(points={{-178,-140},{-148,-140},
+          {-148,-170},{-130,-170},{-130,-188}}, color={255,0,255}));
+  connect(samTi.trigger, and2.y) annotation (Line(points={{-180,-218},{-180,-160},
+          {-168,-160},{-168,-140},{-178,-140}}, color={255,0,255}));
+  connect(samTd.trigger, and2.y) annotation (Line(points={{-230,-248},{-230,-196},
+          {-186,-196},{-186,-156},{-172,-156},{-172,-140},{-178,-140}}, color={255,
+          0,255}));
+  connect(and2.u1, nand1.y) annotation (Line(points={{-202,-140},{-248,-140},{-248,
+          88},{112,88},{112,110},{102,110}}, color={255,0,255}));
+  connect(resPro.inTun, inTunPro.y) annotation (Line(points={{-10,-62},{-10,
+          -120},{96,-120},{96,-140},{82,-140}}, color={255,0,255}));
+  connect(conProMod.inTun, inTunPro.y) annotation (Line(points={{70,-2},{70,
+          -100},{90,-100},{90,-140},{82,-140}}, color={255,0,255}));
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a rule-based tuning method for a PI or a PID controller.
+This block implements a rule-based tuning method for a PI or a PID controller, with the following
+steps:
 </p>
 <p>
-The method approximates the control process with a first-order plus time-delay
-(FOPTD) model. It then determines the parameters of this FOPTD model based on the
-control process responses to asymmetric relay feedback.
-After that, taking the parameters of this FOPTD mode as inputs, this method
-calculates the PID gains with the Approximate M-constrained Integral Gain
-Optimization (AMIGO) method.
+Step 1: Introducing a periodic disturbance
+</p>
+<ul>
+<li>
+During the tuning process, the relay controller
+switches the output between two constants (<code>yHig</code> and <code>yLow</code>), based
+on the control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
+Details can be found in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
+</li>
+</ul>
+<p>
+Step 2: Extracting parameters of a first-order plus time-delay (FOPTD) model
+</p>
+<ul>
+<li>
+Based on the inputs and outputs from the relay controller during the tuning process, the
+parameters of the FOPTD model is calculated (see 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
+The FOPTD is a simplified representation of the control process.
+</li>
+</ul>
+<p>
+Step 3: Calculating the PID gains
+</p>
+<ul>
+<li>
+The PID gains are calculated with the Approximate M-constrained Integral Gain Optimization (AMIGO) method
+based on the FOPTD model parameters (see 
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO</a>).
+</li>
+</ul>
+<p>
 This block is implemented using
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
@@ -432,38 +471,55 @@ to the PID parameters.
 <p>
 The performance of the autotuning is affected by the parameters including the
 typical range of the control error <code>r</code>,
-the reference output for the tuning process <code>yRef</code>, the higher and the
+the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-These parameters can be specified as below.
+These parameters can be specified as follows.
 </p>
-<ol>
+<p>
+Step 1: conducting a &quot;test run&quot;
+</p>
+<ul>
 <li>
-Perform a &quot;test run&quot; to determine the maximum and the minimum values of
-measurement. In the test run, the autotuning should be disabled and the set point
-should be constant.
-This test run should stop after the system is stable.
-Record the maximum and the minimum values of measurement after the system is stable.
+In the test run, the autotuning must be disabled and the set point
+must be constant.
 </li>
 <li>
-The <code>r</code> should be adjusted so that the output of the relay controller,
-<code>rel.yDif</code>, is within the range from 0 to 1.
+During the test run, <code>r</code> must be adjusted so that the 
+output of the relay controller, <code>rel.yDif</code>,
+stays between 0 and 1.
 </li>
 <li>
-The <code>yRef</code> can be determined by dividing the set point by the sum of the
+This test run must stop after the system is stable.
+</li>
+<li>
+Once stable, note the highest and lowest values of the measurement.
+</li>
+</ul>
+<p>
+Step 2: calculating <code>yRef</code> and <code>deaBan</code>
+</p>
+<ul>
+<li>
+The <code>yRef</code> is calculated by dividing the set point by the sum of the
 minimum and the maximum values of the measurement.
 </li>
 <li>
-The <code>yHig</code> and <code>yLow</code> should be adjusted so that the relay
-output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
-</li>
-<li>
-To specify <code>deaBan</code>, first divide the maximum and the
-minimum control errors by <code>r</code>.
+To calculate <code>deaBan</code>, first divide the maximum and the
+minimum control errors during the test run by <code>r</code>.
 The <code>deaBan</code> can then be set as half of the smaller absolute value
 of those two deviations.
 </li>
-</ol>
+</ul>
+<p>
+Step 3: determining <code>yHig</code> and <code>yLow</code>
+</p>
+<ul>
+<li>
+The <code>yHig</code> and <code>yLow</code> must be adjusted so that the relay
+output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
+</li>
+</ul>
 <h4>References</h4>
 <p>
 J. Berner (2017).

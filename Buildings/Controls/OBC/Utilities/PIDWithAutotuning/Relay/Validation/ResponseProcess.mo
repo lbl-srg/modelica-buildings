@@ -29,6 +29,9 @@ model ResponseProcess "Test model for processing the response of a relay control
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False signal"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=true)
+    "True signal"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 equation
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
@@ -45,6 +48,8 @@ equation
           -70}}, color={255,0,255}));
   connect(tunEnd.clr, con.y) annotation (Line(points={{58,-36},{54,-36},{54,-70},
           {22,-70}}, color={255,0,255}));
+  connect(con1.y, resPro.inTun) annotation (Line(points={{-18,-90},{-8,-90},{-8,
+          -20},{0,-20},{0,-12}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

@@ -10,7 +10,16 @@ block NormalizedTimeDelay
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
+    "Check if the tuning is ongoing"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1)
@@ -45,7 +54,12 @@ protected
     final h=1e-6)
     "Output true if the asymmetry level is greater than the half period ratio"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Enable the assert to check the asymmetry level"
+    annotation (Placement(transformation(extent={{26,50},{46,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not and1
+    "Disable the assert when the tuning is not ongoing"
+    annotation (Placement(transformation(extent={{28,-90},{48,-70}})));
 equation
   connect(subGamRho.u1, asyLev.y) annotation (Line(points={{18,26},{-50,26},{
           -50,80},{-58,80}}, color={0,0,127}));
@@ -71,8 +85,14 @@ equation
           {-22,60}}, color={0,0,127}));
   connect(rho, gre.u2) annotation (Line(points={{-120,0},{-94,0},{-94,52},{-22,52}},
         color={0,0,127}));
-  connect(gre.y, assMes.u)
-    annotation (Line(points={{2,60},{58,60}}, color={255,0,255}));
+  connect(gre.y, or2.u1)
+    annotation (Line(points={{2,60},{24,60}}, color={255,0,255}));
+  connect(and1.u, inTun)
+    annotation (Line(points={{26,-80},{0,-80},{0,-120}}, color={255,0,255}));
+  connect(and1.y, or2.u2) annotation (Line(points={{50,-80},{90,-80},{90,40},{20,
+          40},{20,52},{24,52}}, color={255,0,255}));
+  connect(or2.y, assMes.u)
+    annotation (Line(points={{48,60},{58,60}}, color={255,0,255}));
   annotation (
         defaultComponentName = "norTimDel",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

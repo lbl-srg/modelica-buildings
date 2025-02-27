@@ -7,7 +7,8 @@ model WetCoilCounterFlowPIControlAutoTuning
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO
     con(
     r=5,
-    yLow=0.2,
+    yHig=0.91,
+    yLow=0.1,
     deaBan=0.1,
     yRef=0.5,
     reverseActing=false)
