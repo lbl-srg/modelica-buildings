@@ -692,6 +692,12 @@ equation
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
   <li>
+    <i>February 27, 2025</i> by Jianjun Hu:<br/>
+    Corrected conditions for removing COP and EER output connector.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1979\">IBPSA #1979</a>.
+  </li>
+  <li>
     <i>August 19, 2024</i> by Michael Wetter:<br/>
     Changed markup commands for code merge.<br/>
     This is for
