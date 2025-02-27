@@ -7,19 +7,14 @@ block NormalizedTimeDelay
     "Half period ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
+    "Check if the tuning is ongoing"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
-    "Check if the tuning is ongoing"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-1)

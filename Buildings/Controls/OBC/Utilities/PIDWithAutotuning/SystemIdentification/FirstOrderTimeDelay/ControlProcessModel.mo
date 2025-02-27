@@ -46,6 +46,13 @@ block ControlProcessModel
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
+    "Check if a tuning is ongoing"
+    annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
@@ -68,16 +75,7 @@ block ControlProcessModel
     "True when the autotuning completes successfully"
     annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput inTun
-    "Check if a tuning is ongoing"
-    annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+
 protected
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1)
@@ -188,8 +186,8 @@ equation
           42,-50}}, color={255,0,255}));
   connect(and2.y, tunSta) annotation (Line(points={{82,-70},{100,-70},{100,-80},
           {180,-80}}, color={255,0,255}));
-  connect(and2.u2, triEnd) annotation (Line(points={{58,-78},{0,-78},{0,-90},{130,
-          -90},{130,-120}}, color={255,0,255}));
+  connect(and2.u2, triEnd) annotation (Line(points={{58,-78},{-10,-78},{-10,-90},
+          {130,-90},{130,-120}}, color={255,0,255}));
   connect(timConDel.triFai, not1.u) annotation (Line(points={{82,12},{86,12},{86,
           0},{8,0},{8,-50},{18,-50}}, color={255,0,255}));
   connect(not2.y, assMes4.u)
