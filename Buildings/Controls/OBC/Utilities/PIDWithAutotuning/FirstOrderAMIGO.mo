@@ -16,7 +16,6 @@ block FirstOrderAMIGO
     "Time constant of derivative block used before the first tuning"
     annotation (Dialog(group="Initial control gains, used prior to first tuning",
       enable=controllerType == Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Types.SimpleController.PID));
-
   parameter Real r(
     final min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
@@ -82,7 +81,6 @@ block FirstOrderAMIGO
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{280,-220},{320,-180}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-
   Buildings.Controls.OBC.Utilities.PIDWithInputGains con(
     final controllerType=conTyp,
     final r=r,
@@ -293,10 +291,10 @@ equation
           color={255,0,255}));
   connect(rel.trigger, triTun) annotation (Line(points={{-78,-42},{-78,-170},{40,
           -170},{40,-240},{100,-240},{100,-300}},
-                            color={255,0,255}));
+          color={255,0,255}));
   connect(resPro.trigger, triTun) annotation (Line(points={{-22,-56},{-40,-56},{
           -40,-170},{40,-170},{40,-240},{100,-240},{100,-300}},
-                                          color={255,0,255}));
+          color={255,0,255}));
   connect(nand.y, assMes1.u)
     annotation (Line(points={{222,-140},{238,-140}}, color={255,0,255}));
   connect(nand.u2, edgReq.y)
@@ -304,7 +302,7 @@ equation
           color={255,0,255}));
   connect(edgReq.u, triTun)
     annotation (Line(points={{118,-240},{100,-240},{100,-300}},
-                                                              color={255,0,255}));
+          color={255,0,255}));
   connect(tunStaDel.y, nand.u1) annotation (Line(points={{162,-140},{198,-140}},
           color={255,0,255}));
   connect(tunStaDel.u, inTunPro.y) annotation (Line(points={{138,-140},{82,-140}},
@@ -338,13 +336,13 @@ equation
   connect(rel.u_m, u_m) annotation (Line(points={{-70,-42},{-70,-160},{0,-160},{
           0,-300}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{-82,-30},{-260,-30},{-260,0},{
-          -300,0}},     color={0,0,127}));
+          -300,0}}, color={0,0,127}));
   connect(sam_u_s.u, u_s) annotation (Line(points={{-142,130},{-260,130},{-260,0},
-          {-300,0}},    color={0,0,127}));
+          {-300,0}}, color={0,0,127}));
   connect(sam_u_s.y, sub3.u1) annotation (Line(points={{-118,130},{-100,130},{-100,
           116},{-82,116}}, color={0,0,127}));
   connect(sub3.u2, u_s) annotation (Line(points={{-82,104},{-260,104},{-260,0},{
-          -300,0}},     color={0,0,127}));
+          -300,0}}, color={0,0,127}));
   connect(sub3.y, abs2.u)
     annotation (Line(points={{-58,110},{-42,110}}, color={0,0,127}));
   connect(nand1.y, assMes3.u)
@@ -352,8 +350,7 @@ equation
   connect(greThr.y, nand1.u1)
     annotation (Line(points={{22,110},{78,110}}, color={255,0,255}));
   connect(sam_u_s.trigger, triTun) annotation (Line(points={{-130,118},{-130,-140},
-          {40,-140},{40,-240},{100,-240},{100,-300}},
-                                color={255,0,255}));
+          {40,-140},{40,-240},{100,-240},{100,-300}}, color={255,0,255}));
   connect(abs2.y, greThr.u)
     annotation (Line(points={{-18,110},{-2,110}}, color={0,0,127}));
   connect(nand1.u2, triTun) annotation (Line(points={{78,102},{40,102},{40,-240},
@@ -519,7 +516,7 @@ Step 3: determining <code>yHig</code> and <code>yLow</code>
 </p>
 <ul>
 <li>
-The <code>yHig</code> and <code>yLow</code> should be adjusted so that the relay
+The <code>yHig</code> and <code>yLow</code> must be adjusted so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 </ul>
