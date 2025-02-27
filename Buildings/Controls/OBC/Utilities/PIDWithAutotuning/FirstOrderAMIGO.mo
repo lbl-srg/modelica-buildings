@@ -486,7 +486,7 @@ must be constant.
 </li>
 <li>
 During the test run, <code>r</code> must be adjusted so that the 
-output of the relay controller <code>rel.yDif</code>,
+output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
