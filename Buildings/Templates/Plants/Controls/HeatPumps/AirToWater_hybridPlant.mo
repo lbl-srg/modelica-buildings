@@ -164,6 +164,10 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
     "Number of heat pumps"
     annotation (Evaluate=true,
     Dialog(group="Plant configuration"));
+  parameter Boolean is_heaRec[nHp]
+    "Vector indicating if each HP has heat-recovery capabilities; True=Has heat recovery;False=No heat recovery"
+    annotation (Evaluate=true,
+    Dialog(group="Plant configuration"));
   parameter Integer nPumHeaWatPri(
     min=if have_pumHeaWatPri then 1 else 0,
     start=0)=nHp
@@ -1543,6 +1547,35 @@ block AirToWater_hybridPlant "Controller for AWHP plant"
   Buildings.Controls.OBC.CDL.Routing.BooleanVectorReplicator booVecRep(nin=nHp,
       nout=nSta)
     annotation (Placement(transformation(extent={{-40,480},{-20,500}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yMod[nHp]
+    "Operation mode integer signal for each HP" annotation (Placement(
+        transformation(extent={{260,320},{300,360}}), iconTransformation(extent
+          ={{200,280},{240,320}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nHp](
+      integerTrue=Buildings.Controls.OBC.CDL.Types.OperationMode.Heating,
+      integerFalse=Buildings.Controls.OBC.CDL.Types.OperationMode.Cooling)
+    annotation (Placement(transformation(extent={{140,322},{160,342}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[nHp]
+    annotation (Placement(transformation(extent={{180,330},{200,350}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant isHeaRec[nHp](k=is_heaRec)
+    "Is the heat pump a heat-recovery chiller?"
+    annotation (Placement(transformation(extent={{100,340},{120,360}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1
+    annotation (Placement(transformation(extent={{-20,420},{0,440}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
+    annotation (Placement(transformation(extent={{20,410},{40,430}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Buildings.Controls.OBC.CDL.Types.OperationMode.HeatingCooling)
+    annotation (Placement(transformation(extent={{-20,390},{0,410}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{20,440},{40,460}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
+    annotation (Placement(transformation(extent={{60,440},{80,460}})));
+  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt1
+    annotation (Placement(transformation(extent={{100,430},{120,450}})));
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    annotation (Placement(transformation(extent={{160,430},{180,450}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(nout=nHp)
+    annotation (Placement(transformation(extent={{200,430},{220,450}})));
 equation
   connect(u1SchHea, enaHea.u1Sch)
     annotation (Line(points={{-280,380},{-180,380},{-180,364},{-112,364}},color={255,0,255}));
@@ -2004,8 +2037,8 @@ equation
   connect(and2.y, enaEquHea.u1HeaCoo) annotation (Line(points={{-98,490},{-92,
           490},{-92,448},{-48,448},{-48,344},{24,344},{24,354},{38,354}}, color
         ={255,0,255}));
-  connect(and2.y, enaEquCoo.u1HeaCoo) annotation (Line(points={{-98,490},{-92,
-          490},{-92,448},{-48,448},{-48,344},{24,344},{24,94},{38,94}}, color={
+  connect(and2.y, enaEquCoo.u1HeaCoo) annotation (Line(points={{-98,490},{-92,490},
+          {-92,448},{-48,448},{-48,344},{24,344},{24,94},{38,94}},      color={
           255,0,255}));
   connect(avaEquHeaCoo.y1Coo, avaStaCoo.u1Ava) annotation (Line(points={{-130,
           214},{-124,214},{-124,70},{-112,70}}, color={255,0,255}));
@@ -2015,6 +2048,36 @@ equation
           -130,214},{-124,214},{-124,24},{-42,24}}, color={255,0,255}));
   connect(y1HpPre.y, avaEquHeaCoo.u1) annotation (Line(points={{178,380},{-160,
           380},{-160,226},{-154,226}}, color={255,0,255}));
+  connect(seqEve.y1Hea, booToInt.u) annotation (Line(points={{162,308},{240,308},
+          {240,320},{130,320},{130,332},{138,332}}, color={255,0,255}));
+  connect(booToInt.y, intSwi.u3)
+    annotation (Line(points={{162,332},{178,332}}, color={255,127,0}));
+  connect(intSwi.y, yMod)
+    annotation (Line(points={{202,340},{280,340}}, color={255,127,0}));
+  connect(isHeaRec.y, intSwi.u2) annotation (Line(points={{122,350},{172,350},{172,
+          340},{178,340}}, color={255,0,255}));
+  connect(and2.y, booToInt1.u) annotation (Line(points={{-98,490},{-92,490},{-92,
+          448},{-48,448},{-48,430},{-22,430}}, color={255,0,255}));
+  connect(booToInt1.y, mulInt.u1) annotation (Line(points={{2,430},{8,430},{8,426},
+          {18,426}}, color={255,127,0}));
+  connect(conInt.y, mulInt.u2) annotation (Line(points={{2,400},{8,400},{8,414},
+          {18,414}}, color={255,127,0}));
+  connect(and2.y, not1.u) annotation (Line(points={{-98,490},{-92,490},{-92,448},
+          {-48,448},{-48,450},{18,450}}, color={255,0,255}));
+  connect(not1.y, booToInt2.u)
+    annotation (Line(points={{42,450},{58,450}}, color={255,0,255}));
+  connect(booToInt2.y, mulInt1.u1)
+    annotation (Line(points={{82,450},{84,446},{98,446}}, color={255,127,0}));
+  connect(booToInt[nHp].y, mulInt1.u2) annotation (Line(points={{162,332},{168,332},
+          {168,420},{92,420},{92,434},{98,434}}, color={255,127,0}));
+  connect(mulInt1.y, addInt.u1) annotation (Line(points={{122,440},{148,440},{148,
+          446},{158,446}}, color={255,127,0}));
+  connect(mulInt.y, addInt.u2) annotation (Line(points={{42,420},{80,420},{80,414},
+          {148,414},{148,434},{158,434}}, color={255,127,0}));
+  connect(addInt.y, intScaRep.u)
+    annotation (Line(points={{182,440},{198,440}}, color={255,127,0}));
+  connect(intScaRep.y, intSwi.u1) annotation (Line(points={{222,440},{228,440},{
+          228,400},{172,400},{172,348},{178,348}}, color={255,127,0}));
   annotation (
     defaultComponentName="ctl",
     Icon(

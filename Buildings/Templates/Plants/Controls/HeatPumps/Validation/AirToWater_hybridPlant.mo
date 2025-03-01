@@ -55,6 +55,7 @@ model AirToWater_hybridPlant
     have_senTHeaWatPriRet_select=false,
     have_senTChiWatPriRet_select=false,
     nHp=3,
+    is_heaRec={false,false,true},
     have_senDpHeaWatRemWir=false,
     nSenDpHeaWatRem=1,
     have_senDpChiWatRemWir=false,
@@ -85,16 +86,8 @@ model AirToWater_hybridPlant
     capHeaHrc_min=0.3 * 0.5 * sum(ctl.capHeaHp_nominal))
     "Plant controller"
     annotation (Placement(transformation(extent={{0,-22},{40,50}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(
-    table=[
-      0, 0, 0;
-      5, 0, 0;
-      6, 1, 0;
-      12, 0.2, 0.2;
-      15, 0, 1;
-      18, 1, 0.6;
-      22, 0.1, 0.1;
-      24, 0, 0],
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable ratV_flow(table=[0,0,0; 5,
+        0,0; 6,1,0; 12,0.2,0.2; 15,0,1; 18,1,0.6; 22,0.1,0.1; 24,0,0],
     timeScale=3600)
     "Source signal for volume flow rate ratio – Index 1 for HW, 2 for CHW"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
@@ -108,8 +101,8 @@ model AirToWater_hybridPlant
       else 1))
     "CHW Delta-T"
     annotation (Placement(transformation(extent={{-150,130},{-130,150}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter VHeaWat_flow(
-    final k=VHeaWat_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter VHeaWat_flow(final k=
+        VHeaWat_flow_nominal)
     "Scale by design flow"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter VChiWat_flow(
@@ -355,22 +348,26 @@ equation
     annotation (Line(points={{42,-6},{46,-6},{46,-32},{-34,-32},{-34,6},{-2,6}},
       color={0,0,127}));
   connect(ctl.THeaWatSupSet, THeaWatRet.u1)
-    annotation (Line(points={{42,-6},{46,-6},{46,176},{-86,176},{-86,166},{-82,166}},
+    annotation (Line(points={{42,-6},{46,-6},{46,-56},{-86,-56},{-86,166},{-82,
+          166}},
       color={0,0,127}));
   connect(dTHeaWat.y, THeaWatRet.u2)
     annotation (Line(points={{-168,160},{-86,160},{-86,154},{-82,154}},color={0,0,127}));
   connect(ctl.TChiWatSupSet, TChiWatRet.u2)
-    annotation (Line(points={{42,-8},{44,-8},{44,126},{-120,126},{-120,134},{-112,134}},
+    annotation (Line(points={{42,-8},{44,-8},{44,-30},{-120,-30},{-120,134},{
+          -112,134}},
       color={0,0,127}));
   connect(dTChiWat.y, TChiWatRet.u1)
     annotation (Line(points={{-128,140},{-124,140},{-124,146},{-112,146}},color={0,0,127}));
   connect(dTChiWatUpsHrc.y, TChiWatRetUpsHrc.u1)
     annotation (Line(points={{-128,180},{-124,180},{-124,186},{-112,186}},color={0,0,127}));
   connect(TChiWatRetUpsHrc.u2, ctl.TChiWatSupSet)
-    annotation (Line(points={{-112,174},{-120,174},{-120,126},{44,126},{44,-8},{42,-8}},
+    annotation (Line(points={{-112,174},{-120,174},{-120,-30},{44,-30},{44,-8},
+          {42,-8}},
       color={0,0,127}));
   connect(THeaWatRetUpsHrc.u2, ctl.THeaWatSupSet)
-    annotation (Line(points={{-82,194},{-86,194},{-86,176},{46,176},{46,-6},{42,-6}},
+    annotation (Line(points={{-82,194},{-86,194},{-86,-56},{46,-56},{46,-6},{42,
+          -6}},
       color={0,0,127}));
   connect(dTHeaWatUpsHrc.y, THeaWatRetUpsHrc.u1)
     annotation (Line(points={{-168,200},{-100,200},{-100,206},{-82,206}},color={0,0,127}));
