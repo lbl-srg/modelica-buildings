@@ -144,7 +144,7 @@ When enabled,
 </p>
 <ul>
 <li>
-the condenser and evaporator pumps are operated at constant speed,
+the condenser and evaporator pumps are operated at constant speed, and
 </li>
 <li>
 the condenser (resp. evaporator) mixing valve is modulated with a PI

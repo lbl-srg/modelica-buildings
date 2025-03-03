@@ -305,7 +305,7 @@ When the system is enabled
 <ul>
 <li>
 the primary side is controlled so that the primary flow rate
-varies linearly with the secondary flow rate,
+varies linearly with the secondary flow rate, and
 </li>
 <li>
 the bypass valve on the secondary side is fully closed.
@@ -321,7 +321,7 @@ the evaporator isolation valve is closed,
 the primary pump (resp. valve) is operated at its minimum speed
 (resp. opening), otherwise it is switched off (resp. fully closed):
 this is needed to yield a representative measurement of the
-service water entering temperature,
+service water entering temperature, and
 </li>
 <li>
 the bypass valve on the secondary side is fully open.

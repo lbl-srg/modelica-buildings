@@ -200,7 +200,7 @@ the secondary circuit is controlled based on the input signal <code>u</code>,
 which is mapped to modulate in sequence the mixing valve
 (from full bypass to closed bypass for a control signal varying between
 0% and 30%) and the pump speed (from the minimum to the maximum value
-for a control signal varying between 30% and 100%),
+for a control signal varying between 30% and 100%), and
 </li>
 <li>
 the primary pump speed (or valve opening) is directly modulated with

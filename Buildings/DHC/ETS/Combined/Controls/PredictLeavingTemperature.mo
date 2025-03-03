@@ -102,10 +102,10 @@ Buildings.DHC.ETS.Combined.Controls.WatersideEconomizer</a>.
 The predicted heat exchanger approach is computed as
 </p>
 <p>
-<i>dTApp = dTApp_nominal * m2_flow / m2_flow_nominal</i>.
+<i>dTApp = dTApp_nominal * m2_flow / m2_flow_nominal</i>,
 </p>
 <p>
-Which gives the predicted heat exchanger leaving water temperature as
+which gives the predicted heat exchanger leaving water temperature as
 </p>
 <p>
 <i>T2WatLvg = T1WatEnt + dTApp</i>.
