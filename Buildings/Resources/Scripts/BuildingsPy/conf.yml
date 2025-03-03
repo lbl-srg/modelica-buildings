@@ -115,8 +115,10 @@
     comment: simulation terminated by an assertion at initialization.
     simulate: false
   optimica:
-    comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
-    simulate: false
+    time_out: 600
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
+  optimica:
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
