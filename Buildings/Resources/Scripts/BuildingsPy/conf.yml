@@ -138,8 +138,8 @@
     comment: Timeout during translation
     time_out: 600
   optimica:
-    comment: Timeout on travis
-    time_out: 600
+    comment: 'MemoryError: The compilation process was unexpectedly killed by the system, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/630222485'
+    translate: false
 - model_name: Buildings.Examples.VAVReheat.Validation.Guideline36SteadyState
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -256,6 +256,9 @@
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.PumpsPrimaryDedicated
   openmodelica:
     comment: Translation failed.
+    translate: false
+  optimica:
+    comment: PyModelicaException due to NullPointerException
     translate: false
 - model_name: Buildings.Templates.Plants.HeatPumps.Components.Validation.ValvesIsolation
   openmodelica:
