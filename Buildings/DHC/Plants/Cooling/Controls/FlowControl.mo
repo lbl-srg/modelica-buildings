@@ -1,154 +1,179 @@
 within Buildings.DHC.Plants.Cooling.Controls;
 block FlowControl
   "This block controls the flow at the primary and secondary pumps"
-  extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal
+
+  parameter Real mChi_flow_nominal(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
     "Nominal mass flow rate of the chiller loop"
     annotation(Dialog(group="Nominal values"));
-  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal
+  parameter Real mTan_flow_nominal(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
     "Nominal mass flow rate of the tank branch"
     annotation(Dialog(group="Nominal values"));
 
-  Modelica.Blocks.Interfaces.IntegerInput com
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput com
     "Command: 1 = charge tank, 2 = no command, 3 = discharge tank"
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
-        iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chiEnaSta
     "Chiller enable status, true if chiller is enabled"
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput hasLoa "Set to true if there is a load"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
-  Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput hasLoa
+    "Set to true if there is a load"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yPum(
+    final unit="1")
     "Normalized speed signal for the secondary pump"
-     annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,130}),iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,80})));
-
-  Modelica.Blocks.Interfaces.RealOutput yVal "Valve normalized mass flow rate"
-    annotation (Placement(transformation(extent={{780,-80},{800,-60}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput mPriPum_flow(final unit="kg/s")
+     annotation (Placement(transformation(extent={{-140,110},{-100,150}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput tanSta[2]
+    "Tank status - 1: is empty; 2: is charged; can be both false"
+    annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput isChaRem
+    "Is operated for remote charging"
+    annotation (Placement(transformation(extent={{780,-150},{820,-110}}),
+        iconTransformation(extent={{100,-60},{140,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yVal
+    "Valve normalized mass flow rate"
+    annotation (Placement(transformation(extent={{780,-90},{820,-50}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mPriPum_flow(
+    final unit="kg/s")
     "Primary pump mass flow rate"
-    annotation (Placement(transformation(extent={{780,40},{800,60}}),
-                       iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput ySecPum(final unit="1")
-    "Secondary pump normalized speed" annotation (Placement(transformation(
-          extent={{780,-20},{800,0}}), iconTransformation(extent={{100,30},{120,
-            50}})));
+    annotation (Placement(transformation(extent={{780,30},{820,70}}),
+        iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySecPum(
+    final unit="1")
+    "Secondary pump normalized speed"
+    annotation (Placement(transformation(extent={{780,-30},{820,10}}),
+        iconTransformation(extent={{100,20},{140,60}})));
+
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
-         and chiEnaSta)
+  Modelica.StateGraph.Transition traChaLoc(
+    condition=com == 1 and (not tanSta[2]) and chiEnaSta)
     "Transition: Charge tank command AND tank not charged AND chiller enabled"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
-  Modelica.StateGraph.Step steChaLoc(nIn=1, nOut=1) "Step: Local charging"
+  Modelica.StateGraph.Step steChaLoc(nIn=1, nOut=1)
+    "Step: Local charging"
     annotation (Placement(transformation(extent={{300,60},{320,80}})));
-  Modelica.StateGraph.Transition traRes1(condition=not traChaLoc.condition)
-                                       "Transition: Reset to initial step"
+  Modelica.StateGraph.Transition traRes1(
+    condition=not traChaLoc.condition)
+    "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,60},{360,80}})));
-  Modelica.StateGraph.Transition traChaRem(condition=com == 1 and (not tanSta[2])
-         and not chiEnaSta)
+  Modelica.StateGraph.Transition traChaRem(
+    condition=com == 1 and (not tanSta[2]) and not chiEnaSta)
     "Transition: Charge tank command AND tank not charged AND chiller not enabled"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
-  Modelica.StateGraph.Step steChaRem(nIn=1, nOut=1) "Step: Remote charging"
+  Modelica.StateGraph.Step steChaRem(
+    nIn=1, nOut=1)
+    "Step: Remote charging"
     annotation (Placement(transformation(extent={{300,20},{320,40}})));
-  Modelica.StateGraph.Transition traRes2(condition=not traChaRem.condition)
-                                       "Transition: Reset to initial step"
+  Modelica.StateGraph.Transition traRes2(
+    condition=not traChaRem.condition)
+    "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,20},{360,40}})));
-  Modelica.StateGraph.Transition traProChi(condition=chiEnaSta)
+  Modelica.StateGraph.Transition traProChi(
+    condition=chiEnaSta)
     "Transition: Chiller enabled"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
-  Modelica.StateGraph.Step steProChi(nIn=2, nOut=2)
+  Modelica.StateGraph.Step steProChi(
+    nIn=2, nOut=2)
     "Step: Chiller produces CHW"
     annotation (Placement(transformation(extent={{300,-160},{320,-140}})));
-  Modelica.StateGraph.Transition traRes4(condition=not traPro.condition)
+  Modelica.StateGraph.Transition traRes4(
+    condition=not traPro.condition)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,-160},{360,-140}})));
-  Modelica.StateGraph.Transition traProTan(condition=com == 3 and (not tanSta[1]))
+  Modelica.StateGraph.Transition traProTan(
+    condition=com == 3 and (not tanSta[1]))
     "Transition: Tank commanded to discharge AND is not empty"
     annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
-  Modelica.StateGraph.Step steProTan(nIn=2, nOut=2) "Step: Tank produces CHW"
+  Modelica.StateGraph.Step steProTan(
+    nIn=2, nOut=2)
+    "Step: Tank produces CHW"
     annotation (Placement(transformation(extent={{300,-80},{320,-60}})));
-  Modelica.StateGraph.Transition traRes3(condition=not traPro.condition)
+  Modelica.StateGraph.Transition traRes3(
+    condition=not traPro.condition)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,-80},{360,-60}})));
   Modelica.Blocks.Sources.BooleanExpression expPriPumFlo(
     y=steChaLoc.active or steProChi.active)
-                          "Expression for local charging OR chiller output"
+    "Expression for local charging OR chiller output"
     annotation (Placement(transformation(extent={{700,40},{720,60}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiPriPum(realTrue=
-        mChi_flow_nominal, realFalse=0) "Switch for primary pump flow"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiPriPum(
+    realTrue=mChi_flow_nominal,
+    realFalse=0)
+    "Switch for primary pump flow"
     annotation (Placement(transformation(extent={{740,40},{760,60}})));
-  Modelica.Blocks.Sources.BooleanExpression expSecPum(y=stePumSecOn.active)
-                          "Expression for tank output or chiller output"
+  Modelica.Blocks.Sources.BooleanExpression expSecPum(
+    y=stePumSecOn.active)
+    "Expression for tank output or chiller output"
     annotation (Placement(transformation(extent={{700,-20},{720,0}})));
-  Modelica.Blocks.Sources.BooleanExpression expVal(y=steChaRem.active)
+  Modelica.Blocks.Sources.BooleanExpression expVal(
+    y=steChaRem.active)
     "Boolean expression for remotely charging the tank"
     annotation (Placement(transformation(extent={{700,-80},{720,-60}})));
-  Modelica.StateGraph.Alternative alt(nBranches=3)
+  Modelica.StateGraph.Alternative alt(
+    nBranches=3)
     "Alternative: Tank charging or plant outputting CHW"
     annotation (Placement(transformation(extent={{-8,-200},{646,100}})));
-
   Buildings.Controls.OBC.CDL.Reals.Switch swiSecPum
     "Switch for secondary pump flow"
     annotation (Placement(transformation(extent={{740,-20},{760,0}})));
-  Modelica.Blocks.Sources.Constant zer(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{700,-50},{720,-30}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiVal(realTrue=
-        mTan_flow_nominal, realFalse=0) "Switch for valve flow"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiVal(
+    realTrue=mTan_flow_nominal,
+    realFalse=0)
+    "Switch for valve flow"
     annotation (Placement(transformation(extent={{740,-80},{760,-60}})));
-  Modelica.Blocks.Interfaces.BooleanInput tanSta[2]
-    "Tank status - 1: is empty; 2: is charged; can be both false"  annotation (
-      Placement(transformation(extent={{-120,-130},{-100,-110}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
-  Modelica.StateGraph.Step stePumSecOn(nOut=1, nIn=1) "Step: Secondary pump on"
+  Modelica.StateGraph.Step stePumSecOn(nOut=1, nIn=1)
+    "Step: Secondary pump on"
     annotation (Placement(transformation(extent={{300,-40},{320,-20}})));
-  Modelica.StateGraph.Transition traPro(condition=hasLoa and (traProTan.condition
-         or traProChi.condition))
+  Modelica.StateGraph.Transition traPro(
+    condition=hasLoa and (traProTan.condition or traProChi.condition))
     "Transition: Has load and the plant can produce CHW via either the chiller or the tank"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Modelica.StateGraph.Parallel parallel(nBranches=2)
+  Modelica.StateGraph.Parallel parallel(
+    nBranches=2)
     "Parallel states of the components in the primary and secondary loops"
     annotation (Placement(transformation(extent={{116,-174},{510,-6}})));
-  Modelica.StateGraph.Transition traTanToChi(condition=(not traProTan.condition)
-         and traProChi.condition)
+  Modelica.StateGraph.Transition traTanToChi(
+    condition=(not traProTan.condition) and traProChi.condition)
     "Transition: Tank no longer available (empty or commanded off) AND chiller available"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={280,-110})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90, origin={280,-110})));
   Modelica.StateGraph.Alternative altTanCha1(nBranches=2)
     "Alternative: Tank charging locally or remotely"
     annotation (Placement(transformation(extent={{222,-170},{398,-50}})));
-  Modelica.StateGraph.Step steRou1(nIn=1, nOut=1) "A step for routing only"
+  Modelica.StateGraph.Step steRou1(nIn=1, nOut=1)
+    "A step for routing only"
     annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
-  Modelica.StateGraph.Step steRou2(nIn=1, nOut=1) "A step for routing only"
+  Modelica.StateGraph.Step steRou2(nIn=1, nOut=1)
+    "A step for routing only"
     annotation (Placement(transformation(extent={{420,-120},{440,-100}})));
-  Modelica.StateGraph.Transition traRou(final condition=true)
+  Modelica.StateGraph.Transition traRou(
+    final condition=true)
     "A routing transition, always true"
     annotation (Placement(transformation(extent={{540,-100},{560,-80}})));
-  Modelica.StateGraph.Transition traChiToTan(condition=traProTan.condition)
+  Modelica.StateGraph.Transition traChiToTan(
+    condition=traProTan.condition)
     "Transition: Production priority handed to tank whenever possible"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={340,-110})));
-  Modelica.Blocks.Interfaces.BooleanOutput isChaRem
-    "Is operated for remote charging" annotation (Placement(transformation(
-          extent={{780,-140},{800,-120}}), iconTransformation(extent={{100,-50},
-            {120,-30}})));
-  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=steChaRem.active)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90, origin={340,-110})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(
+    y=steChaRem.active)
     annotation (Placement(transformation(extent={{700,-140},{720,-120}})));
 equation
   connect(traChaLoc.outPort,steChaLoc. inPort[1])
@@ -161,53 +186,46 @@ equation
     annotation (Line(points={{320.5,30},{346,30}}, color={0,0,0}));
   connect(traProChi.outPort,steProChi. inPort[1])
     annotation (Line(points={{271.5,-150},{286,-150},{286,-150.25},{299,-150.25}},
-                                                     color={0,0,0}));
+          color={0,0,0}));
   connect(traProTan.outPort,steProTan. inPort[1])
     annotation (Line(points={{271.5,-70},{286,-70},{286,-70.25},{299,-70.25}},
-                                                     color={0,0,0}));
+          color={0,0,0}));
   connect(expPriPumFlo.y, swiPriPum.u)
     annotation (Line(points={{721,50},{738,50}}, color={255,0,255}));
   connect(alt.inPort, allOff.outPort[1])
-    annotation (Line(points={{-17.81,-50},{-39.5,-50}},
-                                                   color={0,0,0}));
+    annotation (Line(points={{-17.81,-50},{-39.5,-50}}, color={0,0,0}));
   connect(alt.outPort, allOff.inPort[1]) annotation (Line(points={{652.54,-50},{
-          652.54,114},{-80,114},{-80,-50},{-61,-50}},
-                                                   color={0,0,0}));
+          652.54,114},{-80,114},{-80,-50},{-61,-50}}, color={0,0,0}));
   connect(mPriPum_flow, swiPriPum.y)
-    annotation (Line(points={{790,50},{762,50}}, color={0,0,127}));
+    annotation (Line(points={{800,50},{762,50}}, color={0,0,127}));
   connect(expSecPum.y, swiSecPum.u2)
     annotation (Line(points={{721,-10},{738,-10}}, color={255,0,255}));
-  connect(swiSecPum.u1, yPum) annotation (Line(points={{738,-2},{730,-2},{730,
-          20},{680,20},{680,130},{-110,130}},                     color={0,0,
-          127}));
+  connect(swiSecPum.u1, yPum) annotation (Line(points={{738,-2},{728,-2},{728,32},
+          {660,32},{660,130},{-120,130}}, color={0,0,127}));
   connect(ySecPum, swiSecPum.y)
-    annotation (Line(points={{790,-10},{762,-10}}, color={0,0,127}));
+    annotation (Line(points={{800,-10},{762,-10}}, color={0,0,127}));
   connect(zer.y, swiSecPum.u3)
-    annotation (Line(points={{721,-40},{738,-40},{738,-18}}, color={0,0,127}));
+    annotation (Line(points={{722,-40},{730,-40},{730,-18},{738,-18}}, color={0,0,127}));
   connect(swiVal.u, expVal.y)
     annotation (Line(points={{738,-70},{721,-70}}, color={255,0,255}));
   connect(swiVal.y, yVal)
-    annotation (Line(points={{762,-70},{790,-70}}, color={0,0,127}));
+    annotation (Line(points={{762,-70},{800,-70}}, color={0,0,127}));
   connect(traPro.outPort, parallel.inPort)
     annotation (Line(points={{91.5,-90},{110.09,-90}},color={0,0,0}));
   connect(parallel.split[1], stePumSecOn.inPort[1]) annotation (Line(points={{160.325,
-          -111},{160.325,-70},{160,-70},{160,-30},{299,-30}},
-                                                   color={0,0,0}));
+          -111},{160.325,-70},{160,-70},{160,-30},{299,-30}}, color={0,0,0}));
   connect(stePumSecOn.outPort[1], parallel.join[1]) annotation (Line(points={{320.5,
           -30},{466,-30},{466,-111},{465.675,-111}}, color={0,0,0}));
   connect(traTanToChi.outPort, steProChi.inPort[2]) annotation (Line(points={{280,
           -111.5},{280,-149.75},{299,-149.75}},     color={0,0,0}));
   connect(traProTan.inPort, altTanCha1.split[1]) annotation (Line(points={{266,-70},
-          {240,-70},{240,-98},{240.48,-98},{240.48,-125}},
-                                                      color={0,0,0}));
+          {240,-70},{240,-98},{240.48,-98},{240.48,-125}}, color={0,0,0}));
   connect(traRes3.outPort, altTanCha1.join[1]) annotation (Line(points={{351.5,-70},
-          {379.52,-70},{379.52,-125}},                color={0,0,0}));
+          {379.52,-70},{379.52,-125}}, color={0,0,0}));
   connect(traProChi.inPort, altTanCha1.split[2]) annotation (Line(points={{266,-150},
-          {240,-150},{240,-106},{240.48,-106},{240.48,-95}},
-                                                      color={0,0,0}));
+          {240,-150},{240,-106},{240.48,-106},{240.48,-95}}, color={0,0,0}));
   connect(traRes4.outPort, altTanCha1.join[2]) annotation (Line(points={{351.5,-150},
-          {379.52,-150},{379.52,-95}},                              color={0,0,
-          0}));
+          {379.52,-150},{379.52,-95}}, color={0,0,0}));
   connect(steRou1.outPort[1], altTanCha1.inPort)
     annotation (Line(points={{200.5,-110},{219.36,-110}}, color={0,0,0}));
   connect(altTanCha1.outPort,steRou2. inPort[1])
@@ -219,21 +237,19 @@ equation
   connect(parallel.outPort, traRou.inPort)
     annotation (Line(points={{513.94,-90},{546,-90}}, color={0,0,0}));
   connect(traChaLoc.inPort, alt.split[1]) annotation (Line(points={{266,70},{60,
-          70},{60,-100},{60.67,-100}},   color={0,0,0}));
+          70},{60,-100},{60.67,-100}}, color={0,0,0}));
   connect(traChaRem.inPort, alt.split[2]) annotation (Line(points={{266,30},{60.67,
-          30},{60.67,-50}},         color={0,0,0}));
+          30},{60.67,-50}}, color={0,0,0}));
   connect(traRes1.outPort, alt.join[1]) annotation (Line(points={{351.5,70},{578,
-          70},{578,-100},{577.33,-100}},       color={0,0,0}));
+          70},{578,-100},{577.33,-100}}, color={0,0,0}));
   connect(traRes2.outPort, alt.join[2]) annotation (Line(points={{351.5,30},{577.33,
-          30},{577.33,-50}},          color={0,0,0}));
+          30},{577.33,-50}}, color={0,0,0}));
   connect(traPro.inPort, alt.split[3]) annotation (Line(points={{86,-90},{60.67,
-          -90},{60.67,1.42109e-14}},
-                             color={0,0,0}));
+          -90},{60.67,1.42109e-14}}, color={0,0,0}));
   connect(traRou.outPort, alt.join[3]) annotation (Line(points={{551.5,-90},{576,
-          -90},{576,1.42109e-14},{577.33,1.42109e-14}},
-                                            color={0,0,0}));
+          -90},{576,1.42109e-14},{577.33,1.42109e-14}}, color={0,0,0}));
   connect(booleanExpression.y, isChaRem)
-    annotation (Line(points={{721,-130},{790,-130}}, color={255,0,255}));
+    annotation (Line(points={{721,-130},{800,-130}}, color={255,0,255}));
   connect(traChiToTan.outPort, steProTan.inPort[2]) annotation (Line(points={{
           340,-108.5},{340,-90},{290,-90},{290,-69.75},{299,-69.75}}, color={0,
           0,0}));
@@ -246,8 +262,15 @@ equation
         color={0,0,0}));
   connect(steProTan.outPort[2], traRes3.inPort) annotation (Line(points={{320.5,
           -69.875},{334,-69.875},{334,-70},{346,-70}}, color={0,0,0}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-220},{780,140}})), Icon(
+
+annotation (__cdl(extensionBlock=true),
+  Diagram(coordinateSystem(extent={{-100,-220},{780,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(extent={{-20,80},{20,40}}, lineColor={28,108,200}),
         Line(points={{-40,-20},{-40,20},{40,20},{40,-20}}, color={28,108,200}),
         Line(points={{0,40},{0,20}}, color={28,108,200}),
@@ -300,7 +323,11 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),
+          lineColor={0,0,0}),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{100,140}},
+          textString="%name")}),
 Documentation(info="<html>
 <p>
 This block implements a state graph to control the flows of the storage plant.

@@ -1,10 +1,16 @@
 within Buildings.DHC.ETS.Combined.Controls;
 model Chiller
   "Chiller controller"
-  extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Temperature TConWatEntMin(displayUnit="degC")
+
+  parameter Real TConWatEntMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of condenser water entering temperature";
-  parameter Modelica.Units.SI.Temperature TEvaWatEntMax(displayUnit="degC")
+  parameter Real TEvaWatEntMax(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Maximum value of evaporator water entering temperature";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
     "Cooling enable signal"
@@ -41,8 +47,8 @@ model Chiller
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCoo
     "Heating or cooling enabled"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  PIDWithEnable conValEva(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValEva(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
@@ -52,8 +58,8 @@ model Chiller
     final reverseActing=true)
     "Evaporator three-way valve control"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  PIDWithEnable conValCon(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+  Buildings.DHC.ETS.Combined.Controls.PIDWithEnable conValCon(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final yMax=1,
     final yMin=0,
     y_reset=0,
@@ -102,7 +108,16 @@ equation
     Icon(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}})),
+        extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          textColor={0,0,255},
+          extent={{-100,100},{102,140}},
+          textString="%name")}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
@@ -129,7 +144,7 @@ When enabled,
 </p>
 <ul>
 <li>
-the condenser and evaporator pumps are operated at constant speed,
+the condenser and evaporator pumps are operated at constant speed, and
 </li>
 <li>
 the condenser (resp. evaporator) mixing valve is modulated with a PI

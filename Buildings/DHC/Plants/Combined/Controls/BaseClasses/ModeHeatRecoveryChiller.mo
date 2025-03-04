@@ -12,8 +12,7 @@ block ModeHeatRecoveryChiller
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput nHeaCoo
     "Number of HRC required to be operating in direct HR mode"
-    annotation (
-      Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo[nChiHea]
     "Command signal for cascading cooling mode"
@@ -23,6 +22,7 @@ block ModeHeatRecoveryChiller
     "Command signal for direct HR mode"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
+
 protected
   Integer lasTruIdx;
   Integer counter;
@@ -54,7 +54,7 @@ algorithm
     counter := counter + 1;
   end for;
 
-  annotation (
+  annotation (__cdl(extensionBlock=true),
   defaultComponentName="idxHeaCoo",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

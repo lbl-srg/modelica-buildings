@@ -74,6 +74,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS<br/>
+                       Buildings.DHC.Plants
+    </td>
+    <td valign=\"top\">Improved the control sequences to comply with CDL specification.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">issue 4110</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications</b>
     </td>
 </tr>

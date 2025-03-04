@@ -16,10 +16,12 @@ model TankStatus "Validation model for tank status controller"
     "Temperature at tank top"
     annotation (Placement(visible = true, transformation(origin = {0, 0}, extent = {{-60, 20}, {-40, 40}}, rotation = 0)));
 equation
-  connect(TTanTop.y[1], tanSta.TTan[1]) annotation (Line(points={{-38,30},{-6,30},{
-          -6,9.75},{-1,9.75}}, color={0,0,127}));
-  connect(TTanBot.y[1], tanSta.TTan[2]) annotation (Line(points={{-39,-10},{-6,-10},
-          {-6,10.25},{-1,10.25}}, color={0,0,127}));
+  connect(TTanTop.y[1], tanSta.TTan[1]) annotation (Line(points={{-38,30},{-6,
+          30},{-6,9.5},{-2,9.5}},
+                               color={0,0,127}));
+  connect(TTanBot.y[1], tanSta.TTan[2]) annotation (Line(points={{-38,-10},{-6,
+          -10},{-6,10.5},{-2,10.5}},
+                                  color={0,0,127}));
           annotation(experiment(Tolerance=1e-6, StopTime=1),
           __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/DHC/Plants/Cooling/Controls/Validation/TankStatus.mos"

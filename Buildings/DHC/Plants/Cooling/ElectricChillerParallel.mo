@@ -189,6 +189,7 @@ model ElectricChillerParallel
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
   Buildings.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
+    final cp_default=cp_default,
     final tWai=tWai,
     final QChi_nominal=QChi_nominal)
     "Chiller staging controller"
@@ -370,7 +371,7 @@ equation
     annotation (Line(points={{60,44},{120,44},{120,30}}, color={0,127,255}));
   connect(senMasFloCHW.port_b, splCHWSup.port_1)
     annotation (Line(points={{120,10},{120,-32}}, color={0,127,255}));
-  connect(chiBypCon.y, valByp.y) annotation (Line(points={{-99,-150},{-30,-150},
+  connect(chiBypCon.y, valByp.y) annotation (Line(points={{-98,-150},{-30,-150},
           {-30,-82}}, color={0,0,127}));
   connect(chiOn.y, pumCHW.u) annotation (Line(points={{-98,210},{-90,210},{-90,48},
           {-54,48}}, color={0,0,127}));

@@ -2,11 +2,18 @@ within Buildings.DHC.Plants.Combined.Controls.BaseClasses;
 block ModeCondenserLoop
   "Block that determines the condenser loop mode"
 
-  parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
+  parameter Real mConWatHexCoo_flow_nominal(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
     "Design total CW mass flow rate through condenser barrels (all units)";
-  parameter Modelica.Units.SI.HeatFlowRate QHeaPum_flow_nominal
+  parameter Real QHeaPum_flow_nominal(
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Design heat flow from heat pumps (all units)";
-  parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
+  parameter Real TTanSet[2, 2](
+    each final quantity="ThermodynamicTemperature",
+    each final unit="K",
+    each displayUnit="degC")
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real fraUslTan(unit="1")
@@ -15,25 +22,47 @@ block ModeCondenserLoop
   parameter Integer nTTan=2
     "Number of tank temperature points"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  parameter Real ratFraChaTanLim[5](each final unit="1/h")=
-    {-0.3, -0.2, -0.15, -0.10, -0.08}
+  parameter Real ratFraChaTanLim[5](
+    each final unit="1/h")={-0.3, -0.2, -0.15, -0.10, -0.08}
     "Rate of change of tank charge fraction (over 10, 30, 120, 240, and 360') that triggers Charge Assist (<0)";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+  parameter Real cp_default(
+    final quantity="SpecificHeatCapacity",
+    final unit="J/(kg.K)")=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of the fluid";
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(
+    final unit="kg/s")
+    "CW mass flow rate through secondary (plant) side of HX"
+    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatCon_flow(
+    final unit="kg/s")
+    "CW condenser loop mass flow rate"
+    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConChiLvg(
+    final unit="K",
+    displayUnit="degC")
+    "Chiller and HRC leaving CW temperature"
+    annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(
+    final unit="K",
+    displayUnit="degC")
+    "CWC return temperature"
+    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatOutTan_flow(
     final unit="kg/s")
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(extent={{-240,40},{-200,80}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTan[nTTan](
-    each final unit="K",
-    each displayUnit="degC")
+    final unit=fill("K",nTTan),
+    displayUnit=fill("degC", nTTan))
     "TES tank temperature"
-    annotation (Placement(
-        transformation(extent={{-240,0},{-200,40}}),      iconTransformation(
-          extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput mode(
     final min=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge,
     final max=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.heatRejection)
@@ -41,72 +70,64 @@ block ModeCondenserLoop
     annotation (Placement(transformation(extent={{200,-20},{240,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Real fraChaTanIns(final unit="1")=
-    (sum(TTan .- min(TTanSet)) / (max(TTanSet) - min(TTanSet)) / nTTan - fraUslTan) /
-    (1 - fraUslTan)
-    "Tank charge fraction (instantaneous value)";
-  Real ratFraChaTan[5](each final unit="1/h")=
-    {(fraChaTan.y - delay(fraChaTan.y, x)) / x * 3600  for x in
-    {10, 30, 120, 240, 360} .* 60}
-    "Rate of change of tank charge fraction (over 10, 30, 120, 240, and 360')";
-  Real nHouToWarUp(final unit="h") = noEvent(
-    if mod(time, 24 * 3600) > 4 * 3600
-      then 4 + 24 - mod(time, 24 * 3600) / 3600
-    else 4 - mod(time, 24 * 3600) / 3600)
-    "Number of hours between next warmup period (set at 4 AM by default)";
-
-  Modelica.Blocks.Sources.RealExpression ratFraChaTanVal[5](final y=ratFraChaTan)
-    "Rate of change of tank charge fraction"
-    annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr[5](
-    final t=ratFraChaTanLim, each h=1E-4)
+    final t=ratFraChaTanLim,
+    each h=1E-4)
     "Compare rate of change to threshold"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim[5](each t=5*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim[5](
+    each t=5*60)
     "Condition is true for given time"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaTru(nin=6)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr anyEnaTru(
+    nin=6)
     "Any of the enable conditions is true"
     annotation (Placement(transformation(extent={{10,-98},{30,-78}})));
-  Modelica.Blocks.Sources.RealExpression varCriWarUp(y=1 - fraChaTan.y)
-    "Compute variable used to evaluate warmup criterion"
-    annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.Greater criWarUp(h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.Greater criWarUp(
+    h=1e-3)
     "Enable criterion based on time to warmup"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And criWarUpAndChaLow
     "Both enable criteria met"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold criChaLow(t=0.97, h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold criChaLow(
+    t=0.97,
+    h=1e-3)
     "Low charge fraction criterion"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not enaFal[6]
     "True if enabling condition is false"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiAnd noEnaTruAndRatCon(nin=7)
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd noEnaTruAndRatCon(
+    nin=7)
     "None of the enable conditions is true AND HR rate condition true"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim2(t=15*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim2(
+    t=15*60)
     "None of the enabling conditions is true for given time"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criFlo(t=1E-3*
-        mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criFlo(
+    t=1E-3*mConWatHexCoo_flow_nominal,
+    h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Disable criterion based on flow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criTem(t=max(TTanSet)
-         - 2, h=1e-3)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criTem(
+    t=max(TTanSet)- 2,
+    h=1e-3)
     "Disable criterion based on temperature"
-           annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Logical.And criFloAndTem
     "Flow criterion and temperature criterion both true"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo(t=5*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo(
+    t=5*60)
     "Criterion true for given time"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Buildings.Controls.OBC.CDL.Logical.Or disCha
     "Any of the disabling conditions is true"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch enaCha "Enable charge assist mode"
+  Buildings.Controls.OBC.CDL.Logical.Latch enaCha
+    "Enable charge assist mode"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timNotCha(t=5*60)
     annotation (Placement(transformation(extent={{10,150},{30,170}})));
@@ -116,27 +137,27 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Not criFraChaHig
     "High charge fraction criterion"
     annotation (Placement(transformation(extent={{-70,-130},{-50,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.And allEnaTru "All enable criteria true"
+  Buildings.Controls.OBC.CDL.Logical.And allEnaTru
+    "All enable criteria true"
     annotation (Placement(transformation(extent={{50,170},{70,190}})));
   Buildings.Controls.OBC.CDL.Logical.And criTemOrCriChaHigAndTimCriFlo
     "Temperature or high charge fraction criterion true and given time criterion true"
     annotation (Placement(transformation(extent={{50,130},{70,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timCriFraChaHig(t=5*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer timCriFraChaHig(
+    t=5*60)
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or criTemOrCriChaHig
     "Temperature criterion or high charge fraction criterion true"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit="kg/s")
-  "CW mass flow rate through secondary (plant) side of HX"
-    annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Reals.LessThreshold criFlo1(t=-1E-3*
-        mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold criFlo1(
+    t=-1E-3*mConWatHexCoo_flow_nominal,
+    h=1E-3*mConWatHexCoo_flow_nominal/2)
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=60)
     "Criterion true for given time"
     annotation (Placement(transformation(extent={{-70,110},{-50,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch enaRej "Enable heat rejection mode"
+  Buildings.Controls.OBC.CDL.Logical.Latch enaRej
+    "Enable heat rejection mode"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modTan(
     final k=Buildings.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge)
@@ -154,11 +175,8 @@ block ModeCondenserLoop
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
-  Modelica.Blocks.Sources.RealExpression varCriWarUp1(
-    final y=0.08*abs(nHouToWarUp - 2))
-    "Compute variable used to evaluate warmup criterion"
-    annotation (Placement(transformation(extent={{-180,-98},{-160,-78}})));
-  Buildings.Controls.OBC.CDL.Logical.Not isChaDis "Charge assist mode disabled"
+  Buildings.Controls.OBC.CDL.Logical.Not isChaDis
+    "Charge assist mode disabled"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
   Buildings.Controls.OBC.CDL.Logical.And enaAndNotDis
     "Reset enable condition when disable is true to trigger latch block when (enable, disable) becomes (true, false) again"
@@ -168,61 +186,74 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.And enaAndNotDis1
     "Reset enable condition when disable is true to trigger latch block when (enable, disable) becomes (true, false) again"
     annotation (Placement(transformation(extent={{50,100},{70,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notDis1 "Not disabled"
+  Buildings.Controls.OBC.CDL.Logical.Not notDis1
+    "Not disabled"
     annotation (Placement(transformation(extent={{10,84},{30,104}})));
-  Buildings.Controls.OBC.CDL.Reals.MovingAverage fraChaTan(delta=5*60)
-    "Moving mean of tank charge fraction used for control logic"
-    annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
-  Modelica.Blocks.Sources.RealExpression fraChaTanVal(y=fraChaTanIns)
-    "Instantaneous tank charge fraction"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=5*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer tim1(
+    t=5*60)
     "Condition is true for given time"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatCon_flow(final unit="kg/s")
-                "CW condenser loop mass flow rate" annotation (Placement(
-        transformation(extent={{-240,-180},{-200,-140}}),
-                                                     iconTransformation(extent={{-140,
-            -60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConChiLvg(final unit="K",
-      displayUnit="degC")        "Chiller and HRC leaving CW temperature"
-    annotation (Placement(transformation(extent={{-240,-200},{-200,-160}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit="K",
-      displayUnit="degC")       "CWC return temperature"
-    annotation (Placement(transformation(extent={{-240,-220},{-200,-180}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract delTem "Compute Delta-T"
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem
+    "Compute Delta-T"
     annotation (Placement(transformation(extent={{-170,-200},{-150,-180}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply floOutHeaPum
     "Compute HP heat flow rate output "
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap(final k=
-        cp_default)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap(
+    final k=cp_default)
     "Compute capacity flow rate"
-    annotation (Placement(transformation(extent={{-188,-170},{-168,-150}})));
-  Buildings.Controls.OBC.CDL.Reals.Subtract delTem1 "Compute Delta-T"
+    annotation (Placement(transformation(extent={{-180,-170},{-160,-150}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract delTem1
+    "Compute Delta-T"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap1(final k=
-        cp_default)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter floCap1(
+    final k=cp_default)
     "Compute capacity flow rate"
     annotation (Placement(transformation(extent={{-180,30},{-160,50}})));
   Buildings.Controls.OBC.CDL.Reals.Multiply floChaTan
     "Compute tank charge rate"
-    annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
+    annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract ratHeaRec
     "Compute heat recovery rate"
     annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
-  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criRatHeaRec(final t=
-        1E-4*(mConWatHexCoo_flow_nominal*(TTanSet[1, 2] - TTanSet[1, 1])*4184
-         - QHeaPum_flow_nominal), final h=1E-4*(mConWatHexCoo_flow_nominal*(
-        TTanSet[1, 2] - TTanSet[1, 1])*4184 - QHeaPum_flow_nominal)/2)
-             "Disable criterion based on heat recovery rate"
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold criRatHeaRec(
+    final t=1E-4*(mConWatHexCoo_flow_nominal*(TTanSet[1, 2] - TTanSet[1, 1])*4184 - QHeaPum_flow_nominal),
+    final h=1E-4*(mConWatHexCoo_flow_nominal*(TTanSet[1, 2] - TTanSet[1, 1])*4184 - QHeaPum_flow_nominal)/2)
+    "Disable criterion based on heat recovery rate"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
+  Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFraction tanChaFra(
+    final TTanSet=TTanSet,
+    final fraUslTan=fraUslTan,
+    nTTan=nTTan)
+    "Tank charge fraction used for control logic"
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFractionRate tanChaFraRat
+    "Change rate of the tank charge fraction"
+    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
+    final k=1)
+    "Constant one"
+    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub3
+    "Compute variable used to evaluate warmup criterion"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.DHC.Plants.Combined.Controls.BaseClasses.HoursToNextWarmup nexWarHou
+    "Number of hours to next warmup period, (set at 4 AM by default)"
+    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
+    "Find difference"
+    annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
+    final k=2) "Constant 2"
+    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1
+    "Absolute value"
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
+    final k=0.08)
+    "Gain factor"
+    annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
 equation
-  connect(ratFraChaTanVal.y, lesThr.u)
-    annotation (Line(points={{-129,-40},{-102,-40}},
-                                                 color={0,0,127}));
   connect(criWarUp.y, criWarUpAndChaLow.u1)
     annotation (Line(points={{-78,-80},{-72,-80}}, color={255,0,255}));
   connect(criChaLow.y, criWarUpAndChaLow.u2) annotation (Line(points={{-78,-120},
@@ -248,39 +279,31 @@ equation
   connect(criFraChaHig.y, timCriFraChaHig.u)
     annotation (Line(points={{-48,-120},{-42,-120}}, color={255,0,255}));
   connect(timCriTem.passed, criTemOrCriChaHig.u1) annotation (Line(points={{-48,22},
-          {-36,22},{-36,120},{8,120}},       color={255,0,255}));
+          {-36,22},{-36,120},{8,120}}, color={255,0,255}));
   connect(timCriFraChaHig.passed, criTemOrCriChaHig.u2) annotation (Line(points={{-18,
-          -128},{0,-128},{0,112},{8,112}},            color={255,0,255}));
+          -128},{0,-128},{0,112},{8,112}}, color={255,0,255}));
   connect(criFlo1.y, timCriFlo1.u)
     annotation (Line(points={{-78,120},{-72,120}},   color={255,0,255}));
   connect(timCriFlo1.passed,enaRej. clr) annotation (Line(points={{-48,112},{-44,
           112},{-44,80},{76,80},{76,94},{78,94}},     color={255,0,255}));
   connect(enaRej.y, intSwi1.u2) annotation (Line(points={{102,100},{108,100}},
-                     color={255,0,255}));
+          color={255,0,255}));
   connect(modRej.y, intSwi1.u1) annotation (Line(points={{130,140},{140,140},{140,
-          120},{104,120},{104,108},{108,108}},
-                                            color={255,127,0}));
+          120},{104,120},{104,108},{108,108}}, color={255,127,0}));
   connect(modTan.y, intSwi1.u3) annotation (Line(points={{132,60},{140,60},{140,
-          80},{104,80},{104,92},{108,92}},
-                                        color={255,127,0}));
+          80},{104,80},{104,92},{108,92}}, color={255,127,0}));
   connect(intSwi.y, mode)
     annotation (Line(points={{192,0},{220,0}}, color={255,127,0}));
   connect(enaCha.y, intSwi.u2) annotation (Line(points={{92,-60},{100,-60},{100,
-          0},{168,0}},
-                    color={255,0,255}));
+          0},{168,0}}, color={255,0,255}));
   connect(modCha.y, intSwi.u1) annotation (Line(points={{132,-40},{140,-40},{140,
           8},{168,8}}, color={255,127,0}));
   connect(intSwi1.y, intSwi.u3) annotation (Line(points={{132,100},{144,100},{144,
           -8},{168,-8}}, color={255,127,0}));
-  connect(varCriWarUp1.y, criWarUp.u2) annotation (Line(points={{-159,-88},{-102,
-          -88}},                        color={0,0,127}));
-  connect(varCriWarUp.y, criWarUp.u1)
-    annotation (Line(points={{-129,-80},{-102,-80}}, color={0,0,127}));
   connect(TTan[nTTan], criTem.u) annotation (Line(points={{-220,20},{-120,20},{
-          -120,30},{-102,30}},
-                          color={0,0,127}));
+          -120,30},{-102,30}}, color={0,0,127}));
   connect(isChaDis.y, timNotCha.u)
-    annotation (Line(points={{2,160},{8,160}},     color={255,0,255}));
+    annotation (Line(points={{2,160},{8,160}}, color={255,0,255}));
   connect(enaCha.y, isChaDis.u) annotation (Line(points={{92,-60},{100,-60},{100,
           60},{-32,60},{-32,160},{-22,160}}, color={255,0,255}));
   connect(mConWatHexCoo_flow, criFlo1.u)
@@ -288,7 +311,7 @@ equation
   connect(mConWatOutTan_flow, criFlo.u)
     annotation (Line(points={{-220,60},{-102,60}}, color={0,0,127}));
   connect(disCha.y, notDis.u) annotation (Line(points={{62,-30},{64,-30},{64,-44},
-          {4,-44},{4,-60},{8,-60}},            color={255,0,255}));
+          {4,-44},{4,-60},{8,-60}}, color={255,0,255}));
   connect(notDis.y, enaAndNotDis.u1) annotation (Line(points={{32,-60},{36,-60},
           {36,-80},{38,-80}}, color={255,0,255}));
   connect(enaAndNotDis.y, enaCha.u) annotation (Line(points={{62,-80},{64,-80},{
@@ -300,11 +323,7 @@ equation
   connect(notDis1.y, enaAndNotDis1.u2) annotation (Line(points={{32,94},{44,94},
           {44,102},{48,102}}, color={255,0,255}));
   connect(timCriFlo1.passed, notDis1.u) annotation (Line(points={{-48,112},{-44,
-          112},{-44,94},{8,94}},   color={255,0,255}));
-  connect(fraChaTanVal.y, fraChaTan.u)
-    annotation (Line(points={{-159,-120},{-152,-120}}, color={0,0,127}));
-  connect(fraChaTan.y, criChaLow.u) annotation (Line(points={{-128,-120},{-102,-120}},
-                                                           color={0,0,127}));
+          112},{-44,94},{8,94}}, color={255,0,255}));
   connect(lesThr.y, tim.u)
     annotation (Line(points={{-78,-40},{-42,-40}}, color={255,0,255}));
   connect(criWarUpAndChaLow.y, tim1.u)
@@ -312,43 +331,39 @@ equation
   connect(enaAndNotDis.u2, anyEnaTru.y)
     annotation (Line(points={{38,-88},{32,-88}}, color={255,0,255}));
   connect(tim.passed, anyEnaTru.u[1:5]) annotation (Line(points={{-18,-48},{-6,-48},
-          {-6,-86.25},{8,-86.25}},
-                                color={255,0,255}));
+          {-6,-86.25},{8,-86.25}}, color={255,0,255}));
   connect(tim1.passed, anyEnaTru.u[6])
-    annotation (Line(points={{-18,-88},{8,-88},{8,-85.0833}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{-18,-88},{8,-88},{8,-85.0833}}, color={255,0,255}));
   connect(lesThr.y, enaFal[1:5].u) annotation (Line(points={{-78,-40},{-60,-40},
           {-60,0},{-42,0}}, color={255,0,255}));
   connect(criWarUpAndChaLow.y, enaFal[6].u) annotation (Line(points={{-48,-80},{
           -46,-80},{-46,0},{-42,0}}, color={255,0,255}));
   connect(enaFal.y, noEnaTruAndRatCon.u[1:6])
-    annotation (Line(points={{-18,0},{8,0},{8,2}},
-                                             color={255,0,255}));
+    annotation (Line(points={{-18,0},{8,0},{8,2}}, color={255,0,255}));
   connect(TConWatConRet, delTem.u1) annotation (Line(points={{-220,-200},{-180,-200},
           {-180,-184},{-172,-184}}, color={0,0,127}));
   connect(TConWatConChiLvg, delTem.u2) annotation (Line(points={{-220,-180},{-190,
           -180},{-190,-196},{-172,-196}}, color={0,0,127}));
   connect(mConWatCon_flow, floCap.u)
-    annotation (Line(points={{-220,-160},{-190,-160}}, color={0,0,127}));
-  connect(floCap.y, floOutHeaPum.u1) annotation (Line(points={{-166,-160},{-140,
+    annotation (Line(points={{-220,-160},{-182,-160}}, color={0,0,127}));
+  connect(floCap.y, floOutHeaPum.u1) annotation (Line(points={{-158,-160},{-140,
           -160},{-140,-174},{-132,-174}}, color={0,0,127}));
   connect(delTem.y, floOutHeaPum.u2) annotation (Line(points={{-148,-190},{-140,
           -190},{-140,-186},{-132,-186}}, color={0,0,127}));
-  connect(mConWatOutTan_flow, floCap1.u) annotation (Line(points={{-220,60},{-194,
-          60},{-194,40},{-182,40}}, color={0,0,127}));
-  connect(floCap1.y,floChaTan. u1) annotation (Line(points={{-158,40},{-156,40},
-          {-156,6},{-152,6}}, color={0,0,127}));
-  connect(delTem1.y,floChaTan. u2) annotation (Line(points={{-158,0},{-154,0},{-154,
-          -6},{-152,-6}}, color={0,0,127}));
+  connect(mConWatOutTan_flow, floCap1.u) annotation (Line(points={{-220,60},{-190,
+          60},{-190,40},{-182,40}}, color={0,0,127}));
+  connect(floCap1.y,floChaTan. u1) annotation (Line(points={{-158,40},{-150,40},
+          {-150,6},{-142,6}}, color={0,0,127}));
+  connect(delTem1.y,floChaTan. u2) annotation (Line(points={{-158,0},{-150,0},{-150,
+          -6},{-142,-6}}, color={0,0,127}));
   connect(TTan[1], delTem1.u1) annotation (Line(points={{-220,15},{-220,16},{-218,
           16},{-218,20},{-188,20},{-188,6},{-182,6}}, color={0,0,127}));
   connect(TTan[nTTan], delTem1.u2) annotation (Line(points={{-220,20},{-208,20},
-          {-208,20},{-192,20},{-192,-6},{-182,-6}},
-                                              color={0,0,127}));
+          {-208,20},{-192,20},{-192,-6},{-182,-6}}, color={0,0,127}));
   connect(floOutHeaPum.y, ratHeaRec.u2) annotation (Line(points={{-108,-180},{-100,
           -180},{-100,-186},{-92,-186}}, color={0,0,127}));
-  connect(floChaTan.y, ratHeaRec.u1) annotation (Line(points={{-128,0},{-120,0},
-          {-120,-160},{-100,-160},{-100,-174},{-92,-174}}, color={0,0,127}));
+  connect(floChaTan.y, ratHeaRec.u1) annotation (Line(points={{-118,0},{-106,0},
+          {-106,-158},{-100,-158},{-100,-174},{-92,-174}}, color={0,0,127}));
   connect(criRatHeaRec.y, noEnaTruAndRatCon.u[7]) annotation (Line(points={{-38,
           -180},{-12,-180},{-12,3},{8,3}}, color={255,0,255}));
   connect(tim2.passed, disCha.u2) annotation (Line(points={{62,-8},{64,-8},{64,-14},
@@ -362,6 +377,30 @@ equation
   connect(criTemOrCriChaHigAndTimCriFlo.y, allEnaTru.u2) annotation (Line(
         points={{72,140},{76,140},{76,164},{46,164},{46,172},{48,172}}, color={255,
           0,255}));
+  connect(tanChaFra.y, criChaLow.u)
+    annotation (Line(points={{-158,-120},{-102,-120}}, color={0,0,127}));
+  connect(one.y, sub3.u1) annotation (Line(points={{-158,-50},{-146,-50},{-146,-74},
+          {-142,-74}}, color={0,0,127}));
+  connect(tanChaFra.y, sub3.u2) annotation (Line(points={{-158,-120},{-150,-120},
+          {-150,-86},{-142,-86}}, color={0,0,127}));
+  connect(sub3.y, criWarUp.u1) annotation (Line(points={{-118,-80},{-102,-80}},
+          color={0,0,127}));
+  connect(tanChaFra.y, tanChaFraRat.uChaFra) annotation (Line(points={{-158,-120},
+          {-150,-120},{-150,-40},{-142,-40}}, color={0,0,127}));
+  connect(tanChaFraRat.y, lesThr.u) annotation (Line(points={{-118,-40},{-102,-40}},
+          color={0,0,127}));
+  connect(TTan, tanChaFra.TTan) annotation (Line(points={{-220,20},{-192,20},{-192,
+          -120},{-182,-120}}, color={0,0,127}));
+  connect(con.y, sub.u2) annotation (Line(points={{-158,160},{-150,160},{-150,194},
+          {-142,194}}, color={0,0,127}));
+  connect(nexWarHou.y, sub.u1) annotation (Line(points={{-158,200},{-150,200},{-150,
+          206},{-142,206}}, color={0,0,127}));
+  connect(sub.y, abs1.u)
+    annotation (Line(points={{-118,200},{-102,200}}, color={0,0,127}));
+  connect(abs1.y, gai.u)
+    annotation (Line(points={{-78,200},{-62,200}}, color={0,0,127}));
+  connect(gai.y, criWarUp.u2) annotation (Line(points={{-38,200},{-30,200},{-30,
+          170},{-112,170},{-112,-88},{-102,-88}}, color={0,0,127}));
   annotation (
   defaultComponentName="modConLoo",
   Icon(graphics={
@@ -395,14 +434,19 @@ which is considered useless only during the second tank cycle,
 <i>hHee</i> is the upper and lower heel heights above and below the diffusers
 (<i>1&nbsp;</i>m by default), <i>hTan</i> is the tank height (used as an
 approximation for the normal operating level of the tank at minimum
-temperature).
+temperature). Please see the detailed calculation of the tank charge fraction in
+<a href=\"modelica://Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFraction\">
+Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFraction</a>.
 </p>
 <p>
 The rate of change of the tank charge fraction <i>ratFraChaTan</i> (h-1) is computed
 over several time periods (<i>10</i>, <i>30</i>, <i>120</i>, <i>240</i>
 and <i>360&nbsp;</i>min) as:
 <i>ratFraChaTan(&Delta;t) = (fraChaTan(t) - fraChaTan(t - &Delta;t)) / &Delta;t * 3600</i>,
-where <i>&Delta;t</i> is the time period in seconds.
+where <i>&Delta;t</i> is the time period in seconds. Please see the detailed calculation
+of the rate of change in
+<a href=\"modelica://Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFractionRate\">
+Buildings.DHC.Plants.Combined.Controls.BaseClasses.TankChargeFractionRate</a>.
 </p>
 <h4>Operating modes</h4>
 <p>
@@ -423,6 +467,10 @@ The tank charge fraction is lower than <i>97&nbsp;%</i> and
 of hours between the present time and the start time of morning warmup (<i>4 AM</i> by default).
 The 2-hour offset forces Charge Assist mode two hours before morning warmup
 if the tank is not fully charged.
+Please see
+<a href=\"modelica://Buildings.DHC.Plants.Combined.Controls.BaseClasses.HoursToNextWarmup\">
+Buildings.DHC.Plants.Combined.Controls.BaseClasses.HoursToNextWarmup</a>
+for the calculation of the number of hours to next warmup period.
 </p>
 <p>
 The mode is disabled whenever none of the Enable conditions is true for
@@ -450,6 +498,12 @@ The mode is enabled whenever neither Charge Assist nor Heat Rejection mode is en
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2025, by Jianjun Hu:<br/>
+Reimplemented it to comply with CDL specification.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">#4110</a>.
+</li>
 <li>
 August 29, 2023, by Hongxiang Fu:<br/>
 Because of the removal of <code>Logical.And3</code> based on ASHRAE 231P,

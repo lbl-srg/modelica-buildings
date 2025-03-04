@@ -2,6 +2,7 @@ within Buildings.DHC.ETS.Combined.Controls;
 model Supervisory
   "Supervisory controller"
   extends Buildings.DHC.ETS.Combined.Controls.BaseClasses.PartialSupervisory;
+
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
@@ -13,36 +14,49 @@ model Supervisory
   parameter Real kCol(
     min=0)=0.1
     "Gain of controller on cold side";
-  parameter Modelica.Units.SI.Time TiHot(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 300 "Time constant of integrator block on hot side" annotation (Dialog(
-        enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Time TiCol(min=Buildings.Controls.OBC.CDL.Constants.small)
-     = 120 "Time constant of integrator block on cold side" annotation (Dialog(
-        enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Modelica.Units.SI.Temperature THeaWatSupSetMin(displayUnit="degC")
+  parameter Real TiHot(
+    final min=Buildings.Controls.OBC.CDL.Constants.small,
+    final quantity="Time",
+    final unit="s") = 300
+    "Time constant of integrator block on hot side"
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                              or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real TiCol(
+    final min=Buildings.Controls.OBC.CDL.Constants.small,
+    final quantity="Time",
+    final unit="s") = 120
+    "Time constant of integrator block on cold side"
+    annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                             or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+  parameter Real THeaWatSupSetMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of heating water supply temperature set point";
-  parameter Modelica.Units.SI.Temperature TChiWatSupSetMin(displayUnit="degC")
+  parameter Real TChiWatSupSetMin(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
     final unit="1")
     "Return position of condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-160,-100},{-120,-60}}),
-    iconTransformation(extent={{-140,-90},{-100,-50}})));
+        iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(
     final unit="1")
     "Return position of evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
-    iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Combined.Controls.SideHot conHot(
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
+  Buildings.DHC.ETS.Combined.Controls.SideHot conHot(
     final k=kHot,
     final Ti=TiHot,
     final nSouAmb=nSouAmb,
     final controllerType=controllerType)
     "Hot side controller"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  SideCold conCol(
+  Buildings.DHC.ETS.Combined.Controls.SideCold conCol(
     final k=kCol,
     final Ti=TiCol,
     final nSouAmb=nSouAmb,
@@ -53,7 +67,7 @@ model Supervisory
   Buildings.Controls.OBC.CDL.Reals.Max max1[nSouAmb]
     "Maximum of output control signals"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Reset resTSup(
+  Buildings.DHC.ETS.Combined.Controls.Reset resTSup(
     final THeaWatSupSetMin=THeaWatSupSetMin)
     "Supply temperature reset"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
