@@ -368,10 +368,10 @@ partial model PartialReversibleRefrigerantMachine
       final unit="W") "Actual cooling heat flow rate removed from fluid 2"
     annotation (Placement(transformation(extent={{140,-140},{160,-120}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
-  Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER
+  Modelica.Blocks.Interfaces.RealOutput EER(unit="1") if use_EER and calEff
     "Energy efficieny ratio" annotation (Placement(transformation(extent={{140,-40},
             {160,-20}}), iconTransformation(extent={{100,-40},{120,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput COP(unit="1") if use_COP
+  Modelica.Blocks.Interfaces.RealOutput COP(unit="1") if use_COP and calEff
     "Coefficient of performance" annotation (Placement(transformation(extent={{140,
             20},{160,40}}), iconTransformation(extent={{100,20},{120,40}})));
 
@@ -648,12 +648,12 @@ equation
         Text(
           extent={{72,40},{96,16}},
           textColor={0,0,127},
-          visible=use_COP,
+          visible=use_COP and calEff,
           textString="COP"),
         Text(
           extent={{72,-18},{96,-42}},
           textColor={0,0,127},
-          visible=use_EER,
+          visible=use_EER and calEff,
           textString="EER"),
         Rectangle(
           extent={{34,42},{38,-46}},
@@ -690,6 +690,12 @@ equation
           fillPattern=FillPattern.Solid)}),
        Diagram(coordinateSystem(extent={{-140,-160},{140,160}})),
     Documentation(revisions="<html><ul>
+  <li>
+    <i>February 27, 2025</i> by Jianjun Hu:<br/>
+    Corrected conditions for removing COP and EER output connector.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1979\">IBPSA #1979</a>.
+  </li>
   <li>
     May 2, 2024, by Michael Wetter:<br/>
     Refactored check for device identifiers.<br/>
