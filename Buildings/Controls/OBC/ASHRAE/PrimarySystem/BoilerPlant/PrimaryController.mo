@@ -9,21 +9,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Type of controller"
     annotation(Dialog(tab="Bypass valve control parameters"));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_secPum= Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller"
-    annotation(Dialog(tab="Secondary pump control parameters", group="PID parameters"));
-
-  parameter Boolean is_mulPri
-    "Is the primary loop part of a hybrid plant with multiple primary loops?"
-    annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
-
-  parameter Boolean is_PriLea = true
-    "True: Lead primary loop
-    False: Lag primary loop"
-    annotation(Dialog(tab="General",
-      group="Boiler plant configuration parameters",
-      enable=is_mulPri));
-
   parameter Boolean have_priOnl = false
     "Is the primary loop primary-only? (Only allowed for condensing boilers)"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
@@ -718,14 +703,12 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{-440,-420},{-400,-380}}),
       iconTransformation(extent={{-140,-300},{-100,-260}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna if not is_mulPri
-     or is_PriLea
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna
     "Signal indicating if schedule allows plant to be enabled"
     annotation (Placement(transformation(extent={{-440,400},{-400,440}}),
       iconTransformation(extent={{-140,380},{-100,420}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq if not is_mulPri
-     or is_PriLea
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
     "Plant requests"
     annotation (Placement(transformation(extent={{-440,330},{-400,370}}),
       iconTransformation(extent={{-140,300},{-100,340}})));
@@ -738,7 +721,7 @@ model PrimaryController "Boiler plant primary loop controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if not is_mulPri or is_PriLea
+    final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-440,290},{-400,330}}),
       iconTransformation(extent={{-140,260},{-100,300}})));
@@ -904,7 +887,7 @@ model PrimaryController "Boiler plant primary loop controller"
     final TOutLoc=TOutLoc,
     final plaOffThrTim=plaOffThrTim,
     final plaOnThrTim=plaOnThrTim,
-    final staOnReqTim=staOnReqTim) if not is_mulPri or is_PriLea
+    final staOnReqTim=staOnReqTim)
     "Plant enable controller"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
 
@@ -947,17 +930,6 @@ model PrimaryController "Boiler plant primary loop controller"
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla if is_mulPri and not is_PriLea
-    "Plant enable signal from a different primary loop"
-                                                       annotation (Placement(
-        transformation(extent={{-440,260},{-400,300}}),   iconTransformation(
-          extent={{-140,220},{-100,260}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapMinFir(final unit="W", final quantity="Power") if
-    is_mulPri and not is_PriLea
-    "First stage minimum capacity of this primary loop"
-                                                       annotation (Placement(
-        transformation(extent={{400,-280},{440,-240}}), iconTransformation(
-          extent={{100,-200},{140,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxSecPumSpe(
     final unit="1",
     final displayUnit="1",
@@ -967,26 +939,6 @@ model PrimaryController "Boiler plant primary loop controller"
     annotation (Placement(transformation(extent={{400,-100},{440,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinSetFir_flow(final unit="m3/s", final quantity="VolumeFlowRate") if
-       is_mulPri and not is_PriLea "First stage minimum flow setpoint"
-    annotation (Placement(transformation(extent={{400,-320},{440,-280}}),
-        iconTransformation(extent={{100,-240},{140,-200}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFloSetVal(k=minFloSet[1])
-    "Value of minimum flow setpoint for first stage"
-    annotation (Placement(transformation(extent={{320,-310},{340,-290}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapDesHig(final unit="W", final quantity="Power") if
-       is_mulPri and is_PriLea
-    "Design capacity of highest stage of this primary loop" annotation (
-      Placement(transformation(extent={{400,-360},{440,-320}}),
-        iconTransformation(extent={{100,-280},{140,-240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yStaChaProEnd if is_mulPri and not is_PriLea
-    "Signal indicating end of stage change process" annotation (Placement(
-        transformation(extent={{400,60},{440,100}}), iconTransformation(extent={
-            {100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig if is_mulPri and is_PriLea
-                                    "Current stage is highest available"
-    annotation (Placement(transformation(extent={{400,20},{440,60}}),
-        iconTransformation(extent={{100,0},{140,40}})));
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
@@ -1616,32 +1568,8 @@ equation
           255}));
   connect(uSchEna, plaEna.uSchEna) annotation (Line(points={{-420,420},{-350,420},
           {-350,336},{-342,336}}, color={255,0,255}));
-  connect(uPla, yPla) annotation (Line(points={{-420,280},{-90,280},{-90,210},{380,
-          210},{380,300},{420,300}}, color={255,0,255}));
-  connect(uPla, and2.u1) annotation (Line(points={{-420,280},{-90,280},{-90,60},
-          {-30,60}}, color={255,0,255}));
-  connect(uPla, plaDis.uPla) annotation (Line(points={{-420,280},{-90,280},{-90,
-          210},{226,210},{226,78},{238,78}}, color={255,0,255}));
-  connect(uPla, upProCon.uPlaEna) annotation (Line(points={{-420,280},{-90,280},
-          {-90,83},{118,83}}, color={255,0,255}));
-  connect(uPla, staSetCon.uPla) annotation (Line(points={{-420,280},{-276,280},{
-          -276,-16},{-212,-16}},         color={255,0,255}));
-  connect(uPla, priPumCon.uPlaEna) annotation (Line(points={{-420,280},{-276,
-          280},{-276,-78},{90,-78},{90,-158},{118,-158},{118,-158.533}},
-                                                                    color={255,0,
-          255}));
-  connect(staSetCon.yCapMinFir,yCapMinFir)  annotation (Line(points={{-188,-16},
-          {-178,-16},{-178,-260},{420,-260}},     color={0,0,127}));
   connect(conSet.yMaxSecPumSpe, yMaxSecPumSpe) annotation (Line(points={{-38,-106},
           {20,-106},{20,-80},{420,-80}}, color={0,0,127}));
-  connect(minFloSetVal.y, VMinSetFir_flow)
-    annotation (Line(points={{342,-300},{420,-300}}, color={0,0,127}));
-  connect(staSetCon.yCapDesHig, yCapDesHig) annotation (Line(points={{-188,-20},
-          {14,-20},{14,-340},{420,-340}},                          color={0,0,127}));
-  connect(pre1.y, yStaChaProEnd) annotation (Line(points={{322,-10},{372,-10},{372,
-          80},{420,80}}, color={255,0,255}));
-  connect(staSetCon.yHig, yHig) annotation (Line(points={{-188,-12},{256,-12},{256,
-          40},{420,40}},      color={255,0,255}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-420},{100,420}}),
        graphics={

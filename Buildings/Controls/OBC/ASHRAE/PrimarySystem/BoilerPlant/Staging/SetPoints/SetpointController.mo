@@ -326,20 +326,6 @@ block SetpointController
     annotation (Placement(transformation(extent={{120,180},{160,220}}),
       iconTransformation(extent={{100,140},{140,180}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapMinFir(
-    final unit="W",
-    final quantity="Power")
-    "First stage minimum capacity of this primary loop"
-    annotation (Placement(transformation(extent={{120,-240},{160,-200}}),
-      iconTransformation(extent={{100,-140},{140,-100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCapDesHig(
-    final unit="W",
-    final quantity="Power")
-    "Highest stage design capacity of this primary loop"
-    annotation (Placement(transformation(extent={{120,-280},{160,-240}}),
-      iconTransformation(extent={{100,-180},{140,-140}})));
-
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.CapacityRequirement capReq1(
     final avePer=avePer)
     "Capacity requirement calculator"
@@ -350,9 +336,6 @@ block SetpointController
     "Stage capacity calculator to to find design and minimum capacities for staging calculations"
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHig "Current stage is highest available stage"
-    annotation (Placement(transformation(extent={{120,-140},{160,-100}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Change cha(
     final nSta=nSta,
@@ -537,13 +520,6 @@ equation
           -178},{-332,-280},{-30,-280},{-30,-162},{-22,-162}}, color={255,0,255}));
   connect(conf.yTyp, yStaTyp) annotation (Line(points={{-338,-174},{-336,-174},{
           -336,200},{140,200}},color={255,127,0}));
-  connect(conf.yCapDes[1], yCapDesHig) annotation (Line(points={{-338,-162},{-320,
-          -162},{-320,-268},{100,-268},{100,-260},{140,-260}}, color={0,0,127}));
-  connect(conf.yCapMin[1], yCapMinFir) annotation (Line(points={{-338,-166},{
-          -324,-166},{-324,-264},{80,-264},{80,-220},{140,-220}}, color={0,0,
-          127}));
-  connect(sta.yHig, yHig) annotation (Line(points={{-288,-211},{-160,-211},{
-          -160,-120},{140,-120}}, color={255,0,255}));
   annotation (defaultComponentName = "staSetCon",
         Icon(coordinateSystem(extent={{-100,-260},{100,260}}),
              graphics={
