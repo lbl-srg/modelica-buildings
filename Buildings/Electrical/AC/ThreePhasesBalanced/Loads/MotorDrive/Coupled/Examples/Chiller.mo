@@ -102,10 +102,7 @@ equation
           4.88889},{-11,4.88889}}, color={0,0,127}));
   connect(senTem.T, chi.meaPoi) annotation (Line(points={{-30,-19},{-30,
           -1.77778},{-11,-1.77778}}, color={0,0,127}));
-  annotation (experiment(
-      StopTime=900,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+  annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Chiller.mos"
         "Simulate and plot"),
     Documentation(info="<html>

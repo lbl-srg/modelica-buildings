@@ -11,5 +11,21 @@ record IM_20HP_400V_50Hz =
     Rr = 0.2205,
     Freq = 50,
     Voltage = 400) "Generic 20hp motor operating at 400V and 50Hz"
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-  coordinateSystem(preserveFARAspectio=false)));
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(preferredView="info",
+  info="<html>
+<p>
+This is the record of parameters for Induction Machine models from MATLAB
+<code>(IM20HP400V50Hz)</code>
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 7, 2024, by Viswanathan Ganesh:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));

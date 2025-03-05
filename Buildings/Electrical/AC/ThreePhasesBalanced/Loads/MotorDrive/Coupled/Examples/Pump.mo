@@ -63,7 +63,7 @@ equation
           -50,-40},{-50,21},{-80,21}}, color={0,127,255}));
   connect(senMasFlo.m_flow, pum.meaPoi) annotation (Line(points={{-10,-29},{-10,
           23.3333},{-1,23.3333}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6,StopTime=600, StartTime=400),
+  annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/Pump.mos"
         "Simulate and plot"),
     Documentation(info="<html>

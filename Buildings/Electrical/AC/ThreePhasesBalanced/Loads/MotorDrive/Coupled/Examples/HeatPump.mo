@@ -105,12 +105,8 @@ equation
     annotation (Line(points={{-73,34},{-62,34}}, color={0,0,127}));
   connect(TEva_in.y, sou2.T_in)
     annotation (Line(points={{73,-16},{62,-16}}, color={0,0,127}));
-  annotation (experiment(
-      StopTime=350,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/HeatPump.mos"
+  annotation (experiment(Tolerance=1e-6,StartTime=0,StopTime=350),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Electrical/AC/ThreePhasesBalanced/Loads/MotorDrive/Coupled/Examples/HeatPump.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

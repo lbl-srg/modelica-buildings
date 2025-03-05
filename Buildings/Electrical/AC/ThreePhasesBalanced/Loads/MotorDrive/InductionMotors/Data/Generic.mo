@@ -10,6 +10,21 @@ record Generic "Generic record of induction machine parameters"
   parameter Real Rr = 1.145 "Rotor Resistance [ohm]";
   parameter Real Freq = 50 "Standard Frequency [Hz]";
   parameter Real Voltage = 400 "Standard Voltage [V]";
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-  coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+  defaultComponentPrefixes = "parameter",
+  defaultComponentName = "per",
+  Documentation(preferredView="info",
+  info="<html>
+<p>
+This is the base record for Induction Motor models.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 7, 2024, by Viswanathan Ganesh:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Generic;
