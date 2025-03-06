@@ -45,7 +45,7 @@ env:
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Examples\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Subsystems\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Validation\" SINGLEPROC=\"true\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants\"" SINGLEPROC=\"true\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Controls\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Examples\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Subsystems\""
