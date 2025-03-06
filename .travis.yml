@@ -41,10 +41,10 @@ env:
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Controls\"" SINGLEPROC=\"true\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Examples\"" SINGLEPROC=\"true\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Subsystems\"" SINGLEPROC=\"true\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Validation\"" SINGLEPROC=\"true\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Controls\" SINGLEPROC=\"true\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Examples\" SINGLEPROC=\"true\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Subsystems\" SINGLEPROC=\"true\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Validation\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants\"" SINGLEPROC=\"true\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Controls\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.DHC.Plants.Combined.Examples\""
