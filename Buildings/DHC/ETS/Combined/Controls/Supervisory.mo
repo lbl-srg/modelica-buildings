@@ -79,9 +79,9 @@ equation
   connect(conHot.yCol,conCol.uCol)
     annotation (Line(points={{22,26},{30,26},{30,0},{-14,0},{-14,-32.2},{-2,-32.2}},color={0,0,127}));
   connect(resTSup.THeaWatSupSet,conHot.TSet)
-    annotation (Line(points={{-48,20},{-30,20},{-30,34.2},{-2,34.2}},color={0,0,127}));
+    annotation (Line(points={{-48,20},{-30,20},{-30,32},{-2,32}},    color={0,0,127}));
   connect(THeaWatTop,conHot.TTop)
-    annotation (Line(points={{-140,0},{-26,0},{-26,30},{-2,30}},color={0,0,127}));
+    annotation (Line(points={{-140,0},{-26,0},{-26,28},{-2,28}},color={0,0,127}));
   connect(max1.y,yAmb)
     annotation (Line(points={{72,0},{90,0},{90,-20},{140,-20}},color={0,0,127}));
   connect(TChiWatBot,conCol.TBot)
@@ -98,8 +98,8 @@ equation
     annotation (Line(points={{22,-36},{100,-36},{100,-80},{140,-80}},color={0,0,127}));
   connect(TChiWatSupPreSet,conCol.TSet)
     annotation (Line(points={{-140,-40},{-44,-40},{-44,-36.2},{-2,-36.2}},color={0,0,127}));
-  connect(uHeaHol.y,conHot.uHeaCoo)
-    annotation (Line(points={{-88,100},{-20,100},{-20,38},{-2,38}},color={255,0,255}));
+  connect(uHeaHol.y, conHot.uHea) annotation (Line(points={{-88,100},{-20,100},
+          {-20,40},{-2,40}}, color={255,0,255}));
   connect(uCooHol.y,conCol.uHeaCoo)
     annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-2,-24}},color={255,0,255}));
   connect(uHeaHol.y,resTSup.uHea)
@@ -109,9 +109,11 @@ equation
   connect(uCooHol.y,yCoo)
     annotation (Line(points={{-88,60},{140,60}},color={255,0,255}));
   connect(yValIsoCon_actual,conHot.yValIsoCon_actual)
-    annotation (Line(points={{-140,-80},{-22,-80},{-22,26},{-2,26}},color={0,0,127}));
+    annotation (Line(points={{-140,-80},{-22,-80},{-22,24},{-2,24}},color={0,0,127}));
   connect(yValIsoEva_actual,conHot.yValIsoEva_actual)
-    annotation (Line(points={{-140,-100},{-18,-100},{-18,22},{-2,22}},color={0,0,127}));
+    annotation (Line(points={{-140,-100},{-18,-100},{-18,20},{-2,20}},color={0,0,127}));
+  connect(conHot.uCoo, uCooHol.y) annotation (Line(points={{-2,36},{-40,36},{
+          -40,60},{-88,60}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
@@ -124,6 +126,12 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 6, 2025, by Hongxiang Fu:<br/>
+Added <code>uCoo</code> as an additional input
+to <code>conHot</code>.<br/>
+This is for [fixme].
+</li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
 First implementation.

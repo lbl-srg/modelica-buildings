@@ -30,32 +30,36 @@ block SideHot
     annotation (Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                               or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaCoo
-    "Enable signal for heating or cooling"
-    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHea
+    "Enable signal for heating" annotation (Placement(transformation(extent={{
+            -220,100},{-180,140}}), iconTransformation(extent={{-140,80},{-100,
+            120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCoo
+    "Enable signal for cooling" annotation (Placement(transformation(extent={{
+            -220,60},{-180,100}}), iconTransformation(extent={{-140,40},{-100,
+            80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",
     displayUnit="degC")
     "Supply temperature set point (heating or chilled water)"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
-        iconTransformation(extent={{-140,22},{-100,62}})));
+        iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTop(
     final unit="K",
     displayUnit="degC")
     "Temperature at top of tank"
     annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
     final unit="1")
     "Return position of condenser to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-220,-100},{-180,-60}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoEva_actual(
     final unit="1")
     "Return position of evaporator to ambient loop isolation valve"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yAmb[nSouAmb](
     each final unit="1")
     "Control signal for ambient sources"
@@ -151,6 +155,8 @@ block SideHot
   Buildings.Controls.OBC.CDL.Logical.Pre pre
     "Block to avoid algebraic loop during initialization"
     annotation(Placement(transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
 equation
   connect(mapFun.y,yAmb)
@@ -183,8 +189,6 @@ equation
     annotation (Line(points={{-200,-120},{-162,-120}},color={0,0,127}));
   connect(mulAnd.y,conColRej.uEna)
     annotation (Line(points={{-18,-80},{-4,-80},{-4,-52}},color={255,0,255}));
-  connect(isValIsoEvaClo.y,conHeaRej.uEna)
-    annotation (Line(points={{-138,-120},{-84,-120},{-84,-12}},color={255,0,255}));
   connect(TSet,addDea.u)
     annotation (Line(points={{-200,0},{-132,0}},color={0,0,127}));
   connect(addDea.y,conHeaRej.u_s)
@@ -195,8 +199,8 @@ equation
     annotation (Line(points={{-200,-40},{-160,-40},{-160,60},{-92,60}},color={0,0,127}));
   connect(addLoc.y,isBelLoc.u2)
     annotation (Line(points={{-108,40},{-100,40},{-100,52},{-92,52}},color={0,0,127}));
-  connect(uHeaCoo,mulAnd.u[1])
-    annotation (Line(points={{-200,100},{-56,100},{-56,-82.3333},{-42,-82.3333}},color={255,0,255}));
+  connect(uHea, mulAnd.u[1]) annotation (Line(points={{-200,120},{-60,120},{-60,
+          -80},{-42,-80},{-42,-82.3333}}, color={255,0,255}));
   connect(isValIsoConClo.y,mulAnd.u[2])
     annotation (Line(points={{-138,-80},{-42,-80}},color={255,0,255}));
   connect(isBelLoc.y,mulAnd.u[3])
@@ -209,11 +213,23 @@ equation
     Line(points = {{22, 0}, {38, 0}}, color = {255, 0, 255}));
   connect(pre.y, truFalHol.u) annotation(
     Line(points = {{62, 0}, {78, 0}}, color = {255, 0, 255}));
+  connect(isValIsoEvaClo.y, and2.u2) annotation (Line(points={{-138,-120},{-130,
+          -120},{-130,-108},{-122,-108}}, color={255,0,255}));
+  connect(and2.y, conHeaRej.uEna) annotation (Line(points={{-98,-100},{-84,-100},
+          {-84,-12}}, color={255,0,255}));
+  connect(and2.u1, uCoo) annotation (Line(points={{-122,-100},{-170,-100},{-170,
+          80},{-200,80}}, color={255,0,255}));
   annotation (
     defaultComponentName="conHot",
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 6, 2025, by Hongxiang Fu:<br/>
+Added <code>uCoo</code> as an additional condition
+to enable <code>conHeaRej</code>.<br/>
+This is for [fixme].
+</li>
 <li>
 November 22, 2024, by Michael Wetter:<br/>
 Reduced number of time events by replacing zero order hold with true and false hold,
