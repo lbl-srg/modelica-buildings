@@ -38,6 +38,11 @@ model Supervisory
     final unit="K",
     displayUnit="degC")
     "Minimum value of chilled water supply temperature set point";
+  parameter Real TChiWatSupSetMax(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC")
+    "Maximum value of chilled water supply temperature set point";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValIsoCon_actual(
     final unit="1")
@@ -67,10 +72,12 @@ model Supervisory
   Buildings.Controls.OBC.CDL.Reals.Max max1[nSouAmb]
     "Maximum of output control signals"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.DHC.ETS.Combined.Controls.Reset resTSup(
-    final THeaWatSupSetMin=THeaWatSupSetMin)
-    "Supply temperature reset"
+  Buildings.DHC.ETS.Combined.Controls.Reset resTHeaSup(final TWatSupSetMinMax=
+        THeaWatSupSetMin) "Heating water supply temperature reset"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+  Buildings.DHC.ETS.Combined.Controls.Reset resTCooSup(final TWatSupSetMinMax=
+        TChiWatSupSetMax) "Chilled water supply temperature reset"
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 equation
   connect(conHot.yAmb,max1.u1)
     annotation (Line(points={{22,34},{40,34},{40,6},{48,6}},color={0,0,127}));
@@ -78,32 +85,30 @@ equation
     annotation (Line(points={{22,-28},{40,-28},{40,-6},{48,-6}},color={0,0,127}));
   connect(conHot.yCol,conCol.uCol)
     annotation (Line(points={{22,26},{30,26},{30,0},{-14,0},{-14,-32.2},{-2,-32.2}},color={0,0,127}));
-  connect(resTSup.THeaWatSupSet,conHot.TSet)
-    annotation (Line(points={{-48,20},{-30,20},{-30,32},{-2,32}},    color={0,0,127}));
+  connect(resTHeaSup.TWatSupSet, conHot.TSet) annotation (Line(points={{-48,20},
+          {-30,20},{-30,32},{-2,32}}, color={0,0,127}));
   connect(THeaWatTop,conHot.TTop)
     annotation (Line(points={{-140,0},{-26,0},{-26,28},{-2,28}},color={0,0,127}));
   connect(max1.y,yAmb)
     annotation (Line(points={{72,0},{90,0},{90,-20},{140,-20}},color={0,0,127}));
   connect(TChiWatBot,conCol.TBot)
     annotation (Line(points={{-140,-60},{-40,-60},{-40,-40.4},{-2,-40.4}},color={0,0,127}));
-  connect(THeaWatSupPreSet,resTSup.THeaWatSupPreSet)
-    annotation (Line(points={{-140,20},{-80,20},{-80,15},{-72,15}},color={0,0,127}));
+  connect(THeaWatSupPreSet, resTHeaSup.TWatSupPreSet) annotation (Line(points={{
+          -140,20},{-80,20},{-80,14},{-72,14}}, color={0,0,127}));
   connect(conHot.yValIso,yValIsoCon)
     annotation (Line(points={{22,30},{60,30},{60,20},{140,20}},color={0,0,127}));
   connect(conCol.yValIso,yValIsoEva)
     annotation (Line(points={{22,-32},{100,-32},{100,0},{140,0}},color={0,0,127}));
-  connect(resTSup.THeaWatSupSet,THeaWatSupSet)
-    annotation (Line(points={{-48,20},{-30,20},{-30,-60},{140,-60}},color={0,0,127}));
+  connect(resTHeaSup.TWatSupSet, THeaWatSupSet) annotation (Line(points={{-48,20},
+          {-30,20},{-30,-60},{140,-60}}, color={0,0,127}));
   connect(conCol.TChiWatSupSet,TChiWatSupSet)
     annotation (Line(points={{22,-36},{100,-36},{100,-80},{140,-80}},color={0,0,127}));
-  connect(TChiWatSupPreSet,conCol.TSet)
-    annotation (Line(points={{-140,-40},{-44,-40},{-44,-36.2},{-2,-36.2}},color={0,0,127}));
   connect(uHeaHol.y, conHot.uHea) annotation (Line(points={{-88,100},{-20,100},
           {-20,40},{-2,40}}, color={255,0,255}));
   connect(uCooHol.y,conCol.uHeaCoo)
     annotation (Line(points={{-88,60},{-40,60},{-40,-24},{-2,-24}},color={255,0,255}));
-  connect(uHeaHol.y,resTSup.uHea)
-    annotation (Line(points={{-88,100},{-80,100},{-80,26},{-72,26}},color={255,0,255}));
+  connect(uHeaHol.y, resTHeaSup.u) annotation (Line(points={{-88,100},{-80,100},
+          {-80,26},{-72,26}}, color={255,0,255}));
   connect(uHeaHol.y,yHea)
     annotation (Line(points={{-88,100},{140,100}},color={255,0,255}));
   connect(uCooHol.y,yCoo)
@@ -114,6 +119,12 @@ equation
     annotation (Line(points={{-140,-100},{-18,-100},{-18,20},{-2,20}},color={0,0,127}));
   connect(conHot.uCoo, uCooHol.y) annotation (Line(points={{-2,36},{-40,36},{
           -40,60},{-88,60}}, color={255,0,255}));
+  connect(TChiWatSupPreSet, resTCooSup.TWatSupPreSet) annotation (Line(points={{-140,
+          -40},{-80,-40},{-80,-36},{-72,-36}},                color={0,0,127}));
+  connect(uCooHol.y, resTCooSup.u) annotation (Line(points={{-88,60},{-40,60},{-40,
+          -10},{-80,-10},{-80,-24},{-72,-24}}, color={255,0,255}));
+  connect(resTCooSup.TWatSupSet, conCol.TSet) annotation (Line(points={{-48,-30},
+          {-40,-30},{-40,-36},{-22,-36},{-22,-36.2},{-2,-36.2}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -128,9 +139,16 @@ equation
 <ul>
 <li>
 March 6, 2025, by Hongxiang Fu:<br/>
+<ul>
+<li>
+Added reset to the chilled water set point.
+</li>
+<li>
 Added <code>uCoo</code> as an additional input
-to <code>conHot</code>.<br/>
-This is for [fixme].
+to <code>conHot</code>.
+</li>
+</ul>
+These are for [fixme].
 </li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
