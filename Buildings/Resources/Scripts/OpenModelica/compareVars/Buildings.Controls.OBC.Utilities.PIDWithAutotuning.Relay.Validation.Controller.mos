@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "relCon.u_m",
+    "enaSig.y",
+    "relCon.y",
+    "relCon.yDif",
+    "relCon.yOn"
+  };

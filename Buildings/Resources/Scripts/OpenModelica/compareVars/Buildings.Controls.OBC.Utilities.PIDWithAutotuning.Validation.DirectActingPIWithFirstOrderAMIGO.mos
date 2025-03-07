@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "PI.u_s",
+    "PI.u_m",
+    "PIWitTun.u_s",
+    "PIWitTun.u_m",
+    "autTunSig.y",
+    "PIWitTun.inTunPro.y",
+    "PIWitTun.con.y",
+    "PIWitTun.con.k",
+    "PIWitTun.con.Ti"
+  };
