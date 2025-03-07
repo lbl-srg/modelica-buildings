@@ -86,7 +86,8 @@ block SideHot
     "Controller for cold rejection"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    final t=0.01)
+    final t = 0.01,
+    final h = 0.005)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(origin = {-40, 0}, extent = {{40, -10}, {60, 10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -125,13 +126,13 @@ block SideHot
     "x2"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoConClo(
-    final t=1E-6,
-    h=0.5E-6)
+    final t=0.01,
+    h=0.005)
     "Check if isolation valve is closed"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoEvaClo(
-    final t=1E-6,
-    h=0.5E-6)
+    final t=0.01,
+    h=0.005)
     "At least one signal is non zero"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Logical.MultiAnd mulAnd(
@@ -225,6 +226,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Increased, and added where missing, hysteresis, as the input signal is the output of the PID controller.
+</li>
 <li>
 March 6, 2025, by Hongxiang Fu:<br/>
 Added <code>uCoo</code> as an additional condition
