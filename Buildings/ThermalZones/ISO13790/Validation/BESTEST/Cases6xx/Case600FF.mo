@@ -73,7 +73,7 @@ March 5, 2025, by Jianjun Hu:<br/>
 Replaced the moving average calculation with CDL block.
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1982\">
-IBPSA #1982</a>.
+Buildings #1982</a>.
 </li>
 <li>
 May 2, 2024, by Alessandro Maccarini:<br/>
