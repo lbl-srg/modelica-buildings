@@ -78,26 +78,26 @@ model FourPipe "System model for a four-pipe fan coil unit"
     annotation (Placement(transformation(extent={{350,-50},{370,-30}}),
       iconTransformation(extent={{190,-50},{210,-30}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
-    redeclare final package Medium = MediumCHW)
+  Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(redeclare final package
+      Medium = Buildings.Media.Water)
     "Chilled water return port"
     annotation (Placement(transformation(extent={{94,-190},{114,-170}}),
       iconTransformation(extent={{50,-210},{70,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(
-    redeclare package Medium = MediumCHW)
+  Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(redeclare package Medium =
+        Buildings.Media.Water)
     "Chilled water supply port"
     annotation (Placement(transformation(extent={{134,-190},{154,-170}}),
       iconTransformation(extent={{110,-210},{130,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(
-    redeclare final package Medium = MediumHW) if has_HW
+  Modelica.Fluid.Interfaces.FluidPort_b port_HW_b(redeclare final package
+      Medium = Buildings.Media.Water)          if has_HW
     "Hot water return port"
     annotation (Placement(transformation(extent={{-46,-190},{-26,-170}}),
       iconTransformation(extent={{-130,-210},{-110,-190}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(
-    redeclare final package Medium = MediumHW) if has_HW
+  Modelica.Fluid.Interfaces.FluidPort_a port_HW_a(redeclare final package
+      Medium = Buildings.Media.Water)          if has_HW
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-6,-190},{14,-170}}),
       iconTransformation(extent={{-70,-210},{-50,-190}})));
