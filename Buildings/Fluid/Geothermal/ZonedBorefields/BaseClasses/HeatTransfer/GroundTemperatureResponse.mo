@@ -130,28 +130,6 @@ initial equation
 
   t_start = time;
 
-/*
-  kappa =
-    Buildings.Fluid.Geothermal.ZonedBorefields.BaseClasses.HeatTransfer.temperatureResponseMatrix(
-      nBor=borFieDat.conDat.nBor,
-      cooBor=borFieDat.conDat.cooBor,
-      hBor=borFieDat.conDat.hBor,
-      dBor=borFieDat.conDat.dBor,
-      rBor=borFieDat.conDat.rBor,
-      aSoi=borFieDat.soiDat.aSoi,
-      kSoi=borFieDat.soiDat.kSoi,
-      nSeg=nSeg,
-      nZon=borFieDat.conDat.nZon,
-      iZon=borFieDat.conDat.iZon,
-      nBorPerZon=borFieDat.conDat.nBorPerZon,
-      nu=nu,
-      nTim=i,
-      relTol=relTol,
-      sha=sha);
-*/
-
-//  dTStepdt = {kappa[i,i,1]/tLoaAgg for i in 1:nSegTot};
-
 equation
   assert(
     time - t_start < timFin,
