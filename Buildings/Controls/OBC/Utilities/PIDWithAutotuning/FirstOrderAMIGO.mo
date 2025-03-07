@@ -461,18 +461,18 @@ generated. The ongoing tuning process will be halted, and no adjustments will be
 to the PID parameters.
 </li>
 <li>
-The autotuning must be conducted after the initialization completes.
+The autotuning must be conducted after the initialization is completed.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
 <p>
-The performance of the autotuning is affected by the parameters including the
+The performance of the autotuning is determined by several parameters, including the
 typical range of the control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-These parameters must be manually specified by users on a case-by-case basis. 
-Below are the steps for setting them.
+Generally, these parameters must be manually specified by users on a case-by-case basis. 
+Below are recommended steps for setting them.
 </p>
 <p>
 Step 1: Conduct a &quot;test run&quot;
