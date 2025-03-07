@@ -66,7 +66,7 @@ protected
     nCel=nCel,
     tLoaAgg=tLoaAgg,
     timFin=timFin) "Time vector for load aggregation";
-    
+
   final parameter Modelica.Units.SI.Time t_start(fixed=false)
     "Simulation start time";
 
@@ -87,7 +87,7 @@ protected
       nTim=i,
       relTol=relTol,
       sha=sha) "Weight factor for each aggregation cell";
-      
+
   final parameter Real[i] rCel(each fixed=false) "Cell widths";
 
   discrete Modelica.Units.SI.HeatFlowRate[nSegTot,i] QAgg_flow
