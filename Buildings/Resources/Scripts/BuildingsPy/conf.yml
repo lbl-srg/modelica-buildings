@@ -61,6 +61,10 @@
     comment: simulation terminated by an assertion at initialization
     simulate: false
     time_out: 600
+- model_name: Buildings.Examples.VAVReheat.Validation.TraceSubstance
+  optimica:
+    comment: Process timeout after 300 s
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.EnergyTransferStations.Combined.Validation.ChillerBorefield
   openmodelica:
     comment: Timeout on travis after 900 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/615261271
@@ -108,11 +112,14 @@
   dymola:
     time_out: 600
   openmodelica:
-    comment: simulation terminated by an assertion at initialization.
+    comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
     comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
     simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
+  openmodelica:
+    time_out: 600
 - model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -200,6 +207,9 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+    time_out: 600
+  optimica:
+    comment: Process timeout after 300 s
     time_out: 600
 - model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   dymola:
