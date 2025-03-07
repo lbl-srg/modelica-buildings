@@ -68,7 +68,8 @@ equation
 March 6, 2025, by Hongxiang Fu:<br/>
 Renamed variables for generality so that this block
 could be used for both heating and cooling.<br/>
-This is for [fixme].
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
 </li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>

@@ -386,9 +386,9 @@ equation
 <li>
 March 6, 2025, by Hongxiang Fu:<br/>
 Revised load curves so that the heating and cooling loads can be staggered
-instead of always appearing and disappearing at the same time.
-This helps expose potential problems at state transitions.<br/>
-This is for [fixme].
+instead of always appearing and disappearing at the same time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
 </li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>

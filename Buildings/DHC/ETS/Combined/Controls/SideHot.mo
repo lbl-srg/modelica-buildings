@@ -228,7 +228,8 @@ equation
 March 6, 2025, by Hongxiang Fu:<br/>
 Added <code>uCoo</code> as an additional condition
 to enable <code>conHeaRej</code>.<br/>
-This is for [fixme].
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
 </li>
 <li>
 November 22, 2024, by Michael Wetter:<br/>

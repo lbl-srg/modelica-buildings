@@ -148,7 +148,8 @@ Added <code>uCoo</code> as an additional input
 to <code>conHot</code>.
 </li>
 </ul>
-These are for [fixme].
+These are for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
 </li>
 <li>
 July 31, 2020, by Antoine Gautier:<br/>
