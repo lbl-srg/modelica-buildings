@@ -72,11 +72,13 @@ model Supervisory
   Buildings.Controls.OBC.CDL.Reals.Max max1[nSouAmb]
     "Maximum of output control signals"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  Buildings.DHC.ETS.Combined.Controls.Reset resTHeaSup(final TWatSupSetMinMax=
-        THeaWatSupSetMin) "Heating water supply temperature reset"
+  Buildings.DHC.ETS.Combined.Controls.Reset resTHeaSup(
+    final TWatSupSetMinMax=THeaWatSupSetMin)
+    "Heating water supply temperature reset"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-  Buildings.DHC.ETS.Combined.Controls.Reset resTCooSup(final TWatSupSetMinMax=
-        TChiWatSupSetMax) "Chilled water supply temperature reset"
+  Buildings.DHC.ETS.Combined.Controls.Reset resTCooSup(
+    final TWatSupSetMinMax=TChiWatSupSetMax)
+    "Chilled water supply temperature reset"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 equation
   connect(conHot.yAmb,max1.u1)
