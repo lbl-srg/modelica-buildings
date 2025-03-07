@@ -112,7 +112,7 @@
   dymola:
     time_out: 600
   openmodelica:
-    commenta: simulation terminated by an assertion at initialization
+    comment: simulation terminated by an assertion at initialization
     simulate: false
   optimica:
     comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
