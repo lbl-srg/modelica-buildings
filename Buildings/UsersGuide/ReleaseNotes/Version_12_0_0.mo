@@ -147,6 +147,20 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
     </td>
 </tr>
+<tr>
+    <td valign=\"top\">Buildings/DHC/ETS/Combined/ChillerBorefield<br/>
+                       Buildings/DHC/ETS/Combined/Controls/SideHot<br/>
+                       Buildings/DHC/ETS/Combined/Controls/Supervisory<br/>
+                       Buildings/DHC/ETS/Combined/Controls/Reset<br/>
+                       Buildings/DHC/ETS/Combined/Validation/BaseClasses/PartialChillerBorefield.mo
+    </td>
+    <td valign=\"top\">Revised the ETS supervisory controller to<br/>
+                       (a) reduce back flow in the buffer tanks, and<br/>
+                       (b) support chilled water supply temperature reset.<br/>
+                       Also adjusted the base validation model to introduce more varied load transitions.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
