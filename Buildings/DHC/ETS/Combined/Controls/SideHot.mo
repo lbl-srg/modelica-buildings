@@ -156,6 +156,7 @@ block SideHot
     "Block to avoid algebraic loop during initialization"
     annotation(Placement(transformation(origin = {50, 0}, extent = {{-10, -10}, {10, 10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "And block to enable downstream controller for heat rejection"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
 equation
