@@ -383,15 +383,15 @@ equation
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a rule-based tuning method for a PI or a PID controller, with the following
-steps:
+This block implements a PI or PID controller with the control gains being tuned by a rule-based method. 
+The tuning has the following steps:
 </p>
 <p>
-Step 1: Introducing a relay disturbance
+Step 1: Introduce a relay disturbance
 </p>
 <ul>
 <li>
-During the tuning process, the relay controller
+A relay controller
 switches the output between two constants (<code>yHig</code> and <code>yLow</code>), based
 on the control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
 Details can be found in
@@ -400,11 +400,11 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </li>
 </ul>
 <p>
-Step 2: Extracting parameters of a first-order plus time-delay (FOPTD) model
+Step 2: Extract parameters of a first-order plus time-delay (FOPTD) model
 </p>
 <ul>
 <li>
-Based on the inputs and outputs from the relay controller during the tuning process, the
+Based on the inputs and outputs from the relay controller, the
 parameters of the FOPTD model is calculated (see 
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
@@ -412,7 +412,7 @@ The FOPTD is a simplified representation of the control process.
 </li>
 </ul>
 <p>
-Step 3: Calculating the PID gains
+Step 3: Calculate the PID gains
 </p>
 <ul>
 <li>
@@ -461,7 +461,9 @@ generated. The ongoing tuning process will be halted, and no adjustments will be
 to the PID parameters.
 </li>
 <li>
-The autotuning must be conducted after the initialization is completed.
+The autotuning must be conducted after the simulation reaches a stable state from the initial conditions.
+The user should monitor changes in important system variables (e.g., mass flow rate, temperature) over time.
+When these changes become small (e.g., less than 5%) or exhibit regular oscillations, the simulation can be considered stable.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -471,8 +473,8 @@ typical range of the control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
 deadband <code>deaBan</code>.
-Generally, these parameters must be manually specified by users on a case-by-case basis. 
-Below are recommended steps for setting them.
+These parameters must be specified on a case-by-case basis. 
+To set them, the user should conduct the following steps.
 </p>
 <p>
 Step 1: Conduct a &quot;test run&quot;
@@ -487,8 +489,7 @@ output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
-The test run must start after the initialization,
-and end when the simulation reaches a stable state or enters regular oscillations. 
+The test run should begin once the simulation reaches a stable state and end when it reaches a different stable state 
 </li>
 </ul>
 <p>
@@ -513,6 +514,12 @@ Step 3: Determine <code>yHig</code> and <code>yLow</code>
 <li>
 Adjust <code>yHig</code> and <code>yLow</code> so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
+</li>
+<li>
+<code>yHig</code> must be greater than <code>yRef</code> but less than 1.
+</li>
+<li>
+<code>yLow</code> must be greater than 0 but less than <code>yRef</code>.
 </li>
 </ul>
 <h4>References</h4>
