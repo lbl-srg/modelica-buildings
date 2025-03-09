@@ -202,7 +202,8 @@
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
-    time_out: 600
+    comment: Translation timeout after 600 s
+    translate: false
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
