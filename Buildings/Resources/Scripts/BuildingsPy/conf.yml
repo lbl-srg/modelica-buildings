@@ -202,8 +202,8 @@
     time_out: 600
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Examples.SeriesConnectedZones
   openmodelica:
+    comment: Translation timeout after 600 s
     translate: false
-    comment: Timeout on travis even with 900 s
   optimica:
     translate: false
     comment: Singularity, Modelon ticket 956
@@ -236,17 +236,12 @@
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.SteadyStateBoreholeDynamics
-  openmodelica:
-    translate: false
-    comment: Translation hangs.
   optimica:
     translate: false
     comment: Compilation seems to hang, may be related to Modelon ticket 956
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
-  openmodelica:
-    time_out: 1200
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
