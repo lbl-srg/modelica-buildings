@@ -95,7 +95,8 @@ model WatersideEconomizer
     "Add delta-T"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold delTemDis(
-    final t=dTDis)
+    final t = dTDis,
+    final h = 0.05)
     "Compare to threshold for disabling WSE"
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Buildings.DHC.ETS.Combined.Controls.PredictLeavingTemperature calTemLvg(
@@ -103,7 +104,8 @@ model WatersideEconomizer
     final m2_flow_nominal=m2_flow_nominal)
     "Compute predicted leaving water temperature"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Reals.Less delTemDis1
+  Buildings.Controls.OBC.CDL.Reals.Less delTemDis1(
+    final h = 0.05)
     "Compare to threshold for enabling WSE"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -145,8 +147,8 @@ model WatersideEconomizer
     "Cooling disabled or temperature criterion verified"
     annotation (Placement(transformation(extent={{70,-102},{90,-82}})));
   Buildings.Controls.OBC.CDL.Reals.LessThreshold isValIsoEvaClo(
-    final t=1E-6,
-    h=0.5E-6)
+    final t=0.01,
+    h=0.005)
     "True if valve closed"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "True if valve open"
@@ -252,6 +254,10 @@ annotation (__cdl(extensionBlock=true),
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Increased, and added where missing, hysteresis, as the input signal is the output of the PID controller.
+</li>
 <li>
 July 14, 2021, by Antoine Gautier:<br/>
 First implementation.

@@ -5,6 +5,10 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/4134
+convertModifiers("Buildings.DHC.ETS.Combined.Controls.Reset",
+                 {"THeaWatSupSetMin"}, {"TWatSupSetMinMax"}, true);
+
 // Conversion for https://github.com/ibpsa/modelica-ibpsa/issues/1956
 convertModifiers("Buildings.Fluid.SolarCollectors.ASHRAE93",
                 {"nPanelsSer"}, fill("",0), true);
