@@ -461,9 +461,9 @@ generated. The ongoing tuning process will be halted, and no adjustments will be
 to the PID parameters.
 </li>
 <li>
-The autotuning must be conducted after the simulation reaches a stable state from the initial conditions.
+The autotuning must be conducted when the simulation is in a stable state.
 The user should monitor changes in important system variables (e.g., mass flow rate, temperature) over time.
-When these changes become small (e.g., less than 5%) or exhibit regular oscillations, the simulation can be considered stable.
+When these changes become small (e.g., less than 5%) or exhibit regular oscillations, the simulation can be considered in a stable state.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -489,7 +489,7 @@ output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
-The test run should begin once the simulation reaches a stable state and end when it reaches a different stable state 
+The test run should begin once the simulation reaches a stable state and end when it reaches a different stable state.
 </li>
 </ul>
 <p>
