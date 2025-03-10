@@ -406,7 +406,11 @@ equation
           fillPattern=FillPattern.Solid,
           extent={{-56,-48},{-20,-68}},
           textString="rad",
-          textColor={0,0,0})}),
+          textColor={0,0,0}),            Rectangle(
+          extent={{-204,204},{204,-204}},
+          lineColor={255,0,0},
+          pattern=LinePattern.Dash,
+          lineThickness=0.5)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,

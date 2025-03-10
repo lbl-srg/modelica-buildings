@@ -1,6 +1,7 @@
 within Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0;
 model OutputVariable
   "Block to read an EnergyPlus output variable"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.PartialEnergyPlusObject;
   extends Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Synchronize.ObjectSynchronizer;
   parameter String name

@@ -1,6 +1,7 @@
 within Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.BaseClasses;
 partial block PartialEnergyPlusObject
   "Partial definitions of an EnergyPlus object"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Icons.Block;
   outer Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.Building building
     "Building-level declarations";

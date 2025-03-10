@@ -1,6 +1,7 @@
 within Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0;
 model Building
   "Model that declares a building to which EnergyPlus objects belong to"
+  extends Buildings.Obsolete.BaseClasses.ObsoleteModel;
   extends Modelica.Blocks.Icons.Block;
 
   constant String spawnExe="spawn-0.5.0-ab07bde9bb"
@@ -88,6 +89,7 @@ equation
 algorithm
   isSynchronized := synchronization_done;
   annotation (
+    obsolete = "Obsolete model - use models from Buildings.ThermalZones.EnergyPlus_24_2_0 instead",
     defaultComponentName="building",
     defaultComponentPrefixes="inner",
     missingInnerMessage="
