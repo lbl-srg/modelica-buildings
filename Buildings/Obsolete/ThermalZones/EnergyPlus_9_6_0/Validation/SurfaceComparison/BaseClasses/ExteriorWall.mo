@@ -14,14 +14,14 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
   Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.ZoneSurface sur(surfaceName=surNam)
     "Wall interior surface"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  HeatTransfer.Conduction.MultiLayer walCon(
+  Buildings.HeatTransfer.Conduction.MultiLayer walCon(
     A=A,
     layers=layers) "Wall construction"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,0})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSurExt
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSurExt
     "Exterior surface heat transfer rate"
     annotation (Placement(
         transformation(
@@ -36,7 +36,7 @@ model ExteriorWall "Model of an exterior wall with Spawn-controlled surface cond
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-30})));
-  HeatTransfer.Sources.PrescribedHeatFlow heaSurInt
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaSurInt
    "Prescribed heat flow rate"
     annotation (Placement(
         transformation(
@@ -100,14 +100,14 @@ First implementation.
         info="<html>
 <p>
 This is a model of the heat transfer through an exterior wall, which is connected
-to an EnergyPlus Zone Heat Balance through 
+to an EnergyPlus Zone Heat Balance through
 <a href=\"modelica://Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.ZoneSurface\">
-Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.ZoneSurface</a> object on the interior surface and a 
+Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.ZoneSurface</a> object on the interior surface and a
 <a href=\"modelica://Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.OutputVariable\">
 Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.OutputVariable</a> to read the exterior surface temperature.
 </p>
 <p>
-This model can be used in a Spawn simulation to substitute the heat conduction 
+This model can be used in a Spawn simulation to substitute the heat conduction
 calculation performed by EnergyPlus with a
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> object.

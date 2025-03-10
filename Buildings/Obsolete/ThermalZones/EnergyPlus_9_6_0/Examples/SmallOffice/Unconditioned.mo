@@ -37,25 +37,25 @@ model Unconditioned
   // warning in Dymola and an error in Optimica (Modelon#2020031339000191)
   // if used in an expression for the nominal attribute of lea*(res(m_flow(nominal=....))).
   // Assigning the nominal attribute to a constant avoids this warning and error.
-  Fluid.Sources.MassFlowSource_WeatherData bou[4](
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData bou[4](
     redeclare each package Medium=Medium,
     m_flow=mOut_flow,
     each nPorts=1)
     "Infiltration, used to avoid that the absolute humidity is continuously increasing"
     annotation (Placement(transformation(extent={{-28,-30},{-8,-10}})));
-  Fluid.Sources.Outside out(
+  Buildings.Fluid.Sources.Outside out(
     redeclare package Medium=Medium,
     nPorts=1)
     "Outside condition"
     annotation (Placement(transformation(extent={{-28,-64},{-8,-44}})));
-  Fluid.FixedResistances.PressureDrop res(
+  Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium=Medium,
     m_flow_nominal=sum(mOut_flow),
     dp_nominal=10,
     linearized=true)
     "Small flow resistance for inlet"
     annotation (Placement(transformation(extent={{6,-64},{26,-44}})));
-  Fluid.FixedResistances.PressureDrop res1[4](
+  Buildings.Fluid.FixedResistances.PressureDrop res1[4](
     redeclare each package Medium=Medium,
     each m_flow_nominal=sum(mOut_flow),
     each dp_nominal=10,

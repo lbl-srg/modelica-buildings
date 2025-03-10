@@ -164,16 +164,16 @@ equation
 protected
   model Cooling
     extends Modelica.Blocks.Icons.Block;
-    HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-    Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-5000) "Gain"
+    Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-5000) "Gain"
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-    Controls.OBC.CDL.Reals.PID conPID(
+    Buildings.Controls.OBC.CDL.Reals.PID conPID(
       Ti=120,
       reverseActing=false)
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-    Controls.OBC.CDL.Reals.Sources.Constant TSet(
+    Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSet(
       k=273.15+25)
       "Set point temperature"
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
