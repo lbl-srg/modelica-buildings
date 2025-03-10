@@ -269,11 +269,6 @@
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
     translate: false
-- model_name: Buildings.Obsolete.Examples.VAVReheat.Validation.Guideline36SteadyState
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
-    time_out: 600
 - model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMultiZone
   optimica:
     comment: Array size mismatch in modification of the attribute quantity for the variable TZon. This is a bug in OCT tracked under Modelon#2023022839000276.
