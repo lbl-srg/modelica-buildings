@@ -383,15 +383,15 @@ equation
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a rule-based tuning method for a PI or a PID controller, with the following
-steps:
+This block implements a PI or PID controller with the control gains being tuned by a rule-based method.
+This rule-based method automatically conducts tuning through the following steps:
 </p>
 <p>
-Step 1: Introducing a periodic disturbance
+Step 1: Introduce a relay disturbance
 </p>
 <ul>
 <li>
-During the tuning process, the relay controller
+A relay controller
 switches the output between two constants (<code>yHig</code> and <code>yLow</code>), based
 on the control error <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i>.
 Details can be found in
@@ -400,11 +400,11 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </li>
 </ul>
 <p>
-Step 2: Extracting parameters of a first-order plus time-delay (FOPTD) model
+Step 2: Extract parameters of a first-order plus time-delay (FOPTD) model
 </p>
 <ul>
 <li>
-Based on the inputs and outputs from the relay controller during the tuning process, the
+Based on the inputs and outputs from the relay controller, the
 parameters of the FOPTD model is calculated (see 
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>).
@@ -412,7 +412,7 @@ The FOPTD is a simplified representation of the control process.
 </li>
 </ul>
 <p>
-Step 3: Calculating the PID gains
+Step 3: Calculate the PID gains
 </p>
 <ul>
 <li>
@@ -460,58 +460,72 @@ If the set point is changed during an autotuning process, a warning will be
 generated. The ongoing tuning process will be halted, and no adjustments will be made
 to the PID parameters.
 </li>
+<li>
+The autotuning must be conducted when the simulation is in a stable state.
+The user should monitor changes in the independent variables and
+the control variables (e.g., mass flow rate, temperature) over time.
+When the changes in the independent variables are small (e.g., less than 10%),
+and the changes in the control variables are either small or
+exhibit regular oscillations,
+the simulation can be considered in a stable state.
+</li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
 <p>
-The performance of the autotuning is affected by the parameters including the
+The performance of the autotuning is determined by several parameters, including the
 typical range of the control error <code>r</code>,
 the reference output for the tuning process <code>yRef</code>, the higher and
 lower values for the relay output <code>yHig</code> and <code>yLow</code>, and the
-deadband <code>deaBan</code>. These parameters can be specified with the following
-steps:
+deadband <code>deaBan</code>.
+These parameters must be specified on a case-by-case basis. 
+To set them, the user should conduct the following steps.
 </p>
 <p>
-Step 1: Conducting a &quot;test run&quot;
+Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, the autotuning must be disabled and the set point
-must be constant.
+In the test run, disable the autotuning and keep the independent variables,
+including but not limited to the setpoint value, constant.
 </li>
 <li>
-During the test run, <code>r</code> must be adjusted so that the 
+During the test run, adjust <code>r</code> so that the 
 output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
-This test run must stop after the system is stable.
-</li>
-<li>
-Once stable, note the highest and lowest values of the measurement.
+The test run must begin once the simulation reaches a stable state and end
+when it reaches another stable state.
 </li>
 </ul>
 <p>
-Step 2: Calculating <code>yRef</code> and <code>deaBan</code>
+Step 2: Calculate <code>yRef</code> and <code>deaBan</code>
 </p>
 <ul>
 <li>
-The <code>yRef</code> is calculated by dividing the set point by the sum of the
-minimum and the maximum values of the measurement.
+To calculate the <code>yRef</code>, divide the set point by the sum of the
+minimum and the maximum values of the measurement during the test run.
 </li>
 <li>
-To calculate <code>deaBan</code>, first divide the maximum and the
+For the <code>deaBan</code>, first divide the maximum and the
 minimum control errors during the test run by <code>r</code>.
-The <code>deaBan</code> can then be set as half of the smaller absolute value
+Then set the <code>deaBan</code> to half of the smaller absolute value
 of those two deviations.
 </li>
 </ul>
 <p>
-Step 3: Determining <code>yHig</code> and <code>yLow</code>
+Step 3: Determine <code>yHig</code> and <code>yLow</code>
 </p>
 <ul>
 <li>
-The <code>yHig</code> and <code>yLow</code> must be adjusted so that the relay
+Adjust <code>yHig</code> and <code>yLow</code> so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
+</li>
+<li>
+<code>yHig</code> must be greater than <code>yRef</code> but less than 1.
+</li>
+<li>
+<code>yLow</code> must be greater than 0 but less than <code>yRef</code>.
 </li>
 </ul>
 <h4>References</h4>
