@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case680FF
   extends Buildings.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600FF(zonHVAC(
-        UWal=0.15, URoo=0.1))
+        UWal=0.15, URoo=0.1));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
  annotation (
@@ -16,7 +17,12 @@ The room temperature is free floating.
 </html>", revisions="<html>
 <ul>
 <li>
-May 3, 2024, Alessandro Maccarini:<br/>
+March 10, 2025, by Michael Wetter:<br/>
+Added missing semi-colon.</br>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1987\">IBPSA, #1987</a>.
+</li>
+<li>May 3, 2024, Alessandro Maccarini:<br/>
 First implementation.
 </li>
 </ul>
