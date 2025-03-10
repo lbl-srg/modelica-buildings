@@ -383,8 +383,8 @@ equation
 annotation (defaultComponentName = "conPIDWitTun",
 Documentation(info="<html>
 <p>
-This block implements a PI or PID controller with the control gains being tuned by a rule-based method. 
-The tuning has the following steps:
+This block implements a PI or PID controller with the control gains being tuned by a rule-based method.
+This rule-based method automatically conducts tuning through the following steps:
 </p>
 <p>
 Step 1: Introduce a relay disturbance
@@ -462,8 +462,12 @@ to the PID parameters.
 </li>
 <li>
 The autotuning must be conducted when the simulation is in a stable state.
-The user should monitor changes in important system variables (e.g., mass flow rate, temperature) over time.
-When these changes become small (e.g., less than 5%) or exhibit regular oscillations, the simulation can be considered in a stable state.
+The user should monitor changes in the independent variables and
+the control variables (e.g., mass flow rate, temperature) over time.
+When the changes in the independent variables are small (e.g., less than 10%),
+and the changes in the control variables are either small or
+exhibit regular oscillations,
+the simulation can be considered in a stable state.
 </li>
 </ul>
 <h4>Guidance for setting the parameters</h4>
@@ -481,7 +485,8 @@ Step 1: Conduct a &quot;test run&quot;
 </p>
 <ul>
 <li>
-In the test run, disable the autotuning and keep the setpoint value constant.
+In the test run, disable the autotuning and keep the independent variables,
+including but not limited to the setpoint value, constant.
 </li>
 <li>
 During the test run, adjust <code>r</code> so that the 
@@ -489,7 +494,8 @@ output of the relay controller, <code>rel.yDif</code>,
 stays between 0 and 1.
 </li>
 <li>
-The test run should begin once the simulation reaches a stable state and end when it reaches a different stable state.
+The test run must begin once the simulation reaches a stable state and end
+when it reaches another stable state.
 </li>
 </ul>
 <p>
