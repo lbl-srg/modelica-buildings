@@ -467,6 +467,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Templates.Plants.Controls.Utilities.SortWithIndices
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
+    </td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0
+    </td>
+    <td valign=\"top\">Moved models to <code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>,
+                       use instead the models in <code>Buildings.ThermalZones.EnergyPlus_24_2_0</code>.<br/>
+                       The conversion script will update existing models to use the models from
+                       <code>Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0</code>
+                       to ensure compatibility, because to update to EnergyPlus_24_2_0,
+                       the idf files also need to be updated.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4149\">#4149</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
     </td>
