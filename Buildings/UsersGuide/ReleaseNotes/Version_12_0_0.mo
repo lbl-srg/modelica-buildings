@@ -468,6 +468,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Obsolete.Air<br/>
+                       Buildings.Obsolete.Controls.Continuous<br/>
+                       Buildings.Obsolete.Examples<br/>
+                       Buildings.Obsolete.Fluid.FixedResistances<br/>
+                       Buildings.Obsolete.Fluid.Sources
+    </td>
+    <td valign=\"top\">Removed obsolete models that were added at least two versions ago.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4149\">issue 4149</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
 </tr>
