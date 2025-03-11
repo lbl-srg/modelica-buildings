@@ -10,7 +10,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     period=1,
     offset=0.1)
     "Block that generates signals for forming the signal of the length of On period"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOnSig2(
     amplitude=-0.1,
@@ -18,10 +18,10 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     period=1,
     offset=0.1)
     "Block that generates signals for forming the signal of the length of On period"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Reals.Add tOn
     "The length of the on period"
-    annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Pulse tOff(
     amplitude=-0.5,
     width=0.7,
@@ -31,18 +31,18 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger samTri(period=1, shift=0.9)
     "Stop signal for tuning"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-60},{12,-60},{
           12,-6},{18,-6}}, color={0,0,127}));
-  connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,70},{-40,70},{-40,56},
-          {-36,56}}, color={0,0,127}));
-  connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,30},{-40,30},{-40,44},
-          {-36,44}}, color={0,0,127}));
+  connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,80},{-40,80},{-40,66},
+          {-22,66}}, color={0,0,127}));
+  connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,40},{-40,40},{-40,54},
+          {-22,54}}, color={0,0,127}));
   connect(tOn.y, halPerRat.tOn)
-    annotation (Line(points={{-12,50},{0,50},{0,6},{18,6}}, color={0,0,127}));
-  connect(samTri.y, halPerRat.TunEnd) annotation (Line(points={{-58,-10},{0,-10},
-          {0,0},{18,0}}, color={255,0,255}));
+    annotation (Line(points={{2,60},{10,60},{10,6},{18,6}}, color={0,0,127}));
+  connect(samTri.y, halPerRat.TunEnd) annotation (Line(points={{-58,0},{18,0}},
+                         color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

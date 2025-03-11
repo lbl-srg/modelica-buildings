@@ -5,24 +5,25 @@ model OnOffPeriod "Test model for calculating the length of the on period and th
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Simulation time"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relSwi(
     width=0.2,
     period=0.8,
     shift=-0.1) "Control switch output"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse retSig(
     width=0.1,
     period=1,
     shift=-0.1) "Reset signal"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
-  connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
-          6},{-12,6}}, color={0,0,127}));
-  connect(relSwi.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{
-          -20,0},{-12,0}}, color={255,0,255}));
-  connect(onOffPer.trigger, retSig.y) annotation (Line(points={{-12,-6},{-16,-6},
-          {-16,-50},{-38,-50}}, color={255,0,255}));
+  connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,30},{-20,30},{
+          -20,6},{-12,6}},
+                       color={0,0,127}));
+  connect(relSwi.y, onOffPer.on) annotation (Line(points={{-38,0},{-12,0}},
+                           color={255,0,255}));
+  connect(onOffPer.trigger, retSig.y) annotation (Line(points={{-12,-6},{-20,-6},
+          {-20,-40},{-38,-40}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

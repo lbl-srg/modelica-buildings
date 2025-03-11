@@ -7,19 +7,19 @@ model ResponseProcess "Test model for processing the response of a relay control
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Simulation time"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relSwi(
     width=0.2,
     period=0.8,
     shift=-0.1)
     "Control switch output"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse resSig(
     width=0.1,
     period=1,
     shift=-0.1)
     "Reset signal"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Latch tunSta
     "Display when tuning process starts"
     annotation (Placement(transformation(extent={{60,-2},{80,18}})));
@@ -28,28 +28,30 @@ model ResponseProcess "Test model for processing the response of a relay control
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
     "False signal"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=true)
     "True signal"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 equation
-  connect(modTim.y, resPro.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
+  connect(modTim.y, resPro.tim) annotation (Line(points={{-58,20},{-40,20},{-40,
           6},{-12,6}}, color={0,0,127}));
-  connect(relSwi.y,resPro.on)  annotation (Line(points={{-38,-20},{-20,-20},{
-          -20,0},{-12,0}},
+  connect(relSwi.y,resPro.on)  annotation (Line(points={{-58,-20},{-40,-20},{
+          -40,0},{-12,0}},
                          color={255,0,255}));
-  connect(resSig.y, resPro.trigger) annotation (Line(points={{-38,-60},{-16,-60},
-          {-16,-6},{-12,-6}}, color={255,0,255}));
+  connect(resSig.y, resPro.trigger) annotation (Line(points={{-58,-60},{-30,-60},
+          {-30,-6},{-12,-6}}, color={255,0,255}));
   connect(resPro.triSta, tunSta.u) annotation (Line(points={{12,-4},{40,-4},{40,
           8},{58,8}}, color={255,0,255}));
-  connect(tunEnd.u, resPro.triEnd) annotation (Line(points={{58,-30},{38,-30},{38,
-          -8},{12,-8}}, color={255,0,255}));
-  connect(tunSta.clr, con.y) annotation (Line(points={{58,2},{48,2},{48,-70},{22,
-          -70}}, color={255,0,255}));
-  connect(tunEnd.clr, con.y) annotation (Line(points={{58,-36},{54,-36},{54,-70},
-          {22,-70}}, color={255,0,255}));
-  connect(con1.y, resPro.inTun) annotation (Line(points={{-18,-90},{-8,-90},{-8,
-          -20},{0,-20},{0,-12}}, color={255,0,255}));
+  connect(tunEnd.u, resPro.triEnd) annotation (Line(points={{58,-30},{40,-30},{
+          40,-8},{12,-8}},
+                        color={255,0,255}));
+  connect(tunSta.clr, con.y) annotation (Line(points={{58,2},{48,2},{48,-70},{
+          42,-70}},
+                 color={255,0,255}));
+  connect(tunEnd.clr, con.y) annotation (Line(points={{58,-36},{48,-36},{48,-70},
+          {42,-70}}, color={255,0,255}));
+  connect(con1.y, resPro.inTun) annotation (Line(points={{-18,-80},{0,-80},{0,
+          -12}},                 color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

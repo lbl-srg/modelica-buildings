@@ -30,10 +30,10 @@ model ReverseActingPIWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant k(k=10)
     "Gain of the first order process"
-    annotation (Placement(transformation(extent={{180,20},{160,40}})));
+    annotation (Placement(transformation(extent={{160,20},{140,40}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)
     "Time constant of the first order process"
-    annotation (Placement(transformation(extent={{180,-20},{160,0}})));
+    annotation (Placement(transformation(extent={{160,-20},{140,0}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "A subtract block that is used to mimic the first order process 1"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
@@ -58,19 +58,21 @@ equation
           40},{-16,40},{-16,48}}, color={255,0,255}));
   connect(PIWitTun.triRes, PI.trigger) annotation (Line(points={{-16,-32},{-16,
           -40},{-30,-40},{-30,40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIWitTun.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-48,-20},{-48,
-          60},{-22,60}}, color={0,0,127}));
-  connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
-          {-22,60}}, color={0,0,127}));
+  connect(PIWitTun.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-40,-20},{
+          -40,60},{-22,60}},
+                         color={0,0,127}));
+  connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-40,10},{-40,
+          60},{-22,60}},
+                     color={0,0,127}));
   connect(PIWitTun.y, uniDel2.u)
     annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
   connect(uniDel1.u, PI.y) annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{32,60},{40,60},{40,86},{
           58,86}}, color={0,0,127}));
-  connect(k.y, derivative1.k) annotation (Line(points={{158,30},{148,30},{148,
+  connect(k.y, derivative1.k) annotation (Line(points={{138,30},{120,30},{120,
           48},{82,48}}, color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{82,44},{112,44},{112,
-          -46},{148,-46},{148,-10},{158,-10}}, color={0,0,127}));
+          -10},{138,-10}},                     color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{58,40},{50,40},{50,
           74},{58,74}}, color={0,0,127}));
   connect(sub1.y, PI.u_m) annotation (Line(points={{82,80},{88,80},{88,60},{46,
@@ -83,8 +85,8 @@ equation
           -28},{46,-28},{46,-40},{-10,-40},{-10,-32}}, color={0,0,127}));
   connect(derivative2.k, derivative1.k) annotation (Line(points={{82,-42},{92,
           -42},{92,48},{82,48}}, color={0,0,127}));
-  connect(derivative2.T, T.y) annotation (Line(points={{82,-46},{148,-46},{148,
-          -10},{158,-10}}, color={0,0,127}));
+  connect(derivative2.T, T.y) annotation (Line(points={{82,-46},{112,-46},{112,
+          -10},{138,-10}}, color={0,0,127}));
   connect(derivative1.u, sub1.u1) annotation (Line(points={{82,40},{88,40},{88,
           20},{40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},

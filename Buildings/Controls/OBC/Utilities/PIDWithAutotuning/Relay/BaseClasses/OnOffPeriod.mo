@@ -39,7 +39,7 @@ protected
     annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract lenOnCal
     "Block that calculates the horizon length for the on period"
-    annotation (Placement(transformation(extent={{12,30},{32,50}})));
+    annotation (Placement(transformation(extent={{12,36},{32,56}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "True: the relay output switch to false"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
@@ -56,8 +56,8 @@ equation
   connect(lenOffCal.u1, timOn.y) annotation (Line(points={{8,-34},{0,-34},{0,40},
           {-28,40}},color={0,0,127}));
   connect(lenOnCal.u2, timOn.y)
-    annotation (Line(points={{10,34},{0,34},{0,40},{-28,40}},color={0,0,127}));
-  connect(lenOnCal.u1, timOff.y) annotation (Line(points={{10,46},{-20,46},{-20,
+    annotation (Line(points={{10,40},{-28,40}},              color={0,0,127}));
+  connect(lenOnCal.u1, timOff.y) annotation (Line(points={{10,52},{-20,52},{-20,
           0},{-28,0}}, color={0,0,127}));
   connect(lenOffCal.u2, timOff.y) annotation (Line(points={{8,-46},{-20,-46},{
           -20,0},{-28,0}}, color={0,0,127}));
@@ -75,8 +75,8 @@ equation
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(timOffRec.y, tOff)
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
-  connect(lenOnCal.y, timOnRec.u) annotation (Line(points={{34,40},{40,40},{40,
-          46},{58,46}}, color={0,0,127}));
+  connect(lenOnCal.y, timOnRec.u) annotation (Line(points={{34,46},{58,46}},
+                        color={0,0,127}));
   connect(lenOffCal.y, timOffRec.u) annotation (Line(points={{32,-40},{48,-40},{
           48,-34},{58,-34}}, color={0,0,127}));
   connect(timOnRec.trigger, trigger) annotation (Line(points={{58,34},{40,34},{40,

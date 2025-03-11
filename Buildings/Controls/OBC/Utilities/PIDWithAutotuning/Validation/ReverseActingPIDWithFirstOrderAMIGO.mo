@@ -33,7 +33,7 @@ model ReverseActingPIDWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{10,10},{30,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)
     "Time constant of the first order process"
-    annotation (Placement(transformation(extent={{10,-66},{30,-46}})));
+    annotation (Placement(transformation(extent={{20,-66},{40,-46}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "A subtract block that is used to mimic the first order process 1"
     annotation (Placement(transformation(extent={{120,70},{140,90}})));
@@ -70,7 +70,7 @@ equation
   connect(k.y, derivative1.k) annotation (Line(points={{32,20},{68,20},{68,28},
           {78,28}}, color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{78,24},{52,24},{52,-56},
-          {32,-56}}, color={0,0,127}));
+          {42,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{102,20},{112,20},{
           112,74},{118,74}}, color={0,0,127}));
   connect(sub1.y, PID.u_m) annotation (Line(points={{142,80},{150,80},{150,40},
@@ -81,7 +81,7 @@ equation
           {110,-16},{118,-16}}, color={0,0,127}));
   connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{142,-10},{152,-10},{
           152,-36},{-10,-36},{-10,-32}}, color={0,0,127}));
-  connect(derivative2.T, T.y) annotation (Line(points={{78,-56},{32,-56}},
+  connect(derivative2.T, T.y) annotation (Line(points={{78,-56},{42,-56}},
          color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{78,-60},{60,-60},
           {60,-20},{42,-20}}, color={0,0,127}));

@@ -36,7 +36,7 @@ model DirectActingPIWithFirstOrderAMIGO
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(k=10)
     "Time constant of the first order process"
-    annotation (Placement(transformation(extent={{10,-66},{30,-46}})));
+    annotation (Placement(transformation(extent={{20,-66},{40,-46}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "A subtract block that is used to mimic the first order process 1"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
@@ -74,7 +74,7 @@ equation
   connect(k.y, derivative1.k) annotation (Line(points={{82,20},{90,20},{90,28},
           {118,28}},color={0,0,127}));
   connect(derivative1.T, T.y) annotation (Line(points={{118,24},{100,24},{100,
-          -56},{32,-56}}, color={0,0,127}));
+          -56},{42,-56}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{142,20},{150,20},{
           150,74},{158,74}}, color={0,0,127}));
   connect(sub1.y, PI.u_m) annotation (Line(points={{182,80},{190,80},{190,40},{
@@ -85,7 +85,7 @@ equation
           {150,-16},{158,-16}}, color={0,0,127}));
   connect(sub2.y, PIWitTun.u_m) annotation (Line(points={{182,-10},{190,-10},{
           190,-40},{-10,-40},{-10,-32}}, color={0,0,127}));
-  connect(derivative2.T, T.y) annotation (Line(points={{118,-56},{32,-56}},
+  connect(derivative2.T, T.y) annotation (Line(points={{118,-56},{42,-56}},
           color={0,0,127}));
   connect(derivative1.u, sub1.u1) annotation (Line(points={{118,20},{110,20},{
           110,86},{158,86}}, color={0,0,127}));
