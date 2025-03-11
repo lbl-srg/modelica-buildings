@@ -2,9 +2,11 @@ within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 partial model PartialCarnot
   "Model with components for Carnot efficiency calculation"
   parameter Boolean useForChi "=false to use in heat pump models";
-  parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness";
+  parameter Real etaCarnot_nominal=0.3 "Constant Carnot effectiveness"
+    annotation(Dialog(group="Nominal condition"));
   parameter Boolean use_constAppTem=false
-    "=true to fix approach temperatures at nominal values. This can improve simulation speed";
+    "=true to fix approach temperatures at nominal values. This can improve simulation speed"
+    annotation(Dialog(group="Efficiency"));
   parameter Modelica.Units.SI.TemperatureDifference TAppCon_nominal(min=0)
     "Temperature difference between refrigerant and working fluid outlet in condenser"
     annotation (Dialog(group="Efficiency"));
