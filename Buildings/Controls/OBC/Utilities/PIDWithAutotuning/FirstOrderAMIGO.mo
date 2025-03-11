@@ -522,10 +522,10 @@ Adjust <code>yHig</code> and <code>yLow</code> so that the relay
 output is asymmetric, i.e., <code>yHig - yRef &ne; yRef - yLow</code>.
 </li>
 <li>
-<code>yHig</code> must be greater than <code>yRef</code> but less than 1.
+<code>yHig</code> must be greater than <code>yRef</code> but cannot be greater 1.
 </li>
 <li>
-<code>yLow</code> must be greater than 0 but less than <code>yRef</code>.
+<code>yLow</code> must be less than <code>yRef</code> but cannot be less than 0.
 </li>
 </ul>
 <h4>References</h4>
