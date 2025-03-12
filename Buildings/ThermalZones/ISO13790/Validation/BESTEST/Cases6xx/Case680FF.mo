@@ -1,11 +1,12 @@
 within Buildings.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx;
 model Case680FF
   extends Buildings.ThermalZones.ISO13790.Validation.BESTEST.Cases6xx.Case600FF(zonHVAC(
-        UWal=0.15, URoo=0.1));
+    UWal=0.15,
+    URoo=0.1));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
  annotation (
+  Icon(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
  experiment(Tolerance=1e-06, Interval=3600, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case680FF.mos"
         "Simulate and plot"), Documentation(info="<html>
