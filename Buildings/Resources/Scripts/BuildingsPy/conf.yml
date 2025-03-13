@@ -242,6 +242,8 @@
 - model_name: Buildings.Fluid.Geothermal.ZonedBorefields.Validation.TransientBoreholeDynamics
   dymola:
     time_out: 600
+  openmodelica:
+    time_out: 600
   optimica:
     translate: false
     comment: Singularity, likely related to Modelon ticket 956
