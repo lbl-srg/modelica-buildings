@@ -4,16 +4,47 @@ class Version_12_0_0 "Version 12.0.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 12.0.0 is ... xxx
+Version 12.0.0 is a major release that adds various new packages and models.
 </p>
 <p>
-The following major changes have been done compared to release 11:
+The library has been tested with
+Dymola 2025x,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done compared to release 11.1.0:
 </p>
 <ul>
 <li>
-The EnergyPlus coupling has been update to EnergyPlus 24.2.0.
+The EnergyPlus coupling has been update to EnergyPlus 24.2.0,
+and the implementation that uses EnergyPlus 9.6.0 has been moved to the <code>Obsolete</code> package.
+</li>
+<li>
+The package <code>Buildings.Fluid.Geothermal.ZonedBorefields</code> has been added that allows
+modeling geothermal borefields in which groups of boreholes are operated with different mass flow rates
+and inlet temperatures,
+for example to create a hot core and warm perimeter.
+</li>
+<li>
+The template models for air-source heat pump and chiller plants has been updated to allow an optional side-stream
+water-to-water heat recovery heat pump, and to allow optional buffer tanks
+on the hot or cold side. Also, its control has been updated.
+</li>
+<li>
+The control sequences in the package <code>Buildings.DHC.ETS</code> and <code>Buildings.DHC.Plants</code> have been updated
+to comply with ASHRAE Standard 231P (Control Description Language).
+</li>
+<li>
+For pumps, fans, valves and dampers, changed the model for the actuator position.
+The new implementation changes the actuator position at a constant speed defined by the rise time (fans and pumps) or
+the stroke time (valves and dampers) rather than a second order filter.
+This gives more realistic response, and also simplifies the control loop tuning.
 </li>
 </ul>
+<p>
+Also, many models have been updated to improve performance, to improve compliance with the Modelica Language Standard and to correct model errors.
+</p>
 </div>
 <!-- New libraries -->
 <p>
@@ -250,14 +281,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Updated hold logic during staging after refactoring trim and respond block.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3761\">#3761</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -529,14 +552,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Errors that have been fixed -->
 <p>
@@ -565,14 +580,6 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3952\">#3952</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
@@ -593,13 +600,5 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_12_0_0;
