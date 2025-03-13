@@ -1,3 +1,4 @@
+within Buildings.UsersGuide.ReleaseNotes;
 class Version_10_1_1 "Version 10.1.1"
   extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
