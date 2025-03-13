@@ -161,16 +161,27 @@ as it is clear that this will be the room temperature.
 The package <a href=\"modelica://Buildings.Controls.OBC\">Buildings.Controls.OBC</a>
 contains the Control Description Language (CDL) and models for building control that
 are implemented using CDL.
-Both have been developed in the OpenBuildingControl project, see
+The Control Description Language is a language that is being standardized through
+ASHRAE Standard 231P.
+It has been developed to digitalize the design, implementation and commissioning
+of building control sequences in format that is independent of any particular
+control product line (Wetter et al., 2018).
+For a description of the process for digitalizing control delivery,
+see Wetter et al. (2022).
+</p>
+<p>
+The Control Description Language and the library of control sequences
+have been developed in the OpenBuildingControl project, see
 <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
 </p>
 <p>
-The package contains control sequences for
+This package contains control sequences for
 </p>
 <ul>
 <li>
 HVAC airside system control
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">Buildings.Controls.OBC.ASHRAE.G36</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
+Buildings.Controls.OBC.ASHRAE.G36</a>,
 </li>
 <li>
 radiant heating and cooling systems
@@ -198,7 +209,33 @@ which output the optimal start time for an HVAC system.
 The Control Description Language (CDL) can be found in
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
 and its specification is at <a href=\"https://obc.lbl.gov\">obc.lbl.gov</a>.
+Note that the implementation in
+<a href=\"modelica://Buildings.Controls.OBC.CDL\">Buildings.Controls.OBC.CDL</a>
+replicates some classes from the Modelica Standard Library.
+This was done to have a self-contained implementation of CDL that can be
+standardized through ASHRAE and that has minimum dependencies
+on other software to ease support by building automation systems.
+The replication of the implementation of the blocks also avoids
+that CDL inadvertently changes
+if the Modelica Standard Library is updated,
+which is undesirable as changes to CDL will need to go through the
+ASHRAE standardization process.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+Michael Wetter, Milica Grahovac and Jianjun Hu.<br/>
+Control Description Language.<br/>
+<i>1st American Modelica Conference</i>, Cambridge, MA, USA, August 2018.<br/>
+<a href=\"https://doi.org/10.3384/ecp1815417\">https://doi.org/10.3384/ecp1815417</a>.
+</li>
+<li>
+Michael Wetter, Paul Ehrlich, Antoine Gautier, Milica Grahovac, Philip Haves, Jianjun Hu, Anand Prakash, Dave Robin and Kun Zhang.<br/>
+OpenBuildingControl: Digitizing the control delivery from building energy modeling to specification, implementation and formal verification.<br/>
+<i>Energy</i>, Volume 238, Part A, January 2022.<br/>
+<a href=\"https://doi.org/10.1016/j.energy.2021.121501\">https://doi.org/10.1016/j.energy.2021.121501</a>.
+</li>
+</ul>
 </html>"),
   Icon(graphics={
         Ellipse(

@@ -25,7 +25,7 @@ revisions="<html>
 <li>
 February 3 2022, by Jianjun Hu:<br/>
 First implementation.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">issue 2876</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2876\">Buildings, issue 2876</a>.
 </li>
 </ul>
 </html>"),

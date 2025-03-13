@@ -60,7 +60,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Updated the EnergyPlus coupling to use
                        EnergyPlus version 24.2.0.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3911\">#3911</a>.<br/>
+                       Improved the error reporting if a simulation is run from a working directory that has spaces in its name.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3993\">#3993</a>.
     </td>
     </tr>
 </table>
@@ -71,6 +74,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS<br/>
+                       Buildings.DHC.Plants
+    </td>
+    <td valign=\"top\">Improved the control sequences to comply with CDL specification.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4110\">issue 4110</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Applications</b>
     </td>
 </tr>
@@ -132,6 +145,20 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added HX primary flow sensor and moving average to break the algebraic loop
                        when using components configured in steady state.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3906\">#3906</a>.
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Supervisory<br/>
+                       Buildings.DHC.ETS.Combined.Controls.Reset<br/>
+                       Buildings.DHC.ETS.Combined.Validation.BaseClasses.PartialChillerBorefield
+    </td>
+    <td valign=\"top\">Revised the ETS supervisory controller to<br/>
+                       (a) reduce back flow in the buffer tanks, and<br/>
+                       (b) support chilled water supply temperature reset.<br/>
+                       Also adjusted the base validation model to introduce more varied load transitions.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4133\">#4133</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -197,6 +224,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2926\">#2926</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.ISO13790</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.ThermalZones.ISO13790
+    </td>
+    <td valign=\"top\">Added BESTEST validation.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1707\">IBPSA #1707</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
@@ -256,6 +293,19 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.DHC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.DHC.ETS.Combined.ChillerBorefield<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideCold<br/>
+                       Buildings.DHC.ETS.Combined.Controls.SideHot
+    </td>
+    <td valign=\"top\">Reduced number of time events by replacing zero order hold with true and false hold,
+                       and increasing the minimum cycle time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4058</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
 </tr>
@@ -300,7 +350,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1885\">IBPSA, #1885</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Fluid.SolarCollectors.ASHRAE93<br/>
+                       Buildings.Fluid.SolarCollectors.EN12975
 
+    </td>
+    <td valign=\"top\">Removed parameter <code>nPanelsSer</code> to avoid allowing an inconsistent
+                       declaration of the number of panel of the collector field, and of how
+                       many panels are installed in parallel and in series.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1956\">IBPSA, #1956</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.DHC</b>
     </td>
@@ -403,6 +467,32 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3809\">#3809</a>.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Occupants</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.BaseClasses
+    </td>
+    <td valign=\"top\">Refactored the implementation of all functions. The functions now take
+                       as an argument the internal state of the random number generator rather than a seed.
+                       Moreover, the functions return the new internal state of the random number generator.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Occupants.Office<br/>
+                       Buildings.Occupants.Residential<br/>
+                       Buildings.Occupants.Residential
+    </td>
+    <td valign=\"top\">Refactored the implmenentation of the random number calculation in all blocks
+                       and functions as the old implementation was not producing high quality random numbers,
+                       and as it had rounding errors that caused cross-tool comparison to fail.<br/>
+                       The conversion script will automatically update the old parameter <code>seed</code>
+                       to the new parameter <code>localSeed</code> in the blocks.
+                       The blocks should be compatible with older versions after this update, but the results
+                       will differ.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4058\">issue 4069</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -455,12 +545,15 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.round
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed wrong <code>parameter</code> declaration which causes an error in
+                       Dymola 2025x beta1.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3978\">#3978</a>.
     </td>
 </tr>
 </table>

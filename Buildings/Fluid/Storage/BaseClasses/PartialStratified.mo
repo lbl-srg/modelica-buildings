@@ -3,9 +3,6 @@ model PartialStratified
   "Partial model of a stratified tank for thermal energy storage"
   extends Buildings.Fluid.Storage.BaseClasses.PartialTwoPortInterface;
 
-  import Modelica.Fluid.Types;
-  import Modelica.Fluid.Types.Dynamics;
-
   parameter Modelica.Units.SI.Volume VTan "Tank volume";
   parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
   parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
@@ -15,7 +12,7 @@ model PartialStratified
 
   ////////////////////////////////////////////////////////////////////
   // Assumptions
-  parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
@@ -206,6 +203,12 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2025, by Jelger Jansen:<br/>
+Removed <code>import</code> statement.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1961\">IBPSA, #1961</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

@@ -16,10 +16,76 @@ The official release of the Modelica Buildings Library that can be downloaded at
 <a href=\"https://simulationresearch.lbl.gov/modelica/download.html\">simulationresearch.lbl.gov/modelica/download.html</a>
 contains all binaries required to simulated the models in
 <a href=\"modelica://Buildings.ThermalZones\">Buildings.ThermalZones_9_6_0</a>.
-You should not have to do any other installations or settings.
+You should not have to do any other installations or settings and skip the instructions below.
 </p>
 <p>
-However, binaries can also be downloaded and installed manually,
+However, binaries can also be downloaded and installed either using an installation script or
+using a manual installation.
+This is only required for users who clone the <code>Buildings</code> library from github.
+Developers may install or build these binaries individually.
+</p>
+<p>
+There are three different binaries:
+</p>
+<ol>
+<li>
+The <i>Spawn of EnergyPlus library</i> that contains a special version of EnergyPlus.
+</li>
+<li>
+The <i>Modelica to EnergyPlus library</i> that provides a layer to link
+Modelica with EnergyPlus.
+</li>
+<li>
+The <i>fmi-library</i> that provides the API functions that communicate
+with EnergyPlus.
+</li>
+</ol>
+<p>
+To install or build these libraries, proceed as described below.
+</p>
+<h5>Spawn of EnergyPlus library</h5>
+<p>
+If the Buildings library is cloned from github, then the EnergyPlus
+libraries need to be installed by running
+</p>
+<pre>
+Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only
+</pre>
+<p>
+To install the binaries for all operating systems, omit the flag <code>--binaries-for-os-only</code>.
+</p>
+
+<h5>Modelica to EnergyPlus</h5>
+<p>
+Rebuilding this library requires CMake to be installed.
+</p>
+<p>
+To rebuild the library, run
+</p>
+<pre>
+cd modelica-buildings
+rm -rf build &amp;&amp; mkdir build &amp;&amp; cd build &amp;&amp; &#92;
+  cmake ../ &amp;&amp; cmake --build . --target install &amp;&amp; &#92;
+  cd .. &amp;&amp; rm -rf build
+</pre>
+
+<h5>fmi-library</h5>
+<p>
+Rebuilding this library requires CMake to be installed.
+</p>
+<p>
+To rebuild the library, run
+</p>
+<pre>
+cd Buildings/Resources/src/fmi-library
+rm -rf build &amp;&amp; mkdir build &amp;&amp; &#92;
+  cd build &amp;&amp; cmake .. &amp;&amp; cmake --build . &amp;&amp; &#92;
+  cd .. &amp;&amp; rm -rf build
+</pre>
+
+<h5>Manual installation of the libraries without using a script</h5>
+<p>
+Alternatively, instead of using <code>install.py</code>,
 the binaries can be downloaded from the following links:
 </p>
 <table summary=\"Download instructions\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">

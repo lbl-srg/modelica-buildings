@@ -335,13 +335,13 @@ Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet</a>.
 January 4, 2022, by Michael Wetter:<br/>
 Changed implementation to avoid NaN in OpenModelica.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">issue 2835</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2835\">Buildings, issue 2835</a>.
 </li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">Buildings, issue 2243</a>.
 </li>
 <li>
 November 27, 2018, by Kun Zhang:<br/>

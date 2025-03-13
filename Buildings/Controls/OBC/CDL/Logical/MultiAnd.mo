@@ -80,12 +80,12 @@ revisions="<html>
 <li>
 July 26, 2021, by Jianjun Hu:<br/>
 Renamed parameter <code>nu</code> to <code>nin</code>. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">issue 2580</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2580\">Buildings, issue 2580</a>.
 </li>
 <li>
 June 28, 2017, by Jianjun Hu:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">issue 825</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/825\">Buildings, issue 825</a>.
 </li>
 </ul>
 </html>"));
