@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
     from buildingspy.simulate.Optimica import Simulator
     import sys
-    model = "Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned"
+    model = "Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.Unconditioned"
     #model = "Buildings.Controls.Continuous.Examples.LimPID"
     fmu = model.replace('.', '_') + ".fmu"
     s=Simulator(model)
