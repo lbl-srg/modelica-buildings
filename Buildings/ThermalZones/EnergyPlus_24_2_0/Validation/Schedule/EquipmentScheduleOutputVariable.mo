@@ -9,12 +9,12 @@ model EquipmentScheduleOutputVariable
     y(final unit="W"))
     "Block that reads output from EnergyPlus"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Utilities.Diagnostics.AssertEquality assEqu(
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu(
     threShold=1E-6,
     message="EnergyPlus did not synchronize the output variable correctly")
     "Assertion to test whether the schedule and the EnergyPlus output variable are correctly synchronized"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=500)
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=500)
     "Gain for internal heat gain"
     annotation (Placement(transformation(extent={{-40,34},{-20,54}})));
 

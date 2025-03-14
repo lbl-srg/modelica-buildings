@@ -27,14 +27,14 @@ model AirHeating
     nPorts=4)
     "Thermal zone"
     annotation (Placement(transformation(extent={{20,80},{60,120}})));
-  Fluid.Movers.FlowControlled_m_flow fan(
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium=Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=mRec_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true)
     "Fan"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Controls.OBC.CDL.Reals.Sources.Pulse TSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse TSet(
     shift(
       displayUnit="h")=21600,
     amplitude=6,
@@ -45,7 +45,7 @@ model AirHeating
       displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Controls.OBC.CDL.Reals.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=1,
     Ti(
@@ -60,7 +60,7 @@ model AirHeating
       displayUnit="degC"))
     "Controller for heater"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Fluid.HeatExchangers.Heater_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium=Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=200,
@@ -69,12 +69,12 @@ model AirHeating
     QMax_flow=4000)
     "Ideal heater"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Fluid.Sources.Boundary_pT pAtm(
+  Buildings.Fluid.Sources.Boundary_pT pAtm(
     redeclare package Medium=Medium,
     nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Fluid.FixedResistances.PressureDrop duc(
+  Buildings.Fluid.FixedResistances.PressureDrop duc(
     redeclare package Medium=Medium,
     allowFlowReversal=false,
     linearized=true,
@@ -83,37 +83,37 @@ model AirHeating
     m_flow_nominal=mOut_flow_nominal)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
-  Fluid.Sources.MassFlowSource_WeatherData freshAir(
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData freshAir(
     redeclare package Medium=Medium,
     m_flow=mOut_flow_nominal,
     nPorts=1)
     "Outside air supply"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Controls.OBC.CDL.Reals.Hysteresis sta1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis sta1(
     uLow=0.05,
     uHigh=0.5)
     "Hysteresis to switch on stage 1"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal mSetFan1_flow(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mSetFan1_flow(
     realTrue=mRec_flow_nominal/2)
     "Mass flow rate for 1st stage"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
-  Controls.OBC.CDL.Reals.Hysteresis sta2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis sta2(
     uLow=0.5,
     uHigh=0.75)
     "Hysteresis to switch on stage 2"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal mSetFan2_flow(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mSetFan2_flow(
     realTrue=mRec_flow_nominal/2)
     "Mass flow rate added for 2nd stage"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
-  Controls.OBC.CDL.Reals.Add m_fan_set
+  Buildings.Controls.OBC.CDL.Reals.Add m_fan_set
     "Mass flow rate for fan"
     annotation (Placement(transformation(extent={{8,-66},{28,-46}})));
-  Controls.OBC.CDL.Reals.Add TAirLvgSet
+  Buildings.Controls.OBC.CDL.Reals.Add TAirLvgSet
     "Set point temperature for air leaving the heater"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Controls.OBC.CDL.Reals.AddParameter TSupMin(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TSupMin(
     p=2)
     "Minimum supply air temperature"
     annotation (Placement(transformation(extent={{8,-110},{28,-90}})));
@@ -121,7 +121,7 @@ model AirHeating
   Modelica.Blocks.Sources.Constant qIntGai[3](each k=0)
     "Internal heat gains, set to zero because these are modeled in EnergyPlus"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
-  Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=8) "Gain factor"
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(final k=8) "Gain factor"
     annotation (Placement(transformation(extent={{-6,-90},{14,-70}})));
 initial equation
   // Stop simulation if the hard-coded values differ from the ones computed by EnergyPlus.

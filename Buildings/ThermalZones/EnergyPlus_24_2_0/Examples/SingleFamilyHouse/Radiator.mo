@@ -40,7 +40,7 @@ model Radiator
     nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{0,40},{40,80}})));
-  Controls.OBC.CDL.Reals.Sources.Pulse TSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse TSet(
     shift(
       displayUnit="h")=21600,
     amplitude=6,
@@ -51,7 +51,7 @@ model Radiator
       displayUnit="degC"))
     "Setpoint for room air"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Controls.OBC.CDL.Reals.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.2,
     Ti(displayUnit="min") = 600,
@@ -65,12 +65,12 @@ model Radiator
       displayUnit="degC"))
     "Controller for heater"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Fluid.Sources.Boundary_pT pAtm(
+  Buildings.Fluid.Sources.Boundary_pT pAtm(
     redeclare package Medium=MediumA,
     nPorts=1)
     "Boundary condition"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Fluid.FixedResistances.PressureDrop duc(
+  Buildings.Fluid.FixedResistances.PressureDrop duc(
     redeclare package Medium=MediumA,
     allowFlowReversal=false,
     linearized=true,
@@ -79,7 +79,7 @@ model Radiator
     m_flow_nominal=mOut_flow_nominal)
     "Duct resistance (to decouple room and outside pressure)"
     annotation (Placement(transformation(extent={{-10,10},{-30,30}})));
-  Fluid.Sources.MassFlowSource_WeatherData freshAir(
+  Buildings.Fluid.Sources.MassFlowSource_WeatherData freshAir(
     redeclare package Medium=MediumA,
     m_flow=mOut_flow_nominal,
     nPorts=1)
@@ -89,33 +89,33 @@ model Radiator
   Modelica.Blocks.Sources.Constant qIntGai[3](each k=0)
     "Internal heat gains, set to zero because these are modeled in EnergyPlus"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=QRad_flow_nominal,
     T_a_nominal=TSup_nominal,
     T_b_nominal=TRet_nominal) "Radiator"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
-  Fluid.Sources.Boundary_pT sin(
+  Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = MediumW,
     p=200000,
     T=TRet_nominal,
     nPorts=1) "Pressure source for sink"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
-  Fluid.Sources.Boundary_pT sou(
+  Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 2E5 + dpVal_nominal + 1000,
     use_T_in=true,
     nPorts=1) "Pressure source for sink"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRad_flow_nominal,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
     dpFixed_nominal=1000,
     from_dp=true) "Radiator valve"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset watRes(
+  Buildings.Controls.OBC.Utilities.SetPoints.SupplyReturnTemperatureReset watRes(
     TSup_nominal=TSup_nominal,
     TRet_nominal=TRet_nominal,
     TOut_nominal=253.15)

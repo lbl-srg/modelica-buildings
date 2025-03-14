@@ -14,7 +14,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
       4200/5 "Design water mass flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mBor_flow_nominal=2*mHea_flow_nominal*(1-1/4)*4200/3500
    "Design water mass flow rate for heating";
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
     material={
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
@@ -22,7 +22,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2)})
     "Material layers from surface a to b (8cm concrete, 20 cm insulation, 20 cm concrete)"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  parameter HeatTransfer.Data.Solids.Generic soil(
+  parameter Buildings.HeatTransfer.Data.Solids.Generic soil(
     x=2,
     k=1.3,
     c=800,
@@ -33,12 +33,12 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     surfaceName="Living:Floor")
     "Surface of living room floor"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
     redeclare package Medium=MediumW,
     allowFlowReversal=false,
     layers=layFlo,
     iLayPip=1,
-    pipe=Fluid.Data.Pipes.PEX_DN_15(),
+    pipe=Buildings.Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.3,
     nCir=3,
@@ -49,24 +49,24 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     show_T=true)
     "Slab for floor with embedded pipes, connected to soil"
     annotation (Placement(transformation(extent={{0,-310},{20,-290}})));
-  Fluid.Sources.Boundary_ph pre(
+  Buildings.Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
     p(displayUnit="Pa")=300000,
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{80,-310},{60,-290}})));
-  HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo
     "Surface heat flow rate"
     annotation (Placement(transformation(extent={{98,-134},{118,-114}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-320,-150},{-300,-130}})));
-  Fluid.Movers.SpeedControlled_y pum(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
@@ -79,7 +79,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Pump"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
-  HeatTransfer.Conduction.SingleLayer soi(
+  Buildings.HeatTransfer.Conduction.SingleLayer soi(
     A=AFlo,
     material=soil,
     steadyStateInitial=true,
@@ -96,7 +96,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     annotation (Placement(transformation(extent={{0,0},{-20,20}},
                                                                 origin={60,-380})));
 
-  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
+  Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
     TSupSet_max=313.15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=2,
@@ -104,7 +104,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     Td=600)
     "Controller for radiant heating system"
     annotation (Placement(transformation(extent={{-280,-156},{-260,-136}})));
-  Controls.OBC.CDL.Reals.PIDWithReset conSup(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=4,
     Ti(displayUnit="min") = 60,
@@ -114,13 +114,13 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     final reverseActing=true,
     y_reset=0.2) "Controller for heat pump"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  Controls.OBC.CDL.Reals.Switch swiHeaPum "Switch for heat pump signal"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHeaPum "Switch for heat pump signal"
     annotation (Placement(transformation(extent={{-120,-158},{-100,-138}})));
-  Controls.OBC.CDL.Reals.Sources.Constant off(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant off(
     final k = 0)
     "Output 0 to switch heater off"
     annotation (Placement(transformation(extent={{-320,-188},{-300,-168}})));
-  Fluid.HeatPumps.ScrollWaterToWater heaPum(
+  Buildings.Fluid.HeatPumps.ScrollWaterToWater heaPum(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumG,
     allowFlowReversal1=false,
@@ -137,7 +137,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
         Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating.ClimateMaster_TMW036_12kW_4_90COP_R410A())
       "Heat pump"
     annotation (Placement(transformation(extent={{-70,-316},{-50,-296}})));
-  Fluid.Movers.SpeedControlled_y pumBor(
+  Buildings.Fluid.Movers.SpeedControlled_y pumBor(
     redeclare package Medium = MediumG,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
@@ -148,19 +148,19 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
       speeds),
     inputType=Buildings.Fluid.Types.InputType.Continuous) "Pump"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
- Fluid.Geothermal.Boreholes.UTube borHol(
+ Buildings.Fluid.Geothermal.Boreholes.UTube borHol(
     redeclare package Medium = MediumG,
     hBor=150,
     dp_nominal=60000,
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=mBor_flow_nominal,
-    redeclare parameter HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
-    redeclare parameter HeatTransfer.Data.Soil.Sandstone matSoi,
+    redeclare parameter Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Borehole heat exchanger"
     annotation (Placement(transformation(extent={{-168,-376},{-136,-344}})));
-  Fluid.Sources.Boundary_ph pre1(
+  Buildings.Fluid.Sources.Boundary_ph pre1(
     redeclare package Medium = MediumG,
     p(displayUnit="Pa") = 300000,
     nPorts=1)
@@ -198,19 +198,19 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
       displayUnit="kW.h/m2"))
     "Electricity use per floor area"
     annotation (Placement(transformation(extent={{180,-378},{200,-358}})));
-  Controls.OBC.CDL.Reals.Divide COP "Coefficient of performance"
+  Buildings.Controls.OBC.CDL.Reals.Divide COP "Coefficient of performance"
     annotation (Placement(transformation(extent={{220,-360},{240,-340}})));
-  Controls.OBC.CDL.Logical.Sources.Pulse ava(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ava(
     width=22/24,
     period=24*3600,
     shift=7*3600)
     "Availability schedule to block heat pump operation in early morning (assuming grid is at capacity)"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
-  Controls.OBC.CDL.Reals.Switch swiPum "Switch for circulation pumps"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiPum "Switch for circulation pumps"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
-  Controls.OBC.CDL.Logical.And onHeaPum "On/off signal for heat pump"
+  Buildings.Controls.OBC.CDL.Logical.And onHeaPum "On/off signal for heat pump"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
-  Fluid.Sensors.TemperatureTwoPort senTemSup(
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSup(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
     m_flow_nominal=mHea_flow_nominal,
