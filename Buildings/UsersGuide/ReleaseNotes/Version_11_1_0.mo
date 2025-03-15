@@ -4,7 +4,22 @@ class Version_11_1_0 "Version 11.1.0"
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 11.1.0 is ... xxx
+Version 11.1.0 is backward compatible with 11.0.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2024x Refresh 1,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+This backward compatible version adds a new package with heat pump models
+that can be operate in reversible model to provide heating or cooling,
+and that can be configured to use various approaches to compute performance, such as
+data tables or Carnot analogy.
+</p>
+<p>
+Also, many models have been updated to improve performance, to ensure compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
@@ -24,20 +39,6 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     </tr>
 </table>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -133,7 +134,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Default efficiency method assignments now depend on
                        the availability of pressure curves.
-                       This reduces the occurrance of a warning message.<br/>
+                       This avoids a warning message.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3819\">#3819</a>.
     </td>
 </tr>
@@ -148,31 +149,8 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Non-backward compatible changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -190,38 +168,7 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3815\">#3815</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
 end Version_11_1_0;
