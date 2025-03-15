@@ -147,7 +147,7 @@ particular package.<br/>
                     the computational fluid dynamics.</td>
 </tr>
 
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.UsersGuide\">ThermalZones.EnergyPlus_9_6_0.UsersGuide</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Obsolete.ThermalZones.EnergyPlus_9_6_0.UsersGuide\">Obsolete.ThermalZones.EnergyPlus_9_6_0.UsersGuide</a>
    </td>
    <td valign=\"top\">Package for Spawn of EnergyPlus with models that use EnergyPlus 9.6.0 to simulate
                     one or several building envelope models.</td>
