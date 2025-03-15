@@ -313,13 +313,6 @@ partial model PartialReversibleRefrigerantMachine
         extent={{-10,10},{10,-10}},
         rotation=0)));
 
-  Modelica.Blocks.Logical.Hysteresis hys(
-    final uLow=0.001,
-    final uHigh=ySet_small,
-    final pre_y_start=false) "Use default ySet value" annotation (Placement(
-        transformation(extent={{10,10},{-10,-10}}, rotation=180,
-        origin={-110,-90})));
-
   RefrigerantCycleInertia refCycIneCon "Inertia model for condenser side"
       annotation(Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -491,9 +484,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(hys.y, sigBus.onOffMea) annotation (Line(points={{-99,-90},{-88,-90},{
-          -88,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
-                                           color={255,0,255}));
   connect(TConAmb, sigBus.TConAmbMea) annotation (Line(
       points={{-152,120},{-128,120},{-128,50},{-76,50},{-76,-42},{-78,-42},{-78,
           -41},{-141,-41}},
@@ -503,9 +493,6 @@ equation
       points={{-152,-130},{-130,-130},{-130,-110},{-76,-110},{-76,-41},{-141,-41}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(hys.u, sigBus.yMea) annotation (Line(points={{-122,-90},{-132,-90},{-132,
-          -40},{-136,-40},{-136,-41},{-141,-41}},
-                       color={0,0,127}));
   connect(con.T, sigBus.TConOutMea) annotation (Line(points={{22.4,90},{38,90},{
           38,32},{-76,32},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
                                                  color={0,0,127}));
@@ -696,6 +683,12 @@ equation
     Corrected conditions for removing COP and EER output connector.<br/>
     This is for
     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1979\">IBPSA #1979</a>.
+  </li>
+  <li>
+    <i>February 25, 2025</i> by Antoine Gautier:<br/>
+    Removed hysteresis.<br/>
+    This is for
+    <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1977\">IBPSA #1977</a>.
   </li>
   <li>
     <i>August 19, 2024</i> by Michael Wetter:<br/>

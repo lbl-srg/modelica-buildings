@@ -17,18 +17,18 @@ model RadiantHeatingCooling_TSurface
     "Nominal heat flow rate for cooling";
   parameter Modelica.Units.SI.MassFlowRate mCoo_flow_nominal=-QCoo_flow_nominal
       /4200/5 "Design water mass flow rate for heating";
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(nLay=4,
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layFloSoi(nLay=4,
       material={Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
         Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.20),
         Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2),
-        HeatTransfer.Data.Solids.Generic(
+        Buildings.HeatTransfer.Data.Solids.Generic(
         x=2,
         k=1.3,
         c=800,
         d=1500)})
     "Material layers from surface a to b (8cm concrete, 20 cm insulation, 20 cm concrete, 200 cm soil, below which is the undisturbed soil assumed)"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layCei(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic layCei(
     nLay=4,
     material={
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
@@ -38,12 +38,12 @@ model RadiantHeatingCooling_TSurface
     "Material layers from surface a to b (8cm concrete, 10 cm insulation, 18+2 cm concrete)"
     annotation (Placement(transformation(extent={{-18,110},{2,130}})));
   // Floor slab
-  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
     layers=layFloSoi,
     iLayPip=1,
-    pipe=Fluid.Data.Pipes.PEX_DN_15(),
+    pipe=Buildings.Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
     disPip=0.3,
     nCir=3,
@@ -53,20 +53,20 @@ model RadiantHeatingCooling_TSurface
     from_dp=true,
     show_T=true) "Slab for floor with embedded pipes, connected to soil"
     annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
-  Fluid.Sources.Boundary_ph pre(
+  Buildings.Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
     p(displayUnit="Pa")=300000,
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{70,-190},{50,-170}})));
-  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
       displayUnit="degC"))
     "Room temperture set point for heating"
     annotation (Placement(transformation(extent={{-210,-154},{-190,-134}})));
-  Fluid.Movers.SpeedControlled_y pum(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
@@ -79,7 +79,7 @@ model RadiantHeatingCooling_TSurface
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Pump"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
-  Fluid.HeatExchangers.Heater_T hea(
+  Buildings.Fluid.HeatExchangers.Heater_T hea(
     redeclare final package Medium=MediumW,
     allowFlowReversal=false,
     m_flow_nominal=mHea_flow_nominal,
@@ -89,12 +89,12 @@ model RadiantHeatingCooling_TSurface
     "Ideal heater"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
   // Ceiling slab
-  Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaCei(
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaCei(
     redeclare package Medium=MediumW,
     allowFlowReversal=false,
     layers=layCei,
     iLayPip=3,
-    pipe=Fluid.Data.Pipes.PEX_DN_15(),
+    pipe=Buildings.Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Ceiling_Wall_or_Capillary,
     disPip=0.2,
     nCir=4,
@@ -104,13 +104,13 @@ model RadiantHeatingCooling_TSurface
     show_T=true)
     "Slab for ceiling with embedded pipes"
     annotation (Placement(transformation(extent={{2,80},{22,100}})));
-  Fluid.Sources.Boundary_ph prePre(
+  Buildings.Fluid.Sources.Boundary_ph prePre(
     redeclare package Medium=MediumW,
     nPorts=1,
     p(displayUnit="Pa")=300000)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{74,80},{54,100}})));
-  Fluid.Sources.MassFlowSource_T masFloSouCoo(
+  Buildings.Fluid.Sources.MassFlowSource_T masFloSouCoo(
     redeclare package Medium=MediumW,
     use_m_flow_in=true,
     use_T_in=true,
@@ -122,7 +122,7 @@ model RadiantHeatingCooling_TSurface
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point for cooling"
     annotation (Placement(visible = true, transformation(extent = {{-214, 140}, {-194, 160}}, rotation = 0)));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     realTrue=mCoo_flow_nominal)
     "Cooling water mass flow rate"
     annotation (Placement(transformation(extent={{-80,88},{-60,108}})));
@@ -136,11 +136,11 @@ model RadiantHeatingCooling_TSurface
         rotation=270,
         origin={100,-180})));
 
-  Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
+  Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
       TSupSet_max=313.15)
     "Controller for radiant heating system" annotation (Placement(
         transformation(rotation=0, extent={{-140,-160},{-120,-140}})));
-  Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum
+  Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TSurRelHum
     conCoo(TSupSet_min=289.15) "Controller for radiant cooling"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSur
@@ -151,13 +151,13 @@ model RadiantHeatingCooling_TSurface
       displayUnit="degC") = 303.15, y(final unit="K", displayUnit="degC"))
     "Surface temperture set point to switch system off"
     annotation (Placement(visible = true, transformation(extent = {{-214, 100}, {-194, 120}}, rotation = 0)));
-  Controls.OBC.CDL.Reals.Greater enaCoo(h=1)
+  Buildings.Controls.OBC.CDL.Reals.Greater enaCoo(h=1)
     "Switch to enable and disable cooling"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
   Buildings.Controls.OBC.CDL.Reals.Switch TSetSurCoo
     "Set point for surface temperature for cooling system"
     annotation (Placement(visible = true, transformation(extent = {{-180, 108}, {-160, 128}}, rotation = 0)));
-  Controls.OBC.CDL.Reals.AddParameter TOffSet(p=3)
+  Buildings.Controls.OBC.CDL.Reals.AddParameter TOffSet(p=3)
     "Off set before switching on the cooling system"
     annotation (Placement(transformation(extent={{-180,-18},{-160,2}})));
 initial equation
