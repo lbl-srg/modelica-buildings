@@ -1,5 +1,6 @@
 os: Linux
 dist: focal
+chache: false
 
 language: python
 
