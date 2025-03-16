@@ -83,7 +83,7 @@ test-openmodelica-spawn-spaces-success:
 	@mkdir -p $(TMP)
 	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 12.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
@@ -96,7 +96,7 @@ test-openmodelica-spawn-spaces-success:
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
 	"loadModel(Modelica, {\"4.0.0\"});\n" \
-	"loadFile(\"Buildings 9.0.0/package.mo\");\n" \
+	"loadFile(\"Buildings 12.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
@@ -113,7 +113,7 @@ test-openmodelica-spawn-spaces-failure:
 	@mkdir -p $(TMP)
 	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 12.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
@@ -126,7 +126,7 @@ test-openmodelica-spawn-spaces-failure:
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
 	"loadModel(Modelica, {\"4.0.0\"});\n" \
-	"loadFile(\"Buildings 9.0.0/package.mo\");\n" \
+	"loadFile(\"Buildings 12.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
@@ -140,7 +140,7 @@ test-dymola-spawn-spaces:
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 12.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
