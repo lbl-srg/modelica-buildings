@@ -132,7 +132,7 @@ before_install:
       tar xzf ${ENERGYPLUS_23_1_0}.tar.gz;
       rm ${ENERGYPLUS_23_1_0}.tar.gz;
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_23_1_0}";
-      echo "***** Running spawn to get version *****;
+      echo "***** Running spawn to get version *****";
       Buildings/Resources/bin/Spawn-light-0.6.0-9f1b36b00b/linux64/bin/spawn -v;
     fi;
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
