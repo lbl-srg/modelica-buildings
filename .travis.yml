@@ -1,6 +1,5 @@
 os: Linux
 dist: focal
-chache: false
 
 language: python
 
@@ -13,10 +12,11 @@ branches:
     - /^maint_.*$/
     - release
 
-cache:
-  pip: true
-  directories:
-    - .git/lfs
+chache: false
+##cache:
+##  pip: true
+##  directories:
+##    - .git/lfs
 
 notifications:
   email: false
