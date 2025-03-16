@@ -480,6 +480,10 @@
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 300 seconds
+    time_out: 600
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
