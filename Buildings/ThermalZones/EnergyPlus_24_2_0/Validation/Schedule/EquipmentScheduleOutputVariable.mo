@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.Schedule;
 model EquipmentScheduleOutputVariable
   "Validation case with a schedule that is not sampled, and output reader of the energy affected by the scheduled value"
-  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.EquipmentSchedule;
+  extends Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SingleFamilyHouse.EquipmentSchedule(building(
+        logLevel=Buildings.ThermalZones.EnergyPlus_24_2_0.Types.LogLevels.Debug));
   Buildings.ThermalZones.EnergyPlus_24_2_0.OutputVariable equEle(
     name="Zone Electric Equipment Electricity Rate",
     key="LIVING ZONE",
