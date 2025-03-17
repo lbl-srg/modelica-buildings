@@ -72,9 +72,9 @@ block Controller "Chiller plant controller"
 
   // ----- General: Chilled water pump ---
 
-  parameter Integer nChiWatPum = 2
-    "Total number of chilled water pumps"
-    annotation (Dialog(tab="General", group="Chilled water pump"));
+  parameter Integer nChiWatPum=nChi
+    "Total number of primary chilled water pumps"
+    annotation (Dialog(tab="General", group="Chilled water pump", enable=have_heaChiWatPum));
 
   parameter Boolean have_heaChiWatPum=true
     "Flag of headered chilled water pumps design: true=headered, false=dedicated"
@@ -84,15 +84,15 @@ block Controller "Chiller plant controller"
     "True: there is local differential pressure sensor hardwired to the plant controller"
     annotation (Dialog(tab="General", group="Chilled water pump"));
 
-  parameter Integer nSenChiWatPum=2
+  parameter Integer nSenChiWatPum=1
     "Total number of remote differential pressure sensors"
     annotation (Dialog(tab="General", group="Chilled water pump"));
 
   // ---- General: Condenser water pump ----
 
-  parameter Integer nConWatPum=2
+  parameter Integer nConWatPum=nChi
     "Total number of condenser water pumps"
-    annotation (Dialog(tab="General", group="Condenser water pump"));
+    annotation (Dialog(tab="General", group="Condenser water pump", enable=have_heaConWatPum));
 
   parameter Boolean have_fixSpeConWatPum = false
     "True: the plant has fixed speed condenser water pumps. When the plant has waterside economizer, it must be false"
