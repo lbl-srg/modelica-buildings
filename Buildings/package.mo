@@ -212,33 +212,18 @@ class Version_10_1_2 "Version 10.1.2"
 <p>
 Version 10.1.2 is ... xxx
 </p>
+<p>
+The library has been tested with
+Dymola 2024x Refresh 1,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+Models have been updated to improve performance, to ensure compliance with the Modelica Language Standard and to correct model errors.
+</p>
 </div>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -13129,10 +13114,14 @@ on the Buildings library.
 </p>
 <ul>
 <li>
+<<<<<<< HEAD
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_2\">Version 10.1.2</a>(xxx, 2025)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a>(March 17, 2025)
+=======
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a> (March 17, 2025)
+>>>>>>> maint_10.0.x
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (April 9, 2024)
