@@ -209,35 +209,20 @@ Each class (i.e., model, block and function) must be used in an example or valid
         annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 10.1.1 is ... xxx
+Version 10.1.1 is backward compatible with 10.0.0 and 10.1.0.
+</p>
+<p>
+The library has been tested with
+Dymola 2024x Refresh 1,
+OpenModelica 1.24.0,
+OPTIMICA 1.55.11 and recent versions of Impact.
+</p>
+<p>
+Models have been updated to improve performance, to ensure compliance with the Modelica Language Standard and to correct model errors.
 </p>
 </div>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -298,14 +283,6 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1880\">IBPSA, #1880</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
@@ -359,14 +336,6 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
     end Version_10_1_1;
 
@@ -13043,7 +13012,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a>(xxx, 2024)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a>(March 17, 2025)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (April 9, 2024)
@@ -13631,7 +13600,7 @@ annotation (
 preferredView="info",
 version="10.1.1",
 versionDate="2024-04-09",
-dateModified="2024-04-09",
+dateModified="2025-03-17",
 uses(Modelica(version="4.0.0")),
 conversion(
   noneFromVersion="10.0.0",
