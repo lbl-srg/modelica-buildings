@@ -480,6 +480,10 @@
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Spring
+  openmodelica:
+    comment: timed out after 600 seconds on travis but works locally
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
@@ -512,6 +516,14 @@
 - model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Examples.SmallOffice.Unconditioned
   optimica:
     rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalOneZoneBuildings
+  openmodelica:
+    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
+    simulate: false
+- model_name: Buildings.ThermalZones.EnergyPlus_24_2_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
+  openmodelica:
+    comment: error during shutdown, https://github.com/lbl-srg/modelica-buildings/issues/3345
+    simulate: false
 - model_name: Buildings.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11
   openmodelica:
     comment: Inputs differ by more than threShold. Check output 'satisfied' for when violation(s) happened. Segmentation fault (core dumped)
