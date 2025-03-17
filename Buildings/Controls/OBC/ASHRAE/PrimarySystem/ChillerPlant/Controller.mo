@@ -767,21 +767,19 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
-    "Measured chilled water volume flow rate"
+    "Measured chilled water volume flow rate for primary-only plant"
     annotation(Placement(transformation(extent={{-940,420},{-900,460}}),
       iconTransformation(extent={{-140,200},{-100,240}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
-    "Vector of chiller proven on status: true=ON"
+    "Vector of chiller status"
     annotation(Placement(transformation(extent={{-940,380},{-900,420}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
-    final unit="K",
-    displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_WSE
-    "Outdoor air wet bulb temperature"
-    annotation(Placement(transformation(extent={{-940,340},{-900,380}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput phi(
+    final unit="1")
+    if have_WSE "Outdoor relative humidity"
+    annotation (Placement(transformation(extent={{-940,340},{-900,380}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
@@ -1585,6 +1583,10 @@ block Controller "Chiller plant controller"
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{780,-590},{800,-570}})));
 
+  Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi wetBul if have_WSE
+    "Wet bulb temperature"
+    annotation (Placement(transformation(extent={{-860,360},{-840,380}})));
+
 protected
 
   final parameter Boolean anyVsdCen = sum({
@@ -1629,8 +1631,8 @@ equation
           -630,-580},{-268,-580}}, color={255,0,255}));
   connect(plaEna.yPla, towCon.uPla) annotation(Line(points={{-658,-520},{-580,-520},
           {-580,-636},{-268,-636}}, color={255,0,255}));
-  connect(TOutWet, staSetCon.TOutWet) annotation(Line(points={{-920,360},{-870,360},
-          {-870,-20},{-268,-20}}, color={0,0,127}));
+  connect(wetBul.TWetBul, staSetCon.TOutWet) annotation(Line(points={{-838,370},
+          {-756,370},{-756,-20},{-268,-20}}, color={0,0,127}));
   connect(mulMax.y, staSetCon.uTowFanSpeMax) annotation(Line(points={{-38,-580},
           {0,-580},{0,-360},{-780,-360},{-780,-36},{-268,-36}},
         color={0,0,127}));
@@ -1681,10 +1683,9 @@ equation
   connect(chiWatSupSet.TChiWatSupSet, towCon.TChiWatSupSet) annotation(Line(
         points={{-476,428},{-380,428},{-380,-604},{-268,-604}},color={0,0,127}));
   connect(dowProCon.uChiLoa, uChiLoa) annotation(Line(points={{172,-176},{-830,
-          -176},{-830,140},{-920,140}},
-                                 color={0,0,127}));
+          -176},{-830,140},{-920,140}}, color={0,0,127}));
   connect(dowProCon.uChiWatIsoVal, uChiWatIsoVal) annotation(Line(points={{172,-228},
-          {-920,-228}},                        color={0,0,127}));
+          {-920,-228}},  color={0,0,127}));
   connect(uChiWatIsoVal, upProCon.uChiWatIsoVal) annotation(Line(points={{-920,-228},
           {110,-228},{110,292},{172,292}},   color={0,0,127}));
   connect(chiWatSupSet.dpChiWatPumSet, chiWatPumCon.dpChiWatSet_remote)
@@ -1728,11 +1729,9 @@ equation
   connect(towCon.uFanSpe, uFanSpe)
     annotation (Line(points={{-268,-588},{-920,-588}}, color={0,0,127}));
   connect(upProCon.uConWatReq, uConWatReq) annotation (Line(points={{172,352},{
-          80,352},{80,610},{-920,610}},
-                                      color={255,0,255}));
+          80,352},{80,610},{-920,610}}, color={255,0,255}));
   connect(upProCon.uChiWatReq, uChiWatReq) annotation (Line(points={{172,284},{
-          90,284},{90,640},{-920,640}},
-                                      color={255,0,255}));
+          90,284},{90,640},{-920,640}}, color={255,0,255}));
   connect(uChiWatReq, dowProCon.uChiWatReq) annotation (Line(points={{-920,640},
           {90,640},{90,-240},{172,-240}},   color={255,0,255}));
   connect(uConWatReq, dowProCon.uConWatReq) annotation (Line(points={{-920,610},
@@ -1742,8 +1741,7 @@ equation
   connect(wseSta.y, booRep.u) annotation (Line(points={{-656,326},{-630,326},{-630,
           250},{-622,250}}, color={255,0,255}));
   connect(booRep.y, heaPreCon.uWSE) annotation (Line(points={{-598,250},{-560,
-          250},{-560,188},{-524,188}},
-                                  color={255,0,255}));
+          250},{-560,188},{-524,188}}, color={255,0,255}));
   connect(TConWatRet, conWatRetTem.u) annotation (Line(points={{-920,240},{-682,
           240}}, color={0,0,127}));
   connect(conWatRetTem.y, heaPreCon.TConWatRet) annotation (Line(points={{-658,240},
@@ -1770,7 +1768,7 @@ equation
   connect(mulMax1.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{-438,160},
           {-400,160},{-400,336},{172,336}}, color={0,0,127}));
   connect(upProCon.yChiWatMinFloSet, chiMinFloSet.u1) annotation (Line(points={{268,404},
-          {350,404},{350,128},{478,128}},           color={0,0,127}));
+          {350,404},{350,128},{478,128}}, color={0,0,127}));
   connect(dowProCon.yChiWatMinFloSet, chiMinFloSet.u3) annotation (Line(points={{268,
           -284},{350,-284},{350,112},{478,112}},       color={0,0,127}));
   connect(chiMinFloSet.y, minBypValCon.VChiWatSet_flow) annotation (Line(points={{502,120},
@@ -1783,8 +1781,7 @@ equation
   connect(dowProCon.yChi, uChiStaPro.u3) annotation (Line(points={{268,-172},{620,
           -172},{620,342},{638,342}}, color={255,0,255}));
   connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{-172,-64},
-          {-160,-64},{-160,-500},{-370,-500},{-370,-612},{-268,-612}},    color=
-         {0,0,127}));
+          {-160,-64},{-160,-500},{-370,-500},{-370,-612},{-268,-612}}, color={0,0,127}));
   connect(equRot.yDevRol, intSwi.u2) annotation (Line(points={{282,574},{310,574},
           {310,580},{378,580}},      color={255,0,255}));
   connect(conInt1.y, intSwi.u1) annotation (Line(points={{342,610},{360,610},{360,
@@ -1803,8 +1800,6 @@ equation
           340,-144},{340,314},{378,314}},  color={255,0,255}));
   connect(VChiWat_flow, wseSta.VChiWat_flow) annotation (Line(points={{-920,440},
           {-880,440},{-880,328},{-704,328}}, color={0,0,127}));
-  connect(TOutWet, wseSta.TOutWet) annotation (Line(points={{-920,360},{-870,360},
-          {-870,340},{-704,340}},      color={0,0,127}));
   connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
           -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
@@ -2075,6 +2070,12 @@ equation
           {-140,-564},{-140,-454},{-310,-454},{-310,28},{-268,28}}, color={0,0,127}));
   connect(towCon.yLifMin, staSetCon.uLifMin) annotation (Line(points={{-172,-572},
           {-130,-572},{-130,-446},{-300,-446},{-300,20},{-268,20}}, color={0,0,127}));
+  connect(wetBul.TWetBul, wseSta.TOutWet) annotation (Line(points={{-838,370},{-756,
+          370},{-756,340},{-704,340}}, color={0,0,127}));
+  connect(TOut, wetBul.TDryBul) annotation (Line(points={{-920,-520},{-888,-520},
+          {-888,376},{-862,376}}, color={0,0,127}));
+  connect(phi, wetBul.phi) annotation (Line(points={{-920,360},{-872,360},{-872,
+          364},{-862,364}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2127,7 +2128,7 @@ annotation (
         Text(
           extent={{-100,166},{-68,156}},
           textColor={0,0,127},
-          textString="TOutWet",
+          textString="phi",
           visible=have_WSE),
         Text(
           extent={{-98,148},{-50,134}},
