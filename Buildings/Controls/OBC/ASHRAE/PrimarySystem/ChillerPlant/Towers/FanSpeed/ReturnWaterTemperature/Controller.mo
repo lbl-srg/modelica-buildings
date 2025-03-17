@@ -200,6 +200,16 @@ block Controller
     final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{160,190},{200,230}}),
       iconTransformation(extent={{200,-20},{240,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
+    final unit="K")
+    "Maximum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{160,-60},{200,-20}}),
+        iconTransformation(extent={{200,-100},{240,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
+    final unit="K")
+    "Minimum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{160,-100},{200,-60}}),
+        iconTransformation(extent={{200,-130},{240,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSupSet(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
@@ -449,7 +459,10 @@ equation
       color={255,0,255}));
   connect(lesCouTowSpe.TConWatSupSet, TConWatSupSet)
     annotation (Line(points={{62,-212},{180,-212}}, color={0,0,127}));
-
+  connect(conWatRetSet.yLifMax, yLifMax) annotation (Line(points={{-18,-61},
+          {120,-61},{120,-40},{180,-40}}, color={0,0,127}));
+  connect(conWatRetSet.yLifMin, yLifMin) annotation (Line(points={{-18,-64},
+          {120,-64},{120,-80},{180,-80}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},

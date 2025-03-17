@@ -6,7 +6,6 @@ block Controller "Chiller plant controller"
     annotation (Dialog(tab="General"));
 
   // ---- General: Chiller configuration ----
-
   parameter Integer nChi=2
     "Total number of chillers"
     annotation(Dialog(tab="General", group="Chillers configuration"));
@@ -47,11 +46,9 @@ block Controller "Chiller plant controller"
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real minChiLif(
-    unit="K",
-    displayUnit="K")=10
-    "Minimum allowable lift at minimum load for chiller"
-    annotation(Dialog(tab="General", group="Chillers configuration", enable=not have_heaPreConSig));
+  parameter Real LIFT_min[nChi](unit=fill("K", nChi))={12,12}
+    "Minimum LIFT of each chiller"
+    annotation (Dialog(tab="General", group="Chillers configuration"));
 
   parameter Boolean have_heaPreConSig=false
     "True: if there is head pressure control signal from chiller controller"
@@ -600,10 +597,6 @@ block Controller "Chiller plant controller"
                                             chiWatConTowFan==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  parameter Real LIFT_min[nChi](unit=fill("K", nChi))={12,12}
-    "Minimum LIFT of each chiller"
-    annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
-
   parameter Real TConWatSup_nominal[nChi](
     unit=fill("K", nChi),
     each displayUnit="degC")={293.15,293.15}
@@ -1128,7 +1121,7 @@ block Controller "Chiller plant controller"
     final minConWatPumSpe=fill(minConWatPumSpe, nChi),
     final minHeaPreValPos=fill(minHeaPreValPos, nChi),
     final controllerType=fill(controllerTypeHeaPre, nChi),
-    final minChiLif=fill(minChiLif, nChi),
+    final minChiLif=LIFT_min,
     final k=fill(kHeaPreCon, nChi),
     final Ti=fill(TiHeaPreCon, nChi)) "Chiller head pressure controller"
     annotation (Placement(transformation(extent={{-520,180},{-480,220}})));
@@ -2078,6 +2071,10 @@ equation
           -172,4},{-130,4},{-130,380},{172,380}}, color={255,0,255}));
   connect(staSetCon.yChiSet, dowProCon.uChiConIsoVal) annotation (Line(points={
           {-172,4},{-130,4},{-130,-260},{172,-260}}, color={255,0,255}));
+  connect(towCon.yLifMax, staSetCon.uLifMax) annotation (Line(points={{-172,-564},
+          {-140,-564},{-140,-454},{-310,-454},{-310,28},{-268,28}}, color={0,0,127}));
+  connect(towCon.yLifMin, staSetCon.uLifMin) annotation (Line(points={{-172,-572},
+          {-130,-572},{-130,-446},{-300,-446},{-300,20},{-268,20}}, color={0,0,127}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
