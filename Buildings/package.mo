@@ -13012,7 +13012,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a>(March 17, 2025)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_1\">Version 10.1.1</a> (March 17, 2025)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_1_0\">Version 10.1.0</a> (April 9, 2024)
