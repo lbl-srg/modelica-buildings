@@ -21,11 +21,11 @@ block ChilledWaterSupply
     final unit="K",
     displayUnit="degC")
     "Minimum chilled water supply temperature. This is the lowest minimum chilled water supply temperature of chillers in the plant";
-  parameter Real TChiWatSupMax(
+  parameter Real TPlaChiWatSupMax(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") = 288.706
-    "Maximum chilled water supply temperature, default 60 degF";
+    "Maximum plant chilled water supply temperature, default 60 degF";
   parameter Real minSet = 0 "Minimum plant reset value";
   parameter Real maxSet = 1 "Maximum plant reset value";
   parameter Real halSet = 0.5 "Half plant reset value";
@@ -73,7 +73,7 @@ protected
     "Maximum chilled water pump differential pressure setpoint"
     annotation (Placement(transformation(extent={{-20,18},{0,38}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxChiWatTem(
-    final k=TChiWatSupMax)
+    final k=TPlaChiWatSupMax)
     "Maximum chilled water supply temperature"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minChiWatTem(

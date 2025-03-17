@@ -420,10 +420,10 @@ block Controller "Chiller plant controller"
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real TChiWatSupMax(
+  parameter Real TPlaChiWatSupMax(
     unit="K",
     displayUnit="degC")=288.706
-    "Maximum chilled water supply temperature, default 60 degF"
+    "Maximum plant chilled water supply temperature, default 60 degF"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
   parameter Real halSet = 0.5
@@ -1175,7 +1175,7 @@ block Controller "Chiller plant controller"
     final dpChiWatPumMin=dpChiWatPumMin,
     final dpChiWatPumMax=dpChiWatPumMax,
     final TChiWatSupMin=TChiWatSupMin_Lowest,
-    final TChiWatSupMax=TChiWatSupMax,
+    final TPlaChiWatSupMax=TPlaChiWatSupMax,
     final minSet=minSet,
     final maxSet=maxSet,
     final halSet=halSet)
