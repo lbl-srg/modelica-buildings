@@ -1,9 +1,9 @@
-simulateModel("Buildings.Templates.Components.Chillers.Validation.Compression",
+simulateModel("Buildings.Templates.Components.Validation.ChillersCompression",
     method="cvode",
     tolerance=1e-6,
     startTime=0.0,
     stopTime=8000.0,
-    resultFile="Compression");
+    resultFile="ChillersCompression");
 createPlot(
     id=1,
     position={5, 5, 300, 400},

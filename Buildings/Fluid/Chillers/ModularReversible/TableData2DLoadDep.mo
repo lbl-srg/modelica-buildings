@@ -53,9 +53,7 @@ model TableData2DLoadDep
   parameter Boolean use_TLoaLvgForCtl=true
     "Set to true for leaving temperature control, false for entering temperature control"
     annotation (Evaluate=true);
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
-    max=0,
-    start=0)
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=0, start=0)
     "Nominal cooling capacity"
     annotation (Dialog(group="Nominal condition - Cooling"));
   final parameter Real scaFacCoo=refCyc.refCycChiCoo.scaFac

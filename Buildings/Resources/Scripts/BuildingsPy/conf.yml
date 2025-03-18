@@ -332,7 +332,7 @@
   openmodelica:
     comment: Translation failed.
     translate: false
-- model_name: Buildings.Templates.Components.Chillers.Validation.Compression
+- model_name: Buildings.Templates.Components.Validation.ChillersCompression
   openmodelica:
     comment: Translation failed.
     translate: false

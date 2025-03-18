@@ -8,9 +8,6 @@ record HeatPump "Record for heat pump model"
   parameter Boolean is_rev
     "Set to true for reversible heat pumps, false for heating only"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.HeatPumpModel typMod
-    "Type of heat pump model"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   // Default fluid properties
   parameter Modelica.Units.SI.SpecificHeatCapacity cpHeaWat_default=
@@ -126,34 +123,34 @@ record HeatPump "Record for heat pump model"
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
     "Source fluid pressure drop in cooling mode";
   replaceable parameter
-    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic perFit(
-    dpHeaLoa_nominal=dpHeaWat_nominal,
-    dpHeaSou_nominal=dpSouHea_nominal,
-    hea(
-      Q_flow=abs(capHea_nominal),
-      P=0,
-      mLoa_flow=mHeaWat_flow_nominal,
-      mSou_flow=mSouHea_flow_nominal,
-      coeQ={1,0,0,0,0},
-      coeP={1,0,0,0,0},
-      TRefLoa=THeaWatRet_nominal,
-      TRefSou=TSouHea_nominal),
-    coo(
-      Q_flow=if is_rev then -abs(capCoo_nominal) else -1,
-      P=0,
-      mLoa_flow=mChiWat_flow_nominal,
-      mSou_flow=mSouCoo_flow_nominal,
-      coeQ={1,0,0,0,0},
-      coeP={1,0,0,0,0},
-      TRefLoa=TChiWatRet_nominal,
-      TRefSou=TSouCoo_nominal)) constrainedby
-    Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
-    "Performance data - Equation fit model"
+    Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHea(
+      devIde="")
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump(
+      mCon_flow_nominal=mHeaWat_flow_nominal,
+      mEva_flow_nominal=mSouHea_flow_nominal,
+      dpCon_nominal=dpHeaWat_nominal,
+      dpEva_nominal=dpSouHea_nominal)
+    "Performance data in heating mode"
     annotation (
-    Dialog(enable=typMod == Buildings.Templates.Components.Types.HeatPumpModel.EquationFit),
+      choicesAllMatching=true, Placement(transformation(extent={{-38,0},{-22,16}})));
+  replaceable parameter
+    Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCoo(
+      fileName="",
+      PLRSup={1},
+      tabLowBou=[TSouCoo_nominal-30, TChiWatSup_nominal; TSouCoo_nominal+10, TChiWatSup_nominal],
+      devIde="",
+      use_TConOutForTab=false,
+      use_TEvaOutForTab=true)
+    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic(
+      mCon_flow_nominal=mSouCoo_flow_nominal,
+      mEva_flow_nominal=mChiWat_flow_nominal,
+      dpCon_nominal=dpSouCoo_nominal,
+      dpEva_nominal=dpChiWat_nominal)
+    "Performance data in cooling mode"
+    annotation (
     choicesAllMatching=true,
-    Placement(transformation(extent={{-8,-40},{8,-24}})));
-
+    Dialog(enable=is_rev),
+    Placement(transformation(extent={{22,0},{38,16}})));
 annotation (
   defaultComponentPrefixes="parameter",
   defaultComponentName="datHp",
@@ -164,22 +161,8 @@ heat pump models that can be found within
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps\">
 Buildings.Templates.Components.HeatPumps</a>.
 </p>
-<h4>Performance data for the equation fit model</h4>
-<p>When using
-<code>typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit</code>,
-the design values declared at the top-level
-are propagated by default to the performance data record <code>per</code>
-under the assumption that the reference conditions used for assessing the
-performance data match the design conditions.
-This avoids duplicate parameter assignments when manually entering
-the performance curve coefficients.
-</p>
-<p>
-Note that this propagation does not persist when redeclaring or
-reassigning the record.
-This is because the equation fit method uses reference values that
-must match the ones used to compute the performance curve coefficients.
-</p>
+<h4>Performance data</h4>
+FIXME/ propagation of design values and persistance at redeclaration
 <p>
 Also note that placeholders values are assigned to the performance curves,
 the reference source temperature and the input power in

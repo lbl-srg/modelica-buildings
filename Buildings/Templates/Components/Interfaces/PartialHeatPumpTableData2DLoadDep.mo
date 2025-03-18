@@ -1,49 +1,14 @@
 within Buildings.Templates.Components.Interfaces;
-model PartialHeatPumpEquationFit
-  "Interface for heat pump using equation fit model"
-  extends Buildings.Templates.Components.Interfaces.PartialHeatPump(
-    final typMod=Buildings.Templates.Components.Types.HeatPumpModel.EquationFit);
+partial model PartialHeatPumpTableData2DLoadDep
+  "Interface for heat pump using load-dependent data table model"
+  extends Buildings.Templates.Components.Interfaces.PartialHeatPump;
 
-  final parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic datPerFit(
-    dpHeaSou_nominal = if have_dpSou then dat.perFit.dpHeaSou_nominal else 0,
-    dpHeaLoa_nominal = if have_dpChiHeaWat then dat.perFit.dpHeaLoa_nominal else 0,
-    hea(
-      TRefLoa = dat.perFit.hea.TRefLoa,
-      TRefSou = dat.perFit.hea.TRefSou,
-      Q_flow = dat.perFit.hea.Q_flow,
-      P = dat.perFit.hea.P,
-      mSou_flow = dat.perFit.hea.mSou_flow,
-      mLoa_flow = dat.perFit.hea.mLoa_flow,
-      coeQ = dat.perFit.hea.coeQ,
-      coeP = dat.perFit.hea.coeP),
-    coo(
-      TRefSou = dat.perFit.coo.TRefSou,
-      TRefLoa =  dat.perFit.coo.TRefLoa,
-      Q_flow = dat.perFit.coo.Q_flow,
-      P = dat.perFit.coo.P,
-      coeQ = dat.perFit.coo.coeQ,
-      coeP = dat.perFit.coo.coeP))
-  "Performance data - Equation fit model";
-
-  Modelica.Blocks.Routing.BooleanPassThrough y1Hea if is_rev
-    "Operating mode command: true=heating, false=cooling"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-80,130})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1HeaNonRev(
-    final k=true) if not is_rev
-    "Placeholder signal for non-reversible heat pumps"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,130})));
   Controls.StatusEmulator y1_actual
     "Compute heat pump status"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={40,130})));
+        origin={40,120})));
   Fluid.Sensors.MassFlowRate mChiHeaWat_flow(redeclare final package Medium =
         MediumHeaWat) "CHW/HW mass flow rate"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -67,43 +32,34 @@ model PartialHeatPumpEquationFit
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-20})));
-  Buildings.Fluid.HeatPumps.EquationFitReversible hp(
-    uMod(start=0),
-    redeclare final package Medium1 = MediumHeaWat,
-    redeclare final package Medium2 = MediumSou,
-    final per=datPerFit,
-    final energyDynamics=energyDynamics) "Heat pump"
+  Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep hp(
+    redeclare final package MediumCon = MediumHeaWat,
+    redeclare final package MediumEva = MediumSou,
+    final datHea=dat.perHea,
+    final datCoo=dat.perCoo,
+    final use_rev=is_rev,
+    final QCoo_flow_nominal=QCoo_flow_nominal,
+    final QHea_flow_nominal=QHea_flow_nominal,
+    final TConHea_nominal=THeaWatSup_nominal,
+    final TEvaHea_nominal=TSouHea_nominal,
+    final TConCoo_nominal=TChiWatSup_nominal,
+    final TEvaCoo_nominal=TSouCoo_nominal,
+    final allowFlowReversalCon=allowFlowReversal,
+    final allowFlowReversalEva=allowFlowReversalSou,
+    final dTCon_nominal=THeaWatSup_nominal - THeaWatRet_nominal,
+    dTEva_nominal=0,
+    final dpCon_nominal=if have_dpChiHeaWat then dpHeaWat_nominal else 0,
+    final dpEva_nominal=if have_dpSou then dpSouHea_nominal else 0,
+    final energyDynamics=energyDynamics,
+    final mCon_flow_nominal=mHeaWat_flow_nominal,
+    final mEva_flow_nominal=mSouHea_flow_nominal,
+    final show_T=show_T,
+    use_conCap=false,
+    use_evaCap=false,
+    use_intSafCtr=false)
+    "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1Int
-    "Convert on/off command into integer"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,90})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger y1HeaInt(
-    y(start=0),
-    final integerTrue=1,
-    final integerFalse=-1)
-    "Convert heating mode command into integer"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-80,90})));
-  Buildings.Controls.OBC.CDL.Integers.Multiply mulInt
-    "Combine on/off and operating mode command signals"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,50})));
 equation
-  /* Control point connection - start */
-  /* Control point connection - stop */
-  connect(bus.y1Hea, y1Hea.u) annotation (Line(
-      points={{0,160},{0,156},{-80,156},{-80,142}},
-      color={255,204,51},
-      thickness=0.5));
   connect(port_a, mChiHeaWat_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(mChiHeaWat_flow.port_b, TChiHeaWatEnt.port_a)
@@ -112,14 +68,6 @@ equation
     annotation (Line(points={{90,0},{100,0}}, color={0,127,255}));
   connect(TSouLvg.port_b, port_bSou) annotation (Line(points={{-40,-20},{-80,-20},
           {-80,-140}},      color={0,127,255}));
-  connect(y1Hea.y, y1HeaInt.u) annotation (Line(points={{-80,119},{-80,110.5},{-80,
-          110.5},{-80,102}}, color={255,0,255}));
-  connect(y1HeaNonRev.y, y1HeaInt.u) annotation (Line(points={{-40,118},{-40,110},
-          {-80,110},{-80,102}}, color={255,0,255}));
-  connect(y1HeaInt.y, mulInt.u2) annotation (Line(points={{-80,78},{-80,70},{-26,
-          70},{-26,62}}, color={255,127,0}));
-  connect(y1Int.y, mulInt.u1) annotation (Line(points={{-20,78},{-20,70},{-14,70},
-          {-14,62}}, color={255,127,0}));
   connect(TChiHeaWatEnt.port_b, hp.port_a1)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(hp.port_b1, TChiHeaWatLvg.port_a)
@@ -128,26 +76,27 @@ equation
           {-10,-12}}, color={0,127,255}));
   connect(TSouEnt.port_b, hp.port_a2)
     annotation (Line(points={{20,-20},{20,-12},{10,-12}}, color={0,127,255}));
-  connect(bus.y1, y1Int.u) annotation (Line(
-      points={{0,160},{0,110},{-20,110},{-20,102}},
+  connect(y1_actual.y1_actual, bus.y1_actual)
+    annotation (Line(points={{40,132},{40,156},{0,156},{0,160}},
+                                                         color={255,0,255}));
+  connect(bus.y1, hp.on) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-6},{-12.2,-6}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.y1Hea, hp.hea) annotation (Line(
+      points={{0,160},{0,20},{-20,20},{-20,-8},{-12.2,-8}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.TSet, hp.TSet) annotation (Line(
-      points={{0,160},{0,86},{0,86},{0,10},{-16,10},{-16,3},{-11.4,3}},
+      points={{0,160},{0,20},{-20,20},{-20,-4},{-12.2,-4}},
       color={255,204,51},
       thickness=0.5));
-  connect(mulInt.y, hp.uMod)
-    annotation (Line(points={{-20,38},{-20,-6},{-11,-6}}, color={255,127,0}));
-  connect(y1_actual.y1_actual, bus.y1_actual)
-    annotation (Line(points={{40,142},{40,156},{0,156},{0,160}},
-                                                         color={255,0,255}));
-  connect(bus.y1, y1_actual.y1) annotation (Line(
-      points={{0,160},{0,110},{40,110},{40,118}},
-      color={255,204,51},
-      thickness=0.5));
+  connect(hp.on, y1_actual.y1) annotation (Line(points={{-12.2,-6},{-14,-6},{-14,
+          12},{40,12},{40,108}}, color={255,0,255}));
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
+FIXME: by default, all internal safeties are disabled.
 <p>
 This is a model for an air-to-water heat pump where the capacity
 and drawn power are computed based on the equation fit method.
@@ -193,4 +142,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialHeatPumpEquationFit;
+end PartialHeatPumpTableData2DLoadDep;

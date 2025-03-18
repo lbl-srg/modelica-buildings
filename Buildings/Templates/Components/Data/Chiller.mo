@@ -211,7 +211,7 @@ to the rating conditions at which the performance curves are calculated.
 The record allows two different parameterization logics, depending
 on the value of the parameter <code>use_datDes</code>.
 (The user can refer to the valiation model
-<a href=\"modelica://Buildings.Templates.Components.Chillers.Validation.Compression\">
+<a href=\"modelica://Buildings.Templates.Components.Validation.ChillersCompression\">
 Buildings.Templates.Components.Chillers.Validation.Compression</a>
 for an illustration of these two logics.)
 </p>

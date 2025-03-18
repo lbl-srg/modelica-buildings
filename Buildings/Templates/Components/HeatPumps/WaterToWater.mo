@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.HeatPumps;
 model WaterToWater
   "Water-to-water heat pump - Equation fit model"
-  extends Buildings.Templates.Components.Interfaces.PartialHeatPumpEquationFit(
+  extends Buildings.Templates.Components.Interfaces.PartialHeatPumpTableData2DLoadDep(
     final typ=Buildings.Templates.Components.Types.HeatPump.WaterToWater);
 equation
   connect(port_aSou, TSouEnt.port_a)
@@ -10,6 +10,7 @@ equation
     defaultComponentName="hp",
     Documentation(
       info="<html>
+FIXME: by default, all internal safeties are disabled.
 <p>
 This is a model for a water-to-water heat pump where the capacity
 and input power are computed based on the equation fit method.

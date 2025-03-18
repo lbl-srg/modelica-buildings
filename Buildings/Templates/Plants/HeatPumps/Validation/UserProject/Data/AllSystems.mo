@@ -17,19 +17,21 @@ class AllSystems
       dpHeaWatHp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatHp,
       TSouHeaHp_nominal=Buildings.Templates.Data.Defaults.TOutHpHeaLow,
       TSouCooHp_nominal=Buildings.Templates.Data.Defaults.TOutHpCoo,
-      perFitHp(
-        hea(
-          P=pla.hp.capHeaHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwHea,
-          coeQ={- 4.2670305442, - 0.7381077035, 6.0049480456, 0, 0},
-          coeP={- 4.9107455513, 5.3665308366, 0.5447612754, 0, 0},
-          TRefLoa=pla.hp.THeaWatRetHp_nominal,
-          TRefSou=pla.hp.TSouHeaHp_nominal),
-        coo(
-          P=pla.hp.capCooHp_nominal / Buildings.Templates.Data.Defaults.COPHpAwCoo,
-          coeQ={- 2.2545246871, 6.9089257665, - 3.6548225094, 0, 0},
-          coeP={- 5.8086010402, 1.6894933858, 5.1167787436, 0, 0},
-          TRefLoa=pla.hp.TChiWatRetHp_nominal,
-          TRefSou=pla.hp.TSouCooHp_nominal))),
+      perHeaHp(
+        fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Heating.txt"),
+        PLRSup={1},
+        P_min=1.0E3,
+        use_TEvaOutForTab=false,
+        use_TConOutForTab=true,
+        tabUppBou=[263.15,323.15; 313.15,323.15]),
+      perCooHp(
+        fileName=Modelica.Utilities.Files.loadResource(
+          "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),
+        PLRSup={1},
+        P_min=1.0E3,
+        use_TEvaOutForTab=true,
+        use_TConOutForTab=false)),
     pumHeaWatPri(
       dp_nominal=fill(1.5 *(if pla.cfg.have_chiWat and pla.cfg.typPumChiWatPri ==
         Buildings.Templates.Plants.HeatPumps.Types.PumpsPrimary.None then max(pla.hp.dpHeaWatHp_nominal, pla.hp.dpChiWatHp_nominal)

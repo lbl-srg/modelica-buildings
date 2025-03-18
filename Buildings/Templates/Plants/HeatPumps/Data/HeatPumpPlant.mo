@@ -18,7 +18,6 @@ record HeatPumpPlant
     final typ=cfg.typ,
     final nHp=cfg.nHp,
     final is_rev=cfg.is_rev,
-    final typMod=cfg.typMod,
     final cpHeaWat_default=cfg.cpHeaWat_default,
     final cpSou_default=cfg.cpSou_default,
     TChiWatSupHp_nominal=ctl.TChiWatSup_nominal,

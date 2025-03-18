@@ -8,9 +8,7 @@ model AirToWater
       final yPumHeaWatPriSet=yPumHeaWatPriSet,
       final yPumChiWatPriSet=yPumChiWatPriSet)),
     final typ=Buildings.Templates.Components.Types.HeatPump.AirToWater,
-    final is_rev=have_chiWat,
-    final cfg(
-      final typMod=hp.typMod));
+    final is_rev=have_chiWat);
   parameter Boolean is_dpBalYPumSetCal(start=false)=false
     "Set to true to automatically size balancing valves or evaluate pump speed providing design flow"
     annotation(Evaluate=true, Dialog(tab="Advanced",
@@ -79,7 +77,8 @@ model AirToWater
     final have_dpSou=false,
     final dat=dat.hp,
     final allowFlowReversal=allowFlowReversal,
-    final allowFlowReversalSou=false)
+    final allowFlowReversalSou=false,
+    final show_T=show_T)
     "Heat pump group"
     annotation (Placement(transformation(extent={{-540,-210},{-60,-130}})));
   Components.PumpsPrimaryDedicated pumPri(

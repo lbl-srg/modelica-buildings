@@ -4,6 +4,8 @@ model TableData2DLoadDep
   extends Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.PartialHeatPumpCycle(
     final devIde=dat.devIde,
     PEle_nominal=calQUseP.P_nominal * scaFac);
+  parameter Boolean use_rev
+    "True if the refrigerant machine is reversible";
   final parameter Real scaFac=QHea_flow_nominal / calQUseP.Q_flow_nominal
     "Scaling factor";
   final parameter Boolean use_TEvaOutForTab=dat.use_TEvaOutForTab
@@ -30,95 +32,143 @@ model TableData2DLoadDep
     final fileName=dat.fileName)
     "Compute heat flow rate and input power"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={90,30})));
+      origin={120,0})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant cp[2](
     k={cpEva, cpCon})
     "Specific heat capacity"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extBusSig[6](
     each final nin=2)
     "Extract bus signals depending on application"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,
-      origin={70,80})));
+      origin={100,80})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant cst[2](
     k={1, 2})
     "Constants"
-    annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Selection index: 1 to use evaporator as load side, 2 to use condenser"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
     nout=6)
     "Replicate selection index"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant use_inHp(
-    final k=useInHeaPum)
-    "Constant Boolean"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+    final k=useInHeaPum) "Constant Boolean"
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notCoo if not useInHeaPum and use_rev
+    "Cooling disabled (if used in chiller)"
+    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator hea
+    if useInHeaPum and use_rev
+    "Heating enable (if used in reversible heat pump)"
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(final k=true)
+    if not use_rev "Placeholder signal for heating-only system"
+    annotation (Placement(transformation(extent={{-110,22},{-90,42}})));
+  Buildings.Controls.OBC.CDL.Logical.And onAndHea
+    "True if enabled in heating mode"
+    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 equation
   connect(sigBus.TConInMea, extBusSig[1].u[1])
-    annotation (Line(points={{1,120},{69.5,120},{69.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
   connect(sigBus.TEvaInMea, extBusSig[1].u[2])
-    annotation (Line(points={{1,120},{70.5,120},{70.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
+                                                           color={255,204,51},thickness=0.5));
   connect(sigBus.TConOutMea, extBusSig[2].u[1])
-    annotation (Line(points={{1,120},{69.5,120},{69.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
   connect(sigBus.TEvaOutMea, extBusSig[2].u[2])
-    annotation (Line(points={{1,120},{70.5,120},{70.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
+                                                           color={255,204,51},thickness=0.5));
   connect(sigBus.TEvaInMea, extBusSig[3].u[1])
-    annotation (Line(points={{1,120},{69.5,120},{69.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
   connect(sigBus.TConInMea, extBusSig[3].u[2])
-    annotation (Line(points={{1,120},{70.5,120},{70.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
+                                                           color={255,204,51},thickness=0.5));
   connect(sigBus.TEvaOutMea, extBusSig[4].u[1])
-    annotation (Line(points={{1,120},{69.5,120},{69.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
   connect(sigBus.TConOutMea, extBusSig[4].u[2])
-    annotation (Line(points={{1,120},{70.5,120},{70.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
+                                                           color={255,204,51},thickness=0.5));
   connect(sigBus.mEvaMea_flow, extBusSig[5].u[1])
-    annotation (Line(points={{1,120},{69.5,120},{69.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{99.5,120},{99.5,92}},color={255,204,51},thickness=0.5));
   connect(sigBus.mConMea_flow, extBusSig[5].u[2])
-    annotation (Line(points={{1,120},{70.5,120},{70.5,92}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{100.5,120},{100.5,92}},
+                                                           color={255,204,51},thickness=0.5));
   connect(cp[1].y, extBusSig[6].u[1])
-    annotation (Line(points={{42,100},{69.5,100},{69.5,92}},color={0,0,127}));
+    annotation (Line(points={{72,100},{99.5,100},{99.5,92}},color={0,0,127}));
   connect(cp[2].y, extBusSig[6].u[2])
-    annotation (Line(points={{42,100},{70.5,100},{70.5,92}},color={0,0,127}));
+    annotation (Line(points={{72,100},{100.5,100},{100.5,92}},
+                                                            color={0,0,127}));
   connect(extBusSig[1].y, calQUseP.TSouEnt)
-    annotation (Line(points={{70,68},{70,60},{91,60},{91,42}},color={0,0,127}));
+    annotation (Line(points={{100,68},{100,60},{121,60},{121,12}},
+                                                              color={0,0,127}));
   connect(extBusSig[2].y, calQUseP.TSouLvg)
-    annotation (Line(points={{70,68},{70,60},{89,60},{89,42}},color={0,0,127}));
+    annotation (Line(points={{100,68},{100,60},{119,60},{119,12}},
+                                                              color={0,0,127}));
   connect(extBusSig[3].y, calQUseP.TLoaEnt)
-    annotation (Line(points={{70,68},{70,60},{87,60},{87,42}},color={0,0,127}));
+    annotation (Line(points={{100,68},{100,60},{117,60},{117,12}},
+                                                              color={0,0,127}));
   connect(extBusSig[4].y, calQUseP.TLoaLvg)
-    annotation (Line(points={{70,68},{70,60},{85,60},{85,42}},color={0,0,127}));
+    annotation (Line(points={{100,68},{100,60},{115,60},{115,12}},
+                                                              color={0,0,127}));
   connect(extBusSig[5].y, calQUseP.mLoa_flow)
-    annotation (Line(points={{70,68},{70,60},{83,60},{83,42}},color={0,0,127}));
+    annotation (Line(points={{100,68},{100,60},{113,60},{113,12}},
+                                                              color={0,0,127}));
   connect(extBusSig[6].y, calQUseP.cpLoa)
-    annotation (Line(points={{70,68},{70,60},{81,60},{81,42}},color={0,0,127}));
-  connect(sigBus.onOffMea, calQUseP.on)
-    annotation (Line(points={{1,120},{90,120},{90,80},{99,80},{99,42}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{100,68},{100,60},{111,60},{111,12}},
+                                                              color={0,0,127}));
   connect(sigBus.TSet, calQUseP.TSet)
-    annotation (Line(points={{1,120},{90,120},{90,80},{95,80},{95,42}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{125,120},{125,12}},              color={255,204,51},thickness=0.5));
   connect(calQUseP.PLR, sigBus.PLRHea)
-    annotation (Line(points={{96,18},{96,10},{110,10},{110,120},{1,120}},color={0,0,127}));
+    annotation (Line(points={{126,-12},{126,-20},{136,-20},{136,120},{1,120}},
+                                                                         color={0,0,127}));
   connect(sigBus.yMea, calQUseP.yMea)
-    annotation (Line(points={{1,120},{90,120},{90,80},{93,80},{93,42}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{1,120},{123,120},{123,12}},              color={255,204,51},thickness=0.5));
   connect(calQUseP.P, feeHeaFloEva.u1)
-    annotation (Line(points={{84,18},{84,0},{-82,0},{-82,-10},{-78,-10}},color={0,0,127}));
+    annotation (Line(points={{114,-12},{114,-20},{-84,-20},{-84,-10},{-78,-10}},
+                                                                         color={0,0,127}));
   connect(calQUseP.P, PEle)
-    annotation (Line(points={{84,18},{84,0},{0,0},{0,-130}},color={0,0,127}));
+    annotation (Line(points={{114,-12},{114,-20},{0,-20},{0,-130}},
+                                                            color={0,0,127}));
   connect(calQUseP.Q_flow, feeHeaFloEva.u2)
-    annotation (Line(points={{90,18},{90,10},{-92,10},{-92,-22},{-70,-22},{-70,-18}},
+    annotation (Line(points={{120,-12},{120,-24},{-70,-24},{-70,-18}},
       color={0,0,127}));
   connect(calQUseP.P, redQCon.u2)
-    annotation (Line(points={{84,18},{84,0},{64,0},{64,-78}},color={0,0,127}));
+    annotation (Line(points={{114,-12},{114,-20},{64,-20},{64,-78}},
+                                                             color={0,0,127}));
   connect(intScaRep.y, extBusSig.index)
-    annotation (Line(points={{42,60},{50,60},{50,80},{58,80}},color={255,127,0}));
+    annotation (Line(points={{72,60},{80,60},{80,80},{88,80}},color={255,127,0}));
   connect(intSwi.y, intScaRep.u)
-    annotation (Line(points={{12,60},{18,60}},color={255,127,0}));
+    annotation (Line(points={{42,60},{48,60}},color={255,127,0}));
   connect(use_inHp.y, intSwi.u2)
-    annotation (Line(points={{-28,60},{-12,60}},color={255,0,255}));
+    annotation (Line(points={{2,60},{18,60}},   color={255,0,255}));
   connect(cst[1].y, intSwi.u3)
-    annotation (Line(points={{-28,30},{-20,30},{-20,52},{-12,52}},color={255,127,0}));
+    annotation (Line(points={{2,90},{10,90},{10,52},{18,52}},     color={255,127,0}));
   connect(cst[2].y, intSwi.u1)
-    annotation (Line(points={{-28,30},{-20,30},{-20,68},{-12,68}},color={255,127,0}));
+    annotation (Line(points={{2,90},{10,90},{10,68},{18,68}},     color={255,127,0}));
+  connect(sigBus.hea, hea.u) annotation (Line(
+      points={{1,120},{-120,120},{-120,60},{-112,60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(sigBus.onOffMea, onAndHea.u1) annotation (Line(
+      points={{1,120},{-60,120},{-60,40},{-52,40}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(notCoo.y[1], onAndHea.u2) annotation (Line(points={{-88,90},{-78,90},
+          {-78,32},{-52,32}}, color={255,0,255}));
+  connect(hea.y[1], onAndHea.u2) annotation (Line(points={{-88,60},{-80,60},{
+          -80,32},{-52,32}},
+                         color={255,0,255}));
+  connect(tru.y, onAndHea.u2) annotation (Line(points={{-88,32},{-52,32}},
+                         color={255,0,255}));
+  connect(onAndHea.y, calQUseP.on)
+    annotation (Line(points={{-28,40},{129,40},{129,12}},
+                                                        color={255,0,255}));
+  connect(sigBus.coo, notCoo.u) annotation (Line(
+      points={{1,120},{-120,120},{-120,90},{-112,90}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Icon(graphics={
     Line(points={{-44,90},{-44,40}}),
     Rectangle(fillColor={255,215,136},
@@ -193,5 +243,6 @@ into heat pump models.
 For a complete description of all modeling assumptions, 
 please refer to the documentation of this block.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-120},{140,120}})));
 end TableData2DLoadDep;

@@ -173,13 +173,15 @@ model AirToWater
   Buildings.Fluid.FixedResistances.PressureDrop pipHeaWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max - max(datAll.pla.ctl.dpHeaWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max -
+      max(datAll.pla.ctl.dpHeaWatRemSet_max))
     "Piping"
     annotation (Placement(transformation(extent={{10,-170},{-10,-150}})));
   Buildings.Fluid.FixedResistances.PressureDrop pipChiWat(
     redeclare final package Medium=Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
-    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max - max(datAll.pla.ctl.dpChiWatRemSet_max))
+    final dp_nominal=Buildings.Templates.Data.Defaults.dpChiWatLocSet_max -
+      max(datAll.pla.ctl.dpChiWatRemSet_max))
     if have_chiWat
     "Piping"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
