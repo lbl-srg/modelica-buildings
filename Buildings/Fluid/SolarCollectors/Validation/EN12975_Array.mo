@@ -154,7 +154,6 @@ February 11, 2025, by Michael Wetter:<br/>
 Removed parameter assignment for parameter that no longer exists.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1968\">IBPSA, #1968</a>.
-
 </li>
 <li>
 February 27, 2024, by Jelger Jansen:<br/>

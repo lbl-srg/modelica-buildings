@@ -159,17 +159,16 @@ equation
   "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/ISO13790/Validation/BESTEST/Cases6xx/Case600.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model is used for the basic test case 600 of the BESTEST validation suite. 
-Case 600 is a light-weight building with room temperature control set to <i>20</i>&deg;C 
-for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south. 
+This model is used for the basic test case 600 of the BESTEST validation suite.
+Case 600 is a light-weight building with room temperature control set to <i>20</i>&deg;C
+for heating and <i>27</i>&deg;C for cooling. The room has no shade and a window that faces south.
 </p>
 </html>", revisions="<html><ul>
 <li>
 March 5, 2025, by Jianjun Hu:<br/>
 Replaced the moving average calculation with CDL block.
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1982\">
-IBPSA #1982</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1982\">IBPSA #1982</a>.
 </li>
 <li>
 May 2, 2024, by Alessandro Maccarini:<br/>

@@ -132,7 +132,8 @@ model SideCold
     "Convert DO to AO signal"
     annotation (Placement(transformation(origin = {40, 0}, extent = {{80, -110}, {100, -90}})));
   Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
-    t=0.01)
+    t = 0.01,
+    h = 0.005)
     "Control signal is non zero (with 1% tolerance)"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
@@ -206,6 +207,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+March 7, 2025, by Michael Wetter:<br/>
+Increased, and added where missing, hysteresis, as the input signal is the output of the PID controller.
+</li>
 <li>
 November 22, 2024, by Michael Wetter:<br/>
 Reduced number of time events by replacing zero order hold with true and false hold,
