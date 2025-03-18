@@ -47,7 +47,7 @@ model TableData2DLoadDep
     TLoa_nominal=TEvaLvg.k,
     TSou_nominal=TConLvg.k)
     "Chiller with CHWST control and performance data interpolation based on leaving temperature"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   parameter Data.TableData2DLoadDep.GenericHeatPump datHea(
     fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatPumps/ModularReversible/Examples/TableData2DLoadDep_HP.txt"),
     PLRSup={0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8,0.9,1.0},
@@ -109,12 +109,12 @@ model TableData2DLoadDep
   Modelica.Blocks.Sources.RealExpression TEvaLvgChiSupLvg(y=chiSupLvg.TLoaEnt
          + chiSupLvg.Q_flow/chiSupLvg.mLoa_flow/chiSupLvg.cpLoa)
     "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
   Modelica.Blocks.Sources.RealExpression TEvaEntChiRetEnt(y=chiRetEnt.TLoaLvg
          - chiRetEnt.Q_flow/chiRetEnt.mLoa_flow/chiRetEnt.cpLoa)
     "Calculate evaporator entering temperature"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    coo(period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant coo(k=false)
     "Cooling mode enable"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep
@@ -127,25 +127,11 @@ model TableData2DLoadDep
     TLoa_nominal=TEvaLvg.k,
     TSou_nominal=TConLvg.k)
     "Heat recovery chiller with CHWST control and performance data interpolation based on leaving temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression TEvaLvgChiHeaSupLvg(y=chiHeaSupLvg.TLoaEnt
-         + chiHeaSupLvg.Q_flow/chiHeaSupLvg.mLoa_flow/chiHeaSupLvg.cpLoa)
-    "Calculate evaporator leaving temperature"
-    annotation (Placement(transformation(extent={{20,-4},{40,16}})));
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Modelica.Blocks.Sources.RealExpression TConLvgChiHeaSupLvg(y=chiHeaSupLvg.TLoaEnt
          + (chiHeaSupLvg.P - chiHeaSupLvg.Q_flow)/chiHeaSupLvg.mLoa_flow/
         chiHeaSupLvg.cpLoa) "Calculate condenser leaving temperature"
-    annotation (Placement(transformation(extent={{20,-18},{40,2}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor selChiHeaInp[6](each final
-      nin=2)
-    "Select input variable based on HRC operating mode: 1 for cooling, 2 for heating"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger cooInt(integerTrue=1,
-      integerFalse=2) "Convert cooling mode enable to integer"
-    annotation (Placement(transformation(extent={{-10,-72},{10,-52}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator repCooInt(nout=6)
-    "Replicate cooling mode enable"
-    annotation (Placement(transformation(extent={{20,-72},{40,-52}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep
     hpSupLvg(
     typ=3,
@@ -156,28 +142,28 @@ model TableData2DLoadDep
     TLoa_nominal=TConLvg.k,
     TSou_nominal=TEvaLvg.k)
     "Heat pump with HWST control and performance data interpolation based on leaving temperature"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Blocks.Sources.RealExpression TConLvgHpSupLvg(y=hpSupLvg.TLoaEnt +
         hpSupLvg.Q_flow/hpSupLvg.mLoa_flow/hpSupLvg.cpLoa)
     "Calculate condenser leaving temperature"
-    annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 equation
-  connect(on.y, chiSupLvg.on) annotation (Line(points={{-68,60},{-30,60},{-30,89},
-          {-12,89}},
+  connect(on.y, chiSupLvg.on) annotation (Line(points={{-68,60},{-30,60},{-30,
+          109},{-12,109}},
                    color={255,0,255}));
   connect(TChiWatSet.y, chiSupLvg.TSet) annotation (Line(points={{-108,80},{-40,
-          80},{-40,85},{-12,85}},
+          80},{-40,105},{-12,105}},
                             color={0,0,127}));
   connect(TConEnt.y, chiSupLvg.TSouEnt)
-    annotation (Line(points={{-108,0},{-26,0},{-26,81},{-12,81}},
+    annotation (Line(points={{-108,0},{-26,0},{-26,101},{-12,101}},
                                                              color={0,0,127}));
   connect(TConLvg.y, chiSupLvg.TSouLvg) annotation (Line(points={{-68,-20},{-24,
-          -20},{-24,79},{-12,79}},color={0,0,127}));
+          -20},{-24,99},{-12,99}},color={0,0,127}));
   connect(mEva_flow.y, chiSupLvg.mLoa_flow) annotation (Line(points={{-108,-80},
-          {-18,-80},{-18,73},{-12,73}},
+          {-18,-80},{-18,93},{-12,93}},
                                  color={0,0,127}));
-  connect(cp.y, chiSupLvg.cpLoa) annotation (Line(points={{-46,100},{-16,100},{-16,
-          71},{-12,71}},
+  connect(cp.y, chiSupLvg.cpLoa) annotation (Line(points={{-46,100},{-16,100},{
+          -16,91},{-12,91}},
                    color={0,0,127}));
   connect(on.y, chiRetEnt.on) annotation (Line(points={{-68,60},{-30,60},{-30,49},
           {-12,49}},
@@ -188,8 +174,8 @@ equation
   connect(TConEnt.y, chiRetEnt.TSouEnt)
     annotation (Line(points={{-108,0},{-24,0},{-24,41},{-12,41}},
                                                              color={0,0,127}));
-  connect(TConLvg.y, chiRetEnt.TSouLvg) annotation (Line(points={{-68,-20},{-22,
-          -20},{-22,40},{-12,40},{-12,39}},
+  connect(TConLvg.y, chiRetEnt.TSouLvg) annotation (Line(points={{-68,-20},{-24,
+          -20},{-24,40},{-12,40},{-12,39}},
                                   color={0,0,127}));
   connect(TEvaLvg.y, chiRetEnt.TLoaLvg) annotation (Line(points={{-68,-60},{-20,
           -60},{-20,35},{-12,35}},
@@ -197,100 +183,72 @@ equation
   connect(mEva_flow.y, chiRetEnt.mLoa_flow) annotation (Line(points={{-108,-80},
           {-18,-80},{-18,33},{-12,33}},
                                  color={0,0,127}));
-  connect(cp.y, chiRetEnt.cpLoa) annotation (Line(points={{-46,100},{-16,100},{-16,
-          31},{-12,31}},
+  connect(cp.y, chiRetEnt.cpLoa) annotation (Line(points={{-46,100},{-16,100},{
+          -16,31},{-12,31}},
                    color={0,0,127}));
-  connect(chiSupLvg.PLR, chiSupLvg.yMea) annotation (Line(points={{12,86},{16,86},
-          {16,100},{-14,100},{-14,83},{-12,83}}, color={0,0,127}));
-  connect(chiRetEnt.PLR, chiRetEnt.yMea) annotation (Line(points={{12,46},{16,46},
-          {16,60},{-14,60},{-14,43},{-12,43}}, color={0,0,127}));
-  connect(TEvaLvgChiSupLvg.y, chiSupLvg.TLoaLvg) annotation (Line(points={{41,80},
-          {46,80},{46,64},{-20,64},{-20,75},{-12,75}}, color={0,0,127}));
-  connect(TEvaEnt.y, chiSupLvg.TLoaEnt) annotation (Line(points={{-108,-40},{-22,
-          -40},{-22,77},{-12,77}}, color={0,0,127}));
+  connect(chiSupLvg.PLR, chiSupLvg.yMea) annotation (Line(points={{12,106},{16,
+          106},{16,118},{-14,118},{-14,103},{-12,103}},
+                                                 color={0,0,127}));
+  connect(chiRetEnt.PLR, chiRetEnt.yMea) annotation (Line(points={{12,46},{16,
+          46},{16,60},{-14,60},{-14,43},{-12,43}},
+                                               color={0,0,127}));
+  connect(TEvaLvgChiSupLvg.y, chiSupLvg.TLoaLvg) annotation (Line(points={{41,100},
+          {46,100},{46,80},{-20,80},{-20,95},{-12,95}},color={0,0,127}));
+  connect(TEvaEnt.y, chiSupLvg.TLoaEnt) annotation (Line(points={{-108,-40},{
+          -22,-40},{-22,97},{-12,97}},
+                                   color={0,0,127}));
   connect(TEvaEntChiRetEnt.y, chiRetEnt.TLoaEnt) annotation (Line(points={{41,40},
           {46,40},{46,22},{-14,22},{-14,37},{-12,37}}, color={0,0,127}));
-  connect(on.y, chiHeaSupLvg.on) annotation (Line(points={{-68,60},{-30,60},{-30,
-          9},{-12,9}}, color={255,0,255}));
+  connect(on.y, chiHeaSupLvg.on) annotation (Line(points={{-68,60},{-30,60},{
+          -30,-11},{-12,-11}},
+                       color={255,0,255}));
   connect(cp.y, chiHeaSupLvg.cpLoa) annotation (Line(points={{-46,100},{-16,100},
-          {-16,-9},{-12,-9}}, color={0,0,127}));
-  connect(cp.y, chiRetEnt.cpLoa) annotation (Line(points={{-46,100},{-16,100},{-16,
-          31},{-12,31}},
+          {-16,-29},{-12,-29}},
+                              color={0,0,127}));
+  connect(cp.y, chiRetEnt.cpLoa) annotation (Line(points={{-46,100},{-16,100},{
+          -16,31},{-12,31}},
                    color={0,0,127}));
-  connect(chiHeaSupLvg.PLR, chiHeaSupLvg.yMea) annotation (Line(points={{12,6},{
-          16,6},{16,20},{-14,20},{-14,3},{-12,3}}, color={0,0,127}));
-  connect(coo.y, chiHeaSupLvg.coo) annotation (Line(points={{-68,20},{-34,20},{-34,
-          7},{-12,7}}, color={255,0,255}));
-  connect(TChiWatSet.y, selChiHeaInp[1].u[1]) annotation (Line(points={{-108,80},
-          {-40,80},{-40,-30.5},{-12,-30.5}}, color={0,0,127}));
-  connect(THeaWatSet.y, selChiHeaInp[1].u[2]) annotation (Line(points={{-108,40},
-          {-42,40},{-42,-29.5},{-12,-29.5}}, color={0,0,127}));
-  connect(TConEnt.y, selChiHeaInp[2].u[1]) annotation (Line(points={{-108,0},{-26,
-          0},{-26,-30.5},{-12,-30.5}}, color={0,0,127}));
-  connect(TEvaEnt.y, selChiHeaInp[2].u[2]) annotation (Line(points={{-108,-40},{
-          -22,-40},{-22,-29.5},{-12,-29.5}}, color={0,0,127}));
-  connect(TConLvg.y, selChiHeaInp[3].u[1]) annotation (Line(points={{-68,-20},{-40,
-          -20},{-40,-30.5},{-12,-30.5}}, color={0,0,127}));
-  connect(TEvaLvg.y, selChiHeaInp[3].u[2]) annotation (Line(points={{-68,-60},{-20,
-          -60},{-20,-29.5},{-12,-29.5}}, color={0,0,127}));
-  connect(TEvaEnt.y, selChiHeaInp[4].u[1]) annotation (Line(points={{-108,-40},{
-          -22,-40},{-22,-30.5},{-12,-30.5}}, color={0,0,127}));
-  connect(TConEnt.y, selChiHeaInp[4].u[2]) annotation (Line(points={{-108,0},{
-          -22,0},{-22,-29.5},{-12,-29.5}},   color={0,0,127}));
-  connect(TEvaLvgChiHeaSupLvg.y, selChiHeaInp[5].u[1]) annotation (Line(points={
-          {41,6},{46,6},{46,-16},{-14,-16},{-14,-30.5},{-12,-30.5}}, color={0,0,
-          127}));
-  connect(TConLvgChiHeaSupLvg.y, selChiHeaInp[5].u[2]) annotation (Line(points={
-          {41,-8},{44,-8},{44,-14},{-14,-14},{-14,-30},{-12,-30},{-12,-29.5}},
-        color={0,0,127}));
-  connect(mEva_flow.y, selChiHeaInp[6].u[1]) annotation (Line(points={{-108,-80},
-          {-18,-80},{-18,-30.5},{-12,-30.5}}, color={0,0,127}));
-  connect(mCon_flow.y, selChiHeaInp[6].u[2]) annotation (Line(points={{-68,-100},
-          {-16,-100},{-16,-29.5},{-12,-29.5}}, color={0,0,127}));
-  connect(cooInt.y, repCooInt.u)
-    annotation (Line(points={{12,-62},{18,-62}}, color={255,127,0}));
-  connect(repCooInt.y, selChiHeaInp.index) annotation (Line(points={{42,-62},{46,
-          -62},{46,-44},{0,-44},{0,-42}}, color={255,127,0}));
-  connect(coo.y, cooInt.u) annotation (Line(points={{-68,20},{-34,20},{-34,-62},
-          {-12,-62}}, color={255,0,255}));
-  connect(selChiHeaInp[1].y, chiHeaSupLvg.TSet) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,5},{-12,5}}, color={0,0,127}));
-  connect(selChiHeaInp[2].y, chiHeaSupLvg.TSouEnt) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,1},{-12,1}}, color={0,0,127}));
-  connect(selChiHeaInp[3].y, chiHeaSupLvg.TSouLvg) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,-1},{-12,-1}},
-                                                        color={0,0,127}));
-  connect(selChiHeaInp[4].y, chiHeaSupLvg.TLoaEnt) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,-3},{-12,-3}},
-                                                        color={0,0,127}));
-  connect(selChiHeaInp[5].y, chiHeaSupLvg.TLoaLvg) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,-5},{-12,-5}},
-                                                        color={0,0,127}));
-  connect(selChiHeaInp[6].y, chiHeaSupLvg.mLoa_flow) annotation (Line(points={{12,-30},
-          {14,-30},{14,-12},{-14,-12},{-14,-7},{-12,-7}},
-                                                        color={0,0,127}));
+  connect(chiHeaSupLvg.PLR, chiHeaSupLvg.yMea) annotation (Line(points={{12,-14},
+          {16,-14},{16,0},{-14,0},{-14,-17},{-12,-17}},
+                                                   color={0,0,127}));
+  connect(coo.y, chiHeaSupLvg.coo) annotation (Line(points={{-68,20},{-32,20},{
+          -32,-13},{-12,-13}},
+                       color={255,0,255}));
 
 
 
-  connect(TConLvgHpSupLvg.y, hpSupLvg.TLoaLvg) annotation (Line(points={{41,
-          -100},{46,-100},{46,-114},{-16,-114},{-16,-105},{-12,-105}}, color={0,
+  connect(TConLvgHpSupLvg.y, hpSupLvg.TLoaLvg) annotation (Line(points={{41,-80},
+          {46,-80},{46,-100},{-14,-100},{-14,-85},{-12,-85}},          color={0,
           0,127}));
   connect(on.y, hpSupLvg.on) annotation (Line(points={{-68,60},{-30,60},{-30,
-          -91},{-12,-91}}, color={255,0,255}));
+          -71},{-12,-71}}, color={255,0,255}));
   connect(TEvaEnt.y, hpSupLvg.TSouEnt) annotation (Line(points={{-108,-40},{-22,
-          -40},{-22,-99},{-12,-99}}, color={0,0,127}));
+          -40},{-22,-79},{-12,-79}}, color={0,0,127}));
   connect(TEvaLvg.y, hpSupLvg.TSouLvg) annotation (Line(points={{-68,-60},{-20,
-          -60},{-20,-101},{-12,-101}}, color={0,0,127}));
+          -60},{-20,-81},{-12,-81}},   color={0,0,127}));
   connect(TConEnt.y, hpSupLvg.TLoaEnt) annotation (Line(points={{-108,0},{-26,0},
-          {-26,-103},{-12,-103}}, color={0,0,127}));
+          {-26,-83},{-12,-83}},   color={0,0,127}));
   connect(THeaWatSet.y, hpSupLvg.TSet) annotation (Line(points={{-108,40},{-42,
-          40},{-42,-95},{-12,-95}}, color={0,0,127}));
-  connect(hpSupLvg.PLR, hpSupLvg.yMea) annotation (Line(points={{12,-94},{14,
-          -94},{14,-86},{-14,-86},{-14,-97},{-12,-97}}, color={0,0,127}));
+          40},{-42,-75},{-12,-75}}, color={0,0,127}));
+  connect(hpSupLvg.PLR, hpSupLvg.yMea) annotation (Line(points={{12,-74},{16,
+          -74},{16,-60},{-14,-60},{-14,-77},{-12,-77}}, color={0,0,127}));
   connect(mCon_flow.y, hpSupLvg.mLoa_flow) annotation (Line(points={{-68,-100},
-          {-16,-100},{-16,-107},{-12,-107}}, color={0,0,127}));
+          {-16,-100},{-16,-87},{-12,-87}},   color={0,0,127}));
   connect(cp.y, hpSupLvg.cpLoa) annotation (Line(points={{-46,100},{-14,100},{
-          -14,-108},{-12,-108},{-12,-109}}, color={0,0,127}));
+          -14,-89},{-12,-89}},              color={0,0,127}));
+  connect(TEvaLvg.y, chiHeaSupLvg.TSouLvg) annotation (Line(points={{-68,-60},{
+          -18,-60},{-18,-4},{-16,-4},{-16,-21},{-12,-21}}, color={0,0,127}));
+  connect(TEvaEnt.y, chiHeaSupLvg.TSouEnt) annotation (Line(points={{-108,-40},
+          {-22,-40},{-22,-19},{-12,-19}}, color={0,0,127}));
+  connect(TConEnt.y, chiHeaSupLvg.TLoaEnt) annotation (Line(points={{-108,0},{
+          -26,0},{-26,-23},{-12,-23}}, color={0,0,127}));
+  connect(TConLvgChiHeaSupLvg.y, chiHeaSupLvg.TLoaLvg) annotation (Line(points=
+          {{41,-20},{46,-20},{46,-40},{-14,-40},{-14,-25},{-12,-25}}, color={0,
+          0,127}));
+  connect(mCon_flow.y, chiHeaSupLvg.mLoa_flow) annotation (Line(points={{-68,
+          -100},{-16,-100},{-16,-27},{-12,-27}}, color={0,0,127}));
+  connect(THeaWatSet.y, chiHeaSupLvg.TSet) annotation (Line(points={{-108,40},{
+          -40,40},{-40,-15},{-12,-15}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-140,-120},{140,120}})),
     __Dymola_Commands(
       file=
@@ -321,7 +279,7 @@ and condenser entering temperature.
 </li>
 <li>
 The component <code>chiHeaSupLvg</code> validates the block for
-heat recovery chiller applications with CHW supply temperature control 
+heat recovery chiller applications with HW supply temperature control 
 and performance data interpolation based on evaporator and condenser 
 leaving temperature.
 </li>

@@ -1,5 +1,4 @@
-simulateModel(
-    "Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery",
+simulateModel("Buildings.Fluid.Chillers.ModularReversible.Validation.TableData2DLoadDep_HeatRecovery",
     tolerance=1e-6,
     stopTime=14400,
     method="dassl",
