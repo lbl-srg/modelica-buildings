@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "rotTwo.yDevRol[1]",
+    "rotTwo.yDevRol[2]",
+    "rotTwo.yPreDevRolSig[1]",
+    "rotTwo.yPreDevRolSig[2]",
+    "rotTwo1.yDevRol[1]",
+    "rotTwo1.yDevRol[2]",
+    "rotTwo1.yPreDevRolSig[1]",
+    "rotTwo1.yPreDevRolSig[2]"
+  };
