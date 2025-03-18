@@ -374,7 +374,7 @@ block Controller "Chiller plant controller"
     "Time to fix plant reset value"
     annotation(Dialog(tab="Plant Reset"));
 
-  parameter Real iniSet(unit="1")=0
+  parameter Real iniSet(unit="1")=1
     "Initial setpoint"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
 
@@ -409,15 +409,16 @@ block Controller "Chiller plant controller"
     "Maximum response per time interval (same sign as resAmo)"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
 
-  parameter Real dpChiWatPumMin(
-    unit="Pa",
-    displayUnit="Pa")=34473.8
-    "Minimum chilled water pump differential static pressure, default 5 psi"
+  parameter Real dpChiWatMin[nSenChiWatPum](
+    unit=fill("Pa", nSenChiWatPum),
+    displayUnit=fill("Pa", nSenChiWatPum))=fill(34473.8, nSenChiWatPum)
+    "Minimum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  parameter Real dpChiWatPumMax[nSenChiWatPum](unit=fill("Pa", nSenChiWatPum),
-      each displayUnit="Pa")
-    "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
+  parameter Real dpChiWatMax[nSenChiWatPum](
+    unit=fill("Pa", nSenChiWatPum),
+    displayUnit=fill("Pa", nSenChiWatPum))
+    "Maximum chilled water differential pressure setpoint, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
   parameter Real TPlaChiWatSupMax(
@@ -1172,8 +1173,8 @@ block Controller "Chiller plant controller"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply chiWatSupSet(
     final nRemDpSen=nSenChiWatPum,
-    final dpChiWatPumMin=dpChiWatPumMin,
-    final dpChiWatPumMax=dpChiWatPumMax,
+    final dpChiWatMin=dpChiWatMin,
+    final dpChiWatMax=dpChiWatMax,
     final TChiWatSupMin=TChiWatSupMin_Lowest,
     final TPlaChiWatSupMax=TPlaChiWatSupMax,
     final minSet=minSet,

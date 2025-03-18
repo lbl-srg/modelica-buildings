@@ -25,7 +25,7 @@ model Controller "Validation head pressure controller"
     final towCelOnSet={0,1,1,2,2,2},
     final nTowCel=2,
     final cooTowAppDes=2,
-    final dpChiWatPumMax={10*6894.76},
+    final dpChiWatMax={10*6894.76},
     final TPlaChiWatSupMax=291.15,
     final have_WSE=true,
     final chiDesCap={200,200},
