@@ -8,7 +8,6 @@ model Controller
     final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
-    final nBoi=2,
     final nSen=2,
     final nPum_nominal=2,
     final minPumSpe=0.1,
@@ -33,7 +32,6 @@ model Controller
     final have_secFloSen=true,
     final nPum=2,
     final nPumPri=2,
-    final nBoi=2,
     final nSen=2,
     final nPum_nominal=2,
     final minPumSpe=0.1,
@@ -58,7 +56,6 @@ model Controller
     final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
-    final nBoi=2,
     final nSen=2,
     final nPum_nominal=2,
     final minPumSpe=0.1,
@@ -89,7 +86,6 @@ model Controller
     final have_secFloSen=false,
     final nPum=2,
     final nPumPri=2,
-    final nBoi=2,
     final nSen=2,
     final nPum_nominal=2,
     final minPumSpe=0.1,
@@ -119,7 +115,6 @@ model Controller
     final have_varSecPum=false,
     final nPum=2,
     final nPumPri=2,
-    final nBoi=2,
     final nSen=2,
     final nPum_nominal=2,
     final minPumSpe=0.1,
@@ -290,14 +285,14 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=0.1,
     final freqHz=1/3600,
     final offset=0.25)
@@ -314,21 +309,21 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{240,140},{260,160}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{80,130},{100,150}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin3(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin3(
     final amplitude=0.1,
     final freqHz=1/3600,
     final offset=0.25)
     "Sine signal"
     annotation (Placement(transformation(extent={{40,130},{60,150}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin4(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin4(
     final amplitude=5,
     final freqHz=1/900,
     final offset=7.5)
@@ -380,21 +375,21 @@ protected
     "Constant Real source"
     annotation (Placement(transformation(extent={{-260,-70},{-240,-50}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin6[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin6[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final offset=fill(1, 2))
     "Sine signal"
     annotation (Placement(transformation(extent={{-260,-30},{-240,-10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin5(
     final amplitude=5,
     final freqHz=1/900,
     final offset=7.5)
     "Sine signal"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin7[2](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin7[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final offset=fill(1, 2))
@@ -547,13 +542,11 @@ equation
           -210},{-180,-210},{-180,-204},{-102,-204}},
                                                     color={255,127,0}));
 
-  connect(booPul4.y,secPumCon4. uPriPumSta[1]) annotation (Line(points={{-218,
-          -170},{-164,-170},{-164,-213},{-102,-213}},
-                                                    color={255,0,255}));
+  connect(booPul4.y,secPumCon4. uPriPumSta[1]) annotation (Line(points={{-218,-170},
+          {-164,-170},{-164,-212.5},{-102,-212.5}}, color={255,0,255}));
 
-  connect(booPul5.y,secPumCon4. uPriPumSta[2]) annotation (Line(points={{-218,
-          -250},{-170,-250},{-170,-211},{-102,-211}},
-                                                    color={255,0,255}));
+  connect(booPul5.y,secPumCon4. uPriPumSta[2]) annotation (Line(points={{-218,-250},
+          {-170,-250},{-170,-211.5},{-102,-211.5}}, color={255,0,255}));
 
   connect(pul5.y,secPumCon. uMaxSecPumSpeCon) annotation (Line(points={{-238,110},
           {-110,110},{-110,142},{-102,142}},      color={0,0,127}));

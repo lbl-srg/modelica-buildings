@@ -255,7 +255,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-340,-60},{-320,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=2,
     final freqHz=1/14400)
     "Sine input"
@@ -295,7 +295,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=2, final freqHz=1/14400)
     "Sine input"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
@@ -339,7 +339,7 @@ protected
     "Boiler availability status vector"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
     final amplitude=2,
     final freqHz=1/14400)
     "Sine input"

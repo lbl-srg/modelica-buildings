@@ -147,7 +147,7 @@ model SetpointController
     annotation (Placement(transformation(extent={{500,120},{520,140}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THotWatRet(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -212,7 +212,7 @@ protected
     "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin uPumSpe(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600)
@@ -228,7 +228,7 @@ protected
     "Convert input into array"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THotWatRet1(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -294,7 +294,7 @@ protected
     "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin uPumSpe1(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600) "Pump speed signal"
@@ -309,7 +309,7 @@ protected
     "Convert input into array"
     annotation (Placement(transformation(extent={{280,110},{300,130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THotWatRet2(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -370,7 +370,7 @@ protected
     "Hot water flow rate"
     annotation (Placement(transformation(extent={{240,170},{260,190}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine uPumSpe2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin uPumSpe2(
     final amplitude=1,
     final offset=0,
     final freqHz=1/21600) "Pump speed signal"

@@ -284,7 +284,7 @@ protected
     "Real to integer converter"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=1.25,
     final freqHz=1/7200,
     final offset=2)

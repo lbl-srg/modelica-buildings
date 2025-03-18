@@ -41,7 +41,7 @@ protected
     "Table defining when plant can be enabled"
     annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=2,
     final freqHz=1/(6*60),
     final offset=2,
@@ -53,7 +53,7 @@ protected
     "Rounding real input to nearest integer"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin1(
     final amplitude=2/1.8,
     final freqHz=1/700,
     final phase=3.1415926535898,
@@ -62,7 +62,7 @@ protected
     "Input for outdoor air temperature"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin2(
     final amplitude=2,
     final freqHz=1/(6*60),
     final offset=2,
@@ -78,7 +78,7 @@ protected
     "Rounding real input to nearest integer"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin5(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin5(
     final amplitude=2/1.8,
     final freqHz=1/700,
     final phase=3.1415926535898,

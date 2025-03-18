@@ -41,7 +41,7 @@ protected
     "Temperature sensor reading from secondary circuit"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine TPriSup(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TPriSup(
     phase=3.1415926535898,
     final offset=8.5,
     final freqHz=1/3600,
@@ -49,7 +49,7 @@ protected
     "Temperature sensor reading from primary circuit"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine TBoiSup2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TBoiSup2(
     phase=3.1415926535898,
     final offset=8,
     final freqHz=1/3600,

@@ -15,7 +15,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Change cha "Detect changes in primary loop enable signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine THotWatRet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin THotWatRet(
     final amplitude=7,
     final phase=0,
     final offset=273.15 + 22,
@@ -40,7 +40,7 @@ protected
     final k=273.15 + 26) "Hot water secondary loop return temperature"
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine pumSpeLagPri(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin pumSpeLagPri(
     final amplitude=0.5,
     final phase=3.1415926535898,
     final offset=0.3,

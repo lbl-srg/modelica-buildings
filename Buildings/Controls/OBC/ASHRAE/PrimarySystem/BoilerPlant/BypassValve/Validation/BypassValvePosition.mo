@@ -16,7 +16,7 @@ protected
     "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Reals.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/75,
     final phase=0,
