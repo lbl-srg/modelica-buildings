@@ -27,7 +27,7 @@ and inlet temperatures,
 for example to create a hot core and warm perimeter.
 </li>
 <li>
-The template models for air-source heat pump and chiller plants has been updated to allow an optional side-stream
+The template models for air-source heat pump and chiller plants have been updated to allow an optional side-stream
 water-to-water heat recovery heat pump, and to allow optional buffer tanks
 on the hot or cold side. Also, its control has been updated.
 </li>

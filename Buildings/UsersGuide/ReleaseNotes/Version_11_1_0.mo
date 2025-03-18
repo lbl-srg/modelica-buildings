@@ -14,7 +14,7 @@ OPTIMICA 1.55.11 and recent versions of Impact.
 </p>
 <p>
 This backward compatible version adds a new package with heat pump models
-that can be operate in reversible mode to provide heating or cooling,
+that can be operated in reversible mode to provide heating or cooling,
 and that can be configured to use various approaches to compute performance, such as
 data tables or Carnot analogy.
 </p>
