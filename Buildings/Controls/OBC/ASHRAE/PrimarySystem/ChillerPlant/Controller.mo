@@ -22,10 +22,6 @@ block Controller "Chiller plant controller"
     "True: need limit chiller demand when chiller staging"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  parameter Real desCap(unit="W")=1e6
-    "Plant design capacity"
-    annotation (Dialog(tab="General", group="Chillers configuration"));
-
   parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
     chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
                   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal}
@@ -206,8 +202,8 @@ block Controller "Chiller plant controller"
     "Design outdoor air wet bulb temperature"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
-  parameter Real VHeaExcDes_flow(unit="m3/s")=0.015
-    "Desing heat exchanger chilled water volume flow rate"
+  parameter Real VHeaExcDes_flow(unit="m3/s")
+    "Design heat exchanger chilled water volume flow rate"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
   parameter Real step=0.02 "Tuning step"
@@ -342,7 +338,7 @@ block Controller "Chiller plant controller"
     "Total number of pumps that operate at design conditions"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
 
-  parameter Real VChiWat_flow_nominal(unit="m3/s")=0.5
+  parameter Real VChiWat_flow_nominal(unit="m3/s")
     "Total plant design chilled water flow rate"
     annotation (Dialog(tab="Chilled water pumps", group="Nominal conditions"));
 
@@ -1026,7 +1022,7 @@ block Controller "Chiller plant controller"
       iconTransformation(extent={{100,12},{140,52}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatPum[nConWatPum]
-    "Status setpoint of condenser water pump"
+    "Condenser water pump commanded on"
     annotation (Placement(transformation(extent={{920,70},{960,110}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -1604,6 +1600,9 @@ protected
     final quantity="ThermodynamicTemperature",
     displayUnit="degC")=min(TChiWatSupMin)
     "Minimum chilled water supply temperature. This is the lowest minimum chilled water supply temperature of chillers in the plant";
+
+  final parameter Real desCap(unit="W")=sum(chiDesCap)
+    "Plant design capacity";
 
 equation
   connect(staSetCon.uPla, plaEna.yPla) annotation(Line(points={{-268,72},{-580,72},
