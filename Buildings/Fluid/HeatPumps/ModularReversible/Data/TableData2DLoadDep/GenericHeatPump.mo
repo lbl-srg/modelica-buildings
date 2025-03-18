@@ -3,10 +3,10 @@ record GenericHeatPump
   "Record to specify performance data for load-dependent data-based HP models"
   extends Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.Generic;
   parameter Real tabUppBou[:, 2]
-    "Points to define upper boundary for sink temperature";
-  parameter Boolean use_TEvaOutForOpeEnv=false
+    "Points to define upper boundary of operating envelope";
+  parameter Boolean use_TEvaOutForOpeEnv=use_TEvaOutForTab
     "=true to use evaporator outlet temperature for operational envelope, false for inlet";
-  parameter Boolean use_TConOutForOpeEnv=true
+  parameter Boolean use_TConOutForOpeEnv=use_TConOutForTab
     "=true to use condenser outlet temperature for operational envelope, false for inlet";
   annotation (Documentation(info="<html>
 <p>
