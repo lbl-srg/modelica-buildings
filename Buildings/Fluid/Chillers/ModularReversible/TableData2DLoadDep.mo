@@ -175,27 +175,27 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This is a model for cooling-only or heat recovery chillers 
+This is a model for cooling-only or heat recovery chillers
 where the capacity and power are interpolated from manufacturer
 data along three variables.
 </p>
 <ul>
-<li>Evaporator entering or leaving temperature: the choice 
+<li>Evaporator entering or leaving temperature: the choice
 between the entering or leaving temperature depends on the
 value of the parameter <code>use_TEvaOutForTab</code>
 specified in the parameter record
 (<a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic\">
 Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic</a>).
 </li>
-<li>Condenser entering or leaving temperature: the choice 
+<li>Condenser entering or leaving temperature: the choice
 between the entering or leaving temperature depends on the
 value of the parameter <code>use_TConOutForTab</code>
 specified in the parameter record.
 </li>
-<li>Compressor part load ratio (PLR): the part load ratio is used as 
-a proxy variable for the actual capacity modulation observable. 
-A discrete observable such as the number of operating compressors 
-for systems with multiple on/off compressors is converted into 
+<li>Compressor part load ratio (PLR): the part load ratio is used as
+a proxy variable for the actual capacity modulation observable.
+A discrete observable such as the number of operating compressors
+for systems with multiple on/off compressors is converted into
 a continuous PLR value and the model only approximates the system
 performance on a time average.
 </li>
@@ -203,20 +203,19 @@ performance on a time average.
 <p>
 The model includes ideal controls that solve for the CHW or HW supply
 or return temperature setpoint within the capacity limit.
-The Boolean parameter <code>use_TLoaLvgForCtl</code> is used 
+The Boolean parameter <code>use_TLoaLvgForCtl</code> is used
 for toggling between supply or return temperature control.
 The default setting <code>use_TLoaLvgForCtl=true</code> corresponds to
 supply temperature control.
 </p>
 <p>
-For a comprehensive description of the algorithm and the calculations 
-for capacity and power, please refer to the documentation of 
+For a comprehensive description of the algorithm and the calculations
+for capacity and power, please refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 This documentation also details the required format for the performance data file.
 </p>
 <h4>Control points</h4>
-<p>
 <p>
 The following input points are available.
 </p>
@@ -228,13 +227,13 @@ Chiller on/off command signal: <code>on</code>
 <li>For heat recovery chillers only (<code>have_switchover=true</code>),
 chiller operating mode command signal: <code>coo</code>
 (Boolean, scalar)<br/>
-Set <code>coo=true</code> for cooling mode, 
+Set <code>coo=true</code> for cooling mode,
 <code>coo=false</code> for heating mode.
 </li>
 <li>
 Chiller temperature setpoint: <code>TSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint 
+This is the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
 For heat recovery chillers, the active setpoint must be
 switched externally between CHW and HW temperature.
@@ -247,7 +246,7 @@ This model introduces structural changes compared to other models within
 Buildings.Fluid.Chillers.ModularReversible</a>.
 </p>
 <p>First, there is no replaceable heating cycle component.
-Instead, the Boolean parameter <code>have_switchover</code> is used 
+Instead, the Boolean parameter <code>have_switchover</code> is used
 for toggling between cooling-only and heat recovery chillers.
 A major implication is that a single performance data file is used
 to represent heating and cooling modes in the case of heat recovery
@@ -255,7 +254,7 @@ chillers. This data file only provides the maximum cooling heat flow
 rate and input power.
 </p>
 <p>
-Second, the model includes new input variables that match 
+Second, the model includes new input variables that match
 the control points found in chiller onboard controllers
 (see the previous section for their description).
 </p>

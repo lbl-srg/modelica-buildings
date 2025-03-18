@@ -200,30 +200,30 @@ First implementation.
 </html>",
       info="<html>
 <p>
-This is a model for reversible or non-reversible heat pumps 
+This is a model for reversible or non-reversible heat pumps
 where the capacity and power are interpolated from manufacturer
 data along three variables.
 </p>
 <ul>
-<li>Condenser entering or leaving temperature: the choice 
+<li>Condenser entering or leaving temperature: the choice
 between the entering or leaving temperature depends on the
 value of the parameter <code>use_TCondOutForTab</code>
 specified in the parameter record
 (<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump\">
 Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump</a>
-or 
+or
 <a href=\"modelica://Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic\">
 Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic</a>).
 </li>
-<li>Evaporator entering or leaving temperature: the choice 
+<li>Evaporator entering or leaving temperature: the choice
 between the entering or leaving temperature depends on the
 value of the parameter <code>use_TEvaOutForTab</code>
 specified in the parameter record.
 </li>
-<li>Compressor part load ratio (PLR): the part load ratio is used as 
-a proxy variable for the actual capacity modulation observable. 
-A discrete observable such as the number of operating compressors 
-for systems with multiple on/off compressors is converted into 
+<li>Compressor part load ratio (PLR): the part load ratio is used as
+a proxy variable for the actual capacity modulation observable.
+A discrete observable such as the number of operating compressors
+for systems with multiple on/off compressors is converted into
 a continuous PLR value and the model only approximates the system
 performance on a time average.
 </li>
@@ -231,20 +231,19 @@ performance on a time average.
 <p>
 The model includes ideal controls that solve for the HW or CHW supply
 or return temperature setpoint within the capacity limit.
-The Boolean parameter <code>use_TLoaLvgForCtl</code> is used 
+The Boolean parameter <code>use_TLoaLvgForCtl</code> is used
 for toggling between supply or return temperature control.
 The default setting <code>use_TLoaLvgForCtl=true</code> corresponds to
 supply temperature control.
 </p>
 <p>
-For a comprehensive description of the algorithm and the calculations 
-for capacity and power, please refer to the documentation of 
+For a comprehensive description of the algorithm and the calculations
+for capacity and power, please refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
 This documentation also details the required format for the performance data file.
 </p>
 <h4>Control points</h4>
-<p>
 <p>
 The following input points are available.
 </p>
@@ -261,7 +260,7 @@ Set <code>hea=true</code> for heating mode, <code>hea=false</code> for cooling m
 <li>
 Heat pump temperature setpoint: <code>TSet</code>
 (real, scalar)<br/>
-This is the supply or return temperature setpoint 
+This is the supply or return temperature setpoint
 depending on the value of <code>use_TLoaLvgForCtl</code>.
 For reversible heat pumps, the active setpoint must be
 switched externally between HW and CHW temperature.
@@ -273,13 +272,13 @@ This model introduces structural changes compared to other models within
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible\">
 Buildings.Fluid.HeatPumps.ModularReversible</a>.
 </p>
-<p>First, the Boolean parameter <code>use_rev</code> is used 
+<p>First, the Boolean parameter <code>use_rev</code> is used
 for toggling between reversible and non-reversible systems.
-This differs from other models which require <i>redeclaring</i> the 
-component modeling the reversed cycle. 
+This differs from other models which require <i>redeclaring</i> the
+component modeling the reversed cycle.
 </p>
 <p>
-Second, the model includes new input variables that match 
+Second, the model includes new input variables that match
 the control points found in heat pump onboard controllers
 (see the previous section for their description).
 </p>
