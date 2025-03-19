@@ -3,7 +3,7 @@ record Generic
   "Partial heat pump data"
   extends Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.Generic;
   parameter Real tabLowBou[:, 2]
-    "Points to define lower boundary of opereating envelope";
+    "Points to define lower boundary of operating envelope";
   parameter Boolean use_TEvaOutForOpeEnv=use_TEvaOutForTab
     "=true to use evaporator outlet temperature for operational envelope, false for inlet";
   parameter Boolean use_TConOutForOpeEnv=use_TConOutForTab
@@ -17,11 +17,11 @@ This is the base record class to specify the parameters of the model
 Buildings.Fluid.Chillers.ModularReversible.TableData2DLoadDep</a>.
 </p>
 <p>
-In addition to the parameters defined in 
+In addition to the parameters defined in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.Generic\">
 Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.Generic</a>
 table data for lower temperature limits is included.
-Please refer to the documentation of 
+Please refer to the documentation of
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope\">
 Buildings.Fluid.HeatPumps.ModularReversible.Controls.Safety.BaseClasses.PartialOperationalEnvelope</a>
 for guidance on how to populate this table.

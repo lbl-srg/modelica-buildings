@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.Data;
-package TableData2DLoadDep "Package with load-dependent 2D data tables"
+package TableData2DLoadDep "Package with load-dependent 2D table data recors"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (Documentation(info="<html>
