@@ -110,6 +110,12 @@ model TableData2DLoadDep
   Buildings.Controls.OBC.CDL.Reals.Switch QUse_flow
     "Select useful heat flow rate depending on operating mode"
     annotation (Placement(transformation(extent={{92,-30},{72,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
+    "Compressor part load ratio" annotation (Placement(transformation(extent={{
+            140,-70},{160,-50}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,-110})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
@@ -117,13 +123,16 @@ equation
         color={0,0,127}));
   end if;
   connect(on, sigBus.onOffMea)
-    annotation (Line(points={{-160,-20},{-141,-20},{-141,-41}},color={255,0,255}));
+    annotation (Line(points={{-160,-20},{-132,-20},{-132,-38},{-141,-38},{-141,
+          -41}},                                               color={255,0,255}));
   connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,20},{-141,20},{-141,-41}},color={0,0,127}));
+    annotation (Line(points={{-160,20},{-120,20},{-120,-38},{-141,-38},{-141,
+          -41}},                                             color={0,0,127}));
   connect(conHea1.y, sigBus.hea)
     annotation (Line(points={{-99,-126},{-76,-126},{-76,-41},{-141,-41}},color={255,0,255}));
   connect(coo, sigBus.coo)
-    annotation (Line(points={{-160,-60},{-141,-60},{-141,-41}},color={255,0,255}),
+    annotation (Line(points={{-160,-60},{-130,-60},{-130,-42},{-142,-42},{-142,
+          -41},{-141,-41}},                                    color={255,0,255}),
       Text(string="%second",index=1,extent={{6,3},{6,3}},horizontalAlignment=TextAlignment.Left));
   connect(calYSet.ySet, sigBus.ySet)
     annotation (Line(points={{-98,-90},{-92,-90},{-92,-44},{-138,-44},{-138,-41},{-141,-41}},
@@ -133,13 +142,16 @@ equation
           {-113.333,-10}},
       color={0,0,127}));
   connect(sigBus.PLRCoo, calYSet.PLRCoo)
-    annotation (Line(points={{-141,-41},{-141,-96},{-122,-96}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-96},{-122,
+          -96}},                                               color={255,204,51},thickness=0.5));
   connect(tru.y, sigBus.coo)
-    annotation (Line(points={{-62,-70},{-141,-70},{-141,-41}},color={255,0,255}));
+    annotation (Line(points={{-62,-70},{-130,-70},{-130,-42},{-141,-42},{-141,
+          -41}},                                              color={255,0,255}));
   connect(eff.hea, notCoo.y)
     annotation (Line(points={{98,30},{90,30},{90,50},{81,50}},color={255,0,255}));
   connect(notCoo.u, sigBus.coo)
-    annotation (Line(points={{58,50},{40,50},{40,-38},{-152,-38},{-152,-41},{-141,-41}},
+    annotation (Line(points={{58,50},{40,50},{40,-38},{-140,-38},{-140,-41},{
+          -141,-41}},
       color={255,0,255}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(QUse_flow.u2, sigBus.coo)
@@ -151,6 +163,9 @@ equation
     annotation (Line(points={{150,130},{134,130},{134,-28},{94,-28}},color={0,0,127}));
   connect(QUse_flow.y, eff.QUse_flow)
     annotation (Line(points={{70,-20},{66,-20},{66,37},{98,37}},color={0,0,127}));
+  connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
+          -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
+          0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

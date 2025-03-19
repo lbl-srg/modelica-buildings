@@ -29,7 +29,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=4,
-    y={"hp.refCyc.sigBus.PLRHea", "hp.refCyc.sigBus.PLRCoo", "hp.COP", "hp.EER"},
+    y={"hp.PLR", "hp.COP", "hp.EER"},
     autoscale=true,
     grid=true
 );
@@ -44,16 +44,15 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    x="hp.refCyc.sigBus.yMea",
-    y={"hp.P", "hp.refCyc.sigBus.yMea"},
+    x="hp.PLR",
+    y={"hp.P"},
     range={0.0, 1.0, -50000.0, 300000.0},
     grid=true,
-    filename="TableData2DLoadDep.mat",
-    colors={{28,108,200}, {238,46,47}},
-    patterns={LinePattern.None, LinePattern.Solid},
-    markers={MarkerStyle.Cross, MarkerStyle.None},
+    colors={{28,108,200}},
+    patterns={LinePattern.None},
+    markers={MarkerStyle.Cross},
     timeUnit="1",
-    displayUnits={"W", "1"}
+    displayUnits={"W"}
 );
 createPlot(
     id=3,
@@ -80,7 +79,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=4,
-    y={"hpNrv.refCyc.sigBus.PLRHea", "hpNrv.COP"},
+    y={"hpNrv.PLR", "hpNrv.COP"},
     autoscale=true,
     grid=true
 );

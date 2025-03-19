@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses;
 block TableData2DLoadDep
+  "Calculation of capacity, heat flow rate and power based on load-dependent 2D table data"
   type TypeOfSystem = Integer(final min = 1, final max = 3)
   annotation(choices(
     choice = 1 "Chiller",
@@ -215,14 +216,27 @@ equation
       else 0;
     QInt_flow=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
       tabQ, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
-    PLR1=min(PLR_max, Modelica.Math.Vectors.interpolate(abs(cat(1, {0}, QInt_flow)), cat(
-      1, {0}, PLRSor), abs(QSet_flow)));
+    PLR1=min(PLR_max, Modelica.Math.Vectors.interpolate(
+      abs(cat(1, {0}, QInt_flow)),
+      cat(1, {0}, PLRSor),
+      abs(QSet_flow)));
     PLR=if PLR1 < PLRUnl_min and PLR1 > PLRCyc_min then PLRUnl_min else PLR1;
     // Actual input and output accounting for equipement internal safeties
-    Q_flow=Modelica.Math.Vectors.interpolate(cat(1, {0}, PLRSor), cat(1, {0}, QInt_flow), yMea);
-    PInt=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(tabP, fill(
-      TLoaTab, nPLR), fill(TSouTab, nPLR));
-    P=Modelica.Math.Vectors.interpolate(cat(1, {0, PLRCyc_min}, PLRSor), cat(1, {P_min, PInt[1]}, PInt), yMea);
+    Q_flow=Modelica.Math.Vectors.interpolate(
+      cat(1, {0}, PLRSor),
+      cat(1, {0}, QInt_flow),
+      yMea);
+    PInt=scaFac * Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+      tabP, fill(TLoaTab, nPLR), fill(TSouTab, nPLR));
+    P=if PLRCyc_min < PLRSor[1] then
+      Modelica.Math.Vectors.interpolate(
+        cat(1, {0, PLRCyc_min}, PLRSor),
+        cat(1, {P_min, PInt[1]}, PInt),
+        yMea) else
+      Modelica.Math.Vectors.interpolate(
+        cat(1, {0}, PLRSor),
+        cat(1, {P_min}, PInt),
+        yMea);
   else
     QSet_flow=0;
     QSwiSet_flow=0;

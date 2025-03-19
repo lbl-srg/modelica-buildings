@@ -140,6 +140,12 @@ model TableData2DLoadDep
     "Locks the device in heating mode if designated to be not reversible"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,
       origin={-110,-126})));
+  Modelica.Blocks.Interfaces.RealOutput PLR(final unit="1")
+    "Compressor part load ratio" annotation (Placement(transformation(extent={{
+            140,-70},{160,-50}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={80,-110})));
 equation
   if not use_intSafCtr then
     connect(calYSet.ySet, sigBus.yMea)
@@ -150,7 +156,8 @@ equation
     annotation (Line(points={{-99,-130},{-76,-130},{-76,-40},{-140,-40},{-140,-41},{-141,-41}},
       color={255,0,255}));
   connect(hea, sigBus.hea)
-    annotation (Line(points={{-160,-70},{-128,-70},{-128,-40},{-134,-40},{-134,-41},{-141,-41}},
+    annotation (Line(points={{-160,-70},{-132,-70},{-132,-40},{-134,-40},{-134,
+          -41},{-141,-41}},
       color={255,0,255}));
   connect(eff.QUse_flow, refCycIneCon.y)
     annotation (Line(points={{98,37},{48,37},{48,66},{8.88178e-16,66},{8.88178e-16,61}},
@@ -160,7 +167,8 @@ equation
       color={255,0,255}),Text(string="%second",index=1,extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(sigBus.PLRHea, calYSet.PLRHea)
-    annotation (Line(points={{-141,-41},{-141,-84},{-122,-84}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-84},{-122,
+          -84}},                                               color={255,204,51},thickness=0.5));
   connect(calYSet.ySet, sigBus.ySet)
     annotation (Line(points={{-98,-90},{-92,-90},{-92,-44},{-138,-44},{-138,-41},{-141,-41}},
       color={0,0,127}));
@@ -169,13 +177,19 @@ equation
           {-113.333,-10}},
       color={0,0,127}));
   connect(sigBus.PLRCoo, calYSet.PLRCoo)
-    annotation (Line(points={{-141,-41},{-141,-96},{-122,-96}},color={255,204,51},thickness=0.5));
+    annotation (Line(points={{-141,-41},{-141,-42},{-130,-42},{-130,-96},{-122,
+          -96}},                                               color={255,204,51},thickness=0.5));
   connect(on, sigBus.onOffMea)
-    annotation (Line(points={{-160,-20},{-141,-20},{-141,-41}},color={255,0,255}));
+    annotation (Line(points={{-160,-20},{-130,-20},{-130,-38},{-142,-38},{-142,
+          -41},{-141,-41}},                                    color={255,0,255}));
   connect(TSet, sigBus.TSet)
-    annotation (Line(points={{-160,20},{-141,20},{-141,-41}},color={0,0,127}));
+    annotation (Line(points={{-160,20},{-120,20},{-120,-38},{-141,-38},{-141,
+          -41}},                                             color={0,0,127}));
   connect(conHea1.y, sigBus.hea)
     annotation (Line(points={{-99,-126},{-76,-126},{-76,-41},{-141,-41}},color={255,0,255}));
+  connect(PLR, sigBus.yMea) annotation (Line(points={{150,-60},{130,-60},{130,
+          -36},{-138,-36},{-138,-40},{-140,-40},{-140,-41},{-141,-41}}, color={
+          0,0,127}));
   annotation (
     Icon(
       coordinateSystem(

@@ -3,10 +3,10 @@ record Generic
   "Partial heat pump data"
   extends Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.Generic;
   parameter Real tabLowBou[:, 2]
-    "Points to define lower boundary for source temperature";
-  parameter Boolean use_TEvaOutForOpeEnv=false
+    "Points to define lower boundary of opereating envelope";
+  parameter Boolean use_TEvaOutForOpeEnv=use_TEvaOutForTab
     "=true to use evaporator outlet temperature for operational envelope, false for inlet";
-  parameter Boolean use_TConOutForOpeEnv=false
+  parameter Boolean use_TConOutForOpeEnv=use_TConOutForTab
     "=true to use condenser outlet temperature for operational envelope, false for inlet";
   annotation (
     Documentation(
