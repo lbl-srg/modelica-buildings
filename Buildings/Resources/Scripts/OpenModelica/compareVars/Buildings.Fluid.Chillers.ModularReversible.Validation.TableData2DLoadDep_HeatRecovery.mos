@@ -8,7 +8,7 @@ compareVars :=
     "chi.refCyc.sigBus.TConOutMea",
     "chi.COP",
     "chi.on",
-    "chi.calYSet.PLRCoo",
+    "chi.PLR",
     "chi.P",
     "ref.y[1]",
     "chi.QCon_flow",
