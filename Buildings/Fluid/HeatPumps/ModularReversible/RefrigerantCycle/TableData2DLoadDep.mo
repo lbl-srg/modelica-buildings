@@ -58,14 +58,14 @@ model TableData2DLoadDep
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not notCoo if not useInHeaPum and use_rev
     "Cooling disabled (if used in chiller)"
-    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator hea
     if useInHeaPum and use_rev
     "Heating enable (if used in reversible heat pump)"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant tru(final k=true)
     if not use_rev "Placeholder signal for heating-only system"
-    annotation (Placement(transformation(extent={{-110,22},{-90,42}})));
+    annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
   Buildings.Controls.OBC.CDL.Logical.And onAndHea
     "True if enabled in heating mode"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -148,25 +148,25 @@ equation
   connect(cst[2].y, intSwi.u1)
     annotation (Line(points={{2,90},{10,90},{10,68},{18,68}},     color={255,127,0}));
   connect(sigBus.hea, hea.u) annotation (Line(
-      points={{1,120},{-120,120},{-120,60},{-112,60}},
+      points={{1,120},{-120,120},{-120,60},{-102,60}},
       color={255,204,51},
       thickness=0.5));
   connect(sigBus.onOffMea, onAndHea.u1) annotation (Line(
       points={{1,120},{-60,120},{-60,40},{-52,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(notCoo.y[1], onAndHea.u2) annotation (Line(points={{-88,90},{-78,90},
-          {-78,32},{-52,32}}, color={255,0,255}));
-  connect(hea.y[1], onAndHea.u2) annotation (Line(points={{-88,60},{-80,60},{
-          -80,32},{-52,32}},
+  connect(notCoo.y[1], onAndHea.u2) annotation (Line(points={{-78,90},{-68,90},
+          {-68,32},{-52,32}}, color={255,0,255}));
+  connect(hea.y[1], onAndHea.u2) annotation (Line(points={{-78,60},{-70,60},{
+          -70,32},{-52,32}},
                          color={255,0,255}));
-  connect(tru.y, onAndHea.u2) annotation (Line(points={{-88,32},{-52,32}},
+  connect(tru.y, onAndHea.u2) annotation (Line(points={{-78,32},{-52,32}},
                          color={255,0,255}));
   connect(onAndHea.y, calQUseP.on)
     annotation (Line(points={{-28,40},{129,40},{129,12}},
                                                         color={255,0,255}));
   connect(sigBus.coo, notCoo.u) annotation (Line(
-      points={{1,120},{-120,120},{-120,90},{-112,90}},
+      points={{1,120},{-120,120},{-120,90},{-102,90}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(graphics={
@@ -240,7 +240,7 @@ This model serves as a wrapper class to integrate the block
 <a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
 Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>
 into heat pump models.
-For a complete description of all modeling assumptions, 
+For a complete description of all modeling assumptions,
 please refer to the documentation of this block.
 </p>
 </html>"),
