@@ -40,6 +40,7 @@ model TableData2DLoadDep
   final model RefrigerantCycleHeatPumpHeating=Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.TableData2DLoadDep(
     final use_TLoaLvgForCtl=use_TLoaLvgForCtl,
     final useInHeaPum=true,
+    final use_rev=use_rev,
     final QHea_flow_nominal=QHea_flow_nominal,
     final TCon_nominal=TConHea_nominal,
     final TEva_nominal=TEvaHea_nominal,
