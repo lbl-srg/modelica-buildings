@@ -180,5 +180,14 @@ Buildings.Templates.Plants.HeatPumps.Components.HeatPumpGroups</a>.
 <p>
 Only identical heat pumps are currently supported.
 </p>
+<p>
+The heat pump performance data are provided via the subrecords
+<code>perHeaHp</code> and <code>perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files, 
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+</p>
 </html>"));
 end HeatPumpGroup;

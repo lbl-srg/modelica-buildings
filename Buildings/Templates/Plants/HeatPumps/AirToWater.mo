@@ -1225,6 +1225,18 @@ The pressure drops of the heat pump CHW and HW heat exchangers are calculated
 within the isolation valve component <code>valIso</code> based on lumped flow
 coefficients for the sake of computational efficiency.
 </p>
+<p>
+The template uses a heat pump model that interpolates capacity and power 
+from manufacturer data along the CHW/HW temperature, the outdoor 
+air temperature and the part load ratio.
+The heat pump performance data are provided via the subrecords
+<code>dat.hp.perHeaHp</code> and <code>dat.hp.perCooHp</code> for the
+heating mode and the cooling mode, respectively.
+For the required format of the performance data files, 
+please refer to the documentation of the block
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.TableData2DLoadDep</a>.
+</p>
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
