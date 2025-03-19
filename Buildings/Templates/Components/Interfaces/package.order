@@ -3,7 +3,6 @@ PartialChiller
 PartialCoil
 PartialFan
 PartialHeatPump
-PartialHeatPumpTableData2DLoadDep
 PartialPump
 PartialPumpMultiple
 PartialPumpSingle

@@ -421,16 +421,21 @@ and
 <a href=\"modelica://Buildings.Templates.Components.HeatPumps.WaterToWater\">
 Buildings.Templates.Components.HeatPumps.WaterToWater</a>
 in a configuration in which the heat pump components are exposed
-to a constant differential pressure and a varying
-return temperature.
+to a constant differential pressure and a varying return temperature.
 </p>
 <p>
-The AWHP model is configured to represent either a non-reversible heat pump
-(suffix <code>Nrv</code>) or a reversible heat pump
+The AWHP model is configured to represent either a non-reversible 
+heat pump (suffix <code>Nrv</code>) or a reversible heat pump
 that switches between cooling and heating mode.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.

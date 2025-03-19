@@ -378,6 +378,12 @@ mode.
 </html>", revisions="<html>
 <ul>
 <li>
+March 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
+<li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
 </li>

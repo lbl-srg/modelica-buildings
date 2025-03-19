@@ -122,30 +122,34 @@ record HeatPump "Record for heat pump model"
   final parameter Modelica.Units.SI.PressureDifference dpSouCoo_nominal=
     dpSouHea_nominal * (mSouCoo_flow_nominal/mSouHea_flow_nominal)^2
     "Source fluid pressure drop in cooling mode";
+  // Propagation of mass flow rate and pressure drop to the subrecords perHea
+  // and perCoo is for reference only. The HP component is parameterized by
+  // the values from this record, not from those subrecords.
   replaceable parameter
     Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump perHea(
-      devIde="")
-    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump(
       mCon_flow_nominal=mHeaWat_flow_nominal,
       mEva_flow_nominal=mSouHea_flow_nominal,
       dpCon_nominal=dpHeaWat_nominal,
-      dpEva_nominal=dpSouHea_nominal)
+      dpEva_nominal=dpSouHea_nominal,
+      devIde="")
+    constrainedby Buildings.Fluid.HeatPumps.ModularReversible.Data.TableData2DLoadDep.GenericHeatPump
     "Performance data in heating mode"
     annotation (
       choicesAllMatching=true, Placement(transformation(extent={{-38,0},{-22,16}})));
   replaceable parameter
     Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic perCoo(
-      fileName="",
-      PLRSup={1},
-      tabLowBou=[TSouCoo_nominal-30, TChiWatSup_nominal; TSouCoo_nominal+10, TChiWatSup_nominal],
-      devIde="",
-      use_TConOutForTab=false,
-      use_TEvaOutForTab=true)
-    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic(
       mCon_flow_nominal=mSouCoo_flow_nominal,
       mEva_flow_nominal=mChiWat_flow_nominal,
       dpCon_nominal=dpSouCoo_nominal,
-      dpEva_nominal=dpChiWat_nominal)
+      dpEva_nominal=dpChiWat_nominal,
+      fileName="",
+      PLRSup={1},
+      tabLowBou=[TSouCoo_nominal-30, TChiWatSup_nominal-2;
+        TSouCoo_nominal+10, TChiWatSup_nominal-2],
+      devIde="",
+      use_TConOutForTab=false,
+      use_TEvaOutForTab=true)
+    constrainedby Buildings.Fluid.Chillers.ModularReversible.Data.TableData2DLoadDep.Generic
     "Performance data in cooling mode"
     annotation (
     choicesAllMatching=true,
@@ -162,17 +166,18 @@ heat pump models that can be found within
 Buildings.Templates.Components.HeatPumps</a>.
 </p>
 <h4>Performance data</h4>
-FIXME/ propagation of design values and persistance at redeclaration
 <p>
-Also note that placeholders values are assigned to the performance curves,
-the reference source temperature and the input power in
-cooling mode to avoid assigning these parameters in case of non-reversible
-heat pumps.
-These values are unrealistic and must be overwritten for reversible heat pumps, which
-is always the case when redeclaring or
-reassigning the performance record <code>per</code>.
-Models that use this record will issue a warning if these placeholders values
-are not overwritten in case of reversible heat pumps.
+The design capacity is used to parameterize the heat pump model.
+The capacity (and power) computed from the external performance data file
+will be scaled to match the value provided at design conditions.
+</p>
+<p>
+Also note that placeholders values are assigned to some parameters
+of the subrecord <code>perCoo</code> which is used to specify
+the performance data in cooling mode.
+These values should be overwritten for reversible heat pumps.
+This overwriting happens automatically when redeclaring or reassigning 
+the performance record <code>perCoo</code>.
 </p>
 </html>"));
 end HeatPump;

@@ -159,27 +159,3 @@ createPlot(
     grid=true,
     timeUnit="h"
 );
-createPlot(id=9, position={55, 55, 592, 371},
-    y={"pla.hp.hp[1].hp.Q1_flow", "pla.hp.hp[1].hp.PEle_nominal", "pla.hp.hp[1].hp.P",  "pla.hp.hp[1].hp.QCon_flow"},
-    range={0.0, 90000.0, -1000000.0, 1000000.0}, grid=true, filename="AirToWaterPlant.mat", subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"W", "W", "W", "W"});
-createPlot(id=9, subPlot=2, y={"pla.hp.hp[1].hp.on", "pla.hp.hp[1].hp.hea",
- autoscale=true,
- grid=true,
- timeUnit="h"
-);
-createPlot(id=10, position={55, 55, 592, 371},
-    y={"pla.hp.hp[2].hp.Q1_flow", "pla.hp.hp[2].hp.PEle_nominal", "pla.hp.hp[2].hp.P",  "pla.hp.hp[2].hp.QCon_flow"},
-    range={0.0, 90000.0, -1000000.0, 1000000.0}, grid=true, filename="AirToWaterPlant.mat", subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"W", "W", "W", "W"});
-createPlot(id=10, subPlot=2, y={"pla.hp.hp[2].hp.on", "pla.hp.hp[2].hp.hea",
- autoscale=true,
- grid=true,
- timeUnit="h"
-);
-createPlot(id=11, position={55, 55, 592, 371},
-    y={"pla.hp.hp[3].hp.Q1_flow", "pla.hp.hp[3].hp.PEle_nominal", "pla.hp.hp[3].hp.P",  "pla.hp.hp[3].hp.QCon_flow"},
-    range={0.0, 90000.0, -1000000.0, 1000000.0}, grid=true, filename="AirToWaterPlant.mat", subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"W", "W", "W", "W"});
-createPlot(id=11, subPlot=2, y={"pla.hp.hp[3].hp.on", "pla.hp.hp[3].hp.hea",
- autoscale=true,
- grid=true,
- timeUnit="h"
-);

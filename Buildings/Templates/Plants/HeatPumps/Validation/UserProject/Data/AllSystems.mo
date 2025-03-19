@@ -24,7 +24,7 @@ class AllSystems
         P_min=1.0E3,
         use_TEvaOutForTab=false,
         use_TConOutForTab=true,
-        tabUppBou=[263.15,323.15; 313.15,323.15]),
+        tabUppBou=[263.15,325.15; 313.15,325.15]),
       perCooHp(
         fileName=Modelica.Utilities.Files.loadResource(
           "modelica://Buildings/Resources/Data/Templates/Components/HeatPumps/Validation/AWHP_Cooling.txt"),

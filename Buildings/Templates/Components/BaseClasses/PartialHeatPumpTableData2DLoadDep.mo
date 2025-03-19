@@ -1,6 +1,6 @@
-within Buildings.Templates.Components.Interfaces;
+within Buildings.Templates.Components.BaseClasses;
 partial model PartialHeatPumpTableData2DLoadDep
-  "Interface for heat pump using load-dependent data table model"
+  "Interface for heat pump using load-dependent 2D table data"
   extends Buildings.Templates.Components.Interfaces.PartialHeatPump;
 
   Controls.StatusEmulator y1_actual
@@ -55,8 +55,7 @@ partial model PartialHeatPumpTableData2DLoadDep
     final mEva_flow_nominal=mSouHea_flow_nominal,
     final show_T=show_T,
     use_conCap=false,
-    use_evaCap=false,
-    use_intSafCtr=false)
+    use_evaCap=false)
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
 equation
@@ -96,16 +95,19 @@ equation
   annotation (
   defaultComponentName="heaPum",
   Documentation(info="<html>
-FIXME: by default, all internal safeties are disabled.
 <p>
-This is a model for an air-to-water heat pump where the capacity
-and drawn power are computed based on the equation fit method.
-The model can be configured with the parameter <code>is_rev</code>
-to represent either a non-reversible heat pump (heating only) or a
+This is the base class for heat pump models where the capacity
+and input power are computed by interpolating manufacturer data
+along the condenser entering or leaving temperature, the 
+evaporator entering or leaving temperature and the part load ratio.
+Toggling the Boolean parameter <code>is_rev</code> enables
+representing either a non-reversible (heating-only) heat pump or a
 reversible heat pump.
-This model uses
-<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
-Buildings.Fluid.HeatPumps.EquationFitReversible</a>,
+</p>
+<p>
+This model is a wrapper for
+<a href=\"modelica://Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep\">
+Buildings.Fluid.HeatPumps.ModularReversible.TableData2DLoadDep</a>,
 which the user may refer to for the modeling assumptions.
 </p>
 <h4>Control points</h4>
@@ -114,28 +116,34 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Heat pump on/off command signal <code>y1</code>:
+Heat pump on/off command signal: <code>y1</code>,
 DO signal, with a dimensionality of zero
 </li>
 <li>For reversible heat pumps only (<code>is_rev=true</code>),
-Heat pump operating mode command signal <code>y1Hea</code>:
+heat pump operating mode command signal: <code>y1Hea</code>,
 DO signal, with a dimensionality of zero<br/>
-(<code>y1Hea=true</code> for heating mode,
-<code>y1Hea=false</code> for cooling mode)
+Set <code>y1Hea=true</code> for heating mode,
+<code>y1Hea=false</code> for cooling mode.
 </li>
 <li>
-Heat pump supply temperature setpoint <code>TSet</code>:
+Heat pump supply temperature setpoint: <code>TSet</code>,
 AO signal, with a dimensionality of zero<br/>
-(for reversible heat pumps, the setpoint value must be
-switched externally between HW and CHW supply temperature)
+For reversible heat pumps, the setpoint value must be
+switched externally between HW and CHW supply temperature.
 </li>
 <li>
-Heat pump status <code>y1_actual</code>:
+Heat pump status: <code>y1_actual</code>,
 DI signal, with a dimensionality of zero
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2025, by Antoine Gautier:<br/>
+Refactored with load-dependent 2D table data heat pump model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/4152\">#4152</a>.
+</li>
 <li>
 March 29, 2024, by Antoine Gautier:<br/>
 First implementation.
