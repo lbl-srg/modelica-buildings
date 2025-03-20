@@ -202,7 +202,7 @@ block Controller "Chiller plant controller"
     "Design outdoor air wet bulb temperature"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
-  parameter Real VHeaExcDes_flow(unit="m3/s")
+  parameter Real VHeaExcDes_flow(unit="m3/s", start=0)
     "Design heat exchanger chilled water volume flow rate"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
@@ -2327,10 +2327,7 @@ annotation (
           textColor={255,0,255},
           visible=have_WSE and not have_byPasValCon,
           textString="yWsePumOn")}),
-    Diagram(coordinateSystem(extent={{-900,-800},{920,800}}), graphics={Text(
-          extent={{-574,-594},{-490,-614}},
-          textColor={28,108,200},
-          textString="might need a pre block")}),
+    Diagram(coordinateSystem(extent={{-900,-800},{920,800}})),
 Documentation(info="<html>
 <p>
 This is chiller plant control sequence implemented according to ASHRAE Guideline 36-2021.

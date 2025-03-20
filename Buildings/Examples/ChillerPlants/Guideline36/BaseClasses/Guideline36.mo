@@ -30,7 +30,7 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
         iconTransformation(extent={{-200,-150},{-160,-110}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
-    dpChiWatMax={160000},
+    final dpChiWatMax={160000},
     final chiDesCap={chiDesCap,chiDesCap},
     final chiMinCap={chiDesCap*0.1,chiDesCap*0.1},
     final have_WSE=false,
@@ -48,7 +48,6 @@ model Guideline36 "Chiller plant model with Guideline36 controller"
     final TiMinFloBypCon=100,
     final VChiWat_flow_nominal=mChi_flow_nominal/1000,
     final TiChiWatPum=100,
-    final dpChiWatPumMax,
     final TiSupCon=100,
     final speChe=speChe)
     "Chiller plant controller"
