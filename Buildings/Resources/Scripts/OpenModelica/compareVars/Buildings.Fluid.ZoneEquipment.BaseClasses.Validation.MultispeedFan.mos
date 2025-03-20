@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "conMulSpeFan.fanOpeMod",
+    "conMulSpeFan.TZon",
+    "conMulSpeFan.TCooSet",
+    "conMulSpeFan.THeaSet",
+    "conMulSpeFan.yFan",
+    "conMulSpeFan.yFanSpe"
+  };
