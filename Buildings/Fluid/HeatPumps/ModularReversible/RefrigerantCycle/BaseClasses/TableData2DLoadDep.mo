@@ -58,17 +58,15 @@ block TableData2DLoadDep
   parameter Modelica.Units.SI.Temperature TSou_nominal
     "Source side fluid temperature — Entering or leaving depending on use_T*OutForTab"
     annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.Power PInt_nominal[nPLR] =
-    Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabP, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR))
+  // OMC and OCT require getTable2DValueNoDer2() to be called in initial equation section.
+  // Binding equations yield incorrect results but no error!
+  final parameter Modelica.Units.SI.Power PInt_nominal[nPLR](each fixed=false)
     "Power interpolated at nominal conditions, at each PLR – Unscaled";
+  final parameter Modelica.Units.SI.HeatFlowRate QInt_flow_nominal[nPLR](each fixed=false)
+    "Heat flow rate interpolated at nominal conditions, at each PLR – Unscaled";
   final parameter Modelica.Units.SI.Power P_nominal=
     Modelica.Math.Vectors.interpolate(PLRSor, PInt_nominal, 1)
     "Power interpolated at nominal conditions, at PLR=1 – Unscaled";
-  final parameter Modelica.Units.SI.HeatFlowRate QInt_flow_nominal[nPLR] =
-    Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
-      tabQ, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR))
-    "Heat flow rate interpolated at nominal conditions, at each PLR – Unscaled";
   final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=
     Modelica.Math.Vectors.interpolate(PLRSor, QInt_flow_nominal, 1)
     "Heat flow rate interpolated at nominal conditions, at PLR=1 – Unscaled";
@@ -201,6 +199,11 @@ protected
   Real sigLoa=if use_TLoaLvgForCtl then 1 else - 1
     "Sign of Delta-T used for load calculation";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput coo_internal;
+initial equation
+  PInt_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+    tabP, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
+  QInt_flow_nominal = Modelica.Blocks.Tables.Internal.getTable2DValueNoDer2(
+    tabQ, fill(TLoa_nominal, nPLR), fill(TSou_nominal, nPLR));
 equation
   if typ==2 then
     connect(coo, coo_internal);
