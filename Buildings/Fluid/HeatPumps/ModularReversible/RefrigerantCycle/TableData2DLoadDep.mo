@@ -155,8 +155,6 @@ equation
       points={{1,120},{-60,120},{-60,40},{-52,40}},
       color={255,204,51},
       thickness=0.5));
-  connect(notCoo.y[1], onAndHea.u2) annotation (Line(points={{-78,90},{-68,90},
-          {-68,32},{-52,32}}, color={255,0,255}));
   connect(hea.y[1], onAndHea.u2) annotation (Line(points={{-78,60},{-70,60},{
           -70,32},{-52,32}},
                          color={255,0,255}));
@@ -169,6 +167,8 @@ equation
       points={{1,120},{-120,120},{-120,90},{-102,90}},
       color={255,204,51},
       thickness=0.5));
+  connect(notCoo.y, onAndHea.u2) annotation (Line(points={{-78,90},{-68,90},{
+          -68,32},{-52,32}}, color={255,0,255}));
   annotation (Icon(graphics={
     Line(points={{-44,90},{-44,40}}),
     Rectangle(fillColor={255,215,136},
