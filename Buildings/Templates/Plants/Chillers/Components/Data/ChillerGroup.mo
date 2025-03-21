@@ -71,8 +71,7 @@ record ChillerGroup
     each final min=1,
     each final unit="1")
     "Cooling COP - Each chiller"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
+    annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TChiWatSupChi_nominal[nChi](
     each final min=260)
     "Design (lowest) CHW supply temperature - Each chiller"
@@ -141,42 +140,42 @@ record ChillerGroup
     Documentation(
       info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-chiller group models that can be found within 
+This record provides the set of sizing and operating parameters for
+chiller group models that can be found within
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.ChillerGroups\">
 Buildings.Templates.Plants.Chillers.Components.ChillerGroups</a>.
 </p>
 <p>
-Within this class, the design values declared at the top-level 
-are propagated by default to the performance data record <code>per</code> 
-under the assumption that the nominal conditions used for assessing the 
+Within this class, the design values declared at the top-level
+are propagated by default to the performance data record <code>per</code>
+under the assumption that the nominal conditions used for assessing the
 performance data match the design conditions.
 However, the nominal, minimum and maximum value of the
 condenser cooling fluid temperature are overwritten if the performance data
-record is redeclared. 
+record is redeclared.
 (This is a limitation that comes from the constraint to make this record class
 (type-)compatible with chiller group models using
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
-Buildings.Fluid.Chillers.ElectricReformulatedEIRs</a> 
-instead of 
+Buildings.Fluid.Chillers.ElectricReformulatedEIRs</a>
+instead of
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>).
 </p>
 <p>
-Note that, among those propagated parameters, the only meaningful parameter 
-is the chiller capacity that should be consistent with the value 
+Note that, among those propagated parameters, the only meaningful parameter
+is the chiller capacity that should be consistent with the value
 used for performance assessment.
-Regarding the nominal value of the condenser cooling fluid, it may 
+Regarding the nominal value of the condenser cooling fluid, it may
 only yield a warning if an inconsistent value is used.
-All other propagated parameters have no impact on the 
-computation of the chiller performance and are informative 
-only inside the performance data record. 
+All other propagated parameters have no impact on the
+computation of the chiller performance and are informative
+only inside the performance data record.
 </p>
 <p>
 The validation model
 <a href=\"modelica://Buildings.Templates.Plants.Chillers.Components.Validation.RecordChillerGroup\">
-Buildings.Templates.Plants.Chillers.Components.Validation.RecordChillerGroup</a> 
-illustrates how the default bindings from this class may be 
+Buildings.Templates.Plants.Chillers.Components.Validation.RecordChillerGroup</a>
+illustrates how the default bindings from this class may be
 overwritten when redeclaring the performance data record,
 and how different performance curves may be assigned to each chiller
 inside the same group.

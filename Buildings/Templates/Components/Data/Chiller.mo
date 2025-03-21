@@ -74,8 +74,7 @@ record Chiller
   parameter Modelica.Units.SI.Temperature TConEnt_nominal(
     final min=273.15)
     "Condenser entering fluid temperature (CW or air)"
-    annotation (Dialog(group="Nominal condition",
-      enable=typ<>Buildings.Templates.Components.Types.Chiller.None));
+    annotation (Dialog(group="Nominal condition"));
   // The following parameter is not declared as final to allow parameterization
   // based on leaving CHW temperature. In this case, the user shall compute
   // TConEnt_nominal from TConLvg_nominal.
