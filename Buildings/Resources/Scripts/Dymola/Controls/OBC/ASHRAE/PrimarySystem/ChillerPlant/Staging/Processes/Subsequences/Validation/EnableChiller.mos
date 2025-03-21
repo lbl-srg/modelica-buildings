@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.Validation.EnableChiller", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="enaNewChi");
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaDisChi.nexEnaChi","enaDisChi.nexDisChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaDisChi.uStaUp","enaDisChi.uEnaChiWatIsoVal", "enaDisChi.uOnOff"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"enaDisChi.uChi[1]","enaDisChi.uChi[2]", "enaDisChi.uChi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"enaDisChi.yChi[1]","enaDisChi.yChi[2]", "enaDisChi.yChi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"enaDisChi.yNewChiEna"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"enaOneChi.nexEnaChi","enaOneChi.nexDisChi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"enaOneChi.uStaUp","enaOneChi.uEnaChiWatIsoVal", "enaOneChi.uOnOff"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"enaOneChi.uChi[1]","enaOneChi.uChi[2]", "enaOneChi.uChi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"enaOneChi.yChi[1]","enaOneChi.yChi[2]", "enaOneChi.yChi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"enaOneChi.yNewChiEna"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});

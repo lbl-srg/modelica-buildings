@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.Validation.IdentifyStage", method="Cvode", stopTime=5, tolerance=1e-06, resultFile="IdentifyStage");
+createPlot(id=1, position={15, 15, 902, 840}, y={"ideSta.uChi[1]", "ideSta.uChi[2]"}, range={0.0, 5.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 902, 840}, y={"ideSta.ySta"}, range={0.0, 5.0, -1.0, 4.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={927, 11, 804, 844}, y={"ideSta1.uChi[1]", "ideSta1.uChi[2]", "ideSta1.uChi[3]"}, range={0.0, 5.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={927, 11, 804, 844}, y={"ideSta1.ySta"}, range={0.0, 5.0, -0.5, 3.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+
