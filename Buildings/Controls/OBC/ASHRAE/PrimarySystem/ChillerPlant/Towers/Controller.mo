@@ -273,6 +273,16 @@ block Controller "Cooling tower controller"
     "Measured water level"
     annotation (Placement(transformation(extent={{-140,-260},{-100,-220}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
+    final unit="K")
+    "Maximum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{100,170},{140,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
+    final unit="K")
+    "Minimum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{100,32},{140,72}}),
+        iconTransformation(extent={{100,150},{140,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status setpoint"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
@@ -433,6 +443,10 @@ equation
     annotation (Line(points={{82,-150},{120,-150}}, color={0,0,127}));
   connect(uPla, towSta.uPla) annotation (Line(points={{-120,20},{-84,20},{-84,-51},
           {-22,-51}}, color={255,0,255}));
+  connect(towFanSpe.yLifMax, yLifMax) annotation (Line(points={{2,24.2},{34,
+          24.2},{34,24},{60,24},{60,80},{120,80}}, color={0,0,127}));
+  connect(towFanSpe.yLifMin, yLifMin) annotation (Line(points={{2,21.2},{70,
+          21.2},{70,52},{120,52}}, color={0,0,127}));
 annotation (
   defaultComponentName="towCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
@@ -544,7 +558,15 @@ annotation (
         Text(
           extent={{-96,-64},{-58,-78}},
           textColor={255,0,255},
-          textString="uEnaPla")}),
+          textString="uEnaPla"),
+        Text(
+          extent={{46,200},{96,182}},
+          textColor={0,0,127},
+          textString="yLifMax"),
+        Text(
+          extent={{46,180},{96,162}},
+          textColor={0,0,127},
+          textString="yLifMin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{100,260}})),
 Documentation(info="<html>
 <p>

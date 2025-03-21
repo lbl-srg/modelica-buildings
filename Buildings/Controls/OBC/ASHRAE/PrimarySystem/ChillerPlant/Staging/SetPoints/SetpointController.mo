@@ -38,9 +38,9 @@ block SetpointController
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Integer chiTyp[nChi]={
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal}
+  parameter Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages
+    chiTyp[nChi]={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal}
     "Chiller type"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
@@ -383,6 +383,13 @@ block SetpointController
     annotation (Placement(transformation(extent={{-270,-180},{-250,-160}})));
 
 protected
+
+  final parameter Integer chiTypInt[nChi] = {
+    if chiTyp[i] == Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement then 1
+    else if chiTyp[i] == Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.VariableSpeedCentrifugal then 2
+    else 3 for i in 1:nChi}
+  "Convert chiller type to integer";
+
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Initial iniSta(
     final have_WSE=have_WSE) "Initia stage"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
@@ -390,9 +397,9 @@ protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Configurator conf(
     final nSta = nSta,
     final nChi = nChi,
-    final chiTyp = chiTyp,
-    final chiDesCap = chiDesCap,
-    final chiMinCap = chiMinCap,
+    final chiTypInt=chiTypInt,
+    final chiDesCap=chiDesCap,
+    final chiMinCap=chiMinCap,
     final staMat = staMat)
     "Configures chiller staging variables such as capacity and stage type vectors"
     annotation (Placement(transformation(extent={{-360,-180},{-340,-160}})));
@@ -476,8 +483,8 @@ equation
                                  color={0,0,127}));
   connect(conf.yTyp, PLRs.uTyp) annotation (Line(points={{-338,-174},{-302,-174},
           {-302,-188},{-184,-188}},                    color={255,127,0}));
-  connect(sta.yAvaUp, PLRs.uUp) annotation (Line(points={{-298,-203},{-242,-203},
-          {-242,-194},{-184,-194}}, color={255,127,0}));
+  connect(sta.yAvaUp, PLRs.uUp) annotation (Line(points={{-298,-203},{-246,-203},
+          {-246,-194},{-184,-194}}, color={255,127,0}));
   connect(sta.yAvaDow, PLRs.uDown)
     annotation (Line(points={{-298,-206},{-242,-206},{-242,-196},{-184,-196}},
                                                        color={255,127,0}));

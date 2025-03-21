@@ -3,24 +3,18 @@ block ChilledWaterPlantReset
   "Sequences to generate chilled water plant reset"
 
   parameter Integer nPum = 2 "Total number of chilled water pumps";
-  parameter Real holTim(
-    final unit="s",
-    final quantity="Time")=900
+  parameter Real holTim(unit="s")=900
       "Time to fix plant reset value";
-  parameter Real iniSet = 0 "Initial setpoint"
+  parameter Real iniSet=1   "Initial setpoint"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real minSet = 0 "Minimum setpoint"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Real maxSet = 1 "Maximum setpoint"
     annotation (Dialog(group="Trim and respond parameters"));
-  parameter Real delTim(
-    final unit="s",
-    final quantity="Time")=900
+  parameter Real delTim(unit="s")=900
     "Delay time after which trim and respond is activated"
     annotation (Dialog(group="Trim and respond parameters"));
-  parameter Real samplePeriod(
-    final unit="s",
-    final quantity="Time")=300
+  parameter Real samplePeriod(unit="s")=300
     "Sample period time"
     annotation (Dialog(group="Trim and respond parameters"));
   parameter Integer numIgnReq = 2

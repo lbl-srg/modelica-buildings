@@ -4,7 +4,7 @@ createPlot(id=1, position={20, 10, 800, 700}, subPlot=1, y={"conf.nSta", "conf.n
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=2, y={"conf.uChiAva[1]", "conf.uChiAva[2]", "conf.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=3, y={"conf.chiDesCap[1]", "conf.chiDesCap[2]", "conf.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={20, 10, 800, 700}, subPlot=4, y={"conf.chiMinCap[1]", "conf.chiMinCap[2]", "conf.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=1, position={20, 10, 800, 700}, subPlot=5, y={"conf.chiTyp[1]", "conf.chiTyp[2]", "conf.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=5, y={"conf.chiTypInt[1]", "conf.chiTypInt[2]", "conf.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=2, position={850, 10, 800, 700}, subPlot=1, y={"conf.yAva[1]", "conf.yAva[2]", "conf.yAva[3]", "conf.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=2, position={850, 10, 800, 700}, subPlot=2, y={"conf.yTyp[1]", "conf.yTyp[2]", "conf.yTyp[3]", "conf.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
@@ -15,7 +15,7 @@ createPlot(id=3, position={30, 20, 800, 700}, subPlot=1, y={"conf1.nSta", "conf1
 createPlot(id=3, position={20, 10, 800, 700}, subPlot=2, y={"conf1.uChiAva[1]", "conf1.uChiAva[2]", "conf1.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=3, position={30, 20, 800, 700}, subPlot=3, y={"conf1.chiDesCap[1]", "conf1.chiDesCap[2]", "conf1.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=3, position={30, 20, 800, 700}, subPlot=4, y={"conf1.chiMinCap[1]", "conf1.chiMinCap[2]", "conf1.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=3, position={30, 20, 800, 700}, subPlot=5, y={"conf1.chiTyp[1]", "conf1.chiTyp[2]", "conf1.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=5, y={"conf1.chiTypInt[1]", "conf1.chiTypInt[2]", "conf1.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=4, position={860, 20, 800, 700}, subPlot=1, y={"conf1.yAva[1]", "conf1.yAva[2]", "conf1.yAva[3]", "conf1.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=4, position={860, 20, 800, 700}, subPlot=2, y={"conf1.yTyp[1]", "conf1.yTyp[2]", "conf1.yTyp[3]", "conf1.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
@@ -26,7 +26,7 @@ createPlot(id=5, position={40, 30, 800, 700}, subPlot=1, y={"conf2.nSta", "conf2
 createPlot(id=5, position={20, 10, 800, 700}, subPlot=2, y={"conf2.uChiAva[1]", "conf2.uChiAva[2]", "conf2.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=5, position={40, 30, 800, 700}, subPlot=3, y={"conf2.chiDesCap[1]", "conf2.chiDesCap[2]", "conf2.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=5, position={40, 30, 800, 700}, subPlot=4, y={"conf2.chiMinCap[1]", "conf2.chiMinCap[2]", "conf2.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=5, position={40, 30, 800, 700}, subPlot=5, y={"conf2.chiTyp[1]", "conf2.chiTyp[2]", "conf2.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=5, y={"conf2.chiTypInt[1]", "conf2.chiTypInt[2]", "conf2.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=6, position={870, 30, 800, 700}, subPlot=1, y={"conf2.yAva[1]", "conf2.yAva[2]", "conf2.yAva[3]", "conf2.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=6, position={870, 30, 800, 700}, subPlot=2, y={"conf2.yTyp[1]", "conf2.yTyp[2]", "conf2.yTyp[3]", "conf2.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
@@ -37,7 +37,7 @@ createPlot(id=7, position={50, 40, 800, 700}, subPlot=1, y={"conf3.nSta", "conf3
 createPlot(id=7, position={20, 10, 800, 700}, subPlot=2, y={"conf3.uChiAva[1]", "conf3.uChiAva[2]", "conf3.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=7, position={50, 40, 800, 700}, subPlot=3, y={"conf3.chiDesCap[1]", "conf3.chiDesCap[2]", "conf3.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=7, position={50, 40, 800, 700}, subPlot=4, y={"conf3.chiMinCap[1]", "conf3.chiMinCap[2]", "conf3.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=7, position={50, 40, 800, 700}, subPlot=5, y={"conf3.chiTyp[1]", "conf3.chiTyp[2]", "conf3.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=5, y={"conf3.chiTypInt[1]", "conf3.chiTypInt[2]", "conf3.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=8, position={880, 40, 800, 700}, subPlot=1, y={"conf3.yAva[1]", "conf3.yAva[2]", "conf3.yAva[3]", "conf3.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=8, position={880, 40, 800, 700}, subPlot=2, y={"conf3.yTyp[1]", "conf3.yTyp[2]", "conf3.yTyp[3]", "conf3.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
@@ -48,7 +48,7 @@ createPlot(id=9, position={40, 30, 800, 700}, subPlot=1, y={"conf4.nSta", "conf4
 createPlot(id=9, position={20, 10, 800, 700}, subPlot=2, y={"conf4.uChiAva[1]", "conf4.uChiAva[2]", "conf4.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=9, position={40, 30, 800, 700}, subPlot=3, y={"conf4.chiDesCap[1]", "conf4.chiDesCap[2]", "conf4.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=9, position={40, 30, 800, 700}, subPlot=4, y={"conf4.chiMinCap[1]", "conf4.chiMinCap[2]", "conf4.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=9, position={40, 30, 800, 700}, subPlot=5, y={"conf4.chiTyp[1]", "conf4.chiTyp[2]", "conf4.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=9, position={40, 30, 800, 700}, subPlot=5, y={"conf4.chiTypInt[1]", "conf4.chiTypInt[2]", "conf4.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=10, position={870, 30, 800, 700}, subPlot=1, y={"conf4.yAva[1]", "conf4.yAva[2]", "conf4.yAva[3]", "conf4.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=10, position={870, 30, 800, 700}, subPlot=2, y={"conf4.yTyp[1]", "conf4.yTyp[2]", "conf4.yTyp[3]", "conf4.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
@@ -59,7 +59,7 @@ createPlot(id=11, position={50, 40, 800, 700}, subPlot=1, y={"conf5.nSta", "conf
 createPlot(id=11, position={20, 10, 800, 700}, subPlot=2, y={"conf5.uChiAva[1]", "conf5.uChiAva[2]", "conf5.uChiAva[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=11, position={50, 40, 800, 700}, subPlot=3, y={"conf5.chiDesCap[1]", "conf5.chiDesCap[2]", "conf5.chiDesCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=11, position={50, 40, 800, 700}, subPlot=4, y={"conf5.chiMinCap[1]", "conf5.chiMinCap[2]", "conf5.chiMinCap[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=11, position={50, 40, 800, 700}, subPlot=5, y={"conf5.chiTyp[1]", "conf5.chiTyp[2]", "conf5.chiTyp[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=11, position={50, 40, 800, 700}, subPlot=5, y={"conf5.chiTypInt[1]", "conf5.chiTypInt[2]", "conf5.chiTypInt[3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 
 createPlot(id=12, position={880, 40, 800, 700}, subPlot=1, y={"conf5.yAva[1]", "conf5.yAva[2]", "conf5.yAva[3]", "conf5.yAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
 createPlot(id=12, position={880, 40, 800, 700}, subPlot=2, y={"conf5.yTyp[1]", "conf5.yTyp[2]", "conf5.yTyp[3]", "conf5.yTyp[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});

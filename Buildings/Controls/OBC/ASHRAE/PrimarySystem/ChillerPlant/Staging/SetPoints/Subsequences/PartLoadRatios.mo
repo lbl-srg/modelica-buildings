@@ -189,7 +189,8 @@ protected
     annotation (Placement(transformation(extent={{-200,-60},{-180,-40}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extCurTyp(
-    final nin=nSta)           "Extract current stage type"
+    final nin=nSta)
+    "Extract current stage type"
     annotation (Placement(transformation(extent={{-120,290},{-100,310}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant one(
@@ -210,13 +211,11 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{200,140},{220,160}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(
-    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conSpeCenTyp(final k=3)
     "Stage type with any constant speed centrifugal chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(
-    final k=Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant posDisTyp(final k=1)
     "Stage type with none but positive displacement chillers"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 

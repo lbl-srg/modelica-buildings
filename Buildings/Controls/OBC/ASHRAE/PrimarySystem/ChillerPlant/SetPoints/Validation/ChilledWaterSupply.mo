@@ -4,10 +4,10 @@ model ChilledWaterSupply
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
     chiWatSupSet(
-    final dpChiWatPumMin=60,
-    final dpChiWatPumMax={150},
+    final dpChiWatMin={60},
+    final dpChiWatMax={150},
     final TChiWatSupMin=280.15,
-    final TChiWatSupMax=291.15) "Generate setpoint for chilled water supply control"
+    final TPlaChiWatSupMax=291.15) "Generate setpoint for chilled water supply control"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Ramp plaRes(final duration=3600)
     "Chilled water plant reset"

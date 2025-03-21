@@ -52,16 +52,12 @@ model PartLoadRatios_u_uTyp
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp[3](
-    final k={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal})
+    final k={1,3,3})
     "Stage types"
     annotation (Placement(transformation(extent={{-420,220},{-400,240}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant staTyp4[3](
-    final k={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.variableSpeedCentrifugal,
-             Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.constantSpeedCentrifugal})
+    final k={1,2,3})
     "Stage types"
     annotation (Placement(transformation(extent={{-420,-270},{-400,-250}})));
 

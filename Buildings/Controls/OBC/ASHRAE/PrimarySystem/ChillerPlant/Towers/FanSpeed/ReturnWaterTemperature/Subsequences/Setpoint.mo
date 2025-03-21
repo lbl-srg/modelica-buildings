@@ -51,6 +51,16 @@ block Setpoint "Calculate condener return water temperature setpoint"
     "Plant enabling status"
     annotation (Placement(transformation(extent={{-340,-170},{-300,-130}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
+    final unit="K")
+    "Maximum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{300,140},{340,180}}),
+        iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
+    final unit="K")
+    "Minimum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{300,40},{340,80}}),
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatRetSet(
     final unit="K",
     displayUnit="degC",
@@ -64,8 +74,8 @@ block Setpoint "Calculate condener return water temperature setpoint"
     annotation (Placement(transformation(extent={{220,18},{240,38}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Reals.MultiMin lifMax(
-    final nin=nChi) "Maximum chiller LIFT"
+  Buildings.Controls.OBC.CDL.Reals.MultiMin lifMax(nin=nChi)
+    "Maximum chiller LIFT"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant chiLifMin[nChi](
     final k=LIFT_min)
@@ -112,14 +122,14 @@ protected
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant desConWatRet[nChi](
     final k=TConWatRet_nominal)
     "Design condenser water return (condenser leaving) temperature of each chiller"
-    annotation (Placement(transformation(extent={{-240,160},{-220,180}})));
+    annotation (Placement(transformation(extent={{-280,160},{-260,180}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant minChiWatSup[nChi](
     final k=TChiWatSupMin)
     "Lowest chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
+    annotation (Placement(transformation(extent={{-280,110},{-260,130}})));
   Buildings.Controls.OBC.CDL.Reals.Subtract maxLif[nChi]
     "Maximum LIFT of each chiller"
-    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
+    annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
   Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-10*5/9)
     "Output sum of input and a parameter"
@@ -131,6 +141,13 @@ protected
   Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1.1) "Gain factor"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+  Buildings.Controls.OBC.CDL.Reals.Switch  swi1[nChi]
+    "Logical switch"
+    annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con1[nChi](
+    final k=fill(100, nChi))
+    "Constant"
+    annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
 
 equation
   connect(uChi, swi.u2)
@@ -192,27 +209,36 @@ equation
   connect(uOpeParLoaRat, pro.u2)
     annotation (Line(points={{-320,-40},{38,-40}}, color={0,0,127}));
   connect(desConWatRet.y, maxLif.u1)
-    annotation (Line(points={{-218,170},{-200,170},{-200,146},{-162,146}},
+    annotation (Line(points={{-258,170},{-240,170},{-240,146},{-222,146}},
       color={0,0,127}));
-  connect(maxLif.y,lifMax.u)
-    annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
   connect(lowDesConWatRet.y, addPar.u)
     annotation (Line(points={{-138,-120},{-102,-120}}, color={0,0,127}));
   connect(addPar.y, lin.f1)
     annotation (Line(points={{-78,-120},{-60,-120},{-60,-146},{258,-146}},
       color={0,0,127}));
   connect(desConWatRet.y, lowDesConWatRet.u)
-    annotation (Line(points={{-218,170},{-200,170},{-200,-120},{-162,-120}},
+    annotation (Line(points={{-258,170},{-240,170},{-240,-120},{-162,-120}},
       color={0,0,127}));
-  connect(minChiWatSup.y, maxLif.u2) annotation (Line(points={{-218,110},{-180,
-          110},{-180,134},{-162,134}},
-                                  color={0,0,127}));
+  connect(minChiWatSup.y, maxLif.u2) annotation (Line(points={{-258,120},{-230,120},
+          {-230,134},{-222,134}}, color={0,0,127}));
   connect(coeA.y, gai.u)
     annotation (Line(points={{-38,100},{-22,100}}, color={0,0,127}));
   connect(gai.y, coeB.u2) annotation (Line(points={{2,100},{20,100},{20,128},{38,
           128}}, color={0,0,127}));
   connect(gai.y, pro.u1) annotation (Line(points={{2,100},{20,100},{20,-28},{38,
           -28}},color={0,0,127}));
+  connect(uChi, swi1.u2) annotation (Line(points={{-320,40},{-180,40},{-180,140},
+          {-162,140}}, color={255,0,255}));
+  connect(maxLif.y, swi1.u1) annotation (Line(points={{-198,140},{-190,140},{-190,
+          148},{-162,148}}, color={0,0,127}));
+  connect(con1.y, swi1.u3) annotation (Line(points={{-198,100},{-170,100},{-170,
+          132},{-162,132}}, color={0,0,127}));
+  connect(swi1.y, lifMax.u)
+    annotation (Line(points={{-138,140},{-122,140}}, color={0,0,127}));
+  connect(lifMax.y, yLifMax) annotation (Line(points={{-98,140},{-80,140},{-80,
+          160},{320,160}}, color={0,0,127}));
+  connect(lifMin.y, yLifMin) annotation (Line(points={{-98,40},{-70,40},{-70,60},
+          {320,60}}, color={0,0,127}));
 annotation (
   defaultComponentName="conWatRetSet",
   Diagram(coordinateSystem(preserveAspectRatio=false,

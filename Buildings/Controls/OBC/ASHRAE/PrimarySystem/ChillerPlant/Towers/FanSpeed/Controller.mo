@@ -141,9 +141,10 @@ block Controller "Tower fan speed control"
     "Time to ramp return water temperature from initial value to setpoint"
     annotation (Dialog(tab="Advanced", group="Return temperature control: Setpoint"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](final unit=fill(
-        "W", nChi), final quantity=fill("HeatFlowRate", nChi))
-                                               if have_WSE "Current load of each chiller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput chiLoa[nChi](
+    final unit=fill("W", nChi),
+    final quantity=fill("HeatFlowRate", nChi))
+    if have_WSE "Current load of each chiller"
     annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChi[nChi]
@@ -220,6 +221,16 @@ block Controller "Tower fan speed control"
     final unit="1") "Fan speed setpoint of each cooling tower cell"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMax(
+    final unit="K")
+    "Maximum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{100,-150},{140,-110}}),
+        iconTransformation(extent={{100,-178},{140,-138}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yLifMin(
+    final unit="K")
+    "Minimum LIFT among enabled chillers"
+    annotation (Placement(transformation(extent={{100,-190},{140,-150}}),
+        iconTransformation(extent={{100,-208},{140,-168}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.FanSpeed.ReturnWaterTemperature.Controller
     fanSpeRetTem(
@@ -290,8 +301,7 @@ equation
     annotation (Line(points={{-42,44},{-76,44},{-76,60},{-120,60}},
       color={0,0,127}));
   connect(fanSpeWse.TChiWatSupSet, TChiWatSupSet)
-    annotation (Line(points={{-42,41},{-60,41},{-60,30},{-120,30}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{-42,41},{-60,41},{-60,30},{-120,30}}, color={0,0,127}));
   connect(uChi, fanSpeRetTem.uChi)
     annotation (Line(points={{-120,120},{-64,120},{-64,-25},{18,-25}},
       color={255,0,255}));
@@ -326,7 +336,10 @@ equation
   connect(fanSpeRetTem.ySpeSet,ySpeSet)
     annotation (Line(points={{62,-40},{120,-40}},
       color={0,0,127}));
-
+  connect(fanSpeRetTem.yLifMax, yLifMax) annotation (Line(points={{62,-48},{
+          90,-48},{90,-130},{120,-130}}, color={0,0,127}));
+  connect(fanSpeRetTem.yLifMin, yLifMin) annotation (Line(points={{62,-51},{
+          80,-51},{80,-170},{120,-170}}, color={0,0,127}));
 annotation (
   defaultComponentName="towFanSpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -399,7 +412,15 @@ annotation (
         Text(
           extent={{-100,-100},{-64,-116}},
           textColor={255,0,255},
-          textString="uPla")}),
+          textString="uPla"),
+        Text(
+          extent={{46,-146},{96,-164}},
+          textColor={0,0,127},
+          textString="yLifMax"),
+        Text(
+          extent={{46,-178},{96,-196}},
+          textColor={0,0,127},
+          textString="yLifMin")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>
 <p>

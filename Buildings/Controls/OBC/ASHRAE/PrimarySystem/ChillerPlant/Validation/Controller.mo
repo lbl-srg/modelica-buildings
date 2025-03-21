@@ -6,11 +6,8 @@ model Controller "Validation head pressure controller"
     final nChi=2,
     final have_parChi=true,
     final have_ponyChiller=false,
-    final desCap=400,
     final TChiWatSupMin={278.15,278.15},
-    final minChiLif=10,
     final have_heaPreConSig=false,
-    final anyVsdCen=false,
     final heaExcAppDes=2,
     final nChiWatPum=2,
     final have_heaChiWatPum=true,
@@ -27,13 +24,15 @@ model Controller "Validation head pressure controller"
     final towCelOnSet={0,1,1,2,2,2},
     final nTowCel=2,
     final cooTowAppDes=2,
-    final dpChiWatPumMax={10*6894.76},
-    final TChiWatSupMax=291.15,
+    VHeaExcDes_flow=0.015,
+    VChiWat_flow_nominal=0.5,
+    final dpChiWatMax={10*6894.76},
+    final TPlaChiWatSupMax=291.15,
     final have_WSE=true,
     final chiDesCap={200,200},
     final chiMinCap={20,20},
-    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.positiveDisplacement})
+    final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement,
+                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillersAndStages.PositiveDisplacement})
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-20,-180},{80,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
@@ -57,9 +56,8 @@ model Controller "Validation head pressure controller"
     final duration=7200,
     final offset=273.15 + 7) "Chilled water supply"
     annotation (Placement(transformation(extent={{-300,0},{-280,20}})));
-  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutWet(
-    final k=283.15)
-    "Outdoor wet bulb temperatur"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant phi(final k=0.65)
+    "Outdoor relative humidity"
     annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
   Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut1(
     final k=313.15) "Outdoor dry bulb temperature"
@@ -170,8 +168,8 @@ equation
           102.5},{114,90},{138,90}},     color={255,0,255}));
   connect(uChiAva.y, chiPlaCon.uChiAva) annotation (Line(points={{-218,-50},{-124,
           -50},{-124,5},{-30,5}}, color={255,0,255}));
-  connect(TOutWet.y, chiPlaCon.TOutWet)
-    annotation (Line(points={{-278,60},{-150,60},{-150,100},{-30,100}}, color={0,0,127}));
+  connect(phi.y, chiPlaCon.phi) annotation (Line(points={{-278,60},{-150,60},{-150,
+          100},{-30,100}}, color={0,0,127}));
   connect(TOut1.y, chiPlaCon.TOut) annotation (Line(points={{-238,-180},{-150,-180},
           {-150,-100},{-30,-100}}, color={0,0,127}));
   connect(TChiWatRet.y, chiPlaCon.TChiWatRet)
