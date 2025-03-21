@@ -263,6 +263,10 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization.
     simulate: false
+- model_name: Buildings.Fluid.HeatPumps.ModularReversible.RefrigerantCycle.BaseClasses.Validation.TableData2DLoadDep
+  openmodelica:
+    comment: Internal error function createSimCode failed [Transformation from optimised DAE to simulation code structure failed].
+    translate: false
 - model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
   optimica:
     comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start...'
