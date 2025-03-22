@@ -43,7 +43,7 @@ model FanCoilUnit
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
     T=333.15,
-    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
+    nPorts=5) "Source for heating coil" annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={11,-49})));
@@ -51,7 +51,7 @@ model FanCoilUnit
     redeclare package Medium = MediumW,
     p=300000,
     T=328.15,
-    nPorts=2) "Sink for heating coil" annotation (Placement(transformation(
+    nPorts=5) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-11,-49})));
@@ -59,7 +59,7 @@ model FanCoilUnit
     redeclare package Medium = MediumW,
     p=300000,
     T=288.15,
-    nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
+    nPorts=5) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={31,-49})));
@@ -107,6 +107,12 @@ model FanCoilUnit
     annotation (Placement(transformation(extent={{-108,-78},{-88,-58}})));
   Controls.OBC.CDL.Integers.Sources.Constant LimLev(k=0)
     annotation (Placement(transformation(extent={{-140,58},{-120,78}})));
+  replaceable parameter Fluid.Movers.Data.Generic           fanPer
+    constrainedby Fluid.Movers.Data.Generic
+    "Record with performance data for supply fan"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-38,80},{-20,98}})),
+      Dialog(group="Fan parameters"));
 protected
   Controls.OBC.CDL.Reals.Sources.Constant           cooWarTim(final k=0)
     "Cooldown and warm-up time"
@@ -186,15 +192,6 @@ equation
       color={255,204,51},
       thickness=0.5));
 
-  connect(sinHea.ports, fanCoiUni.port_HW_b) annotation (Line(points={{-11,-40},
-          {-12,-40},{-12,-36},{2,-36},{2,-24},{24,-24},{24,16}},
-                                                      color={0,127,255}));
-  connect(souHea.ports, fanCoiUni.port_HW_a) annotation (Line(points={{11,-40},
-          {11,8},{27,8},{27,16}},color={0,127,255}));
-  connect(sinCoo.ports, fanCoiUni.port_CHW_b) annotation (Line(points={{31,-40},
-          {31,8},{33,8},{33,16}},              color={0,127,255}));
-  connect(souCoo.ports, fanCoiUni.port_CHW_a) annotation (Line(points={{51,-40},
-          {51,-6},{36,-6},{36,16}},               color={0,127,255}));
   connect(LimLev.y, intScaRep.u)
     annotation (Line(points={{-118,68},{-118,76},{-110,76},{-110,66}},
                                                        color={255,127,0}));
@@ -245,19 +242,22 @@ equation
   connect(conFCU[5].TZon, floor1.TRooAir[4]) annotation (Line(points={{-54.5,
           3.4},{-72,3.4},{-72,38},{-70,38},{-70,92},{-72,92},{-72,98},{-64,98},
           {-64,136},{88,136},{88,100.338},{85.6957,100.338}},     color={0,0,127}));
-  connect(souHea.ports[1], sinHea.ports[1]) annotation (Line(points={{11,-40},{
-          11,-24},{2,-24},{2,-36},{-12,-36},{-12,-40},{-10.1,-40}}, color={0,
-          127,255}));
-  connect(sinCoo.ports[1], sinHea.ports[2]) annotation (Line(points={{31,-40},{
-          31,-36},{12,-36},{12,-24},{2,-24},{2,-36},{-11.9,-36},{-11.9,-40}},
-        color={0,127,255}));
+  connect(sinHea.ports, fanCoiUni.port_HW_b) annotation (Line(points={{-11,-40},
+          {-24,-40},{-24,-66},{68,-66},{68,-2},{24,-2},{24,16}}, color={0,127,
+          255}));
+  connect(fanCoiUni.port_HW_a, souHea.ports) annotation (Line(points={{27,16},{
+          27,-36},{11,-36},{11,-40}}, color={0,127,255}));
+  connect(fanCoiUni.port_CHW_a, souCoo.ports) annotation (Line(points={{36,16},
+          {36,-36},{51,-36},{51,-40}}, color={0,127,255}));
+  connect(fanCoiUni.port_CHW_b, sinCoo.ports) annotation (Line(points={{33,16},
+          {33,-36},{31,-36},{31,-40}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,
             -100},{100,140}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{100,
             140}})),
     experiment(
-      StartTime=15811200,
-      StopTime=15897600,
+      StartTime=259200,
+      StopTime=345600,
       Interval=60,
       Tolerance=1e-07,
       __Dymola_Algorithm="Cvode"));
