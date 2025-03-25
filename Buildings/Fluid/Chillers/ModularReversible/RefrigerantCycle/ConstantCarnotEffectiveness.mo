@@ -18,7 +18,8 @@ model ConstantCarnotEffectiveness "Carnot EER with a constant Carnot effectivene
     min=0,
     final unit="1") = etaCarnot_nominal*(TEva_nominal - TAppEva_nominal)/(
     TCon_nominal + TAppCon_nominal - (TEva_nominal - TAppEva_nominal))
-    "Nominal EER";
+    "Nominal EER"
+    annotation(Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Sources.Constant constNegOne(final k=-1)
     "Negative one to negative evaporator heat flow rate" annotation (Placement(
