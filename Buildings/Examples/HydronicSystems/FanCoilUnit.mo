@@ -260,5 +260,8 @@ equation
       StopTime=345600,
       Interval=60,
       Tolerance=1e-07,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Cvode"),
+    Documentation(info="<html>
+<p><span style=\"font-family: Arial;\">This model consist of an HVAC system, a building envelope model and a model for air flow through building leakage and through open doors. The HVAC system consists of an electric heating coil, a hot-water heating coil, a chilled water heating coil, and a fan. The figure below shows a schematic of the HVAC system.</span></p>
+</html>"));
 end FanCoilUnit;

@@ -232,7 +232,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final allowFlowReversal=true,
     redeclare final package Medium = MediumA)
     "Total resistance"
-    annotation (Placement(transformation(extent={{156,-14},{176,6}})));
+    annotation (Placement(transformation(extent={{158,-14},{178,6}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirRet(
     redeclare final package Medium = MediumA,
@@ -314,7 +314,7 @@ equation
   connect(vAirSup.port_b, port_Air_b) annotation (Line(points={{300,-10},{320,-10},
           {320,-40},{360,-40}}, color={0,127,255}));
   connect(cooCoi.port_b2, totRes.port_a)
-    annotation (Line(points={{140,-4},{156,-4}}, color={0,127,255}));
+    annotation (Line(points={{140,-4},{158,-4}}, color={0,127,255}));
   connect(TAirRet.port_b, vAirRet.port_a)
     annotation (Line(points={{-130,40},{-120,40}}, color={0,127,255}));
   connect(TAirRet.port_a, port_Air_a) annotation (Line(points={{-150,40},{-160,40},
@@ -343,7 +343,7 @@ equation
           {-88,40},{-88,-4},{-20,-4},{-20,10}}, color={0,127,255}));
   connect(vAirRet.port_b, heaCoiHW.port_a2) annotation (Line(points={{-100,40},
           {-96,40},{-96,-60},{-20,-60},{-20,-56}}, color={0,127,255}));
-  connect(totRes.port_b, fan.port_a) annotation (Line(points={{176,-4},{194,-4},
+  connect(totRes.port_b, fan.port_a) annotation (Line(points={{178,-4},{194,-4},
           {194,-10},{200,-10}}, color={0,127,255}));
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{184,22},{194,22},
           {194,-10},{200,-10}}, color={0,127,255}));
