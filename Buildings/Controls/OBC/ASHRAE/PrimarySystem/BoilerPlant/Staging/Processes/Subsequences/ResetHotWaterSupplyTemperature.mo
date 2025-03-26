@@ -238,7 +238,7 @@ annotation (
 <p>
 Block that generates hot water supply temperature reset status when there is 
 stage-change command.
-This development is based on RP-1711, March 2020 draft, section 5.3.3.14, item 3.
+This development is based on ASHRAE Guideline 36, 2021, section 5.21.3.13, item a.
 </p>
 <p>
 When a stage-up command is received (<code>uStaUp</code> = true),

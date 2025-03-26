@@ -659,8 +659,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that outputs hot water minimum flow setpoint for primary-only plants with
-a minimum flow bypass valve, according to ASHRAE RP-1711, March, 2020 draft,
-sections 5.3.8.1 and 5.3.8.2.
+a minimum flow bypass valve, according to ASHRAE Guideline 36, 2021,
+sections 5.21.8.1 and 5.21.8.2.
 </p>
 <ol>
 <li>

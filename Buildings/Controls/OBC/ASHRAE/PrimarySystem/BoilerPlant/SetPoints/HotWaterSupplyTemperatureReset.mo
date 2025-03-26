@@ -377,7 +377,7 @@ annotation(defaultComponentName="hotWatSupTemRes",
   Documentation(info="<html>
 <p>
 Control sequence for hot-water supply temperature setpoint <code>TPlaHotWatSupSet</code>
-for boiler plant loop as per section 5.3.4 in ASHRAE RP-1711, March 2020 draft.
+for boiler plant loop as per section 5.21.4 in ASHRAE Guideline 36, 2021.
 </p>
 <ul>
 <li>

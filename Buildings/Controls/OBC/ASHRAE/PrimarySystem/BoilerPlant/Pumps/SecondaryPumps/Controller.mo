@@ -838,8 +838,8 @@ annotation (defaultComponentName="secPumCon",
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 <p>
-Secondary hot water pump control sequence per ASHRAE RP-1711, March, 2020 draft, 
-section 5.3.7. It consists of:
+Secondary hot water pump control sequence per ASHRAE Guideline 36, 2021,
+section 5.21.7. It consists of:
 </p>
 <ul>
 <li>
@@ -852,8 +852,8 @@ Subsequences to stage lag pumps
 <ul>
 <li>
 for variable-speed pumps with a flowrate sensor in the secondary loop
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLag_flowrate\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Subsequences.EnableLag_flowrate</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.EnableLag_flowrate</a>.
 </li>
 <li>
 for variable-speed pumps without a flowrate sensor in the secondary loop

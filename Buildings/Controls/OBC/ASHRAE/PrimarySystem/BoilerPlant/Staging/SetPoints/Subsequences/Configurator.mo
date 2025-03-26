@@ -316,8 +316,8 @@ equation
       extent={{-220,-200},{220,200}})),
     Documentation(info="<html>
       <p>
-      This subsequence is not directly specified in 1711 as it provides
-      a side calculation pertaining to generalization of the staging 
+      This subsequence is not directly specified in ASHRAE Guideline 36, 2021 
+      as it provides a side calculation pertaining to generalization of the staging 
       sequences for any number of boilers and stages provided by the 
       user.
       </p>
@@ -328,8 +328,7 @@ equation
       <ul>
       <li>
       Stage availability vector <code>yAva</code> from the boiler availability
-      <code>uBoiAva</code> input vector according to RP-1711 March 2020 Draft
-      section 5.3.3.9.
+      <code>uBoiAva</code> input vector according to section 5.21.3.8.
       </li>
       <li>
       Design stage capacity vector <code>yDesCap</code> from the design boiler
@@ -338,7 +337,7 @@ equation
       <li>
       Minimum stage capacity vector <code>yMinCap</code> from the boiler minimum
       firing rate input parameter <code>boiMinCap</code> according to section
-      5.3.3.8, 1711 March 2020 Draft.
+      5.21.3.7.
       </li>
       <li>
       Stage type vector <code>yTyp</code> from the boiler type vector input

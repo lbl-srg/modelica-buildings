@@ -212,8 +212,8 @@ annotation (
 <p>
 Block that generates minimum bypass flow reset status when there is 
 stage-change command.
-This development is based on RP-1711, March 2020 draft, sections 5.3.3.11 and
-5.3.3.12, subsection 1.a.
+This development is based on ASHRAE Guideline 36, 2021, sections 5.21.3.10,
+item a and 5.21.3.11, item a1.
 </p>
 <p>
 When a stage-change command is received (<code>chaPro</code> = true) and the upstream

@@ -279,8 +279,8 @@ equation
   Documentation(
     info="<html>
     <p>
-    Block that controls boiler plant disable process according to ASHRAE RP-1711, 
-    March, 2020 draft, section 5.3.2.5.
+    Block that controls boiler plant disable process according to ASHRAE Guideline 36,
+    2021, section 5.21.2.5.
     </p>
     <p>
     When the boiler plant is disabled by the plant enable controller

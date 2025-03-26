@@ -606,7 +606,7 @@ Block that controls boiler status and isolation valve position, initiates status
 change in devices like pumps and minimum flow bypass valve, and resets plant
 parameters like hot water supply temperature setpoint and minimum flow setpoint
 when there is a stage-up command.
-This development is based on ASHRAE RP-1711, March 2020 draft,sections 5.3.3.11 - 5.3.3.18,
+This development is based on ASHRAE Guideline 36, 2021, sections 5.21.3.11 - 5.21.3.18,
 which specify the step-by-step control of devices during boiler staging up process.
 </p>
 <ol>

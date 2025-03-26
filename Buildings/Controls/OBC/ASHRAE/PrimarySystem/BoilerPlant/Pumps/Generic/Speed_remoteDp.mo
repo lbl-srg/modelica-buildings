@@ -235,8 +235,8 @@ annotation (
 <p>
 Block that outputs hot water pump speed setpoint for plants with
 headered, variable-speed pumps where the remote pressure differential sensor is
-hardwired to the plant controller, according to ASHRAE RP-1711, March, 2020 draft, 
-sections 5.3.6.5, 5.3.6.6, 5.3.7.5 and 5.3.7.6.
+hardwired to the plant controller, according to ASHRAE Guideline 36, 2021,
+sections 5.21.6.5, 5.21.6.6, 5.21.7.5 and 5.21.7.6.
 </p>
 <ol>
 <li>

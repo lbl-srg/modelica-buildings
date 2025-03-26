@@ -19,6 +19,6 @@ annotation (Icon(graphics={
     Documentation(info="<html>
     <p>
     This package contains boiler plant setpoint control sequences. The implementation
-    is based on sections 5.3.4, 5.3.5, and 5.3.8 in ASHRAE RP-1711, Draft on March 23, 2020. </p>
+    is based on sections 5.21.4, 5.21.5, and 5.21.8 in ASHRAE Guideline 36, 2021. </p>
 </html>"));
 end SetPoints;

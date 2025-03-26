@@ -229,8 +229,8 @@ equation
 info="<html>
 <p>
 Block that generates pump speed limits for condensation control
-in non-condensing boilers according to RP-1711, March, 2020 draft, sections
-5.3.5.3, 5.3.5.4, 5.3.5.5 and 5.3.5.6.
+in non-condensing boilers according to ASHRAE Guideline 36, 2021, sections
+5.21.5.3, 5.21.5.4, 5.21.5.5 and 5.21.5.6.
 </p>
 <p>
 The maximum allowed secondary pump speed <code>yMaxSecPumSpe</code> is calculated

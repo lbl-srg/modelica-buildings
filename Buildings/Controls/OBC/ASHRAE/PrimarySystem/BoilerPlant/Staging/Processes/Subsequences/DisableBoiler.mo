@@ -537,8 +537,8 @@ Documentation(info="<html>
 <p>
 Block that controls boiler diabling process when there is stage down command 
 <code>uStaDow=true</code>.
-This implementation is based on RP-1711, March 2020 draft, sections 5.3.3.12,
-5.3.3.16, 5.3.3.17 and 5.3.3.18. These sections specify how to start the
+This implementation is based on ASHRAE Guideline 36, 2021, sections 5.21.3.11,
+5.21.3.15, 5.21.3.16 and 5.3.3.17. These sections specify how to start the
 smaller boiler and shut off larger boiler when the stage change requires large
 boiler off and smaller boiler on.
 In other stage change, when it does not require boiler on/off, the boiler will then

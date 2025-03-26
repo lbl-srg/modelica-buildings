@@ -522,8 +522,8 @@ equation
     Documentation(info="<html>
       <p>
       This example validates
-      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
-      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
+      <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.PrimaryController\">
+      Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.PrimaryController</a>.
       </p>
       </html>", revisions="<html>
       <ul>

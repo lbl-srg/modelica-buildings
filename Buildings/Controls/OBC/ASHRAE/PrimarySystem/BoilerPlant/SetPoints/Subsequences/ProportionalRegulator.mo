@@ -100,8 +100,7 @@ equation
   Documentation(info="<html>
 <p>
 Block that generates proportional regulation signal for condensation control
-in non-condensing boilers according to RP-1711, March, 2020 draft, section
-5.3.5.
+in non-condensing boilers according to ASHRAE Guideline 36, 2021, section 5.21.5.
 </p>
 <p>
 The minimum bypass valve position <code>yProReg</code> is calculated

@@ -89,8 +89,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enable and disable leading primary hot water pump, for plants
-with dedicated primary hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
-section 5.3.6.3.
+with dedicated primary hot water pumps, according to ASHRAE Guideline 36, 2021
+section 5.21.6.3.
 </p>
 <p>
 The lead primary hot water pump status <code>yLea</code> should be enabled when

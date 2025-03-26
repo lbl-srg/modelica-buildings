@@ -342,35 +342,35 @@ equation
           extent={{-420,-280},{440,280}})),
   Documentation(info="<html>
     <p>
-    This subsequence is not directly specified in 1711 as it provides a side
-    calculation pertaining to generalization of the staging sequences for any number
-    of boilers and stages provided by the user.
+    This subsequence is not directly specified in ASHRAE Guideline 36 as it provides
+    a side calculation pertaining to generalization of the staging sequences for
+    any number of boilers and stages provided by the user.
     </p>
     <p>
-    Based on the current stage <span style=\"font-family: monospace;\">u</span>
-    and stage availability vector <span style=\"font-family: monospace;\">uAva</span>
+    Based on the current stage <code>u</code>
+    and stage availability vector <code>uAva</code>
     the sequence outputs:
     </p>
     <ul>
     <li>
-    Integer indices of: the current stage <span style=\"font-family: monospace;\">y</span>,
-    first available higher stage <span style=\"font-family: monospace;\">yUp</span>
-    and the first available lower stage <span style=\"font-family: monospace;\">yDown</span>.
+    Integer indices of: the current stage <code>y</code>,
+    first available higher stage <code>yUp</code>
+    and the first available lower stage <code>yDown</code>.
     </li>
     <li>
     Boolean status outputs to show if the current operating stage 
-    <span style=\"font-family: monospace;\">u</span> is:
+    <code>u</code> is:
     </li>
     <li>
     <ul>
     <li>
-    Available, <span style=\"font-family: monospace;\">u</span>
+    Available, <code>u</code>
     </li>
     <li>
-    The highest available stage, <span style=\"font-family: monospace;\">yHig</span> 
+    The highest available stage, <code>yHig</code> 
     </li>
     <li>
-    The lowest available stage, <span style=\"font-family: monospace;\">yLow</span>
+    The lowest available stage, <code>yLow</code>
     </li>
     </ul>
     </li>
@@ -388,9 +388,6 @@ equation
     current stage becomes unavailable. 
     </li>
     </ul>
-    <p>
-    The sequences are implemented according to 1711 March 2020 Draft, section 5.3.3.9.
-    </p>
     </html>",
     revisions="<html>
     <ul>

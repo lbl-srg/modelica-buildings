@@ -55,8 +55,8 @@ annotation (
   Documentation(info="<html>
   <p>
   Block that enables and disables lead secondary hot water pump, for plants
-  with variable-speed hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
-  section 5.3.7.2.
+  with variable-speed hot water pumps, according to ASHRAE Guideline 36, 2021, 
+  section 5.21.7.2.
   </p>
   <ul>
   <li>

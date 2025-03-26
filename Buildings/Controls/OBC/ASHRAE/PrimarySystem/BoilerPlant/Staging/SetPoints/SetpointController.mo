@@ -542,7 +542,7 @@ boiler stage integer index <code>ySta</code>, boiler stage change trigger signal
 status vector for the current stage <code>yBoi</code>.
 </p>
 <p>
-Implemented according to ASHRAE RP-1711 March 2020 Draft, section 5.3.3.10.
+Implemented according to ASHRAE Guideline 36, 2021, section 5.21.3.9.
 </p>
 <p>
 The controller contains the following subsequences:

@@ -196,8 +196,8 @@ equation
   Documentation(
     info="<html>
     <p>
-    Block that generates condensation control setpoints according to ASHRAE RP-1711,
-    March, 2020 draft, section 5.3.5.
+    Block that generates condensation control setpoints according to ASHRAE Guideline
+    36 2021, section 5.21.5.
     </p>
     <p>
     The sequence calculates the condensation control setpoints for minimum bypass

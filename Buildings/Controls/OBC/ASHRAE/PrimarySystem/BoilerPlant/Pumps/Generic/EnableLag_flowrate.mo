@@ -249,8 +249,8 @@ annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
   Documentation(info="<html>
 <p>
-Block that enables and disables lag hot water pump according to ASHRAE RP-1711, 
-March, 2020 draft, section 5.3.6.4 and section 5.3.7.3.
+Block that enables and disables lag hot water pump according to ASHRAE Guideline
+36, section 5.21.6.4 and section 5.21.7.3.
 </p>
 <p>
 Hot water pump shall be staged as a function of hot water flow ratio (HWFR), 

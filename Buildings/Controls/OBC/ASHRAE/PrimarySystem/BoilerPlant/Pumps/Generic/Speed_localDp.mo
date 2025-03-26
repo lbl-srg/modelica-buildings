@@ -275,8 +275,8 @@ annotation (
 Block that controls speed of enabled hot water pumps for plants where
 the remote pressure differential (DP) sensor(s) is not hardwired to the plant controller,
 but a local DP sensor is hardwired to the plant controller, 
-according to ASHRAE RP-1711, March, 2020 draft, sections 5.3.6.7, 5.3.6.8, 5.3.6.9,
-5.3.7.7 , 5.3.7.8 and 5.3.7.9.
+according to ASHRAE Guideline 36, 2021, sections 5.21.6.7, 5.21.6.8, 5.21.6.9,
+5.21.7.7 , 5.21.7.8 and 5.21.7.9.
 </p>
 <ol>
 <li>

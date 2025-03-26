@@ -112,15 +112,15 @@ annotation (defaultComponentName = "faiSafCon",
   Documentation(info="<html>
     <p>
     Failsafe condition used in staging up and down, implemented according to
-    the specification provided in section 5.3.3.10, subsections 6.c, 8.c, 10.c
-    and 12.c in RP-1711, March 2020 Draft. Timer reset has been implemented
-    according to 5.3.3.10.2.
+    the specification provided in section 5.21.3.9, subsections f.3, h.3, j.3
+    and k.3 in ASHRAE Guideline 36, 2021. Timer reset has been implemented
+    according to 5.21.3.9, item b.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for FailsafeCondition\"
     src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/FailsafeCondition_stateMachineChart.png\"/>
     <br/>
-    State-machine chart for the sequence defined in RP-1711
+    State-machine chart for the sequence defined in Guideline 36
     </p>
     </html>",
     revisions="<html>

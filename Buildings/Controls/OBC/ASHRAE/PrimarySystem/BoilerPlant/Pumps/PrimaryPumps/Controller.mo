@@ -1208,8 +1208,8 @@ primary-only")}),
         fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Primary hot water pump control sequence per ASHRAE RP-1711, March, 2020 draft, 
-section 5.3.6. It consists of:
+Primary hot water pump control sequence per ASHRAE Guideline 36, 2021, section
+5.21.6. It consists of:
 </p>
 <ul>
 <li>

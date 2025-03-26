@@ -1734,8 +1734,8 @@ valve
 controller")}),
 Documentation(info="<html>
 <p>
-Block that controls the boiler plant components according to section 5.3 
-in ASHRAE RP-1711, March 2020 draft. It consists of the following components:
+Block that controls the boiler plant components according to section 5.21 
+in ASHRAE Guideline 36, 2021. It consists of the following components:
 </p>
 <ul>
 <li>
@@ -1757,10 +1757,6 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Down</
 <li>
 Primary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller</a>.
-</li>
-<li>
-Secondary pump controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller</a>.
 </li>
 <li>
 Bypass valve controller: <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve.BypassValvePosition\">
@@ -1789,169 +1785,122 @@ The parameter values for valid boiler plant configurations are as follows:
 <br>
 <table summary=\"allowedConfigurations\" border=\"1\">
 <thead>
-<tr>
-<th>Boolean Parameters/Plant configurations</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-<th>11</th>
-<th>12</th>
-<th>13</th>
-<th>14</th>
-<th>15</th>
-<th>16</th>
-<th>17</th>
-<th>18</th>
-<th>19</th>
-<th>20</th>
-</tr>
-</thead>
+  <tr>
+    <th>Boolean Parameters/Plant configurations</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th>16</th>
+    <th>17</th>
+    <th>18</th>
+    <th>19</th>
+    <th>20</th>
+  </tr></thead>
 <tbody>
-<tr>
-<td>have_priOnl</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-</tr>
-<tr>
-<td>have_heaPriPum</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-</tr>
-<tr>
-<td>have_varPriPum</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-</tr>
-<tr>
-<td>have_varSecPum</td>
-<td>NA</td>
-<td>NA</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-<td>True</td>
-<td>True</td>
-<td>False</td>
-</tr>
-<tr>
-<td>speConTypPri</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>flowrate</td>
-<td>flowrate</td>
-<td>flowrate</td>
-<td>temperature</td>
-<td>temperature</td>
-<td>temperature</td>
-<td>NA</td>
-<td>NA</td>
-<td>NA</td>
-<td>flowrate</td>
-<td>flowrate</td>
-<td>flowrate</td>
-<td>temperature</td>
-<td>temperature</td>
-<td>temperature</td>
-<td>NA</td>
-<td>NA</td>
-<td>NA</td>
-</tr>
-<tr>
-<td>speConTypSec</td>
-<td>NA</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-<td>localDP</td>
-<td>remoteDP</td>
-<td>NA</td>
-</tr>
+  <tr>
+    <td>have_priOnl</td>
+    <td>True</td>
+    <td>True</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>have_heaPriPum</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>have_varPriPum</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>True</td>
+    <td>False</td>
+    <td>False</td>
+    <td>False</td>
+  </tr>
+  <tr>
+    <td>speConTypPri</td>
+    <td>localDP</td>
+    <td>remoteDP</td>
+    <td>flowrate</td>
+    <td>flowrate</td>
+    <td>flowrate</td>
+    <td>temperature</td>
+    <td>temperature</td>
+    <td>temperature</td>
+    <td>NA</td>
+    <td>NA</td>
+    <td>NA</td>
+    <td>flowrate</td>
+    <td>flowrate</td>
+    <td>flowrate</td>
+    <td>temperature</td>
+    <td>temperature</td>
+    <td>temperature</td>
+    <td>NA</td>
+    <td>NA</td>
+    <td>NA</td>
+  </tr>
 </tbody>
 </table>
 </html>"));

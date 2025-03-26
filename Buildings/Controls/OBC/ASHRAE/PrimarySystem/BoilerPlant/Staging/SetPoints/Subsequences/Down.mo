@@ -682,8 +682,8 @@ lower stage for a time period <code>delDesCapConBoi</code>.
 </li>
 </ol>
 <p>
-The implementation is according to ASHRAE RP1711 March 2020 draft, section 5.3.3.10.
-Timer reset has been implemented according to 5.3.3.10.2.
+The implementation is according to ASHRAE Guideline 36, 2021, section 5.21.3.9.
+Timer reset has been implemented according to 5.21.3.9, item b.
 </p>
 </html>",
 revisions="<html>

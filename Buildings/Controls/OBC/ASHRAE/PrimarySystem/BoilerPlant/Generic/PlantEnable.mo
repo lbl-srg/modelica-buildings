@@ -217,8 +217,8 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}})),
   Documentation(info="<html>
     <p>
-    Block that generates boiler plant enable signal according to sections 5.3.2.1,
-    5.3.2.2, and 5.3.2.3 in RP-1711, March 2020 draft.
+    Block that generates boiler plant enable signal according to sections 5.21.2.1,
+    5.21.2.2, and 5.21.2.3 in ASHRAE Guideline 36, 2021.
     </p>
     <p>
     The boiler plant should be enabled and disabled according to the following

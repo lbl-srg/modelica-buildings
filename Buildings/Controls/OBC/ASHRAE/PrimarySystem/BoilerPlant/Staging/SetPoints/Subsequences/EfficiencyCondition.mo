@@ -304,21 +304,21 @@ annotation (
     <p>
     Efficiency condition used in staging up and down for boiler plants with both
     condensing and non-condensing boilers. Implemented according to the
-    specification provided in 5.3.3.10, subsections 6.b, 8.b, 10.b and 12.b in
-    RP-1711, March 2020 Draft. Timer reset has been implemented according to
-    5.3.3.10.2.
+    specification provided in 5.21.3.9, items f.2, h.2, j.2 and l.2 in
+    ASHRAE Guideline 36, 2021. Timer reset has been implemented according to
+    5.21.3.9, item b.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
     src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_conBoi.png\"/>
     <br/>
-    State-machine chart for the sequence for condensing boilers defined in RP-1711
+    State-machine chart for the sequence for condensing boilers defined in ASHRAE Guideline 36
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition for non-condensing boilers\"
     src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_nonConBoi.png\"/>
     <br/>
-    State-machine chart for the sequence for non-condensing boilers defined in RP-1711
+    State-machine chart for the sequence for non-condensing boilers defined in ASHRAE Guideline 36
     </p>
     </html>",
     revisions="<html>

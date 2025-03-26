@@ -184,7 +184,7 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that changes the status of pumps. This sequence is not directly specified 
-in RP-1711. It provides a side calculation pertaining to generalization of the staging 
+in ASHRAE Guideline 36. It provides a side calculation pertaining to generalization of the staging 
 sequences for any number of pumps and stages provided by the user.
 </p>
 <ol>

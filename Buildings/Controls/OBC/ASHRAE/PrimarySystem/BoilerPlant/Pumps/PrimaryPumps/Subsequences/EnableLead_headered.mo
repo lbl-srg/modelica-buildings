@@ -88,8 +88,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enables and disables lead primary hot water pump, for plants
-with headered primary hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
-section 5.3.6.2.
+with headered primary hot water pumps, according to ASHRAE Guideline 36, 2021, 
+section 5.21.6.2.
 </p>
 <ul>
 <li>

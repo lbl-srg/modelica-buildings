@@ -232,8 +232,8 @@ Documentation(info="<html>
 <p>
 Block that outputs hot water pump speed setpoint for primary-secondary plants with
 variable-speed primary pumps with flow sensors present in the primary and secondary
-loops, or in the decoupler, according to ASHRAE RP-1711, March, 2020 draft, 
-sections 5.3.6.12 and 5.3.6.13.
+loops, or in the decoupler, according to ASHRAE Guideline 36, 2021, 
+sections 5.21.6.12 and 5.21.6.13.
 </p>
 <p>
 When any hot water pump is proven on, <code>uHotWatPum = true</code>, 

@@ -156,8 +156,8 @@ equation
       setpoint <code>TSupSet</code>, and the measured hot water flow rate,
       <code>VHotWat_flow</code>.
       <br/> 
-      The calculation is according to section 5.3.3.5 and 5.3.3.6. in RP-1711, March
-      2020 draft.
+      The calculation is according to section 5.21.3.5 and 5.21.3.6. in ASHRAE
+      Guideline 36, 2021.
       </p>
       </html>",
       revisions="<html>

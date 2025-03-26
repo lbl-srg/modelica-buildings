@@ -359,7 +359,7 @@ Documentation(info="<html>
 Block that outputs hot water pump speed setpoint for primary-secondary plants with
 variable-speed primary pumps where the temperature sensors are present in the primary
 and secondary loops, or in the secondary loop and at the boiler supply, according
-to ASHRAE RP-1711, March, 2020 draft, sections 5.3.6.14, 5.3.6.15 and 5.3.6.16.
+to ASHRAE Guideline 36, 2021, sections 5.21.6.14, 5.21.6.15 and 5.21.6.16.
 </p>
 <p>
 When any hot water pump is proven on, <code>uHotWatPum = true</code>, 

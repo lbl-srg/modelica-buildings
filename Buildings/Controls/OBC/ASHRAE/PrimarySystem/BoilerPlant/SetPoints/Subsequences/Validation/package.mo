@@ -25,8 +25,8 @@ annotation (Icon(graphics={
           Documentation(info="<html>
           <p>
           This package contains validation models for the classes in
-          <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.CondensationControl.Subsequences\">
-          Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.CondensationControl.Subsequences</a>.
+          <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences\">
+          Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Subsequences</a>.
           </p>
           <p>
           Note that most validation models contain simple input data

@@ -243,7 +243,7 @@ Documentation(info="<html>
 <p>
 Block that enables and disables lag secondary hot water pump, for plants with 
 variable-speed secondary pumps and no flowrate sensor in secondary loop, according
-to ASHRAE RP-1711, March, 2020 draft, section 5.3.7.4.
+to ASHRAE Guideline 36, 2021, section 5.21.7.4.
 </p>
 <ol>
 <li>
