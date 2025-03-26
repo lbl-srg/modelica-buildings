@@ -143,8 +143,7 @@ record HeatPumpPlant
       enable=cfg.typPumChiWatSec==Buildings.Templates.Plants.HeatPumps.Types.PumpsSecondary.Centralized));
   // Sidestream HRC
   parameter Buildings.Templates.Components.Data.Chiller hrc(
-    typ=if cfg.have_hrc then Buildings.Templates.Components.Types.Chiller.WaterCooled
-      else Buildings.Templates.Components.Types.Chiller.None,
+    typ=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     cpChiWat_default=cfg.cpChiWat_default,
     cpCon_default=cfg.cpHeaWat_default,
     COP_nominal=ctl.COPHeaHrc_nominal - 1,

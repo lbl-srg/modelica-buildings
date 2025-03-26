@@ -14,7 +14,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"chiAirCoo.bus.reqChiWat", "chiWatCoo.bus.reqChiWat", "chiWatCoo.bus.reqConWat"},
+    y={"chiAirCoo.bus.y1ReqFloChiWat", "chiWatCoo.bus.y1ReqFloChiWat", "chiWatCoo.bus.y1ReqFloConWat"},
     autoscale=true,
     grid=true
 );
