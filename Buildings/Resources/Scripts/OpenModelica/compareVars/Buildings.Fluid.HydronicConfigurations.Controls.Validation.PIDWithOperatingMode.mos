@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "mode.y[1]",
+    "limPIDPar.u_s",
+    "limPIDPar.u_m",
+    "limPIDPar.y",
+    "mode.y[1]",
+    "limPIPar.u_s",
+    "limPIPar.u_m",
+    "limPIPar.y"
+  };

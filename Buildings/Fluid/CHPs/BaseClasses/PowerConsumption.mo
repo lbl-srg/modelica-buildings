@@ -26,19 +26,19 @@ protected
             opeMod == Buildings.Fluid.CHPs.BaseClasses.Types.Mode.CoolDown)
     "Check if stand-by mode or cool-down mode"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staByCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant staByCon(
     final k=PStaBy)
     "Stand-by mode power consumption "
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch
+  Buildings.Controls.OBC.CDL.Reals.Switch switch
     "Power consumption during stand-by or cool-down mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1 "Cool-down power consumption"
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1 "Cool-down power consumption"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Zero power consumption"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooDowCon(
     final k=PCooDow)
     "Cool-down mode power consumption "
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));

@@ -4,7 +4,7 @@ model ReturnFan "Validation of return fan control"
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReturnFan retFan
     "Cooling coil controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supFanSpe(
     final height=0.7,
     final offset=0.2,
     final duration=3600) "Supply fan speed"
@@ -13,7 +13,7 @@ model ReturnFan "Validation of return fan control"
     final period=3600)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul
     "Fan speed should be zero when it is disabled"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea

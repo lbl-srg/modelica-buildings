@@ -4,15 +4,16 @@ Airflow
 Applications
 BoundaryConditions
 Controls
+DHC
 Electrical
 Fluid
 HeatTransfer
 Media
 Occupants
+Templates
 ThermalZones
 Utilities
 Types
 Examples
-Experimental
 BaseClasses
 Obsolete

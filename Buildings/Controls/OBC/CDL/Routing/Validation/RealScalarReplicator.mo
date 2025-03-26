@@ -5,7 +5,7 @@ model RealScalarReplicator
     nout=3)
     "Block that outputs the array replicating input value"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     height=5,
     duration=1,
     offset=-2)

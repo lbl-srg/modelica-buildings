@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="DecouplingTemperature");
+
+createPlot(id=1, position={14, 11, 1181, 908}, y={"ctl.u_m", "ctl.u_s"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
+
+createPlot(id=7, position={98, 154, 1184, 744}, y={"T1Sup.T", "con.T2Sup.T", "T1Ret.T", "con.T2Ret.T", "T1ConRet.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "con.res3.m_flow", "mPum_flow_nominal", "con.mPum_flow_nominal"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=3, position={1302, 153, 1184, 744}, y={"pum.dpMachine", "dp.p_rel", "con.val.dp"}, autoerase=true, range={0.0, 1.0, 0.0, 5E4}, grid=true, color=true);
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"mode.y[1]", "fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);

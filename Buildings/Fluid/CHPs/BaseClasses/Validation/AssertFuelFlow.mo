@@ -10,7 +10,7 @@ model AssertFuelFlow "Validate model AssertFuelFlow"
     "Assert if fuel mass flow rate is outside boundaries"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable mFue_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable mFue_flow(
     final table=[0,0; 300,1; 600,3.5; 900,0],
     final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments)
     "Fuel mass flow rate"

@@ -66,10 +66,10 @@ protected
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp opeModWarUpEngTem(
       final per=per) if not per.warmUpByTimeDelay "Warm-up by engine temperature"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch
+  Buildings.Controls.OBC.CDL.Reals.Switch switch
     "Switch to zero power output if not in (normal or warm-up mode)"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Modelica.Blocks.Sources.BooleanExpression booExp(
@@ -77,19 +77,19 @@ protected
             opeMod ==CHPs.BaseClasses.Types.Mode.Normal)
     "True if active mode is (warm-up or normal)"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
+  Buildings.Controls.OBC.CDL.Reals.Switch switch2
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch3
+  Buildings.Controls.OBC.CDL.Reals.Switch switch3
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch4
+  Buildings.Controls.OBC.CDL.Reals.Switch switch4
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch5
+  Buildings.Controls.OBC.CDL.Reals.Switch switch5
     "Switch between warm-up and normal value"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant PEleTimeDel(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant PEleTimeDel(final k=0)
                if per.warmUpByTimeDelay
     "Zero power output in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
@@ -106,7 +106,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "True if warm-up mode and warm-up based on engine temperature"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dumTimDel(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dumTimDel(
     final k=0) if per.warmUpByTimeDelay
     "Set dummy value in case of warm-up by time delay"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));

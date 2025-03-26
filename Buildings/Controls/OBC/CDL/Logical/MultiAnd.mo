@@ -5,10 +5,10 @@ block MultiAnd
     min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  Interfaces.BooleanInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
     "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

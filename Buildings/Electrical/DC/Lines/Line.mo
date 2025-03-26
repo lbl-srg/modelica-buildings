@@ -84,7 +84,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model represents a DC cable. The model is based on
-<a href=\"Buildings.Electrical.DC.Lines.TwoPortRCLine\">
+<a href=\"modelica://Buildings.Electrical.DC.Lines.TwoPortRCLine\">
 Buildings.Electrical.DC.Lines.TwoPortRCLine</a>
 and provides functionalities to parametrize the values of <i>R</i> and <i>C</i> either
 using commercial cables or using default values.

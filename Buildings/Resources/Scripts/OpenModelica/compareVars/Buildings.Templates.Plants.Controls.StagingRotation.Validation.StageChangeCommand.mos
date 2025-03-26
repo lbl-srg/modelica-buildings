@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "chaSta.capReq.y",
+    "chaSta.capSta.y",
+    "chaSta.capStaLow.y",
+    "capHea_nominal",
+    "y1UpHol.y",
+    "y1DowHol.y",
+    "idxSta.y"
+  };

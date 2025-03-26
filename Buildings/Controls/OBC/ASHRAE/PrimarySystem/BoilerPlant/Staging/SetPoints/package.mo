@@ -19,6 +19,6 @@ package SetPoints "Package for boiler plant staging setpoint control sequences"
     Documentation(info="<html>
     <p>
     This package contains boiler stage setpoint control sequences. The implementation
-    is based on section 5.3.3 in ASHRAE RP-1711, Draft on March 23, 2020. </p>
+    is based on section 5.21.3 in ASHRAE Guideline 36, 2021. </p>
 </html>"));
 end SetPoints;

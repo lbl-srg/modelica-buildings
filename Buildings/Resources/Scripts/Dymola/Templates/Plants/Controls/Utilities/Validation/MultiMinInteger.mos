@@ -1,0 +1,12 @@
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.MultiMinInteger",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="MultiMinInteger");
+createPlot(
+    id=1,
+    position={5, 5, 400, 300},
+    y={"mulMin.y"},
+    autoscale=true,
+    grid=true
+);

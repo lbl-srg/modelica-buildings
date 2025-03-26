@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "theMixValNoEle.conPID.y",
+    "theMixVal.conPID.y",
+    "genNoEle.THexOut",
+    "souDisHot.T",
+    "gen.PEle",
+    "genNoEle.PEle",
+    "sch.y[1]"
+  };

@@ -22,7 +22,7 @@
 
 
 void mallocString(const size_t nChar, const char *error_message, char** str, void (*SpawnFormatError)(const char *string, ...)){
-  *str = malloc(nChar * sizeof(char));
+  *str = (char *)malloc(nChar * sizeof(char));
   if ( *str == NULL )
     SpawnFormatError("%s", error_message);
 }
@@ -400,7 +400,7 @@ void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen, void (*SpawnFo
   /* reallocate memory if needed */
   if ( *bufLen < nNewCha + nBufCha + 1){
     *bufLen = *bufLen + nNewCha + minInc + 1;
-    *buffer = realloc(*buffer, *bufLen);
+    *buffer = (char *)realloc(*buffer, *bufLen * sizeof(char));
     if (*buffer == NULL) {
       SpawnFormatError("Realloc failed in saveAppend with bufLen = %lu.", *bufLen);
     }
@@ -595,7 +595,7 @@ void getSimulationTemporaryDirectory(
           "Temporary directories with names longer than %lu characters are not supported in SpawnFMU.c unless you change maxLenCurDir.",
           maxLenCurDir);
       }
-      curDir = realloc(curDir, lenCurDir * sizeof(char));
+      curDir = (char *)realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)
         SpawnFormatError(
           "Failed to reallocate memory for current working directory in getSimulationTemporaryDirectory for %s.",

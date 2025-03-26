@@ -139,20 +139,20 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     "Isolation valves"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys[num](
     each final uLow=threshold,
     each final uHigh=2*threshold) "Hysteresis for isolation valves"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[num]
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[num]
     "Switch to enable pump only once the valve is commanded open"
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[num](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer[num](
     each final k=0.0) "Outputs 0 as the control signal"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[num](each final k=
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one[num](each final k=
         1.0) "Outputs 1 as the control signal"
     annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
 initial equation

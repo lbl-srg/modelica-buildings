@@ -6,38 +6,38 @@ model SystemRequests
     sysReq_RehBox(have_heaPla=true, have_heaWatCoi=true)
     "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(freqHz=1/7200, offset=296.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(freqHz=1/7200, offset=296.15)
     "Generate data for setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(samplePeriod=1800)
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     freqHz=1/7200,
     amplitude=2,
     offset=299.15) "Zone temperature"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     height=0.9,
     duration=7200,
     offset=0.1) "Cooling loop signal"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     height=0.9,
     duration=7200,
     offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirRate(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirRate(
     duration=7200,
     offset=0.1,
     height=0.3) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     duration=7200,
     height=0.7,
     offset=0.3) "Damper position"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine1(
     freqHz=1/7200,
     offset=305.15)
     "Generate data for setpoint"
@@ -46,13 +46,13 @@ model SystemRequests
     samplePeriod=1800)
     "Discharge air setpoint temperature"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TDis(
     freqHz=1/7200,
     amplitude=2,
     offset=293.15)
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp valPos(
     duration=7200,
     height=1,
     offset=0)

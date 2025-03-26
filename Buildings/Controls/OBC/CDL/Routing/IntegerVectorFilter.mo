@@ -5,10 +5,10 @@ block IntegerVectorFilter
   parameter Integer nout "Size of output vector";
   parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
-  Interfaces.IntegerInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u[nin]
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
     "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

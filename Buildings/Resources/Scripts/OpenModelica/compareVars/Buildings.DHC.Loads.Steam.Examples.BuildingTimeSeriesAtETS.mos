@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "bui.Q_flow",
+    "bui.vol.m_flow",
+    "bui.vol.sta_a.T",
+    "bui.vol.sta_b.T",
+    "bui.sta_a.p",
+    "bui.vol.sta_a.p",
+    "bui.vol.sta_b.p",
+    "bui.vol.port_a.h_outflow",
+    "bui.vol.port_b.h_outflow",
+    "bui.steTra.port_a.h_outflow",
+    "bui.steTra.port_b.h_outflow"
+  };

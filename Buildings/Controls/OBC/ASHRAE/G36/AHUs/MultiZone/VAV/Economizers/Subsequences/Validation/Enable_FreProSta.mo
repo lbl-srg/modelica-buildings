@@ -15,34 +15,34 @@ model Enable_FreProSta
     "Multi zone VAV AHU enable disable sequence"
     annotation (Placement(transformation(extent={{60,-40},{80,-12}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=TOutCutoff) "OA temperature high limit cutoff"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMax(
     final k=0.9) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMin(
     final k=0.1) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPhyPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPhyPosMax(
     final k=1) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMax(
     final k=0.8) "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-110,-60},{-90,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamPosMin(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamPosMin(
     final k=0) "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant supFanSta(k=true)

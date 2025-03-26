@@ -55,7 +55,7 @@ model System3
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -200,16 +200,16 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-250})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=1)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conBoi(k=mBoi_flow_nominal)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conBoi(k=mBoi_flow_nominal)
     "Constant mass flow rate for boiler pump"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(k=0.5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const1(k=0.5)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -544,8 +544,8 @@ we properly defined the mixing points in the system.
 Next, we connected all fluid ports, and we set open-loop control signals
 for the valves, pumps and boilers.
 This is implemented using the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sources.Constant\">
-Buildings.Controls.OBC.CDL.Continuous.Sources.Constant</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Sources.Constant\">
+Buildings.Controls.OBC.CDL.Reals.Sources.Constant</a>.
 Using open-loop signals allows testing the model prior to
 adding the complexity of closed loop control.
 To avoid that the boiler overheats, we set its control input to

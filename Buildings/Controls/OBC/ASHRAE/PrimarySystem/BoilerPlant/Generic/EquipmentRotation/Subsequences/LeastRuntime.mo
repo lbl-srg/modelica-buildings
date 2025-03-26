@@ -42,11 +42,11 @@ protected
     "Constant"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater longer1
+  Buildings.Controls.OBC.CDL.Reals.Greater longer1
     "Runtime of the first device is longer than runtime of the second device"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater longer2
+  Buildings.Controls.OBC.CDL.Reals.Greater longer2
     "Runtime of the second device is longer than the runtime of the first device"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 

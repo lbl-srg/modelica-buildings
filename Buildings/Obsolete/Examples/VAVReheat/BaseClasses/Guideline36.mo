@@ -29,10 +29,10 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Integers.MultiSum PZonResReq(nin=numZon)
     "Number of zone pressure requests"
     annotation (Placement(transformation(extent={{300,320},{320,340}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1.0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
   Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller conAHU(
@@ -76,7 +76,7 @@ model Guideline36
     final have_occSen=fill(false, numZon),
     final have_winSen=fill(false, numZon))  "Zone setpoint"
     annotation (Placement(transformation(extent={{-100,180},{-80,208}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant warCooTim[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant warCooTim[numZon](
     final k=fill(1800, numZon)) "Warm up and cool down time"
     annotation (Placement(transformation(extent={{-300,370},{-280,390}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant falSta[numZon](
@@ -103,7 +103,7 @@ model Guideline36
   Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHysCoo
     "Hysteresis and delay to switch cooling on and off"
     annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
+  Buildings.Controls.OBC.CDL.Reals.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.FreezeStat freSta(
@@ -127,12 +127,12 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator tZonNexOcc(nout=
         numZon) "Next occupancy for each zone"
     annotation (Placement(transformation(extent={{-340,372},{-320,392}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHea[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetHea[numZon](
     each k(
       unit="K",
       displayUnit="degC") = 293.15) "Heating setpoint for zone air"
     annotation (Placement(transformation(extent={{-340,460},{-320,480}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCoo[numZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSetCoo[numZon](
     each k(
       unit="K",
       displayUnit="degC") = 297.15) "Cooling setpoint for zone air"

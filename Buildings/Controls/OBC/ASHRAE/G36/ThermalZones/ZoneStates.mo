@@ -3,10 +3,12 @@ block ZoneStates "Select the zone state"
 
   parameter Real uLow(
     final unit = "1") = 0.01
-    "Hysteresis parameter uLow for heating and cooling control signals to avoid chattering";
+    "Hysteresis parameter uLow for heating and cooling control signals to avoid chattering"
+    annotation (__cdl(ValueInReference=false));
   parameter Real uHigh(
     final unit = "1") = 0.05
-    "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering";
+    "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering"
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea "Heating control signal"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
@@ -38,22 +40,22 @@ protected
     annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And isHea "In heating state if both conditions are true"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUHea(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysUHea(
     final uLow=uLow,
     final uHigh=uHigh)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysUCoo(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysUCoo(
     final uLow=uLow,
     final uHigh=uHigh)
     "Check if it is in cooling state"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract uHeaMinUCoo
+  Buildings.Controls.OBC.CDL.Reals.Subtract uHeaMinUCoo
     "Difference between uHea and uCoo"
     annotation (Placement(transformation(extent={{-130,0},{-110,20}})));
   Buildings.Controls.OBC.CDL.Logical.And isCoo "In cooling state if both inputs are true"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysU(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysU(
     final uLow=-uLow,
     final uHigh=uLow)
     "Check if heating control signal is bigger than cooling control signal"

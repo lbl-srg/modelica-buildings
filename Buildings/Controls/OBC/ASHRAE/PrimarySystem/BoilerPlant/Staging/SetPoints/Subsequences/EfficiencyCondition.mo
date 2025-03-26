@@ -95,23 +95,34 @@ block EfficiencyCondition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer(
+    final p=1e-6)
+    "Add small value to input signal to prevent divide by zero"
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
+
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addParDivZer1(
+    final p=1e-6)
+    "Add small value to input signal to prevent divide by zero"
+    annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
+
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2
+  Buildings.Controls.OBC.CDL.Reals.Divide div2
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=-sigDif,
     final uHigh=0)
     "Hysteresis loop for flow-rate condition"
@@ -122,13 +133,13 @@ protected
     "Constant boolean source"
     annotation (Placement(transformation(extent={{30,-20},{50,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=fraNonConBoi - sigDif,
     final uHigh=fraNonConBoi)
     "Hysteresis loop for heating capacity condition of non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys2(
     final uLow=fraConBoi - sigDif,
     final uHigh=fraConBoi)
     "Hysteresis loop for heating capacity condition of condensing boilers"
@@ -143,7 +154,7 @@ protected
     "Pick out stage-type for next stage from vector"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=1)
     "Check for non-condensing boilers"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
@@ -160,7 +171,7 @@ protected
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -187,11 +198,6 @@ protected
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
 
 equation
-  connect(div.u2,uCapUpMin)
-    annotation (Line(points={{-82,24},{-110,24},{-110,20},{-140,20}},
-      color={0,0,127}));
-  connect(div1.u2, uCapDes) annotation (Line(points={{-82,64},{-90,64},{-90,70},
-          {-114,70},{-114,100},{-140,100}}, color={0,0,127}));
   connect(sub1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
           -110,-20},{-140,-20}},  color={0,0,127}));
   connect(sub1.u2, VUpMinSet_flow) annotation (Line(points={{-82,-46},{-110,-46},
@@ -268,6 +274,14 @@ equation
           {-110,-70},{-82,-70}}, color={0,0,127}));
   connect(addPar.y, div2.u2) annotation (Line(points={{-58,-70},{-50,-70},{-50,-56},
           {-42,-56}}, color={0,0,127}));
+  connect(uCapDes, addParDivZer.u)
+    annotation (Line(points={{-140,100},{-112,100}}, color={0,0,127}));
+  connect(addParDivZer.y, div1.u2) annotation (Line(points={{-88,100},{-86,100},
+          {-86,64},{-82,64}}, color={0,0,127}));
+  connect(uCapUpMin, addParDivZer1.u)
+    annotation (Line(points={{-140,20},{-114,20}}, color={0,0,127}));
+  connect(addParDivZer1.y, div.u2) annotation (Line(points={{-90,20},{-86,20},{-86,
+          24},{-82,24}}, color={0,0,127}));
 annotation (
   defaultComponentName = "effCon",
   Icon(
@@ -290,21 +304,21 @@ annotation (
     <p>
     Efficiency condition used in staging up and down for boiler plants with both
     condensing and non-condensing boilers. Implemented according to the
-    specification provided in 5.3.3.10, subsections 6.b, 8.b, 10.b and 12.b in
-    RP-1711, March 2020 Draft. Timer reset has been implemented according to
-    5.3.3.10.2.
+    specification provided in 5.21.3.9, items f.2, h.2, j.2 and l.2 in
+    ASHRAE Guideline 36, 2021. Timer reset has been implemented according to
+    5.21.3.9, item b.
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition for condensing boilers\"
     src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_conBoi.png\"/>
     <br/>
-    State-machine chart for the sequence for condensing boilers defined in RP-1711
+    State-machine chart for the sequence for condensing boilers defined in ASHRAE Guideline 36
     </p>
     <p align=\"center\">
     <img alt=\"State-machine chart for EfficiencyCondition for non-condensing boilers\"
     src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/EfficiencyCondition_stateMachineChart_v3_nonConBoi.png\"/>
     <br/>
-    State-machine chart for the sequence for non-condensing boilers defined in RP-1711
+    State-machine chart for the sequence for non-condensing boilers defined in ASHRAE Guideline 36
     </p>
     </html>",
     revisions="<html>

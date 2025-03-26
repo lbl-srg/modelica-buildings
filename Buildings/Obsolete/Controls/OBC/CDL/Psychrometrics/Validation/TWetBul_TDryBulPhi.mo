@@ -7,14 +7,14 @@ model TWetBul_TDryBulPhi
   Buildings.Obsolete.Controls.OBC.CDL.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi
      "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-10,46},{10,66}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant p(k=101325) "Pressure"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant p(k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-90,-34},{-70,-14}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp phi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp phi(
     duration=1,
     height=0.95,
     offset=0.05) "Relative humidity"
     annotation (Placement(transformation(extent={{-90,6},{-70,26}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDryBul(k=273.15 + 29.4)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDryBul(k=273.15 + 29.4)
     "Dry bulb temperature"
     annotation (Placement(transformation(extent={{-90,46},{-70,66}})));
 
@@ -31,10 +31,10 @@ model TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-32,-30},{-20,-18}})));
   // ===================================================================
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub
     "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,6},{60,26}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     "Wet bulb temperature difference"
     annotation (Placement(transformation(extent={{40,-34},{60,-14}})));
 equation

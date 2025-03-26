@@ -28,31 +28,31 @@ model Supply_u "Validation model for temperature and fan speed"
     "Block that computes the setpoints for temperature and fan speed"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon(k=273.15 + 28)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon(k=273.15 + 28)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut(k=273.15 + 22)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOut(k=273.15 + 22)
     "Outdoor temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uHea(
     duration=0.25,
     height=-1,
     offset=1) "Heating control signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     duration=0.25,
     startTime=0.75)
     "Cooling control signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSet(k=273.15 + 23)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZonSet(k=273.15 + 23)
     "Average zone set point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZon1(k=273.15 + 23)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TZon1(k=273.15 + 23)
     "Zone air temperature"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanSta(k=true)

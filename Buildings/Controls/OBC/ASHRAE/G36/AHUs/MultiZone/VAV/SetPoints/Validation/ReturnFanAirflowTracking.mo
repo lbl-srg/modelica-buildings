@@ -16,13 +16,13 @@ model ReturnFanAirflowTracking
     final period=4000) "Supply fan status"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supFlo(
     final height=1.0,
     final offset=0.2,
     final duration=1800) "Supply air flow rate"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp retFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp retFlo(
     final height=0.4,
     final offset=0.1,
     final duration=1800) "Return air flow rate"

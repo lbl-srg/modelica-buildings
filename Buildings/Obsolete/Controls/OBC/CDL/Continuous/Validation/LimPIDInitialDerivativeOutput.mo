@@ -2,10 +2,10 @@ within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model LimPIDInitialDerivativeOutput
   "Test model for LimPID controller with initial output specified"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant ySet(k=0.75)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant ySet(k=0.75)
     "Set point"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMea(k=0.75)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant yMea(k=0.75)
     "Measured value"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 

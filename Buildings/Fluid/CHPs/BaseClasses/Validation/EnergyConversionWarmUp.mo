@@ -9,23 +9,23 @@ model EnergyConversionWarmUp "Validate model EnergyConversionWarmUp"
   Buildings.Fluid.CHPs.BaseClasses.EnergyConversionWarmUp opeModWarUpEngTem(
     final per=per) "Energy conversion during warm-up by engine temperature"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEng(
     y(final unit="K", displayUnit="degC"),
     final height=90,
     final duration=360,
     final offset=273.15 + 15,
     final startTime=600) "Engine temperature"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mWat_flow(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant mWat_flow(
     final k=0.05)
     "Water mass flow rate"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWatIn(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TWatIn(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRoo(
     y(final unit="K", displayUnit="degC"),
     final k=273.15 + 15)
     "Room temperature"

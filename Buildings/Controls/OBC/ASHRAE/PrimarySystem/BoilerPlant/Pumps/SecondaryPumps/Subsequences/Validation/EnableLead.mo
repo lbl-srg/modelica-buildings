@@ -13,7 +13,7 @@ protected
     "Boolean pulse signal"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(
     final amplitude=1,
     final period=10,
     final offset=0)

@@ -132,7 +132,7 @@ protected
     "Multi Or"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 
@@ -279,8 +279,8 @@ equation
   Documentation(
     info="<html>
     <p>
-    Block that controls boiler plant disable process according to ASHRAE RP-1711, 
-    March, 2020 draft, section 5.3.2.5.
+    Block that controls boiler plant disable process according to ASHRAE Guideline 36,
+    2021, section 5.21.2.5.
     </p>
     <p>
     When the boiler plant is disabled by the plant enable controller

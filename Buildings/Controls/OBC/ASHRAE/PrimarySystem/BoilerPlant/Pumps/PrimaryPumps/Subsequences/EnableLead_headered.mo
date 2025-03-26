@@ -19,9 +19,9 @@ block EnableLead_headered
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[nBoi](
-    final t=fill(0.975,nBoi),
-    final h=fill(0.025,nBoi))
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr[nBoi](
+    final t=fill(0.25, nBoi),
+    final h=fill(0.1, nBoi))
     "Determine if the isolation valve is open based on valve position"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
@@ -88,8 +88,8 @@ annotation (
   Documentation(info="<html>
 <p>
 Block that enables and disables lead primary hot water pump, for plants
-with headered primary hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
-section 5.3.6.2.
+with headered primary hot water pumps, according to ASHRAE Guideline 36, 2021, 
+section 5.21.6.2.
 </p>
 <ul>
 <li>

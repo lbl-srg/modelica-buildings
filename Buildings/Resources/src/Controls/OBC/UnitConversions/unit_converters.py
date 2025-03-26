@@ -482,11 +482,11 @@ class UnitConversionsModeler(object):
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "  constant Real p = " + x['adder'] + " \"Adder\";\n"
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(\n"\
             "    final k = k) \"Gain factor\"\n"\
             "    annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.AddParameter conv(\n"\
             "    final p = p) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
@@ -494,7 +494,7 @@ class UnitConversionsModeler(object):
                 file.write(\
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter conv(\n"\
             "    final k = k) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
@@ -666,10 +666,10 @@ end """+self.package_name+""";
             "model "+model_name+" \"Validation model for unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Subtract sub\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,40},{40,60}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Subtract sub1\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
             "\n"\
@@ -686,19 +686,19 @@ end """+self.package_name+""";
             "  \"Unit converter from "+from_unit+" to "+to_unit+" \"\n"\
             "    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Sources.Constant value(\n"\
             "    final k=kin)\n"\
             "    \"Value to convert\"\n"\
             "    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value1(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Sources.Constant value1(\n"\
             "    final k=kin1)\n"\
             "    \"Value to convert\"\n"\
             "    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Sources.Constant result(\n"\
             "    final k=kout)\n"\
             "    \"Expected converted value\"\n"\
             "    annotation (Placement(transformation(extent={{-20,10},{0,30}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result1(\n"\
+            "  Buildings.Controls.OBC.CDL.Reals.Sources.Constant result1(\n"\
             "    final k=kout1)\n"\
             "    \"Expected converted value\"\n"\
             "    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));\n"\

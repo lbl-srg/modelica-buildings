@@ -19,7 +19,7 @@ package Types "Package with type definitions"
     annotation (Documentation(info="<html>
 <p>
 Enumeration to specify the calculation of the hydraulic efficiency.
-See <a href=\"Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
+See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
 for instructions.
 </p>
 </html>", revisions="<html>
@@ -37,14 +37,14 @@ First implementation. This is for
         "Not provided, computed from other efficiency terms",
       Efficiency_VolumeFlowRate "Array of efficiency vs. volumetric flow rate",
       Efficiency_MotorPartLoadRatio
-        "Rated input and array of efficiency vs. motor part load ratio yMot=PEle/PEle_nominal",
+        "Rated input and array of efficiency vs. motor part load ratio yMot=WHyd/WMot_nominal",
       GenericCurve
         "Rated input and maximum efficiency to be used for generic curves")
     "Enumeration to choose the computation method for motor efficiency"
     annotation (Documentation(info="<html>
 <p>
 Enumeration to specify the calculation of the motor efficiency.
-See <a href=\"Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
+See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
 for instructions.
 </p>
 </html>", revisions="<html>

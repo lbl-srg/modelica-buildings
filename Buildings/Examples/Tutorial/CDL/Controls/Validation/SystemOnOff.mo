@@ -6,12 +6,12 @@ model SystemOnOff
   Buildings.Examples.Tutorial.CDL.Controls.SystemOnOff
     conSysSta "Controller for system on/off"
               annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TOut(
     amplitude=5,
     freqHz=1/720,
     offset=290.15) "Outside air temperature"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TRoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TRoo(
     amplitude=4,
     freqHz=1/720,
     phase=1.5707963267949,

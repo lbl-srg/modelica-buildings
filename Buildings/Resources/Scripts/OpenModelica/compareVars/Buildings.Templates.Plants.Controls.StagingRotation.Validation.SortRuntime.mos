@@ -1,0 +1,16 @@
+compareVars :=
+  {
+    "idxSta.y",
+    "run[1].y",
+    "run[2].y",
+    "run[3].y",
+    "u1AvaEqu.y[1]",
+    "u1AvaEqu.y[2]",
+    "u1AvaEqu.y[3]",
+    "sorRunTim.yIdx[1]",
+    "sorRunTim.yIdx[2]",
+    "sorRunTim.yIdx[3]",
+    "sorRunTim.yRunTimSta[1]",
+    "sorRunTim.yRunTimSta[2]",
+    "sorRunTim.yRunTimSta[3]"
+  };

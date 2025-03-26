@@ -16,19 +16,19 @@ block SunRiseSet
     final unit="s",
     displayUnit="h")
     "Time zone";
-  Interfaces.RealOutput nextSunRise(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput nextSunRise(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time of next sunrise"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Interfaces.RealOutput nextSunSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput nextSunSet(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time of next sunset"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanOutput sunUp
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput sunUp
     "Output true if the sun is up"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 

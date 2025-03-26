@@ -5,10 +5,10 @@ block MultiOr
     min=0)=0
     "Number of input connections"
     annotation (Dialog(connectorSizing=true),HideResult=true);
-  Interfaces.BooleanInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
     "Connector of Boolean input signals"
     annotation (Placement(transformation(extent={{-140,70},{-100,-70}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -71,7 +71,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs <code>y = true</code> if any element in the input 
+Block that outputs <code>y = true</code> if any element in the input
 vector <code>u</code> is <code>true</code>.
 If no connection to the input connector <code>u</code> is present,
 the output is <code>y=false</code>.

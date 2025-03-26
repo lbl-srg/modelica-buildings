@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "dp.y",
+    "dp.senRelPre.p_rel",
+    "hum.y",
+    "hum.toDryAir.XiDry",
+    "ent.y",
+    "ent.senSpeEnt.h_out",
+    "tem.y",
+    "tem.senTem.T",
+    "vol.y",
+    "vol.senVolFlo.V_flow"
+  };

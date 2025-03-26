@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "staDet.m_flow",
+    "m_flow_nominal",
+    "staDet.y",
+    "staDet.y1[1]",
+    "staDet.y1[2]",
+    "staDet.y1[3]"
+  };

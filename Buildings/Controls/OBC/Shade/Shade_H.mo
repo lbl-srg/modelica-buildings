@@ -21,7 +21,7 @@ block Shade_H
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  CDL.Continuous.Hysteresis hys(
+  CDL.Reals.Hysteresis hys(
     final uLow=HLow,
     final uHigh=HHigh)
     "Hysteresis block"

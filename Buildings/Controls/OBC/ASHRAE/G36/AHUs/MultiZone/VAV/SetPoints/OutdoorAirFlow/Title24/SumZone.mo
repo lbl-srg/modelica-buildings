@@ -54,28 +54,28 @@ block SumZone "Sum of the zone level setpoints calculation"
     annotation (Placement(transformation(extent={{120,-120},{160,-80}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain groFlo(
     final K=zonGroMat)
     "Vector of total zone flow of each group"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MatrixGain groFlo1(
+  Buildings.Controls.OBC.CDL.Reals.MatrixGain groFlo1(
     final K=zonGroMat)
     "Vector of total zone flow of each group"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nGro]
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nGro]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul[nGro]
     "Find the total flow of zone group"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1[nGro]
+  Buildings.Controls.OBC.CDL.Reals.Multiply mul1[nGro]
     "Find the total flow of zone group"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final nin=nGro)
     "Sum of the zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(
     final nin=nGro)
     "Sum of the zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
@@ -86,7 +86,7 @@ block SumZone "Sum of the zone level setpoints calculation"
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nGro]
     "Check if operation mode is occupied"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
+  Buildings.Controls.OBC.CDL.Reals.MultiMax mulMax(
     final nin=nZon) if have_CO2Sen
     "Maximum CO2 loop signal"
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));

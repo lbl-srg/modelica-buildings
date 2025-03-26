@@ -9,10 +9,10 @@ block TrueFalseHold
     final quantity="Time",
     final unit="s")=trueHoldDuration
     "false hold duration";
-  Interfaces.BooleanInput u
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean output signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),iconTransformation(extent={{100,-20},{140,20}})));
 

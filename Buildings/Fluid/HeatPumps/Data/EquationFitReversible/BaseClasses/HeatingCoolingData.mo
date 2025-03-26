@@ -1,5 +1,4 @@
 within Buildings.Fluid.HeatPumps.Data.EquationFitReversible.BaseClasses;
-
 record HeatingCoolingData "Record for performance data that are used for heating and cooling separately"
   parameter Modelica.Units.SI.HeatFlowRate Q_flow
    "Nominal capacity"

@@ -3,13 +3,13 @@ block RoomMixingBox "Controller for room mixing box"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_min "Minimum mass flow rate";
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
     Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     reverseActing=false,
     Td=60,
@@ -34,7 +34,7 @@ block RoomMixingBox "Controller for room mixing box"
     "Fan operation, true if fan is running"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conFloRat(
+  Buildings.Controls.OBC.CDL.Reals.PID conFloRat(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Td=60,
     k=0.1,
@@ -44,7 +44,7 @@ block RoomMixingBox "Controller for room mixing box"
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
     annotation (Placement(transformation(extent={{-72,30},{-52,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{38,38},{58,58}})));
   Modelica.Blocks.Interfaces.RealInput TRooSetHea(unit="K")
@@ -60,26 +60,26 @@ block RoomMixingBox "Controller for room mixing box"
     annotation (Placement(transformation(extent={{8,12},{28,32}})));
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{8,-44},{28,-24}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxCoo
+  Buildings.Controls.OBC.CDL.Reals.Max maxCoo
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{40,-26},{60,-6}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSet
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTSet
     "Difference in set point"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTRooHea
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTRooHea
     "Difference in room air temperature compared to heating setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter gaiCoo(uMax=1, uMin=0)
+  Buildings.Controls.OBC.CDL.Reals.Limiter gaiCoo(uMax=1, uMin=0)
     "Gain of cooling"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide gaiCooUnl
+  Buildings.Controls.OBC.CDL.Reals.Divide gaiCooUnl
     "Gain of cooling, unlimited"
     annotation (Placement(transformation(extent={{-28,-80},{-8,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiHot "Switch for heating"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiHot "Switch for heating"
     annotation (Placement(transformation(extent={{74,30},{94,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiCoo "Switch for cooling"
+  Buildings.Controls.OBC.CDL.Reals.Switch swiCoo "Switch for cooling"
     annotation (Placement(transformation(extent={{72,-60},{92,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Zero signal"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{34,-68},{54,-48}})));
 equation
   connect(mAir_flow, conFloRat.u_m) annotation (Line(

@@ -30,16 +30,16 @@ protected
              Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied})
     "AHU operation mode is Occupied"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonAbsMinFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonAbsMinFlo[nZon](
       final k={0.1,0.12,0.2,0.15}) "Zone absolute minimum flow"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zonDesMinFlo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zonDesMinFlo[nZon](
       final k={0.15,0.2,0.25,0.3}) "Adjusted area component flow"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant co2Loo[nZon](
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant co2Loo[nZon](
     final k={0.3,0.25,0.4,0.5}) "Zone CO2 loop signal"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outAirFlo(final k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outAirFlo(final k=1)
     "Adjusted area component flow"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation

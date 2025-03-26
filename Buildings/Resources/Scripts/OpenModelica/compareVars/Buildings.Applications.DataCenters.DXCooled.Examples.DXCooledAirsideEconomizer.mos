@@ -11,5 +11,5 @@ compareVars :=
     "varSpeDX.QSen_flow",
     "varSpeDX.QLat_flow",
     "varSpeDX.P",
-    "varSpeDX.dxCoo.EIR"
+    "varSpeDX.dxCoi.EIR"
   };

@@ -3,10 +3,10 @@ block IntegerScalarReplicator
   "Integer signal replicator"
   parameter Integer nout=1
     "Number of outputs";
-  Interfaces.IntegerInput u
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
     "Connector of Integer output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

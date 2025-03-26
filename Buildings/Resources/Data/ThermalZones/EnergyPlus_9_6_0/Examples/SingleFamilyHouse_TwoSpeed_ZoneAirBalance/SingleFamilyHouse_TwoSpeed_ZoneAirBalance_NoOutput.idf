@@ -9,6 +9,8 @@
 !                         A two speed heat pump with a supplmental gas heater provides space heating and cooling.
 !                         It provides ventilation through the ZoneAirBalance:OutdoorAir model.
 !
+!                         Compared to the original idf file provided by EnergyPlus, this file increased the insulation.
+!
 !
 ! Simulation Location/Run: CHICAGO_IL_USA TMY2-94846, 2 design days, 2 run periods,
 !                          Run Control executes the design days only.
@@ -379,13 +381,14 @@
   Construction,
     EXTWALL:LIVING,          !- Name
     A1 - 1 IN STUCCO,        !- Outside Layer
+    IN05,                    !- Insulation layer
     CB11,                    !- Layer 2
     GP01;                    !- Layer 3
 
   Construction,
     INTERIORWall,            !- Name
     GP01,                    !- Outside Layer
-    IN02,                    !- Layer 2
+    IN05,                    !- Layer 2
     GP01;                    !- Layer 3
 
   Construction,
@@ -1953,4 +1956,3 @@
     Verbose,                 !- Actuator Availability Dictionary Reporting
     Verbose,                 !- Internal Variable Availability Dictionary Reporting
     Verbose;                 !- EMS Runtime Language Debug Output Level
-

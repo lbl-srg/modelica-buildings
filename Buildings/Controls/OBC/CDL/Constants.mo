@@ -4,7 +4,7 @@ package Constants
   // Machine dependent constants
   final constant Real eps=1E-15
     "Biggest number such that 1.0 + eps = 1.0";
-  final constant Real small=1E-60
+  final constant Real small=1E-37
     "Smallest number such that small and -small are representable on the machine";
   final constant Real pi=2*Modelica.Math.asin(
     1.0)
@@ -18,6 +18,12 @@ This package provides often needed constants.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 12, 2024, by Michael Wetter:<br/>
+Changed <code>small</code> to <i>1E-37</i>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3695\">issue 3695</a>.
+</li>
 <li>
 March 27, 2017, by Michael Wetter:<br/>
 First implementation, based on the implementation of the

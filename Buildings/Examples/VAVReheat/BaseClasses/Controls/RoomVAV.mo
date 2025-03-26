@@ -87,7 +87,7 @@ block RoomVAV "Controller for room VAV box"
     annotation (Placement(transformation(extent={{120,-70},{160,-30}}),
         iconTransformation(extent={{100,-70},{140,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PID conHea(
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     yMax=yMax,
     Td=TdHea,
     yMin=yMin,
@@ -96,7 +96,7 @@ block RoomVAV "Controller for room VAV box"
     controllerType=heaController,
     Ni=10) "Controller for heating"
     annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conCoo(
+  Buildings.Controls.OBC.CDL.Reals.PID conCoo(
     yMax=yMax,
     Td=TdCoo,
     k=kCoo,
@@ -105,46 +105,46 @@ block RoomVAV "Controller for room VAV box"
     yMin=yMin,
     reverseActing=false) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line reqFlo "Required flow rate"
+  Buildings.Controls.OBC.CDL.Reals.Line reqFlo "Required flow rate"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax(k=1)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFloCoo(
     final k=ratVFloMin) "Minimum air flow set point"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conOne(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conOne(k=1)
     "Constant 1"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant conZer(k=0)
     "Constant 0"
     annotation (Placement(transformation(extent={{-32,40},{-12,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysWitHol(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysWitHol(
     final uLow=-dTHys,
     final uHigh=0)
     "Output true if room temperature below heating set point"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHea
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTHea
     "Heating loop control error"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFloHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFloHea(
     final k=ratVFloHea) "Minimum air flow set point in heating mode"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between heating and deadband air flow rate"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(message=
     "The difference between cooling and heating set points must be greater than dTHys")
     "Assert message"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTSet
+  Buildings.Controls.OBC.CDL.Reals.Subtract dTSet
     "Difference between cooling and heating set points"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=dTHys)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=dTHys)
     "Test for overlap of heating and cooling set points "
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conDam(
+  Buildings.Controls.OBC.CDL.Reals.PID conDam(
     final yMax=yMax,
     final Td=TdDam,
     final yMin=yMin,
@@ -154,15 +154,15 @@ block RoomVAV "Controller for room VAV box"
     Ni=10) if not have_preIndDam
            "Damper position setpoint"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+  Buildings.Controls.OBC.CDL.Reals.Divide VDis_flowNor
     if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{10,-150},{30,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant norFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant norFlo(
     final k=V_flow_nominal) if not have_preIndDam
     "Norminal airflow rate"
     annotation (Placement(transformation(extent={{-80,-170},{-60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1)
     if have_preIndDam "Dummy block to enable or disable connection"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));

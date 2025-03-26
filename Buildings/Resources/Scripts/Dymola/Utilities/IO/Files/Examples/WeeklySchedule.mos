@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.IO.Files.Examples.WeeklySchedule", startTime=-10000, stopTime=1000000, tolerance=1e-6, method="dassl", resultFile="WeeklySchedule");
+createPlot(id=1, position={0, 0, 915, 524}, y={"weeSchFil.y[1]", "weeSchFil.y[2]", "weeSchFil.y[3]", "weeSchFil.y[4]"}, range={-100000.0, 1000000.0, -10.0, 130.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

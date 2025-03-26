@@ -579,7 +579,7 @@ block Controller
     annotation (Placement(transformation(extent={{200,-210},{240,-170}}),
         iconTransformation(extent={{200,-320},{240,-280}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Average TZonSetPoiAve
+  Buildings.Controls.OBC.CDL.Reals.Average TZonSetPoiAve
     "Average of all zone set points"
     annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
 
@@ -666,7 +666,7 @@ block Controller
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Divide VOut_flow_normalized(
+  Buildings.Controls.OBC.CDL.Reals.Divide VOut_flow_normalized(
     u1(final unit="m3/s"),
     u2(final unit="m3/s"),
     y(final unit="1"))

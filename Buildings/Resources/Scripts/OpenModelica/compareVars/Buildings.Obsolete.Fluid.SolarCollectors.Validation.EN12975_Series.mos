@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "solCol.sta_b.T",
+    "solCol2.sta_b.T",
+    "dT.y"
+  };

@@ -16,18 +16,18 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     nSeg=9,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data input file"
-    annotation (Placement(transformation(extent={{-52,60},{-32,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     nPorts=2) "Outlet for water flow"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
+    annotation (Placement(transformation(extent={{70,-10},{50,10}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
@@ -35,7 +35,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     T=273.15 + 10,
@@ -46,7 +46,7 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-90,10})));
+        origin={-60,0})));
 
   Buildings.Fluid.SolarCollectors.ASHRAE93 solCol1(
     redeclare package Medium = Medium,
@@ -61,73 +61,80 @@ model FlatPlateTotalArea "Example showing the use of TotalArea and nSeg"
     nSeg=27,
     azi=0.3,
     til=0.5) "Flat plate solar collector model"
-    annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut1(
     redeclare package Medium = Medium,
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{20,-22},{40,-2}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn1(
     redeclare package Medium =
     Medium, m_flow_nominal=solCol.m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
-      points={{0,30},{20,30}},
+      points={{10,30},{20,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port_b, sin.ports[1]) annotation (Line(
-      points={{40,30},{48,30},{48,12},{60,12}},
+      points={{40,30},{50,30},{50,-1}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn.port_b, solCol.port_a) annotation (Line(
-      points={{-40,30},{-20,30}},
+      points={{-20,30},{-10,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], TIn.port_a) annotation (Line(
-      points={{-80,12},{-70,12},{-70,30},{-60,30}},
+      points={{-50,-1},{-50,30},{-40,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol.weaBus) annotation (Line(
-      points={{-32,70},{-26,70},{-26,39.6},{-20,39.6}},
+      points={{-40,70},{-14,70},{-14,38},{-10,38},{-10,38}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(solCol1.port_b, TOut1.port_a)
                                       annotation (Line(
-      points={{0,-12},{20,-12}},
+      points={{10,-30},{20,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn1.port_b, solCol1.port_a)
                                      annotation (Line(
-      points={{-40,-12},{-20,-12}},
+      points={{-20,-30},{-10,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, solCol1.weaBus)
                                         annotation (Line(
-      points={{-32,70},{-26,70},{-26,-2.4},{-20,-2.4}},
+      points={{-40,70},{-14,70},{-14,-22},{-10,-22}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(sou.ports[2], TIn1.port_a) annotation (Line(
-      points={{-80,8},{-70,8},{-70,-12},{-60,-12}},
+      points={{-50,1},{-50,-30},{-40,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut1.port_b, sin.ports[2]) annotation (Line(
-      points={{40,-12},{48,-12},{48,8},{60,8}},
+      points={{40,-30},{50,-30},{50,1}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
-      <p>
-        This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
-        define the system size. Aside from that change, this model is identical to
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
-        Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
-      </p>
-    </html>",
+<p>
+This model uses <code>TotalArea</code> instead of <code>nPanels</code> to
+define the system size.
+Aside from that change, this model is identical to
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\">
+Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
+</p>
+</html>",
 revisions="<html>
 <ul>
+<li>
+February 15, 2024, by Jelger Jansen:<br/>
+Refactor model.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3604\">Buildings, #3604</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter assignment for <code>lat</code>.<br/>

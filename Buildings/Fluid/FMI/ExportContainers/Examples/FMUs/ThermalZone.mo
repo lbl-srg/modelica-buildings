@@ -127,7 +127,7 @@ equation
         Text(
           extent={{76,134},{114,110}},
           pattern=LinePattern.None,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Simplified model of
 a thermal zone.")}),

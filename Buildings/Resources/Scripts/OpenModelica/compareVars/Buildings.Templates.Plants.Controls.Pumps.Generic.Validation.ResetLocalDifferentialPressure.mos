@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "dpRemSet.y",
+    "dpRem.y",
+    "resDpLoc.dpLocSet",
+    "resDpLoc.dpLocSet_min",
+    "resDpLoc.dpLocSet_max"
+  };

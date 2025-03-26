@@ -45,7 +45,7 @@ model System2
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -102,7 +102,7 @@ Buildings.Fluid.Movers.FlowControlled_m_flow pumRad(
         origin={-50,-110})));
 
 //--------------------------Step 6: Pump control--------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -312,12 +312,12 @@ we implemented the control blocks as shown in the figure below.
 <p>
 In this control sequence, the first block is a hysteresis element,
 which is modeled by
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Hysteresis\">
-Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals.Hysteresis\">
+Buildings.Controls.OBC.CDL.Reals.Hysteresis</a>.
 It is configured as
 </p>
 <pre>
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=273.15 + 19,
     uHigh=273.15 + 21)
     \"Pump hysteresis\";

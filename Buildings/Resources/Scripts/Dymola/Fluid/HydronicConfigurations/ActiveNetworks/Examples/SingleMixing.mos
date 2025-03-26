@@ -1,0 +1,44 @@
+simulateModel("Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.SingleMixing", method="CVode", stopTime=86400, tolerance=1e-06, resultFile="SingleMixing");
+
+createPlot(id=1, position={14, 11, 1181, 908}, y={"T2Set.y", "con.T2Sup.T", "con.T2Ret.T", "T1Sup.T", "T1Ret.T"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+createPlot(id=1, position={14, 11, 1181, 908}, y={"con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=2);
+
+createPlot(id=2, position={1210, 14, 1184, 744}, y={"pum.m_flow", "con.pum.m_flow", "mPum_flow_nominal", "con.mPum_flow_nominal", "con.val.m3_flow"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h");
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"fraLoa.y[1]", "fraLoa.y[2]", "loa.yLoa_actual", "loa1.yLoa_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h",  subPlot=1);
+
+createPlot(id=4, position={169, 245, 1184, 849}, y={"loa.con.val.y_actual", "loa1.con.val.y_actual"}, autoscale=true, grid=true, autoerase=true, color=true, timeUnit="h", subPlot=2);
+
+// Plot pump characteristic and design operating point
+createPlot(id=5, position={1384, 242, 1184, 744}, x="pum.m_flow", y={"pum.dpMachine"}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="pum.dpMachine [Pa]", patterns={LinePattern.None}, markers={MarkerStyle.Dot});
+nPoints = readTrajectorySize("SingleMixing.mat");
+
+dp_nom = readTrajectory("SingleMixing.mat", {"dpPum_nominal"}, 1);
+m_flow_nom = readTrajectory("SingleMixing.mat", {"mPum_flow_nominal"}, 1);
+
+mValues = {0.1 * i for i in 1:40};
+coefValues = {-631.30252101,  -1712.18487395,  -1050.42016807, 114000.} * dp_nom[1,1] * 1e-5 ;
+dpValues = {coefValues[1] * mValues[i]^3 for i in 1:40} + {coefValues[2] * mValues[i]^2 for i in 1:40} + coefValues[3] .* mValues + fill(coefValues[4], 40);
+plotArray(mValues, dpValues, id=5, erase=false, legend="Characteristic");
+plotArray({m_flow_nom[1, 1]}, {dp_nom[1, 1]}, id=5, erase=false, legend="Design operating point");
+
+
+// Delta-T function of the load
+nPoints = readTrajectorySize("SingleMixing.mat");
+q_flow_nom = readTrajectory("SingleMixing.mat", {"loa.Q_flow_nominal"}, 1);
+q1_flow_nom = readTrajectory("SingleMixing.mat", {"loa1.Q_flow_nominal"}, 1);
+TEnt_nom = readTrajectory("SingleMixing.mat", {"loa1.TLiqEnt_nominal"}, 1);
+TLvg_nom = readTrajectory("SingleMixing.mat", {"loa1.TLiqLvg_nominal"}, 1);
+mPri_flow_nom = readTrajectory("SingleMixing.mat", {"con.m1_flow_nominal"}, 1);
+mSec_flow_nom = readTrajectory("SingleMixing.mat", {"con.m2_flow_nominal"}, 1);
+dT_nom = TLvg_nom[1, 1] - TEnt_nom[1, 1];
+dTPri_nom = dT_nom * mSec_flow_nom[1,1] / mPri_flow_nom[1,1];
+q_flow = readTrajectory("SingleMixing.mat", {"loa.Q_flow"}, nPoints);
+q1_flow = readTrajectory("SingleMixing.mat", {"loa1.Q_flow"}, nPoints);
+dT = readTrajectory("SingleMixing.mat", {"dT1.y"}, nPoints);
+ratQTot_flow = (q_flow[1] + q1_flow[1]) / (q_flow_nom[1, 1] + q1_flow_nom[1, 1]);
+
+createPlot(id=6, position={730, 245, 1184, 744}, autoscale=true, autoerase=true, grid=true, color=true, leftTitle="delta-T [K]", bottomTitle="QTot_flow/QTot_flow_nominal [-]");
+plotArray(ratQTot_flow, dT[1], id=6, erase=false, legend="dT1.y", pattern=LinePattern.None, marker=MarkerStyle.Dot);
+plotArray({1}, {dTPri_nom}, id=6, erase=false, legend="Design operating point", color={238,46,47});
+plotArray({0, 1}, {0, dTPri_nom}, id=6, erase=false, legend="Linear trend", color={0,140,72}, pattern=LinePattern.Dash);

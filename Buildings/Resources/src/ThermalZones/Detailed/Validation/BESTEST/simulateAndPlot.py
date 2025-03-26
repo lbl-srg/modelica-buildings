@@ -143,12 +143,17 @@ def _move_results(resultDirs):
 
     for resultDir in resultDirs:
         haveMat = False
-        for file in os.listdir(resultDir):
+        if (TOOL == 'optimica'):
+            resultsFolder = resultDir
+        else:
+            resultsFolder = os.path.join(resultDir, 'Buildings')
+        for file in os.listdir(resultsFolder):
             if file.endswith('.mat'):
                 haveMat = True
-                source = os.path.join(resultDir, file)
+                source = os.path.join(resultsFolder, file)
                 destination = os.path.join(mat_dir, file)
                 shutil.copyfile(source, destination)
+        
         if not haveMat:
             raise ValueError("*** There is no result file in tmp folder: {}. Check the simulation. ***".format(resultDir))
 
@@ -180,7 +185,10 @@ def _organize_cases(mat_dir):
         for case in CASES:
             temp = {'case': case}
             for matFile in matFiles:
-                tester = '_{}_'.format(case)
+                if (TOOL == 'optimica'):
+                    tester = '{}_'.format(case)
+                else:
+                    tester = '{}.'.format(case)
                 if tester in matFile:
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
@@ -644,6 +652,9 @@ def _refactor_data_structure(dataList):
         col_5 = list()
         col_6 = list()
         col_7 = list()
+        lowerLimit = list()
+        upperLimit = list()
+        have_limits = False
 
         col_1_hr = list()
         col_2_hr = list()
@@ -660,6 +671,10 @@ def _refactor_data_structure(dataList):
             col_5.append(row['value'][3])
             col_6.append(row['value'][4])
             col_7.append(row['value'][5])
+            if (len(row['value']) > 6):
+                have_limits = True
+                lowerLimit.append(row['value'][6])
+                upperLimit.append(row['value'][7])
             if 'hour' in row:
                 haveHour = True
                 col_1_hr.append(row['hour'][0])
@@ -670,6 +685,9 @@ def _refactor_data_structure(dataList):
                 col_6_hr.append(row['hour'][5])
         ele['data'] = list()
         temp = {'firstCol': col_1}
+        if have_limits:
+            temp['lowerLimits'] = lowerLimit
+            temp['upperLimits'] = upperLimit
         temp['BSIMAC'] = col_2
         temp['CSE'] = col_3
         temp['DeST'] = col_4
@@ -962,25 +980,40 @@ def update_html_tables(comDat):
         f.write(newMoContent)
 
 def _generate_load_tables(comDat, allTools, lessTools):
+    withLimits = '''
+<tr>
+<th>Case</th>
+<th>Lower limit</th>
+<th>Upper limit</th>
+<th>BSIMAC</th>
+<th>CSE</th>
+<th>DeST</th>
+<th>EnergyPlus</th>
+<th>ESP-r</th>
+<th>TRNSYS</th>
+<th>MBL</th>
+</tr>'''
     for ele in comDat:
         setName = ele['data_set']
         if setName == 'annual_cooling':
+            allTools = withLimits
             annCoo = ele
         if setName == 'annual_heating':
+            allTools = withLimits
             annHea = ele
         if setName == 'peak_cooling':
             peaCoo = ele
         if setName == 'peak_heating':
             peaHea = ele
     tableText = '''<table border = \\"1\\" summary=\\"Annual load\\">
-<tr><td colspan=\\"8\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
+<tr><td colspan=\\"10\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
     # add annual heating load data
-    annHeaLoa = _write_table_content(annHea)
+    annHeaLoa = _write_table_content(annHea, True)
     tableText = tableText + annHeaLoa
     # add annual cooling load data
-    tableText = tableText + '''<tr><td colspan=\\"8\\"><b>Annual cooling load (MWh)</b></td></tr>'''
+    tableText = tableText + '''<tr><td colspan=\\"10\\"><b>Annual cooling load (MWh)</b></td></tr>'''
     tableText = tableText + allTools
-    annCooLoa = _write_table_content(annCoo)
+    annCooLoa = _write_table_content(annCoo, True)
     tableText = tableText + annCooLoa + '''</table>
 <br/>'''
 
@@ -1041,7 +1074,7 @@ def _generate_ff_tables(comDat, lessTools):
 '''
     return tableText
 
-def _write_table_content(dataSet):
+def _write_table_content(dataSet, have_limits=False):
     setName = dataSet['data_set']
     data = dataSet['data'][0]
     tools = dataSet['tools']
@@ -1049,9 +1082,24 @@ def _write_table_content(dataSet):
     for i in range(len(data['firstCol'])):
         temp = "<tr>" + os.linesep
         temp = temp + "<td>{}</td>".format(data['firstCol'][i]) + os.linesep
+        if have_limits:
+            temp = temp + "<td>{}</td>".format(data['lowerLimits'][i]) + os.linesep
+            temp = temp + "<td>{}</td>".format(data['upperLimits'][i]) + os.linesep
+            lim1 = float(data['lowerLimits'][i])
+            lim2 = float(data['upperLimits'][i])
+            lowLim = lim1 if lim1 < lim2 else lim2
+            uppLim = lim2 if lim1 < lim2 else lim1
         for j in range(len(tools)):
             tool = tools[j]
-            temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
+            if have_limits:
+                tooVal = float(data[tool][i])
+                if ((tooVal > uppLim or tooVal < lowLim) and tooVal > 0.0):
+                    temp = temp + '''<td bgcolor=\\"#FF4500\\">''' + "{}</td>".format(tooVal) + os.linesep
+                else:
+                    # temp = temp + '''<td bgcolor=\\"#90EE90\\">''' + "{}</td>".format(tooVal) + os.linesep
+                    temp = temp + "<td>{}</td>".format(tooVal) + os.linesep
+            else:
+                temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
             if 'peak_' in setName or 'max_' in setName or 'min_' in setName:
                 toolHour = '{}_hour'.format(tool)
                 temp = temp + "<td>{}</td>".format(data[toolHour][i]) + os.linesep

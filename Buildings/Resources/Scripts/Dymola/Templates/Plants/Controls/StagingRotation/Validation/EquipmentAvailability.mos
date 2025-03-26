@@ -1,0 +1,19 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.EquipmentAvailability",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=10000.0,
+    resultFile="EquipmentAvailability");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    y={"u1_actual.y[1]", "u1Ava.y[1]", "u1Hea_actual.y[1]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"avaHeaCoo.y1Hea", "avaHeaCoo.y1Coo", "avaHea.y1Hea"},
+    autoscale=true,
+    grid=true
+);

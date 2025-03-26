@@ -12,14 +12,14 @@ model SystemHysteresis
     "Control signal for pump" annotation (Placement(transformation(extent={{100,
             -90},{140,-50}}), iconTransformation(extent={{100,-90},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     t=0.1,
     h=0.09)
     "Threshold to switch on system"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch for control signal"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch for control signal"
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
     "Zero output signal"
     annotation (Placement(transformation(extent={{-30,-88},{-10,-68}})));
 
@@ -34,10 +34,10 @@ model SystemHysteresis
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput sysOn
     "System on signal, set for example to true if fan is on"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSysOff
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiSysOff1
+  Buildings.Controls.OBC.CDL.Reals.Switch swiSysOff1
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=30)
@@ -93,12 +93,12 @@ equation
         Ellipse(
           extent={{71,7},{85,-7}},
           lineColor=DynamicSelect({235,235,235},
-            if truFalHol.y then
+            if truFalHol1.y then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if truFalHol.y then
+            if truFalHol1.y then
               {0,255,0}
             else
               {235,235,235}),
@@ -106,12 +106,12 @@ equation
         Ellipse(
           extent={{-83,7},{-69,-7}},
           lineColor=DynamicSelect({235,235,235},
-            if truFalHol.u then
+            if truFalHol1.u then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if truFalHol.u then
+            if truFalHol1.u then
               {0,255,0}
             else
               {235,235,235}),
@@ -126,6 +126,10 @@ Block that ensure that the system runs for a minimum time once it is switched on
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 January 31, 2023, by Jianjun Hu:<br/>
 Added a true delay block to avoid triggering the pump operation by a spike input.

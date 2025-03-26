@@ -5,10 +5,10 @@ package Baseclasses "Package containing baseclasses for example model"
   annotation(Documentation(info="<html>
     <p>
     This package contains the baseclasses for the boiler plant model
-    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlant\"> 
+    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlantPrimary\"> 
     Buildings.Examples.BoilerPlant.Baseclasses.BoilerPlant</a> and the simplified 
     thermal zone model
-    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedZoneWithRadiator\">
+    <a href=\"modelica://Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedSecondaryLoad\">
     Buildings.Examples.BoilerPlant.Baseclasses.SimplifiedZoneWithRadiator</a> 
     used to demonstrate the use of the implemented boiler plant controller
     <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">

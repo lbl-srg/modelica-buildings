@@ -25,13 +25,13 @@ block Supply "Supply air set point for single zone VAV system"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Minimum supply temperature when it is in deadband state"
-    annotation (Dialog(group="Temperatures"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Temperatures"));
   parameter Real TSupDea_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Maximum supply temperature when it is in deadband state"
-    annotation (Dialog(group="Temperatures"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Temperatures"));
   parameter Real maxHeaSpe(
     final min=0,
     final max=1,
@@ -53,55 +53,63 @@ block Supply "Supply air set point for single zone VAV system"
   parameter Real looHys(
     final unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real temPoiOne(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 1 on x-axis of control map for temperature control, when it is in heating state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiTwo(
     final unit="1",
     final min=0,
     final max=1)=0.25
     "Point 2 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiThr(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 3 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiFou(
     final unit="1",
     final min=0,
     final max=1)=0.75
     "Point 4 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real spePoiOne(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 1 on x-axis of control map for speed control, when it is in heating state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiTwo(
     final unit="1",
     final min=0,
     final max=1)=0.25
     "Point 2 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiThr(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 3 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiFou(
     final unit="1",
     final min=0,
     final max=1)=0.75
     "Point 4 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Speed"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"
@@ -174,147 +182,147 @@ block Supply "Supply air set point for single zone VAV system"
         iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fanOff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant fanOff(
     final k=0)
     "Fan off status"
     annotation (Placement(transformation(extent={{40,350},{60,370}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Supply fan speed"
+  Buildings.Controls.OBC.CDL.Reals.Switch fanSpe "Supply fan speed"
     annotation (Placement(transformation(extent={{100,330},{120,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
+  Buildings.Controls.OBC.CDL.Reals.LimitSlewRate ramLim(
     final raisingSlewRate=1/600,
     final Td=60)
     "Prevent changes in fan speed of more than 10% per minute"
     annotation (Placement(transformation(extent={{140,330},{160,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxDewPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxDewPoi(
     final k=TSupDew_max)
     "Maximum supply air dew-point temperature"
     annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=-1)
     "Maximum supply dewpoint temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar1(
     final p=-6)
     "Zone temperature minus threshold"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar2(
     final p=0.5)
     "Zone temperature plus threshold"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min endPoiTwo
+  Buildings.Controls.OBC.CDL.Reals.Min endPoiTwo
     "End point two for specifying medium fan speed"
     annotation (Placement(transformation(extent={{-40,250},{-20,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min endPoiOne
+  Buildings.Controls.OBC.CDL.Reals.Min endPoiOne
     "End point one for specifying medium fan speed"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minFanSpe(
     final k=minSpe)
     "Minimum fan speed"
     annotation (Placement(transformation(extent={{20,120},{40,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxCooFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxCooFanSpe(
     final k=maxCooSpe)
     "Maximum fan speed for cooling"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line medFanSpe
+  Buildings.Controls.OBC.CDL.Reals.Line medFanSpe
     "Medium fan speed"
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Average aveZonSet
+  Buildings.Controls.OBC.CDL.Reals.Average aveZonSet
     "Average of the zone heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+  Buildings.Controls.OBC.CDL.Reals.Limiter lim(
     final uMax=TSupDea_max,
     final uMin=TSupDea_min)
     "Limiter that outputs the dead band value for the supply air temperature"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(
     final k=1)
     "Constant one"
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line heaFanSpe
+  Buildings.Controls.OBC.CDL.Reals.Line heaFanSpe
     "Fan speed when it is in heating state"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speOnePoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speOnePoi(
     final k=spePoiOne)
     "Speed control point one in x-axis of control map"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxHeaFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxHeaFanSpe(
     final k=maxHeaSpe)
     "Maximum fan speed for heating"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speTwoPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speTwoPoi(
     final k=spePoiTwo)
     "Speed control point two in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speThrPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speThrPoi(
     final k=spePoiThr)
     "Speed control point three in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speFouPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speFouPoi(
     final k=spePoiFou)
     "Speed control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line cooFanSpe1
+  Buildings.Controls.OBC.CDL.Reals.Line cooFanSpe1
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line cooFanSpe2
+  Buildings.Controls.OBC.CDL.Reals.Line cooFanSpe2
     "Fan speed when it is in cooling mode"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max spe
+  Buildings.Controls.OBC.CDL.Reals.Max spe
     "Fan speed"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line heaSupTem
+  Buildings.Controls.OBC.CDL.Reals.Line heaSupTem
     "Supply air temperature when it is in heating state"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temOnePoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant temOnePoi(
     final k=temPoiOne)
     "Temperature control point one in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-190},{-100,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSupTem(
     final k=TSup_max)
     "Highest heating supply air temperature"
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temTwoPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant temTwoPoi(
     final k=temPoiTwo)
     "Temperature control point two in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-270},{-100,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line cooSupTem
+  Buildings.Controls.OBC.CDL.Reals.Line cooSupTem
     "Supply air temperature when it is in cooling state"
     annotation (Placement(transformation(extent={{60,-250},{80,-230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supCooTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant supCooTem(
     final k=TSup_min)
     "Cooling supply air temperature"
     annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar3(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar3(
     final p=-1)
     "Minimum cooling supply temperature minus threshold"
     annotation (Placement(transformation(extent={{-40,-280},{-20,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line cooSupTem1
+  Buildings.Controls.OBC.CDL.Reals.Line cooSupTem1
     "Supply air temperature when it is in cooling state"
     annotation (Placement(transformation(extent={{60,-340},{80,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temThrPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant temThrPoi(
     final k=temPoiThr)
     "Temperature control point three in x-axis of control map"
     annotation (Placement(transformation(extent={{-40,-320},{-20,-300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant temFouPoi(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant temFouPoi(
     final k=temPoiFou)
     "Temperature control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
+  Buildings.Controls.OBC.CDL.Reals.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold heaSta(
     final t=looHys,
     final h=0.8*looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
+  Buildings.Controls.OBC.CDL.Reals.Switch supTemSet
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{120,-210},{140,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet1
+  Buildings.Controls.OBC.CDL.Reals.Switch supTemSet1
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{120,-290},{140,-270}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unoMod(
@@ -327,7 +335,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Supply fan status"
     annotation (Placement(transformation(extent={{40,290},{60,310}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=spePoiFou - spePoiThr)
     "Check setpoint section"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));

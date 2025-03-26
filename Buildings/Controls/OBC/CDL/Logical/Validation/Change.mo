@@ -9,7 +9,7 @@ model Change
   Buildings.Controls.OBC.CDL.Logical.Change change
     "Outputs true if the input changes"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=5,
     offset=0,
     height=20)

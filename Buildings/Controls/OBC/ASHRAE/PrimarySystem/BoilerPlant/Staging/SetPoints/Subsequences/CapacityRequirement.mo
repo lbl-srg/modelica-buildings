@@ -51,43 +51,43 @@ protected
     final quantity="SpecificHeatCapacity") = 4184
     "Specific heat capacity of water";
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Ensure negative heating requirement calculation is not passed downstream"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Lowest allowed heating requirement"
     annotation (Placement(transformation(extent={{60,24},{80,44}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant density(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant density(
     final k=rhoWat)
     "Water density"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speHeaCap(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant speHeaCap(
     final k=cpWat)
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Difference between supply temperature setpoint and return temperature"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
+  Buildings.Controls.OBC.CDL.Reals.MovingAverage movMea(
     final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-16},{80,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Product"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     "Product"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2
     "Product"
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
 
@@ -156,8 +156,8 @@ equation
       setpoint <code>TSupSet</code>, and the measured hot water flow rate,
       <code>VHotWat_flow</code>.
       <br/> 
-      The calculation is according to section 5.3.3.5 and 5.3.3.6. in RP-1711, March
-      2020 draft.
+      The calculation is according to section 5.21.3.5 and 5.21.3.6. in ASHRAE
+      Guideline 36, 2021.
       </p>
       </html>",
       revisions="<html>

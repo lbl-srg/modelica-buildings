@@ -6,24 +6,28 @@ block Reliefs
     final max=0,
     final unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uMax(
     final min=0,
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Maximum loop signal for the OA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"
@@ -73,32 +77,32 @@ block Reliefs
         iconTransformation(extent={{100,40},{140,80}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamMinLimSig(
     final k=uMin) "Minimal control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-60,-32},{-40,-12}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamMaxLimSig(
     final k=uOutDamMax) "Maximum control loop signal for the outdoor air damper"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamConMinLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamConMinLimSig(
     final k=uRetDamMin)
     "Minimal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-80,68},{-60,88}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant retDamMaxLimSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant retDamMaxLimSig(
     final k=uMax) "Maximal control loop signal for the return air damper"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line outDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line retDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Line retDamPos(
     final limitBelow=true,
     final limitAbove=true)
     "Damper position is linearly proportional to the control signal between signal limits"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min "Overwrite due to freeze protection"
+  Buildings.Controls.OBC.CDL.Reals.Min min "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max "Overwrite due to freeze protection"
+  Buildings.Controls.OBC.CDL.Reals.Max max "Overwrite due to freeze protection"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation

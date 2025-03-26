@@ -9,9 +9,15 @@ initial equation
 
 equation
   delTEqLWWin=delTEqLW;
-  TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGro*wfGro;
+  TEqAir = TEqWall*wfWall + TEqWin*wfWin +  TGroSouSel.y*wfGro;
   annotation (defaultComponentName = "equAirTem",Documentation(revisions="<html>
   <ul>
+  <li>
+  May 5, 2023, by Philip Groesdonk:<br/>
+  Added an option for non-constant ground temperature from an input connector.
+  This is for
+  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1744\">#1744</a>.
+  </li>
   <li>
   September 26, 2016, by Moritz Lauster:<br/>
   Moved calculations to <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses.PartialVDI6007\">

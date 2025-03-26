@@ -4,13 +4,13 @@ model Add
   Buildings.Obsolete.Controls.OBC.CDL.Continuous.Add add1
     "Block that outputs the sum of the two inputs"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     height=2,
     duration=1,
     offset=-1)

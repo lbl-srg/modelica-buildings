@@ -6,7 +6,7 @@ model DCLinesLinearized
   annotation (Documentation(info="<html>
 <p>
 This model is the linearized version of the model
-<a href=\"Buildings.Electrical.DC.Lines.Examples.DCLines\">
+<a href=\"modelica://Buildings.Electrical.DC.Lines.Examples.DCLines\">
 Buildings.Electrical.DC.Lines.Examples.DCLines</a> and
 can be used to test how the linearized loads are affected by the voltage drop
 caused by the lines. The longer the distance between the load and the source,

@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "u1AvaEqu.y[1]",
+    "u1AvaEqu.y[2]",
+    "u1AvaEqu.y[3]",
+    "avaStaEqu.y1[1]",
+    "avaStaEqu.y1[2]",
+    "avaStaEqu.y1[3]",
+    "avaStaOneTwo.y1[1]",
+    "avaStaOneTwo.y1[2]",
+    "avaStaOneTwo.y1[3]",
+    "avaStaOneTwo.y1[4]",
+    "avaStaOneTwo.y1[5]"
+  };

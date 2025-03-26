@@ -39,7 +39,7 @@ model CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooCoiPI(
     final reverseActing=false,
     final controllerType=controllerTypeCooCoi,
     final k=kCooCoi,
@@ -55,9 +55,9 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
+  Buildings.Controls.OBC.CDL.Reals.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant const(k=0) "Cooling off mode"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Conditions for cooling state"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));

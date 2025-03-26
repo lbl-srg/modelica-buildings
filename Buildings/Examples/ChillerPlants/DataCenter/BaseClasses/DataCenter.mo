@@ -595,7 +595,7 @@ Documentation(info="<HTML>
 <p>
 This model is the chilled water plant with discrete time control and
 trim and respond logic for a data center. The model is described at
-<a href=\"Buildings.Examples.ChillerPlant\">
+<a href=\"modelica://Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
 </p>
 </html>", revisions="<html>

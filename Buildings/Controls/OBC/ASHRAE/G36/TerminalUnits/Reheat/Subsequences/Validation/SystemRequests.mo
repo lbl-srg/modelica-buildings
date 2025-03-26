@@ -3,13 +3,12 @@ model SystemRequests
   "Validation of model that generates system requests"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.SystemRequests sysReq(
-    final have_hotWatCoi=true,
     final floHys=0.01,
     final looHys=0.01,
     final damPosHys=0.01,
     final valPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final freqHz=1/7200,
     final offset=296.15)
     "Generate data for setpoint"
@@ -17,30 +16,30 @@ model SystemRequests
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TCooSet(
     final samplePeriod=1800) "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin TZon(
     final freqHz=1/7200,
     final amplitude=2,
     final offset=299.15)
     "Zone temperature"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp uCoo(
     final height=-1,
     final duration=2000,
     final offset=1,
     final startTime=1000)
     "Cooling loop signal"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAirSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAirSet(
     final height=0.9,
     final duration=7200,
     final offset=0.1) "Discharge airflow rate setpoint"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp disAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp disAir(
     final duration=7200,
     final offset=0.1,
     final height=0.3) "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp damPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp damPos(
     final duration=3000,
     final height=-0.7,
     final offset=0.7) "Damper position"
@@ -50,17 +49,17 @@ model SystemRequests
     final period=7200)
     "After suppression"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TDis(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TDis(
     final duration=3600,
     final offset=273.15 + 20,
     final height=-5)
     "Discharge air temperature"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TDisSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TDisSet(
     final k=273.15 + 30)
     "Discharge airflow temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp valPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp valPos(
     final duration=2000,
     final height=-0.7,
     final offset=0.7,

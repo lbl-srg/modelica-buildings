@@ -62,11 +62,11 @@ model ShadeControl
     annotation (Placement(transformation(extent={{-20,-118},{0,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{40,-110},{60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquT(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquT(
     t=0.5)
     "Output conversion"
     annotation (Placement(transformation(extent={{10,-90},{30,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquH(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquH(
     t=0.5)
     "Output conversion"
     annotation (Placement(transformation(extent={{10,-120},{30,-100}})));
@@ -167,13 +167,13 @@ protected
     HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
       "Prescribed heat flow rate"
       annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-    Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-5000) "Gain"
+    Controls.OBC.CDL.Reals.MultiplyByParameter gai(k=-5000) "Gain"
       annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-    Controls.OBC.CDL.Continuous.PID conPID(
+    Controls.OBC.CDL.Reals.PID conPID(
       Ti=120,
       reverseActing=false)
       annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-    Controls.OBC.CDL.Continuous.Sources.Constant TSet(
+    Controls.OBC.CDL.Reals.Sources.Constant TSet(
       k=273.15+25)
       "Set point temperature"
       annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));

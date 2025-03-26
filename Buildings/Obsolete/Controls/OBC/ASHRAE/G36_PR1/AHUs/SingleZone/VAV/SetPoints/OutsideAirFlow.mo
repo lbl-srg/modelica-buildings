@@ -74,31 +74,31 @@ block OutsideAirFlow
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add breZon "Breathing zone airflow"
+  Buildings.Controls.OBC.CDL.Reals.Add breZon "Breathing zone airflow"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Zone space temperature minus supply air temperature"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=VOutPerPer_flow) if have_occSen "Outdoor airflow rate per person"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch for enabling occupancy sensor input"
     annotation (Placement(transformation(extent={{-60,38},{-40,58}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Switch between cooling or heating distribution effectiveness"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide zonOutAirRate
+  Buildings.Controls.OBC.CDL.Reals.Divide zonOutAirRate
     "Required zone outdoor airflow rate"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "If window is open or it is not in occupied mode, the required outdoor
     airflow rate should be zero"
     annotation (Placement(transformation(extent={{80,20},{100,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3
     "If supply fan is off, then outdoor airflow rate should be zero."
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=uLow,
     final uHigh=uHigh,
     final pre_y_start=true)
@@ -108,23 +108,23 @@ protected
     final k=have_occSen)
     "Boolean constant to indicate if there is occupancy sensor"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOutAir(
     final k=0)
     "Zero required outdoor airflow rate when window open or zone is not in occupied mode"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant disEffHea(
     final k=zonDisEffHea)
     "Zone distribution effectiveness during heating"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disEffCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant disEffCoo(
     final k=zonDisEffCoo)
     "Zone distribution effectiveness for cooling"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonAre(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant breZonAre(
     final k=VOutPerAre_flow*AFlo)
     "Area component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant breZonPop(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant breZonPop(
     final k=VOutPerPer_flow*AFlo*occDen)
     "Population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -138,7 +138,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOcc(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerOcc(final k=0)
     if not have_occSen
     "Zero occupant when there is no occupancy sensor"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));

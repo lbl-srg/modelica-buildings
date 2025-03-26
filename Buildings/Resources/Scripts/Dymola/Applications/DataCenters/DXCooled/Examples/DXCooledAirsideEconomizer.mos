@@ -38,7 +38,7 @@ createPlot(id=4,
  grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=4,
  position={134, 2, 592, 140},
- y={"varSpeDX.dxCoo.EIR"},
+ y={"varSpeDX.dxCoi.EIR"},
  range={0.0, 9000.0, -0.2, 0.4},
  grid=true,
  subPlot=3,

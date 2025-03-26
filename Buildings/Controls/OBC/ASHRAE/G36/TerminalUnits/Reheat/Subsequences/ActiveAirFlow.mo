@@ -74,7 +74,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.setUp)
     "Setup mode"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or or3
     "Check if it is in occupied, cooldown, or setup mode"
     annotation (Placement(transformation(extent={{-20,160},{0,180}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal actCooMax(
@@ -85,10 +85,10 @@ protected
     final realTrue=1)
     "If in occupied mode, output 1"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Active cooling minimum, minimum airflow setpoint"
     annotation (Placement(transformation(extent={{140,110},{160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Maximum of inputs"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMinFlo(
@@ -103,32 +103,32 @@ protected
     final realTrue=VCooMax_flow)
     "Cooling maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-150},{60,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Reals.Max max2
     "Maximum of inputs"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Check if it is warm-up or setback"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Add up inputs"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Active heating minimu flow setpoint"
     annotation (Placement(transformation(extent={{160,10},{180,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2
     "Product of inputs"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal heaMaxFlo1(
     final realTrue=VHeaMax_flow)
     "Heating maximum flow when input is true"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Reals.Add add3
     "Add up inputs"
     annotation (Placement(transformation(extent={{100,-170},{120,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4
+  Buildings.Controls.OBC.CDL.Reals.Add add4
     "Active heating maximum flow setpoint"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant setBacMod(
@@ -154,14 +154,17 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal ifSetBac
     "Check if current operation mode is setback mode"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMaxAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMaxAir(
     final k=VHeaMax_flow)
     "Heating maximum airflow"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMinAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMinAir(
     final k=VHeaMin_flow)
     "Heating minimum airflow"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Check if it is in occupied, cooldown, or setup mode"
+    annotation (Placement(transformation(extent={{40,160},{60,180}})));
 
 equation
   connect(occMod.y, ifOcc.u1)
@@ -184,14 +187,10 @@ equation
           -130,-198},{-122,-198}}, color={255,127,0}));
   connect(setBacMod.y, ifSetBac.u1)
     annotation (Line(points={{-138,-190},{-122,-190}}, color={255,127,0}));
-  connect(ifOcc.y, or3.u1) annotation (Line(points={{-98,190},{-60,190},{-60,178},
-          {-22,178}}, color={255,0,255}));
-  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-98,90},{-70,90},{-70,170},
+  connect(ifOcc.y, or3.u1) annotation (Line(points={{-98,190},{-60,190},{-60,170},
           {-22,170}}, color={255,0,255}));
-  connect(ifSetUp.y, or3.u3) annotation (Line(points={{-98,10},{-50,10},{-50,162},
+  connect(ifCooDow.y, or3.u2) annotation (Line(points={{-98,90},{-70,90},{-70,162},
           {-22,162}}, color={255,0,255}));
-  connect(or3.y, actCooMax.u)
-    annotation (Line(points={{2,170},{138,170}}, color={255,0,255}));
   connect(ifOcc.y, occModInd.u) annotation (Line(points={{-98,190},{-60,190},{-60,
           130},{-22,130}}, color={255,0,255}));
   connect(VOccMin_flow, pro.u2) annotation (Line(points={{-220,40},{-180,40},{-180,
@@ -252,7 +251,12 @@ equation
     annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
   connect(add4.y, VActHeaMax_flow)
     annotation (Line(points={{182,-120},{220,-120}}, color={0,0,127}));
-
+  connect(or3.y, or1.u1)
+    annotation (Line(points={{2,170},{38,170}}, color={255,0,255}));
+  connect(or1.y, actCooMax.u)
+    annotation (Line(points={{62,170},{138,170}}, color={255,0,255}));
+  connect(ifSetUp.y, or1.u2) annotation (Line(points={{-98,10},{30,10},{30,162},
+          {38,162}}, color={255,0,255}));
 annotation (
   defaultComponentName="actAirSet",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,220}})),

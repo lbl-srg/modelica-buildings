@@ -51,10 +51,10 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   <h4>Architecture</h4>
   <p>
   Each wall element uses either
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ExteriorWall\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ExteriorWall\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ExteriorWall</a>
   or
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.InteriorWall\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.InteriorWall\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.InteriorWall</a>
   to describe heat conduction and storage within the wall, depending if the wall
   contributes to heat transfer to the outdoor environment (exterior walls) or can
@@ -90,7 +90,7 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   The transmission of solar radiation through windows is split up into two parts.
   One part is connected to the indoor radiative heat exchange mesh network using
   a
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter</a>,
   while the other part is directly linked to the convective network. The split
   factor <code>ratioWinConRad </code> is a window property and depends on the
@@ -156,7 +156,7 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   temperature and thus of area as well, assuming that the temperature of the
   source is high compared to the wall surface temperatures.
   By using a
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.ThermSplitter</a>
   that distributes the heat flow of the source over the walls according to their
   area, we support this simplified approach. For solar radiation through windows,
@@ -164,7 +164,7 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   radiation is not taken into account for the distribution as such surfaces cannot
   be hit by the particular radiation. This calculation is performed for each
   orientation separately using
-  <a href=\"Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal\">
   Buildings.ThermalZones.ReducedOrder.RC.BaseClasses.splitFacVal</a>.
   </p>
   </li>
@@ -184,7 +184,7 @@ package RC "Package with reduced order thermal zones based on VDI 6007 Part 1"
   <p>
   The models in this package are typically used in combination with models from
   the parent package
-  <a href=\"Buildings.ThermalZones.ReducedOrder\">
+  <a href=\"modelica://Buildings.ThermalZones.ReducedOrder\">
   Buildings.ThermalZones.ReducedOrder</a>.
   A typical application is one building out of a large building stock for
   which the heating and cooling power over a year in hourly time steps should be

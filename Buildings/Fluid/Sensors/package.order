@@ -3,6 +3,7 @@ Density
 DensityTwoPort
 EnthalpyFlowRate
 EntropyFlowRate
+HeatMeter
 LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction

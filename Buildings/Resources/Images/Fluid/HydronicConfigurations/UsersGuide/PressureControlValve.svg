@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="5.2864552mm"
+   height="4.4606214mm"
+   viewBox="0 0 5.2864552 4.4606214"
+   version="1.1"
+   id="svg4538"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4535" />
+  <g
+     id="layer1"
+     transform="translate(-77.688747,-119.77325)">
+    <g
+       id="g4689"
+       transform="matrix(0,1,1,0,67.102795,101.64739)">
+      <path
+         id="path5655-7-5-9-1-6-1-03-1"
+         d="M 19.836756,15.806261 H 22.47825 L 21.157503,13.229166 Z"
+         style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path5657-8-5-7-6-2-5-9-6-7"
+         d="m 19.836756,10.652098 h 2.641494 l -1.320747,2.577068 z"
+         style="fill:#ffffff;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path5661-2-42-7-3-5-1-1-0-5"
+         d="m 19.579167,12.435417 0.888569,-0.552139"
+         style="fill:none;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <ellipse
+         style="fill:#ffffff;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-dasharray:none;stroke-opacity:1"
+         id="path1806"
+         cx="20.558971"
+         cy="-10.076889"
+         rx="1.1575522"
+         ry="0.66145837"
+         transform="rotate(60)" />
+      <path
+         style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+         d="m 18.427552,11.763676 1.157553,2.00494 v 0"
+         id="path2262" />
+    </g>
+  </g>
+  <g
+     id="g1250"
+     transform="translate(-1.6785551,-0.58784262)">
+    <path
+       style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.132292;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="M 2.3347761,2.601152 3.0175035,1.6114763 m 1.4096571,-0.5550473 2.5378497,0.00485"
+       id="path300" />
+  </g>
+</svg>

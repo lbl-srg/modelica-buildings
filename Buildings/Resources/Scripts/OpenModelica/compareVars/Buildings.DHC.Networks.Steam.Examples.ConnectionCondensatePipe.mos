@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "con.port_aDisSup.m_flow",
+    "con.port_bDisRet.m_flow",
+    "con.port_aDisSup.p",
+    "con.port_bDisRet.p",
+    "con.port_bCon.p",
+    "con.port_aCon.p"
+  };

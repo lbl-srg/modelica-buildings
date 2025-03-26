@@ -8,11 +8,11 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
   package MediumG=Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)
     "Water glycol";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=12000
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=8000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
       4200/5 "Design water mass flow rate for heating";
-  parameter Modelica.Units.SI.MassFlowRate mBor_flow_nominal=mHea_flow_nominal*(1-1/4)*4200/3500
+  parameter Modelica.Units.SI.MassFlowRate mBor_flow_nominal=2*mHea_flow_nominal*(1-1/4)*4200/3500
    "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
@@ -40,7 +40,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
-    disPip=0.15,
+    disPip=0.3,
     nCir=3,
     A=AFlo,
     m_flow_nominal=mHea_flow_nominal,
@@ -61,7 +61,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k(
+  Controls.OBC.CDL.Reals.Sources.Constant TSetRooHea(k(
       final unit="K",
       displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
     "Room temperture set point for heating"
@@ -97,14 +97,14 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
                                                                 origin={60,-380})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-    TSupSet_max=328.15,
+    TSupSet_max=313.15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     k=2,
     Ti=7200,
     Td=600)
     "Controller for radiant heating system"
     annotation (Placement(transformation(extent={{-280,-156},{-260,-136}})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conSup(
+  Controls.OBC.CDL.Reals.PIDWithReset conSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=4,
     Ti(displayUnit="min") = 60,
@@ -114,9 +114,9 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     final reverseActing=true,
     y_reset=0.2) "Controller for heat pump"
     annotation (Placement(transformation(extent={{-160,-150},{-140,-130}})));
-  Controls.OBC.CDL.Continuous.Switch swiHeaPum "Switch for heat pump signal"
+  Controls.OBC.CDL.Reals.Switch swiHeaPum "Switch for heat pump signal"
     annotation (Placement(transformation(extent={{-120,-158},{-100,-138}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant off(
+  Controls.OBC.CDL.Reals.Sources.Constant off(
     final k = 0)
     "Output 0 to switch heater off"
     annotation (Placement(transformation(extent={{-320,-188},{-300,-168}})));
@@ -130,7 +130,6 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     show_T=true,
     dp1_nominal=10000,
     dp2_nominal=10000,
-    scaling_factor=1.3*QHea_flow_nominal/12000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     enable_temperature_protection=true,
     TEvaMin=268.15,
@@ -151,7 +150,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
  Fluid.Geothermal.Boreholes.UTube borHol(
     redeclare package Medium = MediumG,
-    hBor=200,
+    hBor=150,
     dp_nominal=60000,
     dT_dz=0.0015,
     samplePeriod=604800,
@@ -187,7 +186,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     y_start=0,
     u(final unit="W"),
     y(final unit="J/m2",
-      displayUnit="kWh/m2"))
+      displayUnit="kW.h/m2"))
     "Produced heat per unit area of floor"
     annotation (Placement(transformation(extent={{180,-340},{200,-320}})));
   Modelica.Blocks.Continuous.Integrator EEle(
@@ -196,10 +195,10 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     y_start=1E-10,
     u(final unit="W"),
     y(final unit="J/m2",
-      displayUnit="kWh/m2"))
+      displayUnit="kW.h/m2"))
     "Electricity use per floor area"
     annotation (Placement(transformation(extent={{180,-378},{200,-358}})));
-  Controls.OBC.CDL.Continuous.Divide COP "Coefficient of performance"
+  Controls.OBC.CDL.Reals.Divide COP "Coefficient of performance"
     annotation (Placement(transformation(extent={{220,-360},{240,-340}})));
   Controls.OBC.CDL.Logical.Sources.Pulse ava(
     width=22/24,
@@ -207,7 +206,7 @@ model HeatPumpRadiantHeatingGroundHeatTransfer
     shift=7*3600)
     "Availability schedule to block heat pump operation in early morning (assuming grid is at capacity)"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
-  Controls.OBC.CDL.Continuous.Switch swiPum "Switch for circulation pumps"
+  Controls.OBC.CDL.Reals.Switch swiPum "Switch for circulation pumps"
     annotation (Placement(transformation(extent={{-240,-220},{-220,-200}})));
   Controls.OBC.CDL.Logical.And onHeaPum "On/off signal for heat pump"
     annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
@@ -383,6 +382,16 @@ which computes the heat transfer to the soil because this building has no baseme
 </p>
 </html>", revisions = "<html>
 <ul>
+<li>
+March 13, 2024, by Michael Wetter:<br/>
+Updated <code>idf</code> file to add insulation, and resized system.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3707\">issue 3707</a>.
+</li>
+<li>
+March 11, 2024, by Michael Wetter:<br/>
+Corrected wrong <code>displayUnit</code> string.
+</li>
 <li>
 December 1, 2022, by Michael Wetter:<br/>
 Replaced idealized heating with geothermal heat pump,

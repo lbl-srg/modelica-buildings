@@ -529,7 +529,6 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
   /* Generate the FMU */
   char* optionFlags;
   char* outputFlag;
-  char* createFlag;
   char* fulCmd;
   int retVal;
   size_t len;
@@ -545,12 +544,11 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
     SpawnFormatError("Requested to use json file '%s' which does not exist.", modelicaBuildingsJsonFile);
   }
 
-  optionFlags = " --no-compress "; /* Flag for command */
-  outputFlag = " --output-path "; /* Flag for command */
-  createFlag = " --create "; /* Flag for command */
+  optionFlags = " energyplus create-fmu "; /* Flag for command */
+  outputFlag = " --output-path ";          /* Flag for command */
   len = strlen("\"") + strlen(spawnFullPath) + strlen("\"") + strlen(optionFlags)
-    + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\"")
-    + strlen(createFlag) + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
+    + strlen(outputFlag) + strlen("\"") + strlen(bui->fmuAbsPat) + strlen("\" ")
+    + strlen("\"") + strlen(modelicaBuildingsJsonFile) + strlen("\"")
     + 1;
 #ifdef _WIN32 /* Win32 or Win64 */
   /* Windows needs double quotes in the system call, see https://stackoverflow.com/questions/2642551/windows-c-system-call-with-spaces-in-command */
@@ -572,8 +570,7 @@ void generateFMU(FMUBuilding* bui, const char* spawnFullPath, const char* modeli
   strcat(fulCmd, outputFlag);
   strcat(fulCmd, "\"");
   strcat(fulCmd, bui->fmuAbsPat);
-  strcat(fulCmd, "\"");
-  strcat(fulCmd, createFlag);
+  strcat(fulCmd, "\" ");
   strcat(fulCmd, "\"");
   strcat(fulCmd, modelicaBuildingsJsonFile);
   strcat(fulCmd, "\"");

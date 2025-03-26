@@ -20,7 +20,7 @@ model FlowCircuit
     m_flow_nominal=0.1,
     V=1)
     annotation (Placement(transformation(extent={{0,62},{20,82}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1)
     annotation (Placement(transformation(extent={{80,48},{60,68}})));

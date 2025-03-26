@@ -6,7 +6,7 @@ annotation(preferredView="info",
  Documentation(info="<html>
 <p>
 Package with performance data for reverse water to water heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
    Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",

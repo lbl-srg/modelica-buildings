@@ -37,14 +37,14 @@ model EquationFitReversible_CoolingClosedLoop
      nPorts=1)
    "Volume for source side"
    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse uMod(
+  Controls.OBC.CDL.Reals.Sources.Pulse uMod(
     amplitude=-1,
     width=0.7,
     period=200,
     offset=0)
    "heat pump operational mode input signal"
    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse pulse(
+  Controls.OBC.CDL.Reals.Sources.Pulse pulse(
     amplitude=1,
     width=0.7,
     period(displayUnit="s") = 200,
@@ -81,14 +81,14 @@ model EquationFitReversible_CoolingClosedLoop
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={80,-12})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse TSouEnt(
+  Controls.OBC.CDL.Reals.Sources.Pulse TSouEnt(
     amplitude=3,
     width=0.7,
     period=200,
     offset=25 + 273.15)
     "Source side entering water temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Controls.OBC.CDL.Continuous.Sources.Pulse TLoaSet(
+  Controls.OBC.CDL.Reals.Sources.Pulse TLoaSet(
     y(final unit="K", displayUnit="degC"),
     amplitude=1,
     width=0.7,

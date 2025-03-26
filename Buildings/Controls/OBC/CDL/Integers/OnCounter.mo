@@ -3,13 +3,13 @@ block OnCounter
   "Increment the output if the input switches to true"
   parameter Integer y_start=0
     "Initial and reset value of y if input reset switches to true";
-  Interfaces.BooleanInput trigger
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput reset
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput reset
     "Reset the counter"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

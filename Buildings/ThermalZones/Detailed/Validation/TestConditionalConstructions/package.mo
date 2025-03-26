@@ -6,7 +6,7 @@ package TestConditionalConstructions "Package with models that verify whether co
 annotation (preferredView="info",
 Documentation(info="<html>
 The thermal zone model
-<a href=\"Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.MixedAir\">Buildings.ThermalZones.Detailed.MixedAir</a>
 allows the conditional declaration of constructions for
 exterior walls without windows, for exterior walls with windows,
 for partition walls, for interior surfaces,

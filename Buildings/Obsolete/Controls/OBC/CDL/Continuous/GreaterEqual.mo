@@ -17,7 +17,7 @@ equation
 
 annotation (
   defaultComponentName="greEqu",
-  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Continuous.Greater instead",
+  obsolete = "Obsolete model, use Buildings.Controls.OBC.CDL.Reals.Greater instead",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

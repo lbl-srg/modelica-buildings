@@ -1,0 +1,39 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.EventSequencing",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=4500.0,
+    resultFile="EventSequencing");
+createPlot(
+    id=1,
+    position={5, 5, 300, 500},
+    subPlot=1,
+    y={"seqEveHea.u1Hea", "seqEveHea.u1PumHeaWatPri_actual", "seqEveHea.u1PumHeaWatSec_actual"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"seqEveHea.y1", "seqEveHea.y1ValHeaWatInlIso", "seqEveHea.y1PumHeaWatPri"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    position={315, 5, 300, 500},
+    subPlot=1,
+    y={"seqEveHeaCoo.u1Hea", "seqEveHeaCoo.u1Coo", "seqEveHeaCoo.u1PumHeaWatPri_actual"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"seqEveHeaCoo.y1", "seqEveHeaCoo.y1ValHeaWatInlIso", "seqEveHeaCoo.y1ValHeaWatOutIso", "seqEveHeaCoo.y1ValChiWatInlIso", "seqEveHeaCoo.y1ValChiWatOutIso", "seqEveHeaCoo.y1PumHeaWatPri"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

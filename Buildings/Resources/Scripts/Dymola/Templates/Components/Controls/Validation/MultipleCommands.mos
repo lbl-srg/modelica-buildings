@@ -1,0 +1,26 @@
+simulateModel("Buildings.Templates.Components.Controls.Validation.MultipleCommands",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=2000.0,
+    resultFile="MultipleCommands");
+createPlot(
+    id=1,
+    position={5, 5, 300, 600},
+    y={"conCom.y1[1]", "conCom.y1[2]", "conCom.y1[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"conCom.y1One"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"conCom.nUniOn", "conCom.nUniOnBou"},
+    autoscale=true,
+    grid=true
+);

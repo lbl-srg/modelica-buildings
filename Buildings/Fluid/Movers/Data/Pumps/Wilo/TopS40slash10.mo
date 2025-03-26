@@ -1,7 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record TopS40slash10 "Pump data for a staged Wilo-Top-S 40/10 pump"
   extends Generic(
-    speed_rpm_nominal=2900,
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={2.29252636405e-05, 0.00110041265475, 0.00221610881858,
@@ -15,8 +14,7 @@ record TopS40slash10 "Pump data for a staged Wilo-Top-S 40/10 pump"
                       0.00537979520098, 0.00605991135565, 0.00625859697387},
                  dp={    98785.5232361,    97106.6860151,    91320.1257409,
                          79370.6856694,    66042.1923274,    53051.3974809,
-                         40227.5679296,    25353.7625039,    20566.1680722}),
-    speeds_rpm = {0, 2600, 2800});
+                         40227.5679296,    25353.7625039,    20566.1680722}));
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
@@ -35,6 +33,12 @@ Documentation(info="<html>
   </html>",
   revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>

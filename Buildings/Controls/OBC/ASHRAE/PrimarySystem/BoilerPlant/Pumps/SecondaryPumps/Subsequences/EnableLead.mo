@@ -17,11 +17,11 @@ block EnableLead
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-protected
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr
     "Check if any hot water requests are being generated"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical And"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -55,8 +55,8 @@ annotation (
   Documentation(info="<html>
   <p>
   Block that enables and disables lead secondary hot water pump, for plants
-  with variable-speed hot water pumps, according to ASHRAE RP-1711, March 2020 draft, 
-  section 5.3.7.2.
+  with variable-speed hot water pumps, according to ASHRAE Guideline 36, 2021, 
+  section 5.21.7.2.
   </p>
   <ul>
   <li>

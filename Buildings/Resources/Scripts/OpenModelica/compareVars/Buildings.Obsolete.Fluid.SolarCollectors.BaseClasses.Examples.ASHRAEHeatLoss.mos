@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "heaLos.QLos[1]",
+    "heaLos.QLos[2]",
+    "heaLos.QLos[3]",
+    "TEnv.y",
+    "T1.y",
+    "T2.y",
+    "T3.y"
+  };

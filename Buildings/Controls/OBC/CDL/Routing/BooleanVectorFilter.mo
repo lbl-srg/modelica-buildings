@@ -5,10 +5,10 @@ block BooleanVectorFilter
   parameter Integer nout "Size of output vector";
   parameter Boolean msk[nin]=fill(true,nin) "Array mask";
 
-  Interfaces.BooleanInput u[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u[nin]
     "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y[nout]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y[nout]
     "Connector of Boolean output signals"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

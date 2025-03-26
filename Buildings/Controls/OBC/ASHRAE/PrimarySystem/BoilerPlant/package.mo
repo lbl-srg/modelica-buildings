@@ -17,7 +17,8 @@ annotation (preferredView="info",
                 <p>
                 This package contains control sequences for a boiler plant comprising a single boiler or multiple boilers, 
                 hot water pumps and flow-control devices. <br/>
-                The control sequences are implemented based on ASHRAE RP-1711, Draft 4 and Draft 5.
+                The control sequences are implemented based on ASHRAE Guideline
+                36, 2021.
                 </p>
                 </html>"));
 end BoilerPlant;

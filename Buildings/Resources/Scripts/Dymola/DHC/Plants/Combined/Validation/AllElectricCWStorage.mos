@@ -1,0 +1,240 @@
+simulateModel("Buildings.DHC.Plants.Combined.Validation.AllElectricCWStorage",
+    method="Cvode",
+    tolerance=1e-6,
+    startTime=0,
+    stopTime=345600,
+    resultFile="AllElectricCWStorage");
+createPlot(
+    id=1,
+    position={8, 9, 504, 530},
+    y={"pla.chi.y1[1]", "pla.chi.y1[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pla.chiHea.y1[1]", "pla.chiHea.y1Coo[1]", "pla.ctl.y1HeaCooChiHea[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[2]", "pla.ctl.y1HeaCooChiHea[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"pla.ctl.cycTan.idxCycTan", "pla.ctl.modConLoo.mode"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    position={38, 10, 442, 494},
+    y={"pla.chi.m1_flow", "pla.chi.m2_flow", "pla.chiHea.m1_flow", "pla.chiHea.m2_flow", "pla.chiHea.m3_flow", "pla.chiHea.m4_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"pla.chi.chi.m2_flow", "pla.chiHea.chi[1].m2_flow", "pla.chiHea.chi[2].m2_flow", "pla.chi.mChiWatUni_flow_nominal", "pla.chiHea.mChiWatUni_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=2,
+    subPlot=3,
+    y={"pla.TChiWatSupSet", "pla.TChiWatPriRet.T", "pla.TChiWatSup.T", "pla.chiHea.TEvaLvg[1]", "pla.chiHea.TEvaLvg[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    position={66, 80, 442, 494},
+    y={"pla.pumChiWat.y1[1]", "pla.pumChiWat.y1[2]","pla.pumChiWat.pum.y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"pla.dpChiWatSet", "pla.dpChiWat.p_rel", "pla.pumChiWat.pum.dpMachine", "pla.pumChiWat.dpPum_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=3,
+    y={"pla.mChiWatPri_flow.m_flow", "pla.mChiWat_flow_nominal", "pla.chi.m2_flow", "pla.chiHea.m4_flow", "pla.mChiWatChi_flow_min"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    position={463, 12, 443, 466},
+    y={"pla.chiHea.m1_flow", "pla.chiHea.m2_flow", "pla.chiHea.m3_flow", "pla.chiHea.m4_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    subPlot=2,
+    y={"pla.chiHea.chi[1].m1_flow", "pla.chiHea.chi[2].m1_flow", "pla.chiHea.mConWatUni_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=4,
+    subPlot=3,
+    y={"pla.THeaWatSupSet", "pla.THeaWatPriRet.T", "pla.THeaWatSup.T", "pla.chiHea.TConLvg[1]", "pla.chiHea.TConLvg[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=5,
+    position={517, 80, 443, 495},
+    y={"pla.pumHeaWat.y1[1]", "pla.pumHeaWat.y1[2]", "pla.pumHeaWat.pum.y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=5,
+    subPlot=2,
+    y={"pla.dpHeaWatSet", "pla.dpHeaWat.p_rel", "pla.pumHeaWat.pum.dpMachine", "pla.pumHeaWat.dpPum_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=5,
+    subPlot=3,
+    y={"pla.mHeaWatPri_flow.m_flow", "pla.mHeaWat_flow_nominal", "pla.chiHea.m1_flow", "pla.mHeaWatChiHea_flow_min"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    position={915, 12, 407, 496},
+    y={"pla.pumConWatCon.y1[1]", "pla.pumConWatCon.y1[2]", "pla.pumConWatCon.y"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    subPlot=2,
+    y={"pla.chi.m1_flow", "pla.chiHea.m3_flow", "pla.chiHea.m3_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    subPlot=3,
+    y={"pla.pumConWatEva.y1[1]", "pla.pumConWatEva.y1[2]", "pla.pumConWatEva.y"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=6,
+    subPlot=4,
+    y={"pla.chiHea.m2_flow", "pla.chiHea.m2_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    position={981, 81, 443, 524},
+    y={"pla.heaPum.y1[1]", "pla.heaPum.y1[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=2,
+    y={"pla.ctl.THeaPumSet", "pla.TConWatHeaPumEnt.T", "pla.TConWatHeaPumLvg.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=3,
+    y={"pla.heaPum.heaPum.m1_flow", "pla.heaPum.heaPum.m1_flow_nominal"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=7,
+    subPlot=4,
+    y={"pla.TTan[1].T", "pla.TTan[5].T", "pla.TTan[10].T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=8,
+    position={593, 26, 592, 396},
+    y={"pla.chiHea.valConSwi[1].y_actual", "pla.chiHea.valConSwi[2].y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=8,
+    subPlot=2,
+    y={"pla.chiHea.valEvaSwi[1].y_actual", "pla.chiHea.valEvaSwi[2].y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=9,
+    position={75, 75, 584, 361},
+    y={"pla.TConWatConChiEnt.T", "pla.TConWatConChiLvg.T", "pla.TConWatConRet.T", "pla.TConWatHexCooEnt.T", "pla.TConWatHexCooLvg.T"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);

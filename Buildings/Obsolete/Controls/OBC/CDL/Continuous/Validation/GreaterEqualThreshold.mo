@@ -1,6 +1,6 @@
 within Buildings.Obsolete.Controls.OBC.CDL.Continuous.Validation;
 model GreaterEqualThreshold  "Validation model for the GreaterEqualThreshold block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp2(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp2(
     duration=1,
     offset=-1,
     height=2) "Block that generates ramp signal"

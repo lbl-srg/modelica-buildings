@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "TOutDegC.Celsius",
+    "TOutEPlu.y",
+    "XConOut.y",
+    "XConOutEPlu.y",
+    "Q_flowMea.y",
+    "Q_flowEPlu.y",
+    "PMea.y",
+    "PEPlu.y"
+  };

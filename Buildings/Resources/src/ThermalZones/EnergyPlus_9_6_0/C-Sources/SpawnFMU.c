@@ -53,13 +53,13 @@ size_t AllocateBuildingDataStructure(
 
     /* Allocate memory */
   if (nFMU == 0)
-    Buildings_FMUS = malloc(sizeof(struct FMUBuilding*));
+    Buildings_FMUS = (FMUBuilding **)malloc(sizeof(struct FMUBuilding*));
   else
-    Buildings_FMUS = realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
+    Buildings_FMUS = (FMUBuilding **)realloc(Buildings_FMUS, (nFMU+1) * sizeof(struct FMUBuilding*));
   if ( Buildings_FMUS == NULL )
     SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU.");
 
-  Buildings_FMUS[nFMU] = malloc(sizeof(FMUBuilding));
+  Buildings_FMUS[nFMU] = (FMUBuilding *)malloc(sizeof(FMUBuilding));
   if ( Buildings_FMUS[nFMU] == NULL )
     SpawnError("Not enough memory in SpawnFMU.c. to allocate array for Buildings_FMU[0].");
 
@@ -217,7 +217,7 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
       bui->time, bui->modelicaNameBuilding, nExcObj, ptrSpaObj->modelicaName);
 
   if (nExcObj == 0){
-    bui->exchange=malloc(sizeof(SpawnObject *));
+    bui->exchange = (void**)((SpawnObject **)malloc(sizeof(SpawnObject *)));
     if ( bui->exchange== NULL )
       SpawnError("Not enough memory in SpawnFMU.c. to allocate exc.");
   }
@@ -225,7 +225,7 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
     /* We already have nExcObj > 0 exc */
 
     /* Increment size of vector that contains the exc. */
-    bui->exchange = realloc(bui->exchange, (nExcObj + 1) * sizeof(SpawnObject*));
+    bui->exchange = (void**)((SpawnObject **)realloc(bui->exchange, (nExcObj + 1) * sizeof(SpawnObject*)));
     if (bui->exchange == NULL){
       SpawnError("Not enough memory in SpawnFMU.c. to allocate memory for bld->exc.");
     }

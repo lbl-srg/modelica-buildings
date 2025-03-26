@@ -87,11 +87,11 @@ model HeatExchangerDynamics
   Buildings.Fluid.Sources.MassFlowSource_T mWatTanDyn_flow(
     redeclare package Medium = Medium,
     nPorts=1) "Mass flow rate through the tank"
-    annotation (Placement(transformation(extent={{88,20},{68,40}})));
+    annotation (Placement(transformation(extent={{82,10},{62,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T mWatTanSte_flow(
     redeclare package Medium = Medium,
     nPorts=1) "Mass flow rate through the tank"
-    annotation (Placement(transformation(extent={{88,-20},{68,0}})));
+    annotation (Placement(transformation(extent={{82,-30},{62,-10}})));
 equation
   connect(mHex_flow_in.y, mHex_flow1.m_flow_in) annotation (Line(
       points={{-79,20},{-70,20},{-70,28},{-62,28}},
@@ -101,26 +101,27 @@ equation
           {-70,-2},{-70,20},{-79,20}}, color={0,0,127}));
   connect(mHex_flow2.ports[1], tanSte.portHex_a) annotation (Line(points={{-40,-10},
           {-32,-10},{-30,-10},{-30,-13.8},{32,-13.8}},  color={0,127,255}));
-  connect(watInTan.ports[1], tanSte.port_a) annotation (Line(points={{-40,62},{
-          -40,59},{-22,59},{-22,-10},{32,-10}},
-                                             color={0,127,255}));
+  connect(watInTan.ports[1], tanSte.port_a) annotation (Line(points={{-40,59},{
+          -40,59},{-22,59},{-22,0},{42,0}},  color={0,127,255}));
   connect(mHex_flow1.ports[1], tanDyn.portHex_a) annotation (Line(points={{-40,
           20},{-30,20},{-30,26.2},{32,26.2}}, color={0,127,255}));
-  connect(watInTan.ports[2], tanDyn.port_a) annotation (Line(points={{-40,58},{
-          -30,58},{-20,58},{-20,30},{32,30}},
+  connect(watInTan.ports[2], tanDyn.port_a) annotation (Line(points={{-40,61},{
+          -30,61},{-20,61},{-20,40},{42,40}},
                                            color={0,127,255}));
   connect(senTanDyn.port_a, tanDyn.portHex_b) annotation (Line(points={{10,10},{
           20,10},{20,22},{32,22}}, color={0,127,255}));
   connect(senTanSte.port_a, tanSte.portHex_b) annotation (Line(points={{10,-40},
           {20,-40},{20,-18},{32,-18}}, color={0,127,255}));
-  connect(senTanDyn.port_b, sin.ports[1]) annotation (Line(points={{-10,10},{-20,
-          10},{-20,-36},{-42,-36}}, color={0,127,255}));
-  connect(senTanSte.port_b, sin.ports[2]) annotation (Line(points={{-10,-40},{-16,
-          -40},{-42,-40}}, color={0,127,255}));
+  connect(senTanDyn.port_b, sin.ports[1]) annotation (Line(points={{-10,10},{
+          -20,10},{-20,-39},{-42,-39}},
+                                    color={0,127,255}));
+  connect(senTanSte.port_b, sin.ports[2]) annotation (Line(points={{-10,-40},{
+          -42,-40},{-42,-37}},
+                           color={0,127,255}));
   connect(mWatTanDyn_flow.ports[1], tanDyn.port_b)
-    annotation (Line(points={{68,30},{52,30}}, color={0,127,255}));
+    annotation (Line(points={{62,20},{42,20}}, color={0,127,255}));
   connect(mWatTanSte_flow.ports[1], tanSte.port_b)
-    annotation (Line(points={{68,-10},{52,-10}}, color={0,127,255}));
+    annotation (Line(points={{62,-20},{42,-20}}, color={0,127,255}));
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Validation/HeatExchangerDynamics.mos"
         "Simulate and plot"),

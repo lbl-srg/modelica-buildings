@@ -1,10 +1,11 @@
 compareVars :=
   {
-    "hex.Q1_flow",
-    "hex.Q2_flow",
-    "hex.QLat2_flow",
     "hex.m1_flow",
     "hex.m2_flow",
     "con.u_s",
-    "con.u_m"
+    "con.u_m",
+    "hex.Q1_flow",
+    "hex.Q2_flow",
+    "hex.QLat2_flow",
+    "hex.QSen2_flow"
   };

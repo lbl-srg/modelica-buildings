@@ -26,7 +26,7 @@ model ControllerChillerDXHeatingEconomizer
     minOAFra=0.4,
     TSetSupAir=286.15) "Controller"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable  TSetRooHea(
+  Controls.OBC.CDL.Reals.Sources.TimeTable  TSetRooHea(
     table=[
       0,      15 + 273.15;
       8*3600, 20 + 273.15;
@@ -36,7 +36,7 @@ model ControllerChillerDXHeatingEconomizer
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic)
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
+  Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooCoo(
     table=[
        0,      30 + 273.15;
        8*3600, 25 + 273.15;

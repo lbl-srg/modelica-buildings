@@ -1,0 +1,20 @@
+simulateModel("Buildings.Templates.Plants.Controls.Utilities.Validation.HoldReal",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=60.0,
+    resultFile="HoldReal");
+createPlot(
+    id=1,
+    position={5, 5, 400, 500},
+    subPlot=1,
+    y={"sin.y", "booPul.y"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"hol.y", "holTim.y"},
+    autoscale=true,
+    grid=true
+);

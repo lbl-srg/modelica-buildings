@@ -62,8 +62,8 @@ block CondensationControl
     final min=0,
     final max=1) if have_priOnl
     "Minimum allowed setpoint of bypass valve position"
-    annotation (Placement(transformation(extent={{100,30},{140,70}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinPriPumSpe(
     final unit="1",
@@ -71,7 +71,7 @@ block CondensationControl
     final min=0,
     final max=1) if (have_varPriPum and not have_priOnl)
     "Minimum allowed primary pump speed"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{100,-40},{140,0}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxSecPumSpe(
@@ -80,15 +80,15 @@ block CondensationControl
     final min=0,
     final max=1) if not have_priOnl
     "Maximum allowed secondary pump speed"
-    annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Pass 0 regulation signal if stage type is not non-condensing"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Zero source"
     annotation (Placement(transformation(extent={{-90,20},{-70,40}})));
@@ -108,7 +108,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler)
     "Identify if current stage is condensing type or non-condensing type"
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
@@ -127,7 +127,7 @@ equation
                                                 color={0,0,127}));
 
   connect(yMinBypValPos, yMinBypValPos)
-    annotation (Line(points={{120,50},{120,50}}, color={0,0,127}));
+    annotation (Line(points={{120,20},{120,20}}, color={0,0,127}));
 
   connect(uStaTyp, intToRea.u)
     annotation (Line(points={{-120,-70},{-92,-70}},
@@ -149,8 +149,8 @@ equation
           58},{-52,58}},       color={0,0,127}));
   connect(greThr.y, swi.u2) annotation (Line(points={{12,-70},{20,-70},{20,-50},
           {-56,-50},{-56,50},{-52,50}},     color={255,0,255}));
-  connect(swi.y, yMinBypValPos) annotation (Line(points={{-28,50},{120,50}},
-                                         color={0,0,127}));
+  connect(swi.y, yMinBypValPos) annotation (Line(points={{-28,50},{46,50},{46,
+          20},{120,20}},                 color={0,0,127}));
   connect(con.y, swi.u3) annotation (Line(points={{-68,30},{-60,30},{-60,42},{-52,
           42}},       color={0,0,127}));
   connect(swi.y, pumSpeLim.uRegSig) annotation (Line(points={{-28,50},{-20,50},{
@@ -158,9 +158,10 @@ equation
   connect(uCurSta, pumSpeLim.uCurSta) annotation (Line(points={{-120,0},{-60,0},
           {-60,5},{-12,5}}, color={255,127,0}));
   connect(pumSpeLim.yMinPriPumSpe, yMinPriPumSpe)
-    annotation (Line(points={{12,5},{30,5},{30,0},{120,0}},color={0,0,127}));
+    annotation (Line(points={{12,5},{40,5},{40,-20},{120,-20}},
+                                                           color={0,0,127}));
   connect(pumSpeLim.yMaxSecPumSpe, yMaxSecPumSpe) annotation (Line(points={{12,-5},
-          {30,-5},{30,-50},{120,-50}}, color={0,0,127}));
+          {30,-5},{30,-60},{120,-60}}, color={0,0,127}));
   annotation (defaultComponentName=
     "conSet",
     Icon(graphics={
@@ -195,8 +196,8 @@ equation
   Documentation(
     info="<html>
     <p>
-    Block that generates condensation control setpoints according to ASHRAE RP-1711,
-    March, 2020 draft, section 5.3.5.
+    Block that generates condensation control setpoints according to ASHRAE Guideline
+    36 2021, section 5.21.5.
     </p>
     <p>
     The sequence calculates the condensation control setpoints for minimum bypass

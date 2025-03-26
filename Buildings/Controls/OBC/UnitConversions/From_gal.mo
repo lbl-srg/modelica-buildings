@@ -15,7 +15,7 @@ block From_gal "Block that converts volume from gallon to cubic meter"
 protected
   constant Real k = 0.003785412 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter conv(
     final k = k) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

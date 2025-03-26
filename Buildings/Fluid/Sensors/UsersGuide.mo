@@ -60,7 +60,7 @@ Sensors for quantities that depend on the direction of the mass flow rate but
 not of its magnitude:
 </em>
 Such quantities include density, mass fraction, PPM, relative humidity, specific enthalpy, specific entropy and trace substances.
-Not that these are all quantities that are carried by the fluid that flows through the sensor.
+Note that these are all quantities that are carried by the fluid that flows through the sensor.
 For these sensors, if the parameter <code>allowFlowReversal=true</code> is set (which is the default setting),
 then it is strongly recommended to configure them
 as a dynamic sensor. This is the default setting.<br/>

@@ -209,7 +209,7 @@ Changed type of <code>BaseProperties.T</code> from
 <code>Modelica.Units.SI.Temperature</code> to <code>Temperature</code>.
 Otherwise, it has a different start value than <code>Medium.T</code>, which
 causes an error if
-<a href=\"Buildings.Media.Examples.WaterProperties\">
+<a href=\"modelica://Buildings.Media.Examples.WaterProperties\">
 Buildings.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes

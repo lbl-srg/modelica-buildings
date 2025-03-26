@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "tow.TWetBul",
+    "TEnt.T",
+    "tow.TLvg",
+    "conFan.u_s",
+    "conFan.u_m",
+    "TVol.T",
+    "TSwi.y"
+  };

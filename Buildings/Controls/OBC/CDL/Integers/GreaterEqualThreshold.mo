@@ -3,10 +3,10 @@ block GreaterEqualThreshold
   "Output y is true, if input u is greater or equal than threshold"
   parameter Integer t=0
     "Comparison with respect to a threshold";
-  Interfaces.IntegerInput u
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

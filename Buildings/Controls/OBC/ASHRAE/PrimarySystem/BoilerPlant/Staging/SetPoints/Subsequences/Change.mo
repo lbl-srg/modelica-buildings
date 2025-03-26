@@ -77,7 +77,7 @@ protected
   parameter Integer staInd[nSta]={i for i in 1:nSta}
     "Stage index vector";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(final k=0)
     "Zero boiler stage"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -90,7 +90,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     "Switch"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
@@ -113,10 +113,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holIniSta(
     final trueHoldDuration=delStaCha,
     final falseHoldDuration=0)
-    "Holds stage switched to initial upon plant start"
+    "Holds stage switched to initially upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
+  Buildings.Controls.OBC.CDL.Reals.Switch switch2
     "Switch"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -128,7 +128,7 @@ protected
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{200,0},{220,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1(
     final t=0.5)
     "Check if plant is still enabled"
     annotation (Placement(transformation(extent={{280,0},{300,20}})));
@@ -205,7 +205,7 @@ protected
     "Edge detector"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch3
+  Buildings.Controls.OBC.CDL.Reals.Switch switch3
     "Switch"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 
@@ -226,7 +226,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-320,240},{-300,260}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
+  Buildings.Controls.OBC.CDL.Reals.MultiMin mulMin(
     final nin=nSta)
     "Find lowest available stage"
     annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
@@ -294,18 +294,19 @@ equation
           180},{0,180},{0,158},{38,158}}, color={0,0,127}));
   connect(and3.y, lat1.u) annotation (Line(points={{302,70},{320,70},{320,220},{
           -120,220},{-120,150},{-82,150}}, color={255,0,255}));
-  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{
-          -240,-74.75},{-162,-74.75}},
+  connect(not3.y, mulAnd.u[1]) annotation (Line(points={{-258,160},{-240,160},{-240,
+          -82.625},{-162,-82.625}},
                                   color={255,0,255}));
   connect(mulAnd.y, and3.u1) annotation (Line(points={{-138,-80},{40,-80},{40,
           70},{278,70}}, color={255,0,255}));
   connect(pre1.y, staChaHol3.u)
     annotation (Line(points={{342,-110},{358,-110}}, color={255,0,255}));
-  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{
-          430,-140},{-200,-140},{-200,-78.25},{-162,-78.25}},
+  connect(not1.y, mulAnd.u[2]) annotation (Line(points={{422,-110},{430,-110},{430,
+          -140},{-200,-140},{-200,-80.875},{-162,-80.875}},
                                                           color={255,0,255}));
   connect(lat2.y, mulAnd.u[3]) annotation (Line(points={{-258,-180},{-166,-180},
-          {-166,-81.75},{-162,-81.75}}, color={255,0,255}));
+          {-166,-79.125},{-162,-79.125}},
+                                        color={255,0,255}));
   connect(pre1.y, lat2.clr) annotation (Line(points={{342,-110},{350,-110},{350,
           -200},{-290,-200},{-290,-186},{-282,-186}}, color={255,0,255}));
   connect(reaToInt.y, cha.u) annotation (Line(points={{382,150},{400,150},{400,130},
@@ -314,8 +315,8 @@ equation
           138}},   color={255,0,255}));
   connect(or2.y, and5.u1)
     annotation (Line(points={{-358,-80},{-322,-80}}, color={255,0,255}));
-  connect(and5.y, mulAnd.u[4]) annotation (Line(points={{-298,-80},{-230,-80},{
-          -230,-85.25},{-162,-85.25}}, color={255,0,255}));
+  connect(and5.y, mulAnd.u[4]) annotation (Line(points={{-298,-80},{-230,-80},{-230,
+          -77.375},{-162,-77.375}},    color={255,0,255}));
   connect(uPla, and5.u2) annotation (Line(points={{-460,160},{-388,160},{-388,
           -20},{-328,-20},{-328,-88},{-322,-88}}, color={255,0,255}));
   connect(uPla, cha1.u) annotation (Line(points={{-460,160},{-388,160},{-388,130},
@@ -382,36 +383,45 @@ equation
       extent={{-440,-300},{440,300}})),
     Documentation(info="<html>
     <p>
-    This subsequence is not directly specified in 1711 as it provides a side
-    calculation pertaining to generalization of the staging sequences for any
-    number of boilers and stages provided by the user.
+    This subsequence is not directly specified in ASHRAE Guideline 36 as it
+    provides a side calculation pertaining to generalization of the staging
+    sequences for any number of boilers and stages provided by the user.
     </p>
     <p>This subsequence is used to generate the boiler stage setpoint 
-    <span style=\"font-family: monospace;\">ySta</span> and a boolean vector of
-    boiler status setpoint indices <span style=\"font-family: monospace;\">y</span>
-    for the <span style=\"font-family: monospace;\">ySta</span> stage. </p>
+    <code>ySta</code> and a boolean vector of
+    boiler status setpoint indices <code>y</code>
+    for the <code>ySta</code> stage. </p>
     <p>The inputs to the subsequece are: </p>
     <ul>
     <li>
-    Plant enable status <span style=\"font-family: monospace;\">uPla</span> that
-    is generated by <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a> subsequence. 
+    Plant enable status <code>uPla</code> that
+    is generated by
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable</a> subsequence. 
     </li>
     <li>
-    Stage up <span style=\"font-family: monospace;\">uUp</span> and down 
-    <span style=\"font-family: monospace;\">uDow</span> boolean signals that are
-    generated by <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up</a>
-    and <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down</a> subsequences, respectively.
+    Stage up <code>uUp</code> and down <code>uDow</code> boolean signals that are
+    generated by
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Up</a>
+    and
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Down</a>
+    subsequences, respectively.
     </li>
     <li>
-    Integer index of next available higher <span style=\"font-family: monospace;\">uAvaUp</span>
-    and lower <span style=\"font-family: monospace;\">uAvaDow</span> boiler stage,
+    Integer index of next available higher <code>uAvaUp</code>
+    and lower <code>uAvaDow</code> boiler stage,
     as calculated by
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status</a>
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Status</a>
     subsequence.
     </li>
     <li>
-    Signal indicating end of stage change process <span style=\"font-family: monospace;\">uStaChaProEnd</span>
-    from <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes</a>
+    Signal indicating end of stage change process <code>uStaChaProEnd</code>
+    from
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes</a>
     subsequences.
     </li>
     </ul>
@@ -428,8 +438,8 @@ equation
     and until any stage up or down signal is generated.
     </p>
     <p>
-    Per 1711 March 2020 Draft 5.3.3.10.1, each stage shall have a minimum
-    runtime of <span style=\"font-family: monospace;\">delStaCha</span>. 
+    Per ASHRAE Gudeline 36, 2021,section 5.21.3.9, item a, each stage shall have
+    a minimum runtime of <code>delStaCha</code>. 
     </p>
     </html>",
     revisions="<html>

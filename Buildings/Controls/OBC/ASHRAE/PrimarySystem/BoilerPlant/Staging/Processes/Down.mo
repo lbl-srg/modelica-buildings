@@ -257,7 +257,7 @@ protected
     "Latch to short valve closing process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi[nBoi] if have_heaPriPum
     "Pass valve position signal from valve opening controller once the opening process starts"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
@@ -266,7 +266,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1[nBoi] if have_heaPriPum
     "Pass valve position signal from valve closing controller once the closing process starts"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
@@ -557,7 +557,7 @@ Documentation(info="<html>
 Block that controls boiler status and isolation valve position, initiates status
 change in devices like pumps and minimum flow bypass valve, and resets plant
 parameters like minimum flow setpoint when there is a stage-down command.
-This development is based on ASHRAE RP-1711, March 2020 draft,sections 5.3.3.11 - 5.3.3.18,
+This development is based on ASHRAE Guideline 36, 2021, sections 5.21.3.11 - 5.21.3.18,
 which specify the step-by-step control of devices during boiler staging down process.
 </p>
 <ol>

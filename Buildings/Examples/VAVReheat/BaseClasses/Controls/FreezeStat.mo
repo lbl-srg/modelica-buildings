@@ -28,7 +28,7 @@ model FreezeStat "Freeze thermostat with timed lockout"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not freStaSig "Signal for freeze stat"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final t=TSet,
     final h=0.5)
     "Greater comparison"

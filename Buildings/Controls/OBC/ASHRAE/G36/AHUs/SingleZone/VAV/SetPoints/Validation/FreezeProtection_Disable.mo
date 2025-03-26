@@ -8,32 +8,32 @@ model FreezeProtection_Disable
     "Freeze protection control"
     annotation (Placement(transformation(extent={{80,0},{100,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp outDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp outDamPos(
     final height=0.5,
     final offset=0.1,
     final duration=3600) "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp heaCoiPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp heaCoiPos(
     final height=0.46,
     final offset=0.5,
     final duration=3600) "Heating coil position"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp retDamPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp retDamPos(
     final height=0.2,
     final offset=0.7,
     final duration=3600) "Return air damper position"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp supFanSpe(
     final height=0.2,
     final offset=0.5,
     final duration=3600) "Supply fan speed"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp cooCoiPos(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp cooCoiPos(
     final height=0.2,
     final offset=0.5,
     final duration=3600) "Cooling coil position"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(
     final h=0.01)
     "Check if the supply fan is proven on"
     annotation (Placement(transformation(extent={{0,-56},{20,-36}})));

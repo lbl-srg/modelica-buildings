@@ -15,13 +15,7 @@ model ControlledFlowMachinePreconfigured
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
       dp_nominal=dp_nominal),
-    redeclare Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm fan4(
-      redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-      dp_nominal=dp_nominal,
-      speed_rpm_nominal=3580),
     dp1(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
-    dp4(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
     dp2(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal),
     dp3(m_flow_nominal=m_flow_nominal, dp_nominal=dp_nominal));
 
@@ -43,6 +37,12 @@ Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Deleted the mover with <code>Nrpm</code> signal.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 August 17, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for

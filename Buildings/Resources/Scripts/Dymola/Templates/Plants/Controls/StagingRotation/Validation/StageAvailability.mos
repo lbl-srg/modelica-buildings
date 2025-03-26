@@ -1,0 +1,28 @@
+simulateModel("Buildings.Templates.Plants.Controls.StagingRotation.Validation.StageAvailability",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=7.0,
+    resultFile="StageAvailability");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 300, 400},
+    y={"u1AvaEqu.y[1]", "u1AvaEqu.y[2]", "u1AvaEqu.y[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"avaStaEqu.y1[1]", "avaStaEqu.y1[2]", "avaStaEqu.y1[3]"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={310, 5, 300, 400},
+    y={"avaStaOneTwo.y1[1]", "avaStaOneTwo.y1[2]", "avaStaOneTwo.y1[3]", "avaStaOneTwo.y1[4]", "avaStaOneTwo.y1[5]"},
+    autoscale=true,
+    grid=true
+);

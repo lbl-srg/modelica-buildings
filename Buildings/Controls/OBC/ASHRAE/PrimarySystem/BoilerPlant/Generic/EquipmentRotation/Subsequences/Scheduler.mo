@@ -57,7 +57,7 @@ block Scheduler
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime calTim(
+  Buildings.Controls.OBC.CDL.Reals.Sources.CalendarTime calTim(
     final zerTim=zerTim,
     final yearRef=yearRef,
     final offset=offset) if not simTimSta

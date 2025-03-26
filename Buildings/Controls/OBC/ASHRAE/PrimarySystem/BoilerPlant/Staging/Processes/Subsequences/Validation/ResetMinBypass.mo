@@ -28,7 +28,7 @@ protected
     "Boolean pulse"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp minFloSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp minFloSet(
     final height=0.5,
     final duration=180,
     final offset=1,
@@ -36,7 +36,7 @@ protected
     "Minimum boiler water flow setpoint"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp meaFlo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp meaFlo(
     final height=0.5,
     final duration=80,
     final offset=1,

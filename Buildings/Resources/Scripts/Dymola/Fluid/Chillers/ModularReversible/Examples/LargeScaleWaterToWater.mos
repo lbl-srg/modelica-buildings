@@ -1,0 +1,4 @@
+simulateModel("Buildings.Fluid.Chillers.ModularReversible.Examples.LargeScaleWaterToWater", tolerance=1e-6, stopTime=3600, method="CVode", resultFile="LargeScaleWaterToWater");
+createPlot(id=2, position={39, 13, 913, 546}, y={"chi.refCyc.sigBus.TConInMea", "chi.refCyc.sigBus.TConOutMea", "chi.refCyc.sigBus.TEvaOutMea", "chi.refCyc.sigBus.TEvaInMea"}, range={0.0, 3600.0, 5.0, 40.0}, grid=true, filename="LargeScaleWaterToWater.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={39, 13, 913, 546}, y={"chi.QCon_flow", "chi.QEva_flow", "chi.P"}, range={0.0, 3600.0, -200000.0, 300000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={39, 13, 913, 546}, y={"chi.refCyc.sigBus.ySet", "chi.refCyc.sigBus.yMea"}, range={0.0, 3600.0, 0.0, 1.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

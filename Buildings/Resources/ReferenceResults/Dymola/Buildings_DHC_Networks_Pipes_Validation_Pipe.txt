@@ -1,0 +1,21 @@
+last-generated=2024-02-09
+statistics-initialization=
+{
+  "nonlinear": "0, 1, 0, 1",
+  "numerical Jacobians": "0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+pipSta1.dh=[5.47999981790781e-03, 5.47999981790781e-03]
+pipAut1.dh=[5.476676858961582e-03, 5.476676858961582e-03]
+pipSta2.dh=[2.943000078201294e+00, 2.943000078201294e+00]
+pipAut2.dh=[2.94313907623291e+00, 2.94313907623291e+00]
+pipSta1.dp=[1.053362734375e+05, 1.053362734375e+05]
+pipAut1.dp=[1.05657125e+05, 1.05657125e+05]
+pipSta2.dp=[1.000228691101074e+01, 1.000228691101074e+01]
+pipAut2.dp=[1e+01, 1e+01]

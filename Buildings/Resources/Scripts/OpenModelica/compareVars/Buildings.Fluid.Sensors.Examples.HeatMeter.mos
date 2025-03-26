@@ -1,0 +1,5 @@
+compareVars :=
+  {
+    "senHeaFlo.Q_flow",
+    "heaFloRat.Q_flow"
+  };

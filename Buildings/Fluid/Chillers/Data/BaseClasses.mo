@@ -97,10 +97,10 @@ First implementation.
 This package contains the common parameters that are used
 to specify the performance data
 for the chiller models
-<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>
 and
-<a href=\"Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 </html>", revisions="<html>
 <ul>

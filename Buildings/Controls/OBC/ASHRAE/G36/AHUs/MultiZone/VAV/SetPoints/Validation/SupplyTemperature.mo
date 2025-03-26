@@ -5,7 +5,7 @@ model SupplyTemperature
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature conTSupSet
     "Supply air temperature setpoint for multi zone system"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin outTem(
     final amplitude=5,
     final freqHz=1/86400,
     final offset=18 + 273.15) "Outdoor air temperature"
@@ -14,15 +14,15 @@ model SupplyTemperature
     final period=43200)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp opeMod(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp opeMod(
     final offset=1,
     final height=1,
     final duration=90000) "Operation mode"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs
+  Buildings.Controls.OBC.CDL.Reals.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Sin sine(
     final amplitude=6,
     final freqHz=1/86400)
     "Block generates sine signal"
@@ -30,14 +30,14 @@ model SupplyTemperature
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
     "Convert real to integer"
     annotation (Placement(transformation(extent={{32,-40},{52,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round1(
+  Buildings.Controls.OBC.CDL.Reals.Round round1(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real to integer"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round round2(
+  Buildings.Controls.OBC.CDL.Reals.Round round2(
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));

@@ -79,7 +79,7 @@ block ZoneWithAHUG36
     QCoo_flow_nominal=QCoo_flow_nominal,
     TSupChi_nominal=TSupChi_nominal) "HVAC system"
     annotation (Placement(transformation(extent={{20,-28},{60,12}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysChiPla1(uLow=-1, uHigh=0)
     "Hysteresis with delay to switch on cooling"
     annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
   Modelica.Blocks.Math.Feedback errTRooCoo1
@@ -95,7 +95,7 @@ block ZoneWithAHUG36
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetSupChiConst(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetSupChiConst(
     final k=TSupChi_nominal)
     "Set point for chiller temperature"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));

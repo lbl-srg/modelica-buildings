@@ -41,7 +41,7 @@ block HWIsoVal
       iconTransformation(extent={{100,-80},{140,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=1/chaHotWatIsoRat)
     "Find remaining time for valve position change"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -50,21 +50,21 @@ protected
     "Sample valve position at start of shutdown process"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Determine time required to change valve position"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre
+  Buildings.Controls.OBC.CDL.Reals.Greater gre
     "Check if time required for changing valve position has elapsed"
     annotation (Placement(transformation(extent={{60,110},{80,130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con9(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con9(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line lin1
+  Buildings.Controls.OBC.CDL.Reals.Line lin1
     "Hot water isolation valve setpoint"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
@@ -76,17 +76,17 @@ protected
     "Check if it is time to change isolation valve position"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys3(
     final uLow=0.025,
     final uHigh=0.05)
     "Check if isolation valve is disabled"
     annotation (Placement(transformation(extent={{-120,210},{-100,230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys4(
     final uLow=0.925,
     final uHigh=0.975)
     "Check if isolation valve is open more than 95%"
@@ -112,7 +112,8 @@ protected
     "Logical or"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And3 and5
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd and5(
+    final nin=3)
     "Check if the isolation valve has been fully open"
     annotation (Placement(transformation(extent={{140,130},{160,150}})));
 
@@ -171,10 +172,6 @@ equation
   connect(and5.y,yDisHotWatIsoVal)
     annotation (Line(points={{162,140},{200,140}}, color={255,0,255}));
 
-  connect(uUpsDevSta, and5.u2)
-    annotation (Line(points={{-180,-140},{-130,-140},{-130,140},{138,140}},
-      color={255,0,255}));
-
   connect(uUpsDevSta, and2.u1) annotation (Line(points={{-180,-140},{-100,-140},
           {-100,-170},{-82,-170}},color={255,0,255}));
 
@@ -192,15 +189,10 @@ equation
   connect(addPar.y, gre.u2) annotation (Line(points={{42,20},{80,20},{80,100},{34,
           100},{34,112},{58,112}},    color={0,0,127}));
 
-  connect(gre.y, and5.u3) annotation (Line(points={{82,120},{120,120},{120,132},
-          {138,132}}, color={255,0,255}));
-
   connect(con9.y, lin1.f2) annotation (Line(points={{22,100},{30,100},{30,72},{38,
           72}}, color={0,0,127}));
   connect(triSam.y, lin1.f1) annotation (Line(points={{-48,50},{-40,50},{-40,84},
           {38,84}}, color={0,0,127}));
-  connect(or2.y, and5.u1) annotation (Line(points={{62,220},{120,220},{120,148},
-          {138,148}}, color={255,0,255}));
   connect(uHotWatIsoVal, triSam.u) annotation (Line(points={{-180,-100},{-100,-100},
           {-100,50},{-72,50}}, color={0,0,127}));
   connect(lin1.y, swi.u1) annotation (Line(points={{62,80},{100,80},{100,-32},{138,
@@ -216,6 +208,14 @@ equation
     annotation (Line(points={{18,20},{2,20}}, color={0,0,127}));
   connect(gai.u, triSam.y) annotation (Line(points={{-22,20},{-40,20},{-40,50},{
           -48,50}}, color={0,0,127}));
+  connect(or2.y, and5.u[1]) annotation (Line(points={{62,220},{122,220},{122,
+          144.667},{138,144.667}},
+                          color={255,0,255}));
+  connect(gre.y, and5.u[2]) annotation (Line(points={{82,120},{124,120},{124,140},
+          {138,140}}, color={255,0,255}));
+  connect(uUpsDevSta, and5.u[3]) annotation (Line(points={{-180,-140},{-128,
+          -140},{-128,135.333},{138,135.333}},
+                                         color={255,0,255}));
 annotation (
   defaultComponentName="enaHotWatIsoVal",
   Diagram(

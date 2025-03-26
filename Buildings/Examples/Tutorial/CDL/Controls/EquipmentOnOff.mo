@@ -20,7 +20,7 @@ block EquipmentOnOff "Controller for equipment on/off control"
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Negation of output signal, because boiler should be off if temperature exceed uHigh"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
   uHigh=273.15 + 90,
   uLow=273.15  + 70) "Hysteresis for on/off of boiler"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));

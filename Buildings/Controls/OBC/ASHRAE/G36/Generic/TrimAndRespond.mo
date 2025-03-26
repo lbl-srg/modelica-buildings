@@ -35,89 +35,89 @@ block TrimAndRespond "Block to inplement trim and respond logic"
     final delayOnInit=true)
     "Send an on signal after some delay time"
     annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr
     "Check if the real requests is more than ignored requests setting"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch netRes "Net setpoint reset value"
+  Buildings.Controls.OBC.CDL.Reals.Switch netRes "Net setpoint reset value"
     annotation (Placement(transformation(extent={{160,-20},{180,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant resAmoCon(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant resAmoCon(
     final k=resAmo)
     "Respond amount constant"
     annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro
     "Products of net requests and respond amount value"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product of trim and respond amount"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1 "Product of trim and respond amount"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 "Product of respond and maximum amount"
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro2 "Product of respond and maximum amount"
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
     final samplePeriod=samplePeriod,
     final y_start=iniSet)
     "Output the input signal with a unit delay"
     annotation (Placement(transformation(extent={{-100,96},{-80,116}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Switch between initial setpoint and reseted setpoint"
     annotation (Placement(transformation(extent={{160,180},{180,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Before instant (device ON + delTim + samplePeriod), the setpoint should not be trimmed"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+  Buildings.Controls.OBC.CDL.Reals.Switch swi2
     "Reinitialize setpoint to initial setting when device become OFF"
     annotation (Placement(transformation(extent={{100,130},{120,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
   Buildings.Controls.OBC.CDL.Discrete.Sampler sampler(
     final samplePeriod=samplePeriod)
     "Sample number of requests"
     annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lesThr1
     "Check if trim and response amount have same sign"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr2
     "Check if trim and response amount have opposite sign"
     annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr1
     "Check if response amount have positive sign"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k=-1) "Convert results back to negative"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant iniSetCon(k=iniSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant iniSetCon(k=iniSet)
     "Initial setpoint"
     annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant numIgnReqCon(k=numIgnReq)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant numIgnReqCon(k=numIgnReq)
     "Number of ignored requests"
     annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant triAmoCon(k=triAmo)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant triAmoCon(k=triAmo)
     "Trim amount constant"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxResCon(k=maxRes)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxResCon(k=maxRes)
     "Maximum response per time interval"
     annotation (Placement(transformation(extent={{-200,-210},{-180,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSetCon(k=maxSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxSetCon(k=maxSet)
     "Maximum setpoint constant"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerTri(k=0)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerTri(k=0)
     "Zero reset amount during time range from (device ON) to (device ON + delTim + timSet)"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Convert integer input to real output"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract difReqIgnReq
+  Buildings.Controls.OBC.CDL.Reals.Subtract difReqIgnReq
     "Difference between ignored request number and the real request number"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1
+  Buildings.Controls.OBC.CDL.Reals.Add add1
     "Increase setpoint by amount of value defined from reset logic"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2 "Net reset value"
+  Buildings.Controls.OBC.CDL.Reals.Add add2 "Net reset value"
     annotation (Placement(transformation(extent={{120,-96},{140,-76}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min minInp
+  Buildings.Controls.OBC.CDL.Reals.Min minInp
     "Total response should not be more than maximum response"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Reset setpoint should not be higher than the maximum setpoint"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -125,10 +125,10 @@ protected
     annotation (Placement(transformation(extent={{120,-40},{140,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical Not"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minSetCon(k=minSet)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minSetCon(k=minSet)
     "Minimum setpoint constant"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max maxInp
+  Buildings.Controls.OBC.CDL.Reals.Max maxInp
     "Reset setpoint should not be lower than the minimum setpoint"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
@@ -139,9 +139,9 @@ protected
     final message="Respond amount 'resAmo' and maximum respond amount 'maxRes' must have same sign.")
     "Generate alarm message"
     annotation (Placement(transformation(extent={{-80,-180},{-60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value of real input"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs "Absolute value of real input"
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Abs abs1 "Absolute value of real input"
+  Buildings.Controls.OBC.CDL.Reals.Abs abs1 "Absolute value of real input"
     annotation (Placement(transformation(extent={{-120,-210},{-100,-190}})));
 
 equation

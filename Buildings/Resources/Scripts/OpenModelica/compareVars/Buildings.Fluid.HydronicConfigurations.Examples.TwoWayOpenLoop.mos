@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "valAut100.m_flow",
+    "valAut75.m_flow",
+    "valAut50.m_flow",
+    "valAut33.m_flow",
+    "valAut25.m_flow",
+    "valAut50Ove.m_flow",
+    "valAut33Bal.m_flow",
+    "valAut100.dp",
+    "valAut75.dp",
+    "valAut50.dp",
+    "valAut33.dp",
+    "valAut25.dp",
+    "valAut50Ove.dp",
+    "valAut33Bal.dp"
+  };

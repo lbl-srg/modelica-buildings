@@ -4,5 +4,6 @@ HeatPumpRadiantHeatingGroundHeatTransfer
 LightsControl
 RadiantHeatingCooling_TRoom
 RadiantHeatingCooling_TSurface
+Radiator
 ShadeControl
 Unconditioned

@@ -27,6 +27,7 @@ model FMUZoneAdapterZones1
     final fmuName=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/src/ThermalZones/EnergyPlus_9_6_0/FMUs/Zones1.fmu"),
     logLevel=building.logLevel,
+    setInitialRadiativeHeatGainToZero=true,
     final nFluPor=2)
     "Adapter to EnergyPlus"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

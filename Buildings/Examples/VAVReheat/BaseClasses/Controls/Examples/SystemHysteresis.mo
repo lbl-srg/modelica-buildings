@@ -5,10 +5,10 @@ model SystemHysteresis "Test model for the system hysteresis"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHys1
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(width=1/60, period=3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul(width=1/60, period=3600)
     "Pulse source"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(width=1/10, period(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Pulse pul1(width=1/10, period(
         displayUnit="min") = 60)  "Pulse source"
     annotation (Placement(transformation(extent={{-68,-40},{-48,-20}})));
 protected

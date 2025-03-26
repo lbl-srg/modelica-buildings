@@ -140,7 +140,7 @@ Revised documentation and model.
 <p>
 This model represents an AC three-phase unbalanced cable with
 neutral connection. The model is based on
-<a href=\"Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
+<a href=\"modelica://Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC\">
 Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines.TwoPortRLC</a>
 and provides functionalities to parametrize the values of <i>R</i>, <i>L</i> and <i>C</i>
 using either commercial cables or default values.

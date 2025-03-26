@@ -4,14 +4,18 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=true
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=true
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
@@ -40,93 +44,105 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Control loops", group="Heating"));
   // ---------------- Dampers control parameters ----------------
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Dampers"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Dampers"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Dampers"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Dampers"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(tab="Dampers",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Dampers",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(tab="Dampers",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Dampers",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests", group="Duration time"));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms"));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
-  parameter Real chaRat=540
-    "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
-    annotation (Dialog(tab="Time-based suppresion"));
+  parameter Real chaRat(final unit="s/K")=540
+    "Gain factor to calculate suppression time based on the change of the setpoint, seconds per Kelvin"
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
     "Maximum suppression time"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real staTim(
+    final unit="s",
+    final quantity="Time")=1800
+    "Delay triggering alarms after enabling AHU supply fan"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real iniDam(unit="1")=0.01
+    "Initial damper position when the damper control is enabled"
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (Dialog(tab="Advanced", group="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced", group="Time-based suppresion"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -353,7 +369,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final fanOffTim=fanOffTim,
     final leaFloTim=leaFloTim,
     final floHys=floHys,
-    final damPosHys=damPosHys) "Generate alarms"
+    final damPosHys=damPosHys,
+    final staTim=staTim)       "Generate alarms"
     annotation (Placement(transformation(extent={{140,-240},{160,-220}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Overrides
     setOve(
@@ -392,7 +409,8 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final TiDam=TiDam,
     final TdDam=TdDam,
     final dTHys=dTHys,
-    final looHys=looHys)
+    final looHys=looHys,
+    final iniDam=iniDam)
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.TimeSuppression timSupHea(
@@ -402,18 +420,18 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     final dTHys=dTHys)
     "Specify suppresion time due to the zone heating setpoint change and check if it has passed the suppresion period"
     annotation (Placement(transformation(extent={{-200,240},{-180,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant cooMax(
     final k=VCooMax_flow)
     "Cooling maximum flow"
     annotation (Placement(transformation(extent={{-40,280},{-20,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaMax(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant heaMax(
     final k=VHeaMax_flow)
     "Heating maximum flow"
     annotation (Placement(transformation(extent={{-80,250},{-60,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of minimum flow and cooling maximum flow"
     annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+  Buildings.Controls.OBC.CDL.Reals.Greater gre(
     final h=floHys)
     "Check if cooling maximum is greater than the sum of minimum and heating maximum flow"
     annotation (Placement(transformation(extent={{20,280},{40,300}})));
@@ -555,10 +573,10 @@ equation
   connect(u1CooAHU, ala.u1CooFan) annotation (Line(points={{-260,-50},{-44,-50},
           {-44,-226},{138,-226}},color={255,0,255}));
   connect(VHotDucDis_flow, ala.VHotDucDis_flow) annotation (Line(points={{-260,
-          -110},{-48,-110},{-48,-232},{138,-232}},
+          -110},{-48,-110},{-48,-234},{138,-234}},
                                            color={0,0,127}));
   connect(u1HeaAHU, ala.u1HeaFan) annotation (Line(points={{-260,-140},{-40,
-          -140},{-40,-234},{138,-234}},
+          -140},{-40,-236},{138,-236}},
                                  color={255,0,255}));
   connect(ala.yLowFloAla, yLowFloAla) annotation (Line(points={{162,-222},{200,
           -222},{200,-180},{260,-180}},
@@ -610,11 +628,13 @@ equation
   connect(setOve.yCooDam, sysReq.uCooDam) annotation (Line(points={{82,-90},{
           106,-90},{106,-138},{138,-138}}, color={0,0,127}));
   connect(setOve.yCooDam, ala.uCooDam) annotation (Line(points={{82,-90},{106,
-          -90},{106,-228},{138,-228}}, color={0,0,127}));
+          -90},{106,-232},{138,-232}}, color={0,0,127}));
   connect(setOve.yHeaDam, sysReq.uHeaDam) annotation (Line(points={{82,-96},{
           112,-96},{112,-157},{138,-157}}, color={0,0,127}));
   connect(setOve.yHeaDam, ala.uHeaDam) annotation (Line(points={{82,-96},{112,
-          -96},{112,-236},{138,-236}}, color={0,0,127}));
+          -96},{112,-238},{138,-238}}, color={0,0,127}));
+  connect(uOpeMod, ala.uOpeMod) annotation (Line(points={{-260,130},{-200,130},
+          {-200,-229},{138,-229}}, color={255,127,0}));
 annotation (defaultComponentName="duaDucCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}), graphics={
         Rectangle(

@@ -85,7 +85,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nBoi](
     final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
@@ -183,7 +183,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr1[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr1[nBoi](
     final t=fill(0.5, nBoi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
@@ -537,8 +537,8 @@ Documentation(info="<html>
 <p>
 Block that controls boiler diabling process when there is stage down command 
 <code>uStaDow=true</code>.
-This implementation is based on RP-1711, March 2020 draft, sections 5.3.3.12,
-5.3.3.16, 5.3.3.17 and 5.3.3.18. These sections specify how to start the
+This implementation is based on ASHRAE Guideline 36, 2021, sections 5.21.3.11,
+5.21.3.15, 5.21.3.16 and 5.3.3.17. These sections specify how to start the
 smaller boiler and shut off larger boiler when the stage change requires large
 boiler off and smaller boiler on.
 In other stage change, when it does not require boiler on/off, the boiler will then

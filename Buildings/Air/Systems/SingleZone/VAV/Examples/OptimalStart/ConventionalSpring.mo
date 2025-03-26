@@ -17,7 +17,7 @@ model ConventionalSpring
     thrOptOn(displayUnit="s"))
     "Optimal start for heating and cooling system "
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooHea(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooHea(
     table=[0,15 + 273.15; 8*3600,20 + 273.15; 18*3600,15 + 273.15; 24*3600,15 +
         273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -26,7 +26,7 @@ model ConventionalSpring
       each displayUnit="degC"))
     "Heating setpoint for room temperature"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable TSetRooCoo(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable TSetRooCoo(
     table=[0,30 + 273.15; 8*3600,24 + 273.15; 18*3600,30 + 273.15; 24*3600,30 +
         273.15],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
@@ -38,10 +38,10 @@ model ConventionalSpring
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetHeaOn(k=20 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetHeaOn(k=20 + 273.15)
     "Zone heating setpoint during occupied period"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetCooOn(k=24 + 273.15)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetCooOn(k=24 + 273.15)
     "Zone cooling setpoint during occupied time"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=-6)
@@ -50,10 +50,10 @@ model ConventionalSpring
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=5)
     "Switch to occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3
+  Buildings.Controls.OBC.CDL.Reals.Add add3
     "New cooling setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,34},{60,54}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4
+  Buildings.Controls.OBC.CDL.Reals.Add add4
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,64},{60,84}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt

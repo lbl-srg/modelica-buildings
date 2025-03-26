@@ -77,7 +77,7 @@ can be used.
 Note that a ceiling has a tilt of <i>0</i>
 , and also the solar collector models
 in
-<a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
+<a href=\"modelica://Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
 require a tilt of <i>0</i>
 if they are facing straight upwards.
 This is correct because

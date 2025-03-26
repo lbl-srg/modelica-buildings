@@ -26,7 +26,7 @@ model EnableLag_pumpSpeed
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ram(
     final height=1,
     final duration=3500,
     final offset=0,

@@ -22,24 +22,24 @@ model LightsControl
     timZon=-21600)
     "Block that computes sunrise and sunset"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
-  Controls.OBC.CDL.Continuous.Modulo mod1
+  Controls.OBC.CDL.Reals.Modulo mod1
     "Output time of day"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant day(
+  Controls.OBC.CDL.Reals.Sources.Constant day(
     k=24*3600)
     "Outputs one day"
     annotation (Placement(transformation(extent={{-150,38},{-130,58}})));
-  Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+  Controls.OBC.CDL.Reals.Sources.CivilTime modTim
     "Model time"
     annotation (Placement(transformation(extent={{-150,66},{-130,86}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
+  Controls.OBC.CDL.Reals.LessThreshold lesEquThr(
     t=22*3600)
     "Check whether time is earlier than 22:00"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Controls.OBC.CDL.Continuous.Subtract timToSunSet
+  Controls.OBC.CDL.Reals.Subtract timToSunSet
     "Time to next sunset"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
-  Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
+  Controls.OBC.CDL.Reals.LessThreshold lesEquThr1(
     t=1800)
     "Block that outputs true if sun sets in less than 30 minutes"
     annotation (Placement(transformation(extent={{-70,130},{-50,150}})));
@@ -56,7 +56,7 @@ model LightsControl
   Controls.OBC.CDL.Logical.Not not1
     "Output true if the sun is down"
     annotation (Placement(transformation(extent={{-70,100},{-50,120}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr(
+  Controls.OBC.CDL.Reals.GreaterThreshold greEquThr(
     t=12*3600)
     "Output true after noon"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));

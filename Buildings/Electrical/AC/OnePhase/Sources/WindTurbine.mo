@@ -1,6 +1,6 @@
 within Buildings.Electrical.AC.OnePhase.Sources;
 model WindTurbine "Simple wind turbine model"
-  extends Buildings.Electrical.Interfaces.PartialWindTurbine(
+  extends Buildings.Electrical.BaseClasses.WindTurbine.PartialWindTurbine(
     redeclare package PhaseSystem = Buildings.Electrical.PhaseSystems.OnePhase,
     redeclare replaceable Interfaces.Terminal_p terminal,
     V_nominal(start = 110));

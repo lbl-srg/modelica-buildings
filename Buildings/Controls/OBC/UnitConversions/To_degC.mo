@@ -17,11 +17,11 @@ protected
   constant Real k = 1. "Multiplier";
   constant Real p = -273.15 "Adder";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gai(
     final k = k) "Gain factor"
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter conv(
     final p = p) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

@@ -1,2 +1,0 @@
-simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.PIDInitialDerivativeOutput", tolerance=1e-06, stopTime=0.2, resultFile="PIDInitialDerivativeOutput");
-createPlot(id=1, position={31, 124, 592, 372}, y={"limPID.y", "limPD.y", "limPID.D.y", "limPD.D.y"}, range={0.0, 1.0, -0.2, 0.6}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {0,0,0}});

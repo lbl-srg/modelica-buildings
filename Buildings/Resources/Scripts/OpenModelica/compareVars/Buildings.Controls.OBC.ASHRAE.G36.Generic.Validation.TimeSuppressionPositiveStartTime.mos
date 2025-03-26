@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "timSupCooReq.supTim.u1",
+    "timSupCooReq.supTim.u2",
+    "timSupCooReq.supTim.y",
+    "timSupCooReq.TSet",
+    "timSupCooReq.TZon",
+    "timSupCooReq.yAftSup",
+    "timSupAla.supTim.u1",
+    "timSupAla.supTim.u2",
+    "timSupAla.supTim.y",
+    "timSupAla.TSet",
+    "timSupAla.TZon",
+    "timSupAla.yAftSup"
+  };

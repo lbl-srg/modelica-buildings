@@ -1,0 +1,41 @@
+simulateModel("Buildings.Templates.Components.Validation.Sensors",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=1.0,
+    resultFile="Sensors");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={0, 0, 600, 600},
+    y={"dp.y", "dp.senRelPre.p_rel"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"hum.y", "hum.toDryAir.XiDry"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"ent.y", "ent.senSpeEnt.h_out"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=4,
+    y={"tem.y", "tem.senTem.T"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=5,
+    y={"vol.y", "vol.senVolFlo.V_flow"},
+    autoscale=true,
+    grid=true
+);

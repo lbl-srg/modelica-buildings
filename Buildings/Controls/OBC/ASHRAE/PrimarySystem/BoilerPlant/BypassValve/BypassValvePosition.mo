@@ -66,7 +66,7 @@ block BypassValvePosition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Difference between measured flowrate and minimum flow setpoint"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
 
@@ -75,25 +75,25 @@ protected
     "Block to detect if any of the pumps are proved ON"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
+  Buildings.Controls.OBC.CDL.Reals.Divide div
     "Normalize measured hot water flowrate"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con(
     final k=0)
     "Constant Real source"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Reals.Max max
     "Ensure bypass valve position is greater than lower limit for condensation control"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1e-6)
     "Prevent division by zero"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,

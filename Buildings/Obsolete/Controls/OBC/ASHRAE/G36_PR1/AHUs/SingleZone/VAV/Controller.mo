@@ -527,7 +527,7 @@ block Controller
     final yCooMax=yCooMax)
     "Supply air set point and fan signal for single zone VAV system"
     annotation (Placement(transformation(extent={{40,180},{60,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset cooPI(
     final reverseActing=false,
     final controllerType=controllerTypeCoo,
     final k=kCoo,
@@ -535,14 +535,14 @@ block Controller
     final Td=TdCoo)
     "Zone cooling control signal"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPI(
+  Buildings.Controls.OBC.CDL.Reals.PIDWithReset heaPI(
     final controllerType=controllerTypeHea,
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea)
     "Zone heating control signal"
     annotation (Placement(transformation(extent={{-80,210},{-60,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Average ave
+  Buildings.Controls.OBC.CDL.Reals.Average ave
     "Average of zone heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Controller
@@ -610,7 +610,7 @@ block Controller
     final k=false) if not have_winSen
     "Window status"
     annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold havOcc(
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold havOcc(
     final t=0.5) if have_occSen "Check if there is occupant"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 

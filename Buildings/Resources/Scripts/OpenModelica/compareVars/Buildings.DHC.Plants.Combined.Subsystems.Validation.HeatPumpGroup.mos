@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "y1.y[1]",
+    "y1.y[2]",
+    "heaPum.heaPum.uMod",
+    "heaPum.m_flow",
+    "heaPum.heaPum.m1_flow",
+    "heaPum.mHeaWatUni_flow_nominal",
+    "heaPum.weaBus.TDryBul",
+    "THeaWatSupSet.y",
+    "THeaWatRet.T",
+    "THeaWatSup.T",
+    "heaPum.heaPum.PLR",
+    "heaPum.heaPum.COP"
+  };

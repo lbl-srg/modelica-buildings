@@ -7,8 +7,8 @@ Documentation(info="<html>
 <p>
 Package that contains obsolete components that were part of the
 OpenBuildingControl (OBC) package
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous\">
-Buildings.Controls.OBC.CDL.Continuous</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Reals\">
+Buildings.Controls.OBC.CDL.Reals</a>.
 </p>
 </html>"));
 end Continuous;

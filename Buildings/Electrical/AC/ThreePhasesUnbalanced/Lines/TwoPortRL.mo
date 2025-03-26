@@ -25,7 +25,7 @@ model TwoPortRL
     max=Buildings.Electrical.Types.Load.FixedZ_dynamic) = Buildings.Electrical.Types.Load.FixedZ_steady_state
     "Type of model (e.g., steady state, dynamic, prescribed power consumption, etc.)"
     annotation (Evaluate=true, Dialog(group="Modeling assumption"));
-  OnePhase.Lines.TwoPortRL  phase1(
+  OnePhase.Lines.TwoPortRL phase1(
     final T_ref=T_ref,
     final M=M,
     final R=R/3,
@@ -57,27 +57,27 @@ equation
   LossPower = phase1.LossPower + phase2.LossPower + phase3.LossPower;
 
   connect(terminal_n.phase[1], phase1.terminal_n) annotation (Line(
-      points={{-100,0},{-20,0},{-20,30},{-10,30}},
+      points={{-99.95,0.05},{-20,0.05},{-20,30},{-10,30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[2], phase2.terminal_n) annotation (Line(
-      points={{-100,0},{-10,0}},
+      points={{-99.95,0.05},{-54,0.05},{-54,0},{-10,0}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(terminal_n.phase[3], phase3.terminal_n) annotation (Line(
-      points={{-100,4.44089e-16},{-20,4.44089e-16},{-20,-30},{-10,-30}},
+      points={{-99.95,0.05},{-20,0.05},{-20,-30},{-10,-30}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase1.terminal_p, terminal_p.phase[1]) annotation (Line(
-      points={{10,30},{20,30},{20,0},{100,0}},
+      points={{10,30},{20,30},{20,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase2.terminal_p, terminal_p.phase[2]) annotation (Line(
-      points={{10,0},{100,0}},
+      points={{10,0},{56,0},{56,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
   connect(phase3.terminal_p, terminal_p.phase[3]) annotation (Line(
-      points={{10,-30},{20,-30},{20,0},{100,0}},
+      points={{10,-30},{20,-30},{20,0.05},{100.05,0.05}},
       color={0,120,120},
       smooth=Smooth.None));
 

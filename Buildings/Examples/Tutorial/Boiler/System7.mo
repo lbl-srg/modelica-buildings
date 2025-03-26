@@ -50,7 +50,7 @@ model System7
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTab(
+  Buildings.Controls.OBC.CDL.Reals.Sources.TimeTable timTab(
       extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.Periodic,
       smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
       table=[-6, 0;
@@ -209,32 +209,32 @@ model System7
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDBoi(
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDBoi(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=120,
     reverseActing=false) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-270},{180,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPIDRad(
+  Buildings.Controls.OBC.CDL.Reals.PID conPIDRad(
     Td=1,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti=120) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line TSetSup
+  Buildings.Controls.OBC.CDL.Reals.Line TSetSup
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-70},{-200,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(k=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMin(k=273.15 + 21)
     "Minimum heating supply temperature"
     annotation (Placement(transformation(extent={{-260,-100},{-240,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(k=273.15 + 50)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TSupMax(k=273.15 + 50)
     "Maximum heating supply temperature"
     annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooMin(k=273.15 + 19)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooMin(k=273.15 + 19)
     "Minimum room air temperature"
     annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
 
@@ -267,7 +267,7 @@ model System7
     annotation (Placement(transformation(extent={{-228,-200},{-208,-180}})));
   Modelica.StateGraph.TransitionWithSignal T2 "Transition to boiler on"
     annotation (Placement(transformation(extent={{-258,-200},{-238,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrBoi(t=273.15 +
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrBoi(t=273.15 +
         90) "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-320},{-400,-300}})));
   Modelica.StateGraph.TransitionWithSignal T3(
@@ -279,21 +279,21 @@ model System7
   Modelica.StateGraph.Step pumpsOn(nIn=1, nOut=1) "Pumps are on"
     annotation (Placement(transformation(extent={{-320,-180},{-300,-160}})));
 //--------------------------------------------------------------------------------------//
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold(t=273.15 +
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lessThreshold(t=273.15 +
         19)
     annotation (Placement(transformation(extent={{-420,-210},{-400,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold1(t=273.15
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lessThreshold1(t=273.15
          + 16)
     annotation (Placement(transformation(extent={{-420,-240},{-400,-220}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     annotation (Placement(transformation(extent={{-380,-232},{-360,-212}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lessThreshold2(t=273.15
+  Buildings.Controls.OBC.CDL.Reals.LessThreshold lessThreshold2(t=273.15
          + 70) "Threshold for boiler control"
     annotation (Placement(transformation(extent={{-420,-290},{-400,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTRoo(t=273.15 +
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrTRoo(t=273.15 +
         21) "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-130},{-400,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrTROut(t=273.15
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThrTROut(t=273.15
          + 17) "Threshold for room temperature"
     annotation (Placement(transformation(extent={{-420,-160},{-400,-140}})));
   Controls.OBC.CDL.Logical.Or or1

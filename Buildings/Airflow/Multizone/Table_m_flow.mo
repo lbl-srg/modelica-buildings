@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone;
 model Table_m_flow
   "Mass flow(y-axis) vs Pressure(x-axis) cubic spline fit model based from table data, with last two points linearly interpolated"
   extends Buildings.Airflow.Multizone.BaseClasses.PartialOneWayFlowElement(
-    m_flow = Buildings.Airflow.Multizone.BaseClasses.interpolate(
+    m_flow = Buildings.Utilities.Math.Functions.interpolate(
       u=dp,
       xd=dpMea_nominal,
       yd=mMea_flow_nominal,

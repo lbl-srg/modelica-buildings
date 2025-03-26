@@ -16,8 +16,10 @@ model To_VolumeFraction "Example problem for conversion model"
     k=2,
     Td=1)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Buildings.Fluid.Sensors.TraceSubstances senCO2(redeclare package Medium =
-        Medium, substanceName="CO2") "CO2 sensor"
+  Buildings.Fluid.Sensors.TraceSubstances senCO2(
+    redeclare package Medium = Medium,
+    substanceName="CO2",
+    warnAboutOnePortConnection = false) "CO2 sensor"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=4,
@@ -152,6 +154,12 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2024, by Michael Wetter:<br/>
+Configured the sensor parameter to suppress the warning about being a one-port connection.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1857\">IBPSA, #1857</a>.
+</li>
 <li>
 May 2, 2019, by Jianjun Hu:<br/>
 Replaced fluid source. This is for

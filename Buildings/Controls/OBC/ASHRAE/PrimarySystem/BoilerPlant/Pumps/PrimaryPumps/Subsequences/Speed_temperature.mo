@@ -2,14 +2,14 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPump
 block Speed_temperature
   "Pump speed control for primary-secondary plants where temperature sensors are available in the hot water circuit"
 
-  parameter Boolean primarySecondarySensors = true
-    "True: Temperature sensors in primary and secondary circuits;
-    False: Temperature sensors at boiler supply and in secondary circuit";
+  parameter Boolean use_priSen = true
+    "True: Use temperature sensors in primary and secondary circuits for speed control;
+    False: Use temperature sensors at boiler supply and in secondary circuit for speed control";
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi
     "Total number of boilers";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of hot water pumps"
     annotation(Dialog(group="Pump parameters"));
 
@@ -17,7 +17,7 @@ block Speed_temperature
     "Number of ignored requests"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
-  parameter Real boiDesFlo[nBoi]={0.5,0.5}
+  parameter Real boiDesFlo[nBoi]
     "Vector of design flowrates for all boilers in plant";
 
   parameter Real minPumSpe(
@@ -96,7 +96,7 @@ block Speed_temperature
     "Higher limit of hysteresis loop sending one request"
     annotation(Dialog(group="Hysteresis loop parameters for request generation"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[nBoi] if not use_priSen
     "Boiler status vector"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -109,7 +109,7 @@ block Speed_temperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatPri(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") if primarySecondarySensors
+    final quantity="ThermodynamicTemperature") if use_priSen
     "Measured hot water temperature in primary circuit"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
@@ -125,7 +125,7 @@ block Speed_temperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatBoiSup[nBoi](
     final unit=fill("K",nBoi),
     displayUnit=fill("K",nBoi),
-    final quantity=fill("ThermodynamicTemperature",nBoi)) if not primarySecondarySensors
+    final quantity=fill("ThermodynamicTemperature",nBoi)) if not use_priSen
     "Measured hot water temperature at boiler supply"
     annotation (Placement(transformation(extent={{-160,-130},{-120,-90}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
@@ -143,20 +143,20 @@ block Speed_temperature
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum1(
     final k=fill(1, nBoi),
-    final nin=nBoi) if not primarySecondarySensors
+    final nin=nBoi) if not use_priSen
     "Weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys(
     final uLow=twoReqLimLow,
     final uHigh=twoReqLimHig)
     "Hysteresis loop for sending two requests"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hys1(
     final uLow=oneReqLimLow,
     final uHigh=oneReqLimHig)
     "Hysteresis loop for sending one request"
@@ -195,27 +195,27 @@ protected
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nBoi] if not
-    primarySecondarySensors
+    use_priSen
     "Boolean to Real converter"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nBoi](
-    final k=boiDesFlo) if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant con[nBoi](
+    final k=boiDesFlo) if not use_priSen
     "Vector of boiler design flowrates"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi] if not
-    primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro1[nBoi] if not
+    use_priSen
     "Vector of design flowrates only for enabled boilers; Zero for disabled boilers"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
+  Buildings.Controls.OBC.CDL.Reals.MultiSum mulSum(
     final k=fill(1, nBoi),
-    final nin=nBoi) if not primarySecondarySensors
+    final nin=nBoi) if not use_priSen
     "Sum of flowrates of all enabled boilers"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub2
     "Compare measured temperature in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
@@ -224,31 +224,30 @@ protected
     "Check if any hot water primary pumps are enabled"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(
     final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Reals.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
-    final nout=nBoi) if not primarySecondarySensors
+    final nout=nBoi) if not use_priSen
     "Real replicator"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Reals.Divide div[nBoi] if not use_priSen
     "Calculate weights for average based on design flowrate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Reals.Multiply pro[nBoi] if not use_priSen
     "Calculate weighted boiler supply temperatures"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6)
-               if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
+    final p=1e-6) if not use_priSen
     "Pass non-zero divisor in case sum is zero"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
@@ -360,7 +359,7 @@ Documentation(info="<html>
 Block that outputs hot water pump speed setpoint for primary-secondary plants with
 variable-speed primary pumps where the temperature sensors are present in the primary
 and secondary loops, or in the secondary loop and at the boiler supply, according
-to ASHRAE RP-1711, March, 2020 draft, sections 5.3.6.14, 5.3.6.15 and 5.3.6.16.
+to ASHRAE Guideline 36, 2021, sections 5.21.6.14, 5.21.6.15 and 5.21.6.16.
 </p>
 <p>
 When any hot water pump is proven on, <code>uHotWatPum = true</code>, 
@@ -383,7 +382,7 @@ until the difference is less than <code>oneReqLimLow</code>.
 <p>
 When there is no single temperature sensor in the primary loop and instead there
 are temperature sensors at each boiler supply outlet <code>THotWatBoiSup</code>,
-<code>primarySecondarySensors = false</code>, the primary loop temperature is
+<code>use_priSen = false</code>, the primary loop temperature is
 calculated as the weighted average of <code>THotWatBoiSup</code>, weighted by the
 boiler design flowrates <code>boiDesFlo</code> of the enabled boilers
 <code>uBoiSta</code>.

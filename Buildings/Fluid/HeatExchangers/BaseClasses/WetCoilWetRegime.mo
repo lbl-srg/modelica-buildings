@@ -75,7 +75,11 @@ model WetCoilWetRegime
   Modelica.Units.SI.MassFlowRate UASta
     "Overall mass transfer coefficient for dry coil";
 
-  Real NTUAirSta(unit="1")
+  // Set start value, otherwise OpenModelica has a division by zero in the expression
+  // (1 - exp(-NTUAirSta)) of hSatSurEff
+  Real NTUAirSta(
+    start=1,
+    unit="1")
     "Number of transfer units for air-side only (NTU_a*)";
 
   Real epsSta(start=0.66, unit="1")
@@ -167,6 +171,12 @@ annotation (Icon(graphics={
         fillColor={170,213,255},
         fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
 <ul>
+<li>
+April 18, 2023, by Michael Wetter:<br/>
+Set start value for <code>NTUAirSta</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1728\">IBPSA, #1728</a>.
+</li>
 <li>
 Jan 21, 2021, by Donghun Kim:<br/>First implementation.
 </li>

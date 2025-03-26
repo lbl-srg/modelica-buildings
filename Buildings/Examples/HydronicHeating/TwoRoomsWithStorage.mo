@@ -45,7 +45,7 @@ model TwoRoomsWithStorage
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump for boiler circuit" annotation (Placement(transformation(extent={{-10,
-            -10},{10,10}}, origin={70,-170})));
+            -10},{10,10}}, origin={70,-160})));
 
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
@@ -155,13 +155,13 @@ model TwoRoomsWithStorage
     dp_nominal=3000 + 2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=293.15) "Boiler"
-    annotation (Placement(transformation(extent={{2,-180},{22,-160}})));
+    annotation (Placement(transformation(extent={{2,-170},{22,-150}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
-    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
+    annotation (Placement(transformation(extent={{-40,-142},{-20,-122}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
     annotation (Placement(transformation(extent={{480,216},{500,236}})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conPum(
+  Controls.OBC.CDL.Reals.PIDWithReset conPum(
     yMax=1,
     Td=60,
     yMin=0.05,
@@ -181,7 +181,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,120},{380,140}})));
-  Controls.OBC.CDL.Continuous.PID conRoo2(
+  Controls.OBC.CDL.Reals.PID conRoo2(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -199,7 +199,7 @@ model TwoRoomsWithStorage
     from_dp=true,
     use_inputFilter=false) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
-  Controls.OBC.CDL.Continuous.PID conRoo1(
+  Controls.OBC.CDL.Reals.PID conRoo1(
     yMax=1,
     yMin=0,
     Ti=60,
@@ -234,7 +234,7 @@ model TwoRoomsWithStorage
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,-40})));
-  Controls.OBC.CDL.Continuous.PIDWithReset conVal(
+  Controls.OBC.CDL.Reals.PIDWithReset conVal(
     yMax=1,
     yMin=0,
     xi_start=1,
@@ -242,7 +242,7 @@ model TwoRoomsWithStorage
     k=0.1,
     Ti=120) "Controller for pump"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
-  Buildings.Fluid.Storage.Stratified tan(
+  Buildings.Fluid.Storage.StratifiedEnhanced tan(
     m_flow_nominal=mRad_flow_nominal,
     dIns=0.3,
     redeclare package Medium = MediumW,
@@ -251,7 +251,7 @@ model TwoRoomsWithStorage
     show_T=true,
     VTan=0.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Storage tank"
-    annotation (Placement(transformation(extent={{208,-190},{248,-150}})));
+    annotation (Placement(transformation(extent={{150,-220},{190,-180}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemBot
     "Tank temperature"
@@ -259,12 +259,12 @@ model TwoRoomsWithStorage
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemTop
     "Tank temperature"
     annotation (Placement(transformation(extent={{284,-180},{304,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=TSup_nominal + 5)
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greThr(t=TSup_nominal + 5)
     "Check for temperature at the bottom of the tank"
     annotation (Placement(transformation(extent={{400,-240},{420,-220}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaPum "Signal converter for pump"
     annotation (Placement(transformation(extent={{420,-130},{400,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater lesThr
+  Buildings.Controls.OBC.CDL.Reals.Greater lesThr
     "Check for temperature at the top of the tank"
     annotation (Placement(transformation(extent={{400,-178},{420,-158}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSup(
@@ -289,29 +289,29 @@ model TwoRoomsWithStorage
   Controls.SetPoints.OccupancySchedule occSch1(occupancy=3600*{7,8,10,11,11.5,
         15,19,21}) "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,556},{320,576}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
+  Buildings.Controls.OBC.CDL.Reals.Switch switch1
     annotation (Placement(transformation(extent={{340,550},{360,570}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Outputs zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zer(k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{260,540},{280,560}})));
   Controls.SetPoints.OccupancySchedule occSch2(
       firstEntryOccupied=false, occupancy=3600*{7,10,12,22})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,276},{320,296}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
+  Buildings.Controls.OBC.CDL.Reals.Switch switch2
     annotation (Placement(transformation(extent={{340,270},{360,290}})));
   Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{480,358},{500,378}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi "Switch to select set point"
     annotation (Placement(transformation(extent={{640,370},{660,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooNig(k=273.15 + 16)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooNig(k=273.15 + 16)
     "Room temperature set point at night"
     annotation (Placement(transformation(extent={{480,330},{500,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooSet(k=273.15 + 21)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooSet(k=273.15 + 21)
     annotation (Placement(transformation(extent={{480,390},{500,410}})));
-  Controls.OBC.CDL.Continuous.MultiMax mulMax(nin=2)
+  Controls.OBC.CDL.Reals.MultiMax mulMax(nin=2)
     "Maximum radiator valve position"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysPum(
+  Controls.OBC.CDL.Reals.Hysteresis hysPum(
     uLow=0.01,
     uHigh=0.5) "Hysteresis for pump"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -361,7 +361,7 @@ model TwoRoomsWithStorage
     nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false) "Supply air fan"
     annotation (Placement(transformation(extent={{70,490},{90,510}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
     annotation (Placement(transformation(extent={{0,500},{20,520}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow fanRet(
@@ -388,18 +388,18 @@ model TwoRoomsWithStorage
   Modelica.Blocks.Math.MatrixGain gai2(K=[35; 70; 30])
     "Gain to convert from occupancy (per person) to radiant, convective and latent heat in [W/m2] "
     annotation (Placement(transformation(extent={{380,270},{400,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
     annotation (Placement(transformation(extent={{310,-210},{330,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+  Buildings.Controls.OBC.CDL.Reals.Subtract sub1
     annotation (Placement(transformation(extent={{350,-186},{370,-166}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooOff(k=273.15 - 5)
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TRooOff(k=273.15 - 5)
     "Low room temperature set point to switch heating off"
     annotation (Placement(transformation(extent={{600,300},{620,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Switch to select set point"
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1 "Switch to select set point"
     annotation (Placement(transformation(extent={{540,380},{560,400}})));
   Modelica.Blocks.Logical.OnOffController onOff(bandwidth=2) "On/off switch"
     annotation (Placement(transformation(extent={{580,334},{600,354}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutSwi(k(
       final unit="K",
       displayUnit="degC") = 289.15,
     y(final unit="K",
@@ -408,8 +408,8 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
-    annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=1/dp_nominal)
+    annotation (Placement(transformation(extent={{-82,-170},{-62,-150}})));
+  Controls.OBC.CDL.Reals.MultiplyByParameter gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
   Buildings.Fluid.FixedResistances.Junction splVal(
@@ -593,18 +593,36 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Conversion from boolean to real signal"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           occ1(k=1/6/4)
+  Controls.OBC.CDL.Reals.Sources.Constant           occ1(k=1/6/4)
     "Heat gain if occupied in room 1"
     annotation (Placement(transformation(extent={{300,590},{320,610}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant           occ2(k=1/6/4)
+  Controls.OBC.CDL.Reals.Sources.Constant           occ2(k=1/6/4)
     "Heat gain if occupied in room 2"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
-  Controls.OBC.CDL.Continuous.MovingAverage aveTOut(delta=24*3600)
+  Controls.OBC.CDL.Reals.MovingAverage aveTOut(delta=24*3600)
     "Time averaged outdoor air temperature"
     annotation (Placement(transformation(extent={{540,300},{560,320}})));
+  Fluid.FixedResistances.Junction           splVal3(
+    dp_nominal={0,0,0},
+    m_flow_nominal=mBoi_flow_nominal*{-1,1,1},
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Flow splitter" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={170,-240})));
+  Fluid.FixedResistances.Junction           splVal4(
+    dp_nominal={0,0,0},
+    m_flow_nominal=mBoi_flow_nominal*{1,-1,-1},
+    redeclare package Medium = MediumW,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Flow splitter" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={170,-160})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
-      points={{-20,-140},{12,-140},{12,-162.8}},
+      points={{-20,-132},{12,-132},{12,-152.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumRad.port_b, dpSen.port_a)
@@ -640,15 +658,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{22,-170},{60,-170}},
+      points={{22,-160},{60,-160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
-      points={{228,-170.48},{272,-170.48},{272,-170},{284,-170}},
+      points={{170,-200.48},{170,-194},{272,-194},{272,-170},{284,-170}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(tanTemBot.port, tan.heaPorVol[tan.nSeg]) annotation (Line(
-      points={{280,-230},{272,-230},{272,-170},{228,-170}},
+      points={{280,-230},{272,-230},{272,-194},{170,-194},{170,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSup.T, conVal.u_m) annotation (Line(
@@ -658,10 +676,6 @@ equation
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
       points={{101,-40},{138,-40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(tan.port_b, boi.port_a) annotation (Line(
-      points={{248,-170},{260,-170},{260,-202},{-28,-202},{-28,-170},{2,-170}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(occSch1.occupied, switch1.u2) annotation (Line(
       points={{321,560},{338,560}},
@@ -707,7 +721,7 @@ equation
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
-      points={{398,-120},{70,-120},{70,-158}},
+      points={{398,-120},{70,-120},{70,-148}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(rad1.heatPortCon, roo1.heaPorAir) annotation (Line(
@@ -849,19 +863,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaBoi.y, boi.y) annotation (Line(
-      points={{398,-90},{-50,-90},{-50,-162},{-6.66134e-16,-162}},
+      points={{398,-90},{-50,-90},{-50,-152},{-6.66134e-16,-152}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tan.heaPorTop, TAmb.port) annotation (Line(
-      points={{232,-155.2},{232,-140},{-20,-140}},
+      points={{174,-185.2},{174,-186},{140,-186},{140,-132},{-20,-132}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAmb.port, tan.heaPorSid) annotation (Line(
-      points={{-20,-140},{239.2,-140},{239.2,-170}},
+      points={{-20,-132},{140,-132},{140,-206},{182,-206},{182,-200},{181.2,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAmb.port, tan.heaPorBot) annotation (Line(
-      points={{-20,-140},{190,-140},{190,-184.8},{232,-184.8}},
+      points={{-20,-132},{140,-132},{140,-214},{158,-214},{158,-214.8},{174,-214.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sub1.y, lesThr.u2) annotation (Line(
@@ -926,7 +940,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], boi.port_a) annotation (Line(
-      points={{-62,-170},{2,-170}},
+      points={{-62,-160},{2,-160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gain.u, dpSen.p_rel) annotation (Line(
@@ -937,24 +951,12 @@ equation
       points={{138,10},{130,10},{130,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pumBoi.port_b, tan.port_a) annotation (Line(
-      points={{80,-170},{208,-170}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pumBoi.port_b, thrWayVal.port_1) annotation (Line(
-      points={{80,-170},{200,-170},{200,-110},{220,-110},{220,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(temRet.port_b, splVal.port_1) annotation (Line(
       points={{260,30},{260,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(thrWayVal.port_3, splVal.port_3) annotation (Line(
       points={{230,-40},{250,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(splVal.port_2, tan.port_b) annotation (Line(
-      points={{260,-50},{260,-170},{248,-170}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splVal1.port_3, val2.port_a) annotation (Line(
@@ -1121,6 +1123,18 @@ equation
       points={{-40,340},{-40,-70},{380,-70},{380,-50},{398,-50}},
       color={255,204,51},
       thickness=0.5));
+  connect(tan.port_b, splVal3.port_3)
+    annotation (Line(points={{170,-220},{170,-230}}, color={0,127,255}));
+  connect(splVal4.port_3, tan.port_a)
+    annotation (Line(points={{170,-170},{170,-180}}, color={0,127,255}));
+  connect(splVal4.port_1, pumBoi.port_b)
+    annotation (Line(points={{160,-160},{80,-160}}, color={0,127,255}));
+  connect(splVal4.port_2, thrWayVal.port_1) annotation (Line(points={{180,-160},
+          {220,-160},{220,-50}}, color={0,127,255}));
+  connect(splVal.port_2, splVal3.port_2) annotation (Line(points={{260,-50},{260,
+          -240},{180,-240}}, color={0,127,255}));
+  connect(splVal3.port_1, boi.port_a) annotation (Line(points={{160,-240},{-20,-240},
+          {-20,-160},{2,-160}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,
             -260},{700,600}})),
 Documentation(info="<html>
@@ -1194,6 +1208,10 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 15, 2023, by Michael Wetter:<br/>
+Changed tank to tank with enhanced stratification, and added junctions at the tank inlet and outlet.
+</li>
 <li>
 February 24, 2023, by Michael Wetter:<br/>
 Changed test to enable heating system which is now based on the outside air temperature,

@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "comSta.uSta",
+    "comSta.u1[1]",
+    "comSta.u1[2]",
+    "comSta.u1_actual[1]",
+    "comSta.u1_actual[2]",
+    "y1ComSta.y",
+    "comSta.y1"
+  };

@@ -7,7 +7,7 @@ model WarmUpTemperature
     "CHP performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEng(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEng(
     final height=200,
     final duration=360,
     final offset=273.15,
@@ -29,7 +29,7 @@ model WarmUpTemperature
   Modelica.StateGraph.StepWithSignal warUp(nIn=2, nOut=2)
     "Plant is in warm-up mode"
     annotation (Placement(transformation(extent={{-20,40},{0,20}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant PEle[2](k={1,2})
+  Controls.OBC.CDL.Reals.Sources.Constant PEle[2](k={1,2})
     "Power output and demand"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
 protected

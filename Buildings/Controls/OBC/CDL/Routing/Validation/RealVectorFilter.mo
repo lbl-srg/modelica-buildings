@@ -6,7 +6,7 @@ model RealVectorFilter
     "Block that filter the input vector"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Continuous.Sources.Constant ReaInp[3](k={1,2,3}) "Real inputs"
+  Reals.Sources.Constant ReaInp[3](k={1,2,3}) "Real inputs"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(ReaInp.y, reaFil.u)

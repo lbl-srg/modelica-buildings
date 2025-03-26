@@ -61,6 +61,22 @@ as it is clear that this will be the room temperature.
     <td>Minimum (maximum) position</td></tr>
 <tr><td><code>yHeaCoi</code> (<code>yCooCoi</code>)</td>
     <td>Heating (cooling) coil control signal</td></tr>
+<tr><td><code>uChiIsoVal</code></td>
+    <td>Chiller condenser water isolation valve status</td></tr>
+<tr><td><code>dpChiWat_remote</code></td>
+    <td>Chilled water differntial statis pressure from remote sensor</td></tr>
+<tr><td><code>TChiWatRet</code></td>
+    <td>Chilled water return temperature</td></tr>
+<tr><td><code>VChiWat_flow</code></td>
+    <td>Measured chilled water volume flow rate</td></tr>
+<tr><td><code>uHeaPreCon</code></td>
+    <td>Chiller head pressure control loop signal from chiller controller</td></tr>
+<tr><td><code>yChiPumSpe</code></td>
+    <td>Chilled water pump speed setpoint</td></tr>
+<tr><td><code>yChi</code></td>
+    <td>Chiller status setpoint</td></tr>
+<tr><td><code>yMinValPos</code></td>
+    <td>Minimum valve position setpoint</td></tr>
 <tr><td colspan=\"2\"><b>Parameter names</b></td></tr>
 <tr><th>Name</th> <th>Comments</th></tr>
 <tr><td><code>use_TMix</code></td>
@@ -97,6 +113,24 @@ as it is clear that this will be the room temperature.
     <td>Time constant of integrator block for cooling control loop signal</td></tr>
 <tr><td><code>TdCoo</code></td>
     <td>Time constant of derivative block for cooling control loop signal</td></tr>
+<tr><td><code>nChi</code></td>
+    <td>Total number of chillers</td></tr>
+<tr><td><code>have_parChi</code></td>
+    <td>True: the plant has parallel chillers</td></tr>
+<tr><td><code>have_heaChiWatPum</code></td>
+    <td>True: the plant has headed chilled water pumps</td></tr>
+<tr><td><code>have_fixSpeConWatPum</code></td>
+    <td>True: the plant has fixed speed condenser water pumps</td></tr>
+<tr><td><code>need_reduceChillerDemand</code></td>
+    <td>True: the plant needs to limit chiller demand when chiller staging</td></tr>
+<tr><td><code>minChiLif</code></td>
+    <td>Minimum allowable lift at minimum load for chiller</td></tr>
+<tr><td><code>TChiWatSupMin</code></td>
+    <td>Minimum chilled water supply temperature</td></tr>
+<tr><td><code>dpChiWatPumMin</code></td>
+    <td>Minimum chilled water pump differential static pressure</td></tr>
+<tr><td><code>lift_min</code></td>
+    <td>Chiller minimum lift</td></tr>
 </table>
 <br/>
 </html>"),

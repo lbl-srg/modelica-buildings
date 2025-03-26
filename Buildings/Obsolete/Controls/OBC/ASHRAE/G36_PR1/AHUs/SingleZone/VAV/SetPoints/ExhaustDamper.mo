@@ -42,13 +42,13 @@ block ExhaustDamper
     final unit="1") "Exhaust damper position"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line exhDamPos
+  Buildings.Controls.OBC.CDL.Reals.Line exhDamPos
     "Linearly map exhaust damper position to the outdoor air damper position"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+  Buildings.Controls.OBC.CDL.Reals.Switch swi1
     "Check if exhaust damper should be open"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis greThr(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis greThr(
     final uLow=0.02,
     final uHigh=0.05)
     "Check if outdoor air damper is open"
@@ -58,23 +58,23 @@ block ExhaustDamper
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zerDam(
     final k=0)
     "Close damper when disabled"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minExhDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minExhDam(
     final k=minExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint while the system is at minPosMin"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxExhDam(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant maxExhDam(
     final k=maxExhDamPos)
     "Exhaust damper position maintaining building static pressure at setpoint when outdoor air damper is fully open and fan speed is at cooling maximum"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPosAtMinSpd(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant minPosAtMinSpd(
     final k=minOutPosMin)
     "Outdoor air damper position when fan operating at minimum speed to supply minimum outdoor air flow"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPhyPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPhyPosMaxSig(
     final k=outDamPhyPosMax)
     "Physical or at the comissioning fixed maximum position of the outdoor air damper"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));

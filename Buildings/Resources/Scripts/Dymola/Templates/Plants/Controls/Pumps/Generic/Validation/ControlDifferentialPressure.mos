@@ -1,0 +1,47 @@
+simulateModel("Buildings.Templates.Plants.Controls.Pumps.Generic.Validation.ControlDifferentialPressure",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=8400.0,
+    resultFile="ControlDifferentialPressure");
+createPlot(
+    id=1,
+    subPlot=1,
+    position={5, 5, 400, 600},
+    y={"dpRemSet[1].y", "dpRemSet[2].y", "dpRem[1].y", "dpRem[2].y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"ctlDpRem.y", "ctlDpRem.y_min", "ctlDpRem.y_max"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"y1Pum.y[1]", "y1Pum.y[2]"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=1,
+    position={410, 5, 400, 400},
+    y={"dpLocSet[1].y", "dpLocSet[2].y", "dpLoc.y"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);
+createPlot(
+    id=2,
+    subPlot=2,
+    y={"ctlDpLoc.y", "ctlDpLoc.y_min", "ctlDpLoc.y_max"},
+    autoscale=true,
+    grid=true,
+    timeUnit="min"
+);

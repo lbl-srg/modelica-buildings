@@ -219,11 +219,11 @@ protected
     redeclare package Medium = MediumA, m_flow_nominal=0.2)
     "Return air sensible enthalpy flow rate"
     annotation (Placement(transformation(extent={{-32,6},{-46,20}})));
-  Controls.OBC.CDL.Continuous.Max PHea "Heating power"
+  Controls.OBC.CDL.Reals.Max PHea "Heating power"
     annotation (Placement(transformation(extent={{80,94},{92,106}})));
-  Controls.OBC.CDL.Continuous.Min PCoo "Cooling power"
+  Controls.OBC.CDL.Reals.Min PCoo "Cooling power"
     annotation (Placement(transformation(extent={{80,54},{92,66}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con0(k=0)
+  Controls.OBC.CDL.Reals.Sources.Constant con0(k=0)
     "Outputs 0 to compute heating or cooling power"
     annotation (Placement(transformation(extent={{60,74},{72,86}})));
   Modelica.Blocks.Continuous.Integrator intEHea(initType=Modelica.Blocks.Types.Init.InitialState)

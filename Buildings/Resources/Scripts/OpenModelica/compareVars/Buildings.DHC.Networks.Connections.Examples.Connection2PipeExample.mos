@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "pumDisPipe_R.m_flow_actual",
+    "pumDisPlugFlow.m_flow_actual",
+    "pumConPipe_R.m_flow_actual",
+    "pumConPlugFlow.m_flow_actual",
+    "pumDisPipe_R.port_a.p",
+    "pumDisPipe_R.port_b.p",
+    "pumDisPlugFlow.port_a.p",
+    "pumDisPlugFlow.port_b.p"
+  };

@@ -72,54 +72,54 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     annotation (Placement(transformation(extent={{220,-120},{260,-80}}),
         iconTransformation(extent={{100,-100},{140,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uncDesOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant uncDesOutAir(
     final k=VUncDesOutAir_flow)
     "Uncorrected design outdoor airflow rate, including diversity where applicable"
     annotation (Placement(transformation(extent={{-180,0},{-160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
+  Buildings.Controls.OBC.CDL.Reals.Add add2
     "Sum of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-180,70},{-160,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1
+  Buildings.Controls.OBC.CDL.Reals.Min min1
     "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
+  Buildings.Controls.OBC.CDL.Reals.Divide div1
     "First input divided by second input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+  Buildings.Controls.OBC.CDL.Reals.AddParameter addPar(
     final p=1) "Add parameter"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sysVenEff
+  Buildings.Controls.OBC.CDL.Reals.Subtract sysVenEff
     "Current system ventilation efficiency"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1
+  Buildings.Controls.OBC.CDL.Reals.Max max1
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant desOutAir(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant desOutAir(
     final k=VDesTotOutAir_flow)
     "Design total outdoor airflow rate "
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div2 "Division"
+  Buildings.Controls.OBC.CDL.Reals.Divide div2 "Division"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min2
+  Buildings.Controls.OBC.CDL.Reals.Min min2
     "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiDivZer(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter gaiDivZer(
     final k=1E-3)
     "Gain, used to avoid division by zero if the flow rate is smaller than 0.1%"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOutMin
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOutMin
     "Normalization for minimum outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide norVOut
+  Buildings.Controls.OBC.CDL.Reals.Divide norVOut
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant neaZer(
     final k=1E-4)
     "Near zero value"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max2
+  Buildings.Controls.OBC.CDL.Reals.Max max2
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
@@ -219,15 +219,15 @@ annotation (
         Text(
           extent={{-96,-72},{-50,-88}},
           textColor={0,0,0},
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper),
           textString="VAirOut_flow"),
         Text(
           extent={{30,-70},{98,-86}},
           textColor={0,0,0},
           textString="outAir_normalized",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper))}),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper))}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-120},{220,120}})),
 Documentation(info="<html>
 <p>
@@ -297,6 +297,10 @@ but no larger than the design total outdoor airflow rate <code>VDesTotOutAir_flo
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+April 6, 2024, by Michael Wetter:<br/>
+Corrected wrong annotation.
+</li>
 <li>
 March 12, 2022, by Jianjun Hu:<br/>
 First implementation.

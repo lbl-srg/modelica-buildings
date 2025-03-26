@@ -1,5 +1,7 @@
 within Buildings.Occupants.BaseClasses;
 function logit2D "Mapping two continuous inputs to a binary output through a 2-dimension logistic relation"
+  extends Modelica.Icons.Function;
+
   input Real x1 "The first input variable";
   input Real x2 "The second input variable";
   input Real A=1.0 "Parameter defining the 2D logistic relation: mutiplier for the first input";

@@ -2,19 +2,19 @@ within Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Econom
 model Enable_TOut_hOut
   "Model validates economizer disable in case outdoor air conditions are above cutoff"
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut1(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid TOut(
     final rising=1000,
     final falling=800,
     final amplitude=4,
     final offset=TOutCutoff - 2) "Outoor air temperature"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid hOut(
     final amplitude=4000,
     final offset=hOutCutoff - 2200,
     final rising=1000,
@@ -35,7 +35,7 @@ model Enable_TOut_hOut
   Enable enaDis4(use_enthalpy=false, use_fixed_plus_differential_drybulb=true)
     "Test fixed and differential dry bulb"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  Buildings.Controls.OBC.CDL.Logical.TriggeredTrapezoid TRet(
+  Buildings.Obsolete.Controls.OBC.CDL.Logical.TriggeredTrapezoid TRet(
     final rising=1000,
     final falling=800,
     final amplitude=4,
@@ -55,17 +55,17 @@ protected
     "Minimum outdoor air damper position";
   final parameter Real outDamPosMax=0.9
     "Minimum return air damper position";
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutCut(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutCut(
     final k=hOutCutoff) "Outdoor air enthalpy cutoff"
     annotation (Placement(transformation(extent={{-240,0},{-220,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutCut1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutCut1(
     final k=TOutCutoff) "Outdoor air temperature cutoff"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant hOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant hOutBelowCutoff(
     final k=hOutCutoff - 1000)
     "Outdoor air enthalpy is slightly below the cutoff"
     annotation (Placement(transformation(extent={{-240,40},{-220,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutBelowCutoff(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant TOutBelowCutoff(
     final k=TOutCutoff - 2)
     "Outdoor air temperature is slightly below the cutoff"
     annotation (Placement(transformation(extent={{54,40},{74,60}})));
@@ -73,11 +73,11 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.ZoneStates.deadband)
                                                                              "Zone State is deadband"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMaxSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMaxSig(
     final k=outDamPosMax)
     "Maximal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outDamPosMinSig(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant outDamPosMinSig(
     final k=outDamPosMin)
     "Minimal allowed economizer damper position"
     annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));

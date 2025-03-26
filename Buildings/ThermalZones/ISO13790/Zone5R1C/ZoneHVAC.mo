@@ -1,7 +1,8 @@
 within Buildings.ThermalZones.ISO13790.Zone5R1C;
 model ZoneHVAC "Thermal zone for HVAC based on 5R1C network"
   extends Zone(capMas(C=buiMas.heaC*AFlo - VRoo*1.2*1014));
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
+        choices(choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
   parameter Integer nPorts=0 "Number of fluid ports" annotation (Evaluate=true,
       Dialog(
       connectorSizing=true,

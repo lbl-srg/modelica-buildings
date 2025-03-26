@@ -2,17 +2,18 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Data;
 record StandardResultsFreeFloating "ASHRAE Standard Results"
     extends Modelica.Icons.Record;
 
- parameter ResultSummary minT(Min(unit="K"),
-                              Max(unit="K"),
-                              Mean(unit="K")) "Minimum temperature";
+ parameter ResultSummary minT(Min(final unit="K", displayUnit="degC"),
+                              Max(final unit="K", displayUnit="degC"),
+                              Mean(final unit="K", displayUnit="degC"))
+                              "Minimum temperature";
 
- parameter ResultSummary maxT(Min(unit="K"),
-                              Max(unit="K"),
-                              Mean(unit="K")) "Maximum temperature";
+ parameter ResultSummary maxT(Min(final unit="K", displayUnit="degC"),
+                              Max(final unit="K", displayUnit="degC"),
+                              Mean(final unit="K", displayUnit="degC")) "Maximum temperature";
 
- parameter ResultSummary meanT(Min(unit="K"),
-                               Max(unit="K"),
-                              Mean(unit="K")) "Mean temperature";
+ parameter ResultSummary meanT(Min(final unit="K", displayUnit="degC"),
+                               Max(final unit="K", displayUnit="degC"),
+                               Mean(final unit="K", displayUnit="degC")) "Mean temperature";
 
 annotation (
 defaultComponentPrefixes="parameter",

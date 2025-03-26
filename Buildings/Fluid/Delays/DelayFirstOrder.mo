@@ -20,7 +20,7 @@ protected
 defaultComponentName="del",
     Documentation(info="<html>
 <p>
-This model approximates a transport delay using a first order differential equations.
+This model approximates a transport delay using first order differential equations.
 </p>
 <p>
 The model consists of a mixing volume with two ports. The size of the
@@ -29,7 +29,7 @@ mixing volume is such that at the nominal mass flow rate
 the time constant of the volume is equal to the parameter <code>tau</code>.
 </p>
 <p>
-The heat flux connector is optional, it need not be connnected.
+The heat flux connector is optional and need not be connnected.
 </p>
 </html>",
 revisions="<html>

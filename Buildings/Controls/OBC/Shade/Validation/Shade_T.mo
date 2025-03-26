@@ -6,7 +6,7 @@ model Shade_T
     TLow=295.15)
     "Shade controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  CDL.Continuous.Sources.Sine T(
+  CDL.Reals.Sources.Sin T(
     final amplitude=10,
     final freqHz=1/(2*1800),
     final offset=293.15)

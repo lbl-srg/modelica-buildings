@@ -5,7 +5,7 @@ model AddParameter "Validation model for the AddParameter block"
     k=1.0)
     "Block that outputs the sum of an input plus a parameter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp ramp1(
     duration=1,
     offset=-2,
     height=4)

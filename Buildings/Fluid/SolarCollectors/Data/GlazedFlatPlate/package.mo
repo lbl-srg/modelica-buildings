@@ -6,7 +6,7 @@ extends Modelica.Icons.MaterialPropertiesPackage;
 annotation (Documentation(info="<html>
   <p>
     Package with records for SRCC rating information for glazed flat-plate solar thermal collector.
-    All models in the GlazedFlatPlate package are tested according to the ASHRAE93 standard.
+    All models in the GlazedFlatPlate package are tested according to the ASHRAE Standard 93.
   </p>
   </html>",
   revisions="<html>

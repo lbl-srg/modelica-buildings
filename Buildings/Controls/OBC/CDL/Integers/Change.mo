@@ -3,16 +3,16 @@ block Change
   "Output whether the Integer input changes values, increases or decreases"
   parameter Integer pre_u_start=0
     "Start value of pre(u) at initial time";
-  Interfaces.IntegerInput u
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Connector of Boolean output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanOutput up
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput up
     "Connector of Boolean output signal indicating input increase"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Interfaces.BooleanOutput down
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput down
     "Connector of Boolean output signal indicating input decrease"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
 

@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "y1.y[1]",
+    "y1.y[2]",
+    "ctl.y",
+    "coo.m_flow",
+    "coo.coo.m_flow",
+    "coo.mConWatUni_flow_nominal",
+    "coo.weaBus.TWetBul",
+    "TConWatSupSet.y",
+    "TConWatRet.T",
+    "TConWatSup.T",
+    "coo.P"
+  };

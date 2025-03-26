@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.CDL.Discrete;
 block TriggeredMax
   "Output the maximum, absolute value of a continuous signal at trigger instants"
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector with a Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput trigger
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Connector for trigger"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
-  Interfaces.RealOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector with a Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 

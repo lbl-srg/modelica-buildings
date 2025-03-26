@@ -35,7 +35,7 @@ model TwoIdenticalZones
   Controls.OBC.UnitConversions.From_degC TAirEnePlu
     "Room air temperature computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter relHumEnePlu(k=0.01)
+  Controls.OBC.CDL.Reals.MultiplyByParameter relHumEnePlu(k=0.01)
     "Relative humidity in the room computed by EnergyPlus"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 

@@ -2,13 +2,13 @@ within Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice;
 model IdealHeatingCoolingWinter
   "Building with constant fresh air and ideal heating/cooling that exactly meets set point"
   extends Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned;
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaSet[5](
+  Controls.OBC.CDL.Reals.Sources.Constant THeaSet[5](
     each k(
       final unit="K",
       displayUnit="degC")=293.15)
     "Set point temperature for heating"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaCoo[5](
+  Controls.OBC.CDL.Reals.Sources.Constant THeaCoo[5](
     each k(
       final unit="K",
       displayUnit="degC")=299.15)
@@ -22,14 +22,14 @@ model IdealHeatingCoolingWinter
     Q_flow_nominal=-50*{flo.AFloSou,flo.AFloEas,flo.AFloNor,flo.AFloWes,flo.AFloCor})
     "Ideal cooling device for sensible cooling"
     annotation (Placement(transformation(rotation=0,extent={{-80,130},{-60,150}})));
-  Controls.OBC.CDL.Continuous.MultiSum QHea_flow(
+  Controls.OBC.CDL.Reals.MultiSum QHea_flow(
     nin=5)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Modelica.Blocks.Continuous.Integrator EHea
     "Heating energy"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Controls.OBC.CDL.Continuous.MultiSum QCoo_flow(
+  Controls.OBC.CDL.Reals.MultiSum QCoo_flow(
     nin=5)
     "Total heat flow rate"
     annotation (Placement(transformation(extent={{-30,150},{-10,170}})));

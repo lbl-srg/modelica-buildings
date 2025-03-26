@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "heaETS.senTDisSup.T",
+    "heaETS.senTDisRet.T",
+    "heaETS.senTBuiSup.T",
+    "heaETS.senTBuiRet.T",
+    "heaETS.hex.m1_flow",
+    "heaETS.hex.m2_flow",
+    "loa.m_flow",
+    "heaETS.conVal.y",
+    "heaETS.hex.port_a1.p",
+    "heaETS.hex.port_b1.p",
+    "heaETS.hex.port_a2.p",
+    "heaETS.hex.port_b2.p",
+    "heaETS.Q_flow",
+    "heaETS.Q"
+  };

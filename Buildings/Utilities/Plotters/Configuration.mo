@@ -92,7 +92,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
 <p>
 This block can be used to globally configure the parameters
 for the blocks from the package
-<a href=\"Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
+<a href=\"modelica://Buildings.Utilities.Plotters\">Buildings.Utilities.Plotters</a>.
 Use this block for example to set the same
 plot file name and sampling time.
 </p>

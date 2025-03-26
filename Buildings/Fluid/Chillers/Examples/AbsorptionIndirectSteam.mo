@@ -53,14 +53,14 @@ model AbsorptionIndirectSteam
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,-30})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TConEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TConEnt(
     height=5,
     duration(displayUnit="h") = 14400,
     offset=20 + 273.15,
     startTime=0)
    "Condenser entering water temperature"
      annotation (Placement(transformation(extent={{-96,56},{-76,76}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEvaEnt(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEvaEnt(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=12 + 273.15,
@@ -77,7 +77,7 @@ model AbsorptionIndirectSteam
     nPorts=1)
    "Volume for cooling load"
      annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEvaSet(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Ramp TEvaSet(
     height=4,
     duration(displayUnit="h") = 14400,
     offset=6 + 273.15,
@@ -114,7 +114,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
     Documentation(info="<html>
 <p>
 Example that simulates the absorption chiller
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>
 for different inlet conditions.
 </p>

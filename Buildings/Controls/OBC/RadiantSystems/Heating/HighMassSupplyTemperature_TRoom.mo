@@ -69,7 +69,7 @@ block HighMassSupplyTemperature_TRoom
     annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Controls.OBC.CDL.Continuous.PID conHea(
+  Buildings.Controls.OBC.CDL.Reals.PID conHea(
     final controllerType=controllerType,
     final k=k,
     final Ti = Ti,
@@ -79,31 +79,31 @@ block HighMassSupplyTemperature_TRoom
     final reverseActing=true) "Controller for heating supply set point signal"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+  Buildings.Controls.OBC.CDL.Reals.Hysteresis hysHea(
     uLow=0.1,
     uHigh=0.2)
     "Hysteresis to switch system on and off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 protected
-  Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) "Outputs one"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant one(final k=1) "Outputs one"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant zero(final k=0) "Outputs zero"
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant zero(final k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaSup_minimum(final k(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSup_minimum(final k(
       final unit="K",
       displayUnit="degC") = TSupSet_min)
     "Negative value of minimum heating supply water temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaSup_maximum(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant THeaSup_maximum(
     final k(
       final unit="K",
       displayUnit="degC") = TSupSet_max) "Maximum heating supply water temperature"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  Controls.OBC.CDL.Continuous.Line TSup(
+  Buildings.Controls.OBC.CDL.Reals.Line TSup(
     limitBelow=false,
     limitAbove=false,
     y(final unit="K",

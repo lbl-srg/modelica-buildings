@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "TConOutMea",
+    "TConOutSim",
+    "PEleMea",
+    "PEleSim",
+    "TEvaOutMea",
+    "TEvaOutSim"
+  };

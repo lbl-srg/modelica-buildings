@@ -18,7 +18,7 @@
 /* Create the structure "table" and return pointer to "table". */
 void* initArray()
 {
-  ExternalObjectStructure* table = malloc(sizeof(ExternalObjectStructure));
+  ExternalObjectStructure* table = (ExternalObjectStructure *)malloc(sizeof(ExternalObjectStructure));
   if ( table == NULL )
     ModelicaError("Not enough memory in initArray.c.");
   /* Number of elements in the array */

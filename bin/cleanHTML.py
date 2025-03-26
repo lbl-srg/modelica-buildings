@@ -8,6 +8,7 @@
 import os
 from os import listdir
 import argparse
+import re
 
 
 def validateLine(line, filNam):
@@ -62,6 +63,24 @@ if __name__ == '__main__':
     files = [ f for f in listdir(helpDir) if f.endswith(".html") ]
 
 
+
+    # Change text such as 'file:////opt/dymola-2023x-x86_64/Modelica/Library/Modelica%204.0.0/help/'
+    # to https://doc.modelica.org/Modelica%204.0.0/Resources/helpDymola/
+    regex = r"(file:////opt/dymola.*/Modelica/Library)(.*)/help/"
+    subst = "https://doc.modelica.org\\g<2>/Resources/helpDymola/"
+    for fil in files:
+        filNam = helpDir + os.path.sep + fil
+        filObj=open(filNam, 'r')
+        lines = filObj.read()
+        filObj.close()
+
+        # You can manually specify the number of replacements by changing the 4th argument
+        lines = re.sub(regex, subst, lines)
+        filObj=open(filNam, 'w')
+        filObj.write(lines)
+        filObj.close()
+
+    # Other replacements
     replacements = {'font-family: Arial, sans-serif;': '',
                     '</head>':
                     '''
@@ -133,7 +152,6 @@ if __name__ == '__main__':
         repExtObj = insLoc[:len(insLoc)-len("Library")-1] + "help/ExternalObject"
         replacements[repExtObj] = insLoc + "ExternalObject/ExternalObject"
         replacements['%s' % (insLoc)] = '../../msl/'
-
 
     # Search for text such as
     # <img alt="image" src="/tmp/postBuildingsTagToWeb.sh.25555/modelica-buildings-3.0.0-rc.1/Buildings/Resources/Images/UsersGuide/HydronicHeating.png" border="1"/>

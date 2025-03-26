@@ -1,10 +1,10 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block RealToInteger
   "Convert Real to Integer signal"
-  Interfaces.RealInput u
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.IntegerOutput y
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -57,8 +57,8 @@ as the nearest integer value of the input <code>u</code>.
 The block outputs
 </p>
 <pre>
-    y = integer( floor( u + 0.5 ) )  for  u &gt; 0,
-    y = integer( ceil ( u - 0.5 ) )  for  u &lt; 0.
+    y = integer( floor( u + 0.5 ) )  if u &gt; 0,
+    y = integer( ceil ( u - 0.5 ) )  otherwise.
 </pre>
 </html>",
       revisions="<html>

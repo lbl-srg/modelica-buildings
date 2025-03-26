@@ -46,7 +46,7 @@ Buildings.Fluid.Boilers.UsersGuide</a> for details.
 </p>
 <p>
 The efficiency tables are supplied via
-<a href=\"Buildings.Fluid.Boilers.Data\">
+<a href=\"modelica://Buildings.Fluid.Boilers.Data\">
 Buildings.Fluid.Boilers.Data</a>.
 </p>
 </html>", revisions="<html>

@@ -15,7 +15,7 @@ block From_inH2O "Block that converts pressure from inch of water gauge (at 60 d
 protected
   constant Real k = 248.84 "Multiplier";
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(
+  Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter conv(
     final k = k) "Unit converter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

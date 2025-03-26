@@ -15,11 +15,11 @@ block BoilerReturn "Control for boiler return"
     final unit="1")
     "Valve control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T(
+  Buildings.Controls.OBC.CDL.Reals.Sources.Constant T(
     final k=TSet)
     "Set point temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+  Buildings.Controls.OBC.CDL.Reals.PID conPID(
     final k=k,
     final Ti=Ti,
     reverseActing=false) "Controller for valve in boiler loop"

@@ -81,7 +81,7 @@ protected
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greEquThr[nBoi](
+  Buildings.Controls.OBC.CDL.Reals.GreaterThreshold greEquThr[nBoi](
     final t=fill(0.5, nBoi))
     "Check boilers that are on"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -462,9 +462,9 @@ annotation (
 Documentation(info="<html>
 <p>
 Block that controls boiler when there is staging up command <code>uStaUp=true</code>.
-This implementation is based on RP-1711, March 2020 draft, sections 5.3.3.11,
-5.3.3.13, 5.3.3.14 and 5.3.3.15. These sections specify when the next boiler should be enabled
-and when the running smaller boiler should be diabled.
+This implementation is based on ASHRAE Guideline 36, 2021, sections 5.21.3.10,
+5.21.3.12, 5.21.3.13 and 5.21.3.14. These sections specify when the next boiler
+should be enabled and when the running smaller boiler should be diabled.
 </p>
 <p>
 When the stage-up process does not requires a smaller boiler being staged off and

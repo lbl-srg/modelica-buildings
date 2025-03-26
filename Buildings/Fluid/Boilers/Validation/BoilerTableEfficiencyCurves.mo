@@ -111,7 +111,7 @@ equation
     Documentation(info="<html>
 <p>
 This model computes the efficiency of boilers for using the model
-<a href=\"Buildings.Fluid.Boilers.BoilerTable\">
+<a href=\"modelica://Buildings.Fluid.Boilers.BoilerTable\">
 Buildings.Fluid.Boilers.BoilerTable</a>
 at firing rates of 5%, 50%, and 100%.
 </p>

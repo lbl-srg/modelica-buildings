@@ -44,7 +44,7 @@ protected
        p=Medium.p_default, X=Medium.X_default);
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(sta_default)
-    "Density, used to compute fluid volume";
+    "Specific heat capacity";
  parameter Real cpLe_default(unit="J/(kg.K)") = cp_default * Le^(1-n);
 equation
   connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
